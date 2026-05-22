@@ -27,3 +27,17 @@ async def coder_node(state: GraphState) -> dict:
     return {
         "generated_code": result.message,
     }
+
+async def reviewer_node(state: GraphState) -> dict:
+    code = state.get("generated_code", "")
+
+    # simple heuristic (temporary)
+    passed = (
+        "def " in code
+        and "TODO" not in code
+        and len(code) > 20
+    )
+
+    return {
+        "review_passed": passed
+    }
