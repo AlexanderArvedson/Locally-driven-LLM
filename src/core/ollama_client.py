@@ -2,7 +2,6 @@ from typing import List, Dict
 import httpx
 from dataclasses import dataclass
 
-
 @dataclass
 class LLMResult:
     message: str
