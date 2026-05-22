@@ -3,9 +3,13 @@ from langgraph.graph import StateGraph, START, END
 from src.graph.state import GraphState
 from src.graph.nodes.nodes import coder_node, reviewer_node
 
+MAX_ITERATIONS = 3
+
 
 def route_after_review(state: GraphState):
     if state.get("review_passed"):
+        return END
+    if state.get("iteration", 0) >= MAX_ITERATIONS:
         return END
     return "coder"
 

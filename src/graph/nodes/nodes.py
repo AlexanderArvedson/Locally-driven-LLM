@@ -3,9 +3,21 @@ from src.core.ollama_client import OllamaClient
 
 
 client = OllamaClient(base_url="http://localhost:11434")
+MAX_ITERATIONS = 3
 
 
 async def coder_node(state: GraphState) -> dict:
+    iteration = state.get("iteration", 0) + 1
+    review_feedback = state.get("review_feedback")
+
+    user_prompt = state["task"]
+    if review_feedback:
+        user_prompt = (
+            f"{state['task']}\n\n"
+            f"Previous review feedback: {review_feedback}\n"
+            "Revise the code to address the feedback."
+        )
+
     result = await client.chat(
         messages=[
             {
@@ -17,7 +29,7 @@ async def coder_node(state: GraphState) -> dict:
             },
             {
                 "role": "user",
-                "content": state["task"],
+                "content": user_prompt,
             },
         ],
         model="qwen2.5-coder:7b",
@@ -26,6 +38,8 @@ async def coder_node(state: GraphState) -> dict:
 
     return {
         "generated_code": result.message,
+        "iteration": iteration,
+        "review_passed": False,
     }
 
 async def reviewer_node(state: GraphState) -> dict:
@@ -39,5 +53,6 @@ async def reviewer_node(state: GraphState) -> dict:
     )
 
     return {
-        "review_passed": passed
+        "review_passed": passed,
+        "review_feedback": "Code must include a function definition, avoid TODO markers, and be longer than 20 characters." if not passed else "",
     }

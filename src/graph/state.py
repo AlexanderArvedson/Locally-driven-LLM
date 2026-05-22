@@ -14,8 +14,13 @@ class GraphState(TypedDict):
 
     review_feedback: NotRequired[str]
 
+    # Number of review cycles completed
+    iteration: NotRequired[int]
+
+    # Whether the latest review passed
+    review_passed: NotRequired[bool]
+
     # Future expansion:
     # context: NotRequired[str]
     # passed: NotRequired[bool]
-    # iteration: NotRequired[int]
     # model_used: NotRequired[str]
