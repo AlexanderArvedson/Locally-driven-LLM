@@ -17,8 +17,8 @@ class OllamaClient:
     async def chat(
         self,
         messages: List[Dict[str, str]],
-        model: str = "llama3.1",
-        temperature: float = 0.7,
+        model: str,
+        temperature: float,
     ) -> LLMResult:
 
         payload = {
@@ -28,13 +28,17 @@ class OllamaClient:
             "options": {"temperature": temperature},
         }
 
-        resp = await self._client.post(
+        response = await self._client.post(
             f"{self.base_url}/api/chat",
             json=payload,
         )
 
-        resp.raise_for_status()
-        data = resp.json()
+        try:
+            response.raise_for_status()
+        except httpx.HTTPError as e:
+            raise RuntimeError(f"Ollama request failed: {e}") from e
+
+        data = response.json()
 
         return LLMResult(
             message=data["message"]["content"],
