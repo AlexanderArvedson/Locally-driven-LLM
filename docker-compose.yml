@@ -1,27 +1,4 @@
 services:
-  runtime:
-    build:
-      context: .
-      dockerfile: docker/Dockerfile
-
-    container_name: LocallyDrivenLLM_Runtime
-
-    ports:
-      - "8000:8000"
-
-    env_file:
-      - .env
-
-    environment:
-      UV_LINK_MODE: copy
-
-    volumes:
-      - .:/app
-
-    depends_on:
-      - ollama
-
-    restart: unless-stopped
 
   ollama:
     image: ollama/ollama:latest
