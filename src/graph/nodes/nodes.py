@@ -72,8 +72,9 @@ async def coder_node(state: GraphState) -> dict:
         f"Task: {state['task']}\n\n"
         f"Target file: {state.get('target_file', '')}\n\n"
         f"File content:\n{original_code}\n\n"
-        "Return the FULL updated file only.\n"
-        "Do not include explanations."
+        "Return the FULL updated file only as plain text.\n"
+        "Do NOT wrap your output in markdown code fences (```), backticks, or add any explanation.\n"
+        "Output should be the literal file contents to write to disk."
     )
     if review_feedback:
         user_prompt = (
@@ -116,3 +117,29 @@ async def reviewer_node(state: GraphState) -> dict:
         "review_passed": passed,
         "review_feedback": feedback,
     }
+
+
+# This node performs a final verification step by executing the generated code in an isolated namespace to catch any runtime errors.
+async def verifier_node(state: GraphState) -> dict:
+    code = _strip_code_fences(_require_state_value(state, "generated_code"))
+
+    # First, ensure syntax is valid (should already be true after reviewer)
+    passed, feedback = _validate_python_syntax(code)
+    if not passed:
+        return {"verification_passed": False, "verification_feedback": feedback}
+
+    # Run the code in an isolated namespace to catch runtime errors on import/definition
+    ns: dict = {}
+    try:
+        exec(code, ns)
+    except Exception as exc:
+        return {"verification_passed": False, "verification_feedback": f"Runtime exec error: {exc}"}
+
+    # Optional smoke test: if a function named `add` exists, call it once.
+    if "add" in ns and callable(ns["add"]):
+        try:
+            ns["add"](1, 2)
+        except Exception as exc:
+            return {"verification_passed": False, "verification_feedback": f"Runtime test failed: {exc}"}
+
+    return {"verification_passed": True, "verification_feedback": ""}
