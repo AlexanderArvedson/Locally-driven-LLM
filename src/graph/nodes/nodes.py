@@ -1,7 +1,7 @@
 from src.core.ollama_client import OllamaClient
 from src.graph.state import GraphState
 from src.tools.files import read_file, write_file
-from src.tools.patches import generate_ndiff, apply_ndiff
+from src.tools.patches import generate_unified, apply_unified
 
 
 client = OllamaClient(base_url="http://localhost:11434")
@@ -57,7 +57,7 @@ async def file_writer_node(state: GraphState) -> dict:
     generated_code = _strip_code_fences(_require_state_value(state, "generated_code"))
     # If a diff was provided, apply it; otherwise write the full file.
     if state.get("generated_diff"):
-        apply_ndiff(target_file, _require_state_value(state, "generated_diff"))
+        apply_unified(target_file, _require_state_value(state, "generated_diff"))
     else:
         write_file(target_file, generated_code)
 
@@ -153,5 +153,5 @@ async def verifier_node(state: GraphState) -> dict:
 async def diff_generator_node(state: GraphState) -> dict:
     original = _require_state_value(state, "original_code")
     generated = _strip_code_fences(_require_state_value(state, "generated_code"))
-    nd = generate_ndiff(original, generated)
+    nd = generate_unified(original, generated, fromfile=str(state.get("target_file", "a")), tofile=str(state.get("target_file", "b")))
     return {"generated_diff": nd}
