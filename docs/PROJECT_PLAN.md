@@ -152,11 +152,11 @@ Embeddings are treated as one component of a larger retrieval pipeline rather th
 
 - [x] file read/write tooling
 - [x] repository-aware prompts
-- [ ] structured graph state
+- [x] structured graph state
 - [x] review node
-- [ ] verification node
-- [ ] retry loop
-- [ ] basic issue execution flow
+- [x] verification node
+- [x] retry loop
+- [x] basic issue execution flow
 
 ## Implementation status — File Mutation MVP
 
