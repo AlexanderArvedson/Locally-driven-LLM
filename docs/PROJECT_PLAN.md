@@ -150,7 +150,7 @@ Embeddings are treated as one component of a larger retrieval pipeline rather th
 
 ## Phase 1 — Functional MVP
 
-- [ ] file read/write tooling
+- [x] file read/write tooling
 - [ ] repository-aware prompts
 - [ ] structured graph state
 - [ ] review node
