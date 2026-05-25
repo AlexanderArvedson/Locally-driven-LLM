@@ -218,7 +218,7 @@ Purpose:
 
 Phase 1 is complete when:
 
-- [] CI runs tests + smoke execution
+- [] CI runs tests + runtime log validation
 - [x] structured logs exist for all nodes
 - [x] failed patches are persisted reliably
 - [x] diff application is deterministic

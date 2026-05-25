@@ -8,7 +8,7 @@ Quick notes (how to run the file-edit MVP):
 python3 -m unittest -q
 ```
 
-- Run the single-file edit smoke test (uses `sandbox/example.py`):
+- Run the single-file edit smoke test as a local integration check (uses `sandbox/example.py`):
 
 ```bash
 uv run -m scripts.test_file_edit

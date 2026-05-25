@@ -21,7 +21,7 @@ import time
 
 from src.observability.context import RunContext
 from src.observability.logger import log_event
-from observability.event_logging_utils import emit_success, emit_failure
+from src.observability.event_logging_utils import emit_success, emit_failure
 
 
 logger = logging.getLogger(__name__)
