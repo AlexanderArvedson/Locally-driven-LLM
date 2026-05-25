@@ -278,18 +278,25 @@ Extend beyond single-file mutation into repository-wide reasoning.
 
 ## Stage
 
-Early infrastructure + working file mutation MVP.
+Phase 1 — File Mutation MVP: Completed (infrastructure stabilized).
 
 ## Working capabilities
 
-- [x] local LLM via Ollama
+- [x] Local LLM via Ollama (local/integration only)
 - [x] LangGraph orchestration
-- [x] safe file modification loop
-- [x] verification-driven execution
+- [x] Safe file modification loop with verifier and reviewer gates
+- [x] Deterministic per-run JSONL observability (`.runtime/runs/*.jsonl`)
+- [x] Persisted failed artifacts (`.runtime/failed_patches/`)
+- [x] Unit tests + mocked end-to-end graph test (CI-safe)
+- [x] CI runtime validation that enforces the observability contract
 
 ## Current focus
 
-Stabilize Phase 1 + add observability + CI enforcement.
+Transition toward Phase 2: repository-aware reasoning. Short-term priorities:
+
+- Begin Langfuse adapter planning (deferred; out of Phase 1)
+- Add CI schema assertions or richer log checks (optional refinements)
+- Continue Phase 2 research work (AST parsing, repo indexing, retrieval pipeline)
 
 ---
 
