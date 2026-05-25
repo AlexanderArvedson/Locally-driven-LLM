@@ -170,6 +170,7 @@ async def reviewer_node(state: GraphState) -> dict:
     # to a temporary file and run ruff on it. If ruff reports issues, fail review.
     if shutil.which("ruff"):
         tf = None
+        tf_name = None
         try:
             tf = tempfile.NamedTemporaryFile("w", suffix=".py", delete=False)
             tf.write(code)
@@ -187,7 +188,7 @@ async def reviewer_node(state: GraphState) -> dict:
             pass
         finally:
             try:
-                if tf is not None:
+                if tf_name is not None and Path(tf_name).exists():
                     Path(tf_name).unlink()
             except Exception:
                 pass
