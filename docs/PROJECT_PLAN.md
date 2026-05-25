@@ -142,7 +142,7 @@ The system currently supports:
 - [x] verifier node (execution smoke test)
 - [x] retry loop (bounded iterations)
 - [x] safe writer (abort-on-failure)
-- [x] failed artifact persistence (`failed_patches/`)
+- [x] failed artifact persistence (`.runtime/failed_patches/`)
 - [x] smoke + unit test coverage for patching
 
 ---
@@ -171,7 +171,7 @@ A run is valid only if:
 - [x] no uncontrolled file overwrite occurs
 - [x] diff is either applied or rejected deterministically
 - [x] verifier executes and produces pass/fail
-- [x] failed outputs are persisted in `failed_patches/`
+- [x] failed outputs are persisted in `.runtime/failed_patches/`
 
 ---
 
@@ -218,12 +218,23 @@ Purpose:
 
 Phase 1 is complete when:
 
-- [] CI runs tests + smoke execution
-- [] structured logs exist for all nodes (partial / in progress conceptually)
+- [] CI runs tests + runtime log validation
+- [x] structured logs exist for all nodes
 - [x] failed patches are persisted reliably
 - [x] diff application is deterministic
 - [x] verifier gate is enforced before write
 - [] optional Langfuse integration is implemented
+
+---
+
+### Observability implementation status
+
+- Implemented: per-run JSONL logs written to `.runtime/runs/<run_id>.jsonl` with one event per node execution. Each event contains the fixed top-level shape: `run_id`, `node`, `status`, `duration_ms`, `task`, `payload`.
+- Implemented fields: `node` (node name), `task` (task string), `model` (in `payload` for LLM-using nodes), `duration_ms`, `status` (success/failure), and compact `payload` entries such as `original_length`, `diff_length`, `updated_length`, and `error` on failures.
+- Notes / next steps:
+	- `retry_iteration` is not added as a top-level field; retries are represented by repeated node-execution events. If a top-level iteration is required for easier aggregation, consider adding it to the node `payload` rather than modifying `GraphState` for this phase.
+	- CI enforcement (run + artifact validation) is still outstanding and should be added to ensure traces are always produced in automated runs.
+	- Langfuse remains out of scope for Phase 1 and will be added later as a mirror/adapter.
 
 ---
 

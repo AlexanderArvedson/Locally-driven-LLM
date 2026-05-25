@@ -216,3 +216,11 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Runtime artifacts
+.runtime/
+
+# Local evaluation artifacts
+artifacts/
+runs/
+traces/
