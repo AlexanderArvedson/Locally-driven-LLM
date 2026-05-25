@@ -57,9 +57,22 @@ async def file_writer_node(state: GraphState) -> dict:
     generated_code = _strip_code_fences(_require_state_value(state, "generated_code"))
     # If a diff was provided, apply it; otherwise write the full file.
     if state.get("generated_diff"):
-        apply_unified(target_file, _require_state_value(state, "generated_diff"))
+        try:
+            apply_unified(target_file, _require_state_value(state, "generated_diff"))
+        except Exception as exc:
+            # Abort and surface error: do not overwrite the file.
+            return {
+                "verification_passed": False,
+                "verification_feedback": f"Applying unified diff failed: {exc}",
+            }
     else:
-        write_file(target_file, generated_code)
+        try:
+            write_file(target_file, generated_code)
+        except Exception as exc:
+            return {
+                "verification_passed": False,
+                "verification_feedback": f"Writing file failed: {exc}",
+            }
 
     return {
         "updated_code": generated_code,
