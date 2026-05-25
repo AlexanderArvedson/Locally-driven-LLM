@@ -181,14 +181,14 @@ A run is valid only if:
 
 Each node must emit JSON logs with:
 
-- [] node_name
-- [] task_id
-- [] model_used
-- [] input/output summary
-- [] duration_ms
-- [] success/failure
-- [] retry iteration
-- [] file operations
+- [ ] node_name
+- [ ] task_id
+- [ ] model_used
+- [ ] input/output summary
+- [ ] duration_ms
+- [ ] success/failure
+- [ ] retry iteration
+- [ ] file operations
 
 Purpose:
 - debugging
@@ -201,11 +201,11 @@ Purpose:
 
 Optional tracing system for:
 
-- [] prompt/completion tracking
-- [] token usage
-- [] workflow spans
-- [] model comparison
-- [] execution trace history
+- [ ] prompt/completion tracking
+- [ ] token usage
+- [ ] workflow spans
+- [ ] model comparison
+- [ ] execution trace history
 
 Purpose:
 - experiment tracking
@@ -218,12 +218,12 @@ Purpose:
 
 Phase 1 is complete when:
 
-- [] CI runs tests + runtime log validation
+- [x] CI runs tests + runtime log validation
 - [x] structured logs exist for all nodes
 - [x] failed patches are persisted reliably
 - [x] diff application is deterministic
 - [x] verifier gate is enforced before write
-- [] optional Langfuse integration is implemented
+- [ ] optional Langfuse integration is implemented
 
 ---
 
@@ -246,31 +246,31 @@ Extend beyond single-file mutation into repository-wide reasoning.
 
 ## Tasks
 
-- [] AST parsing
-- [] symbol extraction
-- [] repository indexing
-- [] context builder service
-- [] retrieval pipeline
-- [] cross-file dependency awareness
+- [ ] AST parsing
+- [ ] symbol extraction
+- [ ] repository indexing
+- [ ] context builder service
+- [ ] retrieval pipeline
+- [ ] cross-file dependency awareness
 
 ---
 
 # Phase 3 — Passive Analysis System
 
-- [] scheduled scans
-- [] issue detection
-- [] ranking/scoring
-- [] persistence layer
-- [] report generation
+- [ ] scheduled scans
+- [ ] issue detection
+- [ ] ranking/scoring
+- [ ] persistence layer
+- [ ] report generation
 
 ---
 
 # Phase 4 — Advanced Maintenance Workflows
 
-- [] multi-agent orchestration
-- [] evaluator loops
-- [] automated refinement cycles
-- [] constrained subsystem evolution
+- [ ] multi-agent orchestration
+- [ ] evaluator loops
+- [ ] automated refinement cycles
+- [ ] constrained subsystem evolution
 
 ---
 
