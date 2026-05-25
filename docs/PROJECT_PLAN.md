@@ -9,8 +9,8 @@ The system is designed around asynchronous autonomous workflows rather than inte
 Primary goals:
 - Repository health monitoring
 - Maintainability analysis
-- Automated refactoring support
-- Documentation drift detection
+- Automated refactoring support (beyond MVP)
+- Documentation drift detection (beyond MVP)
 - Constrained code modification
 - Verification-driven iteration loops
 
@@ -37,13 +37,13 @@ Responsibilities:
 - monitor codebase hygiene
 - generate ranked findings
 
-Passive mode does not directly modify code.
+Passive mode does not modify code.
 
 ---
 
 ## Active Mode
 
-An active execution workflow is triggered when a user selects a reported issue.
+Triggered when a user selects a reported issue.
 
 Responsibilities:
 - retrieve repository context
@@ -53,66 +53,46 @@ Responsibilities:
 - iterate until stable output is achieved
 - produce final patches or proposed changes
 
-This mode is intentionally asynchronous and long-running.
-
 ---
 
 # Initial Focus Areas
 
 ## 1. Refactoring & Maintainability
-
-Primary target area.
-
-Examples:
 - oversized functions/classes
 - naming inconsistencies
 - responsibility violations
 - duplicated logic
 - structural simplification
 
----
-
 ## 2. Repository Hygiene
-
-Examples:
 - dead code
 - stale abstractions
 - unused imports/functions
 - orphaned modules
 
----
-
 ## 3. Documentation Drift Detection
-
-Examples:
 - outdated README content
 - mismatched API documentation
 - missing docstrings
 - implementation vs documentation inconsistencies
 
----
-
-## 4. Bounded Code Generation
-
-Later-stage capability.
-
-Focus:
+## 4. Bounded Code Generation (later stage)
 - constrained subsystem modifications
 - architecture-consistent extensions
 - retrieval-assisted generation
 
 ---
 
-# Architectural Direction
+# Architecture Direction
 
 ## Planned Workflow
 
-1. Repository scan
-2. Static analysis
+1. Repository scan (MVP simulated)
+2. Static analysis (basic / implicit)
 3. LLM-assisted reasoning
-4. Issue ranking
-5. User issue selection
-6. Context retrieval
+4. Issue ranking system (not yet implemented)
+5. User selection (test-driven input)
+6. Context retrieval (single-file MVP)
 7. Code modification
 8. Verification loop
 9. Retry/refinement
@@ -122,7 +102,8 @@ Focus:
 
 # Retrieval Strategy
 
-The system will likely combine:
+The system will combine:
+
 - AST analysis
 - dependency graphs
 - symbol extraction
@@ -130,121 +111,179 @@ The system will likely combine:
 - embeddings/vector retrieval
 - repository metadata
 
-Embeddings are treated as one component of a larger retrieval pipeline rather than the primary source of understanding.
+Embeddings are one component, not the core mechanism.
 
 ---
 
 # Current Architecture (MVP)
 
-## Existing Components
+## Implemented Components
 
 - Ollama integration
 - Async LLM client
 - LangGraph workflow
-- Basic graph state
+- Graph state model
 - Initial coder node
+- File mutation pipeline (single-file MVP)
 
 ---
 
-# Immediate Next Steps
+## File Mutation MVP (Phase 1 — COMPLETED BASELINE)
 
-## Phase 1 — Functional MVP
+The system currently supports:
 
-- [x] file read/write tooling
-- [x] repository-aware prompts
-- [x] structured graph state
-- [x] review node
-- [x] verification node
-- [x] retry loop
-- [x] basic issue execution flow
-
-## Implementation status — File Mutation MVP
-
-- **Status:** Phase 1 (Repository File Mutation MVP) implemented and smoke-tested.
-- **Implemented features:** deterministic file I/O, sandbox target file, repository-aware prompts, coder node that receives full file content, diff-based generation (unified diff), reviewer (syntax check), verifier (exec smoke tests), safe writer with abort-on-failure, logging and `failed_patches/` persistence, and a unit test baseline for patch application.
-- **Key files:**
-	- `src/tools/files.py` — deterministic read/write helpers
-	- `src/tools/patches.py` — unified diff generator + applier
-	- `src/graph/nodes/nodes.py` — reader, coder, diff generator, reviewer, verifier, writer + logging
-	- `src/graph/workflow.py` — wired execution graph for the single-file loop
-	- `scripts/test_file_edit.py` — smoke test using `sandbox/example.py`
-	- `tests/test_patches.py` — unit test ensuring patch apply + valid python
-- **Runtime artifacts:** failed or unapplyable patches and problematic generated outputs are saved under `failed_patches/` for manual inspection.
-
-## How to verify locally
-
-1. Run unit tests:
-
-```bash
-python3 -m unittest -q
-```
-
-2. Run the smoke edit flow (reads `sandbox/example.py`, invokes the graph, writes back):
-
-```bash
-uv run -m scripts.test_file_edit
-```
-
-3. If a patch fails to apply or writing fails, inspect `failed_patches/` for saved `.failed.patch` or `.failed.py` files.
-
-## Next recommended priorities
-
-- Add CI to run unit tests and the smoke script automatically.
-- Add a CLI tool to inspect and re-run failed patches from `failed_patches/`.
-- Harden review heuristics (lint, static analysis) as additional gates before writing.
-
+- [x] deterministic file read/write
+- [x] full-file context injection into LLM
+- [x] unified diff generation
+- [x] diff application with safety checks
+- [x] reviewer node (syntax / basic lint gating)
+- [x] verifier node (execution smoke test)
+- [x] retry loop (bounded iterations)
+- [x] safe writer (abort-on-failure)
+- [x] failed artifact persistence (`failed_patches/`)
+- [x] smoke + unit test coverage for patching
 
 ---
 
-## Phase 2 — Repository Awareness
+## Key Files
 
-- [ ] AST parsing
-- [ ] symbol extraction
-- [ ] repository indexing
-- [ ] context builder service
-- [ ] retrieval pipeline
-
----
-
-## Phase 3 — Passive Analysis System
-
-- [ ] scheduled scans
-- [ ] issue persistence
-- [ ] ranking/scoring
-- [ ] reporting layer
+- [x] `src/tools/files.py` — file I/O
+- [x] `src/tools/patches.py` — diff generation + application
+- [x] `src/graph/nodes/nodes.py` — coder, reviewer, verifier, writer
+- [x] `src/graph/workflow.py` — execution graph
+- [x] `scripts/test_file_edit.py` — smoke test
+- [x] `tests/test_patches.py` — unit tests
 
 ---
 
-## Phase 4 — Advanced Maintenance Workflows
+# Phase 1 — File Mutation MVP (Active Definition)
 
-- [ ] multi-agent orchestration
-- [ ] evaluator agents
-- [ ] automated refinement loops
-- [ ] constrained subsystem evolution
+## Goal
+
+Modify a real file via LLM-generated diff with full safety gating.
+
+## Execution Guarantees
+
+A run is valid only if:
+
+- [x] no uncontrolled file overwrite occurs
+- [x] diff is either applied or rejected deterministically
+- [x] verifier executes and produces pass/fail
+- [x] failed outputs are persisted in `failed_patches/`
 
 ---
 
-# Research Questions
+## Observability
 
-The project aims to evaluate:
-- effectiveness of local LLMs for maintenance workflows
-- orchestration vs model capability tradeoffs
-- retrieval quality vs output quality
-- iterative verification reliability
-- bounded autonomy in software engineering systems
+### 1. Structured Logging (system truth layer)
+
+Each node must emit JSON logs with:
+
+- [] node_name
+- [] task_id
+- [] model_used
+- [] input/output summary
+- [] duration_ms
+- [] success/failure
+- [] retry iteration
+- [] file operations
+
+Purpose:
+- debugging
+- reproducibility
+- evaluation dataset creation
+
+---
+
+### 2. Langfuse (LLM observability layer)
+
+Optional tracing system for:
+
+- [] prompt/completion tracking
+- [] token usage
+- [] workflow spans
+- [] model comparison
+- [] execution trace history
+
+Purpose:
+- experiment tracking
+- prompt iteration
+- model benchmarking
+
+---
+
+## Phase 1 Completion Criteria
+
+Phase 1 is complete when:
+
+- [] CI runs tests + smoke execution
+- [x] structured logs exist for all nodes (partial / in progress conceptually)
+- [x] failed patches are persisted reliably
+- [x] diff application is deterministic
+- [x] verifier gate is enforced before write
+- [] optional Langfuse integration is implemented
+
+---
+
+# Phase 2 — Repository Awareness
+
+## Goal
+
+Extend beyond single-file mutation into repository-wide reasoning.
+
+## Tasks
+
+- [] AST parsing
+- [] symbol extraction
+- [] repository indexing
+- [] context builder service
+- [] retrieval pipeline
+- [] cross-file dependency awareness
+
+---
+
+# Phase 3 — Passive Analysis System
+
+- [] scheduled scans
+- [] issue detection
+- [] ranking/scoring
+- [] persistence layer
+- [] report generation
+
+---
+
+# Phase 4 — Advanced Maintenance Workflows
+
+- [] multi-agent orchestration
+- [] evaluator loops
+- [] automated refinement cycles
+- [] constrained subsystem evolution
 
 ---
 
 # Current Status
 
-Current stage:
-Early infrastructure and workflow prototyping.
+## Stage
 
-Working components:
-- Ollama-based local inference
-- LangGraph execution flow
-- basic generation node
-- graph state handling
+Early infrastructure + working file mutation MVP.
 
-Current priority:
-repository-aware execution and file modification workflows
+## Working capabilities
+
+- [x] local LLM via Ollama
+- [x] LangGraph orchestration
+- [x] safe file modification loop
+- [x] verification-driven execution
+
+## Current focus
+
+Stabilize Phase 1 + add observability + CI enforcement.
+
+---
+
+# Research Questions
+
+- effectiveness of local LLMs in maintenance automation
+- orchestration vs model capability tradeoffs
+- retrieval quality impact on correctness
+- reliability of iterative verification loops
+- bounded autonomy in software engineering systems
