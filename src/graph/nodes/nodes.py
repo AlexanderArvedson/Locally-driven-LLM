@@ -7,6 +7,10 @@ import logging
 import subprocess
 import tempfile
 import shutil
+import time
+
+from src.observability.context import RunContext
+from src.observability.logger import log_event
 
 
 logger = logging.getLogger(__name__)
@@ -18,6 +22,7 @@ client = OllamaClient(base_url="http://localhost:11434")
 MAX_ITERATIONS = 3
 
 
+# Helper function to extract a required value from the graph state, raising an error if it's missing.
 def _require_state_value(state: GraphState, key: str) -> str:
     value = state.get(key)
     if value is None:
@@ -25,7 +30,7 @@ def _require_state_value(state: GraphState, key: str) -> str:
 
     return value
 
-
+# Helper function to strip markdown code fences from the generated code, if present.
 def _strip_code_fences(content: str) -> str:
     lines = content.strip().splitlines()
 
@@ -38,6 +43,8 @@ def _strip_code_fences(content: str) -> str:
     return "\n".join(lines).strip("\n")
 
 
+# Helper function to validate that the generated code is syntactically correct Python. 
+# Returns a tuple of (passed: bool, feedback: str).
 def _validate_python_syntax(content: str) -> tuple[bool, str]:
     if not content.strip():
         return False, "Generated code is empty."
@@ -51,191 +58,399 @@ def _validate_python_syntax(content: str) -> tuple[bool, str]:
     return True, ""
 
 
-# Takes the target file path from the state, reads its content, and returns it in a dictionary. 
+# Takes the target file path from the state, reads its content, and returns it in a dictionary.
 # This node is responsible for loading the original code that will be modified by the coder node.
-async def file_reader_node(state: GraphState) -> dict:
-    target_file = _require_state_value(state, "target_file")
-    return {
-        "original_code": read_file(target_file),
-    }
+async def file_reader_node(state: GraphState, run_context: RunContext) -> dict:
+    start = time.time()
+    try:
+        target_file = _require_state_value(state, "target_file")
+        original = read_file(target_file)
+
+        event = {
+            "run_id": run_context.run_id,
+            "node": "file_reader_node",
+            "status": "success",
+            "duration_ms": int((time.time() - start) * 1000),
+            "task": state.get("task", ""),
+            "payload": {"original_length": len(original)},
+        }
+        log_event(run_context.run_id, event)
+
+        return {"original_code": original}
+    except Exception as e:
+        event = {
+            "run_id": run_context.run_id,
+            "node": "file_reader_node",
+            "status": "failure",
+            "duration_ms": int((time.time() - start) * 1000),
+            "task": state.get("task", ""),
+            "payload": {"error": str(e)},
+        }
+        log_event(run_context.run_id, event)
+        raise
 
 
 # Takes the generated code from the state and writes it back to the target file.
 # This node is responsible for saving the modifications made by the coder node to the filesystem.
-async def file_writer_node(state: GraphState) -> dict:
-    target_file = _require_state_value(state, "target_file")
-    generated_code = _strip_code_fences(_require_state_value(state, "generated_code"))
-    # If a diff was provided, apply it; otherwise write the full file.
-    if state.get("generated_diff"):
-        try:
-            apply_unified(target_file, _require_state_value(state, "generated_diff"))
-        except Exception as exc:
-            # Abort and surface error: do not overwrite the file. Persist failed patch for manual inspection.
-            failed_dir = Path("failed_patches")
-            failed_dir.mkdir(parents=True, exist_ok=True)
-            failed_path = failed_dir / (Path(target_file).name + ".failed.patch")
+async def file_writer_node(state: GraphState, run_context: RunContext) -> dict:
+    start = time.time()
+    try:
+        target_file = _require_state_value(state, "target_file")
+        generated_code = _strip_code_fences(_require_state_value(state, "generated_code"))
+        # If a diff was provided, apply it; otherwise write the full file.
+        if state.get("generated_diff"):
             try:
-                failed_path.write_text(_require_state_value(state, "generated_diff"), encoding="utf-8")
-            except Exception as wexc:
-                logger.error("Failed to write failed patch file: %s", wexc)
+                apply_unified(target_file, _require_state_value(state, "generated_diff"))
+            except Exception as exc:
+                # Abort and surface error: do not overwrite the file. Persist failed patch for manual inspection.
+                failed_dir = Path("failed_patches")
+                failed_dir.mkdir(parents=True, exist_ok=True)
+                failed_path = failed_dir / (Path(target_file).name + ".failed.patch")
+                try:
+                    failed_path.write_text(_require_state_value(state, "generated_diff"), encoding="utf-8")
+                except Exception as wexc:
+                    logger.error("Failed to write failed patch file: %s", wexc)
 
-            logger.error("Applying unified diff failed for %s: %s; saved to %s", target_file, exc, failed_path)
-            return {
-                "verification_passed": False,
-                "verification_feedback": f"Applying unified diff failed: {exc}; saved failed patch at {failed_path}",
-            }
-    else:
-        try:
-            write_file(target_file, generated_code)
-        except Exception as exc:
-            # Persist the generated code for manual inspection
-            failed_dir = Path("failed_patches")
-            failed_dir.mkdir(parents=True, exist_ok=True)
-            failed_path = failed_dir / (Path(target_file).name + ".failed.py")
+                logger.error("Applying unified diff failed for %s: %s; saved to %s", target_file, exc, failed_path)
+
+                event = {
+                    "run_id": run_context.run_id,
+                    "node": "file_writer_node",
+                    "status": "failure",
+                    "duration_ms": int((time.time() - start) * 1000),
+                    "task": state.get("task", ""),
+                    "payload": {"error": str(exc)},
+                }
+                log_event(run_context.run_id, event)
+
+                return {
+                    "verification_passed": False,
+                    "verification_feedback": f"Applying unified diff failed: {exc}; saved failed patch at {failed_path}",
+                }
+        else:
             try:
-                failed_path.write_text(generated_code, encoding="utf-8")
-            except Exception as wexc:
-                logger.error("Failed to write failed generated file: %s", wexc)
+                write_file(target_file, generated_code)
+            except Exception as exc:
+                # Persist the generated code for manual inspection
+                failed_dir = Path("failed_patches")
+                failed_dir.mkdir(parents=True, exist_ok=True)
+                failed_path = failed_dir / (Path(target_file).name + ".failed.py")
+                try:
+                    failed_path.write_text(generated_code, encoding="utf-8")
+                except Exception as wexc:
+                    logger.error("Failed to write failed generated file: %s", wexc)
 
-            logger.error("Writing file failed for %s: %s; saved to %s", target_file, exc, failed_path)
-            return {
-                "verification_passed": False,
-                "verification_feedback": f"Writing file failed: {exc}; saved generated output at {failed_path}",
-            }
+                logger.error("Writing file failed for %s: %s; saved to %s", target_file, exc, failed_path)
 
-    return {
-        "updated_code": generated_code,
-    }
+                event = {
+                    "run_id": run_context.run_id,
+                    "node": "file_writer_node",
+                    "status": "failure",
+                    "duration_ms": int((time.time() - start) * 1000),
+                    "task": state.get("task", ""),
+                    "payload": {"error": str(exc)},
+                }
+                log_event(run_context.run_id, event)
+
+                return {
+                    "verification_passed": False,
+                    "verification_feedback": f"Writing file failed: {exc}; saved generated output at {failed_path}",
+                }
+
+        event = {
+            "run_id": run_context.run_id,
+            "node": "file_writer_node",
+            "status": "success",
+            "duration_ms": int((time.time() - start) * 1000),
+            "task": state.get("task", ""),
+            "payload": {"updated_length": len(generated_code)},
+        }
+        log_event(run_context.run_id, event)
+
+        return {"updated_code": generated_code}
+    except Exception as e:
+        event = {
+            "run_id": run_context.run_id,
+            "node": "file_writer_node",
+            "status": "failure",
+            "duration_ms": int((time.time() - start) * 1000),
+            "task": state.get("task", ""),
+            "payload": {"error": str(e)},
+        }
+        log_event(run_context.run_id, event)
+        raise
 
 
-# This node generate code based on the task, original code, and any review feedback. 
+# This node generate code based on the task, original code, and any review feedback.
 # It constructs a prompt for the LLM and calls the Ollama client to get the modified code.
-async def coder_node(state: GraphState) -> dict:
-    iteration = state.get("iteration", 0) + 1
-    review_feedback = state.get("review_feedback")
-    original_code = _require_state_value(state, "original_code")
+async def coder_node(state: GraphState, run_context: RunContext) -> dict:
+    start = time.time()
+    try:
+        iteration = state.get("iteration", 0) + 1
+        review_feedback = state.get("review_feedback")
+        original_code = _require_state_value(state, "original_code")
 
-    user_prompt = (
-        f"Task: {state['task']}\n\n"
-        f"Target file: {state.get('target_file', '')}\n\n"
-        f"File content:\n{original_code}\n\n"
-        "Return the FULL updated file only as plain text.\n"
-        "Do NOT wrap your output in markdown code fences (```), backticks, or add any explanation.\n"
-        "Output should be the literal file contents to write to disk."
-    )
-    if review_feedback:
         user_prompt = (
-            f"{user_prompt}\n\n"
-            f"Previous review feedback: {review_feedback}\n"
-            "Revise the code to address the feedback while still returning the full updated file only."
+            f"Task: {state['task']}\n\n"
+            f"Target file: {state.get('target_file', '')}\n\n"
+            f"File content:\n{original_code}\n\n"
+            "Return the FULL updated file only as plain text.\n"
+            "Do NOT wrap your output in markdown code fences (```), backticks, or add any explanation.\n"
+            "Output should be the literal file contents to write to disk."
+        )
+        if review_feedback:
+            user_prompt = (
+                f"{user_prompt}\n\n"
+                f"Previous review feedback: {review_feedback}\n"
+                "Revise the code to address the feedback while still returning the full updated file only."
+            )
+
+        result = await client.chat(
+            messages=[
+                {
+                    "role": "system",
+                    "content": (
+                        "You are an expert software engineer. "
+                        "Generate clean, production-quality code."
+                    ),
+                },
+                {
+                    "role": "user",
+                    "content": user_prompt,
+                },
+            ],
+            model="qwen2.5-coder:7b",
+            temperature=0.2,
         )
 
-    result = await client.chat(
-        messages=[
-            {
-                "role": "system",
-                "content": (
-                    "You are an expert software engineer. "
-                    "Generate clean, production-quality code."
-                ),
-            },
-            {
-                "role": "user",
-                "content": user_prompt,
-            },
-        ],
-        model="qwen2.5-coder:7b",
-        temperature=0.2,
-    )
+        event = {
+            "run_id": run_context.run_id,
+            "node": "coder_node",
+            "status": "success",
+            "duration_ms": int((time.time() - start) * 1000),
+            "task": state.get("task", ""),
+            "payload": {"model": "qwen2.5-coder:7b"},
+        }
+        log_event(run_context.run_id, event)
 
-    return {
-        "generated_code": result.message,
-        "iteration": iteration,
-        "review_passed": False,
-    }
+        return {
+            "generated_code": result.message,
+            "iteration": iteration,
+            "review_passed": False,
+        }
+    except Exception as e:
+        event = {
+            "run_id": run_context.run_id,
+            "node": "coder_node",
+            "status": "failure",
+            "duration_ms": int((time.time() - start) * 1000),
+            "task": state.get("task", ""),
+            "payload": {"error": str(e)},
+        }
+        log_event(run_context.run_id, event)
+        raise
 
 
 # This node reviews the generated code using simple heuristics to determine if it meets basic quality standards.
-async def reviewer_node(state: GraphState) -> dict:
-    code = _strip_code_fences(_require_state_value(state, "generated_code"))
-    passed, feedback = _validate_python_syntax(code)
+async def reviewer_node(state: GraphState, run_context: RunContext) -> dict:
+    start = time.time()
+    try:
+        code = _strip_code_fences(_require_state_value(state, "generated_code"))
+        passed, feedback = _validate_python_syntax(code)
 
-    if not passed:
-        return {
-            "review_passed": False,
-            "review_feedback": feedback,
-        }
+        if not passed:
+            event = {
+                "run_id": run_context.run_id,
+                "node": "reviewer_node",
+                "status": "failure",
+                "duration_ms": int((time.time() - start) * 1000),
+                "task": state.get("task", ""),
+                "payload": {"error": feedback},
+            }
+            log_event(run_context.run_id, event)
+            return {"review_passed": False, "review_feedback": feedback}
 
-    # Prefer running `ruff` for linting if available. We write the generated code
-    # to a temporary file and run ruff on it. If ruff reports issues, fail review.
-    if shutil.which("ruff"):
-        tf = None
-        tf_name = None
-        try:
-            tf = tempfile.NamedTemporaryFile("w", suffix=".py", delete=False)
-            tf.write(code)
-            tf.flush()
-            tf_name = tf.name
-            tf.close()
-
-            res = subprocess.run(["ruff", tf_name], capture_output=True, text=True)
-            if res.returncode != 0:
-                # ruff found issues — include stdout/stderr in feedback
-                out = (res.stdout or "") + ("\n" + res.stderr if res.stderr else "")
-                return {"review_passed": False, "review_feedback": f"Ruff reported issues:\n{out}"}
-        except FileNotFoundError:
-            # ruff disappeared between check and run; fall back to heuristics below
-            pass
-        finally:
+        # Prefer running `ruff` for linting if available. We write the generated code
+        # to a temporary file and run ruff on it. If ruff reports issues, fail review.
+        if shutil.which("ruff"):
+            tf = None
+            tf_name = None
             try:
-                if tf_name is not None and Path(tf_name).exists():
-                    Path(tf_name).unlink()
-            except Exception:
+                tf = tempfile.NamedTemporaryFile("w", suffix=".py", delete=False)
+                tf.write(code)
+                tf.flush()
+                tf_name = tf.name
+                tf.close()
+
+                res = subprocess.run(["ruff", tf_name], capture_output=True, text=True)
+                if res.returncode != 0:
+                    # ruff found issues — include stdout/stderr in feedback
+                    out = (res.stdout or "") + ("\n" + res.stderr if res.stderr else "")
+                    event = {
+                        "run_id": run_context.run_id,
+                        "node": "reviewer_node",
+                        "status": "failure",
+                        "duration_ms": int((time.time() - start) * 1000),
+                        "task": state.get("task", ""),
+                        "payload": {"error": out},
+                    }
+                    log_event(run_context.run_id, event)
+                    return {"review_passed": False, "review_feedback": f"Ruff reported issues:\n{out}"}
+            except FileNotFoundError:
+                # ruff disappeared between check and run; fall back to heuristics below
                 pass
+            finally:
+                try:
+                    if tf_name is not None and Path(tf_name).exists():
+                        Path(tf_name).unlink()
+                except Exception:
+                    pass
 
-    # Fallback heuristics if ruff isn't available: basic quality checks.
-    heur_pass = (
-        "def " in code
-        and "TODO" not in code
-        and len(code) > 20
-    )
-    if not heur_pass:
-        return {
-            "review_passed": False,
-            "review_feedback": "Heuristic checks failed: ensure function definitions exist, avoid TODO markers, and file is non-trivial.",
+        # Fallback heuristics if ruff isn't available: basic quality checks.
+        heur_pass = (
+            "def " in code
+            and "TODO" not in code
+            and len(code) > 20
+        )
+        if not heur_pass:
+            event = {
+                "run_id": run_context.run_id,
+                "node": "reviewer_node",
+                "status": "failure",
+                "duration_ms": int((time.time() - start) * 1000),
+                "task": state.get("task", ""),
+                "payload": {"error": "Heuristic checks failed"},
+            }
+            log_event(run_context.run_id, event)
+            return {"review_passed": False, "review_feedback": "Heuristic checks failed: ensure function definitions exist, avoid TODO markers, and file is non-trivial."}
+
+        event = {
+            "run_id": run_context.run_id,
+            "node": "reviewer_node",
+            "status": "success",
+            "duration_ms": int((time.time() - start) * 1000),
+            "task": state.get("task", ""),
+            "payload": {"review_passed": True},
         }
+        log_event(run_context.run_id, event)
 
-    return {"review_passed": True, "review_feedback": ""}
+        return {"review_passed": True, "review_feedback": ""}
+    except Exception as e:
+        event = {
+            "run_id": run_context.run_id,
+            "node": "reviewer_node",
+            "status": "failure",
+            "duration_ms": int((time.time() - start) * 1000),
+            "task": state.get("task", ""),
+            "payload": {"error": str(e)},
+        }
+        log_event(run_context.run_id, event)
+        raise
 
 
 # This node performs a final verification step by executing the generated code in an isolated namespace to catch any runtime errors.
-async def verifier_node(state: GraphState) -> dict:
-    code = _strip_code_fences(_require_state_value(state, "generated_code"))
-
-    # First, ensure syntax is valid (should already be true after reviewer)
-    passed, feedback = _validate_python_syntax(code)
-    if not passed:
-        return {"verification_passed": False, "verification_feedback": feedback}
-
-    # Run the code in an isolated namespace to catch runtime errors on import/definition
-    ns: dict = {}
+async def verifier_node(state: GraphState, run_context: RunContext) -> dict:
+    start = time.time()
     try:
-        exec(code, ns)
-    except Exception as exc:
-        return {"verification_passed": False, "verification_feedback": f"Runtime exec error: {exc}"}
+        code = _strip_code_fences(_require_state_value(state, "generated_code"))
 
-    # Optional smoke test: if a function named `add` exists, call it once.
-    if "add" in ns and callable(ns["add"]):
+        # First, ensure syntax is valid (should already be true after reviewer)
+        passed, feedback = _validate_python_syntax(code)
+        if not passed:
+            event = {
+                "run_id": run_context.run_id,
+                "node": "verifier_node",
+                "status": "failure",
+                "duration_ms": int((time.time() - start) * 1000),
+                "task": state.get("task", ""),
+                "payload": {"error": feedback},
+            }
+            log_event(run_context.run_id, event)
+            return {"verification_passed": False, "verification_feedback": feedback}
+
+        # Run the code in an isolated namespace to catch runtime errors on import/definition
+        ns: dict = {}
         try:
-            ns["add"](1, 2)
+            exec(code, ns)
         except Exception as exc:
-            return {"verification_passed": False, "verification_feedback": f"Runtime test failed: {exc}"}
+            event = {
+                "run_id": run_context.run_id,
+                "node": "verifier_node",
+                "status": "failure",
+                "duration_ms": int((time.time() - start) * 1000),
+                "task": state.get("task", ""),
+                "payload": {"error": str(exc)},
+            }
+            log_event(run_context.run_id, event)
+            return {"verification_passed": False, "verification_feedback": f"Runtime exec error: {exc}"}
 
-    return {"verification_passed": True, "verification_feedback": ""}
+        # Optional smoke test: if a function named `add` exists, call it once.
+        if "add" in ns and callable(ns["add"]):
+            try:
+                ns["add"](1, 2)
+            except Exception as exc:
+                event = {
+                    "run_id": run_context.run_id,
+                    "node": "verifier_node",
+                    "status": "failure",
+                    "duration_ms": int((time.time() - start) * 1000),
+                    "task": state.get("task", ""),
+                    "payload": {"error": str(exc)},
+                }
+                log_event(run_context.run_id, event)
+                return {"verification_passed": False, "verification_feedback": f"Runtime test failed: {exc}"}
+
+        event = {
+            "run_id": run_context.run_id,
+            "node": "verifier_node",
+            "status": "success",
+            "duration_ms": int((time.time() - start) * 1000),
+            "task": state.get("task", ""),
+            "payload": {"verification_passed": True},
+        }
+        log_event(run_context.run_id, event)
+
+        return {"verification_passed": True, "verification_feedback": ""}
+    except Exception as e:
+        event = {
+            "run_id": run_context.run_id,
+            "node": "verifier_node",
+            "status": "failure",
+            "duration_ms": int((time.time() - start) * 1000),
+            "task": state.get("task", ""),
+            "payload": {"error": str(e)},
+        }
+        log_event(run_context.run_id, event)
+        raise
+
 
 # This node generates a diff between the original code and the generated code using the ndiff format.
-async def diff_generator_node(state: GraphState) -> dict:
-    original = _require_state_value(state, "original_code")
-    generated = _strip_code_fences(_require_state_value(state, "generated_code"))
-    nd = generate_unified(original, generated, fromfile=str(state.get("target_file", "a")), tofile=str(state.get("target_file", "b")))
-    return {"generated_diff": nd}
+async def diff_generator_node(state: GraphState, run_context: RunContext) -> dict:
+    start = time.time()
+    try:
+        original = _require_state_value(state, "original_code")
+        generated = _strip_code_fences(_require_state_value(state, "generated_code"))
+        nd = generate_unified(original, generated, fromfile=str(state.get("target_file", "a")), tofile=str(state.get("target_file", "b")))
+
+        event = {
+            "run_id": run_context.run_id,
+            "node": "diff_generator_node",
+            "status": "success",
+            "duration_ms": int((time.time() - start) * 1000),
+            "task": state.get("task", ""),
+            "payload": {"diff_length": len(nd)},
+        }
+        log_event(run_context.run_id, event)
+
+        return {"generated_diff": nd}
+    except Exception as e:
+        event = {
+            "run_id": run_context.run_id,
+            "node": "diff_generator_node",
+            "status": "failure",
+            "duration_ms": int((time.time() - start) * 1000),
+            "task": state.get("task", ""),
+            "payload": {"error": str(e)},
+        }
+        log_event(run_context.run_id, event)
+        raise
