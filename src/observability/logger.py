@@ -1,4 +1,11 @@
-# Logger for graph execution events. Provides a simple function to log events to a JSONL file,
+"""Minimal JSONL logger for per-run observability events.
+
+Provides one simple function `log_event(run_id, event)` which appends the
+given event (a JSON-serializable dict) to `logs/runs/<run_id>.jsonl`.
+
+This module intentionally keeps behavior synchronous and minimal: no
+buffering, no external dependencies, and automatic directory creation.
+"""
 
 import json
 from pathlib import Path
@@ -6,9 +13,14 @@ from pathlib import Path
 
 LOG_DIR = Path("logs/runs")
 
-# Logs an event for a given run ID. The event is a dictionary that will be serialized to JSON 
-# and appended to a log file named after the run ID.
+
 def log_event(run_id: str, event: dict) -> None:
+    """Append `event` as one JSON line to the per-run JSONL file.
+
+    Args:
+        run_id: The UUID string for the current run.
+        event: A JSON-serializable mapping describing the node event.
+    """
     LOG_DIR.mkdir(parents=True, exist_ok=True)
 
     path = LOG_DIR / f"{run_id}.jsonl"

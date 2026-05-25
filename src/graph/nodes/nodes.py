@@ -1,3 +1,12 @@
+"""Node implementations for the LangGraph file-edit workflow.
+
+Each node is an async function that accepts the shared `GraphState` and a
+`RunContext` for observability. Nodes return small dictionaries of values to
+be merged into state by the graph runtime. Nodes are responsible for their own
+error handling and must emit a single JSONL event via the observability logger
+on success or failure.
+"""
+
 from src.core.ollama_client import OllamaClient
 from src.graph.state import GraphState
 from src.tools.files import read_file, write_file
@@ -24,6 +33,21 @@ MAX_ITERATIONS = 3
 
 # Helper function to extract a required value from the graph state, raising an error if it's missing.
 def _require_state_value(state: GraphState, key: str) -> str:
+    """Return a required value from the graph `state` or raise ValueError.
+
+    This helper centralizes the check for required state keys so node logic can
+    assume presence after calling this function.
+
+    Args:
+        state: The shared GraphState mapping.
+        key: The required key to extract.
+
+    Returns:
+        The value associated with `key`.
+
+    Raises:
+        ValueError: if the key is not present in `state`.
+    """
     value = state.get(key)
     if value is None:
         raise ValueError(f"Missing required state value: {key}")
@@ -32,6 +56,12 @@ def _require_state_value(state: GraphState, key: str) -> str:
 
 # Helper function to strip markdown code fences from the generated code, if present.
 def _strip_code_fences(content: str) -> str:
+    """Remove leading/trailing Markdown code fences from `content`.
+
+    Many LLM responses may wrap code in triple-backtick fences. This helper
+    strips a single leading and trailing fence pair if present and returns
+    the trimmed code string.
+    """
     lines = content.strip().splitlines()
 
     if lines and lines[0].startswith("```"):
@@ -46,6 +76,12 @@ def _strip_code_fences(content: str) -> str:
 # Helper function to validate that the generated code is syntactically correct Python. 
 # Returns a tuple of (passed: bool, feedback: str).
 def _validate_python_syntax(content: str) -> tuple[bool, str]:
+    """Quickly validate Python syntax for the provided `content`.
+
+    Returns a tuple `(passed, feedback)`. `passed` is `True` when the code
+    compiles; otherwise `False` and `feedback` contains a short description of
+    the syntax error.
+    """
     if not content.strip():
         return False, "Generated code is empty."
 
@@ -61,6 +97,18 @@ def _validate_python_syntax(content: str) -> tuple[bool, str]:
 # Takes the target file path from the state, reads its content, and returns it in a dictionary.
 # This node is responsible for loading the original code that will be modified by the coder node.
 async def file_reader_node(state: GraphState, run_context: RunContext) -> dict:
+    """Read the target file specified in `state` and return its content.
+
+    Emits a JSONL observability event recording success or failure. Returns a
+    mapping with the key `original_code` containing the file contents.
+
+    Args:
+        state: GraphState with at least `target_file` set.
+        run_context: RunContext used for observability.
+
+    Returns:
+        dict with `original_code` on success.
+    """
     start = time.time()
     try:
         target_file = _require_state_value(state, "target_file")
@@ -93,6 +141,19 @@ async def file_reader_node(state: GraphState, run_context: RunContext) -> dict:
 # Takes the generated code from the state and writes it back to the target file.
 # This node is responsible for saving the modifications made by the coder node to the filesystem.
 async def file_writer_node(state: GraphState, run_context: RunContext) -> dict:
+    """Write generated code back to the target file or apply a generated diff.
+
+    If a `generated_diff` exists in `state`, it's applied atomically; otherwise
+    the full `generated_code` is written. On error, artifacts are persisted to
+    `failed_patches/` and a failure observability event is emitted.
+
+    Args:
+        state: GraphState containing `target_file` and `generated_code` or `generated_diff`.
+        run_context: RunContext used for observability.
+
+    Returns:
+        dict with `updated_code` on success, or a dict describing verification failure.
+    """
     start = time.time()
     try:
         target_file = _require_state_value(state, "target_file")
@@ -184,6 +245,19 @@ async def file_writer_node(state: GraphState, run_context: RunContext) -> dict:
 # This node generate code based on the task, original code, and any review feedback.
 # It constructs a prompt for the LLM and calls the Ollama client to get the modified code.
 async def coder_node(state: GraphState, run_context: RunContext) -> dict:
+    """Generate updated file contents using the configured LLM client.
+
+    Constructs a prompt using the task and original file contents, calls the
+    LLM via `client.chat`, and returns `generated_code` along with updated
+    iteration metadata. Emits a success/failure observability event.
+
+    Args:
+        state: GraphState with `task` and `original_code`.
+        run_context: RunContext used for observability.
+
+    Returns:
+        dict containing `generated_code`, `iteration`, and `review_passed`.
+    """
     start = time.time()
     try:
         iteration = state.get("iteration", 0) + 1
@@ -253,6 +327,19 @@ async def coder_node(state: GraphState, run_context: RunContext) -> dict:
 
 # This node reviews the generated code using simple heuristics to determine if it meets basic quality standards.
 async def reviewer_node(state: GraphState, run_context: RunContext) -> dict:
+    """Review generated code using syntax checks and optional `ruff` linting.
+
+    Performs a syntax validation and, if available, runs `ruff` against a
+    temporary file. Emits observability events describing pass/fail and
+    returns a mapping with `review_passed` and optional `review_feedback`.
+
+    Args:
+        state: GraphState expected to contain `generated_code`.
+        run_context: RunContext used for observability.
+
+    Returns:
+        dict with `review_passed` and `review_feedback`.
+    """
     start = time.time()
     try:
         code = _strip_code_fences(_require_state_value(state, "generated_code"))
@@ -350,6 +437,20 @@ async def reviewer_node(state: GraphState, run_context: RunContext) -> dict:
 
 # This node performs a final verification step by executing the generated code in an isolated namespace to catch any runtime errors.
 async def verifier_node(state: GraphState, run_context: RunContext) -> dict:
+    """Run a lightweight verification of the generated code by executing it.
+
+    Ensures the generated code compiles and can be executed safely in an
+    isolated namespace. Optionally performs a trivial smoke test if an `add`
+    function is present. Emits observability events and returns verification
+    results.
+
+    Args:
+        state: GraphState containing `generated_code`.
+        run_context: RunContext used for observability.
+
+    Returns:
+        dict with `verification_passed` and `verification_feedback`.
+    """
     start = time.time()
     try:
         code = _strip_code_fences(_require_state_value(state, "generated_code"))
@@ -426,6 +527,18 @@ async def verifier_node(state: GraphState, run_context: RunContext) -> dict:
 
 # This node generates a diff between the original code and the generated code using the ndiff format.
 async def diff_generator_node(state: GraphState, run_context: RunContext) -> dict:
+    """Produce a unified diff between the original and generated code.
+
+    Uses `generate_unified` from `src.tools.patches` and emits a small
+    observability event describing the diff size.
+
+    Args:
+        state: GraphState with `original_code` and `generated_code`.
+        run_context: RunContext used for observability.
+
+    Returns:
+        dict with `generated_diff` on success.
+    """
     start = time.time()
     try:
         original = _require_state_value(state, "original_code")
