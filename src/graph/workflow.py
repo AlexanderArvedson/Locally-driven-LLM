@@ -7,6 +7,7 @@ from src.graph.nodes.nodes import (
     file_writer_node,
     reviewer_node,
     verifier_node,
+    diff_generator_node,
 )
 
 MAX_ITERATIONS = 3
@@ -32,13 +33,15 @@ builder = StateGraph(GraphState)
 
 builder.add_node("file_reader", file_reader_node)
 builder.add_node("coder", coder_node)
+builder.add_node("diff_generator", diff_generator_node)
 builder.add_node("reviewer", reviewer_node)
 builder.add_node("verifier", verifier_node)
 builder.add_node("file_writer", file_writer_node)
 
 builder.add_edge(START, "file_reader")
 builder.add_edge("file_reader", "coder")
-builder.add_edge("coder", "reviewer")
+builder.add_edge("coder", "diff_generator")
+builder.add_edge("diff_generator", "reviewer")
 builder.add_edge("reviewer", "verifier")
 builder.add_edge("verifier", "file_writer")
 builder.add_edge("file_writer", END)
