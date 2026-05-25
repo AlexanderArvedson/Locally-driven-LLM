@@ -15,3 +15,20 @@ uv run -m scripts.test_file_edit
 ```
 
 If a patch fails to apply the tool will save artifacts under `failed_patches/` for manual inspection.
+
+Observability
+-------------
+
+Run the file-edit smoke path to generate a per-run JSONL trace under `logs/runs/`:
+
+```bash
+uv run -m scripts.test_file_edit
+```
+
+Inspect the most recent run (requires `jq`):
+
+```bash
+ls -1 logs/runs | tail -n1 | xargs -I{} sh -c 'cat logs/runs/{} | jq'
+```
+
+Logs and runtime artifacts are ignored by git; see `.gitignore` for entries such as `logs/runs/` and `failed_patches/`.
