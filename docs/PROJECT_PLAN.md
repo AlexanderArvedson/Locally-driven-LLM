@@ -168,10 +168,10 @@ Modify a real file via LLM-generated diff with full safety gating.
 
 A run is valid only if:
 
-- [] no uncontrolled file overwrite occurs
-- [] diff is either applied or rejected deterministically
-- [] verifier executes and produces pass/fail
-- [] failed outputs are persisted in `failed_patches/`
+- [x] no uncontrolled file overwrite occurs
+- [x] diff is either applied or rejected deterministically
+- [x] verifier executes and produces pass/fail
+- [x] failed outputs are persisted in `failed_patches/`
 
 ---
 
