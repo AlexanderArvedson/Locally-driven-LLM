@@ -7,6 +7,14 @@ client = OllamaClient(base_url="http://localhost:11434")
 MAX_ITERATIONS = 3
 
 
+def _require_state_value(state: GraphState, key: str) -> str:
+    value = state.get(key)
+    if value is None:
+        raise ValueError(f"Missing required state value: {key}")
+
+    return value
+
+
 def _strip_code_fences(content: str) -> str:
     lines = content.strip().splitlines()
 
@@ -22,7 +30,7 @@ def _strip_code_fences(content: str) -> str:
 # Takes the target file path from the state, reads its content, and returns it in a dictionary. 
 # This node is responsible for loading the original code that will be modified by the coder node.
 async def file_reader_node(state: GraphState) -> dict:
-    target_file = state["target_file"]
+    target_file = _require_state_value(state, "target_file")
     return {
         "original_code": read_file(target_file),
     }
@@ -31,8 +39,8 @@ async def file_reader_node(state: GraphState) -> dict:
 # Takes the generated code from the state and writes it back to the target file.
 # This node is responsible for saving the modifications made by the coder node to the filesystem.
 async def file_writer_node(state: GraphState) -> dict:
-    target_file = state["target_file"]
-    generated_code = _strip_code_fences(state["generated_code"])
+    target_file = _require_state_value(state, "target_file")
+    generated_code = _strip_code_fences(_require_state_value(state, "generated_code"))
     write_file(target_file, generated_code)
 
     return {
@@ -45,11 +53,12 @@ async def file_writer_node(state: GraphState) -> dict:
 async def coder_node(state: GraphState) -> dict:
     iteration = state.get("iteration", 0) + 1
     review_feedback = state.get("review_feedback")
+    original_code = _require_state_value(state, "original_code")
 
     user_prompt = (
         f"Task: {state['task']}\n\n"
         f"Target file: {state.get('target_file', '')}\n\n"
-        f"File content:\n{state['original_code']}\n\n"
+        f"File content:\n{original_code}\n\n"
         "Return the FULL updated file only.\n"
         "Do not include explanations."
     )
