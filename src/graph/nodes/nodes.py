@@ -20,6 +20,7 @@ import time
 
 from src.observability.context import RunContext
 from src.observability.logger import log_event
+from observability.event_logging_utils import emit_success, emit_failure
 
 
 logger = logging.getLogger(__name__)
@@ -114,27 +115,11 @@ async def file_reader_node(state: GraphState, run_context: RunContext) -> dict:
         target_file = _require_state_value(state, "target_file")
         original = read_file(target_file)
 
-        event = {
-            "run_id": run_context.run_id,
-            "node": "file_reader_node",
-            "status": "success",
-            "duration_ms": int((time.time() - start) * 1000),
-            "task": state.get("task", ""),
-            "payload": {"original_length": len(original)},
-        }
-        log_event(run_context.run_id, event)
+        emit_success(run_context, "file_reader_node", state.get("task", ""), {"original_length": len(original)}, start)
 
         return {"original_code": original}
     except Exception as e:
-        event = {
-            "run_id": run_context.run_id,
-            "node": "file_reader_node",
-            "status": "failure",
-            "duration_ms": int((time.time() - start) * 1000),
-            "task": state.get("task", ""),
-            "payload": {"error": str(e)},
-        }
-        log_event(run_context.run_id, event)
+        emit_failure(run_context, "file_reader_node", state.get("task", ""), str(e), start)
         raise
 
 
@@ -174,15 +159,7 @@ async def file_writer_node(state: GraphState, run_context: RunContext) -> dict:
 
                 logger.error("Applying unified diff failed for %s: %s; saved to %s", target_file, exc, failed_path)
 
-                event = {
-                    "run_id": run_context.run_id,
-                    "node": "file_writer_node",
-                    "status": "failure",
-                    "duration_ms": int((time.time() - start) * 1000),
-                    "task": state.get("task", ""),
-                    "payload": {"error": str(exc)},
-                }
-                log_event(run_context.run_id, event)
+                emit_failure(run_context, "file_writer_node", state.get("task", ""), str(exc), start)
 
                 return {
                     "verification_passed": False,
@@ -205,40 +182,24 @@ async def file_writer_node(state: GraphState, run_context: RunContext) -> dict:
 
                 event = {
                     "run_id": run_context.run_id,
-                    "node": "file_writer_node",
-                    "status": "failure",
-                    "duration_ms": int((time.time() - start) * 1000),
-                    "task": state.get("task", ""),
-                    "payload": {"error": str(exc)},
-                }
-                log_event(run_context.run_id, event)
+                        "node": "file_writer_node",
+                        "status": "failure",
+                        "duration_ms": int((time.time() - start) * 1000),
+                        "task": state.get("task", ""),
+                        "payload": {"error": str(exc)},
+                    }
+                emit_failure(run_context, "file_writer_node", state.get("task", ""), str(exc), start)
 
                 return {
                     "verification_passed": False,
                     "verification_feedback": f"Writing file failed: {exc}; saved generated output at {failed_path}",
                 }
 
-        event = {
-            "run_id": run_context.run_id,
-            "node": "file_writer_node",
-            "status": "success",
-            "duration_ms": int((time.time() - start) * 1000),
-            "task": state.get("task", ""),
-            "payload": {"updated_length": len(generated_code)},
-        }
-        log_event(run_context.run_id, event)
+        emit_success(run_context, "file_writer_node", state.get("task", ""), {"updated_length": len(generated_code)}, start)
 
         return {"updated_code": generated_code}
     except Exception as e:
-        event = {
-            "run_id": run_context.run_id,
-            "node": "file_writer_node",
-            "status": "failure",
-            "duration_ms": int((time.time() - start) * 1000),
-            "task": state.get("task", ""),
-            "payload": {"error": str(e)},
-        }
-        log_event(run_context.run_id, event)
+        emit_failure(run_context, "file_writer_node", state.get("task", ""), str(e), start)
         raise
 
 
@@ -297,15 +258,7 @@ async def coder_node(state: GraphState, run_context: RunContext) -> dict:
             temperature=0.2,
         )
 
-        event = {
-            "run_id": run_context.run_id,
-            "node": "coder_node",
-            "status": "success",
-            "duration_ms": int((time.time() - start) * 1000),
-            "task": state.get("task", ""),
-            "payload": {"model": "qwen2.5-coder:7b"},
-        }
-        log_event(run_context.run_id, event)
+        emit_success(run_context, "coder_node", state.get("task", ""), {"model": "qwen2.5-coder:7b"}, start)
 
         return {
             "generated_code": result.message,
@@ -313,15 +266,7 @@ async def coder_node(state: GraphState, run_context: RunContext) -> dict:
             "review_passed": False,
         }
     except Exception as e:
-        event = {
-            "run_id": run_context.run_id,
-            "node": "coder_node",
-            "status": "failure",
-            "duration_ms": int((time.time() - start) * 1000),
-            "task": state.get("task", ""),
-            "payload": {"error": str(e)},
-        }
-        log_event(run_context.run_id, event)
+        emit_failure(run_context, "coder_node", state.get("task", ""), str(e), start)
         raise
 
 
@@ -346,15 +291,7 @@ async def reviewer_node(state: GraphState, run_context: RunContext) -> dict:
         passed, feedback = _validate_python_syntax(code)
 
         if not passed:
-            event = {
-                "run_id": run_context.run_id,
-                "node": "reviewer_node",
-                "status": "failure",
-                "duration_ms": int((time.time() - start) * 1000),
-                "task": state.get("task", ""),
-                "payload": {"error": feedback},
-            }
-            log_event(run_context.run_id, event)
+            emit_failure(run_context, "reviewer_node", state.get("task", ""), feedback, start)
             return {"review_passed": False, "review_feedback": feedback}
 
         # Prefer running `ruff` for linting if available. We write the generated code
@@ -373,15 +310,7 @@ async def reviewer_node(state: GraphState, run_context: RunContext) -> dict:
                 if res.returncode != 0:
                     # ruff found issues — include stdout/stderr in feedback
                     out = (res.stdout or "") + ("\n" + res.stderr if res.stderr else "")
-                    event = {
-                        "run_id": run_context.run_id,
-                        "node": "reviewer_node",
-                        "status": "failure",
-                        "duration_ms": int((time.time() - start) * 1000),
-                        "task": state.get("task", ""),
-                        "payload": {"error": out},
-                    }
-                    log_event(run_context.run_id, event)
+                    emit_failure(run_context, "reviewer_node", state.get("task", ""), out, start)
                     return {"review_passed": False, "review_feedback": f"Ruff reported issues:\n{out}"}
             except FileNotFoundError:
                 # ruff disappeared between check and run; fall back to heuristics below
@@ -400,38 +329,14 @@ async def reviewer_node(state: GraphState, run_context: RunContext) -> dict:
             and len(code) > 20
         )
         if not heur_pass:
-            event = {
-                "run_id": run_context.run_id,
-                "node": "reviewer_node",
-                "status": "failure",
-                "duration_ms": int((time.time() - start) * 1000),
-                "task": state.get("task", ""),
-                "payload": {"error": "Heuristic checks failed"},
-            }
-            log_event(run_context.run_id, event)
+            emit_failure(run_context, "reviewer_node", state.get("task", ""), "Heuristic checks failed", start)
             return {"review_passed": False, "review_feedback": "Heuristic checks failed: ensure function definitions exist, avoid TODO markers, and file is non-trivial."}
 
-        event = {
-            "run_id": run_context.run_id,
-            "node": "reviewer_node",
-            "status": "success",
-            "duration_ms": int((time.time() - start) * 1000),
-            "task": state.get("task", ""),
-            "payload": {"review_passed": True},
-        }
-        log_event(run_context.run_id, event)
+        emit_success(run_context, "reviewer_node", state.get("task", ""), {"review_passed": True}, start)
 
         return {"review_passed": True, "review_feedback": ""}
     except Exception as e:
-        event = {
-            "run_id": run_context.run_id,
-            "node": "reviewer_node",
-            "status": "failure",
-            "duration_ms": int((time.time() - start) * 1000),
-            "task": state.get("task", ""),
-            "payload": {"error": str(e)},
-        }
-        log_event(run_context.run_id, event)
+        emit_failure(run_context, "reviewer_node", state.get("task", ""), str(e), start)
         raise
 
 
@@ -474,15 +379,7 @@ async def verifier_node(state: GraphState, run_context: RunContext) -> dict:
         try:
             exec(code, ns)
         except Exception as exc:
-            event = {
-                "run_id": run_context.run_id,
-                "node": "verifier_node",
-                "status": "failure",
-                "duration_ms": int((time.time() - start) * 1000),
-                "task": state.get("task", ""),
-                "payload": {"error": str(exc)},
-            }
-            log_event(run_context.run_id, event)
+            emit_failure(run_context, "verifier_node", state.get("task", ""), str(exc), start)
             return {"verification_passed": False, "verification_feedback": f"Runtime exec error: {exc}"}
 
         # Optional smoke test: if a function named `add` exists, call it once.
@@ -490,38 +387,14 @@ async def verifier_node(state: GraphState, run_context: RunContext) -> dict:
             try:
                 ns["add"](1, 2)
             except Exception as exc:
-                event = {
-                    "run_id": run_context.run_id,
-                    "node": "verifier_node",
-                    "status": "failure",
-                    "duration_ms": int((time.time() - start) * 1000),
-                    "task": state.get("task", ""),
-                    "payload": {"error": str(exc)},
-                }
-                log_event(run_context.run_id, event)
+                emit_failure(run_context, "verifier_node", state.get("task", ""), str(exc), start)
                 return {"verification_passed": False, "verification_feedback": f"Runtime test failed: {exc}"}
 
-        event = {
-            "run_id": run_context.run_id,
-            "node": "verifier_node",
-            "status": "success",
-            "duration_ms": int((time.time() - start) * 1000),
-            "task": state.get("task", ""),
-            "payload": {"verification_passed": True},
-        }
-        log_event(run_context.run_id, event)
+        emit_success(run_context, "verifier_node", state.get("task", ""), {"verification_passed": True}, start)
 
         return {"verification_passed": True, "verification_feedback": ""}
     except Exception as e:
-        event = {
-            "run_id": run_context.run_id,
-            "node": "verifier_node",
-            "status": "failure",
-            "duration_ms": int((time.time() - start) * 1000),
-            "task": state.get("task", ""),
-            "payload": {"error": str(e)},
-        }
-        log_event(run_context.run_id, event)
+        emit_failure(run_context, "verifier_node", state.get("task", ""), str(e), start)
         raise
 
 
@@ -545,25 +418,9 @@ async def diff_generator_node(state: GraphState, run_context: RunContext) -> dic
         generated = _strip_code_fences(_require_state_value(state, "generated_code"))
         nd = generate_unified(original, generated, fromfile=str(state.get("target_file", "a")), tofile=str(state.get("target_file", "b")))
 
-        event = {
-            "run_id": run_context.run_id,
-            "node": "diff_generator_node",
-            "status": "success",
-            "duration_ms": int((time.time() - start) * 1000),
-            "task": state.get("task", ""),
-            "payload": {"diff_length": len(nd)},
-        }
-        log_event(run_context.run_id, event)
+        emit_success(run_context, "diff_generator_node", state.get("task", ""), {"diff_length": len(nd)}, start)
 
         return {"generated_diff": nd}
     except Exception as e:
-        event = {
-            "run_id": run_context.run_id,
-            "node": "diff_generator_node",
-            "status": "failure",
-            "duration_ms": int((time.time() - start) * 1000),
-            "task": state.get("task", ""),
-            "payload": {"error": str(e)},
-        }
-        log_event(run_context.run_id, event)
+        emit_failure(run_context, "diff_generator_node", state.get("task", ""), str(e), start)
         raise
