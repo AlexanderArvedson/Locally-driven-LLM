@@ -4,6 +4,9 @@ from src.tools.files import read_file, write_file
 from src.tools.patches import generate_unified, apply_unified
 from pathlib import Path
 import logging
+import subprocess
+import tempfile
+import shutil
 
 
 logger = logging.getLogger(__name__)
@@ -157,10 +160,51 @@ async def reviewer_node(state: GraphState) -> dict:
     code = _strip_code_fences(_require_state_value(state, "generated_code"))
     passed, feedback = _validate_python_syntax(code)
 
-    return {
-        "review_passed": passed,
-        "review_feedback": feedback,
-    }
+    if not passed:
+        return {
+            "review_passed": False,
+            "review_feedback": feedback,
+        }
+
+    # Prefer running `ruff` for linting if available. We write the generated code
+    # to a temporary file and run ruff on it. If ruff reports issues, fail review.
+    if shutil.which("ruff"):
+        tf = None
+        try:
+            tf = tempfile.NamedTemporaryFile("w", suffix=".py", delete=False)
+            tf.write(code)
+            tf.flush()
+            tf_name = tf.name
+            tf.close()
+
+            res = subprocess.run(["ruff", tf_name], capture_output=True, text=True)
+            if res.returncode != 0:
+                # ruff found issues — include stdout/stderr in feedback
+                out = (res.stdout or "") + ("\n" + res.stderr if res.stderr else "")
+                return {"review_passed": False, "review_feedback": f"Ruff reported issues:\n{out}"}
+        except FileNotFoundError:
+            # ruff disappeared between check and run; fall back to heuristics below
+            pass
+        finally:
+            try:
+                if tf is not None:
+                    Path(tf_name).unlink()
+            except Exception:
+                pass
+
+    # Fallback heuristics if ruff isn't available: basic quality checks.
+    heur_pass = (
+        "def " in code
+        and "TODO" not in code
+        and len(code) > 20
+    )
+    if not heur_pass:
+        return {
+            "review_passed": False,
+            "review_feedback": "Heuristic checks failed: ensure function definitions exist, avoid TODO markers, and file is non-trivial.",
+        }
+
+    return {"review_passed": True, "review_feedback": ""}
 
 
 # This node performs a final verification step by executing the generated code in an isolated namespace to catch any runtime errors.
