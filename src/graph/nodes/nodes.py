@@ -2,6 +2,13 @@ from src.core.ollama_client import OllamaClient
 from src.graph.state import GraphState
 from src.tools.files import read_file, write_file
 from src.tools.patches import generate_unified, apply_unified
+from pathlib import Path
+import logging
+
+
+logger = logging.getLogger(__name__)
+if not logger.handlers:
+    logging.basicConfig(level=logging.INFO)
 
 
 client = OllamaClient(base_url="http://localhost:11434")
@@ -60,18 +67,37 @@ async def file_writer_node(state: GraphState) -> dict:
         try:
             apply_unified(target_file, _require_state_value(state, "generated_diff"))
         except Exception as exc:
-            # Abort and surface error: do not overwrite the file.
+            # Abort and surface error: do not overwrite the file. Persist failed patch for manual inspection.
+            failed_dir = Path("failed_patches")
+            failed_dir.mkdir(parents=True, exist_ok=True)
+            failed_path = failed_dir / (Path(target_file).name + ".failed.patch")
+            try:
+                failed_path.write_text(_require_state_value(state, "generated_diff"), encoding="utf-8")
+            except Exception as wexc:
+                logger.error("Failed to write failed patch file: %s", wexc)
+
+            logger.error("Applying unified diff failed for %s: %s; saved to %s", target_file, exc, failed_path)
             return {
                 "verification_passed": False,
-                "verification_feedback": f"Applying unified diff failed: {exc}",
+                "verification_feedback": f"Applying unified diff failed: {exc}; saved failed patch at {failed_path}",
             }
     else:
         try:
             write_file(target_file, generated_code)
         except Exception as exc:
+            # Persist the generated code for manual inspection
+            failed_dir = Path("failed_patches")
+            failed_dir.mkdir(parents=True, exist_ok=True)
+            failed_path = failed_dir / (Path(target_file).name + ".failed.py")
+            try:
+                failed_path.write_text(generated_code, encoding="utf-8")
+            except Exception as wexc:
+                logger.error("Failed to write failed generated file: %s", wexc)
+
+            logger.error("Writing file failed for %s: %s; saved to %s", target_file, exc, failed_path)
             return {
                 "verification_passed": False,
-                "verification_feedback": f"Writing file failed: {exc}",
+                "verification_feedback": f"Writing file failed: {exc}; saved generated output at {failed_path}",
             }
 
     return {
