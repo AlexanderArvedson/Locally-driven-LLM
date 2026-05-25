@@ -220,13 +220,6 @@ __marimo__/
 # Runtime artifacts
 .runtime/
 
-# Legacy runtime directories
-failed_patches/
-logs/runs/
-
-# Observability outputs
-*.jsonl
-
 # Local evaluation artifacts
 artifacts/
 runs/

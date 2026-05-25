@@ -1,9 +1,10 @@
 import json
 import unittest
 from pathlib import Path
+from src.core.runtime_paths import RUNS_DIR, ensure_runtime_dirs
 
 from src.observability.context import RunContext
-from observability.event_logging_utils import emit_success, emit_failure
+from src.observability.event_logging_utils import emit_success, emit_failure
 
 
 class TestObservabilitySchema(unittest.TestCase):
@@ -20,7 +21,8 @@ class TestObservabilitySchema(unittest.TestCase):
         emit_failure(rc, "node_b", "task-a", "some error")
         emit_success(rc, "node_c", "task-a", {"value": 123})
 
-        log_path = Path("logs/runs") / f"{rc.run_id}.jsonl"
+        ensure_runtime_dirs()
+        log_path = RUNS_DIR / f"{rc.run_id}.jsonl"
         self.assertTrue(log_path.exists(), "JSONL log file was not created")
 
         lines = log_path.read_text(encoding="utf-8").strip().splitlines()
@@ -29,6 +31,6 @@ class TestObservabilitySchema(unittest.TestCase):
         for line in lines:
             obj = json.loads(line)
             # required top-level keys
-            self.assertEqual(set(obj.keys()), {"run_id", "node", "status", "duration_ms", "task", "payload"})
+            self.assertEqual(set(obj.keys()), {"run_id", "node", "status", "duration_ms", "task", "timestamp", "payload"})
             self.assertEqual(obj["run_id"], rc.run_id)
             self.assertIn(obj["status"], ("success", "failure"))

@@ -4,13 +4,14 @@ Provides helpers to emit success/failure events with consistent shape and
 duration calculation to reduce duplication across node implementations.
 """
 import time
+from datetime import datetime, timezone
 from typing import Any, Dict
 
 from .logger import log_event
 from .context import RunContext
 
 
-ALLOWED_TOP_LEVEL_KEYS = {"run_id", "node", "status", "duration_ms", "task", "payload"}
+ALLOWED_TOP_LEVEL_KEYS = {"run_id", "node", "status", "duration_ms", "task", "timestamp", "payload"}
 
 
 def emit_event(run_context: RunContext, 
@@ -40,6 +41,7 @@ def emit_event(run_context: RunContext,
         "status": status,
         "duration_ms": duration_ms,
         "task": task,
+        "timestamp": datetime.now(timezone.utc).isoformat(),
         "payload": payload or {},
     }
 

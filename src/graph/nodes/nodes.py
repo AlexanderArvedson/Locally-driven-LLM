@@ -12,6 +12,7 @@ from src.graph.state import GraphState
 from src.tools.files import read_file, write_file
 from src.tools.patches import generate_unified, apply_unified
 from pathlib import Path
+from src.core.runtime_paths import FAILED_PATCHES_DIR, ensure_runtime_dirs
 import logging
 import subprocess
 import tempfile
@@ -149,9 +150,8 @@ async def file_writer_node(state: GraphState, run_context: RunContext) -> dict:
                 apply_unified(target_file, _require_state_value(state, "generated_diff"))
             except Exception as exc:
                 # Abort and surface error: do not overwrite the file. Persist failed patch for manual inspection.
-                failed_dir = Path("failed_patches")
-                failed_dir.mkdir(parents=True, exist_ok=True)
-                failed_path = failed_dir / (Path(target_file).name + ".failed.patch")
+                ensure_runtime_dirs()
+                failed_path = FAILED_PATCHES_DIR / (Path(target_file).name + ".failed.patch")
                 try:
                     failed_path.write_text(_require_state_value(state, "generated_diff"), encoding="utf-8")
                 except Exception as wexc:
@@ -170,9 +170,8 @@ async def file_writer_node(state: GraphState, run_context: RunContext) -> dict:
                 write_file(target_file, generated_code)
             except Exception as exc:
                 # Persist the generated code for manual inspection
-                failed_dir = Path("failed_patches")
-                failed_dir.mkdir(parents=True, exist_ok=True)
-                failed_path = failed_dir / (Path(target_file).name + ".failed.py")
+                ensure_runtime_dirs()
+                failed_path = FAILED_PATCHES_DIR / (Path(target_file).name + ".failed.py")
                 try:
                     failed_path.write_text(generated_code, encoding="utf-8")
                 except Exception as wexc:

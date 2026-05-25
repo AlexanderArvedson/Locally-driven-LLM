@@ -1,0 +1,65 @@
+name: CI - Tests and Smoke Run
+
+on:
+  push: {}
+  pull_request: {}
+
+jobs:
+  test-and-smoke:
+    name: Unit tests and smoke execution
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python 3.12
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
+
+      - name: Upgrade pip
+        run: python -m pip install --upgrade pip
+
+      - name: Install toolkit (uv) and project
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install uv || true
+          # If project is installable, install editable; otherwise try pip install fallback
+          python -m pip install -e . || true
+          # If `uv` is available, attempt to sync declared locks (best-effort)
+          if command -v uv >/dev/null 2>&1; then uv sync || true; fi
+
+      - name: Ensure runtime directories exist
+        run: |
+          mkdir -p .runtime/logs .runtime/failed_patches .runtime/traces .runtime/runs
+          touch .runtime/logs/.gitkeep .runtime/failed_patches/.gitkeep .runtime/traces/.gitkeep .runtime/runs/.gitkeep
+
+      - name: Run unit tests
+        run: python3 -m unittest -q
+
+      - name: Run smoke execution (deterministic)
+        run: |
+          set -euo pipefail
+          # Prefer `uv run` when available to mirror local development. Fall back to python -m.
+          if command -v uv >/dev/null 2>&1; then
+            uv run -m scripts.test_file_edit
+          else
+            python3 -m scripts.test_file_edit
+          fi
+
+      - name: Validate runtime JSONL logs
+        run: python3 scripts/validate_run_logs.py
+
+      - name: Upload runtime logs (on failure)
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: runtime-logs
+          path: .runtime/runs
+
+      - name: Upload failed patches (on failure)
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: failed-patches
+          path: .runtime/failed_patches
