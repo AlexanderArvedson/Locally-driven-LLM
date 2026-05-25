@@ -158,6 +158,42 @@ Embeddings are treated as one component of a larger retrieval pipeline rather th
 - [ ] retry loop
 - [ ] basic issue execution flow
 
+## Implementation status — File Mutation MVP
+
+- **Status:** Phase 1 (Repository File Mutation MVP) implemented and smoke-tested.
+- **Implemented features:** deterministic file I/O, sandbox target file, repository-aware prompts, coder node that receives full file content, diff-based generation (unified diff), reviewer (syntax check), verifier (exec smoke tests), safe writer with abort-on-failure, logging and `failed_patches/` persistence, and a unit test baseline for patch application.
+- **Key files:**
+	- `src/tools/files.py` — deterministic read/write helpers
+	- `src/tools/patches.py` — unified diff generator + applier
+	- `src/graph/nodes/nodes.py` — reader, coder, diff generator, reviewer, verifier, writer + logging
+	- `src/graph/workflow.py` — wired execution graph for the single-file loop
+	- `scripts/test_file_edit.py` — smoke test using `sandbox/example.py`
+	- `tests/test_patches.py` — unit test ensuring patch apply + valid python
+- **Runtime artifacts:** failed or unapplyable patches and problematic generated outputs are saved under `failed_patches/` for manual inspection.
+
+## How to verify locally
+
+1. Run unit tests:
+
+```bash
+python3 -m unittest -q
+```
+
+2. Run the smoke edit flow (reads `sandbox/example.py`, invokes the graph, writes back):
+
+```bash
+uv run -m scripts.test_file_edit
+```
+
+3. If a patch fails to apply or writing fails, inspect `failed_patches/` for saved `.failed.patch` or `.failed.py` files.
+
+## Next recommended priorities
+
+- Add CI to run unit tests and the smoke script automatically.
+- Add a CLI tool to inspect and re-run failed patches from `failed_patches/`.
+- Harden review heuristics (lint, static analysis) as additional gates before writing.
+
+
 ---
 
 ## Phase 2 — Repository Awareness
