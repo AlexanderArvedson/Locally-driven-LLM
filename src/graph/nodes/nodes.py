@@ -27,6 +27,19 @@ def _strip_code_fences(content: str) -> str:
     return "\n".join(lines).strip("\n")
 
 
+def _validate_python_syntax(content: str) -> tuple[bool, str]:
+    if not content.strip():
+        return False, "Generated code is empty."
+
+    try:
+        compile(content, "<generated_code>", "exec")
+    except SyntaxError as exc:
+        location = f"line {exc.lineno}" if exc.lineno is not None else "an unknown line"
+        return False, f"Generated code has a syntax error at {location}: {exc.msg}"
+
+    return True, ""
+
+
 # Takes the target file path from the state, reads its content, and returns it in a dictionary. 
 # This node is responsible for loading the original code that will be modified by the coder node.
 async def file_reader_node(state: GraphState) -> dict:
@@ -96,16 +109,10 @@ async def coder_node(state: GraphState) -> dict:
 
 # This node reviews the generated code using simple heuristics to determine if it meets basic quality standards.
 async def reviewer_node(state: GraphState) -> dict:
-    code = state.get("generated_code", "")
-
-    # simple heuristic (temporary)
-    passed = (
-        "def " in code
-        and "TODO" not in code
-        and len(code) > 20
-    )
+    code = _strip_code_fences(_require_state_value(state, "generated_code"))
+    passed, feedback = _validate_python_syntax(code)
 
     return {
         "review_passed": passed,
-        "review_feedback": "Code must include a function definition, avoid TODO markers, and be longer than 20 characters." if not passed else "",
+        "review_feedback": feedback,
     }
