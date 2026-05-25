@@ -1,3 +1,5 @@
+Last updated: 2026-05-25
+
 # PROJECT PLAN
 
 ## Project Overview
@@ -147,12 +149,12 @@ The system currently supports:
 
 ## Key Files
 
-- [x] `src/tools/files.py` — file I/O
-- [x] `src/tools/patches.py` — diff generation + application
-- [x] `src/graph/nodes/nodes.py` — coder, reviewer, verifier, writer
-- [x] `src/graph/workflow.py` — execution graph
-- [x] `scripts/test_file_edit.py` — smoke test
-- [x] `tests/test_patches.py` — unit tests
+- `src/tools/files.py` — file I/O
+- `src/tools/patches.py` — diff generation + application
+- `src/graph/nodes/nodes.py` — coder, reviewer, verifier, writer
+- `src/graph/workflow.py` — execution graph
+- `scripts/test_file_edit.py` — smoke test
+- `tests/test_patches.py` — unit tests
 
 ---
 
@@ -166,10 +168,10 @@ Modify a real file via LLM-generated diff with full safety gating.
 
 A run is valid only if:
 
-- [x] no uncontrolled file overwrite occurs
-- [x] diff is either applied or rejected deterministically
-- [x] verifier executes and produces pass/fail
-- [x] failed outputs are persisted in `failed_patches/`
+- [] no uncontrolled file overwrite occurs
+- [] diff is either applied or rejected deterministically
+- [] verifier executes and produces pass/fail
+- [] failed outputs are persisted in `failed_patches/`
 
 ---
 
@@ -217,7 +219,7 @@ Purpose:
 Phase 1 is complete when:
 
 - [] CI runs tests + smoke execution
-- [x] structured logs exist for all nodes (partial / in progress conceptually)
+- [] structured logs exist for all nodes (partial / in progress conceptually)
 - [x] failed patches are persisted reliably
 - [x] diff application is deterministic
 - [x] verifier gate is enforced before write
