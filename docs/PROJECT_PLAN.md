@@ -1,4 +1,4 @@
-Last updated: 2026-05-25
+Last updated: 2026-05-26
 
 # PROJECT PLAN
 
@@ -6,7 +6,7 @@ Last updated: 2026-05-25
 
 This project explores locally hosted, tool-augmented LLM systems for continuous software maintenance and bounded repository evolution.
 
-The system is designed around asynchronous autonomous workflows rather than interactive chat-based coding assistance.
+The system is designed around asynchronous workflow orchestration for future autonomous maintenance operations rather than interactive chat-based coding assistance.
 
 Primary goals:
 - Repository health monitoring
@@ -265,13 +265,239 @@ Extend beyond single-file mutation into deterministic, bounded repository-aware 
 - [x] cross-file dependency awareness (dependency summary in context payload)
 - [x] retrieval/coder contract (versioned serializer + validator)
 - [x] graph node wiring (`context_builder_node`) and prompt boundary enforcement
-- [ ] Optional: extend retrieval heuristics and ranking (future work)
+- [x] Optional: extend retrieval heuristics and ranking 
 
 ---
 
-# Phase 3 — Passive Analysis System
+# Phase 3 — Execution & Scheduling Layer
 
-- [ ] scheduled scans
+## Goal
+
+Introduce a deterministic execution layer responsible for orchestrating repository analysis runs independently of analysis logic or LLM workflows.
+
+This phase establishes the control plane for Passive Mode and future autonomous workflows.
+
+The scheduler is responsible for:
+
+- deciding when runs occur
+- selecting repositories/tasks
+- managing execution lifecycle
+- enforcing concurrency boundaries
+- persisting execution metadata
+- coordinating workflow invocation
+
+The scheduler does not perform repository analysis itself.
+
+## Responsibilities
+
+### 1. Scheduled Execution
+
+Support deterministic scheduled repository scans.
+
+Initial scope:
+
+- interval-based execution
+- manually triggerable runs
+- single-process scheduling
+
+Future scope:
+
+- cron expressions
+- distributed execution
+- event-driven triggers
+
+### 2. Run Lifecycle Management
+
+Introduce a formal run lifecycle.
+
+Example states:
+
+- pending
+- queued
+- running
+- completed
+- failed
+- cancelled
+
+Responsibilities:
+
+- create run records
+- track execution status
+- persist timestamps
+- record failures
+- support retries/backoff
+
+### 3. Repository Task Selection
+
+Define how repositories are selected for execution.
+
+Initial MVP:
+
+- static configured repository list
+- sequential processing
+
+Future work:
+
+- prioritization
+- adaptive scheduling
+- issue-driven execution
+- cooldown windows
+
+### 4. Workflow Invocation Boundary
+
+The scheduler invokes workflows but remains separate from LangGraph internals.
+
+Responsibilities:
+
+- construct execution request
+- provide runtime metadata
+- launch workflow
+- collect execution result
+
+The scheduler must not:
+
+- contain LLM logic
+- contain retrieval logic
+- contain patch-generation logic
+
+### 5. Concurrency Control
+
+Introduce bounded execution guarantees.
+
+Initial constraints:
+
+- one active workflow per repository
+- optional global concurrency limit
+- deterministic execution order
+
+Future work:
+
+- distributed workers
+- priority queues
+- resource-aware scheduling
+
+### 6. Persistence Layer
+
+Persist execution metadata independently from node-level JSONL traces.
+
+Possible persisted data:
+
+- run ID
+- repository
+- workflow type
+- execution timestamps
+- completion state
+- failure reason
+- retry count
+
+Initial implementation may use:
+
+- SQLite
+- JSON state files
+
+### 7. Failure Handling & Recovery
+
+Introduce scheduler-level recovery behavior.
+
+Responsibilities:
+
+- retry failed runs
+- bounded retry policy
+- failure persistence
+- orphaned run cleanup
+- timeout handling
+
+This is distinct from:
+
+- reviewer retries
+- verifier retries
+- LLM refinement loops
+
+### 8. Execution Identity Model
+
+Each scheduled execution should receive:
+
+- globally unique run ID
+- immutable execution metadata
+- trace linkage across scheduler/runtime logs
+
+This identity model is useful for:
+
+- Langfuse integration
+- evaluation harnesses
+- replay and debugging
+- benchmark reproducibility
+
+## Initial Architecture Direction
+
+### Proposed Components
+
+- SchedulerService
+	- execution loop
+	- interval management
+	- task dispatch
+- RunRegistry
+	- execution persistence
+	- run status tracking
+- RepositoryQueue
+	- repository scheduling order
+	- concurrency enforcement
+- WorkflowExecutor
+	- isolated LangGraph invocation boundary
+
+### Initial Execution Flow
+
+- Scheduler tick occurs
+- Repository selected
+- Run record created
+- Workflow execution launched
+- Runtime logs emitted
+- Run state updated
+- Results persisted
+
+## Phase 3 Completion Criteria
+
+Phase 3 is complete when:
+
+- repositories can be scheduled deterministically
+- workflows execute through scheduler orchestration
+- run lifecycle states are persisted
+- scheduler failures are recoverable
+- repository concurrency constraints are enforced
+- manual and scheduled execution both function
+- scheduler logic is isolated from LangGraph workflow logic
+
+## Non-Goals (Current Phase)
+
+The following are explicitly out of scope:
+
+- distributed scheduling
+- Kubernetes orchestration
+- multi-machine execution
+- cloud-native scaling
+- event-stream infrastructure
+- advanced queue brokers
+- autonomous issue prioritization
+- self-modifying scheduling policies
+
+## Notes
+
+The scheduling layer is considered infrastructure orchestration, not analysis logic.
+
+This separation exists to preserve:
+
+- deterministic execution
+- bounded autonomy
+- reproducibility
+- testability
+- workflow isolation
+
+---
+
+# Phase 4 — Passive Analysis System
+
+- [ ] repository analysis execution
+- [ ] maintainability analysis
 - [ ] issue detection
 - [ ] ranking/scoring
 - [ ] persistence layer
@@ -279,7 +505,7 @@ Extend beyond single-file mutation into deterministic, bounded repository-aware 
 
 ---
 
-# Phase 4 — Advanced Maintenance Workflows
+# Phase 5 — Advanced Maintenance Workflows
 
 - [ ] multi-agent orchestration
 - [ ] evaluator loops
@@ -292,7 +518,7 @@ Extend beyond single-file mutation into deterministic, bounded repository-aware 
 
 ## Stage
 
-Phase 1 — File Mutation MVP: Completed. Phase 2 — Repository Awareness: initial implementation completed and integrated.
+Phase 1 — File Mutation MVP: Completed. Phase 2 — Repository Awareness: initial implementation completed and integrated. Phase 3 — Execution & Scheduling Layer: design and implementation pending.
 
 ## Working capabilities
 
@@ -307,12 +533,10 @@ Phase 1 — File Mutation MVP: Completed. Phase 2 — Repository Awareness: init
 
 ## Current focus
 
-Stabilize and consolidate Phase 2 work; short-term priorities:
+Stabilize and consolidate Phase 2 repository-awareness infrastructure; short-term priorities:
 
-- Centralize test helpers (fixture repo copying, httpx stub) — done for httpx; fixture helper planned
-- Add CI assertions for repository context contract and prompt snapshotting
-- Improve retrieval ranking heuristics (deferred until contract stability is confirmed)
-- Add serialization/roundtrip tests for `RepositoryContextPayload` if persistence is required
+- Begin Phase 3 execution/scheduling layer design
+- Define scheduler/runtime boundaries before passive analysis implementation
 
 ---
 
