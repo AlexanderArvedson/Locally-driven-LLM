@@ -269,15 +269,6 @@ async def file_writer_node(state: GraphState, run_context: RunContext) -> dict:
                     logger.error("Failed to write failed generated file: %s", wexc)
 
                 logger.error("Writing file failed for %s: %s; saved to %s", target_file, exc, failed_path)
-
-                event = {
-                    "run_id": run_context.run_id,
-                        "node": "file_writer_node",
-                        "status": "failure",
-                        "duration_ms": int((time.time() - start) * 1000),
-                        "task": state.get("task", ""),
-                        "payload": {"error": str(exc)},
-                    }
                 emit_failure(run_context, "file_writer_node", state.get("task", ""), str(exc), start)
 
                 return {
@@ -401,7 +392,8 @@ async def reviewer_node(state: GraphState, run_context: RunContext) -> dict:
                 tf_name = tf.name
                 tf.close()
 
-                res = subprocess.run(["ruff", tf_name], capture_output=True, text=True)
+                # Ruff v0.1+ uses subcommands; `check` keeps behavior explicit.
+                res = subprocess.run(["ruff", "check", tf_name], capture_output=True, text=True)
                 if res.returncode != 0:
                     # ruff found issues — include stdout/stderr in feedback
                     out = (res.stdout or "") + ("\n" + res.stderr if res.stderr else "")

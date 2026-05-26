@@ -1,6 +1,5 @@
 import json
 import unittest
-from pathlib import Path
 from src.core.runtime_paths import RUNS_DIR, ensure_runtime_dirs
 
 from src.observability.context import RunContext

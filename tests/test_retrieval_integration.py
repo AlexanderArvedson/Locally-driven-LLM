@@ -1,11 +1,7 @@
 import asyncio
 import json
-import shutil
-import tempfile
 import unittest
 import types
-from typing import Any
-from pathlib import Path
 from unittest.mock import AsyncMock, patch
 
 from src.core.runtime_paths import RUNS_DIR, ensure_runtime_dirs
@@ -17,6 +13,7 @@ from src.repository.context_contract import (
 from src.repository.simple_repository_indexer import SimpleRepositoryIndexer
 from src.observability.context import RunContext
 from tests.support.httpx_stub import httpx_stub
+from tests.support.fixture_repo import temporary_fixture_repo
 
 
 class TestRetrievalIntegration(unittest.TestCase):
@@ -32,10 +29,7 @@ class TestRetrievalIntegration(unittest.TestCase):
             output_tokens=11,
         )
 
-        fixture_repo = Path("tests/fixtures/repo_simple")
-        with tempfile.TemporaryDirectory() as tmp_dir:
-            repo_copy = Path(tmp_dir) / "repo_simple"
-            shutil.copytree(fixture_repo, repo_copy)
+        with temporary_fixture_repo() as repo_copy:
             original_b = (repo_copy / "b.py").read_text(encoding="utf-8")
 
             indexer = SimpleRepositoryIndexer()

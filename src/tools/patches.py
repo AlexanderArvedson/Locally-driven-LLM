@@ -70,7 +70,6 @@ def apply_unified(path: str, unified_str: str) -> None:
             continue
 
         a = int(m.group("a"))
-        ac = int(m.group("ac") or "1")
         # b = int(m.group("b"))
         # bc = int(m.group("bc") or "1")
 
