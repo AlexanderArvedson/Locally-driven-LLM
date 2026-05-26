@@ -89,16 +89,25 @@ Responsibilities:
 
 ## Planned Workflow
 
-1. Repository scan (MVP simulated)
-2. Static analysis (basic / implicit)
-3. LLM-assisted reasoning
-4. Issue ranking system (not yet implemented)
-5. User selection (test-driven input)
-6. Context retrieval (single-file MVP)
-7. Code modification
-8. Verification loop
-9. Retry/refinement
-10. Final output
+### Passive Workflow
+
+1. Scheduler trigger
+2. Repository selection
+3. Deterministic repository snapshot generation
+4. Static analysis (basic / implicit)
+5. LLM-assisted reasoning
+6. Issue ranking/scoring
+7. Finding persistence/report generation
+
+### Active Workflow
+
+1. User selects issue
+2. Context retrieval
+3. Modification planning
+4. Code generation
+5. Verification/reviewer loop
+6. Retry/refinement
+7. Final patch generation
 
 ---
 
@@ -492,6 +501,17 @@ This separation exists to preserve:
 - testability
 - workflow isolation
 
+## Safety Constraints (future)
+
+Centralize safety and operational constraints that bound repository modifications and runtime behavior.
+
+- writable path restrictions
+- max patch size
+- forbidden file classes (generated, vendor, large binaries)
+- bounded modification scope (per-run file limits)
+- execution timeout policy
+- verifier hard-failure rules
+
 ---
 
 # Phase 4 — Passive Analysis System
@@ -499,6 +519,7 @@ This separation exists to preserve:
 - [ ] repository analysis execution
 - [ ] maintainability analysis
 - [ ] issue detection
+- [ ] finding classification/normalization
 - [ ] ranking/scoring
 - [ ] persistence layer
 - [ ] report generation
