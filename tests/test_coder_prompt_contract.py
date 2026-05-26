@@ -1,6 +1,5 @@
 import asyncio
 import importlib
-import sys
 import types
 import unittest
 from typing import Any
@@ -8,50 +7,16 @@ from unittest.mock import AsyncMock, patch
 
 from src.observability.context import RunContext
 from src.repository.context_contract import CONTEXT_VERSION
+from tests.support.httpx_stub import httpx_stub
 
 
-def _load_nodes_module_with_optional_httpx_stub():
-    """Import `src.graph.nodes.nodes` even when `httpx` is unavailable."""
-    original_httpx = sys.modules.get("httpx")
-    inserted_stub = False
-    if original_httpx is None:
-        dummy = types.ModuleType("httpx")
-
-        class _DummyAsyncClient:
-            def __init__(self, timeout=None):
-                pass
-
-            async def post(self, *args, **kwargs):
-                class _Resp:
-                    def raise_for_status(self):
-                        return None
-
-                    def json(self):
-                        return {"message": {"content": ""}}
-
-                return _Resp()
-
-            async def aclose(self):
-                return None
-
-        httpx_mod: Any = dummy
-        httpx_mod.AsyncClient = _DummyAsyncClient
-        httpx_mod.HTTPError = Exception
-        httpx_mod.HTTPStatusError = type("HTTPStatusError", (), {})
-        sys.modules["httpx"] = dummy
-        inserted_stub = True
-
-    try:
-        return importlib.import_module("src.graph.nodes.nodes"), inserted_stub
-    except Exception:
-        if inserted_stub:
-            sys.modules.pop("httpx", None)
-        raise
+# Use `httpx_stub` to ensure import-time httpx usage doesn't break tests.
 
 
 class TestCoderPromptContract(unittest.TestCase):
     def test_missing_repository_context_has_controlled_prompt_marker(self):
-        nodes_module, inserted_stub = _load_nodes_module_with_optional_httpx_stub()
+        with httpx_stub():
+            nodes_module = importlib.import_module("src.graph.nodes.nodes")
         captured_prompts = []
 
         async def fake_chat(messages, model, temperature):
@@ -64,12 +29,8 @@ class TestCoderPromptContract(unittest.TestCase):
             "original_code": "def x():\n    return 1\n",
         }
 
-        try:
-            with patch.object(nodes_module.client, "chat", new=AsyncMock(side_effect=fake_chat)):
-                result = asyncio.run(nodes_module.coder_node(state, RunContext.new()))
-        finally:
-            if inserted_stub:
-                sys.modules.pop("httpx", None)
+        with patch.object(nodes_module.client, "chat", new=AsyncMock(side_effect=fake_chat)):
+            result = asyncio.run(nodes_module.coder_node(state, RunContext.new()))
 
         self.assertIn("generated_code", result)
         self.assertEqual(len(captured_prompts), 1)
@@ -81,7 +42,8 @@ class TestCoderPromptContract(unittest.TestCase):
         self.assertNotIn("- selected_files:", prompt)
 
     def test_prompt_snapshot_and_ordering_is_deterministic(self):
-        nodes_module, inserted_stub = _load_nodes_module_with_optional_httpx_stub()
+        with httpx_stub():
+            nodes_module = importlib.import_module("src.graph.nodes.nodes")
         captured_prompts = []
 
         async def fake_chat(messages, model, temperature):
@@ -110,13 +72,9 @@ class TestCoderPromptContract(unittest.TestCase):
             },
         }
 
-        try:
-            with patch.object(nodes_module.client, "chat", new=AsyncMock(side_effect=fake_chat)):
-                asyncio.run(nodes_module.coder_node(state, RunContext.new()))
-                asyncio.run(nodes_module.coder_node(state, RunContext.new()))
-        finally:
-            if inserted_stub:
-                sys.modules.pop("httpx", None)
+        with patch.object(nodes_module.client, "chat", new=AsyncMock(side_effect=fake_chat)):
+            asyncio.run(nodes_module.coder_node(state, RunContext.new()))
+            asyncio.run(nodes_module.coder_node(state, RunContext.new()))
 
         self.assertEqual(len(captured_prompts), 2)
         self.assertEqual(captured_prompts[0], captured_prompts[1])

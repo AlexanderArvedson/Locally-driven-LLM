@@ -1,12 +1,11 @@
 import asyncio
 import importlib
 import unittest
-import sys
-import types
 from typing import Any, Dict, cast
 from unittest.mock import patch
 
 from src.observability.context import RunContext
+from tests.support.httpx_stub import httpx_stub
 from src.repository.repository_types import RepositorySnapshot, FileNode, Symbol, DependencyEdge
 
 
@@ -22,47 +21,12 @@ class TestContextBuilderNode(unittest.TestCase):
             state = {"task": "do something", "target_file": "a.py"}
             run_context = RunContext.new()
 
-            # Import the nodes module while temporarily stubbing httpx if it's missing.
-            orig_httpx = sys.modules.get("httpx")
-            inserted = False
-            if orig_httpx is None:
-                dummy = types.ModuleType("httpx")
-
-                class _DummyAsyncClient:
-                    def __init__(self, timeout=None):
-                        pass
-
-                    async def post(self, *args, **kwargs):
-                        class _Resp:
-                            def raise_for_status(self):
-                                return None
-
-                            def json(self):
-                                return {"message": {"content": ""}}
-
-                        return _Resp()
-
-                    async def aclose(self):
-                        return None
-
-                # Use a typed Any reference so static checkers don't complain
-                httpx_mod: Any = dummy
-                httpx_mod.AsyncClient = _DummyAsyncClient
-                httpx_mod.HTTPError = Exception
-                httpx_mod.HTTPStatusError = Exception
-                sys.modules["httpx"] = dummy
-                inserted = True
-
-            try:
+            with httpx_stub():
                 nodes_mod = importlib.import_module("src.graph.nodes.nodes")
                 context_builder = nodes_mod.context_builder_node
 
                 with patch("src.graph.nodes.nodes.SimpleRepositoryIndexer.build_snapshot", return_value=snapshot):
                     result = await context_builder(state, run_context)
-            finally:
-                if inserted:
-                    # restore clean state so other tests can import real httpx
-                    sys.modules.pop("httpx", None)
 
             # State should include repository_context and repository_snapshot (cached)
             self.assertIn("repository_context", state)

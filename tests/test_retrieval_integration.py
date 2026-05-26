@@ -3,7 +3,6 @@ import json
 import shutil
 import tempfile
 import unittest
-import sys
 import types
 from typing import Any
 from pathlib import Path
@@ -17,6 +16,7 @@ from src.repository.context_contract import (
 )
 from src.repository.simple_repository_indexer import SimpleRepositoryIndexer
 from src.observability.context import RunContext
+from tests.support.httpx_stub import httpx_stub
 
 
 class TestRetrievalIntegration(unittest.TestCase):
@@ -44,36 +44,7 @@ class TestRetrievalIntegration(unittest.TestCase):
 
             run_context = RunContext.new()
 
-            original_httpx = sys.modules.get("httpx")
-            inserted_stub = False
-            if original_httpx is None:
-                dummy_httpx = types.ModuleType("httpx")
-
-                class _DummyAsyncClient:
-                    def __init__(self, timeout=None):
-                        pass
-
-                    async def post(self, *args, **kwargs):
-                        class _Resp:
-                            def raise_for_status(self):
-                                return None
-
-                            def json(self):
-                                return {"message": {"content": ""}}
-
-                        return _Resp()
-
-                    async def aclose(self):
-                        return None
-
-                httpx_mod: Any = dummy_httpx
-                httpx_mod.AsyncClient = _DummyAsyncClient
-                httpx_mod.HTTPError = Exception
-                httpx_mod.HTTPStatusError = type("HTTPStatusError", (), {})
-                sys.modules["httpx"] = dummy_httpx
-                inserted_stub = True
-
-            try:
+            with httpx_stub():
                 from src.graph.workflow import make_graph
                 from src.graph.nodes import nodes as nodes_module
 
@@ -102,9 +73,6 @@ class TestRetrievalIntegration(unittest.TestCase):
                             }
                         )
                     )
-            finally:
-                if inserted_stub:
-                    sys.modules.pop("httpx", None)
 
             self.assertIn("repository_context", result)
             ctx = result["repository_context"]
