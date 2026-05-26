@@ -7,7 +7,7 @@ from __future__ import annotations
 
 from typing import Protocol, Sequence
 
-from src.repository.types import RepositorySnapshot
+from src.repository.repository_types import RepositorySnapshot
 
 
 class RepositoryIndexer(Protocol):

@@ -10,7 +10,7 @@ from __future__ import annotations
 from typing import Protocol, Sequence, Optional, List
 import os
 
-from src.repository.types import RepositorySnapshot
+from src.repository.repository_types import RepositorySnapshot
 
 
 class RetrievalEngine(Protocol):
@@ -113,4 +113,3 @@ class SimpleRetrievalEngine:
 
         # enforce hard cap and return
         return results[:max_files]
-

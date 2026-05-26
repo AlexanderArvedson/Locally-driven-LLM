@@ -52,3 +52,19 @@ class RepositorySnapshot:
             if f.path == path:
                 return f
         return None
+
+
+@dataclass(frozen=True)
+class ContextPackage:
+    """Bounded context package returned by the ContextBuilder.
+
+    Contains only lightweight, deterministic information derived from the
+    snapshot: related file paths, a per-file list of symbol names (capped),
+    and a small dependency summary. It does not include full file contents.
+    """
+
+    primary_file: Optional[str]
+    related_files: List[str]
+    related_symbols: dict
+    dependency_summary: List[DependencyEdge]
+    total_symbols: int

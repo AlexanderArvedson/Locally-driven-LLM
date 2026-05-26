@@ -2,7 +2,7 @@
 
 This indexer is intentionally small and isolated for Phase 2 Step 3.
 It uses the Python stdlib `ast` module only and produces a
-`RepositorySnapshot` from `src.repository.types`.
+`RepositorySnapshot` from `src.repository.repository_types`.
 
 Constraints enforced:
 - AST parsing only (no runtime execution)
@@ -17,7 +17,7 @@ import ast
 import os
 from typing import List
 
-from src.repository.types import Symbol, DependencyEdge, FileNode, RepositorySnapshot
+from src.repository.repository_types import Symbol, DependencyEdge, FileNode, RepositorySnapshot
 
 
 IGNORED_DIRS = {".git", "__pycache__", ".venv", "venv", "build", "dist", ".mypy_cache"}
