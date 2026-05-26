@@ -80,6 +80,7 @@ def make_graph(run_context: RunContext):
     # Register nodes from the `nodes` module. Using a clear module alias
     # (`nodes_module`) improves readability compared to a generic name.
     builder.add_node("file_reader", _wrap(nodes_module.file_reader_node))
+    builder.add_node("context_builder", _wrap(nodes_module.context_builder_node))
     builder.add_node("coder", _wrap(nodes_module.coder_node))
     builder.add_node("diff_generator", _wrap(nodes_module.diff_generator_node))
     builder.add_node("reviewer", _wrap(nodes_module.reviewer_node))
@@ -88,7 +89,8 @@ def make_graph(run_context: RunContext):
 
     # Linear topology with conditional edges for retry/looping behavior
     builder.add_edge(START, "file_reader")
-    builder.add_edge("file_reader", "coder")
+    builder.add_edge("file_reader", "context_builder")
+    builder.add_edge("context_builder", "coder")
     builder.add_edge("coder", "diff_generator")
     builder.add_edge("diff_generator", "reviewer")
     builder.add_edge("reviewer", "verifier")

@@ -12,6 +12,7 @@ from src.graph.state import GraphState
 from src.tools.files import read_file, write_file
 from src.tools.patches import generate_unified, apply_unified
 from pathlib import Path
+import os
 from src.core.runtime_paths import FAILED_PATCHES_DIR, ensure_runtime_dirs
 import logging
 import subprocess
@@ -22,6 +23,13 @@ import time
 from src.observability.context import RunContext
 from src.observability.logger import log_event
 from src.observability.event_logging_utils import emit_success, emit_failure
+from src.repository.simple_repository_indexer import SimpleRepositoryIndexer
+from src.repository.retrieval_engine import SimpleRetrievalEngine
+from src.repository.context_builder import SimpleContextBuilder
+from src.repository.context_contract import (
+    build_repository_context_payload,
+    format_repository_context_for_prompt,
+)
 
 
 logger = logging.getLogger(__name__)
@@ -31,6 +39,33 @@ if not logger.handlers:
 
 client = OllamaClient(base_url="http://localhost:11434")
 MAX_ITERATIONS = 3
+
+
+def _select_target_file_from_repo_path(repo_path: str) -> str:
+    """Pick the first Python file in a repo root deterministically.
+
+    If `repo_path` points at a file, that path is returned. If it points at a
+    directory, the first `.py` file found by sorted recursive walk is returned.
+    """
+    repo_path = str(Path(repo_path))
+    repo = Path(repo_path)
+    if repo.is_file():
+        return str(repo)
+
+    if not repo.exists():
+        raise FileNotFoundError(f"Repository path does not exist: {repo_path}")
+
+    candidates: list[str] = []
+    for dirpath, dirnames, filenames in os.walk(repo_path):
+        dirnames[:] = sorted(dirnames)
+        for fname in sorted(filenames):
+            if fname.endswith(".py"):
+                candidates.append(os.path.normpath(os.path.join(dirpath, fname)))
+
+    if not candidates:
+        raise FileNotFoundError(f"No Python files found under repository path: {repo_path}")
+
+    return candidates[0]
 
 
 # Helper function to extract a required value from the graph state, raising an error if it's missing.
@@ -113,14 +148,70 @@ async def file_reader_node(state: GraphState, run_context: RunContext) -> dict:
     """
     start = time.time()
     try:
-        target_file = _require_state_value(state, "target_file")
+        target_file = state.get("target_file")
+        if not target_file:
+            repo_path = _require_state_value(state, "repo_path")
+            target_file = _select_target_file_from_repo_path(repo_path)
+
         original = read_file(target_file)
 
-        emit_success(run_context, "file_reader_node", state.get("task", ""), {"original_length": len(original)}, start)
+        emit_success(run_context, "file_reader_node", state.get("task", ""), {"original_length": len(original), "target_file": target_file}, start)
 
-        return {"original_code": original}
+        return {"original_code": original, "target_file": target_file}
     except Exception as e:
         emit_failure(run_context, "file_reader_node", state.get("task", ""), str(e), start)
+        raise
+
+
+async def context_builder_node(state: GraphState, run_context: RunContext) -> dict:
+    """Build a bounded repository ContextPackage for downstream nodes.
+
+    Behavior:
+    - Create a per-run RepositorySnapshot once and store it in `state['repository_snapshot']`.
+    - Use the `SimpleRetrievalEngine` to select relevant files.
+    - Use the `SimpleContextBuilder` to build a bounded `ContextPackage` and store it
+      in `state['repository_context']`.
+
+    Emits a success event with selected files and counts, or a failure event on error.
+    """
+    start = time.time()
+    task = state.get("task", "")
+    try:
+        target_file = state.get("target_file")
+        repo_path = state.get("repo_path")
+
+        # Build snapshot once per execution and cache in state
+        snapshot = state.get("repository_snapshot")
+        if snapshot is None:
+            indexer = SimpleRepositoryIndexer()
+            snapshot_root = repo_path or (str(Path(target_file).parent) if target_file else ".")
+            snapshot = indexer.build_snapshot(snapshot_root)
+            # store snapshot for downstream nodes (keeps index lifecycle per-run)
+            state["repository_snapshot"] = snapshot
+
+        # Deterministic retrieval
+        retriever = SimpleRetrievalEngine()
+        selected = retriever.select_files(task, snapshot, target_file=target_file, max_files=15)
+
+        # Build bounded context package
+        builder = SimpleContextBuilder()
+        context_pkg = builder.build_context(task, target_file, selected, snapshot, max_files=15)
+
+        serialized = build_repository_context_payload(context_pkg, selected, repo_path=repo_path)
+
+        # Store package in state for later nodes (coder, reviewer)
+        state["repository_context"] = serialized
+
+        payload = {
+            "selected_files": selected,
+            "num_selected": len(selected),
+            "total_symbols": context_pkg.total_symbols,
+        }
+        emit_success(run_context, "context_builder_node", task, payload, start)
+
+        return {"repository_context": serialized}
+    except Exception as e:
+        emit_failure(run_context, "context_builder_node", task, str(e), start)
         raise
 
 
@@ -223,11 +314,16 @@ async def coder_node(state: GraphState, run_context: RunContext) -> dict:
         iteration = state.get("iteration", 0) + 1
         review_feedback = state.get("review_feedback")
         original_code = _require_state_value(state, "original_code")
+        repository_context = state.get("repository_context")
 
         user_prompt = (
-            f"Task: {state['task']}\n\n"
-            f"Target file: {state.get('target_file', '')}\n\n"
-            f"File content:\n{original_code}\n\n"
+            f"[TASK]\n{state['task']}\n\n"
+            f"[TARGET FILE]\n{state.get('target_file', '')}\n\n"
+            f"[FILE CONTENT]\n{original_code}\n\n"
+            f"{format_repository_context_for_prompt(repository_context)}\n\n"
+            "[INSTRUCTION]\n"
+            "Only modify the target file.\n"
+            "Use repository context for reasoning only.\n"
             "Return the FULL updated file only as plain text.\n"
             "Do NOT wrap your output in markdown code fences (```), backticks, or add any explanation.\n"
             "Output should be the literal file contents to write to disk."

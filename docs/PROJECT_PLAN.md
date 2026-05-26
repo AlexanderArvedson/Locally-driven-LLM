@@ -127,6 +127,14 @@ Embeddings are one component, not the core mechanism.
 - Graph state model
 - Initial coder node
 - File mutation pipeline (single-file MVP)
+- Repository indexing (AST-only `SimpleRepositoryIndexer`)
+- Deterministic retrieval engine (`SimpleRetrievalEngine`)
+- Bounded Context Builder (`SimpleContextBuilder`)
+- Versioned retrieval/coder contract (`src/repository/context_contract.py`)
+- `context_builder_node` integrated into graph between `file_reader` and `coder`
+- Deterministic prompt formatting enforced at the coder boundary
+- Unit and integration tests for indexer, retrieval, context builder, and contract
+- Test fixtures and a shared `httpx` stub helper for import-time stability
 
 ---
 
@@ -238,20 +246,23 @@ Phase 1 is complete when:
 
 ---
 
-# Phase 2 — Repository Awareness
+## Phase 2 — Repository Awareness
 
 ## Goal
 
-Extend beyond single-file mutation into repository-wide reasoning.
+Extend beyond single-file mutation into deterministic, bounded repository-aware reasoning used to assemble prompts.
 
-## Tasks
+## Tasks and Status
 
-- [ ] AST parsing
-- [ ] symbol extraction
-- [ ] repository indexing
-- [ ] context builder service
-- [ ] retrieval pipeline
-- [ ] cross-file dependency awareness
+- [x] AST parsing (indexer extracts symbols via stdlib `ast`)
+- [x] symbol extraction (deterministic symbol lists per file)
+- [x] repository indexing (`SimpleRepositoryIndexer` — snapshot per run)
+- [x] context builder service (`SimpleContextBuilder` — bounded `ContextPackage`)
+- [x] retrieval pipeline (`SimpleRetrievalEngine` — deterministic heuristics)
+- [x] cross-file dependency awareness (dependency summary in context payload)
+- [x] retrieval/coder contract (versioned serializer + validator)
+- [x] graph node wiring (`context_builder_node`) and prompt boundary enforcement
+- [ ] Optional: extend retrieval heuristics and ranking (future work)
 
 ---
 
@@ -274,11 +285,11 @@ Extend beyond single-file mutation into repository-wide reasoning.
 
 ---
 
-# Current Status
+## Current Status
 
 ## Stage
 
-Phase 1 — File Mutation MVP: Completed (infrastructure stabilized).
+Phase 1 — File Mutation MVP: Completed. Phase 2 — Repository Awareness: initial implementation completed and integrated.
 
 ## Working capabilities
 
@@ -287,16 +298,18 @@ Phase 1 — File Mutation MVP: Completed (infrastructure stabilized).
 - [x] Safe file modification loop with verifier and reviewer gates
 - [x] Deterministic per-run JSONL observability (`.runtime/runs/*.jsonl`)
 - [x] Persisted failed artifacts (`.runtime/failed_patches/`)
-- [x] Unit tests + mocked end-to-end graph test (CI-safe)
-- [x] CI runtime validation that enforces the observability contract
+- [x] Unit tests + integration tests covering indexer, retrieval, context builder, node wiring, and prompt contract
+- [x] Deterministic repository snapshotting and normalized, versioned context payloads
+- [x] Test fixtures and helpers to stabilize import-time dependencies
 
 ## Current focus
 
-Transition toward Phase 2: repository-aware reasoning. Short-term priorities:
+Stabilize and consolidate Phase 2 work; short-term priorities:
 
-- Begin Langfuse adapter planning (deferred; out of Phase 1)
-- Add CI schema assertions or richer log checks (optional refinements)
-- Continue Phase 2 research work (AST parsing, repo indexing, retrieval pipeline)
+- Centralize test helpers (fixture repo copying, httpx stub) — done for httpx; fixture helper planned
+- Add CI assertions for repository context contract and prompt snapshotting
+- Improve retrieval ranking heuristics (deferred until contract stability is confirmed)
+- Add serialization/roundtrip tests for `RepositoryContextPayload` if persistence is required
 
 ---
 
