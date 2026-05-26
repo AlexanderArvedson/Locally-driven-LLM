@@ -336,13 +336,13 @@ Responsibilities:
 - record failures
 - support retries/backoff
 
-### 3. Repository Task Selection
+### 3. Task Scheduling & Repository Selection
 
-Define how repositories are selected for execution.
+Define how work is scheduled and how repositories are chosen for passive and active executions.
 
 Initial MVP:
 
-- static configured repository list
+- static configured repository list (for passive scans)
 - sequential processing
 
 Future work:
@@ -369,21 +369,29 @@ The scheduler must not:
 - contain retrieval logic
 - contain patch-generation logic
 
-### 5. Concurrency Control
+### 5. Execution Coordination & Concurrency Control
 
-Introduce bounded execution guarantees.
+The system intentionally limits mutation-oriented workflows to a single active execution at a time while allowing passive analysis to run concurrently. This keeps repository state deterministic and verification semantics simple.
+
+Goals:
+
+- preserve deterministic repository state
+- avoid overlapping patch generation
+- simplify verification semantics
+- reduce synchronization complexity
 
 Initial constraints:
 
-- one active workflow per repository
-- optional global concurrency limit
-- deterministic execution order
+- one active code-modification workflow globally
+- passive analysis may execute concurrently
+- active workflow requests queue when a mutation is active
+- deterministic execution order for queued tasks
 
 Future work:
 
-- distributed workers
-- priority queues
-- resource-aware scheduling
+- limited parallel passive analysis
+- priority-aware queueing
+- repository-level locking if multi-workflow execution is introduced later
 
 ### 6. Persistence Layer
 
@@ -441,25 +449,26 @@ This identity model is useful for:
 
 ### Proposed Components
 
-- SchedulerService
-	- execution loop
+- PassiveScheduler
+	- periodic analysis loop
 	- interval management
-	- task dispatch
+- ActiveTaskQueue
+	- queued mutation workflow requests
+	- deterministic execution ordering
 - RunRegistry
 	- execution persistence
 	- run status tracking
-- RepositoryQueue
-	- repository scheduling order
-	- concurrency enforcement
 - WorkflowExecutor
 	- isolated LangGraph invocation boundary
 
 ### Initial Execution Flow
 
-- Scheduler tick occurs
-- Repository selected
-- Run record created
-- Workflow execution launched
+- Passive scheduler tick occurs (periodic)
+- Passive analysis run launched and results persisted
+- Active task submitted (user or manual trigger)
+- ActiveTaskQueue enqueues mutation request
+- When no active mutation is running, ActiveTaskQueue dispatches the next task
+- Run record created and workflow execution launched
 - Runtime logs emitted
 - Run state updated
 - Results persisted
@@ -501,16 +510,24 @@ This separation exists to preserve:
 - testability
 - workflow isolation
 
-## Safety Constraints (future)
+## Operational Safety Model
 
-Centralize safety and operational constraints that bound repository modifications and runtime behavior.
+Centralized workflow and repository safety constraints that bound mutations and runtime behavior. These are global, system-level guarantees and not specific to scheduling.
 
-- writable path restrictions
-- max patch size
+Core constraints:
+
+- writable path restrictions (deny-list and allow-list)
+- max patch size (lines/bytes)
 - forbidden file classes (generated, vendor, large binaries)
-- bounded modification scope (per-run file limits)
-- execution timeout policy
-- verifier hard-failure rules
+- bounded modification scope (per-run file/file-change limits)
+- execution timeout policy (per-workflow and per-node)
+- verifier hard-failure rules (abort and persist failed artifacts)
+
+Governance & policy notes:
+
+- policies are enforced at the WorkflowExecutor boundary
+- policies are independent of scheduling and apply to both passive and active flows
+- policies should be configurable per-deployment and audited via runtime logs
 
 ---
 
@@ -523,6 +540,7 @@ Centralize safety and operational constraints that bound repository modification
 - [ ] ranking/scoring
 - [ ] persistence layer
 - [ ] report generation
+- [ ] finding lifecycle (deduplication, aging, suppression, state transitions) (future implementation most likely)
 
 ---
 
