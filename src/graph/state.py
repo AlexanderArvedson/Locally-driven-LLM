@@ -1,4 +1,4 @@
-from typing import TypedDict, NotRequired
+from typing import TypedDict, NotRequired, Any
 
 from src.repository.repository_types import ContextPackage, RepositorySnapshot
 
@@ -16,6 +16,9 @@ class GraphState(TypedDict):
 
     # Target file path (added for repository-aware execution)
     target_file: NotRequired[str]
+
+    # Repository root path used for deterministic snapshot creation
+    repo_path: NotRequired[str]
 
     # Original code content from the target file before modification
     original_code: NotRequired[str]
@@ -44,5 +47,5 @@ class GraphState(TypedDict):
     # embeddings: NotRequired[list[float]]
 
     # Repository-aware additions
-    repository_context: NotRequired[ContextPackage]
+    repository_context: NotRequired[dict[str, Any]]
     repository_snapshot: NotRequired[RepositorySnapshot]

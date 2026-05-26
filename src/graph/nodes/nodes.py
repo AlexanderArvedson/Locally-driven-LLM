@@ -12,6 +12,7 @@ from src.graph.state import GraphState
 from src.tools.files import read_file, write_file
 from src.tools.patches import generate_unified, apply_unified
 from pathlib import Path
+import os
 from src.core.runtime_paths import FAILED_PATCHES_DIR, ensure_runtime_dirs
 import logging
 import subprocess
@@ -34,6 +35,95 @@ if not logger.handlers:
 
 client = OllamaClient(base_url="http://localhost:11434")
 MAX_ITERATIONS = 3
+
+
+def _select_target_file_from_repo_path(repo_path: str) -> str:
+    """Pick the first Python file in a repo root deterministically.
+
+    If `repo_path` points at a file, that path is returned. If it points at a
+    directory, the first `.py` file found by sorted recursive walk is returned.
+    """
+    repo_path = str(Path(repo_path))
+    repo = Path(repo_path)
+    if repo.is_file():
+        return str(repo)
+
+    if not repo.exists():
+        raise FileNotFoundError(f"Repository path does not exist: {repo_path}")
+
+    candidates: list[str] = []
+    for dirpath, dirnames, filenames in os.walk(repo_path):
+        dirnames[:] = sorted(dirnames)
+        for fname in sorted(filenames):
+            if fname.endswith(".py"):
+                candidates.append(os.path.normpath(os.path.join(dirpath, fname)))
+
+    if not candidates:
+        raise FileNotFoundError(f"No Python files found under repository path: {repo_path}")
+
+    return candidates[0]
+
+
+def _serialize_context_package(context_package, selected_files: list[str], repo_path: str | None = None) -> dict:
+    """Convert the internal ContextPackage into a JSON-friendly state payload.
+
+    When `repo_path` is provided, file paths are normalized to be relative to
+    that repository root so integration output is stable across temp dirs.
+    """
+    def _normalize(path: str) -> str:
+        if not repo_path:
+            return path
+        try:
+            return os.path.relpath(path, repo_path)
+        except Exception:
+            return path
+
+    return {
+        "primary_file": _normalize(context_package.primary_file) if context_package.primary_file else None,
+        "selected_files": [_normalize(path) for path in selected_files],
+        "related_files": [_normalize(path) for path in context_package.related_files],
+        "related_symbols": {_normalize(path): symbols for path, symbols in context_package.related_symbols.items()},
+        "dependency_summary": [
+            {
+                "from_path": _normalize(edge.from_path),
+                "to_path": _normalize(edge.to_path),
+                "import_text": edge.import_text,
+            }
+            for edge in context_package.dependency_summary
+        ],
+        "total_symbols": context_package.total_symbols,
+    }
+
+
+def _format_repository_context_for_prompt(repository_context: dict | None) -> str:
+    """Render repository context in a fixed, sectioned format for the coder prompt.
+
+    The output is intentionally minimal and deterministic so the model sees a
+    stable structure across runs.
+    """
+    if not repository_context:
+        return "[REPOSITORY CONTEXT]\n- none"
+
+    lines: list[str] = ["[REPOSITORY CONTEXT]"]
+
+    selected_files = repository_context.get("selected_files", [])
+    lines.append("- selected_files:")
+    for index, path in enumerate(selected_files, start=1):
+        lines.append(f"  {index}. {path}")
+
+    related_symbols = repository_context.get("related_symbols", {})
+    if related_symbols:
+        lines.append("- related_symbols:")
+        for path in sorted(related_symbols):
+            symbols = related_symbols[path]
+            rendered = ", ".join(symbols) if symbols else "<none>"
+            lines.append(f"  - {path}: {rendered}")
+
+    total_symbols = repository_context.get("total_symbols")
+    if total_symbols is not None:
+        lines.append(f"- total_symbols: {total_symbols}")
+
+    return "\n".join(lines)
 
 
 # Helper function to extract a required value from the graph state, raising an error if it's missing.
@@ -116,12 +206,16 @@ async def file_reader_node(state: GraphState, run_context: RunContext) -> dict:
     """
     start = time.time()
     try:
-        target_file = _require_state_value(state, "target_file")
+        target_file = state.get("target_file")
+        if not target_file:
+            repo_path = _require_state_value(state, "repo_path")
+            target_file = _select_target_file_from_repo_path(repo_path)
+
         original = read_file(target_file)
 
-        emit_success(run_context, "file_reader_node", state.get("task", ""), {"original_length": len(original)}, start)
+        emit_success(run_context, "file_reader_node", state.get("task", ""), {"original_length": len(original), "target_file": target_file}, start)
 
-        return {"original_code": original}
+        return {"original_code": original, "target_file": target_file}
     except Exception as e:
         emit_failure(run_context, "file_reader_node", state.get("task", ""), str(e), start)
         raise
@@ -142,12 +236,14 @@ async def context_builder_node(state: GraphState, run_context: RunContext) -> di
     task = state.get("task", "")
     try:
         target_file = state.get("target_file")
+        repo_path = state.get("repo_path")
 
         # Build snapshot once per execution and cache in state
         snapshot = state.get("repository_snapshot")
         if snapshot is None:
             indexer = SimpleRepositoryIndexer()
-            snapshot = indexer.build_snapshot(".")
+            snapshot_root = repo_path or (str(Path(target_file).parent) if target_file else ".")
+            snapshot = indexer.build_snapshot(snapshot_root)
             # store snapshot for downstream nodes (keeps index lifecycle per-run)
             state["repository_snapshot"] = snapshot
 
@@ -159,8 +255,10 @@ async def context_builder_node(state: GraphState, run_context: RunContext) -> di
         builder = SimpleContextBuilder()
         context_pkg = builder.build_context(task, target_file, selected, snapshot, max_files=15)
 
+        serialized = _serialize_context_package(context_pkg, selected, repo_path=repo_path)
+
         # Store package in state for later nodes (coder, reviewer)
-        state["repository_context"] = context_pkg
+        state["repository_context"] = serialized
 
         payload = {
             "selected_files": selected,
@@ -169,7 +267,7 @@ async def context_builder_node(state: GraphState, run_context: RunContext) -> di
         }
         emit_success(run_context, "context_builder_node", task, payload, start)
 
-        return {"repository_context": context_pkg}
+        return {"repository_context": serialized}
     except Exception as e:
         emit_failure(run_context, "context_builder_node", task, str(e), start)
         raise
@@ -274,11 +372,16 @@ async def coder_node(state: GraphState, run_context: RunContext) -> dict:
         iteration = state.get("iteration", 0) + 1
         review_feedback = state.get("review_feedback")
         original_code = _require_state_value(state, "original_code")
+        repository_context = state.get("repository_context")
 
         user_prompt = (
-            f"Task: {state['task']}\n\n"
-            f"Target file: {state.get('target_file', '')}\n\n"
-            f"File content:\n{original_code}\n\n"
+            f"[TASK]\n{state['task']}\n\n"
+            f"[TARGET FILE]\n{state.get('target_file', '')}\n\n"
+            f"[FILE CONTENT]\n{original_code}\n\n"
+            f"{_format_repository_context_for_prompt(repository_context)}\n\n"
+            "[INSTRUCTION]\n"
+            "Only modify the target file.\n"
+            "Use repository context for reasoning only.\n"
             "Return the FULL updated file only as plain text.\n"
             "Do NOT wrap your output in markdown code fences (```), backticks, or add any explanation.\n"
             "Output should be the literal file contents to write to disk."

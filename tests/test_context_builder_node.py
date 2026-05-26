@@ -3,11 +3,11 @@ import importlib
 import unittest
 import sys
 import types
-from typing import Any, cast
+from typing import Any, Dict, cast
 from unittest.mock import patch
 
 from src.observability.context import RunContext
-from src.repository.repository_types import RepositorySnapshot, FileNode, Symbol, DependencyEdge, ContextPackage
+from src.repository.repository_types import RepositorySnapshot, FileNode, Symbol, DependencyEdge
 
 
 class TestContextBuilderNode(unittest.TestCase):
@@ -69,10 +69,11 @@ class TestContextBuilderNode(unittest.TestCase):
             self.assertIn("repository_snapshot", state)
             self.assertIsNotNone(state["repository_context"])
 
-            pkg = cast(ContextPackage, state["repository_context"])
-            self.assertEqual(pkg.primary_file, "a.py")
-            self.assertIn("a.py", pkg.related_files)
-            self.assertEqual(pkg.total_symbols, 3)
+            pkg = cast(Dict[str, Any], state["repository_context"])
+            self.assertIn("selected_files", pkg)
+            self.assertEqual(pkg["primary_file"], "a.py")
+            self.assertIn("a.py", pkg["selected_files"])
+            self.assertEqual(pkg["total_symbols"], 3)
 
             # The node should also return the context in the result mapping
             self.assertIn("repository_context", result)
