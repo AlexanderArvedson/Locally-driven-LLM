@@ -4,6 +4,7 @@ import unittest
 
 from src.repository.simple_repository_indexer import SimpleRepositoryIndexer
 from src.repository.retrieval_engine import SimpleRetrievalEngine
+from tests.support.fixture_repo import temporary_fixture_repo
 
 
 class TestRetrievalEngine(unittest.TestCase):
@@ -84,6 +85,29 @@ class TestRetrievalEngine(unittest.TestCase):
             self.assertLess(
                 selected.index(os.path.normpath(imported)),
                 selected.index(os.path.normpath(reverse_dep)),
+            )
+
+    def test_sample_repo_v2_ranks_task_chain_files(self):
+        with temporary_fixture_repo("sample_repo_v2") as repo_path:
+            target = os.path.normpath(os.path.join(repo_path, "app", "main.py"))
+
+            snapshot = SimpleRepositoryIndexer().build_snapshot(str(repo_path))
+            selected = SimpleRetrievalEngine().select_files(
+                "refactor the task report pipeline and validation helpers",
+                snapshot,
+                target_file=target,
+                max_files=12,
+            )
+
+            self.assertEqual(selected[0], target)
+            self.assertEqual(selected[1], os.path.normpath(os.path.join(repo_path, "app", "processing", "task_runner.py")))
+            self.assertIn(os.path.normpath(os.path.join(repo_path, "scripts", "smoke.py")), selected)
+            self.assertIn(os.path.normpath(os.path.join(repo_path, "app", "services", "task_service.py")), selected)
+            self.assertIn(os.path.normpath(os.path.join(repo_path, "app", "utils", "validators.py")), selected)
+            self.assertIn(os.path.normpath(os.path.join(repo_path, "app", "services", "report_service.py")), selected)
+            self.assertLess(
+                selected.index(os.path.normpath(os.path.join(repo_path, "app", "processing", "task_runner.py"))),
+                selected.index(os.path.normpath(os.path.join(repo_path, "app", "services", "task_service.py"))),
             )
 
 
