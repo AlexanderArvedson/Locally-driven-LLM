@@ -22,6 +22,9 @@ import time
 from src.observability.context import RunContext
 from src.observability.logger import log_event
 from src.observability.event_logging_utils import emit_success, emit_failure
+from src.repository.simple_repository_indexer import SimpleRepositoryIndexer
+from src.repository.retrieval_engine import SimpleRetrievalEngine
+from src.repository.context_builder import SimpleContextBuilder
 
 
 logger = logging.getLogger(__name__)
@@ -121,6 +124,54 @@ async def file_reader_node(state: GraphState, run_context: RunContext) -> dict:
         return {"original_code": original}
     except Exception as e:
         emit_failure(run_context, "file_reader_node", state.get("task", ""), str(e), start)
+        raise
+
+
+async def context_builder_node(state: GraphState, run_context: RunContext) -> dict:
+    """Build a bounded repository ContextPackage for downstream nodes.
+
+    Behavior:
+    - Create a per-run RepositorySnapshot once and store it in `state['repository_snapshot']`.
+    - Use the `SimpleRetrievalEngine` to select relevant files.
+    - Use the `SimpleContextBuilder` to build a bounded `ContextPackage` and store it
+      in `state['repository_context']`.
+
+    Emits a success event with selected files and counts, or a failure event on error.
+    """
+    start = time.time()
+    task = state.get("task", "")
+    try:
+        target_file = state.get("target_file")
+
+        # Build snapshot once per execution and cache in state
+        snapshot = state.get("repository_snapshot")
+        if snapshot is None:
+            indexer = SimpleRepositoryIndexer()
+            snapshot = indexer.build_snapshot(".")
+            # store snapshot for downstream nodes (keeps index lifecycle per-run)
+            state["repository_snapshot"] = snapshot
+
+        # Deterministic retrieval
+        retriever = SimpleRetrievalEngine()
+        selected = retriever.select_files(task, snapshot, target_file=target_file, max_files=15)
+
+        # Build bounded context package
+        builder = SimpleContextBuilder()
+        context_pkg = builder.build_context(task, target_file, selected, snapshot, max_files=15)
+
+        # Store package in state for later nodes (coder, reviewer)
+        state["repository_context"] = context_pkg
+
+        payload = {
+            "selected_files": selected,
+            "num_selected": len(selected),
+            "total_symbols": context_pkg.total_symbols,
+        }
+        emit_success(run_context, "context_builder_node", task, payload, start)
+
+        return {"repository_context": context_pkg}
+    except Exception as e:
+        emit_failure(run_context, "context_builder_node", task, str(e), start)
         raise
 
 

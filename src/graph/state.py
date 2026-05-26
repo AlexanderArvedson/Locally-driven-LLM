@@ -1,5 +1,7 @@
 from typing import TypedDict, NotRequired
 
+from src.repository.repository_types import ContextPackage, RepositorySnapshot
+
 
 class GraphState(TypedDict):
     """
@@ -40,3 +42,7 @@ class GraphState(TypedDict):
     # messages: NotRequired[list[dict]]
     # diff: NotRequired[str]
     # embeddings: NotRequired[list[float]]
+
+    # Repository-aware additions
+    repository_context: NotRequired[ContextPackage]
+    repository_snapshot: NotRequired[RepositorySnapshot]
