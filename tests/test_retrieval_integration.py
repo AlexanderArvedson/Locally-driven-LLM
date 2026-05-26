@@ -104,6 +104,15 @@ class TestRetrievalIntegration(unittest.TestCase):
             self.assertIn("selected_files", ctx)
             self.assertIsInstance(ctx["selected_files"], list)
             self.assertGreater(len(ctx["selected_files"]), 0)
+            self.assertEqual(ctx["selected_files"][0], "a.py")
+
+            dependency_summary = ctx.get("dependency_summary", [])
+            rendered_order = [
+                (edge.get("from_path", ""), edge.get("to_path", ""))
+                for edge in dependency_summary
+            ]
+            self.assertEqual(rendered_order, sorted(rendered_order))
+
             self.assertEqual((repo_copy / "b.py").read_text(encoding="utf-8"), original_b)
             self.assertGreaterEqual(len(captured_messages), 1)
 
