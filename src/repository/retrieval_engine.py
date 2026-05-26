@@ -9,6 +9,7 @@ from __future__ import annotations
 
 from typing import Protocol, Sequence, Optional, List
 import os
+import re
 
 from src.repository.repository_types import RepositorySnapshot
 
@@ -31,12 +32,15 @@ class RetrievalEngine(Protocol):
 class SimpleRetrievalEngine:
     """A deterministic, heuristic-based retrieval engine.
 
-    Ordering rules (deterministic):
-    1. target file (if provided)
-    2. files corresponding to imported modules by the target
-    3. reverse dependencies (files importing the target)
-    4. nearby tests (files under `tests/` or starting with `test_` in same dir)
-    5. neighboring files (same directory)
+     Ordering rules (deterministic, score-based):
+     1. target file (if provided)
+     2. rank remaining files by weighted features:
+         - imported directly by target (highest)
+         - reverse dependencies of target
+         - nearby tests (same directory, then global tests)
+         - neighboring files in same directory
+         - task keyword matches in filename/symbol names
+     3. deterministic tie-break by normalized file path
 
     Matching of module -> file is heuristic-only: we match by filename
     basename against the import's last component (no module resolution).
@@ -44,72 +48,74 @@ class SimpleRetrievalEngine:
 
     def select_files(self, task: str, snapshot: RepositorySnapshot, target_file: Optional[str] = None, max_files: int = 15) -> List[str]:
         results: List[str] = []
-        seen = set()
 
-        def add(path: str):
-            if path and path not in seen:
-                seen.add(path)
-                results.append(path)
-
-        # helper maps
         path_to_node = {f.path: f for f in snapshot.files}
+        files_sorted = sorted(snapshot.files, key=lambda x: x.path)
 
-        # 1) target file
+        # Always keep target first when provided and present in the snapshot.
         if target_file and target_file in path_to_node:
-            add(target_file)
+            results.append(target_file)
 
-        # derive target basename for heuristic matching
-        target_basename = None
-        target_imports = []
-        if target_file and target_file in path_to_node:
-            tn = path_to_node[target_file]
-            target_basename = tn.path.split(os.path.sep)[-1].rsplit(".py", 1)[0]
-            target_imports = tn.imports
+        target_node = path_to_node.get(target_file) if target_file else None
+        target_dir = os.path.dirname(target_file) if target_file else None
+        target_basename = target_file.split(os.path.sep)[-1].rsplit(".py", 1)[0] if target_file else ""
+        target_import_last = {
+            imp.split(".")[-1]
+            for imp in (target_node.imports if target_node else [])
+        }
 
-        # 2) imported modules by target -> map to files whose basename matches import last component
-        if target_imports:
-            for imp in target_imports:
-                last = imp.split(".")[-1]
-                for f in snapshot.files:
-                    fname = f.path.split(os.path.sep)[-1]
-                    stem = fname.rsplit(".py", 1)[0]
-                    if stem == last:
-                        add(f.path)
+        task_terms = self._task_terms(task)
 
-        # 3) reverse dependencies: files that import the target basename
-        if target_basename:
-            for f in snapshot.files:
-                if f.path == target_file:
-                    continue
-                for imp in f.imports:
-                    if imp.split(".")[-1] == target_basename:
-                        add(f.path)
-                        break
+        ranked: list[tuple[tuple[int, int, int, int, int, int], str]] = []
+        for node in files_sorted:
+            path = node.path
+            if path == target_file:
+                continue
 
-        # 4) nearby tests: deterministic scan of snapshot for test files, prefer same directory first
-        if target_file:
-            target_dir = os.path.dirname(target_file)
-            # tests in same dir
-            for f in sorted(snapshot.files, key=lambda x: x.path):
-                if os.path.dirname(f.path) == target_dir and (f.path.startswith("tests") or f.path.split(os.path.sep)[-1].startswith("test_")):
-                    add(f.path)
-            # then global tests
-            for f in sorted(snapshot.files, key=lambda x: x.path):
-                if (f.path.startswith("tests") or f.path.split(os.path.sep)[-1].startswith("test_")):
-                    add(f.path)
+            filename = path.split(os.path.sep)[-1]
+            stem = filename.rsplit(".py", 1)[0]
+            is_test = self._is_test_path(path)
+            same_dir = int(target_dir is not None and os.path.dirname(path) == target_dir)
+            same_dir_test = int(is_test and same_dir == 1)
+            imports_target = int(
+                bool(target_basename) and any(imp.split(".")[-1] == target_basename for imp in node.imports)
+            )
+            direct_imported_by_target = int(stem in target_import_last)
+            term_hits = self._task_term_hits(task_terms, stem, [sym.name for sym in node.symbols])
 
-        # 5) neighboring files (same directory)
-        if target_file:
-            target_dir = os.path.dirname(target_file)
-            for f in sorted(snapshot.files, key=lambda x: x.path):
-                if os.path.dirname(f.path) == target_dir:
-                    add(f.path)
+            # Higher tuple values rank first; path is deterministic tie-breaker.
+            score = (
+                direct_imported_by_target,
+                imports_target,
+                same_dir_test,
+                int(is_test),
+                same_dir,
+                term_hits,
+            )
+            ranked.append((score, path))
 
-        # fallback: top-level files deterministically until max_files
-        for f in sorted(snapshot.files, key=lambda x: x.path):
-            add(f.path)
-            if len(results) >= max_files:
-                break
-
-        # enforce hard cap and return
+        ranked.sort(key=lambda item: (item[0], item[1]), reverse=True)
+        results.extend([path for _score, path in ranked])
         return results[:max_files]
+
+    @staticmethod
+    def _is_test_path(path: str) -> bool:
+        norm = os.path.normpath(path)
+        base = os.path.basename(norm)
+        return norm.startswith("tests" + os.path.sep) or base.startswith("test_")
+
+    @staticmethod
+    def _task_terms(task: str) -> set[str]:
+        parts = re.findall(r"[A-Za-z0-9_]+", task.lower())
+        return {p for p in parts if len(p) >= 3}
+
+    @staticmethod
+    def _task_term_hits(task_terms: set[str], stem: str, symbols: list[str]) -> int:
+        if not task_terms:
+            return 0
+        haystack = [stem.lower()] + [s.lower() for s in symbols]
+        hits = 0
+        for term in task_terms:
+            if any(term in item for item in haystack):
+                hits += 1
+        return hits
