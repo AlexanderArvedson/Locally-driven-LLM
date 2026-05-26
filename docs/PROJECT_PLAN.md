@@ -248,6 +248,9 @@ Phase 1 is complete when:
 
 ## Phase 2 — Repository Awareness
 
+Reference documentation:
+- `docs/CONTEXT_CONTRACT.md` (authoritative retrieval -> coder context contract)
+
 ## Goal
 
 Extend beyond single-file mutation into deterministic, bounded repository-aware reasoning used to assemble prompts.

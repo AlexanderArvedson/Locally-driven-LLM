@@ -32,3 +32,11 @@ ls -1 .runtime/runs | tail -n1 | xargs -I{} sh -c 'cat .runtime/runs/{} | jq'
 ```
 
 Logs and runtime artifacts are ignored by git; see `.gitignore` for entries such as `.runtime/`.
+
+Repository Context Contract
+---------------------------
+
+The retrieval -> coder repository context schema, validation rules, and
+prompt rendering format are documented in:
+
+- `docs/CONTEXT_CONTRACT.md`
