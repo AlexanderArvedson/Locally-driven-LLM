@@ -5,10 +5,16 @@ import tempfile
 import unittest
 import sys
 import types
+from typing import Any
 from pathlib import Path
 from unittest.mock import AsyncMock, patch
 
 from src.core.runtime_paths import RUNS_DIR, ensure_runtime_dirs
+from src.repository.context_contract import (
+    CONTEXT_VERSION,
+    REQUIRED_CONTEXT_FIELDS,
+    validate_repository_context_payload,
+)
 from src.repository.simple_repository_indexer import SimpleRepositoryIndexer
 from src.observability.context import RunContext
 
@@ -60,9 +66,10 @@ class TestRetrievalIntegration(unittest.TestCase):
                     async def aclose(self):
                         return None
 
-                dummy_httpx.AsyncClient = _DummyAsyncClient
-                dummy_httpx.HTTPError = Exception
-                dummy_httpx.HTTPStatusError = type("HTTPStatusError", (), {})
+                httpx_mod: Any = dummy_httpx
+                httpx_mod.AsyncClient = _DummyAsyncClient
+                httpx_mod.HTTPError = Exception
+                httpx_mod.HTTPStatusError = type("HTTPStatusError", (), {})
                 sys.modules["httpx"] = dummy_httpx
                 inserted_stub = True
 
@@ -101,6 +108,12 @@ class TestRetrievalIntegration(unittest.TestCase):
 
             self.assertIn("repository_context", result)
             ctx = result["repository_context"]
+            for key in REQUIRED_CONTEXT_FIELDS:
+                self.assertIn(key, ctx)
+            self.assertEqual(ctx["context_version"], CONTEXT_VERSION)
+            is_valid, reason = validate_repository_context_payload(ctx)
+            self.assertTrue(is_valid, msg=reason)
+
             self.assertIn("selected_files", ctx)
             self.assertIsInstance(ctx["selected_files"], list)
             self.assertGreater(len(ctx["selected_files"]), 0)

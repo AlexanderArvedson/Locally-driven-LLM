@@ -1,6 +1,7 @@
-from typing import TypedDict, NotRequired, Any
+from typing import TypedDict, NotRequired
 
-from src.repository.repository_types import ContextPackage, RepositorySnapshot
+from src.repository.repository_types import RepositorySnapshot
+from src.repository.context_contract import RepositoryContextPayload
 
 
 class GraphState(TypedDict):
@@ -47,5 +48,5 @@ class GraphState(TypedDict):
     # embeddings: NotRequired[list[float]]
 
     # Repository-aware additions
-    repository_context: NotRequired[dict[str, Any]]
+    repository_context: NotRequired[RepositoryContextPayload]
     repository_snapshot: NotRequired[RepositorySnapshot]

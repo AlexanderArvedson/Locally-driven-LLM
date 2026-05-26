@@ -3,10 +3,11 @@ import importlib
 import sys
 import types
 import unittest
-from typing import Any, cast
+from typing import Any
 from unittest.mock import AsyncMock, patch
 
 from src.observability.context import RunContext
+from src.repository.context_contract import CONTEXT_VERSION
 
 
 def _load_nodes_module_with_optional_httpx_stub():
@@ -92,8 +93,10 @@ class TestCoderPromptContract(unittest.TestCase):
             "target_file": "a.py",
             "original_code": "def x():\n    return 1\n",
             "repository_context": {
+                "context_version": CONTEXT_VERSION,
                 "primary_file": "a.py",
                 "selected_files": ["a.py", "b.py", "test_a.py"],
+                "related_files": ["a.py", "b.py", "test_a.py"],
                 # Intentionally unsorted to verify formatter normalization.
                 "related_symbols": {
                     "test_a.py": ["test_case"],
@@ -127,6 +130,7 @@ class TestCoderPromptContract(unittest.TestCase):
             "def x():\n"
             "    return 1\n\n\n"
             "[REPOSITORY CONTEXT]\n"
+            "- context_version: 1\n"
             "- selected_files:\n"
             "  1. a.py\n"
             "  2. b.py\n"

@@ -26,6 +26,10 @@ from src.observability.event_logging_utils import emit_success, emit_failure
 from src.repository.simple_repository_indexer import SimpleRepositoryIndexer
 from src.repository.retrieval_engine import SimpleRetrievalEngine
 from src.repository.context_builder import SimpleContextBuilder
+from src.repository.context_contract import (
+    build_repository_context_payload,
+    format_repository_context_for_prompt,
+)
 
 
 logger = logging.getLogger(__name__)
@@ -62,68 +66,6 @@ def _select_target_file_from_repo_path(repo_path: str) -> str:
         raise FileNotFoundError(f"No Python files found under repository path: {repo_path}")
 
     return candidates[0]
-
-
-def _serialize_context_package(context_package, selected_files: list[str], repo_path: str | None = None) -> dict:
-    """Convert the internal ContextPackage into a JSON-friendly state payload.
-
-    When `repo_path` is provided, file paths are normalized to be relative to
-    that repository root so integration output is stable across temp dirs.
-    """
-    def _normalize(path: str) -> str:
-        if not repo_path:
-            return path
-        try:
-            return os.path.relpath(path, repo_path)
-        except Exception:
-            return path
-
-    return {
-        "primary_file": _normalize(context_package.primary_file) if context_package.primary_file else None,
-        "selected_files": [_normalize(path) for path in selected_files],
-        "related_files": [_normalize(path) for path in context_package.related_files],
-        "related_symbols": {_normalize(path): symbols for path, symbols in context_package.related_symbols.items()},
-        "dependency_summary": [
-            {
-                "from_path": _normalize(edge.from_path),
-                "to_path": _normalize(edge.to_path),
-                "import_text": edge.import_text,
-            }
-            for edge in context_package.dependency_summary
-        ],
-        "total_symbols": context_package.total_symbols,
-    }
-
-
-def _format_repository_context_for_prompt(repository_context: dict | None) -> str:
-    """Render repository context in a fixed, sectioned format for the coder prompt.
-
-    The output is intentionally minimal and deterministic so the model sees a
-    stable structure across runs.
-    """
-    if not repository_context:
-        return "[REPOSITORY CONTEXT]\n- none"
-
-    lines: list[str] = ["[REPOSITORY CONTEXT]"]
-
-    selected_files = repository_context.get("selected_files", [])
-    lines.append("- selected_files:")
-    for index, path in enumerate(selected_files, start=1):
-        lines.append(f"  {index}. {path}")
-
-    related_symbols = repository_context.get("related_symbols", {})
-    if related_symbols:
-        lines.append("- related_symbols:")
-        for path in sorted(related_symbols):
-            symbols = related_symbols[path]
-            rendered = ", ".join(symbols) if symbols else "<none>"
-            lines.append(f"  - {path}: {rendered}")
-
-    total_symbols = repository_context.get("total_symbols")
-    if total_symbols is not None:
-        lines.append(f"- total_symbols: {total_symbols}")
-
-    return "\n".join(lines)
 
 
 # Helper function to extract a required value from the graph state, raising an error if it's missing.
@@ -255,7 +197,7 @@ async def context_builder_node(state: GraphState, run_context: RunContext) -> di
         builder = SimpleContextBuilder()
         context_pkg = builder.build_context(task, target_file, selected, snapshot, max_files=15)
 
-        serialized = _serialize_context_package(context_pkg, selected, repo_path=repo_path)
+        serialized = build_repository_context_payload(context_pkg, selected, repo_path=repo_path)
 
         # Store package in state for later nodes (coder, reviewer)
         state["repository_context"] = serialized
@@ -378,7 +320,7 @@ async def coder_node(state: GraphState, run_context: RunContext) -> dict:
             f"[TASK]\n{state['task']}\n\n"
             f"[TARGET FILE]\n{state.get('target_file', '')}\n\n"
             f"[FILE CONTENT]\n{original_code}\n\n"
-            f"{_format_repository_context_for_prompt(repository_context)}\n\n"
+            f"{format_repository_context_for_prompt(repository_context)}\n\n"
             "[INSTRUCTION]\n"
             "Only modify the target file.\n"
             "Use repository context for reasoning only.\n"
