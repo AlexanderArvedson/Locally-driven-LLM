@@ -15,7 +15,7 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
-from src.core.runtime_paths import RUNS_DIR, ensure_runtime_dirs
+from src.core.runtime_paths import RUNS_DIR, ensure_runtime_dirs  # noqa: E402
 
 
 REQUIRED_KEYS = {"run_id", "node", "status", "duration_ms", "task", "timestamp"}
@@ -52,7 +52,7 @@ def main() -> int:
     total_events = 0
 
     if not run_log_paths:
-        print(f"Validated 0 events across 0 run logs")
+        print("Validated 0 events across 0 run logs")
         return 0
 
     for run_log_path in run_log_paths:
