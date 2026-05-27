@@ -1,6 +1,3 @@
-# This script tests the file editing capabilities of the graph workflow. It reads a target file, invokes the graph to modify it, 
-# and then prints the before and after contents of the file along with the graph's output.
-
 import asyncio
 from pathlib import Path
 
