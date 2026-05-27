@@ -396,28 +396,33 @@ No lifecycle tracking beyond “running now / not running”.
 
 ### Core Implementation
 
-- [ ] Implement asyncio `ExecutionLoop`
-- [ ] Implement in-memory `TaskQueue`
-- [ ] Implement `Task` model (passive / active)
-- [ ] Implement mutation exclusivity guard
-- [ ] Integrate with existing `WorkflowExecutor`
+- [x] Implement asyncio `ExecutionLoop`
+- [x] Implement in-memory `TaskQueue`
+- [x] Implement `Task` model (passive / active)
+- [x] Implement mutation exclusivity guard
+- [x] Integrate with existing `WorkflowExecutor`
 
 ---
 
 ### Execution Semantics
 
-- [ ] Ensure only one mutation workflow runs at a time
-- [ ] Ensure queued mutation tasks execute in order
-- [ ] Ensure passive tasks do not interfere with mutation execution
-- [ ] Ensure deterministic FIFO behavior
+- [x] Ensure only one mutation workflow runs at a time
+- [x] Ensure queued mutation tasks execute in order
+- [x] Ensure passive tasks do not interfere with mutation execution
+- [x] Ensure deterministic FIFO behavior
 
 ---
 
 ### Integration
 
 - [ ] Provide simple API: `submit_task(task)`
-- [ ] Wire execution loop into existing graph executor
-- [ ] Verify no scheduler logic leaks into LangGraph nodes
+- [x] Wire execution loop into existing graph executor
+- [x] Verify no scheduler logic leaks into LangGraph nodes
+
+### Validation
+
+- [x] Add scheduler contract tests for FIFO, exclusivity, and passive execution behavior
+- [x] Add a local stress script that drives the real scheduler against the fixture repo and Ollama
 
 ---
 
@@ -457,7 +462,7 @@ Phase 3 is complete when:
 
 ## Stage
 
-Phase 1 — File Mutation MVP: Completed. Phase 2 — Repository Awareness: initial implementation completed and integrated. Phase 3 — Execution & Scheduling Layer: design and implementation pending.
+Phase 1 — File Mutation MVP: Completed. Phase 2 — Repository Awareness: initial implementation completed and integrated. Phase 3 — Execution & Scheduling Layer: core scheduler implementation completed; `submit_task(task)` API still pending.
 
 ## Working capabilities
 
