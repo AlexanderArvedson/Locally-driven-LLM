@@ -24,6 +24,12 @@ class ExecutionLoop:
         self._started = True
         self._consumer_task = asyncio.create_task(self._consume())
 
+    async def submit_task(self, task: Task) -> None:
+        if not self._started:
+            await self.start()
+
+        await self.queue.enqueue(task)
+
     async def stop(self) -> None:
         if not self._started:
             return

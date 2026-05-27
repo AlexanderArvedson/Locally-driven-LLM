@@ -187,6 +187,30 @@ async def test_concurrent_submissions_do_not_drop_or_duplicate_tasks(
         await execution_loop.stop()
 
 
+async def test_submit_task_starts_the_loop_and_preserves_fifo_order(
+    execution_loop: ExecutionLoop,
+    workflow_executor: RecordingWorkflowExecutor,
+):
+    tasks = [make_task(str(index), "active") for index in range(3)]
+    for task in tasks:
+        workflow_executor.started_event_for(task.id)
+        workflow_executor.release_event_for(task.id)
+        workflow_executor.finished_event_for(task.id)
+
+    try:
+        await asyncio.gather(*(execution_loop.submit_task(task) for task in tasks))
+
+        for task in tasks:
+            await workflow_executor.started_events[task.id].wait()
+            workflow_executor.release_events[task.id].set()
+            await workflow_executor.finished_events[task.id].wait()
+
+        assert workflow_executor.start_log == [task.id for task in tasks]
+        assert workflow_executor.end_log == [task.id for task in tasks]
+    finally:
+        await execution_loop.stop()
+
+
 async def test_passive_tasks_do_not_block_active_tasks(
     execution_loop: ExecutionLoop,
     task_queue: TaskQueue,
