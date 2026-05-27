@@ -40,3 +40,10 @@ The retrieval -> coder repository context schema, validation rules, and
 prompt rendering format are documented in:
 
 - `docs/CONTEXT_CONTRACT.md`
+
+Runtime Lifecycle
+-----------------
+
+The scheduler, registry, queue, and cancellation semantics are documented in:
+
+- `docs/RUNTIME_LIFECYCLE.md`
