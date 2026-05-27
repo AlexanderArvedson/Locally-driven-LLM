@@ -70,7 +70,7 @@ import pytest_asyncio
 from src.scheduler.executor import WorkflowExecutor
 from src.scheduler.loop import ExecutionLoop
 from src.scheduler.queue import TaskQueue
-from src.scheduler.types import Task
+from src.scheduler.task import Task
 
 
 pytestmark = pytest.mark.asyncio
