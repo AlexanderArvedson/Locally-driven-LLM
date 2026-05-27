@@ -12,6 +12,9 @@ from src.graph.workflow import make_graph
 from src.observability.context import RunContext
 
 
+_REPO_ROOT = Path(__file__).resolve().parents[1]
+
+
 class TestGraphPipeline(unittest.IsolatedAsyncioTestCase):
     async def asyncSetUp(self):
         ensure_runtime_dirs()
@@ -27,7 +30,7 @@ class TestGraphPipeline(unittest.IsolatedAsyncioTestCase):
 
         with tempfile.TemporaryDirectory() as tmp_dir:
             target_file = Path(tmp_dir) / "example.py"
-            shutil.copyfile(Path("sandbox/example.py"), target_file)
+            shutil.copyfile(_REPO_ROOT / "sandbox" / "example.py", target_file)
 
             run_context = RunContext.new()
             graph = make_graph(run_context)

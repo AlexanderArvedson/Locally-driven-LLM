@@ -7,9 +7,12 @@ import tempfile
 from typing import Iterator
 
 
+_REPO_ROOT = Path(__file__).resolve().parents[2]
+
+
 def copy_fixture_repo_to(tmp_dir: str | Path, fixture_name: str = "repo_simple") -> Path:
     """Copy a named fixture repo into `tmp_dir` and return the copied path."""
-    src = Path("tests") / "fixtures" / fixture_name
+    src = _REPO_ROOT / "tests" / "fixtures" / fixture_name
     dest = Path(tmp_dir) / fixture_name
     shutil.copytree(src, dest)
     return dest

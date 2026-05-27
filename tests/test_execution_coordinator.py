@@ -89,16 +89,6 @@ def make_task(task_id: str, task_type: TaskType) -> Task:
     return Task(id=task_id, type=task_type, payload={}, created_at=0.0)
 
 
-async def test_task_queue_preserves_fifo_order(task_queue: TaskQueue):
-    tasks = [make_task(str(index), "active") for index in range(5)]
-
-    await asyncio.gather(*(task_queue.enqueue(task) for task in tasks))
-
-    dequeued = [await task_queue.dequeue() for _ in tasks]
-
-    assert [task.id for task in dequeued] == [task.id for task in tasks]
-
-
 async def test_active_tasks_execute_strictly_in_submission_order(
     execution_loop: ExecutionLoop,
     task_queue: TaskQueue,
@@ -234,8 +224,9 @@ async def test_passive_tasks_do_not_block_active_tasks(
         await task_queue.enqueue(active)
         await workflow_executor.started_events[active.id].wait()
 
-        assert active.id in workflow_executor.start_log
-        assert active.id in workflow_executor.end_log or not workflow_executor.release_events[active.id].is_set()
+        assert workflow_executor.start_log == [passive.id, active.id]
+        assert workflow_executor.currently_running_count == 2
+        assert not workflow_executor.finished_events[passive.id].is_set()
 
         workflow_executor.release_events[active.id].set()
         workflow_executor.release_events[passive.id].set()

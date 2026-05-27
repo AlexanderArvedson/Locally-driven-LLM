@@ -1,48 +1,48 @@
 import asyncio
-import importlib
+import os
+import tempfile
 import unittest
-from typing import Any, Dict, cast
-from unittest.mock import patch
+
+from pathlib import Path
+
+from src.repository.context_builder import SimpleContextBuilder
+from src.repository.retrieval_engine import SimpleRetrievalEngine
+from src.repository.simple_repository_indexer import SimpleRepositoryIndexer
+from tests.support.httpx_stub import httpx_stub
 
 from src.observability.context import RunContext
-from tests.support.httpx_stub import httpx_stub
-from src.repository.repository_types import RepositorySnapshot, FileNode, Symbol, DependencyEdge
+from src.graph.nodes.nodes import context_builder_node
 
 
 class TestContextBuilderNode(unittest.TestCase):
     def test_context_builder_node_creates_snapshot_and_context(self):
-        # Prepare a small deterministic snapshot
-        a = FileNode(path="a.py", language="python", size=10, symbols=[Symbol(name="foo", kind="function")], imports=["b"])
-        b = FileNode(path="b.py", language="python", size=20, symbols=[Symbol(name="Bar", kind="class"), Symbol(name="Bar.method", kind="method")], imports=[])
-        snapshot = RepositorySnapshot(files=[a, b], edges=[DependencyEdge(from_path="a.py", to_path="b", import_text="b")])
+        with tempfile.TemporaryDirectory() as td:
+            repo_path = Path(td)
+            a_path = repo_path / "a.py"
+            b_path = repo_path / "b.py"
 
+            a_path.write_text("import b\n\ndef foo():\n    return 1\n", encoding="utf-8")
+            b_path.write_text("def helper():\n    return 2\n", encoding="utf-8")
 
-        async def run_node_with_patched_indexer():
-            state = {"task": "do something", "target_file": "a.py"}
-            run_context = RunContext.new()
+            async def run_node():
+                state = {"task": "do something", "target_file": str(a_path), "repo_path": str(repo_path)}
+                run_context = RunContext.new()
 
-            with httpx_stub():
-                nodes_mod = importlib.import_module("src.graph.nodes.nodes")
-                context_builder = nodes_mod.context_builder_node
+                with httpx_stub():
+                    result = await context_builder_node(state, run_context)
 
-                with patch("src.graph.nodes.nodes.SimpleRepositoryIndexer.build_snapshot", return_value=snapshot):
-                    result = await context_builder(state, run_context)
+                self.assertIn("repository_context", state)
+                self.assertIn("repository_snapshot", state)
+                self.assertEqual(len(state["repository_snapshot"].files), 2)
 
-            # State should include repository_context and repository_snapshot (cached)
-            self.assertIn("repository_context", state)
-            self.assertIn("repository_snapshot", state)
-            self.assertIsNotNone(state["repository_context"])
+                pkg = state["repository_context"]
+                self.assertEqual(pkg["primary_file"], os.path.relpath(str(a_path), str(repo_path)))
+                self.assertEqual(pkg["selected_files"][0], pkg["primary_file"])
+                self.assertIn(os.path.relpath(str(b_path), str(repo_path)), pkg["selected_files"])
+                self.assertIn("repository_context", result)
+                self.assertEqual(result["repository_context"], pkg)
 
-            pkg = cast(Dict[str, Any], state["repository_context"])
-            self.assertIn("selected_files", pkg)
-            self.assertEqual(pkg["primary_file"], "a.py")
-            self.assertIn("a.py", pkg["selected_files"])
-            self.assertEqual(pkg["total_symbols"], 3)
-
-            # The node should also return the context in the result mapping
-            self.assertIn("repository_context", result)
-
-        asyncio.run(run_node_with_patched_indexer())
+            asyncio.run(run_node())
 
 
 if __name__ == "__main__":

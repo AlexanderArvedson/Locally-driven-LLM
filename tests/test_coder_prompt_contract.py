@@ -4,8 +4,10 @@ import types
 import unittest
 from unittest.mock import AsyncMock, patch
 
+from src.graph.state import GraphState
 from src.observability.context import RunContext
-from src.repository.context_contract import CONTEXT_VERSION
+from src.repository.context_contract import build_repository_context_payload
+from src.repository.repository_types import ContextPackage, DependencyEdge
 from tests.support.httpx_stub import httpx_stub
 
 
@@ -22,7 +24,7 @@ class TestCoderPromptContract(unittest.TestCase):
             captured_prompts.append(messages[1]["content"])
             return types.SimpleNamespace(message="def x():\n    return 1\n", input_tokens=1, output_tokens=1)
 
-        state = {
+        state: GraphState = {
             "task": "refactor code",
             "target_file": "a.py",
             "original_code": "def x():\n    return 1\n",
@@ -49,27 +51,29 @@ class TestCoderPromptContract(unittest.TestCase):
             captured_prompts.append(messages[1]["content"])
             return types.SimpleNamespace(message="def x():\n    return 1\n", input_tokens=1, output_tokens=1)
 
-        state = {
+        state: GraphState = {
             "task": "refactor code",
             "target_file": "a.py",
             "original_code": "def x():\n    return 1\n",
-            "repository_context": {
-                "context_version": CONTEXT_VERSION,
-                "primary_file": "a.py",
-                "selected_files": ["a.py", "b.py", "test_a.py"],
-                "related_files": ["a.py", "b.py", "test_a.py"],
-                # Intentionally unsorted to verify formatter normalization.
-                "related_symbols": {
-                    "test_a.py": ["test_case"],
-                    "a.py": ["x"],
-                    "b.py": ["helper"],
-                },
-                "dependency_summary": [
-                    {"from_path": "a.py", "to_path": "b", "import_text": "b"},
-                ],
-                "total_symbols": 3,
-            },
         }
+
+        context_package = ContextPackage(
+            primary_file="a.py",
+            related_files=["a.py", "b.py", "test_a.py"],
+            related_symbols={
+                "test_a.py": ["test_case"],
+                "a.py": ["x"],
+                "b.py": ["helper"],
+            },
+            dependency_summary=[
+                DependencyEdge(from_path="a.py", to_path="b", import_text="b"),
+            ],
+            total_symbols=3,
+        )
+        state["repository_context"] = build_repository_context_payload(
+            context_package,
+            selected_files=["a.py", "b.py", "test_a.py"],
+        )
 
         with patch.object(nodes_module.client, "chat", new=AsyncMock(side_effect=fake_chat)):
             asyncio.run(nodes_module.coder_node(state, RunContext.new()))
