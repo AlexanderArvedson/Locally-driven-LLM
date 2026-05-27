@@ -21,7 +21,6 @@ import shutil
 import time
 
 from src.observability.context import RunContext
-from src.observability.logger import log_event
 from src.observability.event_logging_utils import emit_success, emit_failure
 from src.repository.simple_repository_indexer import SimpleRepositoryIndexer
 from src.repository.retrieval_engine import SimpleRetrievalEngine
@@ -433,8 +432,7 @@ async def verifier_node(state: GraphState, run_context: RunContext) -> dict:
     """Run a lightweight verification of the generated code by executing it.
 
     Ensures the generated code compiles and can be executed safely in an
-    isolated namespace. Optionally performs a trivial smoke test if an `add`
-    function is present. Emits observability events and returns verification
+    isolated namespace. Emits observability events and returns verification
     results.
 
     Args:
@@ -451,15 +449,7 @@ async def verifier_node(state: GraphState, run_context: RunContext) -> dict:
         # First, ensure syntax is valid (should already be true after reviewer)
         passed, feedback = _validate_python_syntax(code)
         if not passed:
-            event = {
-                "run_id": run_context.run_id,
-                "node": "verifier_node",
-                "status": "failure",
-                "duration_ms": int((time.time() - start) * 1000),
-                "task": state.get("task", ""),
-                "payload": {"error": feedback},
-            }
-            log_event(run_context.run_id, event)
+            emit_failure(run_context, "verifier_node", state.get("task", ""), feedback, start)
             return {"verification_passed": False, "verification_feedback": feedback}
 
         # Run the code in an isolated namespace to catch runtime errors on import/definition
@@ -469,14 +459,6 @@ async def verifier_node(state: GraphState, run_context: RunContext) -> dict:
         except Exception as exc:
             emit_failure(run_context, "verifier_node", state.get("task", ""), str(exc), start)
             return {"verification_passed": False, "verification_feedback": f"Runtime exec error: {exc}"}
-
-        # Optional smoke test: if a function named `add` exists, call it once.
-        if "add" in ns and callable(ns["add"]):
-            try:
-                ns["add"](1, 2)
-            except Exception as exc:
-                emit_failure(run_context, "verifier_node", state.get("task", ""), str(exc), start)
-                return {"verification_passed": False, "verification_feedback": f"Runtime test failed: {exc}"}
 
         emit_success(run_context, "verifier_node", state.get("task", ""), {"verification_passed": True}, start)
 
