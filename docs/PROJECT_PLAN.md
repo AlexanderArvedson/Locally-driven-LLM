@@ -566,14 +566,14 @@ The run ID should act as the primary correlation identifier across all runtime s
 
 Phase 3 is complete when:
 
-- executions can be scheduled deterministically
-- workflows execute through scheduler orchestration
-- run lifecycle states are persisted
-- scheduler failures are recoverable
-- repository concurrency constraints are enforced
-- manual and scheduled execution both function
-- scheduler logic remains isolated from LangGraph workflow logic
-- deterministic repository state guarantees are enforced
+- [ ] executions can be scheduled deterministically
+- [ ] workflows execute through scheduler orchestration
+- [ ] run lifecycle states are persisted
+- [ ] scheduler failures are recoverable
+- [ ] repository concurrency constraints are enforced
+- [ ] manual and scheduled execution both function
+- [ ] scheduler logic remains isolated from LangGraph workflow logic
+- [ ] deterministic repository state guarantees are enforced
 
 ---
 
