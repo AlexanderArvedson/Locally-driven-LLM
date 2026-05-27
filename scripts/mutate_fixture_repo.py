@@ -7,6 +7,7 @@ manual experimentation with a local Ollama model against `sample_repo_v2`.
 from __future__ import annotations
 
 import asyncio
+import argparse
 import os
 import sys
 from pathlib import Path
@@ -22,8 +23,8 @@ from src.observability.context import RunContext  # noqa: E402
 DEFAULT_REPO_PATH = PROJECT_ROOT / "tests" / "fixtures" / "sample_repo_v2"
 DEFAULT_TARGET_FILE = DEFAULT_REPO_PATH / "app" / "processing" / "task_runner.py"
 DEFAULT_TASK = (
-    "Refactor the task pipeline to simplify validation and reporting while keeping "
-    "the output and behavior stable."
+    "Refactor the task pipeline to remove duplicated validation and normalization "
+    "work in run_task_pipeline while keeping the output and behavior stable."
 )
 
 
@@ -48,10 +49,34 @@ async def _run(repo_path: Path, target_file: Path, task: str) -> dict[str, objec
     )
 
 
+def build_parser() -> argparse.ArgumentParser:
+    parser = argparse.ArgumentParser(description="Run the workflow against the synthetic fixture repository.")
+    parser.add_argument(
+        "--task",
+        default=DEFAULT_TASK,
+        help="Prompt sent to the workflow when mutating the fixture repo.",
+    )
+    parser.add_argument(
+        "--repo-path",
+        default=str(DEFAULT_REPO_PATH),
+        help="Path to the fixture repository to mutate.",
+    )
+    parser.add_argument(
+        "--target-file",
+        default=None,
+        help="Target file within the fixture repository.",
+    )
+    return parser
+
+
 def main() -> int:
-    repo_path = _resolve_path(os.getenv("FIXTURE_REPO_PATH"), DEFAULT_REPO_PATH)
-    target_file = _resolve_path(os.getenv("FIXTURE_TARGET_FILE"), DEFAULT_TARGET_FILE)
-    task = os.getenv("FIXTURE_TASK", DEFAULT_TASK)
+    parser = build_parser()
+    args = parser.parse_args()
+
+    repo_path = _resolve_path(os.getenv("FIXTURE_REPO_PATH"), _resolve_path(args.repo_path, DEFAULT_REPO_PATH))
+    default_target_file = repo_path / "app" / "processing" / "task_runner.py"
+    target_file = _resolve_path(os.getenv("FIXTURE_TARGET_FILE"), _resolve_path(args.target_file, default_target_file))
+    task = os.getenv("FIXTURE_TASK", args.task)
 
     if not repo_path.exists():
         print(f"Repository path does not exist: {repo_path}")
