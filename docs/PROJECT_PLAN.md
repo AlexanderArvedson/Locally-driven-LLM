@@ -278,359 +278,158 @@ Extend beyond single-file mutation into deterministic, bounded repository-aware 
 
 ---
 
-# Phase 3 — Execution & Scheduling Layer
+# Phase 3 — Async Execution Coordinator (MVP)
 
 ## Goal
 
-Introduce a deterministic execution layer responsible for orchestrating repository analysis and workflow execution independently from analysis logic or LangGraph internals.
+Introduce a minimal asyncio-based execution layer that orchestrates workflow execution.
 
-This phase establishes the control plane for Passive Mode and future autonomous workflows.
+It is responsible only for:
+- launching workflows
+- ensuring only one mutation workflow runs at a time
+- queueing additional tasks
+- providing a single controlled entrypoint for passive and active execution
 
-The scheduler is responsible for:
-
-- deciding when executions occur
-- scheduling passive and active workflows
-- managing execution lifecycle
-- enforcing concurrency boundaries
-- persisting execution metadata
-- coordinating workflow invocation
-
-The scheduler does not perform repository analysis itself.
+No persistence system, no scheduler platform, no recovery layer.
 
 ---
 
-## Responsibilities
+## Core Responsibilities
 
-### 1. Scheduled Execution
+### 1. Async Execution Loop
 
-Support deterministic scheduled repository state analysis runs.
-
-Initial scope:
-
-- interval-based execution
-- manually triggerable runs
-- single-process scheduling
-
-Future scope:
-
-- cron expressions
-- event-driven triggers
-- distributed execution
+- Run a single long-lived asyncio loop
+- Accept execution requests (passive or active)
+- Dispatch workflows through a unified executor
+- Maintain deterministic FIFO ordering for queued tasks
 
 ---
 
-### 2. Run Lifecycle Management
+### 2. Mutation Exclusivity
 
-Introduce a formal execution lifecycle.
-
-Example states:
-
-- pending
-- queued
-- running
-- completed
-- failed
-- cancelled
-
-Responsibilities:
-
-- create run records
-- track execution status
-- persist timestamps
-- record failures
-- support retries/backoff
-- detect stale/orphaned executions
-
-Scheduler recovery logic should support stale-run detection through heartbeat timestamps or execution timeout policies.
-
-This lifecycle is infrastructure-level orchestration and remains separate from workflow-specific retry/refinement behavior.
+- Only one active mutation workflow may execute at any time
+- Subsequent mutation requests must queue
+- System must block or defer execution until active workflow completes
 
 ---
 
-### 3. Task Scheduling & Execution Coordination
+### 3. Task Queueing
 
-Define how passive and active execution tasks are scheduled and dispatched.
-
-Initial MVP:
-
-- static configured execution scheduling
-- sequential mutation workflow execution
-- deterministic task ordering
-
-Future work:
-
-- prioritization
-- adaptive scheduling
-- issue-driven execution
-- cooldown windows
-- policy-aware scheduling
-
-The scheduling layer coordinates execution timing and orchestration but does not determine repository invalidation scope or dependency relationships.
-
-Incremental analysis scope determination is delegated to repository indexing and invalidation components introduced in later phases.
+- Maintain an in-memory queue of workflow requests
+- FIFO ordering (no prioritization in this phase)
+- Tasks are either:
+  - passive analysis
+  - active mutation
 
 ---
 
 ### 4. Workflow Invocation Boundary
 
-The scheduler invokes workflows but remains isolated from LangGraph internals and repository analysis logic.
+- All workflows are executed via a single `WorkflowExecutor`
+- The execution layer must NOT contain:
+  - LLM logic
+  - retrieval logic
+  - patch generation logic
+  - repository indexing logic
 
-Responsibilities:
-
-- construct execution request
-- provide runtime metadata
-- launch workflow execution
-- collect execution result
-- persist execution outcome
-
-The scheduler must not:
-
-- contain LLM logic
-- contain retrieval logic
-- contain patch-generation logic
-- contain repository indexing logic
-- contain dependency invalidation logic
-
-The `WorkflowExecutor` acts as the isolation boundary between orchestration infrastructure and runtime workflow execution.
+Its only responsibility is orchestration.
 
 ---
 
-### 5. Execution Coordination & Concurrency Control
+## Explicit Non-Goals
 
-The system intentionally limits mutation-oriented workflows to a single active execution at a time while allowing passive analysis workflows to execute concurrently under controlled conditions.
+Do NOT implement:
 
-This preserves deterministic repository state and simplifies verification semantics.
-
-Goals:
-
-- preserve deterministic repository state
-- avoid overlapping patch generation
-- simplify verification semantics
-- reduce synchronization complexity
-- prevent workspace contamination across executions
-
-Initial constraints:
-
-- one active code-modification workflow globally
-- mutation workflows receive exclusive repository access
-- passive analysis workflows are strictly read-only
-- passive analysis may execute concurrently only when repository state is stable
-- active workflow requests queue while a mutation workflow is running
-- deterministic execution ordering for queued tasks
-
-Future work:
-
-- limited parallel passive analysis
-- priority-aware queueing
-- repository snapshot isolation
-- worktree-based execution isolation
+- persistence layer (SQLite, run registry, lifecycle DB)
+- formal state machines (pending/running/failed/etc.)
+- retry/backoff systems
+- crash recovery or orphan detection
+- distributed execution or multi-process scheduling
+- cron systems or external schedulers
+- priority queues or adaptive scheduling
+- workflow introspection or dependency tracking
 
 ---
 
-### 6. Repository State Guarantees
+## Minimal Architecture
 
-Each execution must operate against a deterministic repository state.
+- `ExecutionLoop`
+  - owns asyncio lifecycle
+  - consumes task queue
+  - enforces mutation exclusivity
 
-Core guarantees:
-
-- executions begin from a known git state
-- incomplete mutations must not persist across runs
-- workspace contamination between executions is prohibited
-- failed workflows must restore or discard invalid workspace state
-- verifier execution must observe deterministic filesystem state
-
-These guarantees exist to preserve:
-
-- reproducibility
-- benchmark stability
-- deterministic verification
-- replayability
-- evaluation consistency
-
----
-
-### 7. Persistence Layer
-
-Persist execution metadata independently from node-level JSONL traces.
-
-Possible persisted data:
-
-- run ID
-- workflow type
-- execution mode
-- execution timestamps
-- completion state
-- failure reason
-- retry count
-- policy violations
-- execution metadata
-- analysis version
-
-Initial implementation may use:
-
-- SQLite
-- JSON state files
-
-Execution persistence should remain independent from workflow implementation details.
-
----
-
-### 8. Failure Handling & Recovery
-
-Introduce scheduler-level recovery behavior.
-
-Responsibilities:
-
-- retry failed runs
-- bounded retry policy
-- failure persistence
-- orphaned run cleanup
-- timeout handling
-- stale-run recovery
-
-This is distinct from:
-
-- reviewer retries
-- verifier retries
-- LLM refinement loops
-- runtime graph recovery behavior
-
-Scheduler-level recovery is infrastructure orchestration, not workflow reasoning.
-
----
-
-### 9. Execution Identity Model
-
-Each execution should receive:
-
-- globally unique run ID
-- immutable execution metadata
-- trace linkage across scheduler/runtime logs
-
-This identity model is useful for:
-
-- Langfuse integration
-- evaluation harnesses
-- replay and debugging
-- benchmark reproducibility
-- artifact correlation
-- runtime observability
-
-The run ID should act as the primary correlation identifier across all runtime systems and persisted artifacts.
-
----
-
-## Initial Architecture Direction
-
-### Proposed Components
-
-- `ExecutionScheduler`
-  - periodic execution loop
-  - interval management
-  - task dispatch coordination
-
-- `MutationQueue`
-  - queued mutation workflow requests
-  - deterministic execution ordering
-
-- `RunRegistry`
-  - execution persistence
-  - run status tracking
-  - lifecycle management
+- `TaskQueue`
+  - in-memory FIFO queue of workflow requests
 
 - `WorkflowExecutor`
-  - isolated workflow invocation boundary
-  - policy enforcement
-  - runtime execution coordination
+  - single entrypoint for running LangGraph workflows
 
 ---
 
-## Initial Execution Flow
+## Execution Model
 
-- Scheduler tick occurs
-- Execution eligibility evaluated
-- Passive analysis execution launched if scheduled
-- Active task submitted manually or externally
-- `MutationQueue` enqueues mutation request
-- When no mutation workflow is active, next task is dispatched
-- Run record created
-- `WorkflowExecutor` launches workflow execution
-- Runtime logs emitted
-- Execution result collected
-- Run state updated
-- Results persisted
+1. Task is submitted (passive or active)
+2. Task is enqueued
+3. ExecutionLoop polls queue
+4. If task is:
+   - passive → run if no mutation active OR run inline (implementation choice)
+   - active → requires exclusive execution slot
+5. WorkflowExecutor runs workflow
+6. Loop continues
+
+No lifecycle tracking beyond “running now / not running”.
 
 ---
 
-## Phase 3 Completion Criteria
+## Key Design Constraints
+
+- Single-process only
+- In-memory state only
+- No persistence requirements
+- Deterministic execution order (FIFO)
+- One active mutation workflow globally
+- Strict separation between orchestration and workflow logic
+
+---
+
+## Phase 3 Checklist
+
+### Core Implementation
+
+- [ ] Implement asyncio `ExecutionLoop`
+- [ ] Implement in-memory `TaskQueue`
+- [ ] Implement `Task` model (passive / active)
+- [ ] Implement mutation exclusivity guard
+- [ ] Integrate with existing `WorkflowExecutor`
+
+---
+
+### Execution Semantics
+
+- [ ] Ensure only one mutation workflow runs at a time
+- [ ] Ensure queued mutation tasks execute in order
+- [ ] Ensure passive tasks do not interfere with mutation execution
+- [ ] Ensure deterministic FIFO behavior
+
+---
+
+### Integration
+
+- [ ] Provide simple API: `submit_task(task)`
+- [ ] Wire execution loop into existing graph executor
+- [ ] Verify no scheduler logic leaks into LangGraph nodes
+
+---
+
+## Definition of Done
 
 Phase 3 is complete when:
 
-- [ ] executions can be scheduled deterministically
-- [ ] workflows execute through scheduler orchestration
-- [ ] run lifecycle states are persisted
-- [ ] scheduler failures are recoverable
-- [ ] repository concurrency constraints are enforced
-- [ ] manual and scheduled execution both function
-- [ ] scheduler logic remains isolated from LangGraph workflow logic
-- [ ] deterministic repository state guarantees are enforced
-
----
-
-## Non-Goals (Current Phase)
-
-The following are explicitly out of scope:
-
-- distributed scheduling
-- Kubernetes orchestration
-- multi-machine execution
-- cloud-native scaling
-- event-stream infrastructure
-- advanced queue brokers
-- autonomous issue prioritization
-- semantic dependency invalidation
-- repository-wide incremental indexing
-- self-modifying scheduling policies
-
----
-
-## Notes
-
-The scheduling layer is considered infrastructure orchestration, not analysis logic.
-
-This separation exists to preserve:
-
-- deterministic execution
-- bounded autonomy
-- reproducibility
-- testability
-- workflow isolation
-- evaluation consistency
-
-Passive Mode incremental invalidation, repository indexing, and dependency graph analysis are introduced in later phases and remain outside scheduler responsibilities.
-
----
-
-## Operational Safety Model
-
-Centralized workflow and repository safety constraints that bound mutations and runtime behavior. These are global, system-level guarantees and not specific to scheduling.
-
-Core constraints:
-
-- writable path restrictions (deny-list and allow-list)
-- max patch size (lines/bytes)
-- forbidden file classes (generated, vendor, large binaries)
-- bounded modification scope (per-run file/file-change limits)
-- execution timeout policy (per-workflow and per-node)
-- verifier hard-failure rules (abort and persist failed artifacts)
-
-Governance & policy notes:
-
-- policies are enforced at the `WorkflowExecutor` boundary
-- policies are independent of scheduling and apply to both passive and active workflows
-- policies should be configurable per-deployment
-- policy decisions should be auditable through runtime logs
-- policy enforcement must remain deterministic and reproducible
+- workflows can be submitted asynchronously
+- mutation workflows never overlap
+- queued tasks execute sequentially
+- system runs continuously in a single process
+- orchestration layer remains isolated from analysis logic
 
 # Phase 4 — Passive Analysis System
 
