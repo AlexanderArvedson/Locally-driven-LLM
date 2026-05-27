@@ -63,3 +63,35 @@ class TestRuntimeQueue(unittest.TestCase):
         queue.mark_active("run-1")
         with self.assertRaises(RuntimeError):
             queue.mark_active("run-2")
+
+    def test_remove_drops_queued_run_by_id(self):
+        queue = MutationQueue()
+        first = ExecutionRequest(
+            run_id="run-1",
+            workflow_mode=WorkflowMode.ACTIVE,
+            workflow_capability=WorkflowCapability.MUTATING,
+            trigger="manual",
+            repository_path=Path("/tmp/repo"),
+            repository_revision="abc123",
+            created_at=datetime(2026, 5, 27, 12, 0, tzinfo=timezone.utc),
+            payload={"task": "first"},
+            metadata={},
+        )
+        second = ExecutionRequest(
+            run_id="run-2",
+            workflow_mode=WorkflowMode.ACTIVE,
+            workflow_capability=WorkflowCapability.MUTATING,
+            trigger="manual",
+            repository_path=Path("/tmp/repo"),
+            repository_revision="abc123",
+            created_at=datetime(2026, 5, 27, 12, 0, tzinfo=timezone.utc),
+            payload={"task": "second"},
+            metadata={},
+        )
+
+        queue.enqueue(first)
+        queue.enqueue(second)
+
+        self.assertTrue(queue.remove("run-1"))
+        self.assertEqual(len(queue), 1)
+        self.assertEqual(queue.dequeue(), second)

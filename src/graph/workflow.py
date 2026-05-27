@@ -15,6 +15,7 @@ from langgraph.graph import StateGraph, START, END
 from src.graph.state import GraphState
 from src.graph.nodes import nodes as nodes_module
 from src.observability.context import RunContext
+from src.runtime.models import CancellationToken
 
 
 MAX_ITERATIONS = 3
@@ -52,7 +53,10 @@ def route_after_verification(state: GraphState):
     return "coder"
 
 
-def make_graph(run_context: RunContext):
+def make_graph(
+    run_context: RunContext,
+    cancellation_token: CancellationToken | None = None,
+):
     """Create and compile the StateGraph for a single run.
 
     The returned graph is compiled with every node wrapped so it receives the
@@ -73,7 +77,12 @@ def make_graph(run_context: RunContext):
     # argument. The wrapper binds `run_context` into the closure.
     def _wrap(node_func):
         async def _wrapped(state):
-            return await node_func(state, run_context)
+            if cancellation_token is not None:
+                cancellation_token.raise_if_cancelled()
+            result = await node_func(state, run_context)
+            if cancellation_token is not None:
+                cancellation_token.raise_if_cancelled()
+            return result
 
         return _wrapped
 

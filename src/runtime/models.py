@@ -10,7 +10,7 @@ from dataclasses import asdict, dataclass, field
 from datetime import datetime, timezone
 from enum import Enum
 from pathlib import Path
-from typing import Any
+from typing import Any, Callable
 
 
 class RunStatus(str, Enum):
@@ -36,6 +36,24 @@ class WorkflowCapability(str, Enum):
 
     READ_ONLY = "read_only"
     MUTATING = "mutating"
+
+
+class RunCancelledError(RuntimeError):
+    """Raised when cooperative cancellation is observed for a run."""
+
+
+@dataclass(slots=True, frozen=True)
+class CancellationToken:
+    """Cooperative cancellation signal shared across scheduler and executor."""
+
+    run_id: str
+    is_cancelled: Callable[[], bool]
+
+    def raise_if_cancelled(self) -> None:
+        """Raise when cancellation has been requested for this run."""
+
+        if self.is_cancelled():
+            raise RunCancelledError(f"Run cancelled: {self.run_id}")
 
 
 def utc_now() -> datetime:
@@ -91,6 +109,7 @@ class ExecutionResult:
     success: bool
     started_at: datetime
     completed_at: datetime
+    cancelled: bool = False
     error: str | None = None
     artifacts: dict[str, Any] = field(default_factory=dict)
     metadata: dict[str, Any] = field(default_factory=dict)

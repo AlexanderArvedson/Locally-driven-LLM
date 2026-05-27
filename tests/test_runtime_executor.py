@@ -7,7 +7,7 @@ from pathlib import Path
 from unittest.mock import AsyncMock, patch
 
 from src.runtime.executor import WorkflowExecutor
-from src.runtime.models import ExecutionRequest, WorkflowCapability, WorkflowMode
+from src.runtime.models import CancellationToken, ExecutionRequest, WorkflowCapability, WorkflowMode
 
 
 def _git(repository_path: Path, *args: str) -> None:
@@ -101,4 +101,48 @@ class TestRuntimeExecutor(unittest.IsolatedAsyncioTestCase):
 
             self.assertFalse(result.success)
             self.assertEqual(result.error, "boom")
+            mock_restore.assert_called_once_with(repo_path)
+
+    async def test_execute_returns_cancelled_result_before_start(self):
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            repo_path = Path(tmp_dir)
+            _git(repo_path, "init")
+            _git(repo_path, "config", "user.email", "test@example.com")
+            _git(repo_path, "config", "user.name", "Test User")
+
+            tracked = repo_path / "tracked.txt"
+            tracked.write_text("hello\n", encoding="utf-8")
+            _git(repo_path, "add", "tracked.txt")
+            _git(repo_path, "commit", "-m", "initial")
+            revision = subprocess.run(
+                ("git", "rev-parse", "HEAD"),
+                cwd=repo_path,
+                check=True,
+                capture_output=True,
+                text=True,
+            ).stdout.strip()
+
+            request = ExecutionRequest(
+                run_id="run-3",
+                workflow_mode=WorkflowMode.ACTIVE,
+                workflow_capability=WorkflowCapability.MUTATING,
+                trigger="manual",
+                repository_path=repo_path,
+                repository_revision=revision,
+                created_at=datetime(2026, 5, 27, 12, 0, tzinfo=timezone.utc),
+                payload={"task": "refactor"},
+                metadata={},
+            )
+            token = CancellationToken(run_id="run-3", is_cancelled=lambda: True)
+
+            with patch("src.runtime.executor.make_graph") as mock_make_graph, patch(
+                "src.runtime.executor.restore_repository_state"
+            ) as mock_restore:
+                executor = WorkflowExecutor(timeout_seconds=10)
+                result = await executor.execute(request, cancellation_token=token)
+
+            self.assertFalse(result.success)
+            self.assertTrue(result.cancelled)
+            self.assertEqual(result.error, "Run cancelled: run-3")
+            mock_make_graph.assert_not_called()
             mock_restore.assert_called_once_with(repo_path)

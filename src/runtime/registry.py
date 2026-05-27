@@ -218,8 +218,40 @@ class RunRegistry:
         """Mark a run as failed with the given error message, returning the updated record."""
         return self.update_status(run_id, RunStatus.FAILED, completed_at=utc_now(), error=error)
 
+    def mark_cancelled(self, run_id: str) -> RunRecord | None:
+        """Mark an in-progress run as cancelled.
+
+        Runs that already reached a terminal completed/failed state are left
+        unchanged and return None so callers can treat cancellation as a no-op.
+        """
+
+        current = self.get_run(run_id)
+        if current is None:
+            raise KeyError(f"Unknown run_id: {run_id}")
+        if current.status in {RunStatus.COMPLETED, RunStatus.FAILED}:
+            return None
+        if current.status == RunStatus.CANCELLED:
+            return current
+        return self.update_status(
+            run_id,
+            RunStatus.CANCELLED,
+            completed_at=utc_now(),
+            error="cancelled",
+        )
+
     def record_result(self, result: ExecutionResult) -> RunRecord:
         """Record the result of a completed execution, marking it as completed or failed based on success."""
+        current = self.get_run(result.run_id)
+        if current is not None and current.status == RunStatus.CANCELLED and not result.cancelled:
+            return current
+        if result.cancelled:
+            cancelled = self.mark_cancelled(result.run_id)
+            if cancelled is None:
+                current = self.get_run(result.run_id)
+                if current is None:
+                    raise KeyError(f"Unknown run_id: {result.run_id}")
+                return current
+            return cancelled
         return self.update_status(
             result.run_id,
             RunStatus.COMPLETED if result.success else RunStatus.FAILED,

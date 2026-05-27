@@ -23,6 +23,27 @@ class MutationQueue:
             raise ValueError("MutationQueue only accepts mutating workflow requests")
         self._items.append(request)
 
+    def remove(self, run_id: str) -> bool:
+        """Remove a queued request by run id.
+
+        Returns True when a queued request was removed. Running requests are
+        not removed because they are no longer in the FIFO queue.
+        """
+
+        if self._active_run_id == run_id:
+            return False
+
+        removed = False
+        retained: Deque[ExecutionRequest] = deque()
+        while self._items:
+            request = self._items.popleft()
+            if request.run_id == run_id:
+                removed = True
+                continue
+            retained.append(request)
+        self._items = retained
+        return removed
+
     def dequeue(self) -> ExecutionRequest | None:
         """Remove and return the next request in FIFO order."""
 

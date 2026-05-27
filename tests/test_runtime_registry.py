@@ -77,3 +77,44 @@ class TestRuntimeRegistry(unittest.TestCase):
 
             stale_runs = registry.find_stale_runs(timeout_seconds=300)
             self.assertEqual([record.run_id for record in stale_runs], ["run-2"])
+
+    def test_mark_cancelled_transitions_queued_runs_and_noops_completed_runs(self):
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            db_path = Path(tmp_dir) / "scheduler.db"
+            registry = RunRegistry(db_path=db_path)
+            request = ExecutionRequest(
+                run_id="run-3",
+                workflow_mode=WorkflowMode.ACTIVE,
+                workflow_capability=WorkflowCapability.MUTATING,
+                trigger="manual",
+                repository_path=Path(tmp_dir),
+                repository_revision="abc123",
+                created_at=datetime(2026, 5, 27, 12, 0, tzinfo=timezone.utc),
+                payload={"task": "refactor"},
+                metadata={},
+            )
+
+            registry.create_run(request, status=RunStatus.QUEUED)
+            cancelled = registry.mark_cancelled("run-3")
+            self.assertIsNotNone(cancelled)
+            assert cancelled is not None
+            self.assertEqual(cancelled.status, RunStatus.CANCELLED)
+
+            completed_request = ExecutionRequest(
+                run_id="run-4",
+                workflow_mode=WorkflowMode.PASSIVE,
+                workflow_capability=WorkflowCapability.READ_ONLY,
+                trigger="scheduled",
+                repository_path=Path(tmp_dir),
+                repository_revision="abc123",
+                created_at=datetime(2026, 5, 27, 12, 0, tzinfo=timezone.utc),
+                payload={"task": "scan"},
+                metadata={},
+            )
+            registry.create_run(completed_request, status=RunStatus.COMPLETED)
+
+            self.assertIsNone(registry.mark_cancelled("run-4"))
+            completed = registry.get_run("run-4")
+            self.assertIsNotNone(completed)
+            assert completed is not None
+            self.assertEqual(completed.status, RunStatus.COMPLETED)

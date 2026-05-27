@@ -11,6 +11,7 @@ from typing import Any
 
 from src.runtime.executor import WorkflowExecutor
 from src.runtime.models import (
+    CancellationToken,
     ExecutionRequest,
     ExecutionResult,
     RunStatus,
@@ -59,6 +60,32 @@ class ExecutionScheduler:
         self.mutation_queue.enqueue(request)
         return request
 
+    def cancel_run(self, run_id: str) -> bool:
+        """Request cooperative cancellation for a run.
+
+        Queued runs are removed from the in-memory queue and marked cancelled
+        in SQLite. Running runs are marked cancelled in SQLite so the executor
+        can observe the request at its next checkpoint. Completed runs are a
+        no-op and return False.
+        """
+
+        record = self.registry.get_run(run_id)
+        if record is None:
+            raise KeyError(f"Unknown run_id: {run_id}")
+        if record.status in {RunStatus.COMPLETED, RunStatus.FAILED, RunStatus.CANCELLED}:
+            return False
+
+        self.mutation_queue.remove(run_id)
+        self.registry.mark_cancelled(run_id)
+        return True
+
+    def _build_cancellation_token(self, run_id: str) -> CancellationToken:
+        return CancellationToken(run_id=run_id, is_cancelled=lambda: self._is_cancelled(run_id))
+
+    def _is_cancelled(self, run_id: str) -> bool:
+        record = self.registry.get_run(run_id)
+        return record is not None and record.status == RunStatus.CANCELLED
+
     async def dispatch_next_mutation(self) -> ExecutionResult | None:
         """Dispatch the next queued mutation workflow if one is available."""
 
@@ -72,7 +99,7 @@ class ExecutionScheduler:
         self.mutation_queue.mark_active(request.run_id)
         self.registry.update_status(request.run_id, RunStatus.RUNNING, started_at=utc_now())
         try:
-            result = await self.executor.execute(request)
+            result = await self.executor.execute(request, cancellation_token=self._build_cancellation_token(request.run_id))
         finally:
             self.mutation_queue.clear_active(request.run_id)
 
@@ -84,7 +111,7 @@ class ExecutionScheduler:
 
         self.registry.create_run(request, status=RunStatus.PENDING)
         self.registry.update_status(request.run_id, RunStatus.RUNNING, started_at=utc_now())
-        result = await self.executor.execute(request)
+        result = await self.executor.execute(request, cancellation_token=self._build_cancellation_token(request.run_id))
         self.registry.record_result(result)
         return result
 
