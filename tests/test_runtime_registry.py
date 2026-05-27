@@ -48,6 +48,7 @@ class TestRuntimeRegistry(unittest.TestCase):
 
             fetched = registry.get_run("run-1")
             self.assertIsNotNone(fetched)
+            assert fetched is not None
             self.assertEqual(fetched.run_id, "run-1")
             self.assertEqual(fetched.payload, {"task": "refactor"})
 

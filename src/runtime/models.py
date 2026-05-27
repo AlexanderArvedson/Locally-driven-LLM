@@ -44,9 +44,15 @@ def utc_now() -> datetime:
     return datetime.now(timezone.utc)
 
 
-def isoformat_utc(value: datetime) -> str:
-    """Serialize a datetime as an ISO-8601 UTC string."""
+def isoformat_utc(value: datetime | None) -> str | None:
+    """Serialize a datetime as an ISO-8601 UTC string.
 
+    Accept `None` and return `None` to simplify callers that may
+    optionally pass timestamps.
+    """
+
+    if value is None:
+        return None
     if value.tzinfo is None:
         value = value.replace(tzinfo=timezone.utc)
     return value.astimezone(timezone.utc).isoformat()
@@ -63,7 +69,7 @@ class ExecutionRequest:
     repository_path: Path
     repository_revision: str
     created_at: datetime
-    payload: dict[str, Any]
+    payload: Any
     metadata: dict[str, Any] = field(default_factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

@@ -1,6 +1,7 @@
 import subprocess
 import tempfile
 import unittest
+import unittest.mock as mock
 from datetime import datetime, timezone
 from pathlib import Path
 from unittest.mock import AsyncMock, patch
@@ -45,7 +46,7 @@ class TestRuntimeExecutor(unittest.IsolatedAsyncioTestCase):
                 metadata={"source": "test"},
             )
 
-            fake_graph = unittest.mock.Mock()
+            fake_graph = mock.Mock()
             fake_graph.ainvoke = AsyncMock(return_value={"ok": True})
 
             with patch("src.runtime.executor.make_graph", return_value=fake_graph) as mock_make_graph:
@@ -55,7 +56,7 @@ class TestRuntimeExecutor(unittest.IsolatedAsyncioTestCase):
             self.assertTrue(result.success)
             self.assertEqual(result.artifacts, {"workflow_output": {"ok": True}})
             self.assertEqual(result.metadata["repository_revision"], revision)
-            self.assertEqual(fake_graph.ainvoke.await_args.args[0], {"task": "refactor"})
+            fake_graph.ainvoke.assert_awaited_with({"task": "refactor"})
             mock_make_graph.assert_called_once()
 
     async def test_execute_restores_repository_on_failure(self):
@@ -89,7 +90,7 @@ class TestRuntimeExecutor(unittest.IsolatedAsyncioTestCase):
                 metadata={},
             )
 
-            fake_graph = unittest.mock.Mock()
+            fake_graph = mock.Mock()
             fake_graph.ainvoke = AsyncMock(side_effect=RuntimeError("boom"))
 
             with patch("src.runtime.executor.make_graph", return_value=fake_graph), patch(

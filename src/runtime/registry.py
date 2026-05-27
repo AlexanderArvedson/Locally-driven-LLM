@@ -199,9 +199,9 @@ class RunRegistry:
                 """,
                 (
                     status.value,
-                    isoformat_utc(queued_at) if queued_at else None,
-                    isoformat_utc(started_at) if started_at else None,
-                    isoformat_utc(completed_at) if completed_at else None,
+                    isoformat_utc(queued_at) if queued_at is not None else None,
+                    isoformat_utc(started_at) if started_at is not None else None,
+                    isoformat_utc(completed_at) if completed_at is not None else None,
                     isoformat_utc(now),
                     error,
                     _dump_json(artifacts) if artifacts is not None else None,

@@ -43,7 +43,10 @@ class TestRuntimeScheduler(unittest.IsolatedAsyncioTestCase):
                 metadata={"source": "test"},
             )
 
-            self.assertEqual(registry.get_run(request.run_id).status.value, "queued")
+            fetched = registry.get_run(request.run_id)
+            self.assertIsNotNone(fetched)
+            assert fetched is not None
+            self.assertEqual(fetched.status.value, "queued")
 
             fake_result = ExecutionResult(
                 run_id=request.run_id,
@@ -57,8 +60,13 @@ class TestRuntimeScheduler(unittest.IsolatedAsyncioTestCase):
             with patch.object(scheduler.executor, "execute", new=AsyncMock(return_value=fake_result)) as mock_execute:
                 result = await scheduler.dispatch_next_mutation()
 
+            self.assertIsNotNone(result)
+            assert result is not None
             self.assertEqual(result, fake_result)
-            self.assertEqual(registry.get_run(request.run_id).status.value, "completed")
+            fetched2 = registry.get_run(request.run_id)
+            self.assertIsNotNone(fetched2)
+            assert fetched2 is not None
+            self.assertEqual(fetched2.status.value, "completed")
             self.assertEqual(scheduler.mutation_queue.active_run_id, None)
             mock_execute.assert_awaited_once()
 
@@ -99,4 +107,7 @@ class TestRuntimeScheduler(unittest.IsolatedAsyncioTestCase):
 
             stale_ids = scheduler.cleanup_stale_runs()
             self.assertEqual(stale_ids, ["run-stale"])
-            self.assertEqual(registry.get_run("run-stale").status.value, "failed")
+            fetched = registry.get_run("run-stale")
+            self.assertIsNotNone(fetched)
+            assert fetched is not None
+            self.assertEqual(fetched.status.value, "failed")
