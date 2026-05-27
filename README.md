@@ -14,6 +14,12 @@ python3 -m unittest -q
 uv run -m scripts.test_file_edit
 ```
 
+- Run the scheduler stress demo against the fixture repo and local model:
+
+```bash
+uv run -m scripts.stress_scheduler_fixture_repo --in-place
+```
+
 If a patch fails to apply the tool will save artifacts under `.runtime/failed_patches/` for manual inspection.
 
 Observability
