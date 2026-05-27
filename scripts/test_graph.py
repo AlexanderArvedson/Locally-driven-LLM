@@ -5,8 +5,11 @@ from src.graph.workflow import make_graph
 from src.observability.context import RunContext
 
 
+_REPO_ROOT = Path(__file__).resolve().parents[1]
+
+
 async def main():
-    target_file = Path("sandbox/example.py")
+    target_file = _REPO_ROOT / "sandbox" / "example.py"
     before = target_file.read_text(encoding="utf-8")
 
     run_context = RunContext.new()
