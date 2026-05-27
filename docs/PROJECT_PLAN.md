@@ -372,8 +372,8 @@ Do NOT implement:
 2. Task is enqueued
 3. ExecutionLoop polls queue
 4. If task is:
-   - passive → run if no mutation active OR run inline (implementation choice)
-   - active → requires exclusive execution slot
+  - passive → run in the background without blocking queued active tasks
+  - active → requires exclusive execution slot
 5. WorkflowExecutor runs workflow
 6. Loop continues
 
@@ -415,7 +415,7 @@ No lifecycle tracking beyond “running now / not running”.
 
 ### Integration
 
-- [ ] Provide simple API: `submit_task(task)`
+- [x] Provide simple API: `submit_task(task)`
 - [x] Wire execution loop into existing graph executor
 - [x] Verify no scheduler logic leaks into LangGraph nodes
 
@@ -462,7 +462,7 @@ Phase 3 is complete when:
 
 ## Stage
 
-Phase 1 — File Mutation MVP: Completed. Phase 2 — Repository Awareness: initial implementation completed and integrated. Phase 3 — Execution & Scheduling Layer: core scheduler implementation completed; `submit_task(task)` API still pending.
+Phase 1 — File Mutation MVP: Completed. Phase 2 — Repository Awareness: initial implementation completed and integrated. Phase 3 — Execution & Scheduling Layer: core scheduler implementation and `submit_task(task)` API completed.
 
 ## Working capabilities
 
