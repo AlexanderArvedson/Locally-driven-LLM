@@ -38,6 +38,7 @@ if not logger.handlers:
 
 
 client = OllamaClient(base_url="http://localhost:11434")
+CODER_MODEL = os.getenv("OLLAMA_MODEL", "qwen2.5-coder:7b")
 MAX_ITERATIONS = 3
 
 
@@ -340,11 +341,11 @@ async def coder_node(state: GraphState, run_context: RunContext) -> dict:
                     "content": user_prompt,
                 },
             ],
-            model="qwen2.5-coder:7b",
+            model=CODER_MODEL,
             temperature=0.2,
         )
 
-        emit_success(run_context, "coder_node", state.get("task", ""), {"model": "qwen2.5-coder:7b"}, start)
+        emit_success(run_context, "coder_node", state.get("task", ""), {"model": CODER_MODEL}, start)
 
         return {
             "generated_code": result.message,
