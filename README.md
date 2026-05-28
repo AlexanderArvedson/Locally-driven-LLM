@@ -46,3 +46,18 @@ The retrieval -> coder repository context schema, validation rules, and
 prompt rendering format are documented in:
 
 - `docs/CONTEXT_CONTRACT.md`
+
+Dependencies
+------------
+
+The full set of declared runtime, test, and tooling dependencies is documented in:
+
+- `docs/DEPENDENCIES.md`
+
+That file also covers OS-level build prerequisites for native extensions, including the `Python.h` fix path.
+
+If you want to install everything declared in `pyproject.toml`, use:
+
+```bash
+uv sync --all-extras
+```
