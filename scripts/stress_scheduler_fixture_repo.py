@@ -25,7 +25,7 @@ if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
 from src.scheduler.executor import WorkflowExecutor  # noqa: E402
-from src.config import CODER_MODEL  # noqa: E402
+from src.config_loader import CODER_MODEL  # noqa: E402
 from src.scheduler.loop import ExecutionLoop  # noqa: E402
 from src.scheduler.queue import TaskQueue  # noqa: E402
 from src.scheduler.task import Task  # noqa: E402

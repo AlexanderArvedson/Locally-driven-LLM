@@ -14,7 +14,7 @@ from langgraph.graph import StateGraph, START, END
 
 from src.graph.state import GraphState
 from src.graph.nodes import node_index as nodes_module
-from src.config import get_max_iterations
+from src.config_loader import get_max_iterations
 from src.observability.context import RunContext
 
 

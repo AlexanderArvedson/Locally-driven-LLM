@@ -5,7 +5,7 @@ import tempfile
 from pathlib import Path
 import unittest
 
-from src import config as app_config
+from src import config_loader as app_config
 
 
 class TestConfig(unittest.TestCase):

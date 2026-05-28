@@ -1,4 +1,4 @@
-"""Centralized configuration values for the project.
+"""Centralized configuration loader for the project.
 
 Configuration is loaded from the local `config.json` file at the repository
 root. The file is intentionally ignored by git so each checkout can keep

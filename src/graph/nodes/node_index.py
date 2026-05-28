@@ -8,7 +8,7 @@ from src.graph.nodes.file_writer import file_writer_node
 from src.graph.nodes.graphify_indexer import graphify_indexer_node
 from src.graph.nodes.reviewer import reviewer_node
 from src.graph.nodes.support import client
-from src.config import CODER_MODEL, MAX_ITERATIONS
+from src.config_loader import CODER_MODEL, MAX_ITERATIONS
 from src.graph.nodes.verifier import verifier_node
 
 __all__ = [

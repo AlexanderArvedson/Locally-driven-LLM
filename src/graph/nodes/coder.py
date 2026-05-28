@@ -5,7 +5,7 @@ from __future__ import annotations
 import time
 
 from src.graph.nodes.support import client, require_state_value
-from src.config import get_coder_model
+from src.config_loader import get_coder_model
 from src.graph.state import GraphState
 from src.observability.context import RunContext
 from src.observability.event_logging_utils import emit_failure, emit_success

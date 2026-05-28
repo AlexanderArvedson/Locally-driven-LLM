@@ -1,6 +1,6 @@
 import asyncio
 from src.core.ollama_client import OllamaClient
-from src.config import OLLAMA_BASE_URL, CODER_MODEL
+from src.config_loader import OLLAMA_BASE_URL, CODER_MODEL
 
 
 async def main():
