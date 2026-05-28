@@ -2,6 +2,12 @@
 
 Quick notes (how to run the file-edit MVP):
 
+Before running the app, create a local `config.json` from `config.example.json` and edit the values for your machine and model setup. The repository ignores `config.json`, so each checkout can keep its own runtime settings. The example file is just a template; the local file is where the real repo-specific values live. The `max_iterations` field under each repository controls the allowed iterations for workflows. `api_key` is optional and is only needed for hosted providers; leave it `null` when using local hosting such as Ollama.
+
+```bash
+cp config.example.json config.json
+```
+
 - Run unit tests:
 
 ```bash
