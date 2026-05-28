@@ -17,6 +17,7 @@ if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
 from src.graph.workflow import make_graph  # noqa: E402
+from src.config_loader import CODER_MODEL  # noqa: E402
 from src.observability.context import RunContext  # noqa: E402
 
 
@@ -88,7 +89,7 @@ def main() -> int:
     before = target_file.read_text(encoding="utf-8")
     print(f"Repo: {repo_path}")
     print(f"Target: {target_file}")
-    print(f"Model: {os.getenv('OLLAMA_MODEL', 'qwen2.5-coder:7b')}")
+    print(f"Model: {CODER_MODEL}")
     print(f"Task: {task}")
     print("--- BEFORE ---")
     print(before)

@@ -13,7 +13,6 @@ from __future__ import annotations
 
 import argparse
 import asyncio
-import os
 import shutil
 import sys
 import tempfile
@@ -26,6 +25,7 @@ if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
 from src.scheduler.executor import WorkflowExecutor  # noqa: E402
+from src.config_loader import CODER_MODEL  # noqa: E402
 from src.scheduler.loop import ExecutionLoop  # noqa: E402
 from src.scheduler.queue import TaskQueue  # noqa: E402
 from src.scheduler.task import Task  # noqa: E402
@@ -147,7 +147,7 @@ async def _run(repo_path: Path, target_file: Path, prompts: list[str]) -> None:
     try:
         print(f"Repo: {repo_path}")
         print(f"Target: {target_file}")
-        print(f"Model: {os.getenv('OLLAMA_MODEL', 'qwen2.5-coder:7b')}")
+        print(f"Model: {CODER_MODEL}")
         print("--- INPUT PROMPTS ---")
         for index, prompt in enumerate(prompts, start=1):
             print(f"{index}. {prompt}")

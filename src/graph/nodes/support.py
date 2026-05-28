@@ -8,7 +8,7 @@ from pathlib import Path
 
 from src.core.ollama_client import OllamaClient
 from src.graph.state import GraphState
-from src.config import OLLAMA_BASE_URL, CODER_MODEL, MAX_ITERATIONS
+from src.config_loader import get_ollama_base_url, CODER_MODEL, MAX_ITERATIONS
 
 
 logger = logging.getLogger(__name__)
@@ -16,7 +16,7 @@ if not logger.handlers:
     logging.basicConfig(level=logging.INFO)
 
 
-client = OllamaClient(base_url=OLLAMA_BASE_URL)
+client = OllamaClient(base_url=get_ollama_base_url())
 
 
 
