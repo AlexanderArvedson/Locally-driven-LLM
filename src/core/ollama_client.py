@@ -17,7 +17,7 @@ class LLMResult:
     output_tokens: int
 
 class OllamaClient:
-    def __init__(self, base_url: str, timeout: float = 300.0):
+    def __init__(self, base_url: str, timeout: float = 600.0):
         """Create a new `OllamaClient`.
 
         Args:
