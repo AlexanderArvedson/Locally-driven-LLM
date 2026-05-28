@@ -465,38 +465,43 @@ version = "0.1.0"
 source = { virtual = "." }
 dependencies = [
     { name = "fastapi" },
-    { name = "graphifyy" },
     { name = "httpx" },
-    { name = "langchain-core" },
     { name = "langfuse" },
     { name = "langgraph" },
     { name = "loguru" },
     { name = "pydantic" },
-    { name = "pytest" },
-    { name = "pytest-asyncio" },
     { name = "python-dotenv" },
-    { name = "ruff" },
     { name = "tenacity" },
     { name = "uvicorn", extra = ["standard"] },
+]
+
+[package.optional-dependencies]
+dev = [
+    { name = "pytest" },
+    { name = "pytest-asyncio" },
+    { name = "ruff" },
+]
+tools = [
+    { name = "graphifyy" },
 ]
 
 [package.metadata]
 requires-dist = [
     { name = "fastapi", specifier = ">=0.136.1" },
-    { name = "graphifyy", specifier = ">=0.8.22" },
+    { name = "graphifyy", marker = "extra == 'tools'", specifier = ">=0.8.22" },
     { name = "httpx", specifier = ">=0.28.1" },
-    { name = "langchain-core", specifier = ">=1.4.0" },
     { name = "langfuse", specifier = ">=4.6.1" },
     { name = "langgraph", specifier = ">=1.2.1" },
     { name = "loguru", specifier = ">=0.7.3" },
     { name = "pydantic", specifier = ">=2.13.4" },
-    { name = "pytest", specifier = ">=9.0.3" },
-    { name = "pytest-asyncio", specifier = ">=1.4.0" },
+    { name = "pytest", marker = "extra == 'dev'", specifier = ">=9.0.3" },
+    { name = "pytest-asyncio", marker = "extra == 'dev'", specifier = ">=1.4.0" },
     { name = "python-dotenv", specifier = ">=1.2.2" },
-    { name = "ruff", specifier = ">=0.15.14" },
+    { name = "ruff", marker = "extra == 'dev'", specifier = ">=0.15.14" },
     { name = "tenacity", specifier = ">=9.1.4" },
     { name = "uvicorn", extras = ["standard"], specifier = ">=0.47.0" },
 ]
+provides-extras = ["dev", "tools"]
 
 [[package]]
 name = "loguru"
