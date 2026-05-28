@@ -19,6 +19,17 @@ logger = logging.getLogger(__name__)
 
 
 async def file_writer_node(state: GraphState, run_context: RunContext) -> dict:
+    """Write generated content to disk or apply a unified diff.
+
+    Expected state input keys:
+    - `target_file`: path to update
+    - `generated_code`: full file text (used if `generated_diff` absent)
+    - `generated_diff` (optional): unified diff to apply instead of overwriting
+
+    Returns a dict with:
+    - `updated_code`: the content written (str) on success
+    On failure, returns verification keys describing the failure.
+    """
     start = time.time()
     try:
         target_file = require_state_value(state, "target_file")

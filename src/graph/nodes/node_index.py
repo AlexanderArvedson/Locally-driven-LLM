@@ -6,7 +6,8 @@ from src.graph.nodes.diff_generator import diff_generator_node
 from src.graph.nodes.file_reader import file_reader_node
 from src.graph.nodes.file_writer import file_writer_node
 from src.graph.nodes.reviewer import reviewer_node
-from src.graph.nodes.support import CODER_MODEL, MAX_ITERATIONS, client
+from src.graph.nodes.support import client
+from src.config import CODER_MODEL, MAX_ITERATIONS
 from src.graph.nodes.verifier import verifier_node
 
 __all__ = [

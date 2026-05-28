@@ -15,6 +15,15 @@ from src.repository.simple_repository_indexer import SimpleRepositoryIndexer
 
 
 async def context_builder_node(state: GraphState, run_context: RunContext) -> dict:
+    """Build repository context for the current task and target file.
+
+    Expected state input keys:
+    - `task`: human-readable task instruction (str)
+    - `target_file` or `repo_path`: where to derive repository snapshot
+
+    On success, stores `repository_snapshot` and `repository_context` in
+    `state` and returns a dict with `repository_context` payload.
+    """
     start = time.time()
     task = state.get("task", "")
     try:

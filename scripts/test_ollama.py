@@ -1,9 +1,10 @@
 import asyncio
 from src.core.ollama_client import OllamaClient
+from src.config import OLLAMA_BASE_URL, CODER_MODEL
 
 
 async def main():
-    client = OllamaClient(base_url="http://localhost:11434")
+    client = OllamaClient(base_url=OLLAMA_BASE_URL)
 
     try:
         result = await client.chat(
@@ -13,7 +14,7 @@ async def main():
                     "content": "Write a Python function that reverses a string",
                 }
             ],
-            model="qwen2.5-coder:7b",
+            model=CODER_MODEL,
             temperature=0.7,
         )
 

@@ -8,6 +8,7 @@ from pathlib import Path
 
 from src.core.ollama_client import OllamaClient
 from src.graph.state import GraphState
+from src.config import OLLAMA_BASE_URL, CODER_MODEL, MAX_ITERATIONS
 
 
 logger = logging.getLogger(__name__)
@@ -15,9 +16,8 @@ if not logger.handlers:
     logging.basicConfig(level=logging.INFO)
 
 
-client = OllamaClient(base_url="http://localhost:11434")
-CODER_MODEL = os.getenv("OLLAMA_MODEL", "qwen2.5-coder:7b")
-MAX_ITERATIONS = 3
+client = OllamaClient(base_url=OLLAMA_BASE_URL)
+
 
 
 def require_state_value(state: GraphState, key: str):

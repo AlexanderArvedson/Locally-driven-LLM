@@ -15,6 +15,18 @@ from src.observability.event_logging_utils import emit_failure, emit_success
 
 
 async def reviewer_node(state: GraphState, run_context: RunContext) -> dict:
+    """Perform lightweight review checks on generated code.
+
+    Performs the following checks in order:
+    - Basic Python syntax validation via `validate_python_syntax`.
+    - If `ruff` is available on PATH, run `ruff check` on a temporary file
+      and treat any non-zero exit as a failure.
+    - Apply simple heuristics (presence of `def `, absence of `TODO`, length).
+
+    The function returns a dict with `review_passed` (bool) and
+    `review_feedback` (str). Linter usage is optional and depends on the
+    runtime environment; callers should not assume `ruff` is available.
+    """
     start = time.time()
     try:
         code = strip_code_fences(require_state_value(state, "generated_code"))

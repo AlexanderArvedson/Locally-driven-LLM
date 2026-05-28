@@ -12,6 +12,16 @@ from src.tools.files import read_file
 
 
 async def file_reader_node(state: GraphState, run_context: RunContext) -> dict:
+    """Read the target file (or select one) and return its contents.
+
+    Expected state input keys:
+    - `target_file` (optional): explicit path to read
+    - `repo_path` (optional): repository root to search if `target_file` missing
+
+    Returns a dict with:
+    - `original_code`: the file contents (str)
+    - `target_file`: the resolved file path (str)
+    """
     start = time.time()
     try:
         target_file = state.get("target_file")

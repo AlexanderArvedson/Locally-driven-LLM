@@ -9,6 +9,15 @@ from .task import Task
 
 
 class ExecutionLoop:
+    """Background execution loop that consumes tasks from a `TaskQueue`.
+
+    Responsibilities:
+    - Start and stop the background consumer task.
+    - Dispatch passive tasks as background work and run active tasks
+      serially while holding a mutation lock.
+    - Track background tasks to ensure orderly shutdown.
+    """
+
     def __init__(self, queue: TaskQueue, executor: WorkflowExecutor) -> None:
         self.queue = queue
         self.executor = executor
