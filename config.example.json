@@ -16,12 +16,28 @@
                 "token": "your-token"
             },
             "models": {
-                "LLM": {
+
+                "chat-model": {
+                    "name": "your-chat-model",
+                    "provider": "your-provider",
+                    "api_key": null,
+                    "url": "https://example.com/your-chat-model-endpoint"
+                },
+
+                "Coder": {
                     "name": "your-llm-model",
                     "provider": "your-provider",
                     "api_key": null,
                     "url": "https://example.com/your-llm-endpoint"
                 },
+
+                "reviewer": {
+                    "name": "your-reviewer-model",
+                    "provider": "your-provider",
+                    "api_key": null,
+                    "url": "https://example.com/your-reviewer-endpoint"
+                },
+
                 "embedding": {
                     "name": "your-embedding-model",
                     "provider": "your-provider",
@@ -29,7 +45,11 @@
                     "url": "https://example.com/your-embedding-endpoint"
                 }
             },
-            "slack_webhook_url": "https://hooks.slack.com/services/your/webhook/url"
+
+
+            "integrations": {
+                "slack_webhook_url": "https://hooks.slack.com/services/your/webhook/url"
+            }
         }
     ]
 }
