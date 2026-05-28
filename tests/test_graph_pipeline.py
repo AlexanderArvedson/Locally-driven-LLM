@@ -7,7 +7,7 @@ from unittest.mock import AsyncMock, patch
 
 from src.core.ollama_client import LLMResult
 from src.core.runtime_paths import RUNS_DIR, ensure_runtime_dirs
-from src.graph.nodes import nodes as nodes_module
+from src.graph.nodes import node_index as nodes_module
 from src.graph.workflow import make_graph
 from src.observability.context import RunContext
 

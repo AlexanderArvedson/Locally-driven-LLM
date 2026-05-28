@@ -13,7 +13,7 @@ signature it expects.
 from langgraph.graph import StateGraph, START, END
 
 from src.graph.state import GraphState
-from src.graph.nodes import nodes as nodes_module
+from src.graph.nodes import node_index as nodes_module
 from src.observability.context import RunContext
 
 
@@ -77,8 +77,7 @@ def make_graph(run_context: RunContext):
 
         return _wrapped
 
-    # Register nodes from the `nodes` module. Using a clear module alias
-    # (`nodes_module`) improves readability compared to a generic name.
+    # Register nodes from the aggregate index module.
     builder.add_node("file_reader", _wrap(nodes_module.file_reader_node))
     builder.add_node("context_builder", _wrap(nodes_module.context_builder_node))
     builder.add_node("coder", _wrap(nodes_module.coder_node))

@@ -17,7 +17,7 @@ from tests.support.httpx_stub import httpx_stub
 class TestCoderPromptContract(unittest.TestCase):
     def test_missing_repository_context_has_controlled_prompt_marker(self):
         with httpx_stub():
-            nodes_module = importlib.import_module("src.graph.nodes.nodes")
+            nodes_module = importlib.import_module("src.graph.nodes.node_index")
         captured_prompts = []
 
         async def fake_chat(messages, model, temperature):
@@ -44,7 +44,7 @@ class TestCoderPromptContract(unittest.TestCase):
 
     def test_prompt_snapshot_and_ordering_is_deterministic(self):
         with httpx_stub():
-            nodes_module = importlib.import_module("src.graph.nodes.nodes")
+            nodes_module = importlib.import_module("src.graph.nodes.node_index")
         captured_prompts = []
 
         async def fake_chat(messages, model, temperature):

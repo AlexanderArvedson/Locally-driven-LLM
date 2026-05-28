@@ -40,7 +40,7 @@ class TestRetrievalIntegration(unittest.TestCase):
 
             with httpx_stub():
                 from src.graph.workflow import make_graph
-                from src.graph.nodes import nodes as nodes_module
+                from src.graph.nodes import node_index as nodes_module
 
                 graph = make_graph(run_context)
 
@@ -117,7 +117,7 @@ class TestRetrievalIntegration(unittest.TestCase):
 
             with httpx_stub():
                 from src.graph.workflow import make_graph
-                from src.graph.nodes import nodes as nodes_module
+                from src.graph.nodes import node_index as nodes_module
 
                 graph = make_graph(run_context)
 
