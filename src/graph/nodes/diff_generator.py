@@ -12,6 +12,16 @@ from src.tools.patches import generate_unified
 
 
 async def diff_generator_node(state: GraphState, run_context: RunContext) -> dict:
+    """Compute a unified diff between the original and generated code.
+
+    Expected state input keys:
+    - `original_code`: the original file contents (str)
+    - `generated_code`: the generated file contents (str)
+    - `target_file` (optional): used to populate diff file names
+
+    Returns a dict with:
+    - `generated_diff`: unified diff string
+    """
     start = time.time()
     try:
         original = require_state_value(state, "original_code")
