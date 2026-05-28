@@ -279,54 +279,54 @@
   },
   "nodes": [
     {
-      "label": "config.py",
+      "label": "config_loader.py",
       "file_type": "code",
-      "source_file": "src/config.py",
+      "source_file": "src/config_loader.py",
       "source_location": "L1",
-      "id": "src_config_py",
+      "id": "src_config_loader_py",
       "community": 12,
-      "norm_label": "config.py"
+      "norm_label": "config_loader.py"
     },
     {
       "label": "ModelConfig",
       "file_type": "code",
-      "source_file": "src/config.py",
+      "source_file": "src/config_loader.py",
       "source_location": "L21",
-      "id": "src_config_modelconfig",
+      "id": "src_config_loader_modelconfig",
       "community": 12,
       "norm_label": "modelconfig"
     },
     {
       "label": "RepositoryConfig",
       "file_type": "code",
-      "source_file": "src/config.py",
+      "source_file": "src/config_loader.py",
       "source_location": "L29",
-      "id": "src_config_repositoryconfig",
+      "id": "src_config_loader_repositoryconfig",
       "community": 12,
       "norm_label": "repositoryconfig"
     },
     {
       "label": "AppConfig",
       "file_type": "code",
-      "source_file": "src/config.py",
+      "source_file": "src/config_loader.py",
       "source_location": "L45",
-      "id": "src_config_appconfig",
+      "id": "src_config_loader_appconfig",
       "community": 12,
       "norm_label": "appconfig"
     },
     {
       "label": "_raise_invalid_field()",
       "file_type": "code",
-      "source_file": "src/config.py",
+      "source_file": "src/config_loader.py",
       "source_location": "L50",
-      "id": "src_config_raise_invalid_field",
+      "id": "src_config_loader_raise_invalid_field",
       "community": 12,
       "norm_label": "_raise_invalid_field()"
     },
     {
       "label": "Path",
       "file_type": "code",
-      "source_file": "src/config.py",
+      "source_file": "src/config_loader.py",
       "source_location": "L50",
       "id": "path",
       "community": 12,
@@ -335,25 +335,25 @@
     {
       "label": "str",
       "file_type": "code",
-      "source_file": "src/config.py",
+      "source_file": "src/config_loader.py",
       "source_location": "L50",
-      "id": "src_config_py_str",
+      "id": "src_config_loader_py_str",
       "community": 12,
       "norm_label": "str"
     },
     {
       "label": "_require_str()",
       "file_type": "code",
-      "source_file": "src/config.py",
+      "source_file": "src/config_loader.py",
       "source_location": "L54",
-      "id": "src_config_require_str",
+      "id": "src_config_loader_require_str",
       "community": 12,
       "norm_label": "_require_str()"
     },
     {
       "label": "Any",
       "file_type": "code",
-      "source_file": "src/config.py",
+      "source_file": "src/config_loader.py",
       "source_location": "L54",
       "id": "any",
       "community": 12,
@@ -362,16 +362,16 @@
     {
       "label": "_require_int()",
       "file_type": "code",
-      "source_file": "src/config.py",
+      "source_file": "src/config_loader.py",
       "source_location": "L61",
-      "id": "src_config_require_int",
+      "id": "src_config_loader_require_int",
       "community": 12,
       "norm_label": "_require_int()"
     },
     {
       "label": "int",
       "file_type": "code",
-      "source_file": "src/config.py",
+      "source_file": "src/config_loader.py",
       "source_location": "L61",
       "id": "int",
       "community": 12,
@@ -380,99 +380,99 @@
     {
       "label": "_load_model_config()",
       "file_type": "code",
-      "source_file": "src/config.py",
+      "source_file": "src/config_loader.py",
       "source_location": "L68",
-      "id": "src_config_load_model_config",
+      "id": "src_config_loader_load_model_config",
       "community": 12,
       "norm_label": "_load_model_config()"
     },
     {
       "label": "_load_repository_config()",
       "file_type": "code",
-      "source_file": "src/config.py",
+      "source_file": "src/config_loader.py",
       "source_location": "L77",
-      "id": "src_config_load_repository_config",
+      "id": "src_config_loader_load_repository_config",
       "community": 12,
       "norm_label": "_load_repository_config()"
     },
     {
       "label": "_select_primary_model()",
       "file_type": "code",
-      "source_file": "src/config.py",
+      "source_file": "src/config_loader.py",
       "source_location": "L108",
-      "id": "src_config_select_primary_model",
+      "id": "src_config_loader_select_primary_model",
       "community": 12,
       "norm_label": "_select_primary_model()"
     },
     {
       "label": "get_repository_config()",
       "file_type": "code",
-      "source_file": "src/config.py",
+      "source_file": "src/config_loader.py",
       "source_location": "L114",
-      "id": "src_config_get_repository_config",
+      "id": "src_config_loader_get_repository_config",
       "community": 12,
       "norm_label": "get_repository_config()"
     },
     {
       "label": "get_primary_model()",
       "file_type": "code",
-      "source_file": "src/config.py",
+      "source_file": "src/config_loader.py",
       "source_location": "L133",
-      "id": "src_config_get_primary_model",
+      "id": "src_config_loader_get_primary_model",
       "community": 12,
       "norm_label": "get_primary_model()"
     },
     {
       "label": "get_ollama_base_url()",
       "file_type": "code",
-      "source_file": "src/config.py",
+      "source_file": "src/config_loader.py",
       "source_location": "L137",
-      "id": "src_config_get_ollama_base_url",
+      "id": "src_config_loader_get_ollama_base_url",
       "community": 12,
       "norm_label": "get_ollama_base_url()"
     },
     {
       "label": "get_coder_model()",
       "file_type": "code",
-      "source_file": "src/config.py",
+      "source_file": "src/config_loader.py",
       "source_location": "L144",
-      "id": "src_config_get_coder_model",
+      "id": "src_config_loader_get_coder_model",
       "community": 12,
       "norm_label": "get_coder_model()"
     },
     {
       "label": "get_max_iterations()",
       "file_type": "code",
-      "source_file": "src/config.py",
+      "source_file": "src/config_loader.py",
       "source_location": "L148",
-      "id": "src_config_get_max_iterations",
+      "id": "src_config_loader_get_max_iterations",
       "community": 12,
       "norm_label": "get_max_iterations()"
     },
     {
       "label": "load_config()",
       "file_type": "code",
-      "source_file": "src/config.py",
+      "source_file": "src/config_loader.py",
       "source_location": "L152",
-      "id": "src_config_load_config",
+      "id": "src_config_loader_load_config",
       "community": 12,
       "norm_label": "load_config()"
     },
     {
-      "label": "Centralized configuration values for the project.  Configuration is loaded from",
+      "label": "Centralized configuration loader for the project.  Configuration is loaded from",
       "file_type": "rationale",
-      "source_file": "src/config.py",
+      "source_file": "src/config_loader.py",
       "source_location": "L1",
-      "id": "src_config_rationale_1",
+      "id": "src_config_loader_rationale_1",
       "community": 12,
-      "norm_label": "centralized configuration values for the project.  configuration is loaded from"
+      "norm_label": "centralized configuration loader for the project.  configuration is loaded from"
     },
     {
       "label": "Return the configured repository that best matches `repo_path`.      If no repo",
       "file_type": "rationale",
-      "source_file": "src/config.py",
+      "source_file": "src/config_loader.py",
       "source_location": "L115",
-      "id": "src_config_rationale_115",
+      "id": "src_config_loader_rationale_115",
       "community": 12,
       "norm_label": "return the configured repository that best matches `repo_path`.      if no repo"
     },
@@ -482,7 +482,7 @@
       "source_file": "src/graph/nodes/coder.py",
       "source_location": "L1",
       "id": "src_graph_nodes_coder_py",
-      "community": 13,
+      "community": 1,
       "norm_label": "coder.py"
     },
     {
@@ -531,6 +531,24 @@
       "norm_label": "runcontext"
     },
     {
+      "label": "node_index.py",
+      "file_type": "code",
+      "source_file": "src/graph/nodes/node_index.py",
+      "source_location": "L1",
+      "id": "src_graph_nodes_node_index_py",
+      "community": 11,
+      "norm_label": "node_index.py"
+    },
+    {
+      "label": "Aggregate export surface for graph nodes.",
+      "file_type": "rationale",
+      "source_file": "src/graph/nodes/node_index.py",
+      "source_location": "L1",
+      "id": "nodes_node_index_rationale_1",
+      "community": 11,
+      "norm_label": "aggregate export surface for graph nodes."
+    },
+    {
       "label": "support.py",
       "file_type": "code",
       "source_file": "src/graph/nodes/support.py",
@@ -554,7 +572,7 @@
       "source_file": "src/graph/nodes/support.py",
       "source_location": "L23",
       "id": "src_graph_nodes_support_py_graphstate",
-      "community": 5,
+      "community": 0,
       "norm_label": "graphstate"
     },
     {
@@ -599,7 +617,7 @@
       "source_file": "src/graph/nodes/support.py",
       "source_location": "L58",
       "id": "nodes_support_select_target_file_from_repo_path",
-      "community": 0,
+      "community": 13,
       "norm_label": "select_target_file_from_repo_path()"
     },
     {
@@ -644,7 +662,7 @@
       "source_file": "src/graph/nodes/support.py",
       "source_location": "L59",
       "id": "nodes_support_rationale_59",
-      "community": 0,
+      "community": 13,
       "norm_label": "pick the first python file in a repo root deterministically."
     },
     {
@@ -653,7 +671,7 @@
       "source_file": "src/graph/workflow.py",
       "source_location": "L1",
       "id": "src_graph_workflow_py",
-      "community": 13,
+      "community": 12,
       "norm_label": "workflow.py"
     },
     {
@@ -707,7 +725,7 @@
       "source_file": "src/graph/workflow.py",
       "source_location": "L1",
       "id": "graph_workflow_rationale_1",
-      "community": 13,
+      "community": 12,
       "norm_label": "graph construction helpers for the file-edit workflow.  this module builds a `st"
     },
     {
@@ -736,6 +754,177 @@
       "id": "graph_workflow_rationale_55",
       "community": 13,
       "norm_label": "create and compile the stategraph for a single run.      the returned graph is c"
+    },
+    {
+      "label": "config.py",
+      "file_type": "code",
+      "source_file": "src/config.py",
+      "source_location": "L1",
+      "community": 12,
+      "norm_label": "config.py",
+      "id": "src_config_py"
+    },
+    {
+      "label": "ModelConfig",
+      "file_type": "code",
+      "source_file": "src/config.py",
+      "source_location": "L21",
+      "community": 12,
+      "norm_label": "modelconfig",
+      "id": "src_config_modelconfig"
+    },
+    {
+      "label": "RepositoryConfig",
+      "file_type": "code",
+      "source_file": "src/config.py",
+      "source_location": "L29",
+      "community": 12,
+      "norm_label": "repositoryconfig",
+      "id": "src_config_repositoryconfig"
+    },
+    {
+      "label": "AppConfig",
+      "file_type": "code",
+      "source_file": "src/config.py",
+      "source_location": "L45",
+      "community": 12,
+      "norm_label": "appconfig",
+      "id": "src_config_appconfig"
+    },
+    {
+      "label": "_raise_invalid_field()",
+      "file_type": "code",
+      "source_file": "src/config.py",
+      "source_location": "L50",
+      "community": 12,
+      "norm_label": "_raise_invalid_field()",
+      "id": "src_config_raise_invalid_field"
+    },
+    {
+      "label": "str",
+      "file_type": "code",
+      "source_file": "src/config.py",
+      "source_location": "L50",
+      "community": 12,
+      "norm_label": "str",
+      "id": "src_config_py_str"
+    },
+    {
+      "label": "_require_str()",
+      "file_type": "code",
+      "source_file": "src/config.py",
+      "source_location": "L54",
+      "community": 12,
+      "norm_label": "_require_str()",
+      "id": "src_config_require_str"
+    },
+    {
+      "label": "_require_int()",
+      "file_type": "code",
+      "source_file": "src/config.py",
+      "source_location": "L61",
+      "community": 12,
+      "norm_label": "_require_int()",
+      "id": "src_config_require_int"
+    },
+    {
+      "label": "_load_model_config()",
+      "file_type": "code",
+      "source_file": "src/config.py",
+      "source_location": "L68",
+      "community": 12,
+      "norm_label": "_load_model_config()",
+      "id": "src_config_load_model_config"
+    },
+    {
+      "label": "_load_repository_config()",
+      "file_type": "code",
+      "source_file": "src/config.py",
+      "source_location": "L77",
+      "community": 12,
+      "norm_label": "_load_repository_config()",
+      "id": "src_config_load_repository_config"
+    },
+    {
+      "label": "_select_primary_model()",
+      "file_type": "code",
+      "source_file": "src/config.py",
+      "source_location": "L108",
+      "community": 12,
+      "norm_label": "_select_primary_model()",
+      "id": "src_config_select_primary_model"
+    },
+    {
+      "label": "get_repository_config()",
+      "file_type": "code",
+      "source_file": "src/config.py",
+      "source_location": "L114",
+      "community": 12,
+      "norm_label": "get_repository_config()",
+      "id": "src_config_get_repository_config"
+    },
+    {
+      "label": "get_primary_model()",
+      "file_type": "code",
+      "source_file": "src/config.py",
+      "source_location": "L133",
+      "community": 12,
+      "norm_label": "get_primary_model()",
+      "id": "src_config_get_primary_model"
+    },
+    {
+      "label": "get_ollama_base_url()",
+      "file_type": "code",
+      "source_file": "src/config.py",
+      "source_location": "L137",
+      "community": 12,
+      "norm_label": "get_ollama_base_url()",
+      "id": "src_config_get_ollama_base_url"
+    },
+    {
+      "label": "get_coder_model()",
+      "file_type": "code",
+      "source_file": "src/config.py",
+      "source_location": "L144",
+      "community": 12,
+      "norm_label": "get_coder_model()",
+      "id": "src_config_get_coder_model"
+    },
+    {
+      "label": "get_max_iterations()",
+      "file_type": "code",
+      "source_file": "src/config.py",
+      "source_location": "L148",
+      "community": 12,
+      "norm_label": "get_max_iterations()",
+      "id": "src_config_get_max_iterations"
+    },
+    {
+      "label": "load_config()",
+      "file_type": "code",
+      "source_file": "src/config.py",
+      "source_location": "L152",
+      "community": 12,
+      "norm_label": "load_config()",
+      "id": "src_config_load_config"
+    },
+    {
+      "label": "Centralized configuration values for the project.  Configuration is loaded from",
+      "file_type": "rationale",
+      "source_file": "src/config.py",
+      "source_location": "L1",
+      "community": 12,
+      "norm_label": "centralized configuration values for the project.  configuration is loaded from",
+      "id": "src_config_rationale_1"
+    },
+    {
+      "label": "Return the configured repository that best matches `repo_path`.      If no repo",
+      "file_type": "rationale",
+      "source_file": "src/config.py",
+      "source_location": "L115",
+      "community": 12,
+      "norm_label": "return the configured repository that best matches `repo_path`.      if no repo",
+      "id": "src_config_rationale_115"
     },
     {
       "label": "__init__.py",
@@ -1102,7 +1291,7 @@
       "file_type": "code",
       "source_file": "src/core/runtime_paths.py",
       "source_location": "L1",
-      "community": 7,
+      "community": 19,
       "norm_label": "runtime_paths.py",
       "id": "src_core_runtime_paths_py"
     },
@@ -1120,7 +1309,7 @@
       "file_type": "rationale",
       "source_file": "src/core/runtime_paths.py",
       "source_location": "L1",
-      "community": 7,
+      "community": 19,
       "norm_label": "centralized runtime artifact paths for deterministic ci and local runs.  all run",
       "id": "core_runtime_paths_rationale_1"
     },
@@ -1183,7 +1372,7 @@
       "file_type": "code",
       "source_file": "src/tools/patches.py",
       "source_location": "L40",
-      "community": 19,
+      "community": 10,
       "norm_label": "apply_unified()",
       "id": "tools_patches_apply_unified"
     },
@@ -1219,7 +1408,7 @@
       "file_type": "rationale",
       "source_file": "src/tools/patches.py",
       "source_location": "L41",
-      "community": 19,
+      "community": 10,
       "norm_label": "apply a unified diff to the file at `path`.      this is a lightweight unified d",
       "id": "tools_patches_rationale_41"
     },
@@ -1354,7 +1543,7 @@
       "file_type": "code",
       "source_file": "src/observability/logger.py",
       "source_location": "L1",
-      "community": 1,
+      "community": 19,
       "norm_label": "logger.py",
       "id": "src_observability_logger_py"
     },
@@ -1363,7 +1552,7 @@
       "file_type": "code",
       "source_file": "src/observability/logger.py",
       "source_location": "L15",
-      "community": 1,
+      "community": 19,
       "norm_label": "log_event()",
       "id": "observability_logger_log_event"
     },
@@ -1372,7 +1561,7 @@
       "file_type": "code",
       "source_file": "src/observability/logger.py",
       "source_location": "L15",
-      "community": 1,
+      "community": 19,
       "norm_label": "str",
       "id": "src_observability_logger_py_str"
     },
@@ -1381,7 +1570,7 @@
       "file_type": "rationale",
       "source_file": "src/observability/logger.py",
       "source_location": "L1",
-      "community": 1,
+      "community": 19,
       "norm_label": "minimal jsonl logger for per-run observability events.  provides one simple func",
       "id": "observability_logger_rationale_1"
     },
@@ -1390,7 +1579,7 @@
       "file_type": "rationale",
       "source_file": "src/observability/logger.py",
       "source_location": "L16",
-      "community": 1,
+      "community": 19,
       "norm_label": "append `event` as one json line to the per-run jsonl file.      writes directly",
       "id": "observability_logger_rationale_16"
     },
@@ -1489,7 +1678,7 @@
       "file_type": "code",
       "source_file": "src/observability/context.py",
       "source_location": "L1",
-      "community": 8,
+      "community": 1,
       "norm_label": "context.py",
       "id": "src_observability_context_py"
     },
@@ -1498,7 +1687,7 @@
       "file_type": "code",
       "source_file": "src/observability/context.py",
       "source_location": "L13",
-      "community": 8,
+      "community": 1,
       "norm_label": "runcontext",
       "id": "observability_context_runcontext"
     },
@@ -1516,7 +1705,7 @@
       "file_type": "rationale",
       "source_file": "src/observability/context.py",
       "source_location": "L1",
-      "community": 8,
+      "community": 1,
       "norm_label": "runcontext helper for observability.  this module provides a minimal `runcontext",
       "id": "observability_context_rationale_1"
     },
@@ -1525,7 +1714,7 @@
       "file_type": "rationale",
       "source_file": "src/observability/context.py",
       "source_location": "L14",
-      "community": 8,
+      "community": 1,
       "norm_label": "minimal per-run observability context.      attributes:         run_id: a uuid4",
       "id": "observability_context_rationale_14"
     },
@@ -2353,7 +2542,7 @@
       "file_type": "code",
       "source_file": "src/graph/nodes/reviewer.py",
       "source_location": "L1",
-      "community": 0,
+      "community": 1,
       "norm_label": "reviewer.py",
       "id": "src_graph_nodes_reviewer_py"
     },
@@ -2362,7 +2551,7 @@
       "file_type": "code",
       "source_file": "src/graph/nodes/reviewer.py",
       "source_location": "L17",
-      "community": 0,
+      "community": 11,
       "norm_label": "reviewer_node()",
       "id": "nodes_reviewer_reviewer_node"
     },
@@ -2371,7 +2560,7 @@
       "file_type": "code",
       "source_file": "src/graph/nodes/reviewer.py",
       "source_location": "L17",
-      "community": 0,
+      "community": 11,
       "norm_label": "graphstate",
       "id": "src_graph_nodes_reviewer_py_graphstate"
     },
@@ -2380,7 +2569,7 @@
       "file_type": "code",
       "source_file": "src/graph/nodes/reviewer.py",
       "source_location": "L17",
-      "community": 0,
+      "community": 11,
       "norm_label": "runcontext",
       "id": "src_graph_nodes_reviewer_py_runcontext"
     },
@@ -2389,7 +2578,7 @@
       "file_type": "rationale",
       "source_file": "src/graph/nodes/reviewer.py",
       "source_location": "L18",
-      "community": 0,
+      "community": 11,
       "norm_label": "perform lightweight review checks on generated code.      performs the following",
       "id": "nodes_reviewer_rationale_18"
     },
@@ -2398,7 +2587,7 @@
       "file_type": "code",
       "source_file": "src/graph/nodes/file_reader.py",
       "source_location": "L1",
-      "community": 0,
+      "community": 13,
       "norm_label": "file_reader.py",
       "id": "src_graph_nodes_file_reader_py"
     },
@@ -2452,7 +2641,7 @@
       "file_type": "code",
       "source_file": "src/graph/nodes/verifier.py",
       "source_location": "L15",
-      "community": 11,
+      "community": 0,
       "norm_label": "verifier_node()",
       "id": "nodes_verifier_verifier_node"
     },
@@ -2461,7 +2650,7 @@
       "file_type": "code",
       "source_file": "src/graph/nodes/verifier.py",
       "source_location": "L15",
-      "community": 11,
+      "community": 0,
       "norm_label": "graphstate",
       "id": "src_graph_nodes_verifier_py_graphstate"
     },
@@ -2470,7 +2659,7 @@
       "file_type": "code",
       "source_file": "src/graph/nodes/verifier.py",
       "source_location": "L15",
-      "community": 11,
+      "community": 0,
       "norm_label": "runcontext",
       "id": "src_graph_nodes_verifier_py_runcontext"
     },
@@ -2479,7 +2668,7 @@
       "file_type": "rationale",
       "source_file": "src/graph/nodes/verifier.py",
       "source_location": "L16",
-      "community": 11,
+      "community": 0,
       "norm_label": "verify generated code by performing static checks and (optionally) sandboxed exe",
       "id": "nodes_verifier_rationale_16"
     },
@@ -2605,7 +2794,7 @@
       "file_type": "code",
       "source_file": "src/graph/nodes/graphify_indexer.py",
       "source_location": "L1",
-      "community": 8,
+      "community": 1,
       "norm_label": "graphify_indexer.py",
       "id": "src_graph_nodes_graphify_indexer_py"
     },
@@ -2668,7 +2857,7 @@
       "file_type": "rationale",
       "source_file": "src/graph/nodes/graphify_indexer.py",
       "source_location": "L1",
-      "community": 8,
+      "community": 1,
       "norm_label": "graphify indexer node \u2014 builds a knowledge graph of the target repository.  runs",
       "id": "nodes_graphify_indexer_rationale_1"
     },
@@ -2689,24 +2878,6 @@
       "community": 8,
       "norm_label": "run ast-only graphify extraction and write graph.json to graph_dir.",
       "id": "nodes_graphify_indexer_rationale_58"
-    },
-    {
-      "label": "node_index.py",
-      "file_type": "code",
-      "source_file": "src/graph/nodes/node_index.py",
-      "source_location": "L1",
-      "community": 11,
-      "norm_label": "node_index.py",
-      "id": "src_graph_nodes_node_index_py"
-    },
-    {
-      "label": "Aggregate export surface for graph nodes.",
-      "file_type": "rationale",
-      "source_file": "src/graph/nodes/node_index.py",
-      "source_location": "L1",
-      "community": 11,
-      "norm_label": "aggregate export surface for graph nodes.",
-      "id": "nodes_node_index_rationale_1"
     },
     {
       "label": "__init__.py",
@@ -2857,7 +3028,7 @@
       "file_type": "code",
       "source_file": "src/observability/context.py",
       "source_location": "L22",
-      "community": 8,
+      "community": 1,
       "norm_label": "new()",
       "id": "observability_context_new"
     },
@@ -2940,19 +3111,6 @@
       "id": "core_runtime_paths_runtime_dir"
     },
     {
-      "label": "node_index aggregate export module",
-      "file_type": "code",
-      "source_file": "src/graph/nodes/node_index.py",
-      "source_location": "line 1",
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null,
-      "community": 13,
-      "norm_label": "node_index aggregate export module",
-      "id": "nodes_node_index_module"
-    },
-    {
       "label": "GraphState: original_code field",
       "file_type": "concept",
       "source_file": "src/graph/state.py",
@@ -2974,7 +3132,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 11,
+      "community": 19,
       "norm_label": "graphstate: generated_code field",
       "id": "concept_state_field_generated_code"
     },
@@ -3026,7 +3184,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 12,
+      "community": 0,
       "norm_label": "graphstate: verification_passed field",
       "id": "concept_state_field_verification_passed"
     },
@@ -3052,7 +3210,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 14,
+      "community": 4,
       "norm_label": "tasktype (passive|active)",
       "id": "scheduler_task_tasktype"
     },
@@ -3078,7 +3236,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 14,
+      "community": 4,
       "norm_label": "passive mode - continuous repository analysis",
       "id": "docs_project_plan_passive_mode"
     },
@@ -3091,7 +3249,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 14,
+      "community": 4,
       "norm_label": "active mode - user-triggered code modification",
       "id": "docs_project_plan_active_mode"
     },
@@ -3143,7 +3301,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 14,
+      "community": 4,
       "norm_label": "phase 1 - file mutation mvp",
       "id": "docs_project_plan_phase1_file_mutation_mvp"
     },
@@ -3182,7 +3340,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 14,
+      "community": 4,
       "norm_label": "phase 4 - passive analysis system",
       "id": "docs_project_plan_phase4_passive_analysis"
     },
@@ -3321,259 +3479,259 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "src/config.py",
+      "source_file": "src/config_loader.py",
       "source_location": "L45",
       "weight": 1.0,
-      "source": "src_config_py",
-      "target": "src_config_appconfig",
+      "source": "src_config_loader_py",
+      "target": "src_config_loader_appconfig",
       "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "src/config.py",
+      "source_file": "src/config_loader.py",
       "source_location": "L144",
       "weight": 1.0,
-      "source": "src_config_py",
-      "target": "src_config_get_coder_model",
+      "source": "src_config_loader_py",
+      "target": "src_config_loader_get_coder_model",
       "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "src/config.py",
+      "source_file": "src/config_loader.py",
       "source_location": "L148",
       "weight": 1.0,
-      "source": "src_config_py",
-      "target": "src_config_get_max_iterations",
+      "source": "src_config_loader_py",
+      "target": "src_config_loader_get_max_iterations",
       "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "src/config.py",
+      "source_file": "src/config_loader.py",
       "source_location": "L137",
       "weight": 1.0,
-      "source": "src_config_py",
-      "target": "src_config_get_ollama_base_url",
+      "source": "src_config_loader_py",
+      "target": "src_config_loader_get_ollama_base_url",
       "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "src/config.py",
+      "source_file": "src/config_loader.py",
       "source_location": "L133",
       "weight": 1.0,
-      "source": "src_config_py",
-      "target": "src_config_get_primary_model",
+      "source": "src_config_loader_py",
+      "target": "src_config_loader_get_primary_model",
       "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "src/config.py",
+      "source_file": "src/config_loader.py",
       "source_location": "L114",
       "weight": 1.0,
-      "source": "src_config_py",
-      "target": "src_config_get_repository_config",
+      "source": "src_config_loader_py",
+      "target": "src_config_loader_get_repository_config",
       "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "src/config.py",
+      "source_file": "src/config_loader.py",
       "source_location": "L152",
       "weight": 1.0,
-      "source": "src_config_py",
-      "target": "src_config_load_config",
+      "source": "src_config_loader_py",
+      "target": "src_config_loader_load_config",
       "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "src/config.py",
+      "source_file": "src/config_loader.py",
       "source_location": "L68",
       "weight": 1.0,
-      "source": "src_config_py",
-      "target": "src_config_load_model_config",
+      "source": "src_config_loader_py",
+      "target": "src_config_loader_load_model_config",
       "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "src/config.py",
+      "source_file": "src/config_loader.py",
       "source_location": "L77",
       "weight": 1.0,
-      "source": "src_config_py",
-      "target": "src_config_load_repository_config",
+      "source": "src_config_loader_py",
+      "target": "src_config_loader_load_repository_config",
       "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "src/config.py",
+      "source_file": "src/config_loader.py",
       "source_location": "L21",
       "weight": 1.0,
-      "source": "src_config_py",
-      "target": "src_config_modelconfig",
+      "source": "src_config_loader_py",
+      "target": "src_config_loader_modelconfig",
       "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "src/config.py",
+      "source_file": "src/config_loader.py",
       "source_location": "L50",
       "weight": 1.0,
-      "source": "src_config_py",
-      "target": "src_config_raise_invalid_field",
+      "source": "src_config_loader_py",
+      "target": "src_config_loader_raise_invalid_field",
       "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "src/config.py",
+      "source_file": "src/config_loader.py",
       "source_location": "L29",
       "weight": 1.0,
-      "source": "src_config_py",
-      "target": "src_config_repositoryconfig",
+      "source": "src_config_loader_py",
+      "target": "src_config_loader_repositoryconfig",
       "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "src/config.py",
+      "source_file": "src/config_loader.py",
       "source_location": "L61",
       "weight": 1.0,
-      "source": "src_config_py",
-      "target": "src_config_require_int",
+      "source": "src_config_loader_py",
+      "target": "src_config_loader_require_int",
       "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "src/config.py",
+      "source_file": "src/config_loader.py",
       "source_location": "L54",
       "weight": 1.0,
-      "source": "src_config_py",
-      "target": "src_config_require_str",
+      "source": "src_config_loader_py",
+      "target": "src_config_loader_require_str",
       "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "src/config.py",
+      "source_file": "src/config_loader.py",
       "source_location": "L108",
       "weight": 1.0,
-      "source": "src_config_py",
-      "target": "src_config_select_primary_model",
+      "source": "src_config_loader_py",
+      "target": "src_config_loader_select_primary_model",
       "confidence_score": 1.0
     },
     {
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
-      "source_file": "src/config.py",
+      "source_file": "src/config_loader.py",
       "source_location": "L1",
       "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "src_config_rationale_1",
-      "target": "src_config_py"
+      "source": "src_config_loader_rationale_1",
+      "target": "src_config_loader_py",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
       "context": "return_type",
       "confidence": "EXTRACTED",
-      "source_file": "src/config.py",
+      "source_file": "src/config_loader.py",
       "source_location": "L133",
       "weight": 1.0,
-      "source": "src_config_get_primary_model",
-      "target": "src_config_modelconfig",
+      "source": "src_config_loader_get_primary_model",
+      "target": "src_config_loader_modelconfig",
       "confidence_score": 1.0
     },
     {
       "relation": "references",
       "context": "return_type",
       "confidence": "EXTRACTED",
-      "source_file": "src/config.py",
+      "source_file": "src/config_loader.py",
       "source_location": "L68",
       "weight": 1.0,
-      "source": "src_config_load_model_config",
-      "target": "src_config_modelconfig",
+      "source": "src_config_loader_load_model_config",
+      "target": "src_config_loader_modelconfig",
       "confidence_score": 1.0
     },
     {
       "relation": "references",
       "context": "return_type",
       "confidence": "EXTRACTED",
-      "source_file": "src/config.py",
+      "source_file": "src/config_loader.py",
       "source_location": "L108",
       "weight": 1.0,
-      "source": "src_config_select_primary_model",
-      "target": "src_config_modelconfig",
+      "source": "src_config_loader_select_primary_model",
+      "target": "src_config_loader_modelconfig",
       "confidence_score": 1.0
     },
     {
       "relation": "references",
       "context": "return_type",
       "confidence": "EXTRACTED",
-      "source_file": "src/config.py",
+      "source_file": "src/config_loader.py",
       "source_location": "L114",
       "weight": 1.0,
-      "source": "src_config_get_repository_config",
-      "target": "src_config_repositoryconfig",
+      "source": "src_config_loader_get_repository_config",
+      "target": "src_config_loader_repositoryconfig",
       "confidence_score": 1.0
     },
     {
       "relation": "references",
       "context": "return_type",
       "confidence": "EXTRACTED",
-      "source_file": "src/config.py",
+      "source_file": "src/config_loader.py",
       "source_location": "L77",
       "weight": 1.0,
-      "source": "src_config_load_repository_config",
-      "target": "src_config_repositoryconfig",
+      "source": "src_config_loader_load_repository_config",
+      "target": "src_config_loader_repositoryconfig",
       "confidence_score": 1.0
     },
     {
       "relation": "references",
       "context": "return_type",
       "confidence": "EXTRACTED",
-      "source_file": "src/config.py",
+      "source_file": "src/config_loader.py",
       "source_location": "L152",
       "weight": 1.0,
-      "source": "src_config_load_config",
-      "target": "src_config_appconfig",
+      "source": "src_config_loader_load_config",
+      "target": "src_config_loader_appconfig",
       "confidence_score": 1.0
     },
     {
       "relation": "calls",
       "context": "call",
       "confidence": "EXTRACTED",
-      "source_file": "src/config.py",
+      "source_file": "src/config_loader.py",
       "source_location": "L72",
       "weight": 1.0,
-      "source": "src_config_load_model_config",
-      "target": "src_config_raise_invalid_field",
+      "source": "src_config_loader_load_model_config",
+      "target": "src_config_loader_raise_invalid_field",
       "confidence_score": 1.0
     },
     {
       "relation": "calls",
       "context": "call",
       "confidence": "EXTRACTED",
-      "source_file": "src/config.py",
+      "source_file": "src/config_loader.py",
       "source_location": "L98",
       "weight": 1.0,
-      "source": "src_config_load_repository_config",
-      "target": "src_config_raise_invalid_field",
+      "source": "src_config_loader_load_repository_config",
+      "target": "src_config_loader_raise_invalid_field",
       "confidence_score": 1.0
     },
     {
       "relation": "references",
       "context": "parameter_type",
       "confidence": "EXTRACTED",
-      "source_file": "src/config.py",
+      "source_file": "src/config_loader.py",
       "source_location": "L50",
       "weight": 1.0,
-      "source": "src_config_raise_invalid_field",
+      "source": "src_config_loader_raise_invalid_field",
       "target": "path",
       "confidence_score": 1.0
     },
@@ -3581,11 +3739,11 @@
       "relation": "references",
       "context": "parameter_type",
       "confidence": "EXTRACTED",
-      "source_file": "src/config.py",
+      "source_file": "src/config_loader.py",
       "source_location": "L50",
       "weight": 1.0,
-      "source": "src_config_raise_invalid_field",
-      "target": "src_config_py_str",
+      "source": "src_config_loader_raise_invalid_field",
+      "target": "src_config_loader_py_str",
       "confidence_score": 1.0
     },
     {
@@ -3606,9 +3764,9 @@
       "source_file": "src/config.py",
       "source_location": "L121",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_config_get_repository_config",
-      "target": "path",
-      "confidence_score": 1.0
+      "target": "path"
     },
     {
       "relation": "references",
@@ -3617,9 +3775,9 @@
       "source_file": "src/config.py",
       "source_location": "L152",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_config_load_config",
-      "target": "path",
-      "confidence_score": 1.0
+      "target": "path"
     },
     {
       "relation": "references",
@@ -3628,9 +3786,9 @@
       "source_file": "src/config.py",
       "source_location": "L68",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_config_load_model_config",
-      "target": "path",
-      "confidence_score": 1.0
+      "target": "path"
     },
     {
       "relation": "references",
@@ -3639,9 +3797,86 @@
       "source_file": "src/config.py",
       "source_location": "L77",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_config_load_repository_config",
+      "target": "path"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/config_loader.py",
+      "source_location": "L121",
+      "weight": 1.0,
+      "source": "src_config_loader_get_repository_config",
       "target": "path",
       "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/config_loader.py",
+      "source_location": "L152",
+      "weight": 1.0,
+      "source": "src_config_loader_load_config",
+      "target": "path",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/config_loader.py",
+      "source_location": "L68",
+      "weight": 1.0,
+      "source": "src_config_loader_load_model_config",
+      "target": "path",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/config_loader.py",
+      "source_location": "L77",
+      "weight": 1.0,
+      "source": "src_config_loader_load_repository_config",
+      "target": "path",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/config_loader.py",
+      "source_location": "L61",
+      "weight": 1.0,
+      "source": "src_config_loader_require_int",
+      "target": "path",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/config_loader.py",
+      "source_location": "L54",
+      "weight": 1.0,
+      "source": "src_config_loader_require_str",
+      "target": "path",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/config.py",
+      "source_location": "L50",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_config_raise_invalid_field",
+      "target": "path"
     },
     {
       "relation": "references",
@@ -3650,9 +3885,9 @@
       "source_file": "src/config.py",
       "source_location": "L61",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_config_require_int",
-      "target": "path",
-      "confidence_score": 1.0
+      "target": "path"
     },
     {
       "relation": "references",
@@ -3661,161 +3896,161 @@
       "source_file": "src/config.py",
       "source_location": "L54",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_config_require_str",
-      "target": "path",
-      "confidence_score": 1.0
+      "target": "path"
     },
     {
       "relation": "references",
       "context": "return_type",
       "confidence": "EXTRACTED",
-      "source_file": "src/config.py",
+      "source_file": "src/config_loader.py",
       "source_location": "L144",
       "weight": 1.0,
-      "source": "src_config_get_coder_model",
-      "target": "src_config_py_str",
+      "source": "src_config_loader_get_coder_model",
+      "target": "src_config_loader_py_str",
       "confidence_score": 1.0
     },
     {
       "relation": "references",
       "context": "parameter_type",
       "confidence": "EXTRACTED",
-      "source_file": "src/config.py",
+      "source_file": "src/config_loader.py",
       "source_location": "L148",
       "weight": 1.0,
-      "source": "src_config_get_max_iterations",
-      "target": "src_config_py_str",
+      "source": "src_config_loader_get_max_iterations",
+      "target": "src_config_loader_py_str",
       "confidence_score": 1.0
     },
     {
       "relation": "references",
       "context": "return_type",
       "confidence": "EXTRACTED",
-      "source_file": "src/config.py",
+      "source_file": "src/config_loader.py",
       "source_location": "L137",
       "weight": 1.0,
-      "source": "src_config_get_ollama_base_url",
-      "target": "src_config_py_str",
+      "source": "src_config_loader_get_ollama_base_url",
+      "target": "src_config_loader_py_str",
       "confidence_score": 1.0
     },
     {
       "relation": "references",
       "context": "parameter_type",
       "confidence": "EXTRACTED",
-      "source_file": "src/config.py",
+      "source_file": "src/config_loader.py",
       "source_location": "L133",
       "weight": 1.0,
-      "source": "src_config_get_primary_model",
-      "target": "src_config_py_str",
+      "source": "src_config_loader_get_primary_model",
+      "target": "src_config_loader_py_str",
       "confidence_score": 1.0
     },
     {
       "relation": "references",
       "context": "parameter_type",
       "confidence": "EXTRACTED",
-      "source_file": "src/config.py",
+      "source_file": "src/config_loader.py",
       "source_location": "L114",
       "weight": 1.0,
-      "source": "src_config_get_repository_config",
-      "target": "src_config_py_str",
+      "source": "src_config_loader_get_repository_config",
+      "target": "src_config_loader_py_str",
       "confidence_score": 1.0
     },
     {
       "relation": "references",
       "context": "generic_arg",
       "confidence": "EXTRACTED",
-      "source_file": "src/config.py",
+      "source_file": "src/config_loader.py",
       "source_location": "L68",
       "weight": 1.0,
-      "source": "src_config_load_model_config",
-      "target": "src_config_py_str",
+      "source": "src_config_loader_load_model_config",
+      "target": "src_config_loader_py_str",
       "confidence_score": 1.0
     },
     {
       "relation": "references",
       "context": "generic_arg",
       "confidence": "EXTRACTED",
-      "source_file": "src/config.py",
+      "source_file": "src/config_loader.py",
       "source_location": "L77",
       "weight": 1.0,
-      "source": "src_config_load_repository_config",
-      "target": "src_config_py_str",
+      "source": "src_config_loader_load_repository_config",
+      "target": "src_config_loader_py_str",
       "confidence_score": 1.0
     },
     {
       "relation": "references",
       "context": "parameter_type",
       "confidence": "EXTRACTED",
-      "source_file": "src/config.py",
+      "source_file": "src/config_loader.py",
       "source_location": "L61",
       "weight": 1.0,
-      "source": "src_config_require_int",
-      "target": "src_config_py_str",
+      "source": "src_config_loader_require_int",
+      "target": "src_config_loader_py_str",
       "confidence_score": 1.0
     },
     {
       "relation": "references",
       "context": "return_type",
       "confidence": "EXTRACTED",
-      "source_file": "src/config.py",
+      "source_file": "src/config_loader.py",
       "source_location": "L54",
       "weight": 1.0,
-      "source": "src_config_require_str",
-      "target": "src_config_py_str",
+      "source": "src_config_loader_require_str",
+      "target": "src_config_loader_py_str",
       "confidence_score": 1.0
     },
     {
       "relation": "references",
       "context": "generic_arg",
       "confidence": "EXTRACTED",
-      "source_file": "src/config.py",
+      "source_file": "src/config_loader.py",
       "source_location": "L108",
       "weight": 1.0,
-      "source": "src_config_select_primary_model",
-      "target": "src_config_py_str",
+      "source": "src_config_loader_select_primary_model",
+      "target": "src_config_loader_py_str",
       "confidence_score": 1.0
     },
     {
       "relation": "calls",
       "context": "call",
       "confidence": "EXTRACTED",
-      "source_file": "src/config.py",
+      "source_file": "src/config_loader.py",
       "source_location": "L172",
       "weight": 1.0,
-      "source": "src_config_load_config",
-      "target": "src_config_require_str",
+      "source": "src_config_loader_load_config",
+      "target": "src_config_loader_require_str",
       "confidence_score": 1.0
     },
     {
       "relation": "calls",
       "context": "call",
       "confidence": "EXTRACTED",
-      "source_file": "src/config.py",
+      "source_file": "src/config_loader.py",
       "source_location": "L70",
       "weight": 1.0,
-      "source": "src_config_load_model_config",
-      "target": "src_config_require_str",
+      "source": "src_config_loader_load_model_config",
+      "target": "src_config_loader_require_str",
       "confidence_score": 1.0
     },
     {
       "relation": "calls",
       "context": "call",
       "confidence": "EXTRACTED",
-      "source_file": "src/config.py",
+      "source_file": "src/config_loader.py",
       "source_location": "L93",
       "weight": 1.0,
-      "source": "src_config_load_repository_config",
-      "target": "src_config_require_str",
+      "source": "src_config_loader_load_repository_config",
+      "target": "src_config_loader_require_str",
       "confidence_score": 1.0
     },
     {
       "relation": "references",
       "context": "generic_arg",
       "confidence": "EXTRACTED",
-      "source_file": "src/config.py",
+      "source_file": "src/config_loader.py",
       "source_location": "L54",
       "weight": 1.0,
-      "source": "src_config_require_str",
+      "source": "src_config_loader_require_str",
       "target": "any",
       "confidence_score": 1.0
     },
@@ -3826,9 +4061,9 @@
       "source_file": "src/config.py",
       "source_location": "L68",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_config_load_model_config",
-      "target": "any",
-      "confidence_score": 1.0
+      "target": "any"
     },
     {
       "relation": "references",
@@ -3837,7 +4072,40 @@
       "source_file": "src/config.py",
       "source_location": "L77",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_config_load_repository_config",
+      "target": "any"
+    },
+    {
+      "relation": "references",
+      "context": "generic_arg",
+      "confidence": "EXTRACTED",
+      "source_file": "src/config_loader.py",
+      "source_location": "L68",
+      "weight": 1.0,
+      "source": "src_config_loader_load_model_config",
+      "target": "any",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "generic_arg",
+      "confidence": "EXTRACTED",
+      "source_file": "src/config_loader.py",
+      "source_location": "L77",
+      "weight": 1.0,
+      "source": "src_config_loader_load_repository_config",
+      "target": "any",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "generic_arg",
+      "confidence": "EXTRACTED",
+      "source_file": "src/config_loader.py",
+      "source_location": "L61",
+      "weight": 1.0,
+      "source": "src_config_loader_require_int",
       "target": "any",
       "confidence_score": 1.0
     },
@@ -3848,29 +4116,40 @@
       "source_file": "src/config.py",
       "source_location": "L61",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_config_require_int",
-      "target": "any",
-      "confidence_score": 1.0
+      "target": "any"
+    },
+    {
+      "relation": "references",
+      "context": "generic_arg",
+      "confidence": "EXTRACTED",
+      "source_file": "src/config.py",
+      "source_location": "L54",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_config_require_str",
+      "target": "any"
     },
     {
       "relation": "calls",
       "context": "call",
       "confidence": "EXTRACTED",
-      "source_file": "src/config.py",
+      "source_file": "src/config_loader.py",
       "source_location": "L101",
       "weight": 1.0,
-      "source": "src_config_load_repository_config",
-      "target": "src_config_require_int",
+      "source": "src_config_loader_load_repository_config",
+      "target": "src_config_loader_require_int",
       "confidence_score": 1.0
     },
     {
       "relation": "references",
       "context": "return_type",
       "confidence": "EXTRACTED",
-      "source_file": "src/config.py",
+      "source_file": "src/config_loader.py",
       "source_location": "L61",
       "weight": 1.0,
-      "source": "src_config_require_int",
+      "source": "src_config_loader_require_int",
       "target": "int",
       "confidence_score": 1.0
     },
@@ -3881,95 +4160,117 @@
       "source_file": "src/config.py",
       "source_location": "L148",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_config_get_max_iterations",
+      "target": "int"
+    },
+    {
+      "relation": "references",
+      "context": "return_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/config_loader.py",
+      "source_location": "L148",
+      "weight": 1.0,
+      "source": "src_config_loader_get_max_iterations",
       "target": "int",
       "confidence_score": 1.0
     },
     {
+      "relation": "references",
+      "context": "return_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/config.py",
+      "source_location": "L61",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_config_require_int",
+      "target": "int"
+    },
+    {
       "relation": "calls",
       "context": "call",
       "confidence": "EXTRACTED",
-      "source_file": "src/config.py",
+      "source_file": "src/config_loader.py",
       "source_location": "L86",
       "weight": 1.0,
-      "source": "src_config_load_repository_config",
-      "target": "src_config_load_model_config",
+      "source": "src_config_loader_load_repository_config",
+      "target": "src_config_loader_load_model_config",
       "confidence_score": 1.0
     },
     {
       "relation": "calls",
       "context": "call",
       "confidence": "EXTRACTED",
-      "source_file": "src/config.py",
+      "source_file": "src/config_loader.py",
       "source_location": "L169",
       "weight": 1.0,
-      "source": "src_config_load_config",
-      "target": "src_config_load_repository_config",
+      "source": "src_config_loader_load_config",
+      "target": "src_config_loader_load_repository_config",
       "confidence_score": 1.0
     },
     {
       "relation": "calls",
       "context": "call",
       "confidence": "EXTRACTED",
-      "source_file": "src/config.py",
+      "source_file": "src/config_loader.py",
       "source_location": "L134",
       "weight": 1.0,
-      "source": "src_config_get_primary_model",
-      "target": "src_config_select_primary_model",
+      "source": "src_config_loader_get_primary_model",
+      "target": "src_config_loader_select_primary_model",
       "confidence_score": 1.0
     },
     {
       "relation": "calls",
       "context": "call",
       "confidence": "EXTRACTED",
-      "source_file": "src/config.py",
+      "source_file": "src/config_loader.py",
       "source_location": "L149",
       "weight": 1.0,
-      "source": "src_config_get_max_iterations",
-      "target": "src_config_get_repository_config",
+      "source": "src_config_loader_get_max_iterations",
+      "target": "src_config_loader_get_repository_config",
       "confidence_score": 1.0
     },
     {
       "relation": "calls",
       "context": "call",
       "confidence": "EXTRACTED",
-      "source_file": "src/config.py",
+      "source_file": "src/config_loader.py",
       "source_location": "L134",
       "weight": 1.0,
-      "source": "src_config_get_primary_model",
-      "target": "src_config_get_repository_config",
+      "source": "src_config_loader_get_primary_model",
+      "target": "src_config_loader_get_repository_config",
       "confidence_score": 1.0
     },
     {
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
-      "source_file": "src/config.py",
+      "source_file": "src/config_loader.py",
       "source_location": "L115",
       "weight": 1.0,
-      "source": "src_config_rationale_115",
-      "target": "src_config_get_repository_config",
+      "source": "src_config_loader_rationale_115",
+      "target": "src_config_loader_get_repository_config",
       "confidence_score": 1.0
     },
     {
       "relation": "calls",
       "context": "call",
       "confidence": "EXTRACTED",
-      "source_file": "src/config.py",
+      "source_file": "src/config_loader.py",
       "source_location": "L145",
       "weight": 1.0,
-      "source": "src_config_get_coder_model",
-      "target": "src_config_get_primary_model",
+      "source": "src_config_loader_get_coder_model",
+      "target": "src_config_loader_get_primary_model",
       "confidence_score": 1.0
     },
     {
       "relation": "calls",
       "context": "call",
       "confidence": "EXTRACTED",
-      "source_file": "src/config.py",
+      "source_file": "src/config_loader.py",
       "source_location": "L138",
       "weight": 1.0,
-      "source": "src_config_get_ollama_base_url",
-      "target": "src_config_get_primary_model",
+      "source": "src_config_loader_get_ollama_base_url",
+      "target": "src_config_loader_get_primary_model",
       "confidence_score": 1.0
     },
     {
@@ -3980,7 +4281,7 @@
       "source_location": "L11",
       "weight": 1.0,
       "source": "src_graph_nodes_support_py",
-      "target": "src_config_get_ollama_base_url",
+      "target": "src_config_loader_get_ollama_base_url",
       "confidence_score": 1.0
     },
     {
@@ -3991,7 +4292,7 @@
       "source_location": "L31",
       "weight": 1.0,
       "source": "nodes_coder_coder_node",
-      "target": "src_config_get_coder_model",
+      "target": "src_config_loader_get_coder_model",
       "confidence_score": 1.0
     },
     {
@@ -4002,7 +4303,7 @@
       "source_location": "L8",
       "weight": 1.0,
       "source": "src_graph_nodes_coder_py",
-      "target": "src_config_get_coder_model",
+      "target": "src_config_loader_get_coder_model",
       "confidence_score": 1.0
     },
     {
@@ -4013,7 +4314,7 @@
       "source_location": "L35",
       "weight": 1.0,
       "source": "graph_workflow_route_after_review",
-      "target": "src_config_get_max_iterations",
+      "target": "src_config_loader_get_max_iterations",
       "confidence_score": 1.0
     },
     {
@@ -4024,7 +4325,7 @@
       "source_location": "L49",
       "weight": 1.0,
       "source": "graph_workflow_route_after_verification",
-      "target": "src_config_get_max_iterations",
+      "target": "src_config_loader_get_max_iterations",
       "confidence_score": 1.0
     },
     {
@@ -4035,7 +4336,7 @@
       "source_location": "L17",
       "weight": 1.0,
       "source": "src_graph_workflow_py",
-      "target": "src_config_get_max_iterations",
+      "target": "src_config_loader_get_max_iterations",
       "confidence_score": 1.0
     },
     {
@@ -4123,6 +4424,17 @@
       "confidence_score": 1.0,
       "source": "src_graph_nodes_coder_py",
       "target": "repository_context_contract_format_repository_context_for_prompt"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/graph/nodes/coder.py",
+      "source_location": "L8",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_graph_nodes_coder_py",
+      "target": "src_config_get_coder_model"
     },
     {
       "relation": "calls",
@@ -4261,6 +4573,17 @@
       "target": "repository_context_contract_format_repository_context_for_prompt"
     },
     {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/graph/nodes/coder.py",
+      "source_location": "L31",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "nodes_coder_coder_node",
+      "target": "src_config_get_coder_model"
+    },
+    {
       "relation": "references",
       "context": "parameter_type",
       "confidence": "EXTRACTED",
@@ -4281,16 +4604,6 @@
       "confidence_score": 1.0,
       "source": "nodes_coder_coder_node",
       "target": "src_graph_nodes_coder_py_runcontext"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "src/graph/nodes/node_index.py",
-      "source_location": "line 3",
-      "weight": 1.0,
-      "source": "nodes_node_index_module",
-      "target": "nodes_coder_coder_node"
     },
     {
       "relation": "imports",
@@ -4342,6 +4655,93 @@
       "confidence_score": 0.5,
       "source": "src_graph_nodes_coder_py_runcontext",
       "target": "observability_context_runcontext"
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/graph/nodes/node_index.py",
+      "source_location": "L1",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "nodes_node_index_rationale_1",
+      "target": "src_graph_nodes_node_index_py"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/graph/nodes/node_index.py",
+      "source_location": "L4",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_graph_nodes_node_index_py",
+      "target": "nodes_context_builder_context_builder_node"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/graph/nodes/node_index.py",
+      "source_location": "L5",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_graph_nodes_node_index_py",
+      "target": "nodes_diff_generator_diff_generator_node"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/graph/nodes/node_index.py",
+      "source_location": "L6",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_graph_nodes_node_index_py",
+      "target": "nodes_file_reader_file_reader_node"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/graph/nodes/node_index.py",
+      "source_location": "L7",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_graph_nodes_node_index_py",
+      "target": "nodes_file_writer_file_writer_node"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/graph/nodes/node_index.py",
+      "source_location": "L8",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_graph_nodes_node_index_py",
+      "target": "nodes_graphify_indexer_graphify_indexer_node"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/graph/nodes/node_index.py",
+      "source_location": "L9",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_graph_nodes_node_index_py",
+      "target": "nodes_reviewer_reviewer_node"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/graph/nodes/node_index.py",
+      "source_location": "L12",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_graph_nodes_node_index_py",
+      "target": "nodes_verifier_verifier_node"
     },
     {
       "relation": "rationale_for",
@@ -4414,6 +4814,17 @@
       "confidence_score": 1.0,
       "source": "src_graph_nodes_support_py",
       "target": "nodes_support_validate_python_syntax"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/graph/nodes/support.py",
+      "source_location": "L11",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_graph_nodes_support_py",
+      "target": "src_config_get_ollama_base_url"
     },
     {
       "relation": "calls",
@@ -4756,9 +5167,9 @@
       "source_file": "src/graph/nodes/support.py",
       "source_location": "L44",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "nodes_support_validate_python_syntax",
-      "target": "bool",
-      "confidence_score": 1.0
+      "target": "bool"
     },
     {
       "relation": "calls",
@@ -4888,6 +5299,17 @@
       "target": "observability_context_runcontext"
     },
     {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/graph/workflow.py",
+      "source_location": "L17",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_graph_workflow_py",
+      "target": "src_config_get_max_iterations"
+    },
+    {
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "src/graph/workflow.py",
@@ -4906,6 +5328,17 @@
       "weight": 1.0,
       "source": "graph_workflow_route_after_review",
       "target": "concept_state_field_review_passed"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/graph/workflow.py",
+      "source_location": "L35",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "graph_workflow_route_after_review",
+      "target": "src_config_get_max_iterations"
     },
     {
       "relation": "references",
@@ -4970,6 +5403,17 @@
       "target": "concept_state_field_verification_passed"
     },
     {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/graph/workflow.py",
+      "source_location": "L49",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "graph_workflow_route_after_verification",
+      "target": "src_config_get_max_iterations"
+    },
+    {
       "relation": "references",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
@@ -5008,16 +5452,6 @@
       "weight": 1.0,
       "source": "graph_workflow_make_graph",
       "target": "nodes_file_writer_file_writer_node"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "src/graph/workflow.py",
-      "source_location": "line 17",
-      "weight": 1.0,
-      "source": "graph_workflow_make_graph",
-      "target": "nodes_node_index_module"
     },
     {
       "relation": "calls",
@@ -5090,6 +5524,506 @@
       "confidence_score": 0.5,
       "source": "src_graph_workflow_py_runcontext",
       "target": "observability_context_runcontext"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/config.py",
+      "source_location": "L45",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_config_py",
+      "target": "src_config_appconfig"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/config.py",
+      "source_location": "L144",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_config_py",
+      "target": "src_config_get_coder_model"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/config.py",
+      "source_location": "L148",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_config_py",
+      "target": "src_config_get_max_iterations"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/config.py",
+      "source_location": "L137",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_config_py",
+      "target": "src_config_get_ollama_base_url"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/config.py",
+      "source_location": "L133",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_config_py",
+      "target": "src_config_get_primary_model"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/config.py",
+      "source_location": "L114",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_config_py",
+      "target": "src_config_get_repository_config"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/config.py",
+      "source_location": "L152",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_config_py",
+      "target": "src_config_load_config"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/config.py",
+      "source_location": "L68",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_config_py",
+      "target": "src_config_load_model_config"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/config.py",
+      "source_location": "L77",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_config_py",
+      "target": "src_config_load_repository_config"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/config.py",
+      "source_location": "L21",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_config_py",
+      "target": "src_config_modelconfig"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/config.py",
+      "source_location": "L50",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_config_py",
+      "target": "src_config_raise_invalid_field"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/config.py",
+      "source_location": "L29",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_config_py",
+      "target": "src_config_repositoryconfig"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/config.py",
+      "source_location": "L61",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_config_py",
+      "target": "src_config_require_int"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/config.py",
+      "source_location": "L54",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_config_py",
+      "target": "src_config_require_str"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/config.py",
+      "source_location": "L108",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_config_py",
+      "target": "src_config_select_primary_model"
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/config.py",
+      "source_location": "L1",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_config_rationale_1",
+      "target": "src_config_py"
+    },
+    {
+      "relation": "references",
+      "context": "return_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/config.py",
+      "source_location": "L133",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_config_get_primary_model",
+      "target": "src_config_modelconfig"
+    },
+    {
+      "relation": "references",
+      "context": "return_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/config.py",
+      "source_location": "L68",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_config_load_model_config",
+      "target": "src_config_modelconfig"
+    },
+    {
+      "relation": "references",
+      "context": "return_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/config.py",
+      "source_location": "L108",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_config_select_primary_model",
+      "target": "src_config_modelconfig"
+    },
+    {
+      "relation": "references",
+      "context": "return_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/config.py",
+      "source_location": "L114",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_config_get_repository_config",
+      "target": "src_config_repositoryconfig"
+    },
+    {
+      "relation": "references",
+      "context": "return_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/config.py",
+      "source_location": "L77",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_config_load_repository_config",
+      "target": "src_config_repositoryconfig"
+    },
+    {
+      "relation": "references",
+      "context": "return_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/config.py",
+      "source_location": "L152",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_config_load_config",
+      "target": "src_config_appconfig"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/config.py",
+      "source_location": "L72",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_config_load_model_config",
+      "target": "src_config_raise_invalid_field"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/config.py",
+      "source_location": "L98",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_config_load_repository_config",
+      "target": "src_config_raise_invalid_field"
+    },
+    {
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/config.py",
+      "source_location": "L50",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_config_raise_invalid_field",
+      "target": "src_config_py_str"
+    },
+    {
+      "relation": "references",
+      "context": "return_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/config.py",
+      "source_location": "L144",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_config_get_coder_model",
+      "target": "src_config_py_str"
+    },
+    {
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/config.py",
+      "source_location": "L148",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_config_get_max_iterations",
+      "target": "src_config_py_str"
+    },
+    {
+      "relation": "references",
+      "context": "return_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/config.py",
+      "source_location": "L137",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_config_get_ollama_base_url",
+      "target": "src_config_py_str"
+    },
+    {
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/config.py",
+      "source_location": "L133",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_config_get_primary_model",
+      "target": "src_config_py_str"
+    },
+    {
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/config.py",
+      "source_location": "L114",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_config_get_repository_config",
+      "target": "src_config_py_str"
+    },
+    {
+      "relation": "references",
+      "context": "generic_arg",
+      "confidence": "EXTRACTED",
+      "source_file": "src/config.py",
+      "source_location": "L68",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_config_load_model_config",
+      "target": "src_config_py_str"
+    },
+    {
+      "relation": "references",
+      "context": "generic_arg",
+      "confidence": "EXTRACTED",
+      "source_file": "src/config.py",
+      "source_location": "L77",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_config_load_repository_config",
+      "target": "src_config_py_str"
+    },
+    {
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/config.py",
+      "source_location": "L61",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_config_require_int",
+      "target": "src_config_py_str"
+    },
+    {
+      "relation": "references",
+      "context": "return_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/config.py",
+      "source_location": "L54",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_config_require_str",
+      "target": "src_config_py_str"
+    },
+    {
+      "relation": "references",
+      "context": "generic_arg",
+      "confidence": "EXTRACTED",
+      "source_file": "src/config.py",
+      "source_location": "L108",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_config_select_primary_model",
+      "target": "src_config_py_str"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/config.py",
+      "source_location": "L172",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_config_load_config",
+      "target": "src_config_require_str"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/config.py",
+      "source_location": "L70",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_config_load_model_config",
+      "target": "src_config_require_str"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/config.py",
+      "source_location": "L93",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_config_load_repository_config",
+      "target": "src_config_require_str"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/config.py",
+      "source_location": "L101",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_config_load_repository_config",
+      "target": "src_config_require_int"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/config.py",
+      "source_location": "L86",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_config_load_repository_config",
+      "target": "src_config_load_model_config"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/config.py",
+      "source_location": "L169",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_config_load_config",
+      "target": "src_config_load_repository_config"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/config.py",
+      "source_location": "L134",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_config_get_primary_model",
+      "target": "src_config_select_primary_model"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/config.py",
+      "source_location": "L149",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_config_get_max_iterations",
+      "target": "src_config_get_repository_config"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/config.py",
+      "source_location": "L134",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_config_get_primary_model",
+      "target": "src_config_get_repository_config"
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/config.py",
+      "source_location": "L115",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_config_rationale_115",
+      "target": "src_config_get_repository_config"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/config.py",
+      "source_location": "L145",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_config_get_coder_model",
+      "target": "src_config_get_primary_model"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/config.py",
+      "source_location": "L138",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_config_get_ollama_base_url",
+      "target": "src_config_get_primary_model"
     },
     {
       "relation": "re_exports",
@@ -10127,16 +11061,6 @@
       "target": "nodes_reviewer_reviewer_node"
     },
     {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "src/graph/nodes/node_index.py",
-      "source_location": "line 8",
-      "weight": 1.0,
-      "source": "nodes_node_index_module",
-      "target": "nodes_reviewer_reviewer_node"
-    },
-    {
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "src/graph/nodes/reviewer.py",
@@ -10187,17 +11111,6 @@
       "confidence_score": 1.0,
       "source": "nodes_reviewer_reviewer_node",
       "target": "src_graph_nodes_reviewer_py_runcontext"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "src/graph/nodes/node_index.py",
-      "source_location": "L9",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "src_graph_nodes_node_index_py",
-      "target": "nodes_reviewer_reviewer_node"
     },
     {
       "relation": "contains",
@@ -10252,27 +11165,6 @@
       "target": "nodes_file_reader_file_reader_node"
     },
     {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "src/graph/nodes/node_index.py",
-      "source_location": "line 6",
-      "weight": 1.0,
-      "source": "nodes_node_index_module",
-      "target": "nodes_file_reader_file_reader_node"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "src/graph/nodes/node_index.py",
-      "source_location": "L6",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "src_graph_nodes_node_index_py",
-      "target": "nodes_file_reader_file_reader_node"
-    },
-    {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/graph/nodes/verifier.py",
@@ -10280,16 +11172,6 @@
       "weight": 1.0,
       "confidence_score": 1.0,
       "source": "src_graph_nodes_verifier_py",
-      "target": "nodes_verifier_verifier_node"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "src/graph/nodes/node_index.py",
-      "source_location": "line 11",
-      "weight": 1.0,
-      "source": "nodes_node_index_module",
       "target": "nodes_verifier_verifier_node"
     },
     {
@@ -10343,17 +11225,6 @@
       "confidence_score": 1.0,
       "source": "nodes_verifier_verifier_node",
       "target": "src_graph_nodes_verifier_py_runcontext"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "src/graph/nodes/node_index.py",
-      "source_location": "L12",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "src_graph_nodes_node_index_py",
-      "target": "nodes_verifier_verifier_node"
     },
     {
       "relation": "rationale_for",
@@ -10511,27 +11382,6 @@
       "target": "nodes_context_builder_context_builder_node"
     },
     {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "src/graph/nodes/node_index.py",
-      "source_location": "line 4",
-      "weight": 1.0,
-      "source": "nodes_node_index_module",
-      "target": "nodes_context_builder_context_builder_node"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "src/graph/nodes/node_index.py",
-      "source_location": "L4",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "src_graph_nodes_node_index_py",
-      "target": "nodes_context_builder_context_builder_node"
-    },
-    {
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "src/graph/nodes/context_builder.py",
@@ -10680,17 +11530,6 @@
       "target": "nodes_graphify_indexer_graphify_indexer_node"
     },
     {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "src/graph/nodes/node_index.py",
-      "source_location": "L8",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "src_graph_nodes_node_index_py",
-      "target": "nodes_graphify_indexer_graphify_indexer_node"
-    },
-    {
       "relation": "references",
       "context": "parameter_type",
       "confidence": "EXTRACTED",
@@ -10721,38 +11560,6 @@
       "confidence_score": 1.0,
       "source": "nodes_graphify_indexer_rationale_58",
       "target": "nodes_graphify_indexer_build_ast_graph"
-    },
-    {
-      "relation": "rationale_for",
-      "confidence": "EXTRACTED",
-      "source_file": "src/graph/nodes/node_index.py",
-      "source_location": "L1",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "nodes_node_index_rationale_1",
-      "target": "src_graph_nodes_node_index_py"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "src/graph/nodes/node_index.py",
-      "source_location": "L5",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "src_graph_nodes_node_index_py",
-      "target": "nodes_diff_generator_diff_generator_node"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "src/graph/nodes/node_index.py",
-      "source_location": "L7",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "src_graph_nodes_node_index_py",
-      "target": "nodes_file_writer_file_writer_node"
     },
     {
       "relation": "rationale_for",
@@ -10814,16 +11621,6 @@
       "weight": 1.0,
       "confidence_score": 1.0,
       "source": "nodes_file_writer_rationale_22",
-      "target": "nodes_file_writer_file_writer_node"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "src/graph/nodes/node_index.py",
-      "source_location": "line 7",
-      "weight": 1.0,
-      "source": "nodes_node_index_module",
       "target": "nodes_file_writer_file_writer_node"
     },
     {
@@ -11283,5 +12080,5 @@
       "source_file": "docs/CONTEXT_CONTRACT.md"
     }
   ],
-  "built_at_commit": "d3d683d119d72be8e3be9f0e9eadc9c09fc15fae"
+  "built_at_commit": "fecf200606f1cdee7fe697b4bcf94a07bb149815"
 }
