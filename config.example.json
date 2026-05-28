@@ -2,14 +2,14 @@
     "cron": "0 0 * * *",
     "repositories": [
         {
-            "name": "your-repo-name",
-            "url": "https://example.com/your-repo.git",
-            "base_branch": "your-base-branch",
-            "prefix": "your-prefix",
-            "local_path": "/path/to/local/repo",
-            "created_at": "creation timestamp",
-            "updated_at": "last updated timestamp",
-            "context_path": "/path/to/context",
+            "name": "Name of the repository",
+            "url": "the url to the git repository",
+            "base_branch": "the branch the system should branch off from",
+            "prefix": "the prefix for branches created by the system",
+            "local_path": "absolute path to the local repository",
+            "created_at": "when the repository was added to the system",
+            "updated_at": "when the repository was last updated by the system",
+            "context_path": "where the graph for the repository is stored",
             "max_iterations": "allowed iterations for workflows",
             "credentials": {
                 "username": "your-username",
