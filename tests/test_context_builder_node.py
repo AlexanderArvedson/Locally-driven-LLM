@@ -11,7 +11,7 @@ from src.repository.simple_repository_indexer import SimpleRepositoryIndexer
 from tests.support.httpx_stub import httpx_stub
 
 from src.observability.context import RunContext
-from src.graph.nodes.nodes import context_builder_node
+from src.graph.nodes.context_builder import context_builder_node
 
 
 class TestContextBuilderNode(unittest.TestCase):
