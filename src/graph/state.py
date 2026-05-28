@@ -59,3 +59,10 @@ class GraphState(TypedDict):
     # Full contents of selected related files, keyed by relative path.
     # Populated by context_builder_node; consumed by coder_node for prompt context.
     related_file_contents: NotRequired[dict[str, str]]
+
+    # Branch created for this task, e.g. "feature/fix-auth-bug"
+    branch_name: NotRequired[str]
+
+    # Set by file_writer_node and verifier_node to signal write/verify outcomes.
+    verification_passed: NotRequired[bool]
+    verification_feedback: NotRequired[str]

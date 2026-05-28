@@ -179,3 +179,30 @@ APP_CONFIG: Final[AppConfig] = load_config()
 OLLAMA_BASE_URL: Final[str] = get_ollama_base_url()
 CODER_MODEL: Final[str] = get_coder_model()
 MAX_ITERATIONS: Final[int] = get_max_iterations()
+
+
+def update_repository_timestamps(
+    repo_name: str,
+    *,
+    created_at: str | None = None,
+    updated_at: str | None = None,
+    config_path: Path | None = None,
+) -> None:
+    """Persist ``created_at`` and/or ``updated_at`` for a repository in config.json.
+
+    Reads the raw JSON, patches only the supplied fields, and writes the file
+    back atomically. The in-memory ``APP_CONFIG`` is intentionally left stale
+    because timestamps are write-once metadata, not runtime-critical values.
+    """
+    path = config_path or CONFIG_PATH
+    raw = json.loads(path.read_text(encoding="utf-8"))
+
+    for repo in raw.get("repositories", []):
+        if repo.get("name") == repo_name:
+            if created_at is not None and not repo.get("created_at"):
+                repo["created_at"] = created_at
+            if updated_at is not None:
+                repo["updated_at"] = updated_at
+            break
+
+    path.write_text(json.dumps(raw, indent=4, ensure_ascii=False), encoding="utf-8")

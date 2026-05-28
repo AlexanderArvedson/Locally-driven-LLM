@@ -77,6 +77,7 @@ def make_graph(run_context: RunContext):
         return _wrapped
 
     # Register nodes from the aggregate index module.
+    builder.add_node("branch_creator", _wrap(nodes_module.branch_creator_node))
     builder.add_node("file_reader", _wrap(nodes_module.file_reader_node))
     builder.add_node("graphify_indexer", _wrap(nodes_module.graphify_indexer_node))
     builder.add_node("context_builder", _wrap(nodes_module.context_builder_node))
@@ -87,7 +88,8 @@ def make_graph(run_context: RunContext):
     builder.add_node("file_writer", _wrap(nodes_module.file_writer_node))
 
     # Linear topology with conditional edges for retry/looping behavior
-    builder.add_edge(START, "file_reader")
+    builder.add_edge(START, "branch_creator")
+    builder.add_edge("branch_creator", "file_reader")
     builder.add_edge("file_reader", "graphify_indexer")
     builder.add_edge("graphify_indexer", "context_builder")
     builder.add_edge("context_builder", "coder")

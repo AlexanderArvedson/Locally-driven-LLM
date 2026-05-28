@@ -1,5 +1,6 @@
 """Aggregate export surface for graph nodes."""
 
+from src.graph.nodes.branch_creator import branch_creator_node
 from src.graph.nodes.coder import coder_node
 from src.graph.nodes.context_builder import context_builder_node
 from src.graph.nodes.diff_generator import diff_generator_node
@@ -15,6 +16,7 @@ __all__ = [
     "client",
     "CODER_MODEL",
     "MAX_ITERATIONS",
+    "branch_creator_node",
     "file_reader_node",
     "graphify_indexer_node",
     "context_builder_node",

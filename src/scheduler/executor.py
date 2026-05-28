@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from datetime import datetime, timezone
 from typing import cast
 
 from .task import Task
@@ -22,9 +23,23 @@ class WorkflowExecutor:
         from src.graph.workflow import make_graph
         from src.graph.state import GraphState
         from src.observability.context import RunContext
+        from src.config_loader import get_repository_config, update_repository_timestamps
 
         graph_factory = self._graph_factory or make_graph
         run_context_factory = self._run_context_factory or RunContext.new
         graph = graph_factory(run_context_factory())
         state = cast(GraphState, task.payload)
+
+        repo_path = state.get("repo_path")
+        if repo_path:
+            try:
+                repo_config = get_repository_config(repo_path)
+                if not repo_config.created_at:
+                    update_repository_timestamps(
+                        repo_config.name,
+                        created_at=datetime.now(timezone.utc).isoformat(),
+                    )
+            except Exception:
+                pass
+
         return await graph.ainvoke(state)

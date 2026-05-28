@@ -4,8 +4,10 @@ from __future__ import annotations
 
 import logging
 import time
+from datetime import datetime, timezone
 from pathlib import Path
 
+from src.config_loader import get_repository_config, update_repository_timestamps
 from src.core.runtime_paths import FAILED_PATCHES_DIR, ensure_runtime_dirs
 from src.graph.nodes.support import require_state_value, strip_code_fences
 from src.graph.state import GraphState
@@ -73,6 +75,17 @@ async def file_writer_node(state: GraphState, run_context: RunContext) -> dict:
                 }
 
         emit_success(run_context, "file_writer_node", state.get("task", ""), {"updated_length": len(generated_code)}, start)
+
+        repo_path = state.get("repo_path")
+        if repo_path:
+            try:
+                repo_config = get_repository_config(repo_path)
+                update_repository_timestamps(
+                    repo_config.name,
+                    updated_at=datetime.now(timezone.utc).isoformat(),
+                )
+            except Exception as ts_exc:
+                logger.warning("Could not update updated_at timestamp: %s", ts_exc)
 
         return {"updated_code": generated_code}
     except Exception as e:
