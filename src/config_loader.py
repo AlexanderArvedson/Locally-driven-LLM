@@ -106,8 +106,9 @@ def _load_repository_config(raw: dict[str, Any], *, source: Path) -> RepositoryC
 
 
 def _select_primary_model(models: dict[str, ModelConfig]) -> ModelConfig:
-    if "LLM" in models:
-        return models["LLM"]
+    for key in ("LLM", "Coder", "coder", "chat-model"):
+        if key in models:
+            return models[key]
     return next(iter(models.values()))
 
 

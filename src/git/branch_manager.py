@@ -54,6 +54,30 @@ def branch_exists(repo_path: str, branch_name: str) -> bool:
     return branch_name in result.stdout
 
 
+def push_branch(
+    repo_path: str,
+    branch_name: str,
+    remote_url: str,
+    username: str,
+    token: str,
+) -> None:
+    """Push *branch_name* to the authenticated remote URL.
+
+    Embeds credentials in the remote URL so no credential helper config is
+    required on the machine.
+    """
+    cwd = Path(repo_path)
+
+    # Build an authenticated URL: https://user:token@github.com/owner/repo.git
+    if remote_url.startswith("https://"):
+        auth_url = remote_url.replace("https://", f"https://{username}:{token}@", 1)
+    else:
+        auth_url = remote_url
+
+    _run_git(["push", "--set-upstream", auth_url, branch_name], cwd)
+    logger.info("Pushed branch '%s' to remote.", branch_name)
+
+
 def create_task_branch(
     repo_path: str,
     base_branch: str,
