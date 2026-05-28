@@ -12,6 +12,18 @@ from src.observability.event_logging_utils import emit_failure, emit_success
 
 async def verifier_node(state: GraphState, run_context: RunContext) -> dict:
     start = time.time()
+    """Verify generated code by performing static checks and an optional exec.
+
+        Steps:
+        - Strip markdown code fences and validate Python syntax.
+        - Attempt to execute the generated code in a temporary in-process namespace
+            to catch obvious runtime errors. NOTE: using `exec` is unsafe for
+            untrusted code; consider replacing with an isolated subprocess or
+            sandbox for production.
+
+        Returns a dict with `verification_passed` (bool) and
+        `verification_feedback` (str).
+    """
     try:
         code = strip_code_fences(require_state_value(state, "generated_code"))
 

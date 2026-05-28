@@ -6,6 +6,14 @@ from .task import Task
 
 
 class WorkflowExecutor:
+    """Executor that runs a workflow graph for a given `Task`.
+
+    The executor accepts optional `graph_factory` and `run_context_factory`
+    callables to allow dependency injection for testing. The core
+    implementation performs a local import of `make_graph` to avoid import
+    cycles when the scheduler is used from higher-level code.
+    """
+
     def __init__(self, graph_factory=None, run_context_factory=None) -> None:
         self._graph_factory = graph_factory
         self._run_context_factory = run_context_factory

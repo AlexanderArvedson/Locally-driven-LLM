@@ -14,10 +14,9 @@ from langgraph.graph import StateGraph, START, END
 
 from src.graph.state import GraphState
 from src.graph.nodes import node_index as nodes_module
+from src.config import MAX_ITERATIONS
 from src.observability.context import RunContext
 
-
-MAX_ITERATIONS = 3
 
 
 def route_after_review(state: GraphState):
