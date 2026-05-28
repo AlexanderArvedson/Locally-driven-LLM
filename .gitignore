@@ -226,3 +226,10 @@ runs/
 traces/
 
 config.json
+
+# Graphify — ignore internal/ephemeral files, keep committed graph outputs
+graphify-out/cache/
+graphify-out/manifest.json
+.graphify_root
+.graphify_python
+graph.html

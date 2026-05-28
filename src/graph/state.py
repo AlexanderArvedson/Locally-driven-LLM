@@ -21,6 +21,11 @@ class GraphState(TypedDict):
     # Repository root path used for deterministic snapshot creation
     repo_path: NotRequired[str]
 
+    # Absolute path to context_path/graphify-out/ for the target repo.
+    # When set, the graphify_indexer node builds a knowledge graph there and
+    # context_builder uses it for graph-aware file selection.
+    graph_path: NotRequired[str]
+
     # Original code content from the target file before modification
     original_code: NotRequired[str]
 
@@ -50,3 +55,7 @@ class GraphState(TypedDict):
     # Repository-aware additions
     repository_context: NotRequired[RepositoryContextPayload]
     repository_snapshot: NotRequired[RepositorySnapshot]
+
+    # Full contents of selected related files, keyed by relative path.
+    # Populated by context_builder_node; consumed by coder_node for prompt context.
+    related_file_contents: NotRequired[dict[str, str]]
