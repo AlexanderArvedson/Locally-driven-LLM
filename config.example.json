@@ -1,0 +1,21 @@
+{
+    "cron": "0 0 * * *",
+    "repositories": [
+        {
+            "name": "my-repo",
+            "url": "https://github.com/user/my-repo.git",
+            "base_branch": "main",
+            "prefix": "DEV-AI-DATE-",
+            "local_path": "/path/to/local/repo",
+            "created_at": "date", 
+            "updated_at": "2024-06-01T12:00:00Z",
+            "context_path": "/path/to/context",
+            "credentials": {
+                "username": "your-username",
+                "token": "your-token"
+            },
+            "slack_webhook_url": "https://hooks.slack.com/services/your/webhook/url"
+        }
+    ]
+  
+}

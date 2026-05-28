@@ -224,3 +224,5 @@ __marimo__/
 artifacts/
 runs/
 traces/
+
+config.json
