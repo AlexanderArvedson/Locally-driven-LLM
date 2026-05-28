@@ -12,8 +12,8 @@
             "context_path": "where the graph for the repository is stored",
             "max_iterations": "allowed iterations for workflows",
             "credentials": {
-                "username": "your-username",
-                "token": "your-token"
+                "username": "username for the repository",
+                "token": "personal access token for the repository"
             },
             "models": {
 
