@@ -13,13 +13,7 @@ signature it expects.
 from langgraph.graph import StateGraph, START, END
 
 from src.graph.state import GraphState
-from src.graph.nodes.coder import coder_node
-from src.graph.nodes.context_builder import context_builder_node
-from src.graph.nodes.diff_generator import diff_generator_node
-from src.graph.nodes.file_reader import file_reader_node
-from src.graph.nodes.file_writer import file_writer_node
-from src.graph.nodes.reviewer import reviewer_node
-from src.graph.nodes.verifier import verifier_node
+from src.graph.nodes import node_index as nodes_module
 from src.observability.context import RunContext
 
 
@@ -83,15 +77,14 @@ def make_graph(run_context: RunContext):
 
         return _wrapped
 
-    # Register nodes from the `nodes` module. Using a clear module alias
-    # (`nodes_module`) improves readability compared to a generic name.
-    builder.add_node("file_reader", _wrap(file_reader_node))
-    builder.add_node("context_builder", _wrap(context_builder_node))
-    builder.add_node("coder", _wrap(coder_node))
-    builder.add_node("diff_generator", _wrap(diff_generator_node))
-    builder.add_node("reviewer", _wrap(reviewer_node))
-    builder.add_node("verifier", _wrap(verifier_node))
-    builder.add_node("file_writer", _wrap(file_writer_node))
+    # Register nodes from the aggregate index module.
+    builder.add_node("file_reader", _wrap(nodes_module.file_reader_node))
+    builder.add_node("context_builder", _wrap(nodes_module.context_builder_node))
+    builder.add_node("coder", _wrap(nodes_module.coder_node))
+    builder.add_node("diff_generator", _wrap(nodes_module.diff_generator_node))
+    builder.add_node("reviewer", _wrap(nodes_module.reviewer_node))
+    builder.add_node("verifier", _wrap(nodes_module.verifier_node))
+    builder.add_node("file_writer", _wrap(nodes_module.file_writer_node))
 
     # Linear topology with conditional edges for retry/looping behavior
     builder.add_edge(START, "file_reader")
