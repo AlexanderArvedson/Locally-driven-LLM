@@ -12,6 +12,15 @@ from src.observability.event_logging_utils import emit_failure, emit_success
 from src.repository.context_contract import format_repository_context_for_prompt
 
 
+def _format_related_files(related_file_contents: dict[str, str]) -> str:
+    if not related_file_contents:
+        return "[RELATED FILES]\n- none"
+    lines = ["[RELATED FILES]"]
+    for path, content in related_file_contents.items():
+        lines.append(f"--- {path} ---\n{content}")
+    return "\n\n".join(lines)
+
+
 async def coder_node(state: GraphState, run_context: RunContext) -> dict:
     start = time.time()
     try:
@@ -20,14 +29,16 @@ async def coder_node(state: GraphState, run_context: RunContext) -> dict:
         original_code = require_state_value(state, "original_code")
         repository_context = state.get("repository_context")
 
+        related_file_contents = state.get("related_file_contents", {})
         user_prompt = (
             f"[TASK]\n{state['task']}\n\n"
             f"[TARGET FILE]\n{state.get('target_file', '')}\n\n"
             f"[FILE CONTENT]\n{original_code}\n\n"
             f"{format_repository_context_for_prompt(repository_context)}\n\n"
+            f"{_format_related_files(related_file_contents)}\n\n"
             "[INSTRUCTION]\n"
             "Only modify the target file.\n"
-            "Use repository context for reasoning only.\n"
+            "Use repository context and related files for reasoning only.\n"
             "Return the FULL updated file only as plain text.\n"
             "Do NOT wrap your output in markdown code fences (```), backticks, or add any explanation.\n"
             "Output should be the literal file contents to write to disk."
