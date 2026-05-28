@@ -233,3 +233,4 @@ graphify-out/manifest.json
 .graphify_root
 .graphify_python
 graph.html
+graphify-out/cost.json
