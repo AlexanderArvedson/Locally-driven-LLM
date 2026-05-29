@@ -86,6 +86,7 @@ def make_graph(run_context: RunContext):
     builder.add_node("reviewer", _wrap(nodes_module.reviewer_node))
     builder.add_node("verifier", _wrap(nodes_module.verifier_node))
     builder.add_node("file_writer", _wrap(nodes_module.file_writer_node))
+    builder.add_node("git_committer", _wrap(nodes_module.git_committer_node))
 
     # Linear topology with conditional edges for retry/looping behavior
     builder.add_edge(START, "branch_creator")
@@ -97,7 +98,8 @@ def make_graph(run_context: RunContext):
     builder.add_edge("diff_generator", "reviewer")
     builder.add_edge("reviewer", "verifier")
     builder.add_edge("verifier", "file_writer")
-    builder.add_edge("file_writer", END)
+    builder.add_edge("file_writer", "git_committer")
+    builder.add_edge("git_committer", END)
 
     builder.add_conditional_edges(
         "reviewer",

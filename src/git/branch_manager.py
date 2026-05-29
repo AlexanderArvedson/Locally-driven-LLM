@@ -79,6 +79,29 @@ def create_task_branch(
     return branch_name
 
 
+def commit_file(
+    repo_path: str,
+    file_path: str,
+    message: str,
+) -> str:
+    """Stage *file_path* and create a commit in the repo.
+
+    Returns the hex SHA of the new commit, or an empty string if there was
+    nothing to commit (file unchanged on disk).
+    """
+    repo = _open_repo(repo_path)
+
+    repo.index.add([file_path])
+
+    if not repo.index.diff("HEAD"):
+        logger.info("Nothing to commit for '%s' — file unchanged.", file_path)
+        return ""
+
+    commit = repo.index.commit(message)
+    logger.info("Committed '%s' as %s.", file_path, commit.hexsha[:8])
+    return commit.hexsha
+
+
 def push_branch(
     repo_path: str,
     branch_name: str,

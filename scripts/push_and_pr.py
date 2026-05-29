@@ -21,7 +21,7 @@ if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
 from src.config_loader import APP_CONFIG  # noqa: E402
-from src.git.branch_manager import push_branch  # noqa: E402
+from src.git.branch_manager import commit_file, push_branch  # noqa: E402
 from src.git.pr_creator import create_pull_request  # noqa: E402
 
 
@@ -44,6 +44,13 @@ def main() -> int:
         "--task",
         default=None,
         help="Short description used as the PR title. Defaults to the branch name.",
+    )
+    parser.add_argument(
+        "--commit-file",
+        default=None,
+        metavar="FILE",
+        help="Absolute path to a file to stage and commit before pushing. "
+             "Useful when testing without the full LLM workflow.",
     )
     parser.add_argument(
         "--dry-run",
@@ -71,9 +78,21 @@ def main() -> int:
         return 1
 
     if args.dry_run:
+        if args.commit_file:
+            print(f"[dry-run] Would commit: {args.commit_file}")
         print("[dry-run] Would push branch to remote.")
-        print(f"[dry-run] Would create PR: '{task[:72]}' → {repo.base_branch}")
+        print(f"[dry-run] Would create PR: 'AI: {task[:72]}' → {repo.base_branch}")
         return 0
+
+    # ── Optional commit ───────────────────────────────────────────────────────
+    if args.commit_file:
+        print(f"Committing '{args.commit_file}'…")
+        sha = commit_file(repo.local_path, args.commit_file, f"AI: {task}")
+        if sha:
+            print(f"Committed as {sha[:8]}.")
+        else:
+            print("Nothing to commit — file is unchanged.")
+        print()
 
     # ── Push ─────────────────────────────────────────────────────────────────
     print(f"Pushing '{branch_name}' to origin…")
