@@ -146,6 +146,13 @@ def _is_valid(graph_dir: Path, repo_sha: str) -> tuple[bool, dict | None]:
 # ---------------------------------------------------------------------------
 
 def _build_graph(repo_path: str, graph_dir: Path, repo_id: str, repo_sha: str) -> dict:
+    """Run a full AST extraction for ``repo_path`` and write the graph to ``graph_dir``.
+
+    Creates ``graph_dir`` (and any parents) if it does not exist, delegates
+    the actual extraction to ``build_ast_graph``, then writes ``graph_meta.json``
+    so the result is immediately recognised as valid by ``_is_valid``.
+    Returns the written metadata dict.
+    """
     graph_dir.mkdir(parents=True, exist_ok=True)
     build_ast_graph(repo_path, graph_dir)
     return _write_meta(graph_dir, repo_id, repo_sha)
@@ -162,6 +169,21 @@ def _resolve_graph_handle(
     graph_config: GraphConfig,
     system_root: Path,
 ) -> GraphHandle:
+    """Resolve and return a valid ``GraphHandle`` according to the configured mode.
+
+    Implements the three storage strategies:
+
+    - ``repo_local``: checks ``.graphify/`` inside the repo; raises if no valid
+      graph is found (never builds automatically).
+    - ``system``: checks the system store keyed by ``repo_id/repo_sha``; builds
+      if missing or stale, provided ``auto_update`` is ``True``.
+    - ``hybrid``: prefers repo-local, falls back to system, then builds into the
+      system store when neither is valid and ``auto_update`` is ``True``.
+
+    Raises ``RuntimeError`` when no valid graph is found and building is not
+    permitted (``auto_update=False`` or ``repo_local`` mode).
+    Raises ``ValueError`` for an unrecognised mode string.
+    """
     mode = graph_config.mode
     auto_update = graph_config.auto_update
 
