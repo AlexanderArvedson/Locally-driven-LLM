@@ -60,7 +60,7 @@ Controls the knowledge graph that the agent uses to understand the repository's 
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `mode` | string | Graph construction strategy. `"hybrid"` combines AST-based parsing with embedding-based similarity. `"ast"` uses only AST parsing (faster, no embedding required). `"embedding"` uses only vector similarity (requires an embedding model). |
+| `mode` | string | Graph construction strategy. `"hybrid"` first tries to use the repository's own local graphify and falls back to the system-built graph if none is found. `"system"` always uses the application's own constructed graph of the repository. `"local"` uses the existing graphify that belongs to the repository — fails if none is present. |
 | `staleness_strategy` | string | How the system detects that the graph needs rebuilding. `"sha_based"` compares file content hashes — efficient and accurate. `"timestamp"` uses file modification times — faster but can produce false negatives. |
 | `auto_update` | boolean | When `true` the graph is automatically rebuilt after the agent modifies files. Set to `false` to manage graph updates manually. |
 
