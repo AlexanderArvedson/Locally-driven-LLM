@@ -282,12 +282,11 @@ async def graph_resolver_node(state: GraphState, run_context: RunContext) -> dic
     downstream nodes; sets graph_path for context_builder compatibility.
     """
     start = time.time()
-    task = state.get("task", "")
     try:
         repo_path = state.get("repo_path")
         if not repo_path:
             emit_success(
-                run_context, "graph_resolver_node", task,
+                run_context, "graph_resolver_node",
                 {"skipped": True, "reason": "no repo_path"},
                 start,
             )
@@ -308,7 +307,7 @@ async def graph_resolver_node(state: GraphState, run_context: RunContext) -> dic
         )
 
         emit_success(
-            run_context, "graph_resolver_node", task,
+            run_context, "graph_resolver_node",
             {
                 "mode_used": handle.mode_used,
                 "repo_id": handle.repo_id,
@@ -325,5 +324,5 @@ async def graph_resolver_node(state: GraphState, run_context: RunContext) -> dic
             "graph_snapshot_sha": repo_sha,
         }
     except Exception as exc:
-        emit_failure(run_context, "graph_resolver_node", task, str(exc), start)
+        emit_failure(run_context, "graph_resolver_node", str(exc), start)
         raise

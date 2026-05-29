@@ -2,7 +2,11 @@
 
 This script performs a minimal deterministic contract check for emitted run
 logs without introducing full JSON Schema tooling. It verifies that each line
-is valid JSON, is an object, and contains the required top-level keys.
+is valid JSON, is an object, and contains the required compact top-level keys.
+
+Since the 2026-05-29 logging refactor, per-event lines no longer carry
+`run_id` or `task` (those live once in the top-level `.json` summary).
+The required event keys are now: node, status, duration_ms, timestamp.
 """
 
 from __future__ import annotations
@@ -18,7 +22,7 @@ if str(PROJECT_ROOT) not in sys.path:
 from src.core.runtime_paths import RUNS_DIR, ensure_runtime_dirs  # noqa: E402
 
 
-REQUIRED_KEYS = {"run_id", "node", "status", "duration_ms", "task", "timestamp"}
+REQUIRED_KEYS = {"node", "status", "duration_ms", "timestamp"}
 
 
 def _validate_event(event: object) -> tuple[bool, str]:
@@ -29,16 +33,12 @@ def _validate_event(event: object) -> tuple[bool, str]:
     if missing_keys:
         return False, f"missing required keys: {', '.join(missing_keys)}"
 
-    if not isinstance(event["run_id"], str) or not event["run_id"]:
-        return False, "run_id must be a non-empty string"
     if not isinstance(event["node"], str) or not event["node"]:
         return False, "node must be a non-empty string"
     if event["status"] not in {"success", "failure"}:
         return False, 'status must be "success" or "failure"'
     if not isinstance(event["duration_ms"], int) or event["duration_ms"] < 0:
         return False, "duration_ms must be a non-negative integer"
-    if not isinstance(event["task"], str):
-        return False, "task must be a string"
     if not isinstance(event["timestamp"], str) or not event["timestamp"]:
         return False, "timestamp must be a non-empty string"
 

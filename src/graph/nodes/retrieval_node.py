@@ -110,7 +110,6 @@ async def retrieval_node(state: GraphState, run_context: RunContext) -> dict:
         emit_success(
             run_context,
             "retrieval_node",
-            task,
             {
                 "session_id": session_id,
                 "num_selected": len(selected),
@@ -130,7 +129,7 @@ async def retrieval_node(state: GraphState, run_context: RunContext) -> dict:
             "related_file_contents": related_file_contents,
         }
     except Exception as e:
-        emit_failure(run_context, "retrieval_node", task, str(e), start)
+        emit_failure(run_context, "retrieval_node", str(e), start)
         raise
 
 

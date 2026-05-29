@@ -34,7 +34,7 @@ async def static_validator_node(state: GraphState, run_context: RunContext) -> d
 
         passed, syntax_error = validate_python_syntax(code)
         if not passed:
-            emit_failure(run_context, "static_validator_node", state.get("task", ""), syntax_error, start)
+            emit_failure(run_context, "static_validator_node", syntax_error, start)
             return {
                 "review_passed": False,
                 "review_feedback": syntax_error,
@@ -57,7 +57,7 @@ async def static_validator_node(state: GraphState, run_context: RunContext) -> d
                 if res.returncode != 0:
                     ruff_out = (res.stdout or "") + ("\n" + res.stderr if res.stderr else "")
                     ruff_out = ruff_out.strip()
-                    emit_failure(run_context, "static_validator_node", state.get("task", ""), ruff_out, start)
+                    emit_failure(run_context, "static_validator_node", ruff_out, start)
                     return {
                         "review_passed": False,
                         "review_feedback": f"Ruff reported issues:\n{ruff_out}",
@@ -74,7 +74,7 @@ async def static_validator_node(state: GraphState, run_context: RunContext) -> d
                 except Exception:
                     pass
 
-        emit_success(run_context, "static_validator_node", state.get("task", ""), {"review_passed": True}, start)
+        emit_success(run_context, "static_validator_node", {"review_passed": True}, start)
         return {
             "review_passed": True,
             "review_feedback": "",
@@ -84,5 +84,5 @@ async def static_validator_node(state: GraphState, run_context: RunContext) -> d
         }
 
     except Exception as e:
-        emit_failure(run_context, "static_validator_node", state.get("task", ""), str(e), start)
+        emit_failure(run_context, "static_validator_node", str(e), start)
         raise

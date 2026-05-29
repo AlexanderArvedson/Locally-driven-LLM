@@ -117,9 +117,9 @@ async def semantic_validator_node(state: GraphState, run_context: RunContext) ->
             "task_alignment_score": score,
         }
         if semantic_passed:
-            emit_success(run_context, "semantic_validator_node", task, payload, start)
+            emit_success(run_context, "semantic_validator_node", payload, start)
         else:
-            emit_failure(run_context, "semantic_validator_node", task, feedback, start)
+            emit_failure(run_context, "semantic_validator_node", feedback, start)
 
         return {
             "semantic_passed": semantic_passed,
@@ -133,5 +133,5 @@ async def semantic_validator_node(state: GraphState, run_context: RunContext) ->
         }
 
     except Exception as e:
-        emit_failure(run_context, "semantic_validator_node", state.get("task", ""), str(e), start)
+        emit_failure(run_context, "semantic_validator_node", str(e), start)
         raise

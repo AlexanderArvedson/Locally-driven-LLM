@@ -28,9 +28,9 @@ async def diff_generator_node(state: GraphState, run_context: RunContext) -> dic
         generated = strip_code_fences(require_state_value(state, "generated_code"))
         nd = generate_unified(original, generated, fromfile=str(state.get("target_file", "a")), tofile=str(state.get("target_file", "b")))
 
-        emit_success(run_context, "diff_generator_node", state.get("task", ""), {"diff_length": len(nd)}, start)
+        emit_success(run_context, "diff_generator_node", {"diff_length": len(nd)}, start)
 
         return {"generated_diff": nd}
     except Exception as e:
-        emit_failure(run_context, "diff_generator_node", state.get("task", ""), str(e), start)
+        emit_failure(run_context, "diff_generator_node", str(e), start)
         raise

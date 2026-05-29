@@ -55,11 +55,10 @@ async def branch_creator_node(state: GraphState, run_context: RunContext) -> dic
         emit_success(
             run_context,
             "branch_creator_node",
-            task,
             {"branch_name": branch_name},
             start,
         )
         return {"branch_name": branch_name}
     except Exception as exc:
-        emit_failure(run_context, "branch_creator_node", state.get("task", ""), str(exc), start)
+        emit_failure(run_context, "branch_creator_node", str(exc), start)
         raise

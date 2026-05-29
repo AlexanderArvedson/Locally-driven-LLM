@@ -37,7 +37,7 @@ async def verifier_node(state: GraphState, run_context: RunContext) -> dict:
 
         passed, feedback = validate_python_syntax(code)
         if not passed:
-            emit_failure(run_context, "verifier_node", state.get("task", ""), feedback, start)
+            emit_failure(run_context, "verifier_node", feedback, start)
             return {
                 "verification_passed": False,
                 "verification_feedback": feedback,
@@ -54,7 +54,7 @@ async def verifier_node(state: GraphState, run_context: RunContext) -> dict:
                 rc, out, err = run_code_in_sandbox(code, timeout=10, memory_mb=200, cpu_seconds=5)
             except Exception as exc:
                 msg = f"Sandbox error: {exc}"
-                emit_failure(run_context, "verifier_node", state.get("task", ""), msg, start)
+                emit_failure(run_context, "verifier_node", msg, start)
                 return {
                     "verification_passed": False,
                     "verification_feedback": msg,
@@ -67,7 +67,7 @@ async def verifier_node(state: GraphState, run_context: RunContext) -> dict:
             if rc != 0:
                 error_feedback = (err or out or f"subprocess exited with code {rc}").strip()
                 error_type = _classify_error(err, out)
-                emit_failure(run_context, "verifier_node", state.get("task", ""), error_feedback, start)
+                emit_failure(run_context, "verifier_node", error_feedback, start)
                 return {
                     "verification_passed": False,
                     "verification_feedback": error_feedback,
@@ -77,7 +77,7 @@ async def verifier_node(state: GraphState, run_context: RunContext) -> dict:
                     "verifier_stdout": out or None,
                 }
 
-            emit_success(run_context, "verifier_node", state.get("task", ""), {"verification_passed": True}, start)
+            emit_success(run_context, "verifier_node", {"verification_passed": True}, start)
             return {
                 "verification_passed": True,
                 "verification_feedback": "",
@@ -93,7 +93,7 @@ async def verifier_node(state: GraphState, run_context: RunContext) -> dict:
                 exec(code, ns)  # noqa: S102
             except Exception as exc:
                 msg = f"Runtime exec error: {exc}"
-                emit_failure(run_context, "verifier_node", state.get("task", ""), msg, start)
+                emit_failure(run_context, "verifier_node", msg, start)
                 return {
                     "verification_passed": False,
                     "verification_feedback": msg,
@@ -103,7 +103,7 @@ async def verifier_node(state: GraphState, run_context: RunContext) -> dict:
                     "verifier_stdout": None,
                 }
 
-            emit_success(run_context, "verifier_node", state.get("task", ""), {"verification_passed": True}, start)
+            emit_success(run_context, "verifier_node", {"verification_passed": True}, start)
             return {
                 "verification_passed": True,
                 "verification_feedback": "",
@@ -114,5 +114,5 @@ async def verifier_node(state: GraphState, run_context: RunContext) -> dict:
             }
 
     except Exception as e:
-        emit_failure(run_context, "verifier_node", state.get("task", ""), str(e), start)
+        emit_failure(run_context, "verifier_node", str(e), start)
         raise
