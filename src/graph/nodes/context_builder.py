@@ -45,7 +45,12 @@ async def context_builder_node(state: GraphState, run_context: RunContext) -> di
         snapshot = state.get("repository_snapshot")
         if snapshot is None:
             indexer = SimpleRepositoryIndexer()
-            snapshot_root = repo_path or (str(Path(target_file).parent) if target_file else ".")
+            if target_file and repo_path:
+                # Use the target file's immediate parent so we only index the
+                # relevant module/package, not the entire monorepo.
+                snapshot_root = str(Path(target_file).parent)
+            else:
+                snapshot_root = repo_path or (str(Path(target_file).parent) if target_file else ".")
             snapshot = indexer.build_snapshot(snapshot_root)
             state["repository_snapshot"] = snapshot
 
