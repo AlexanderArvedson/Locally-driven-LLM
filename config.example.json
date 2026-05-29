@@ -17,6 +17,7 @@
       "updated_at": null,
 
       "max_iterations": 10,
+      "semantic_threshold": 0.75,
 
       "graph": {
         "mode": "hybrid",
@@ -43,7 +44,7 @@
           "api_key": null,
           "url": "http://localhost:11434"
         },
-        "reviewer": {
+        "semantic_validator": {
           "name": "",
           "provider": "ollama",
           "api_key": null,

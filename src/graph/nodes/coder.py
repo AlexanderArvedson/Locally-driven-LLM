@@ -25,7 +25,6 @@ async def coder_node(state: GraphState, run_context: RunContext) -> dict:
     start = time.time()
     try:
         iteration = state.get("iteration", 0) + 1
-        review_feedback = state.get("review_feedback")
         original_code = require_state_value(state, "original_code")
         repository_context = state.get("repository_context")
         coder_model = get_coder_model(state.get("repo_path"))
@@ -44,11 +43,40 @@ async def coder_node(state: GraphState, run_context: RunContext) -> dict:
             "Do NOT wrap your output in markdown code fences (```), backticks, or add any explanation.\n"
             "Output should be the literal file contents to write to disk."
         )
-        if review_feedback:
+        failure_parts = []
+
+        syntax_ok = state.get("syntax_ok", True)
+        review_errors = state.get("review_errors") or []
+        if not syntax_ok or review_errors:
+            errors_str = (
+                "\n".join(f"- {e}" for e in review_errors)
+                if review_errors
+                else state.get("review_feedback", "")
+            )
+            failure_parts.append(f"STATIC VALIDATION FAILED:\n{errors_str}")
+
+        verification_feedback = state.get("verification_feedback", "")
+        error_type = state.get("error_type")
+        if verification_feedback:
+            label = f"RUNTIME FAILURE ({error_type}):" if error_type else "RUNTIME FAILURE:"
+            failure_parts.append(f"{label}\n{verification_feedback}")
+
+        semantic_feedback = state.get("semantic_feedback", "")
+        missing = state.get("missing_requirements") or []
+        incorrect = state.get("incorrect_behaviors") or []
+        if semantic_feedback or missing or incorrect:
+            parts = ["TASK MISALIGNMENT:"]
+            if missing:
+                parts.append("Missing requirements:\n" + "\n".join(f"- {r}" for r in missing))
+            if incorrect:
+                parts.append("Incorrect behaviors:\n" + "\n".join(f"- {b}" for b in incorrect))
+            failure_parts.append("\n".join(parts))
+
+        if failure_parts:
             user_prompt = (
                 f"{user_prompt}\n\n"
-                f"Previous review feedback: {review_feedback}\n"
-                "Revise the code to address the feedback while still returning the full updated file only."
+                + "\n\n".join(failure_parts)
+                + "\n\nRevise the code to address all issues above. Return the full updated file only."
             )
 
         result = await client.chat(
@@ -75,6 +103,10 @@ async def coder_node(state: GraphState, run_context: RunContext) -> dict:
             "generated_code": result.message,
             "iteration": iteration,
             "review_passed": False,
+            "semantic_passed": False,
+            "semantic_feedback": "",
+            "missing_requirements": [],
+            "incorrect_behaviors": [],
         }
     except Exception as e:
         emit_failure(run_context, "coder_node", state.get("task", ""), str(e), start)

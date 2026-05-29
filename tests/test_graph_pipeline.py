@@ -15,6 +15,26 @@ from src.observability.context import RunContext
 _REPO_ROOT = Path(__file__).resolve().parents[1]
 
 
+async def _noop_branch_creator(state, run_context):
+    """Stub that skips real git operations in pipeline tests."""
+    return {"branch_name": "test/add-type-hints"}
+
+
+async def _noop_graph_resolver(state, run_context):
+    """Stub that skips knowledge-graph resolution in pipeline tests."""
+    return {"graph_path": None, "repo_sha": "deadbeef"}
+
+
+async def _noop_retrieval(state, run_context):
+    """Stub that returns empty retrieval context in pipeline tests."""
+    return {"repository_context": None, "related_file_contents": {}}
+
+
+async def _noop_git_committer(state, run_context):
+    """Stub that skips real git commit in pipeline tests."""
+    return {"repo_sha": "deadbeef"}
+
+
 class TestGraphPipeline(unittest.IsolatedAsyncioTestCase):
     async def asyncSetUp(self):
         ensure_runtime_dirs()
@@ -35,7 +55,15 @@ class TestGraphPipeline(unittest.IsolatedAsyncioTestCase):
             run_context = RunContext.new()
             graph = make_graph(run_context)
 
-            with patch.object(nodes_module.client, "chat", new=AsyncMock(return_value=fake_result)) as mock_chat:
+            with (
+                patch.object(nodes_module, "branch_creator_node", new=_noop_branch_creator),
+                patch.object(nodes_module, "graph_resolver_node", new=_noop_graph_resolver),
+                patch.object(nodes_module, "retrieval_node", new=_noop_retrieval),
+                patch.object(nodes_module, "git_committer_node", new=_noop_git_committer),
+                patch.object(nodes_module.client, "chat", new=AsyncMock(return_value=fake_result)) as mock_chat,
+            ):
+                # Recompile graph inside the patch context so node stubs are picked up.
+                graph = make_graph(run_context)
                 result = await graph.ainvoke(
                     {
                         "task": "Add type hints to the function.",
@@ -60,8 +88,9 @@ class TestGraphPipeline(unittest.IsolatedAsyncioTestCase):
                 "file_reader_node",
                 "coder_node",
                 "diff_generator_node",
-                "reviewer_node",
+                "static_validator_node",
                 "verifier_node",
+                "semantic_validator_node",
                 "file_writer_node",
             ):
                 self.assertIn(expected_node, event_nodes)

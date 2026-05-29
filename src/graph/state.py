@@ -71,6 +71,57 @@ class GraphState(TypedDict):
     # Populated by retrieval_node; consumed by coder_node for prompt context.
     related_file_contents: NotRequired[dict[str, str]]
 
+    # --- Static validator structured output ---
+
+    # True if ast.compile passed.
+    syntax_ok: NotRequired[bool]
+
+    # True if ruff passed (or ruff was not available).
+    lint_ok: NotRequired[bool]
+
+    # Individual error strings from syntax or lint checks.
+    review_errors: NotRequired[list[str]]
+
+    # --- Verifier structured output ---
+
+    # True when the code executed without exceptions.
+    runtime_ok: NotRequired[bool]
+
+    # Categorised error type, e.g. "SyntaxError", "ImportError", "RuntimeError".
+    error_type: NotRequired[str]
+
+    # Raw stderr captured from subprocess execution.
+    verifier_stderr: NotRequired[str]
+
+    # Raw stdout captured from subprocess execution.
+    verifier_stdout: NotRequired[str]
+
+    # --- Semantic validator output ---
+
+    # True when task_alignment_score meets or exceeds the configured threshold.
+    semantic_passed: NotRequired[bool]
+
+    # Formatted failure summary forwarded to coder_node on retry.
+    semantic_feedback: NotRequired[str]
+
+    # 0.0–1.0 score of how well the code satisfies the task intent.
+    task_alignment_score: NotRequired[float]
+
+    # Requirements from the task that are absent in the generated code.
+    missing_requirements: NotRequired[list[str]]
+
+    # Behaviours in the generated code that contradict the task.
+    incorrect_behaviors: NotRequired[list[str]]
+
+    # Changes made that were not requested by the task.
+    unnecessary_changes: NotRequired[list[str]]
+
+    # Free-form observations from the semantic validator LLM.
+    semantic_notes: NotRequired[str]
+
+    # 0.0–1.0 confidence in the above evaluation.
+    semantic_confidence: NotRequired[float]
+
     # --- Git fields ---
 
     # Branch created for this task, e.g. "feature/fix-auth-bug"

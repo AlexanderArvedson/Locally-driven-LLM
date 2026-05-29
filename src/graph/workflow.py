@@ -20,7 +20,7 @@ from src.observability.context import RunContext
 
 
 def route_after_review(state: GraphState):
-    """Decide the next graph node after the `reviewer` node.
+    """Decide the next graph node after the `reviewer` (static_validator) node.
 
     - If the review passed, continue to the `verifier` node.
     - If the iteration limit was reached, end the run.
@@ -40,11 +40,25 @@ def route_after_review(state: GraphState):
 def route_after_verification(state: GraphState):
     """Decide the next graph node after the `verifier` node.
 
-    - If verification passed, proceed to the `file_writer` node.
+    - If verification passed, proceed to the `semantic_validator` node.
     - If the iteration limit was reached, end the run.
     - Otherwise, retry by routing to `coder`.
     """
     if state.get("verification_passed"):
+        return "semantic_validator"
+    if state.get("iteration", 0) >= get_max_iterations(state.get("repo_path")):
+        return END
+    return "coder"
+
+
+def route_after_semantic(state: GraphState):
+    """Decide the next graph node after the `semantic_validator` node.
+
+    - If semantic validation passed (score >= threshold), proceed to file_writer.
+    - If the iteration limit was reached, end the run.
+    - Otherwise, route back to `coder` with structured misalignment feedback.
+    """
+    if state.get("semantic_passed"):
         return "file_writer"
     if state.get("iteration", 0) >= get_max_iterations(state.get("repo_path")):
         return END
@@ -83,12 +97,14 @@ def make_graph(run_context: RunContext):
     builder.add_node("retrieval", _wrap(nodes_module.retrieval_node))
     builder.add_node("coder", _wrap(nodes_module.coder_node))
     builder.add_node("diff_generator", _wrap(nodes_module.diff_generator_node))
-    builder.add_node("reviewer", _wrap(nodes_module.reviewer_node))
+    builder.add_node("reviewer", _wrap(nodes_module.static_validator_node))
     builder.add_node("verifier", _wrap(nodes_module.verifier_node))
+    builder.add_node("semantic_validator", _wrap(nodes_module.semantic_validator_node))
     builder.add_node("file_writer", _wrap(nodes_module.file_writer_node))
     builder.add_node("git_committer", _wrap(nodes_module.git_committer_node))
 
-    # Linear topology with conditional edges for retry/looping behavior
+    # Linear topology with conditional edges for retry/looping behavior.
+    # Static edges for the non-branching segments of the pipeline.
     builder.add_edge(START, "branch_creator")
     builder.add_edge("branch_creator", "file_reader")
     builder.add_edge("file_reader", "graph_resolver")
@@ -96,8 +112,6 @@ def make_graph(run_context: RunContext):
     builder.add_edge("retrieval", "coder")
     builder.add_edge("coder", "diff_generator")
     builder.add_edge("diff_generator", "reviewer")
-    builder.add_edge("reviewer", "verifier")
-    builder.add_edge("verifier", "file_writer")
     builder.add_edge("file_writer", "git_committer")
     builder.add_edge("git_committer", END)
 
@@ -107,7 +121,6 @@ def make_graph(run_context: RunContext):
         {
             "coder": "coder",
             "verifier": "verifier",
-            "file_writer": "file_writer",
             END: END,
         },
     )
@@ -115,6 +128,16 @@ def make_graph(run_context: RunContext):
     builder.add_conditional_edges(
         "verifier",
         route_after_verification,
+        {
+            "coder": "coder",
+            "semantic_validator": "semantic_validator",
+            END: END,
+        },
+    )
+
+    builder.add_conditional_edges(
+        "semantic_validator",
+        route_after_semantic,
         {
             "coder": "coder",
             "file_writer": "file_writer",
