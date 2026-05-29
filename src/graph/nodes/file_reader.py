@@ -31,9 +31,9 @@ async def file_reader_node(state: GraphState, run_context: RunContext) -> dict:
 
         original = read_file(target_file)
 
-        emit_success(run_context, "file_reader_node", state.get("task", ""), {"original_length": len(original), "target_file": target_file}, start)
+        emit_success(run_context, "file_reader_node", {"original_length": len(original), "target_file": target_file}, start)
 
         return {"original_code": original, "target_file": target_file}
     except Exception as e:
-        emit_failure(run_context, "file_reader_node", state.get("task", ""), str(e), start)
+        emit_failure(run_context, "file_reader_node", str(e), start)
         raise

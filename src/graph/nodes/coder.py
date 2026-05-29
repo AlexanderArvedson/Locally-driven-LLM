@@ -97,7 +97,7 @@ async def coder_node(state: GraphState, run_context: RunContext) -> dict:
             temperature=0.2,
         )
 
-        emit_success(run_context, "coder_node", state.get("task", ""), {"model": coder_model}, start)
+        emit_success(run_context, "coder_node", {"model": coder_model}, start)
 
         return {
             "generated_code": result.message,
@@ -109,5 +109,5 @@ async def coder_node(state: GraphState, run_context: RunContext) -> dict:
             "incorrect_behaviors": [],
         }
     except Exception as e:
-        emit_failure(run_context, "coder_node", state.get("task", ""), str(e), start)
+        emit_failure(run_context, "coder_node", str(e), start)
         raise

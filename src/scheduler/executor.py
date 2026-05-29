@@ -23,12 +23,19 @@ class WorkflowExecutor:
         from src.graph.workflow import make_graph
         from src.graph.state import GraphState
         from src.observability.context import RunContext
+        from src.observability.logger import write_run_summary, format_run_console
         from src.config_loader import get_repository_config, update_repository_timestamps
 
         graph_factory = self._graph_factory or make_graph
         run_context_factory = self._run_context_factory or RunContext.new
-        graph = graph_factory(run_context_factory())
+
+        run_context = run_context_factory()
         state = cast(GraphState, task.payload)
+
+        # Stamp task on run_context so it appears once in the top-level run summary
+        run_context.task = state.get("task", "")
+
+        graph = graph_factory(run_context)
 
         repo_path = state.get("repo_path")
         if repo_path:
@@ -42,4 +49,14 @@ class WorkflowExecutor:
             except Exception:
                 pass
 
-        return await graph.ainvoke(state)
+        final_status = "success"
+        try:
+            result = await graph.ainvoke(state)
+        except Exception:
+            final_status = "failure"
+            raise
+        finally:
+            write_run_summary(run_context, final_status)
+            print(format_run_console(run_context, final_status))
+
+        return result

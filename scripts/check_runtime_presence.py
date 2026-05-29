@@ -2,6 +2,10 @@
 
 This script is intentionally tiny and deterministic: CI should run it after the
 unit tests to ensure that mocked graph executions emitted run artifacts.
+
+Also reports on `.json` summary files produced by `write_run_summary` at run
+completion. Their absence is informational only (they are not written by unit
+tests that skip the executor's finalize path).
 """
 from __future__ import annotations
 
@@ -17,11 +21,17 @@ from src.core.runtime_paths import RUNS_DIR, ensure_runtime_dirs  # noqa: E402
 
 def main() -> int:
     ensure_runtime_dirs()
-    run_files = sorted(RUNS_DIR.glob("*.jsonl"))
-    if not run_files:
+    jsonl_files = sorted(RUNS_DIR.glob("*.jsonl"))
+    json_files = sorted(RUNS_DIR.glob("*.json"))
+
+    if not jsonl_files:
         print("No runtime run files found in .runtime/runs/; expected at least one")
         return 1
-    print(f"Found {len(run_files)} run file(s) in .runtime/runs/")
+
+    print(
+        f"Found {len(jsonl_files)} JSONL event file(s) and "
+        f"{len(json_files)} run summary file(s) in .runtime/runs/"
+    )
     return 0
 
 

@@ -49,7 +49,7 @@ async def file_writer_node(state: GraphState, run_context: RunContext) -> dict:
 
                 logger.error("Applying unified diff failed for %s: %s; saved to %s", target_file, exc, failed_path)
 
-                emit_failure(run_context, "file_writer_node", state.get("task", ""), str(exc), start)
+                emit_failure(run_context, "file_writer_node", str(exc), start)
 
                 return {
                     "verification_passed": False,
@@ -67,14 +67,14 @@ async def file_writer_node(state: GraphState, run_context: RunContext) -> dict:
                     logger.error("Failed to write failed generated file: %s", wexc)
 
                 logger.error("Writing file failed for %s: %s; saved to %s", target_file, exc, failed_path)
-                emit_failure(run_context, "file_writer_node", state.get("task", ""), str(exc), start)
+                emit_failure(run_context, "file_writer_node", str(exc), start)
 
                 return {
                     "verification_passed": False,
                     "verification_feedback": f"Writing file failed: {exc}; saved generated output at {failed_path}",
                 }
 
-        emit_success(run_context, "file_writer_node", state.get("task", ""), {"updated_length": len(generated_code)}, start)
+        emit_success(run_context, "file_writer_node", {"updated_length": len(generated_code)}, start)
 
         repo_path = state.get("repo_path")
         if repo_path:
@@ -89,5 +89,5 @@ async def file_writer_node(state: GraphState, run_context: RunContext) -> dict:
 
         return {"updated_code": generated_code}
     except Exception as e:
-        emit_failure(run_context, "file_writer_node", state.get("task", ""), str(e), start)
+        emit_failure(run_context, "file_writer_node", str(e), start)
         raise

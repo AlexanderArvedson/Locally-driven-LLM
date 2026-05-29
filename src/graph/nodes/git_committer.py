@@ -40,11 +40,10 @@ async def git_committer_node(state: GraphState, run_context: RunContext) -> dict
         emit_success(
             run_context,
             "git_committer_node",
-            task,
             {"sha": sha, "committed": bool(sha)},
             start,
         )
         return {}
     except Exception as exc:
-        emit_failure(run_context, "git_committer_node", task, str(exc), start)
+        emit_failure(run_context, "git_committer_node", str(exc), start)
         raise

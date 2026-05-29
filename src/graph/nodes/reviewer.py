@@ -33,7 +33,7 @@ async def reviewer_node(state: GraphState, run_context: RunContext) -> dict:
         passed, feedback = validate_python_syntax(code)
 
         if not passed:
-            emit_failure(run_context, "reviewer_node", state.get("task", ""), feedback, start)
+            emit_failure(run_context, "reviewer_node", feedback, start)
             return {"review_passed": False, "review_feedback": feedback}
 
         if shutil.which("ruff"):
@@ -49,7 +49,7 @@ async def reviewer_node(state: GraphState, run_context: RunContext) -> dict:
                 res = subprocess.run(["ruff", "check", tf_name], capture_output=True, text=True)
                 if res.returncode != 0:
                     out = (res.stdout or "") + ("\n" + res.stderr if res.stderr else "")
-                    emit_failure(run_context, "reviewer_node", state.get("task", ""), out, start)
+                    emit_failure(run_context, "reviewer_node", out, start)
                     return {"review_passed": False, "review_feedback": f"Ruff reported issues:\n{out}"}
             except FileNotFoundError:
                 pass
@@ -66,12 +66,12 @@ async def reviewer_node(state: GraphState, run_context: RunContext) -> dict:
             and len(code) > 20
         )
         if not heur_pass:
-            emit_failure(run_context, "reviewer_node", state.get("task", ""), "Heuristic checks failed", start)
+            emit_failure(run_context, "reviewer_node", "Heuristic checks failed", start)
             return {"review_passed": False, "review_feedback": "Heuristic checks failed: ensure function definitions exist, avoid TODO markers, and file is non-trivial."}
 
-        emit_success(run_context, "reviewer_node", state.get("task", ""), {"review_passed": True}, start)
+        emit_success(run_context, "reviewer_node", {"review_passed": True}, start)
 
         return {"review_passed": True, "review_feedback": ""}
     except Exception as e:
-        emit_failure(run_context, "reviewer_node", state.get("task", ""), str(e), start)
+        emit_failure(run_context, "reviewer_node", str(e), start)
         raise
