@@ -1,55 +1,66 @@
 {
-    "cron": "0 0 * * *",
-    "repositories": [
-        {
-            "name": "Name of the repository",
-            "url": "the url to the git repository",
-            "base_branch": "the branch the system should branch off from",
-            "prefix": "the prefix for branches created by the system",
-            "local_path": "absolute path to the local repository",
-            "created_at": "when the repository was added to the system",
-            "updated_at": "when the repository was last updated by the system",
-            "context_path": "where the graph for the repository is stored",
-            "max_iterations": "allowed iterations for workflows",
-            "credentials": {
-                "username": "username for the repository",
-                "token": "personal access token for the repository"
-            },
-            "models": {
+  "cron": "0 0 * * *",
 
-                "chat-model": {
-                    "name": "your-chat-model",
-                    "provider": "your-provider",
-                    "api_key": null,
-                    "url": "https://example.com/your-chat-model-endpoint"
-                },
+  "system": {
+    "context_path": "~/.graphify-system"
+  },
 
-                "Coder": {
-                    "name": "your-llm-model",
-                    "provider": "your-provider",
-                    "api_key": null,
-                    "url": "https://example.com/your-llm-endpoint"
-                },
+  "repositories": [
+    {
+      "name": "Name of the repository",
+      "url": "the url to the git repository",
+      "base_branch": "main",
+      "prefix": "DEV-AI-DATE-",
+      "local_path": "absolute path to the local repository",
 
-                "reviewer": {
-                    "name": "your-reviewer-model",
-                    "provider": "your-provider",
-                    "api_key": null,
-                    "url": "https://example.com/your-reviewer-endpoint"
-                },
+      "created_at": "timestamp",
+      "updated_at": "timestamp",
 
-                "embedding": {
-                    "name": "your-embedding-model",
-                    "provider": "your-provider",
-                    "api_key": null,
-                    "url": "https://example.com/your-embedding-endpoint"
-                }
-            },
+      "max_iterations": 10,
 
+      "graph": {
+        "mode": "hybrid",
+        "staleness_strategy": "sha_based",
+        "auto_update": true
+      },
 
-            "integrations": {
-                "slack_webhook_url": "https://hooks.slack.com/services/your/webhook/url"
-            }
+      "credentials": {
+        "git": {
+          "username": "username",
+          "token": "personal_access_token"
         }
-    ]
+      },
+
+      "models": {
+        "chat": {
+          "name": "your-chat-model",
+          "provider": "your-provider",
+          "api_key": null,
+          "url": "https://example.com/your-chat-model-endpoint"
+        },
+        "coder": {
+          "name": "your-llm-model",
+          "provider": "your-provider",
+          "api_key": null,
+          "url": "https://example.com/your-llm-endpoint"
+        },
+        "reviewer": {
+          "name": "your-reviewer-model",
+          "provider": "your-provider",
+          "api_key": null,
+          "url": "https://example.com/your-reviewer-endpoint"
+        },
+        "embedding": {
+          "name": "your-embedding-model",
+          "provider": "your-provider",
+          "api_key": null,
+          "url": "https://example.com/your-embedding-endpoint"
+        }
+      },
+
+      "integrations": {
+        "slack_webhook_url": "https://hooks.slack.com/services/your/webhook/url"
+      }
+    }
+  ]
 }
