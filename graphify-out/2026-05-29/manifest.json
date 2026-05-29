@@ -20,8 +20,8 @@
     "semantic_hash": ""
   },
   "C:\\chas\\examensarbete\\Locally-driven-langgraph-LLM\\src\\git\\branch_manager.py": {
-    "mtime": 1780039489.296689,
-    "ast_hash": "1f1ec226b7e7880e34ef385f0d479c64",
+    "mtime": 1780039544.874171,
+    "ast_hash": "8e285d5fc762de3042715cbc45171c8b",
     "semantic_hash": ""
   },
   "C:\\chas\\examensarbete\\Locally-driven-langgraph-LLM\\src\\git\\pr_creator.py": {
@@ -45,8 +45,8 @@
     "semantic_hash": ""
   },
   "C:\\chas\\examensarbete\\Locally-driven-langgraph-LLM\\src\\graph\\nodes\\branch_creator.py": {
-    "mtime": 1780039489.297262,
-    "ast_hash": "3d32ec8bee8a353d1d46231ff9c3ec81",
+    "mtime": 1780039544.8751743,
+    "ast_hash": "b34e0e35c7337b95639b288c3d3b0c43",
     "semantic_hash": ""
   },
   "C:\\chas\\examensarbete\\Locally-driven-langgraph-LLM\\src\\graph\\nodes\\coder.py": {
