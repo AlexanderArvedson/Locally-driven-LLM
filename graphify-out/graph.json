@@ -392,7 +392,7 @@
       "source_file": "src/config_loader.py",
       "source_location": "L91",
       "id": "src_config_loader_py_int",
-      "community": 0,
+      "community": 12,
       "norm_label": "int"
     },
     {
@@ -482,7 +482,7 @@
       "source_file": "src/config_loader.py",
       "source_location": "L221",
       "id": "src_config_loader_get_max_iterations",
-      "community": 0,
+      "community": 12,
       "norm_label": "get_max_iterations()"
     },
     {
@@ -518,7 +518,7 @@
       "source_file": "src/config_loader.py",
       "source_location": "L243",
       "id": "src_config_loader_get_graph_config",
-      "community": 9,
+      "community": 12,
       "norm_label": "get_graph_config()"
     },
     {
@@ -626,7 +626,7 @@
       "source_file": "src/config_loader.py",
       "source_location": "L244",
       "id": "src_config_loader_rationale_244",
-      "community": 9,
+      "community": 12,
       "norm_label": "return the graph lifecycle config for the repository matching ``repo_path``."
     },
     {
@@ -770,7 +770,7 @@
       "source_file": "src/core/runtime_paths.py",
       "source_location": "L1",
       "id": "src_core_runtime_paths_py",
-      "community": 19,
+      "community": 4,
       "norm_label": "runtime_paths.py"
     },
     {
@@ -779,7 +779,7 @@
       "source_file": "src/core/runtime_paths.py",
       "source_location": "L16",
       "id": "core_runtime_paths_ensure_runtime_dirs",
-      "community": 19,
+      "community": 4,
       "norm_label": "ensure_runtime_dirs()"
     },
     {
@@ -788,7 +788,7 @@
       "source_file": "src/core/runtime_paths.py",
       "source_location": "L1",
       "id": "core_runtime_paths_rationale_1",
-      "community": 19,
+      "community": 4,
       "norm_label": "centralized runtime artifact paths for deterministic ci and local runs.  all r"
     },
     {
@@ -797,7 +797,7 @@
       "source_file": "src/core/runtime_paths.py",
       "source_location": "L17",
       "id": "core_runtime_paths_rationale_17",
-      "community": 19,
+      "community": 4,
       "norm_label": "create all required runtime directories if they don't exist.      uses `parent"
     },
     {
@@ -1094,7 +1094,7 @@
       "source_file": "src/graph/state.py",
       "source_location": "L6",
       "id": "graph_state_graphstate",
-      "community": 29,
+      "community": 31,
       "norm_label": "graphstate"
     },
     {
@@ -1112,7 +1112,7 @@
       "source_file": "src/graph/state.py",
       "source_location": "L7",
       "id": "graph_state_rationale_7",
-      "community": 29,
+      "community": 31,
       "norm_label": "shared state passed between langgraph nodes.      this state represents a sing"
     },
     {
@@ -1166,7 +1166,7 @@
       "source_file": "src/graph/workflow.py",
       "source_location": "L68",
       "id": "graph_workflow_make_graph",
-      "community": 29,
+      "community": 31,
       "norm_label": "make_graph()"
     },
     {
@@ -1175,53 +1175,53 @@
       "source_file": "src/graph/workflow.py",
       "source_location": "L68",
       "id": "src_graph_workflow_py_runcontext",
-      "community": 29,
+      "community": 31,
       "norm_label": "runcontext"
     },
     {
-      "label": "Graph construction helpers for the file-edit workflow.  This module builds a `St",
+      "label": "Graph construction helpers for the file-edit workflow.  This module builds a `",
       "file_type": "rationale",
       "source_file": "src/graph/workflow.py",
       "source_location": "L1",
       "id": "graph_workflow_rationale_1",
       "community": 0,
-      "norm_label": "graph construction helpers for the file-edit workflow.  this module builds a `st"
+      "norm_label": "graph construction helpers for the file-edit workflow.  this module builds a `"
     },
     {
-      "label": "Decide the next graph node after the `reviewer` (static_validator) node.      -",
+      "label": "Decide the next graph node after the `reviewer` (static_validator) node.",
       "file_type": "rationale",
       "source_file": "src/graph/workflow.py",
       "source_location": "L23",
       "id": "graph_workflow_rationale_23",
       "community": 0,
-      "norm_label": "decide the next graph node after the `reviewer` (static_validator) node.      -"
+      "norm_label": "decide the next graph node after the `reviewer` (static_validator) node."
     },
     {
-      "label": "Decide the next graph node after the `verifier` node.      - If verification pas",
+      "label": "Decide the next graph node after the `verifier` node.      - If verification p",
       "file_type": "rationale",
       "source_file": "src/graph/workflow.py",
       "source_location": "L41",
       "id": "graph_workflow_rationale_41",
       "community": 0,
-      "norm_label": "decide the next graph node after the `verifier` node.      - if verification pas"
+      "norm_label": "decide the next graph node after the `verifier` node.      - if verification p"
     },
     {
-      "label": "Decide the next graph node after the `semantic_validator` node.      - If semant",
+      "label": "Decide the next graph node after the `semantic_validator` node.      - If sema",
       "file_type": "rationale",
       "source_file": "src/graph/workflow.py",
       "source_location": "L55",
       "id": "graph_workflow_rationale_55",
       "community": 0,
-      "norm_label": "decide the next graph node after the `semantic_validator` node.      - if semant"
+      "norm_label": "decide the next graph node after the `semantic_validator` node.      - if sema"
     },
     {
-      "label": "Create and compile the StateGraph for a single run.      The returned graph is c",
+      "label": "Create and compile the StateGraph for a single run.      The returned graph is",
       "file_type": "rationale",
       "source_file": "src/graph/workflow.py",
       "source_location": "L69",
       "id": "graph_workflow_rationale_69",
-      "community": 29,
-      "norm_label": "create and compile the stategraph for a single run.      the returned graph is c"
+      "community": 31,
+      "norm_label": "create and compile the stategraph for a single run.      the returned graph is"
     },
     {
       "label": "branch_creator.py",
@@ -1229,7 +1229,7 @@
       "source_file": "src/graph/nodes/branch_creator.py",
       "source_location": "L1",
       "id": "src_graph_nodes_branch_creator_py",
-      "community": 32,
+      "community": 28,
       "norm_label": "branch_creator.py"
     },
     {
@@ -1265,7 +1265,7 @@
       "source_file": "src/graph/nodes/branch_creator.py",
       "source_location": "L1",
       "id": "nodes_branch_creator_rationale_1",
-      "community": 32,
+      "community": 28,
       "norm_label": "branch creator node.  creates (or checks out) a task branch in the target repo"
     },
     {
@@ -1337,7 +1337,7 @@
       "source_file": "src/graph/nodes/diff_generator.py",
       "source_location": "L1",
       "id": "src_graph_nodes_diff_generator_py",
-      "community": 28,
+      "community": 27,
       "norm_label": "diff_generator.py"
     },
     {
@@ -1382,7 +1382,7 @@
       "source_file": "src/graph/nodes/file_reader.py",
       "source_location": "L1",
       "id": "src_graph_nodes_file_reader_py",
-      "community": 28,
+      "community": 26,
       "norm_label": "file_reader.py"
     },
     {
@@ -1472,7 +1472,7 @@
       "source_file": "src/graph/nodes/git_committer.py",
       "source_location": "L1",
       "id": "src_graph_nodes_git_committer_py",
-      "community": 28,
+      "community": 31,
       "norm_label": "git_committer.py"
     },
     {
@@ -1481,7 +1481,7 @@
       "source_file": "src/graph/nodes/git_committer.py",
       "source_location": "L21",
       "id": "nodes_git_committer_git_committer_node",
-      "community": 33,
+      "community": 31,
       "norm_label": "git_committer_node()"
     },
     {
@@ -1490,7 +1490,7 @@
       "source_file": "src/graph/nodes/git_committer.py",
       "source_location": "L21",
       "id": "src_graph_nodes_git_committer_py_graphstate",
-      "community": 33,
+      "community": 31,
       "norm_label": "graphstate"
     },
     {
@@ -1499,7 +1499,7 @@
       "source_file": "src/graph/nodes/git_committer.py",
       "source_location": "L21",
       "id": "src_graph_nodes_git_committer_py_runcontext",
-      "community": 33,
+      "community": 31,
       "norm_label": "runcontext"
     },
     {
@@ -1508,7 +1508,7 @@
       "source_file": "src/graph/nodes/git_committer.py",
       "source_location": "L1",
       "id": "nodes_git_committer_rationale_1",
-      "community": 28,
+      "community": 31,
       "norm_label": "git committer node.  stages the modified target file and creates a git commit"
     },
     {
@@ -1517,7 +1517,7 @@
       "source_file": "src/graph/nodes/git_committer.py",
       "source_location": "L22",
       "id": "nodes_git_committer_rationale_22",
-      "community": 33,
+      "community": 31,
       "norm_label": "stage and commit the modified target file.      expected state keys:     - ``"
     },
     {
@@ -1526,7 +1526,7 @@
       "source_file": "src/graph/nodes/graphify_indexer.py",
       "source_location": "L1",
       "id": "src_graph_nodes_graphify_indexer_py",
-      "community": 27,
+      "community": 28,
       "norm_label": "graphify_indexer.py"
     },
     {
@@ -1562,7 +1562,7 @@
       "source_file": "src/graph/nodes/graphify_indexer.py",
       "source_location": "L1",
       "id": "nodes_graphify_indexer_rationale_1",
-      "community": 27,
+      "community": 28,
       "norm_label": "graphify indexer \u2014 internal graph-building utility.  provides `build_ast_graph"
     },
     {
@@ -1841,7 +1841,7 @@
       "source_file": "src/graph/nodes/node_index.py",
       "source_location": "L1",
       "id": "src_graph_nodes_node_index_py",
-      "community": 33,
+      "community": 32,
       "norm_label": "node_index.py"
     },
     {
@@ -1850,7 +1850,7 @@
       "source_file": "src/graph/nodes/node_index.py",
       "source_location": "L1",
       "id": "nodes_node_index_rationale_1",
-      "community": 33,
+      "community": 32,
       "norm_label": "aggregate export surface for graph nodes."
     },
     {
@@ -1893,7 +1893,7 @@
       "label": "_heuristic_rank()",
       "file_type": "code",
       "source_file": "src/graph/nodes/retrieval_node.py",
-      "source_location": "L137",
+      "source_location": "L136",
       "id": "nodes_retrieval_node_heuristic_rank",
       "community": 6,
       "norm_label": "_heuristic_rank()"
@@ -1902,7 +1902,7 @@
       "label": "str",
       "file_type": "code",
       "source_file": "src/graph/nodes/retrieval_node.py",
-      "source_location": "L137",
+      "source_location": "L136",
       "id": "src_graph_nodes_retrieval_node_py_str",
       "community": 6,
       "norm_label": "str"
@@ -1911,7 +1911,7 @@
       "label": "_read_related_files()",
       "file_type": "code",
       "source_file": "src/graph/nodes/retrieval_node.py",
-      "source_location": "L142",
+      "source_location": "L141",
       "id": "nodes_retrieval_node_read_related_files",
       "community": 6,
       "norm_label": "_read_related_files()"
@@ -1920,7 +1920,7 @@
       "label": "_to_relative_ids()",
       "file_type": "code",
       "source_file": "src/graph/nodes/retrieval_node.py",
-      "source_location": "L160",
+      "source_location": "L159",
       "id": "nodes_retrieval_node_to_relative_ids",
       "community": 6,
       "norm_label": "_to_relative_ids()"
@@ -1947,8 +1947,8 @@
       "label": "Fallback ranking when graph is unavailable.",
       "file_type": "rationale",
       "source_file": "src/graph/nodes/retrieval_node.py",
-      "source_location": "L138",
-      "id": "nodes_retrieval_node_rationale_138",
+      "source_location": "L137",
+      "id": "nodes_retrieval_node_rationale_137",
       "community": 6,
       "norm_label": "fallback ranking when graph is unavailable."
     },
@@ -1956,8 +1956,8 @@
       "label": "Read bounded file contents for the coder prompt, excluding target file.",
       "file_type": "rationale",
       "source_file": "src/graph/nodes/retrieval_node.py",
-      "source_location": "L143",
-      "id": "nodes_retrieval_node_rationale_143",
+      "source_location": "L142",
+      "id": "nodes_retrieval_node_rationale_142",
       "community": 6,
       "norm_label": "read bounded file contents for the coder prompt, excluding target file."
     },
@@ -1965,8 +1965,8 @@
       "label": "Convert absolute paths to repo-relative strings when possible.",
       "file_type": "rationale",
       "source_file": "src/graph/nodes/retrieval_node.py",
-      "source_location": "L161",
-      "id": "nodes_retrieval_node_rationale_161",
+      "source_location": "L160",
+      "id": "nodes_retrieval_node_rationale_160",
       "community": 6,
       "norm_label": "convert absolute paths to repo-relative strings when possible."
     },
@@ -2070,13 +2070,13 @@
       "norm_label": "runcontext"
     },
     {
-      "label": "Semantic validator node.  Evaluates whether the generated code correctly satisfi",
+      "label": "Semantic validator node.  Evaluates whether the generated code correctly satis",
       "file_type": "rationale",
       "source_file": "src/graph/nodes/semantic_validator.py",
       "source_location": "L1",
       "id": "nodes_semantic_validator_rationale_1",
       "community": 30,
-      "norm_label": "semantic validator node.  evaluates whether the generated code correctly satisfi"
+      "norm_label": "semantic validator node.  evaluates whether the generated code correctly satis"
     },
     {
       "label": "Format the LLM evaluation into a concise string for the coder prompt.",
@@ -2088,13 +2088,13 @@
       "norm_label": "format the llm evaluation into a concise string for the coder prompt."
     },
     {
-      "label": "Evaluate task-intent alignment of the generated code using an LLM judge.      Re",
+      "label": "Evaluate task-intent alignment of the generated code using an LLM judge.",
       "file_type": "rationale",
       "source_file": "src/graph/nodes/semantic_validator.py",
       "source_location": "L56",
       "id": "nodes_semantic_validator_rationale_56",
       "community": 30,
-      "norm_label": "evaluate task-intent alignment of the generated code using an llm judge.      re"
+      "norm_label": "evaluate task-intent alignment of the generated code using an llm judge."
     },
     {
       "label": "static_validator.py",
@@ -2102,7 +2102,7 @@
       "source_file": "src/graph/nodes/static_validator.py",
       "source_location": "L1",
       "id": "src_graph_nodes_static_validator_py",
-      "community": 36,
+      "community": 29,
       "norm_label": "static_validator.py"
     },
     {
@@ -2111,7 +2111,7 @@
       "source_file": "src/graph/nodes/static_validator.py",
       "source_location": "L23",
       "id": "nodes_static_validator_static_validator_node",
-      "community": 36,
+      "community": 29,
       "norm_label": "static_validator_node()"
     },
     {
@@ -2120,7 +2120,7 @@
       "source_file": "src/graph/nodes/static_validator.py",
       "source_location": "L23",
       "id": "src_graph_nodes_static_validator_py_graphstate",
-      "community": 36,
+      "community": 29,
       "norm_label": "graphstate"
     },
     {
@@ -2129,26 +2129,26 @@
       "source_file": "src/graph/nodes/static_validator.py",
       "source_location": "L23",
       "id": "src_graph_nodes_static_validator_py_runcontext",
-      "community": 36,
+      "community": 29,
       "norm_label": "runcontext"
     },
     {
-      "label": "Static validator node.  Replaces the former reviewer node. Responsibilities are",
+      "label": "Static validator node.  Replaces the former reviewer node. Responsibilities ar",
       "file_type": "rationale",
       "source_file": "src/graph/nodes/static_validator.py",
       "source_location": "L1",
       "id": "nodes_static_validator_rationale_1",
-      "community": 36,
-      "norm_label": "static validator node.  replaces the former reviewer node. responsibilities are"
+      "community": 29,
+      "norm_label": "static validator node.  replaces the former reviewer node. responsibilities ar"
     },
     {
-      "label": "Validate generated code for structural correctness.      Runs Python syntax vali",
+      "label": "Validate generated code for structural correctness.      Runs Python syntax va",
       "file_type": "rationale",
       "source_file": "src/graph/nodes/static_validator.py",
       "source_location": "L24",
       "id": "nodes_static_validator_rationale_24",
-      "community": 36,
-      "norm_label": "validate generated code for structural correctness.      runs python syntax vali"
+      "community": 29,
+      "norm_label": "validate generated code for structural correctness.      runs python syntax va"
     },
     {
       "label": "support.py",
@@ -2192,7 +2192,7 @@
       "source_file": "src/graph/nodes/support.py",
       "source_location": "L31",
       "id": "nodes_support_strip_code_fences",
-      "community": 1,
+      "community": 29,
       "norm_label": "strip_code_fences()"
     },
     {
@@ -2246,7 +2246,7 @@
       "source_file": "src/graph/nodes/support.py",
       "source_location": "L32",
       "id": "nodes_support_rationale_32",
-      "community": 1,
+      "community": 29,
       "norm_label": "remove a single pair of surrounding markdown code fences."
     },
     {
@@ -2331,13 +2331,13 @@
       "norm_label": "return a coarse error category from subprocess output."
     },
     {
-      "label": "Verify generated code by executing it in a sandboxed subprocess.      Subprocess",
+      "label": "Verify generated code by executing it in a sandboxed subprocess.      Subproce",
       "file_type": "rationale",
       "source_file": "src/graph/nodes/verifier.py",
       "source_location": "L26",
       "id": "nodes_verifier_rationale_26",
       "community": 1,
-      "norm_label": "verify generated code by executing it in a sandboxed subprocess.      subprocess"
+      "norm_label": "verify generated code by executing it in a sandboxed subprocess.      subproce"
     },
     {
       "label": "__init__.py",
@@ -2370,7 +2370,7 @@
       "label": "RunContext",
       "file_type": "code",
       "source_file": "src/observability/context.py",
-      "source_location": "L13",
+      "source_location": "L17",
       "id": "observability_context_runcontext",
       "community": 27,
       "norm_label": "runcontext"
@@ -2379,37 +2379,37 @@
       "label": ".new()",
       "file_type": "code",
       "source_file": "src/observability/context.py",
-      "source_location": "L22",
+      "source_location": "L32",
       "id": "observability_context_runcontext_new",
       "community": 4,
       "norm_label": ".new()"
     },
     {
-      "label": "RunContext helper for observability.  This module provides a minimal `RunConte",
+      "label": "RunContext helper for observability.  This module provides a minimal `RunContext",
       "file_type": "rationale",
       "source_file": "src/observability/context.py",
       "source_location": "L1",
       "id": "observability_context_rationale_1",
       "community": 27,
-      "norm_label": "runcontext helper for observability.  this module provides a minimal `runconte"
+      "norm_label": "runcontext helper for observability.  this module provides a minimal `runcontext"
     },
     {
-      "label": "Minimal per-run observability context.      Attributes:         run_id: A UUI",
+      "label": "Per-run observability context.      Attributes:         run_id: A UUID4 string u",
       "file_type": "rationale",
       "source_file": "src/observability/context.py",
-      "source_location": "L14",
-      "id": "observability_context_rationale_14",
+      "source_location": "L18",
+      "id": "observability_context_rationale_18",
       "community": 27,
-      "norm_label": "minimal per-run observability context.      attributes:         run_id: a uui"
+      "norm_label": "per-run observability context.      attributes:         run_id: a uuid4 string u"
     },
     {
-      "label": "Create a fresh RunContext with a new UUID4 run_id.",
+      "label": "Create a fresh RunContext with a new UUID4 run_id and current timestamp.",
       "file_type": "rationale",
       "source_file": "src/observability/context.py",
-      "source_location": "L23",
-      "id": "observability_context_rationale_23",
+      "source_location": "L33",
+      "id": "observability_context_rationale_33",
       "community": 4,
-      "norm_label": "create a fresh runcontext with a new uuid4 run_id."
+      "norm_label": "create a fresh runcontext with a new uuid4 run_id and current timestamp."
     },
     {
       "label": "event_logging_utils.py",
@@ -2424,7 +2424,7 @@
       "label": "emit_event()",
       "file_type": "code",
       "source_file": "src/observability/event_logging_utils.py",
-      "source_location": "L17",
+      "source_location": "L22",
       "id": "observability_event_logging_utils_emit_event",
       "community": 28,
       "norm_label": "emit_event()"
@@ -2433,7 +2433,7 @@
       "label": "RunContext",
       "file_type": "code",
       "source_file": "src/observability/event_logging_utils.py",
-      "source_location": "L17",
+      "source_location": "L22",
       "id": "src_observability_event_logging_utils_py_runcontext",
       "community": 28,
       "norm_label": "runcontext"
@@ -2442,7 +2442,7 @@
       "label": "str",
       "file_type": "code",
       "source_file": "src/observability/event_logging_utils.py",
-      "source_location": "L17",
+      "source_location": "L22",
       "id": "src_observability_event_logging_utils_py_str",
       "community": 28,
       "norm_label": "str"
@@ -2451,7 +2451,7 @@
       "label": "Any",
       "file_type": "code",
       "source_file": "src/observability/event_logging_utils.py",
-      "source_location": "L17",
+      "source_location": "L22",
       "id": "src_observability_event_logging_utils_py_any",
       "community": 28,
       "norm_label": "any"
@@ -2460,7 +2460,7 @@
       "label": "float",
       "file_type": "code",
       "source_file": "src/observability/event_logging_utils.py",
-      "source_location": "L17",
+      "source_location": "L22",
       "id": "src_observability_event_logging_utils_py_float",
       "community": 28,
       "norm_label": "float"
@@ -2469,7 +2469,7 @@
       "label": "emit_success()",
       "file_type": "code",
       "source_file": "src/observability/event_logging_utils.py",
-      "source_location": "L59",
+      "source_location": "L55",
       "id": "observability_event_logging_utils_emit_success",
       "community": 28,
       "norm_label": "emit_success()"
@@ -2478,28 +2478,46 @@
       "label": "emit_failure()",
       "file_type": "code",
       "source_file": "src/observability/event_logging_utils.py",
-      "source_location": "L63",
+      "source_location": "L60",
       "id": "observability_event_logging_utils_emit_failure",
       "community": 28,
       "norm_label": "emit_failure()"
     },
     {
-      "label": "Small helper utilities for observability event emission.  Provides helpers to",
+      "label": "Small helper utilities for observability event emission.  Provides helpers to em",
       "file_type": "rationale",
       "source_file": "src/observability/event_logging_utils.py",
       "source_location": "L1",
       "id": "observability_event_logging_utils_rationale_1",
       "community": 28,
-      "norm_label": "small helper utilities for observability event emission.  provides helpers to"
+      "norm_label": "small helper utilities for observability event emission.  provides helpers to em"
     },
     {
-      "label": "Emit a single observability event with consistent shape.      Args:         r",
+      "label": "Emit a single compact observability event.      Args:         run_context: The R",
       "file_type": "rationale",
       "source_file": "src/observability/event_logging_utils.py",
-      "source_location": "L24",
-      "id": "observability_event_logging_utils_rationale_24",
+      "source_location": "L27",
+      "id": "observability_event_logging_utils_rationale_27",
       "community": 28,
-      "norm_label": "emit a single observability event with consistent shape.      args:         r"
+      "norm_label": "emit a single compact observability event.      args:         run_context: the r"
+    },
+    {
+      "label": "Emit a success event for the given node.",
+      "file_type": "rationale",
+      "source_file": "src/observability/event_logging_utils.py",
+      "source_location": "L56",
+      "id": "observability_event_logging_utils_rationale_56",
+      "community": 28,
+      "norm_label": "emit a success event for the given node."
+    },
+    {
+      "label": "Emit a failure event for the given node with the error message in the payload.",
+      "file_type": "rationale",
+      "source_file": "src/observability/event_logging_utils.py",
+      "source_location": "L61",
+      "id": "observability_event_logging_utils_rationale_61",
+      "community": 28,
+      "norm_label": "emit a failure event for the given node with the error message in the payload."
     },
     {
       "label": "logger.py",
@@ -2507,44 +2525,80 @@
       "source_file": "src/observability/logger.py",
       "source_location": "L1",
       "id": "src_observability_logger_py",
-      "community": 19,
+      "community": 4,
       "norm_label": "logger.py"
     },
     {
       "label": "log_event()",
       "file_type": "code",
       "source_file": "src/observability/logger.py",
-      "source_location": "L15",
+      "source_location": "L19",
       "id": "observability_logger_log_event",
-      "community": 19,
+      "community": 4,
       "norm_label": "log_event()"
     },
     {
       "label": "str",
       "file_type": "code",
       "source_file": "src/observability/logger.py",
-      "source_location": "L15",
+      "source_location": "L19",
       "id": "src_observability_logger_py_str",
-      "community": 19,
+      "community": 4,
       "norm_label": "str"
     },
     {
-      "label": "Minimal JSONL logger for per-run observability events.  Provides one simple fu",
+      "label": "write_run_summary()",
+      "file_type": "code",
+      "source_file": "src/observability/logger.py",
+      "source_location": "L34",
+      "id": "observability_logger_write_run_summary",
+      "community": 4,
+      "norm_label": "write_run_summary()"
+    },
+    {
+      "label": "format_run_console()",
+      "file_type": "code",
+      "source_file": "src/observability/logger.py",
+      "source_location": "L55",
+      "id": "observability_logger_format_run_console",
+      "community": 4,
+      "norm_label": "format_run_console()"
+    },
+    {
+      "label": "Minimal JSONL logger and run summary writer for per-run observability events.  P",
       "file_type": "rationale",
       "source_file": "src/observability/logger.py",
       "source_location": "L1",
       "id": "observability_logger_rationale_1",
-      "community": 19,
-      "norm_label": "minimal jsonl logger for per-run observability events.  provides one simple fu"
+      "community": 4,
+      "norm_label": "minimal jsonl logger and run summary writer for per-run observability events.  p"
     },
     {
-      "label": "Append `event` as one JSON line to the per-run JSONL file.      Writes directl",
+      "label": "Append `event` as one JSON line to the per-run JSONL file.      Writes compact e",
       "file_type": "rationale",
       "source_file": "src/observability/logger.py",
-      "source_location": "L16",
-      "id": "observability_logger_rationale_16",
-      "community": 19,
-      "norm_label": "append `event` as one json line to the per-run jsonl file.      writes directl"
+      "source_location": "L20",
+      "id": "observability_logger_rationale_20",
+      "community": 4,
+      "norm_label": "append `event` as one json line to the per-run jsonl file.      writes compact e"
+    },
+    {
+      "label": "Write the aggregated run object to `.runtime/runs/<run_id>.json`.      Produces",
+      "file_type": "rationale",
+      "source_file": "src/observability/logger.py",
+      "source_location": "L35",
+      "id": "observability_logger_rationale_35",
+      "community": 4,
+      "norm_label": "write the aggregated run object to `.runtime/runs/<run_id>.json`.      produces"
+    },
+    {
+      "label": "Return a human-readable execution trace string for console output.      Produces",
+      "file_type": "rationale",
+      "source_file": "src/observability/logger.py",
+      "source_location": "L56",
+      "id": "observability_logger_rationale_56",
+      "community": 4,
+      "norm_label": "return a human-readable execution trace string for console output.      produces"
     },
     {
       "label": "__init__.py",
@@ -2570,7 +2624,7 @@
       "source_file": "src/retrieval/assembly/context_assembler.py",
       "source_location": "L1",
       "id": "src_retrieval_assembly_context_assembler_py",
-      "community": 2,
+      "community": 3,
       "norm_label": "context_assembler.py"
     },
     {
@@ -2579,7 +2633,7 @@
       "source_file": "src/retrieval/assembly/context_assembler.py",
       "source_location": "L15",
       "id": "assembly_context_assembler_contextassemblerprotocol",
-      "community": 2,
+      "community": 3,
       "norm_label": "contextassemblerprotocol"
     },
     {
@@ -2597,7 +2651,7 @@
       "source_file": "src/retrieval/assembly/context_assembler.py",
       "source_location": "L18",
       "id": "assembly_context_assembler_contextassemblerprotocol_build",
-      "community": 2,
+      "community": 3,
       "norm_label": ".build()"
     },
     {
@@ -2606,7 +2660,7 @@
       "source_file": "src/retrieval/assembly/context_assembler.py",
       "source_location": "L18",
       "id": "src_retrieval_assembly_context_assembler_py_str",
-      "community": 2,
+      "community": 3,
       "norm_label": "str"
     },
     {
@@ -2615,7 +2669,7 @@
       "source_file": "src/retrieval/assembly/context_assembler.py",
       "source_location": "L18",
       "id": "src_retrieval_assembly_context_assembler_py_repositorysnapshot",
-      "community": 2,
+      "community": 3,
       "norm_label": "repositorysnapshot"
     },
     {
@@ -2624,7 +2678,7 @@
       "source_file": "src/retrieval/assembly/context_assembler.py",
       "source_location": "L18",
       "id": "src_retrieval_assembly_context_assembler_py_int",
-      "community": 2,
+      "community": 3,
       "norm_label": "int"
     },
     {
@@ -2633,7 +2687,7 @@
       "source_file": "src/retrieval/assembly/context_assembler.py",
       "source_location": "L18",
       "id": "src_retrieval_assembly_context_assembler_py_contextpackage",
-      "community": 2,
+      "community": 3,
       "norm_label": "contextpackage"
     },
     {
@@ -2651,7 +2705,7 @@
       "source_file": "src/retrieval/assembly/context_assembler.py",
       "source_location": "L43",
       "id": "assembly_context_assembler_contextassembler_build",
-      "community": 2,
+      "community": 3,
       "norm_label": ".build()"
     },
     {
@@ -2660,7 +2714,7 @@
       "source_file": "src/retrieval/assembly/context_assembler.py",
       "source_location": "L1",
       "id": "assembly_context_assembler_rationale_1",
-      "community": 2,
+      "community": 3,
       "norm_label": "context assembler \u2014 builds bounded contextpackage from ranked files.  contexta"
     },
     {
@@ -2669,7 +2723,7 @@
       "source_file": "src/retrieval/assembly/context_assembler.py",
       "source_location": "L16",
       "id": "assembly_context_assembler_rationale_16",
-      "community": 2,
+      "community": 3,
       "norm_label": "interface for bounded context assembly."
     },
     {
@@ -2678,7 +2732,7 @@
       "source_file": "src/retrieval/assembly/context_assembler.py",
       "source_location": "L29",
       "id": "assembly_context_assembler_rationale_29",
-      "community": 2,
+      "community": 3,
       "norm_label": "build and return a bounded contextpackage.          must be deterministic and"
     },
     {
@@ -3047,7 +3101,7 @@
       "source_file": "src/retrieval/contracts/types.py",
       "source_location": "L58",
       "id": "contracts_types_contextpackage",
-      "community": 2,
+      "community": 3,
       "norm_label": "contextpackage"
     },
     {
@@ -3101,7 +3155,7 @@
       "source_file": "src/retrieval/contracts/types.py",
       "source_location": "L59",
       "id": "contracts_types_rationale_59",
-      "community": 2,
+      "community": 3,
       "norm_label": "bounded context package returned by the contextassembler.      contains only l"
     },
     {
@@ -3713,7 +3767,7 @@
       "source_file": "src/retrieval/ranking/heuristic_ranker.py",
       "source_location": "L31",
       "id": "ranking_heuristic_ranker_heuristicranker",
-      "community": 6,
+      "community": 3,
       "norm_label": "heuristicranker"
     },
     {
@@ -3794,7 +3848,7 @@
       "source_file": "src/retrieval/ranking/heuristic_ranker.py",
       "source_location": "L32",
       "id": "ranking_heuristic_ranker_rationale_32",
-      "community": 6,
+      "community": 3,
       "norm_label": "deterministic, heuristic-based file ranker.      ordering rules (score-based,"
     },
     {
@@ -3861,13 +3915,13 @@
       "norm_label": "task"
     },
     {
-      "label": "Executor that runs a workflow graph for a given `Task`.      The executor acce",
+      "label": "Executor that runs a workflow graph for a given `Task`.      The executor accept",
       "file_type": "rationale",
       "source_file": "src/scheduler/executor.py",
       "source_location": "L10",
       "id": "scheduler_executor_rationale_10",
       "community": 4,
-      "norm_label": "executor that runs a workflow graph for a given `task`.      the executor acce"
+      "norm_label": "executor that runs a workflow graph for a given `task`.      the executor accept"
     },
     {
       "label": "loop.py",
@@ -4136,7 +4190,7 @@
       "source_file": "src/tools/patches.py",
       "source_location": "L29",
       "id": "tools_patches_generate_unified",
-      "community": 10,
+      "community": 27,
       "norm_label": "generate_unified()"
     },
     {
@@ -4172,7 +4226,7 @@
       "source_file": "src/tools/patches.py",
       "source_location": "L30",
       "id": "tools_patches_rationale_30",
-      "community": 10,
+      "community": 27,
       "norm_label": "return a unified diff string describing changes from original -> modified."
     },
     {
@@ -4275,6 +4329,69 @@
       "norm_label": "int"
     },
     {
+      "label": "Fallback ranking when graph is unavailable.",
+      "file_type": "rationale",
+      "source_file": "src/graph/nodes/retrieval_node.py",
+      "source_location": "L138",
+      "community": 6,
+      "norm_label": "fallback ranking when graph is unavailable.",
+      "id": "nodes_retrieval_node_rationale_138"
+    },
+    {
+      "label": "Read bounded file contents for the coder prompt, excluding target file.",
+      "file_type": "rationale",
+      "source_file": "src/graph/nodes/retrieval_node.py",
+      "source_location": "L143",
+      "community": 6,
+      "norm_label": "read bounded file contents for the coder prompt, excluding target file.",
+      "id": "nodes_retrieval_node_rationale_143"
+    },
+    {
+      "label": "Convert absolute paths to repo-relative strings when possible.",
+      "file_type": "rationale",
+      "source_file": "src/graph/nodes/retrieval_node.py",
+      "source_location": "L161",
+      "community": 6,
+      "norm_label": "convert absolute paths to repo-relative strings when possible.",
+      "id": "nodes_retrieval_node_rationale_161"
+    },
+    {
+      "label": "Minimal per-run observability context.      Attributes:         run_id: A UUI",
+      "file_type": "rationale",
+      "source_file": "src/observability/context.py",
+      "source_location": "L14",
+      "community": 27,
+      "norm_label": "minimal per-run observability context.      attributes:         run_id: a uui",
+      "id": "observability_context_rationale_14"
+    },
+    {
+      "label": "Create a fresh RunContext with a new UUID4 run_id.",
+      "file_type": "rationale",
+      "source_file": "src/observability/context.py",
+      "source_location": "L23",
+      "community": 4,
+      "norm_label": "create a fresh runcontext with a new uuid4 run_id.",
+      "id": "observability_context_rationale_23"
+    },
+    {
+      "label": "Emit a single observability event with consistent shape.      Args:         r",
+      "file_type": "rationale",
+      "source_file": "src/observability/event_logging_utils.py",
+      "source_location": "L24",
+      "community": 28,
+      "norm_label": "emit a single observability event with consistent shape.      args:         r",
+      "id": "observability_event_logging_utils_rationale_24"
+    },
+    {
+      "label": "Append `event` as one JSON line to the per-run JSONL file.      Writes directl",
+      "file_type": "rationale",
+      "source_file": "src/observability/logger.py",
+      "source_location": "L16",
+      "community": 4,
+      "norm_label": "append `event` as one json line to the per-run jsonl file.      writes directl",
+      "id": "observability_logger_rationale_16"
+    },
+    {
       "label": "Parse the ``graph`` sub-object from a repository config entry.      Defaults t",
       "file_type": "rationale",
       "source_file": "src/config_loader.py",
@@ -4306,7 +4423,7 @@
       "file_type": "rationale",
       "source_file": "src/config_loader.py",
       "source_location": "L224",
-      "community": 9,
+      "community": 12,
       "norm_label": "return the graph lifecycle config for the repository matching ``repo_path``.",
       "id": "src_config_loader_rationale_224"
     },
@@ -4369,7 +4486,7 @@
       "file_type": "rationale",
       "source_file": "src/graph/state.py",
       "source_location": "L9",
-      "community": 29,
+      "community": 31,
       "norm_label": "shared state passed between langgraph nodes.      this state represents a sing",
       "id": "graph_state_rationale_9"
     },
@@ -4405,7 +4522,7 @@
       "file_type": "rationale",
       "source_file": "src/graph/state.py",
       "source_location": "L8",
-      "community": 29,
+      "community": 31,
       "norm_label": "shared state passed between langgraph nodes.      this state represents a sing",
       "id": "graph_state_rationale_8"
     },
@@ -4576,7 +4693,7 @@
       "file_type": "code",
       "source_file": "src/config_loader.py",
       "source_location": "L61",
-      "community": 0,
+      "community": 12,
       "norm_label": "int",
       "id": "int"
     },
@@ -4660,7 +4777,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 26,
+      "community": 31,
       "norm_label": "graphstate: original_code field",
       "id": "concept_state_field_original_code"
     },
@@ -5093,9 +5210,9 @@
       "source_file": "src/config_loader.py",
       "source_location": "L230",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_config_loader_py",
-      "target": "src_config_loader_get_semantic_model",
-      "confidence_score": 1.0
+      "target": "src_config_loader_get_semantic_model"
     },
     {
       "relation": "contains",
@@ -5103,9 +5220,9 @@
       "source_file": "src/config_loader.py",
       "source_location": "L225",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_config_loader_py",
-      "target": "src_config_loader_get_semantic_threshold",
-      "confidence_score": 1.0
+      "target": "src_config_loader_get_semantic_threshold"
     },
     {
       "relation": "contains",
@@ -5694,9 +5811,9 @@
       "source_file": "src/config_loader.py",
       "source_location": "L230",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_config_loader_get_semantic_model",
-      "target": "src_config_loader_py_str",
-      "confidence_score": 1.0
+      "target": "src_config_loader_py_str"
     },
     {
       "relation": "references",
@@ -5705,9 +5822,9 @@
       "source_file": "src/config_loader.py",
       "source_location": "L225",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_config_loader_get_semantic_threshold",
-      "target": "src_config_loader_py_str",
-      "confidence_score": 1.0
+      "target": "src_config_loader_py_str"
     },
     {
       "relation": "references",
@@ -6044,9 +6161,9 @@
       "source_file": "src/config_loader.py",
       "source_location": "L108",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_config_loader_rationale_108",
-      "target": "src_config_loader_load_graph_config",
-      "confidence_score": 1.0
+      "target": "src_config_loader_load_graph_config"
     },
     {
       "relation": "calls",
@@ -6075,9 +6192,9 @@
       "source_file": "src/config_loader.py",
       "source_location": "L125",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_config_loader_rationale_125",
-      "target": "src_config_loader_load_system_config",
-      "confidence_score": 1.0
+      "target": "src_config_loader_load_system_config"
     },
     {
       "relation": "calls",
@@ -6218,9 +6335,9 @@
       "source_file": "src/config_loader.py",
       "source_location": "L236",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_config_loader_get_semantic_model",
-      "target": "src_config_loader_get_repository_config",
-      "confidence_score": 1.0
+      "target": "src_config_loader_get_repository_config"
     },
     {
       "relation": "calls",
@@ -6229,9 +6346,9 @@
       "source_file": "src/config_loader.py",
       "source_location": "L227",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_config_loader_get_semantic_threshold",
-      "target": "src_config_loader_get_repository_config",
-      "confidence_score": 1.0
+      "target": "src_config_loader_get_repository_config"
     },
     {
       "relation": "rationale_for",
@@ -6279,9 +6396,9 @@
       "source_file": "src/config_loader.py",
       "source_location": "L188",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_config_loader_rationale_188",
-      "target": "src_config_loader_get_repository_config",
-      "confidence_score": 1.0
+      "target": "src_config_loader_get_repository_config"
     },
     {
       "relation": "imports",
@@ -6356,9 +6473,9 @@
       "source_file": "src/config_loader.py",
       "source_location": "L240",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_config_loader_get_semantic_model",
-      "target": "src_config_loader_get_primary_model",
-      "confidence_score": 1.0
+      "target": "src_config_loader_get_primary_model"
     },
     {
       "relation": "imports",
@@ -6411,9 +6528,9 @@
       "source_file": "src/graph/workflow.py",
       "source_location": "L63",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "graph_workflow_route_after_semantic",
-      "target": "src_config_loader_get_max_iterations",
-      "confidence_score": 1.0
+      "target": "src_config_loader_get_max_iterations"
     },
     {
       "relation": "calls",
@@ -6455,9 +6572,9 @@
       "source_file": "src/graph/nodes/semantic_validator.py",
       "source_location": "L75",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "nodes_semantic_validator_semantic_validator_node",
-      "target": "src_config_loader_get_semantic_threshold",
-      "confidence_score": 1.0
+      "target": "src_config_loader_get_semantic_threshold"
     },
     {
       "relation": "references",
@@ -6466,9 +6583,9 @@
       "source_file": "src/config_loader.py",
       "source_location": "L225",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_config_loader_get_semantic_threshold",
-      "target": "src_config_loader_py_float",
-      "confidence_score": 1.0
+      "target": "src_config_loader_py_float"
     },
     {
       "relation": "rationale_for",
@@ -6476,9 +6593,9 @@
       "source_file": "src/config_loader.py",
       "source_location": "L226",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_config_loader_rationale_226",
-      "target": "src_config_loader_get_semantic_threshold",
-      "confidence_score": 1.0
+      "target": "src_config_loader_get_semantic_threshold"
     },
     {
       "relation": "imports",
@@ -6487,9 +6604,9 @@
       "source_file": "src/graph/nodes/semantic_validator.py",
       "source_location": "L14",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_graph_nodes_semantic_validator_py",
-      "target": "src_config_loader_get_semantic_threshold",
-      "confidence_score": 1.0
+      "target": "src_config_loader_get_semantic_threshold"
     },
     {
       "relation": "calls",
@@ -6498,9 +6615,9 @@
       "source_file": "src/graph/nodes/semantic_validator.py",
       "source_location": "L74",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "nodes_semantic_validator_semantic_validator_node",
-      "target": "src_config_loader_get_semantic_model",
-      "confidence_score": 1.0
+      "target": "src_config_loader_get_semantic_model"
     },
     {
       "relation": "rationale_for",
@@ -6508,9 +6625,9 @@
       "source_file": "src/config_loader.py",
       "source_location": "L231",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_config_loader_rationale_231",
-      "target": "src_config_loader_get_semantic_model",
-      "confidence_score": 1.0
+      "target": "src_config_loader_get_semantic_model"
     },
     {
       "relation": "imports",
@@ -6519,9 +6636,9 @@
       "source_file": "src/graph/nodes/semantic_validator.py",
       "source_location": "L14",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_graph_nodes_semantic_validator_py",
-      "target": "src_config_loader_get_semantic_model",
-      "confidence_score": 1.0
+      "target": "src_config_loader_get_semantic_model"
     },
     {
       "relation": "calls",
@@ -6550,9 +6667,9 @@
       "source_file": "src/config_loader.py",
       "source_location": "L244",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_config_loader_rationale_244",
-      "target": "src_config_loader_get_graph_config",
-      "confidence_score": 1.0
+      "target": "src_config_loader_get_graph_config"
     },
     {
       "relation": "imports",
@@ -6592,9 +6709,9 @@
       "source_file": "src/config_loader.py",
       "source_location": "L252",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_config_loader_rationale_252",
-      "target": "src_config_loader_get_system_context_path",
-      "confidence_score": 1.0
+      "target": "src_config_loader_get_system_context_path"
     },
     {
       "relation": "imports",
@@ -6676,9 +6793,9 @@
       "source_file": "src/config_loader.py",
       "source_location": "L300",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_config_loader_rationale_300",
-      "target": "src_config_loader_update_repository_timestamps",
-      "confidence_score": 1.0
+      "target": "src_config_loader_update_repository_timestamps"
     },
     {
       "relation": "imports",
@@ -6939,6 +7056,17 @@
       "confidence_score": 0.8,
       "source": "observability_logger_log_event",
       "target": "core_runtime_paths_ensure_runtime_dirs"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/observability/logger.py",
+      "source_location": "L41",
+      "weight": 1.0,
+      "source": "observability_logger_write_run_summary",
+      "target": "core_runtime_paths_ensure_runtime_dirs",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports",
@@ -7507,9 +7635,9 @@
       "source_file": "src/git/branch_manager.py",
       "source_location": "L136",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "git_branch_manager_rationale_136",
-      "target": "git_branch_manager_commit_file",
-      "confidence_score": 1.0
+      "target": "git_branch_manager_commit_file"
     },
     {
       "relation": "rationale_for",
@@ -7591,9 +7719,9 @@
       "source_file": "src/git/branch_manager.py",
       "source_location": "L163",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "git_branch_manager_rationale_163",
-      "target": "git_branch_manager_push_branch",
-      "confidence_score": 1.0
+      "target": "git_branch_manager_push_branch"
     },
     {
       "relation": "rationale_for",
@@ -8319,9 +8447,9 @@
       "source_file": "src/graph/nodes/semantic_validator.py",
       "source_location": "L15",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_graph_nodes_semantic_validator_py",
-      "target": "graph_state_graphstate",
-      "confidence_score": 1.0
+      "target": "graph_state_graphstate"
     },
     {
       "relation": "uses",
@@ -8329,9 +8457,9 @@
       "source_file": "src/graph/nodes/semantic_validator.py",
       "source_location": "L15",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "src_graph_nodes_semantic_validator_py_graphstate",
-      "target": "graph_state_graphstate",
-      "confidence_score": 0.5
+      "target": "graph_state_graphstate"
     },
     {
       "relation": "uses",
@@ -8339,9 +8467,9 @@
       "source_file": "src/graph/nodes/semantic_validator.py",
       "source_location": "L15",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "src_graph_nodes_semantic_validator_py_runcontext",
-      "target": "graph_state_graphstate",
-      "confidence_score": 0.5
+      "target": "graph_state_graphstate"
     },
     {
       "relation": "uses",
@@ -8349,9 +8477,9 @@
       "source_file": "src/graph/nodes/semantic_validator.py",
       "source_location": "L15",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "src_graph_nodes_semantic_validator_py_str",
-      "target": "graph_state_graphstate",
-      "confidence_score": 0.5
+      "target": "graph_state_graphstate"
     },
     {
       "relation": "imports",
@@ -8360,9 +8488,9 @@
       "source_file": "src/graph/nodes/static_validator.py",
       "source_location": "L18",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_graph_nodes_static_validator_py",
-      "target": "graph_state_graphstate",
-      "confidence_score": 1.0
+      "target": "graph_state_graphstate"
     },
     {
       "relation": "uses",
@@ -8370,9 +8498,9 @@
       "source_file": "src/graph/nodes/static_validator.py",
       "source_location": "L18",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "src_graph_nodes_static_validator_py_graphstate",
-      "target": "graph_state_graphstate",
-      "confidence_score": 0.5
+      "target": "graph_state_graphstate"
     },
     {
       "relation": "uses",
@@ -8380,9 +8508,9 @@
       "source_file": "src/graph/nodes/static_validator.py",
       "source_location": "L18",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "src_graph_nodes_static_validator_py_runcontext",
-      "target": "graph_state_graphstate",
-      "confidence_score": 0.5
+      "target": "graph_state_graphstate"
     },
     {
       "relation": "imports",
@@ -8462,9 +8590,9 @@
       "source_file": "src/graph/nodes/verifier.py",
       "source_location": "L9",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "src_graph_nodes_verifier_py_str",
-      "target": "graph_state_graphstate",
-      "confidence_score": 0.5
+      "target": "graph_state_graphstate"
     },
     {
       "relation": "imports",
@@ -8574,9 +8702,9 @@
       "source_file": "src/graph/workflow.py",
       "source_location": "L54",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_graph_workflow_py",
-      "target": "graph_workflow_route_after_semantic",
-      "confidence_score": 1.0
+      "target": "graph_workflow_route_after_semantic"
     },
     {
       "relation": "contains",
@@ -8637,9 +8765,9 @@
       "source_file": "src/graph/workflow.py",
       "source_location": "L54",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "graph_workflow_route_after_semantic",
-      "target": "src_graph_workflow_py_graphstate",
-      "confidence_score": 1.0
+      "target": "src_graph_workflow_py_graphstate"
     },
     {
       "relation": "references",
@@ -8688,9 +8816,9 @@
       "source_file": "src/graph/workflow.py",
       "source_location": "L55",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "graph_workflow_rationale_55",
-      "target": "graph_workflow_route_after_semantic",
-      "confidence_score": 1.0
+      "target": "graph_workflow_route_after_semantic"
     },
     {
       "relation": "calls",
@@ -8769,9 +8897,9 @@
       "source_file": "src/graph/workflow.py",
       "source_location": "L69",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "graph_workflow_rationale_69",
-      "target": "graph_workflow_make_graph",
-      "confidence_score": 1.0
+      "target": "graph_workflow_make_graph"
     },
     {
       "relation": "imports",
@@ -10906,9 +11034,9 @@
       "source_file": "src/graph/nodes/node_index.py",
       "source_location": "L12",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_graph_nodes_node_index_py",
-      "target": "nodes_semantic_validator_semantic_validator_node",
-      "confidence_score": 1.0
+      "target": "nodes_semantic_validator_semantic_validator_node"
     },
     {
       "relation": "imports",
@@ -10917,9 +11045,9 @@
       "source_file": "src/graph/nodes/node_index.py",
       "source_location": "L11",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_graph_nodes_node_index_py",
-      "target": "nodes_static_validator_static_validator_node",
-      "confidence_score": 1.0
+      "target": "nodes_static_validator_static_validator_node"
     },
     {
       "relation": "imports",
@@ -11411,6 +11539,16 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "src/graph/nodes/retrieval_node.py",
+      "source_location": "L137",
+      "weight": 1.0,
+      "source": "nodes_retrieval_node_rationale_137",
+      "target": "nodes_retrieval_node_heuristic_rank",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/graph/nodes/retrieval_node.py",
       "source_location": "L138",
       "weight": 1.0,
       "confidence_score": 1.0,
@@ -11513,6 +11651,16 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "src/graph/nodes/retrieval_node.py",
+      "source_location": "L142",
+      "weight": 1.0,
+      "source": "nodes_retrieval_node_rationale_142",
+      "target": "nodes_retrieval_node_read_related_files",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/graph/nodes/retrieval_node.py",
       "source_location": "L143",
       "weight": 1.0,
       "confidence_score": 1.0,
@@ -11529,6 +11677,16 @@
       "confidence_score": 1.0,
       "source": "nodes_retrieval_node_read_related_files",
       "target": "tools_files_read_file"
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/graph/nodes/retrieval_node.py",
+      "source_location": "L160",
+      "weight": 1.0,
+      "source": "nodes_retrieval_node_rationale_160",
+      "target": "nodes_retrieval_node_to_relative_ids",
+      "confidence_score": 1.0
     },
     {
       "relation": "rationale_for",
@@ -11749,9 +11907,9 @@
       "source_file": "src/graph/nodes/semantic_validator.py",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "nodes_semantic_validator_rationale_1",
-      "target": "src_graph_nodes_semantic_validator_py",
-      "confidence_score": 1.0
+      "target": "src_graph_nodes_semantic_validator_py"
     },
     {
       "relation": "contains",
@@ -11759,9 +11917,9 @@
       "source_file": "src/graph/nodes/semantic_validator.py",
       "source_location": "L36",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_graph_nodes_semantic_validator_py",
-      "target": "nodes_semantic_validator_build_semantic_feedback",
-      "confidence_score": 1.0
+      "target": "nodes_semantic_validator_build_semantic_feedback"
     },
     {
       "relation": "contains",
@@ -11769,9 +11927,9 @@
       "source_file": "src/graph/nodes/semantic_validator.py",
       "source_location": "L55",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_graph_nodes_semantic_validator_py",
-      "target": "nodes_semantic_validator_semantic_validator_node",
-      "confidence_score": 1.0
+      "target": "nodes_semantic_validator_semantic_validator_node"
     },
     {
       "relation": "imports",
@@ -11780,9 +11938,9 @@
       "source_file": "src/graph/nodes/semantic_validator.py",
       "source_location": "L13",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_graph_nodes_semantic_validator_py",
-      "target": "nodes_support_require_state_value",
-      "confidence_score": 1.0
+      "target": "nodes_support_require_state_value"
     },
     {
       "relation": "imports",
@@ -11791,9 +11949,9 @@
       "source_file": "src/graph/nodes/semantic_validator.py",
       "source_location": "L13",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_graph_nodes_semantic_validator_py",
-      "target": "nodes_support_strip_code_fences",
-      "confidence_score": 1.0
+      "target": "nodes_support_strip_code_fences"
     },
     {
       "relation": "imports",
@@ -11802,9 +11960,9 @@
       "source_file": "src/graph/nodes/semantic_validator.py",
       "source_location": "L16",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_graph_nodes_semantic_validator_py",
-      "target": "observability_context_runcontext",
-      "confidence_score": 1.0
+      "target": "observability_context_runcontext"
     },
     {
       "relation": "imports",
@@ -11813,9 +11971,9 @@
       "source_file": "src/graph/nodes/semantic_validator.py",
       "source_location": "L17",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_graph_nodes_semantic_validator_py",
-      "target": "observability_event_logging_utils_emit_failure",
-      "confidence_score": 1.0
+      "target": "observability_event_logging_utils_emit_failure"
     },
     {
       "relation": "imports",
@@ -11824,9 +11982,9 @@
       "source_file": "src/graph/nodes/semantic_validator.py",
       "source_location": "L17",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_graph_nodes_semantic_validator_py",
-      "target": "observability_event_logging_utils_emit_success",
-      "confidence_score": 1.0
+      "target": "observability_event_logging_utils_emit_success"
     },
     {
       "relation": "references",
@@ -11835,9 +11993,9 @@
       "source_file": "src/graph/nodes/semantic_validator.py",
       "source_location": "L36",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "nodes_semantic_validator_build_semantic_feedback",
-      "target": "src_graph_nodes_semantic_validator_py_str",
-      "confidence_score": 1.0
+      "target": "src_graph_nodes_semantic_validator_py_str"
     },
     {
       "relation": "rationale_for",
@@ -11845,9 +12003,9 @@
       "source_file": "src/graph/nodes/semantic_validator.py",
       "source_location": "L37",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "nodes_semantic_validator_rationale_37",
-      "target": "nodes_semantic_validator_build_semantic_feedback",
-      "confidence_score": 1.0
+      "target": "nodes_semantic_validator_build_semantic_feedback"
     },
     {
       "relation": "calls",
@@ -11856,9 +12014,9 @@
       "source_file": "src/graph/nodes/semantic_validator.py",
       "source_location": "L113",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "nodes_semantic_validator_semantic_validator_node",
-      "target": "nodes_semantic_validator_build_semantic_feedback",
-      "confidence_score": 1.0
+      "target": "nodes_semantic_validator_build_semantic_feedback"
     },
     {
       "relation": "uses",
@@ -11866,9 +12024,9 @@
       "source_file": "src/graph/nodes/semantic_validator.py",
       "source_location": "L16",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "src_graph_nodes_semantic_validator_py_str",
-      "target": "observability_context_runcontext",
-      "confidence_score": 0.5
+      "target": "observability_context_runcontext"
     },
     {
       "relation": "rationale_for",
@@ -11876,9 +12034,9 @@
       "source_file": "src/graph/nodes/semantic_validator.py",
       "source_location": "L56",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "nodes_semantic_validator_rationale_56",
-      "target": "nodes_semantic_validator_semantic_validator_node",
-      "confidence_score": 1.0
+      "target": "nodes_semantic_validator_semantic_validator_node"
     },
     {
       "relation": "calls",
@@ -11887,9 +12045,9 @@
       "source_file": "src/graph/nodes/semantic_validator.py",
       "source_location": "L68",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "nodes_semantic_validator_semantic_validator_node",
-      "target": "nodes_support_require_state_value",
-      "confidence_score": 1.0
+      "target": "nodes_support_require_state_value"
     },
     {
       "relation": "calls",
@@ -11898,9 +12056,9 @@
       "source_file": "src/graph/nodes/semantic_validator.py",
       "source_location": "L69",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "nodes_semantic_validator_semantic_validator_node",
-      "target": "nodes_support_strip_code_fences",
-      "confidence_score": 1.0
+      "target": "nodes_support_strip_code_fences"
     },
     {
       "relation": "calls",
@@ -11909,9 +12067,9 @@
       "source_file": "src/graph/nodes/semantic_validator.py",
       "source_location": "L122",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "nodes_semantic_validator_semantic_validator_node",
-      "target": "observability_event_logging_utils_emit_failure",
-      "confidence_score": 1.0
+      "target": "observability_event_logging_utils_emit_failure"
     },
     {
       "relation": "calls",
@@ -11920,9 +12078,9 @@
       "source_file": "src/graph/nodes/semantic_validator.py",
       "source_location": "L120",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "nodes_semantic_validator_semantic_validator_node",
-      "target": "observability_event_logging_utils_emit_success",
-      "confidence_score": 1.0
+      "target": "observability_event_logging_utils_emit_success"
     },
     {
       "relation": "references",
@@ -11931,9 +12089,9 @@
       "source_file": "src/graph/nodes/semantic_validator.py",
       "source_location": "L55",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "nodes_semantic_validator_semantic_validator_node",
-      "target": "src_graph_nodes_semantic_validator_py_graphstate",
-      "confidence_score": 1.0
+      "target": "src_graph_nodes_semantic_validator_py_graphstate"
     },
     {
       "relation": "references",
@@ -11942,9 +12100,9 @@
       "source_file": "src/graph/nodes/semantic_validator.py",
       "source_location": "L55",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "nodes_semantic_validator_semantic_validator_node",
-      "target": "src_graph_nodes_semantic_validator_py_runcontext",
-      "confidence_score": 1.0
+      "target": "src_graph_nodes_semantic_validator_py_runcontext"
     },
     {
       "relation": "uses",
@@ -11952,9 +12110,9 @@
       "source_file": "src/graph/nodes/semantic_validator.py",
       "source_location": "L16",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "src_graph_nodes_semantic_validator_py_graphstate",
-      "target": "observability_context_runcontext",
-      "confidence_score": 0.5
+      "target": "observability_context_runcontext"
     },
     {
       "relation": "uses",
@@ -11962,9 +12120,9 @@
       "source_file": "src/graph/nodes/semantic_validator.py",
       "source_location": "L16",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "src_graph_nodes_semantic_validator_py_runcontext",
-      "target": "observability_context_runcontext",
-      "confidence_score": 0.5
+      "target": "observability_context_runcontext"
     },
     {
       "relation": "rationale_for",
@@ -11972,9 +12130,9 @@
       "source_file": "src/graph/nodes/static_validator.py",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "nodes_static_validator_rationale_1",
-      "target": "src_graph_nodes_static_validator_py",
-      "confidence_score": 1.0
+      "target": "src_graph_nodes_static_validator_py"
     },
     {
       "relation": "contains",
@@ -11982,9 +12140,9 @@
       "source_file": "src/graph/nodes/static_validator.py",
       "source_location": "L23",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_graph_nodes_static_validator_py",
-      "target": "nodes_static_validator_static_validator_node",
-      "confidence_score": 1.0
+      "target": "nodes_static_validator_static_validator_node"
     },
     {
       "relation": "imports",
@@ -11993,9 +12151,9 @@
       "source_file": "src/graph/nodes/static_validator.py",
       "source_location": "L17",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_graph_nodes_static_validator_py",
-      "target": "nodes_support_require_state_value",
-      "confidence_score": 1.0
+      "target": "nodes_support_require_state_value"
     },
     {
       "relation": "imports",
@@ -12004,9 +12162,9 @@
       "source_file": "src/graph/nodes/static_validator.py",
       "source_location": "L17",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_graph_nodes_static_validator_py",
-      "target": "nodes_support_strip_code_fences",
-      "confidence_score": 1.0
+      "target": "nodes_support_strip_code_fences"
     },
     {
       "relation": "imports",
@@ -12015,9 +12173,9 @@
       "source_file": "src/graph/nodes/static_validator.py",
       "source_location": "L17",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_graph_nodes_static_validator_py",
-      "target": "nodes_support_validate_python_syntax",
-      "confidence_score": 1.0
+      "target": "nodes_support_validate_python_syntax"
     },
     {
       "relation": "imports",
@@ -12026,9 +12184,9 @@
       "source_file": "src/graph/nodes/static_validator.py",
       "source_location": "L19",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_graph_nodes_static_validator_py",
-      "target": "observability_context_runcontext",
-      "confidence_score": 1.0
+      "target": "observability_context_runcontext"
     },
     {
       "relation": "imports",
@@ -12037,9 +12195,9 @@
       "source_file": "src/graph/nodes/static_validator.py",
       "source_location": "L20",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_graph_nodes_static_validator_py",
-      "target": "observability_event_logging_utils_emit_failure",
-      "confidence_score": 1.0
+      "target": "observability_event_logging_utils_emit_failure"
     },
     {
       "relation": "imports",
@@ -12048,9 +12206,9 @@
       "source_file": "src/graph/nodes/static_validator.py",
       "source_location": "L20",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_graph_nodes_static_validator_py",
-      "target": "observability_event_logging_utils_emit_success",
-      "confidence_score": 1.0
+      "target": "observability_event_logging_utils_emit_success"
     },
     {
       "relation": "rationale_for",
@@ -12058,9 +12216,9 @@
       "source_file": "src/graph/nodes/static_validator.py",
       "source_location": "L24",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "nodes_static_validator_rationale_24",
-      "target": "nodes_static_validator_static_validator_node",
-      "confidence_score": 1.0
+      "target": "nodes_static_validator_static_validator_node"
     },
     {
       "relation": "calls",
@@ -12069,9 +12227,9 @@
       "source_file": "src/graph/nodes/static_validator.py",
       "source_location": "L33",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "nodes_static_validator_static_validator_node",
-      "target": "nodes_support_require_state_value",
-      "confidence_score": 1.0
+      "target": "nodes_support_require_state_value"
     },
     {
       "relation": "calls",
@@ -12080,9 +12238,9 @@
       "source_file": "src/graph/nodes/static_validator.py",
       "source_location": "L33",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "nodes_static_validator_static_validator_node",
-      "target": "nodes_support_strip_code_fences",
-      "confidence_score": 1.0
+      "target": "nodes_support_strip_code_fences"
     },
     {
       "relation": "calls",
@@ -12091,9 +12249,9 @@
       "source_file": "src/graph/nodes/static_validator.py",
       "source_location": "L35",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "nodes_static_validator_static_validator_node",
-      "target": "nodes_support_validate_python_syntax",
-      "confidence_score": 1.0
+      "target": "nodes_support_validate_python_syntax"
     },
     {
       "relation": "calls",
@@ -12102,9 +12260,9 @@
       "source_file": "src/graph/nodes/static_validator.py",
       "source_location": "L37",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "nodes_static_validator_static_validator_node",
-      "target": "observability_event_logging_utils_emit_failure",
-      "confidence_score": 1.0
+      "target": "observability_event_logging_utils_emit_failure"
     },
     {
       "relation": "calls",
@@ -12113,9 +12271,9 @@
       "source_file": "src/graph/nodes/static_validator.py",
       "source_location": "L77",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "nodes_static_validator_static_validator_node",
-      "target": "observability_event_logging_utils_emit_success",
-      "confidence_score": 1.0
+      "target": "observability_event_logging_utils_emit_success"
     },
     {
       "relation": "references",
@@ -12124,9 +12282,9 @@
       "source_file": "src/graph/nodes/static_validator.py",
       "source_location": "L23",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "nodes_static_validator_static_validator_node",
-      "target": "src_graph_nodes_static_validator_py_graphstate",
-      "confidence_score": 1.0
+      "target": "src_graph_nodes_static_validator_py_graphstate"
     },
     {
       "relation": "references",
@@ -12135,9 +12293,9 @@
       "source_file": "src/graph/nodes/static_validator.py",
       "source_location": "L23",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "nodes_static_validator_static_validator_node",
-      "target": "src_graph_nodes_static_validator_py_runcontext",
-      "confidence_score": 1.0
+      "target": "src_graph_nodes_static_validator_py_runcontext"
     },
     {
       "relation": "uses",
@@ -12145,9 +12303,9 @@
       "source_file": "src/graph/nodes/static_validator.py",
       "source_location": "L19",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "src_graph_nodes_static_validator_py_graphstate",
-      "target": "observability_context_runcontext",
-      "confidence_score": 0.5
+      "target": "observability_context_runcontext"
     },
     {
       "relation": "uses",
@@ -12155,9 +12313,9 @@
       "source_file": "src/graph/nodes/static_validator.py",
       "source_location": "L19",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "src_graph_nodes_static_validator_py_runcontext",
-      "target": "observability_context_runcontext",
-      "confidence_score": 0.5
+      "target": "observability_context_runcontext"
     },
     {
       "relation": "rationale_for",
@@ -12409,9 +12567,9 @@
       "source_file": "src/graph/nodes/verifier.py",
       "source_location": "L15",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_graph_nodes_verifier_py",
-      "target": "nodes_verifier_classify_error",
-      "confidence_score": 1.0
+      "target": "nodes_verifier_classify_error"
     },
     {
       "relation": "contains",
@@ -12474,9 +12632,9 @@
       "source_file": "src/graph/nodes/verifier.py",
       "source_location": "L15",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "nodes_verifier_classify_error",
-      "target": "src_graph_nodes_verifier_py_str",
-      "confidence_score": 1.0
+      "target": "src_graph_nodes_verifier_py_str"
     },
     {
       "relation": "rationale_for",
@@ -12484,9 +12642,9 @@
       "source_file": "src/graph/nodes/verifier.py",
       "source_location": "L16",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "nodes_verifier_rationale_16",
-      "target": "nodes_verifier_classify_error",
-      "confidence_score": 1.0
+      "target": "nodes_verifier_classify_error"
     },
     {
       "relation": "calls",
@@ -12495,9 +12653,9 @@
       "source_file": "src/graph/nodes/verifier.py",
       "source_location": "L69",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "nodes_verifier_verifier_node",
-      "target": "nodes_verifier_classify_error",
-      "confidence_score": 1.0
+      "target": "nodes_verifier_classify_error"
     },
     {
       "relation": "uses",
@@ -12505,9 +12663,9 @@
       "source_file": "src/graph/nodes/verifier.py",
       "source_location": "L10",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "src_graph_nodes_verifier_py_str",
-      "target": "observability_context_runcontext",
-      "confidence_score": 0.5
+      "target": "observability_context_runcontext"
     },
     {
       "relation": "rationale_for",
@@ -12525,9 +12683,9 @@
       "source_file": "src/graph/nodes/verifier.py",
       "source_location": "L26",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "nodes_verifier_rationale_26",
-      "target": "nodes_verifier_verifier_node",
-      "confidence_score": 1.0
+      "target": "nodes_verifier_verifier_node"
     },
     {
       "relation": "references",
@@ -12697,6 +12855,16 @@
       "target": "observability_context_runcontext"
     },
     {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/observability/context.py",
+      "source_location": "L18",
+      "weight": 1.0,
+      "source": "observability_context_rationale_18",
+      "target": "observability_context_runcontext",
+      "confidence_score": 1.0
+    },
+    {
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "src/observability/context.py",
@@ -12828,6 +12996,16 @@
       "confidence_score": 1.0,
       "source": "observability_context_rationale_23",
       "target": "observability_context_runcontext_new"
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/observability/context.py",
+      "source_location": "L33",
+      "weight": 1.0,
+      "source": "observability_context_rationale_33",
+      "target": "observability_context_runcontext_new",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -12989,6 +13167,16 @@
       "target": "observability_event_logging_utils_emit_event"
     },
     {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/observability/event_logging_utils.py",
+      "source_location": "L27",
+      "weight": 1.0,
+      "source": "observability_event_logging_utils_rationale_27",
+      "target": "observability_event_logging_utils_emit_event",
+      "confidence_score": 1.0
+    },
+    {
       "relation": "references",
       "context": "parameter_type",
       "confidence": "EXTRACTED",
@@ -13077,6 +13265,16 @@
       "target": "observability_event_logging_utils_emit_success"
     },
     {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/observability/event_logging_utils.py",
+      "source_location": "L56",
+      "weight": 1.0,
+      "source": "observability_event_logging_utils_rationale_56",
+      "target": "observability_event_logging_utils_emit_success",
+      "confidence_score": 1.0
+    },
+    {
       "relation": "calls",
       "context": "call",
       "confidence": "EXTRACTED",
@@ -13086,6 +13284,16 @@
       "confidence_score": 1.0,
       "source": "nodes_graphify_indexer_graphify_indexer_node",
       "target": "observability_event_logging_utils_emit_failure"
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/observability/event_logging_utils.py",
+      "source_location": "L61",
+      "weight": 1.0,
+      "source": "observability_event_logging_utils_rationale_61",
+      "target": "observability_event_logging_utils_emit_failure",
+      "confidence_score": 1.0
     },
     {
       "relation": "rationale_for",
@@ -13101,11 +13309,31 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/observability/logger.py",
+      "source_location": "L55",
+      "weight": 1.0,
+      "source": "src_observability_logger_py",
+      "target": "observability_logger_format_run_console",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/observability/logger.py",
       "source_location": "L15",
       "weight": 1.0,
       "confidence_score": 1.0,
       "source": "src_observability_logger_py",
       "target": "observability_logger_log_event"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/observability/logger.py",
+      "source_location": "L34",
+      "weight": 1.0,
+      "source": "src_observability_logger_py",
+      "target": "observability_logger_write_run_summary",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
@@ -13127,6 +13355,102 @@
       "confidence_score": 1.0,
       "source": "observability_logger_rationale_16",
       "target": "observability_logger_log_event"
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/observability/logger.py",
+      "source_location": "L20",
+      "weight": 1.0,
+      "source": "observability_logger_rationale_20",
+      "target": "observability_logger_log_event",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "return_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/observability/logger.py",
+      "source_location": "L55",
+      "weight": 1.0,
+      "source": "observability_logger_format_run_console",
+      "target": "src_observability_logger_py_str",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/observability/logger.py",
+      "source_location": "L34",
+      "weight": 1.0,
+      "source": "observability_logger_write_run_summary",
+      "target": "src_observability_logger_py_str",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/observability/logger.py",
+      "source_location": "L35",
+      "weight": 1.0,
+      "source": "observability_logger_rationale_35",
+      "target": "observability_logger_write_run_summary",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/scheduler/executor.py",
+      "source_location": "L59",
+      "weight": 1.0,
+      "source": "scheduler_executor_workflowexecutor_execute",
+      "target": "observability_logger_write_run_summary"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/scheduler/executor.py",
+      "source_location": "L26",
+      "weight": 1.0,
+      "source": "src_scheduler_executor_py",
+      "target": "observability_logger_write_run_summary",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/observability/logger.py",
+      "source_location": "L56",
+      "weight": 1.0,
+      "source": "observability_logger_rationale_56",
+      "target": "observability_logger_format_run_console",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/scheduler/executor.py",
+      "source_location": "L60",
+      "weight": 1.0,
+      "source": "scheduler_executor_workflowexecutor_execute",
+      "target": "observability_logger_format_run_console"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/scheduler/executor.py",
+      "source_location": "L26",
+      "weight": 1.0,
+      "source": "src_scheduler_executor_py",
+      "target": "observability_logger_format_run_console",
+      "confidence_score": 1.0
     },
     {
       "relation": "rationale_for",
@@ -17041,5 +17365,5 @@
       "source_file": "docs/CONTEXT_CONTRACT.md"
     }
   ],
-  "built_at_commit": "ec90561247f59127feb7df0321800f03e36814e8"
+  "built_at_commit": "c829eeb28883c53676af964cde5f792cbb74f53a"
 }
