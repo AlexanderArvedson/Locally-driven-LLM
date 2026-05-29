@@ -527,7 +527,7 @@
       "source_file": "src/core/ollama_client.py",
       "source_location": "L19",
       "id": "core_ollama_client_ollamaclient",
-      "community": 13,
+      "community": 5,
       "norm_label": "ollamaclient"
     },
     {
@@ -572,7 +572,7 @@
       "source_file": "src/core/ollama_client.py",
       "source_location": "L67",
       "id": "core_ollama_client_ollamaclient_close",
-      "community": 13,
+      "community": 5,
       "norm_label": ".close()"
     },
     {
@@ -608,7 +608,7 @@
       "source_file": "src/core/ollama_client.py",
       "source_location": "L68",
       "id": "core_ollama_client_rationale_68",
-      "community": 13,
+      "community": 5,
       "norm_label": "close the underlying http client connection pool."
     },
     {
@@ -660,7 +660,7 @@
       "label": "_sanitize_task_slug()",
       "file_type": "code",
       "source_file": "src/git/branch_manager.py",
-      "source_location": "L22",
+      "source_location": "L18",
       "id": "git_branch_manager_sanitize_task_slug",
       "community": 7,
       "norm_label": "_sanitize_task_slug()"
@@ -669,7 +669,7 @@
       "label": "str",
       "file_type": "code",
       "source_file": "src/git/branch_manager.py",
-      "source_location": "L22",
+      "source_location": "L18",
       "id": "src_git_branch_manager_py_str",
       "community": 7,
       "norm_label": "str"
@@ -678,43 +678,43 @@
       "label": "build_branch_name()",
       "file_type": "code",
       "source_file": "src/git/branch_manager.py",
-      "source_location": "L31",
+      "source_location": "L26",
       "id": "git_branch_manager_build_branch_name",
       "community": 7,
       "norm_label": "build_branch_name()"
     },
     {
-      "label": "_run_git()",
+      "label": "_open_repo()",
       "file_type": "code",
       "source_file": "src/git/branch_manager.py",
-      "source_location": "L36",
-      "id": "git_branch_manager_run_git",
+      "source_location": "L31",
+      "id": "git_branch_manager_open_repo",
       "community": 7,
-      "norm_label": "_run_git()"
+      "norm_label": "_open_repo()"
     },
     {
-      "label": "Path",
+      "label": "Repo",
       "file_type": "code",
       "source_file": "src/git/branch_manager.py",
-      "source_location": "L36",
-      "id": "src_git_branch_manager_py_path",
+      "source_location": "L31",
+      "id": "repo",
       "community": 7,
-      "norm_label": "path"
+      "norm_label": "repo"
     },
     {
-      "label": "CompletedProcess",
+      "label": "_auth_url()",
       "file_type": "code",
       "source_file": "src/git/branch_manager.py",
-      "source_location": "L36",
-      "id": "completedprocess",
+      "source_location": "L38",
+      "id": "git_branch_manager_auth_url",
       "community": 7,
-      "norm_label": "completedprocess"
+      "norm_label": "_auth_url()"
     },
     {
       "label": "branch_exists()",
       "file_type": "code",
       "source_file": "src/git/branch_manager.py",
-      "source_location": "L46",
+      "source_location": "L44",
       "id": "git_branch_manager_branch_exists",
       "community": 7,
       "norm_label": "branch_exists()"
@@ -723,82 +723,91 @@
       "label": "bool",
       "file_type": "code",
       "source_file": "src/git/branch_manager.py",
-      "source_location": "L46",
+      "source_location": "L44",
       "id": "src_git_branch_manager_py_bool",
       "community": 7,
       "norm_label": "bool"
     },
     {
-      "label": "push_branch()",
-      "file_type": "code",
-      "source_file": "src/git/branch_manager.py",
-      "source_location": "L57",
-      "id": "git_branch_manager_push_branch",
-      "community": 7,
-      "norm_label": "push_branch()"
-    },
-    {
       "label": "create_task_branch()",
       "file_type": "code",
       "source_file": "src/git/branch_manager.py",
-      "source_location": "L81",
+      "source_location": "L50",
       "id": "git_branch_manager_create_task_branch",
       "community": 7,
       "norm_label": "create_task_branch()"
     },
     {
-      "label": "Git branch management for target repositories.  Provides utilities to create tas",
+      "label": "commit_file()",
+      "file_type": "code",
+      "source_file": "src/git/branch_manager.py",
+      "source_location": "L82",
+      "id": "git_branch_manager_commit_file",
+      "community": 7,
+      "norm_label": "commit_file()"
+    },
+    {
+      "label": "push_branch()",
+      "file_type": "code",
+      "source_file": "src/git/branch_manager.py",
+      "source_location": "L105",
+      "id": "git_branch_manager_push_branch",
+      "community": 7,
+      "norm_label": "push_branch()"
+    },
+    {
+      "label": "Git branch management for target repositories using GitPython.",
       "file_type": "rationale",
       "source_file": "src/git/branch_manager.py",
       "source_location": "L1",
       "id": "git_branch_manager_rationale_1",
       "community": 7,
-      "norm_label": "git branch management for target repositories.  provides utilities to create tas"
-    },
-    {
-      "label": "Convert a free-text task description into a safe branch-name segment.",
-      "file_type": "rationale",
-      "source_file": "src/git/branch_manager.py",
-      "source_location": "L23",
-      "id": "git_branch_manager_rationale_23",
-      "community": 7,
-      "norm_label": "convert a free-text task description into a safe branch-name segment."
+      "norm_label": "git branch management for target repositories using gitpython."
     },
     {
       "label": "Return the full branch name: ``<prefix><sanitized-task>``.",
       "file_type": "rationale",
       "source_file": "src/git/branch_manager.py",
-      "source_location": "L32",
-      "id": "git_branch_manager_rationale_32",
+      "source_location": "L27",
+      "id": "git_branch_manager_rationale_27",
       "community": 7,
       "norm_label": "return the full branch name: ``<prefix><sanitized-task>``."
     },
     {
-      "label": "Return True if *branch_name* exists locally in the repo.",
+      "label": "Return True if *branch_name* exists locally.",
       "file_type": "rationale",
       "source_file": "src/git/branch_manager.py",
-      "source_location": "L47",
-      "id": "git_branch_manager_rationale_47",
+      "source_location": "L45",
+      "id": "git_branch_manager_rationale_45",
       "community": 7,
-      "norm_label": "return true if *branch_name* exists locally in the repo."
+      "norm_label": "return true if *branch_name* exists locally."
     },
     {
-      "label": "Push *branch_name* to the authenticated remote URL.      Embeds credentials in t",
+      "label": "Create (or check out) a task branch from *base_branch*.      Returns the full",
       "file_type": "rationale",
       "source_file": "src/git/branch_manager.py",
-      "source_location": "L64",
-      "id": "git_branch_manager_rationale_64",
+      "source_location": "L56",
+      "id": "git_branch_manager_rationale_56",
       "community": 7,
-      "norm_label": "push *branch_name* to the authenticated remote url.      embeds credentials in t"
+      "norm_label": "create (or check out) a task branch from *base_branch*.      returns the full"
     },
     {
-      "label": "Create (and checkout) a new branch in the target repository.      The branch is",
+      "label": "Stage *file_path* and create a commit in the repo.      Returns the hex SHA of",
       "file_type": "rationale",
       "source_file": "src/git/branch_manager.py",
       "source_location": "L87",
       "id": "git_branch_manager_rationale_87",
       "community": 7,
-      "norm_label": "create (and checkout) a new branch in the target repository.      the branch is"
+      "norm_label": "stage *file_path* and create a commit in the repo.      returns the hex sha of"
+    },
+    {
+      "label": "Push *branch_name* to the authenticated remote URL.",
+      "file_type": "rationale",
+      "source_file": "src/git/branch_manager.py",
+      "source_location": "L112",
+      "id": "git_branch_manager_rationale_112",
+      "community": 7,
+      "norm_label": "push *branch_name* to the authenticated remote url."
     },
     {
       "label": "pr_creator.py",
@@ -887,7 +896,7 @@
       "source_file": "src/graph/state.py",
       "source_location": "L7",
       "id": "graph_state_graphstate",
-      "community": 8,
+      "community": 0,
       "norm_label": "graphstate"
     },
     {
@@ -905,7 +914,7 @@
       "source_file": "src/graph/state.py",
       "source_location": "L8",
       "id": "graph_state_rationale_8",
-      "community": 8,
+      "community": 0,
       "norm_label": "shared state passed between langgraph nodes.      this state represents a sing"
     },
     {
@@ -914,7 +923,7 @@
       "source_file": "src/graph/workflow.py",
       "source_location": "L1",
       "id": "src_graph_workflow_py",
-      "community": 14,
+      "community": 12,
       "norm_label": "workflow.py"
     },
     {
@@ -923,7 +932,7 @@
       "source_file": "src/graph/workflow.py",
       "source_location": "L22",
       "id": "graph_workflow_route_after_review",
-      "community": 14,
+      "community": 12,
       "norm_label": "route_after_review()"
     },
     {
@@ -932,7 +941,7 @@
       "source_file": "src/graph/workflow.py",
       "source_location": "L22",
       "id": "src_graph_workflow_py_graphstate",
-      "community": 14,
+      "community": 12,
       "norm_label": "graphstate"
     },
     {
@@ -941,7 +950,7 @@
       "source_file": "src/graph/workflow.py",
       "source_location": "L40",
       "id": "graph_workflow_route_after_verification",
-      "community": 14,
+      "community": 12,
       "norm_label": "route_after_verification()"
     },
     {
@@ -950,7 +959,7 @@
       "source_file": "src/graph/workflow.py",
       "source_location": "L54",
       "id": "graph_workflow_make_graph",
-      "community": 11,
+      "community": 0,
       "norm_label": "make_graph()"
     },
     {
@@ -959,7 +968,7 @@
       "source_file": "src/graph/workflow.py",
       "source_location": "L54",
       "id": "src_graph_workflow_py_runcontext",
-      "community": 11,
+      "community": 0,
       "norm_label": "runcontext"
     },
     {
@@ -968,7 +977,7 @@
       "source_file": "src/graph/workflow.py",
       "source_location": "L1",
       "id": "graph_workflow_rationale_1",
-      "community": 14,
+      "community": 12,
       "norm_label": "graph construction helpers for the file-edit workflow.  this module builds a `"
     },
     {
@@ -977,7 +986,7 @@
       "source_file": "src/graph/workflow.py",
       "source_location": "L23",
       "id": "graph_workflow_rationale_23",
-      "community": 14,
+      "community": 12,
       "norm_label": "decide the next graph node after the `reviewer` node.      - if the review pas"
     },
     {
@@ -986,7 +995,7 @@
       "source_file": "src/graph/workflow.py",
       "source_location": "L41",
       "id": "graph_workflow_rationale_41",
-      "community": 14,
+      "community": 12,
       "norm_label": "decide the next graph node after the `verifier` node.      - if verification p"
     },
     {
@@ -995,7 +1004,7 @@
       "source_file": "src/graph/workflow.py",
       "source_location": "L55",
       "id": "graph_workflow_rationale_55",
-      "community": 11,
+      "community": 0,
       "norm_label": "create and compile the stategraph for a single run.      the returned graph is"
     },
     {
@@ -1004,7 +1013,7 @@
       "source_file": "src/graph/nodes/branch_creator.py",
       "source_location": "L1",
       "id": "src_graph_nodes_branch_creator_py",
-      "community": 1,
+      "community": 0,
       "norm_label": "branch_creator.py"
     },
     {
@@ -1013,7 +1022,7 @@
       "source_file": "src/graph/nodes/branch_creator.py",
       "source_location": "L23",
       "id": "nodes_branch_creator_branch_creator_node",
-      "community": 1,
+      "community": 0,
       "norm_label": "branch_creator_node()"
     },
     {
@@ -1022,7 +1031,7 @@
       "source_file": "src/graph/nodes/branch_creator.py",
       "source_location": "L23",
       "id": "src_graph_nodes_branch_creator_py_graphstate",
-      "community": 1,
+      "community": 0,
       "norm_label": "graphstate"
     },
     {
@@ -1031,7 +1040,7 @@
       "source_file": "src/graph/nodes/branch_creator.py",
       "source_location": "L23",
       "id": "src_graph_nodes_branch_creator_py_runcontext",
-      "community": 1,
+      "community": 0,
       "norm_label": "runcontext"
     },
     {
@@ -1040,7 +1049,7 @@
       "source_file": "src/graph/nodes/branch_creator.py",
       "source_location": "L1",
       "id": "nodes_branch_creator_rationale_1",
-      "community": 1,
+      "community": 0,
       "norm_label": "branch creator node.  creates (or checks out) a task branch in the target reposi"
     },
     {
@@ -1049,7 +1058,7 @@
       "source_file": "src/graph/nodes/branch_creator.py",
       "source_location": "L24",
       "id": "nodes_branch_creator_rationale_24",
-      "community": 1,
+      "community": 0,
       "norm_label": "create a task branch in the target repository.      reads ``repo_path`` and ``ta"
     },
     {
@@ -1058,7 +1067,7 @@
       "source_file": "src/graph/nodes/coder.py",
       "source_location": "L1",
       "id": "src_graph_nodes_coder_py",
-      "community": 15,
+      "community": 0,
       "norm_label": "coder.py"
     },
     {
@@ -1067,7 +1076,7 @@
       "source_file": "src/graph/nodes/coder.py",
       "source_location": "L15",
       "id": "nodes_coder_format_related_files",
-      "community": 15,
+      "community": 0,
       "norm_label": "_format_related_files()"
     },
     {
@@ -1076,7 +1085,7 @@
       "source_file": "src/graph/nodes/coder.py",
       "source_location": "L15",
       "id": "src_graph_nodes_coder_py_str",
-      "community": 15,
+      "community": 0,
       "norm_label": "str"
     },
     {
@@ -1085,7 +1094,7 @@
       "source_file": "src/graph/nodes/coder.py",
       "source_location": "L24",
       "id": "nodes_coder_coder_node",
-      "community": 15,
+      "community": 0,
       "norm_label": "coder_node()"
     },
     {
@@ -1094,7 +1103,7 @@
       "source_file": "src/graph/nodes/coder.py",
       "source_location": "L24",
       "id": "src_graph_nodes_coder_py_graphstate",
-      "community": 15,
+      "community": 0,
       "norm_label": "graphstate"
     },
     {
@@ -1103,7 +1112,7 @@
       "source_file": "src/graph/nodes/coder.py",
       "source_location": "L24",
       "id": "src_graph_nodes_coder_py_runcontext",
-      "community": 15,
+      "community": 0,
       "norm_label": "runcontext"
     },
     {
@@ -1146,7 +1155,7 @@
       "label": "_read_related_files()",
       "file_type": "code",
       "source_file": "src/graph/nodes/context_builder.py",
-      "source_location": "L89",
+      "source_location": "L94",
       "id": "nodes_context_builder_read_related_files",
       "community": 6,
       "norm_label": "_read_related_files()"
@@ -1155,7 +1164,7 @@
       "label": "str",
       "file_type": "code",
       "source_file": "src/graph/nodes/context_builder.py",
-      "source_location": "L89",
+      "source_location": "L94",
       "id": "src_graph_nodes_context_builder_py_str",
       "community": 6,
       "norm_label": "str"
@@ -1164,7 +1173,7 @@
       "label": "_select_files_from_graph()",
       "file_type": "code",
       "source_file": "src/graph/nodes/context_builder.py",
-      "source_location": "L111",
+      "source_location": "L116",
       "id": "nodes_context_builder_select_files_from_graph",
       "community": 6,
       "norm_label": "_select_files_from_graph()"
@@ -1173,7 +1182,7 @@
       "label": "Path",
       "file_type": "code",
       "source_file": "src/graph/nodes/context_builder.py",
-      "source_location": "L111",
+      "source_location": "L116",
       "id": "src_graph_nodes_context_builder_py_path",
       "community": 6,
       "norm_label": "path"
@@ -1182,7 +1191,7 @@
       "label": "int",
       "file_type": "code",
       "source_file": "src/graph/nodes/context_builder.py",
-      "source_location": "L111",
+      "source_location": "L116",
       "id": "src_graph_nodes_context_builder_py_int",
       "community": 6,
       "norm_label": "int"
@@ -1209,8 +1218,8 @@
       "label": "Read the contents of selected related files, excluding the target file.      C",
       "file_type": "rationale",
       "source_file": "src/graph/nodes/context_builder.py",
-      "source_location": "L90",
-      "id": "nodes_context_builder_rationale_90",
+      "source_location": "L95",
+      "id": "nodes_context_builder_rationale_95",
       "community": 6,
       "norm_label": "read the contents of selected related files, excluding the target file.      c"
     },
@@ -1218,8 +1227,8 @@
       "label": "Select files from the graphify graph most relevant to the task.      Scores gr",
       "file_type": "rationale",
       "source_file": "src/graph/nodes/context_builder.py",
-      "source_location": "L118",
-      "id": "nodes_context_builder_rationale_118",
+      "source_location": "L123",
+      "id": "nodes_context_builder_rationale_123",
       "community": 6,
       "norm_label": "select files from the graphify graph most relevant to the task.      scores gr"
     },
@@ -1229,7 +1238,7 @@
       "source_file": "src/graph/nodes/diff_generator.py",
       "source_location": "L1",
       "id": "src_graph_nodes_diff_generator_py",
-      "community": 9,
+      "community": 0,
       "norm_label": "diff_generator.py"
     },
     {
@@ -1238,7 +1247,7 @@
       "source_file": "src/graph/nodes/diff_generator.py",
       "source_location": "L14",
       "id": "nodes_diff_generator_diff_generator_node",
-      "community": 9,
+      "community": 0,
       "norm_label": "diff_generator_node()"
     },
     {
@@ -1247,7 +1256,7 @@
       "source_file": "src/graph/nodes/diff_generator.py",
       "source_location": "L14",
       "id": "src_graph_nodes_diff_generator_py_graphstate",
-      "community": 9,
+      "community": 0,
       "norm_label": "graphstate"
     },
     {
@@ -1256,7 +1265,7 @@
       "source_file": "src/graph/nodes/diff_generator.py",
       "source_location": "L14",
       "id": "src_graph_nodes_diff_generator_py_runcontext",
-      "community": 9,
+      "community": 0,
       "norm_label": "runcontext"
     },
     {
@@ -1265,7 +1274,7 @@
       "source_file": "src/graph/nodes/diff_generator.py",
       "source_location": "L15",
       "id": "nodes_diff_generator_rationale_15",
-      "community": 9,
+      "community": 0,
       "norm_label": "compute a unified diff between the original and generated code.      expected"
     },
     {
@@ -1274,7 +1283,7 @@
       "source_file": "src/graph/nodes/file_reader.py",
       "source_location": "L1",
       "id": "src_graph_nodes_file_reader_py",
-      "community": 13,
+      "community": 0,
       "norm_label": "file_reader.py"
     },
     {
@@ -1283,7 +1292,7 @@
       "source_file": "src/graph/nodes/file_reader.py",
       "source_location": "L14",
       "id": "nodes_file_reader_file_reader_node",
-      "community": 13,
+      "community": 0,
       "norm_label": "file_reader_node()"
     },
     {
@@ -1292,7 +1301,7 @@
       "source_file": "src/graph/nodes/file_reader.py",
       "source_location": "L14",
       "id": "src_graph_nodes_file_reader_py_graphstate",
-      "community": 13,
+      "community": 0,
       "norm_label": "graphstate"
     },
     {
@@ -1301,7 +1310,7 @@
       "source_file": "src/graph/nodes/file_reader.py",
       "source_location": "L14",
       "id": "src_graph_nodes_file_reader_py_runcontext",
-      "community": 13,
+      "community": 0,
       "norm_label": "runcontext"
     },
     {
@@ -1310,7 +1319,7 @@
       "source_file": "src/graph/nodes/file_reader.py",
       "source_location": "L15",
       "id": "nodes_file_reader_rationale_15",
-      "community": 13,
+      "community": 0,
       "norm_label": "read the target file (or select one) and return its contents.      expected st"
     },
     {
@@ -1319,7 +1328,7 @@
       "source_file": "src/graph/nodes/file_writer.py",
       "source_location": "L1",
       "id": "src_graph_nodes_file_writer_py",
-      "community": 1,
+      "community": 0,
       "norm_label": "file_writer.py"
     },
     {
@@ -1328,7 +1337,7 @@
       "source_file": "src/graph/nodes/file_writer.py",
       "source_location": "L23",
       "id": "nodes_file_writer_file_writer_node",
-      "community": 11,
+      "community": 0,
       "norm_label": "file_writer_node()"
     },
     {
@@ -1337,7 +1346,7 @@
       "source_file": "src/graph/nodes/file_writer.py",
       "source_location": "L23",
       "id": "src_graph_nodes_file_writer_py_graphstate",
-      "community": 11,
+      "community": 0,
       "norm_label": "graphstate"
     },
     {
@@ -1346,7 +1355,7 @@
       "source_file": "src/graph/nodes/file_writer.py",
       "source_location": "L23",
       "id": "src_graph_nodes_file_writer_py_runcontext",
-      "community": 11,
+      "community": 0,
       "norm_label": "runcontext"
     },
     {
@@ -1355,8 +1364,62 @@
       "source_file": "src/graph/nodes/file_writer.py",
       "source_location": "L24",
       "id": "nodes_file_writer_rationale_24",
-      "community": 11,
+      "community": 0,
       "norm_label": "write generated content to disk or apply a unified diff.      expected state i"
+    },
+    {
+      "label": "git_committer.py",
+      "file_type": "code",
+      "source_file": "src/graph/nodes/git_committer.py",
+      "source_location": "L1",
+      "id": "src_graph_nodes_git_committer_py",
+      "community": 0,
+      "norm_label": "git_committer.py"
+    },
+    {
+      "label": "git_committer_node()",
+      "file_type": "code",
+      "source_file": "src/graph/nodes/git_committer.py",
+      "source_location": "L21",
+      "id": "nodes_git_committer_git_committer_node",
+      "community": 0,
+      "norm_label": "git_committer_node()"
+    },
+    {
+      "label": "GraphState",
+      "file_type": "code",
+      "source_file": "src/graph/nodes/git_committer.py",
+      "source_location": "L21",
+      "id": "src_graph_nodes_git_committer_py_graphstate",
+      "community": 0,
+      "norm_label": "graphstate"
+    },
+    {
+      "label": "RunContext",
+      "file_type": "code",
+      "source_file": "src/graph/nodes/git_committer.py",
+      "source_location": "L21",
+      "id": "src_graph_nodes_git_committer_py_runcontext",
+      "community": 0,
+      "norm_label": "runcontext"
+    },
+    {
+      "label": "Git committer node.  Stages the modified target file and creates a git commit",
+      "file_type": "rationale",
+      "source_file": "src/graph/nodes/git_committer.py",
+      "source_location": "L1",
+      "id": "nodes_git_committer_rationale_1",
+      "community": 0,
+      "norm_label": "git committer node.  stages the modified target file and creates a git commit"
+    },
+    {
+      "label": "Stage and commit the modified target file.      Expected state keys:     - ``",
+      "file_type": "rationale",
+      "source_file": "src/graph/nodes/git_committer.py",
+      "source_location": "L22",
+      "id": "nodes_git_committer_rationale_22",
+      "community": 0,
+      "norm_label": "stage and commit the modified target file.      expected state keys:     - ``"
     },
     {
       "label": "graphify_indexer.py",
@@ -1364,7 +1427,7 @@
       "source_file": "src/graph/nodes/graphify_indexer.py",
       "source_location": "L1",
       "id": "src_graph_nodes_graphify_indexer_py",
-      "community": 8,
+      "community": 0,
       "norm_label": "graphify_indexer.py"
     },
     {
@@ -1373,7 +1436,7 @@
       "source_file": "src/graph/nodes/graphify_indexer.py",
       "source_location": "L21",
       "id": "nodes_graphify_indexer_graphify_indexer_node",
-      "community": 8,
+      "community": 0,
       "norm_label": "graphify_indexer_node()"
     },
     {
@@ -1382,7 +1445,7 @@
       "source_file": "src/graph/nodes/graphify_indexer.py",
       "source_location": "L21",
       "id": "src_graph_nodes_graphify_indexer_py_graphstate",
-      "community": 8,
+      "community": 0,
       "norm_label": "graphstate"
     },
     {
@@ -1391,7 +1454,7 @@
       "source_file": "src/graph/nodes/graphify_indexer.py",
       "source_location": "L21",
       "id": "src_graph_nodes_graphify_indexer_py_runcontext",
-      "community": 8,
+      "community": 0,
       "norm_label": "runcontext"
     },
     {
@@ -1400,7 +1463,7 @@
       "source_file": "src/graph/nodes/graphify_indexer.py",
       "source_location": "L57",
       "id": "nodes_graphify_indexer_build_ast_graph",
-      "community": 8,
+      "community": 0,
       "norm_label": "_build_ast_graph()"
     },
     {
@@ -1409,7 +1472,7 @@
       "source_file": "src/graph/nodes/graphify_indexer.py",
       "source_location": "L57",
       "id": "src_graph_nodes_graphify_indexer_py_str",
-      "community": 8,
+      "community": 0,
       "norm_label": "str"
     },
     {
@@ -1418,7 +1481,7 @@
       "source_file": "src/graph/nodes/graphify_indexer.py",
       "source_location": "L57",
       "id": "src_graph_nodes_graphify_indexer_py_path",
-      "community": 8,
+      "community": 0,
       "norm_label": "path"
     },
     {
@@ -1427,7 +1490,7 @@
       "source_file": "src/graph/nodes/graphify_indexer.py",
       "source_location": "L1",
       "id": "nodes_graphify_indexer_rationale_1",
-      "community": 8,
+      "community": 0,
       "norm_label": "graphify indexer node \u2014 builds a knowledge graph of the target repository.  ru"
     },
     {
@@ -1436,7 +1499,7 @@
       "source_file": "src/graph/nodes/graphify_indexer.py",
       "source_location": "L22",
       "id": "nodes_graphify_indexer_rationale_22",
-      "community": 8,
+      "community": 0,
       "norm_label": "build or refresh the graphify knowledge graph for the target repository."
     },
     {
@@ -1445,7 +1508,7 @@
       "source_file": "src/graph/nodes/graphify_indexer.py",
       "source_location": "L58",
       "id": "nodes_graphify_indexer_rationale_58",
-      "community": 8,
+      "community": 0,
       "norm_label": "run ast-only graphify extraction and write graph.json to graph_dir."
     },
     {
@@ -1454,7 +1517,7 @@
       "source_file": "src/graph/nodes/node_index.py",
       "source_location": "L1",
       "id": "src_graph_nodes_node_index_py",
-      "community": 11,
+      "community": 0,
       "norm_label": "node_index.py"
     },
     {
@@ -1463,7 +1526,7 @@
       "source_file": "src/graph/nodes/node_index.py",
       "source_location": "L1",
       "id": "nodes_node_index_rationale_1",
-      "community": 11,
+      "community": 0,
       "norm_label": "aggregate export surface for graph nodes."
     },
     {
@@ -1517,7 +1580,7 @@
       "source_file": "src/graph/nodes/support.py",
       "source_location": "L1",
       "id": "src_graph_nodes_support_py",
-      "community": 13,
+      "community": 0,
       "norm_label": "support.py"
     },
     {
@@ -1526,7 +1589,7 @@
       "source_file": "src/graph/nodes/support.py",
       "source_location": "L23",
       "id": "nodes_support_require_state_value",
-      "community": 13,
+      "community": 0,
       "norm_label": "require_state_value()"
     },
     {
@@ -1535,7 +1598,7 @@
       "source_file": "src/graph/nodes/support.py",
       "source_location": "L23",
       "id": "src_graph_nodes_support_py_graphstate",
-      "community": 13,
+      "community": 5,
       "norm_label": "graphstate"
     },
     {
@@ -1544,7 +1607,7 @@
       "source_file": "src/graph/nodes/support.py",
       "source_location": "L23",
       "id": "src_graph_nodes_support_py_str",
-      "community": 13,
+      "community": 0,
       "norm_label": "str"
     },
     {
@@ -1580,7 +1643,7 @@
       "source_file": "src/graph/nodes/support.py",
       "source_location": "L58",
       "id": "nodes_support_select_target_file_from_repo_path",
-      "community": 13,
+      "community": 0,
       "norm_label": "select_target_file_from_repo_path()"
     },
     {
@@ -1589,7 +1652,7 @@
       "source_file": "src/graph/nodes/support.py",
       "source_location": "L1",
       "id": "nodes_support_rationale_1",
-      "community": 13,
+      "community": 0,
       "norm_label": "shared helpers for graph node implementations."
     },
     {
@@ -1598,7 +1661,7 @@
       "source_file": "src/graph/nodes/support.py",
       "source_location": "L24",
       "id": "nodes_support_rationale_24",
-      "community": 13,
+      "community": 0,
       "norm_label": "return a required value from `state` or raise valueerror."
     },
     {
@@ -1625,7 +1688,7 @@
       "source_file": "src/graph/nodes/support.py",
       "source_location": "L59",
       "id": "nodes_support_rationale_59",
-      "community": 13,
+      "community": 0,
       "norm_label": "pick the first python file in a repo root deterministically."
     },
     {
@@ -1697,7 +1760,7 @@
       "source_file": "src/observability/context.py",
       "source_location": "L1",
       "id": "src_observability_context_py",
-      "community": 9,
+      "community": 0,
       "norm_label": "context.py"
     },
     {
@@ -1706,7 +1769,7 @@
       "source_file": "src/observability/context.py",
       "source_location": "L13",
       "id": "observability_context_runcontext",
-      "community": 9,
+      "community": 0,
       "norm_label": "runcontext"
     },
     {
@@ -1724,7 +1787,7 @@
       "source_file": "src/observability/context.py",
       "source_location": "L1",
       "id": "observability_context_rationale_1",
-      "community": 9,
+      "community": 0,
       "norm_label": "runcontext helper for observability.  this module provides a minimal `runconte"
     },
     {
@@ -1733,7 +1796,7 @@
       "source_file": "src/observability/context.py",
       "source_location": "L14",
       "id": "observability_context_rationale_14",
-      "community": 9,
+      "community": 0,
       "norm_label": "minimal per-run observability context.      attributes:         run_id: a uui"
     },
     {
@@ -1751,7 +1814,7 @@
       "source_file": "src/observability/event_logging_utils.py",
       "source_location": "L1",
       "id": "src_observability_event_logging_utils_py",
-      "community": 1,
+      "community": 0,
       "norm_label": "event_logging_utils.py"
     },
     {
@@ -1760,7 +1823,7 @@
       "source_file": "src/observability/event_logging_utils.py",
       "source_location": "L17",
       "id": "observability_event_logging_utils_emit_event",
-      "community": 1,
+      "community": 0,
       "norm_label": "emit_event()"
     },
     {
@@ -1769,7 +1832,7 @@
       "source_file": "src/observability/event_logging_utils.py",
       "source_location": "L17",
       "id": "src_observability_event_logging_utils_py_runcontext",
-      "community": 1,
+      "community": 0,
       "norm_label": "runcontext"
     },
     {
@@ -1778,7 +1841,7 @@
       "source_file": "src/observability/event_logging_utils.py",
       "source_location": "L17",
       "id": "src_observability_event_logging_utils_py_str",
-      "community": 1,
+      "community": 0,
       "norm_label": "str"
     },
     {
@@ -1787,7 +1850,7 @@
       "source_file": "src/observability/event_logging_utils.py",
       "source_location": "L17",
       "id": "src_observability_event_logging_utils_py_any",
-      "community": 1,
+      "community": 0,
       "norm_label": "any"
     },
     {
@@ -1796,7 +1859,7 @@
       "source_file": "src/observability/event_logging_utils.py",
       "source_location": "L17",
       "id": "src_observability_event_logging_utils_py_float",
-      "community": 1,
+      "community": 0,
       "norm_label": "float"
     },
     {
@@ -1805,7 +1868,7 @@
       "source_file": "src/observability/event_logging_utils.py",
       "source_location": "L59",
       "id": "observability_event_logging_utils_emit_success",
-      "community": 1,
+      "community": 0,
       "norm_label": "emit_success()"
     },
     {
@@ -1814,7 +1877,7 @@
       "source_file": "src/observability/event_logging_utils.py",
       "source_location": "L63",
       "id": "observability_event_logging_utils_emit_failure",
-      "community": 1,
+      "community": 0,
       "norm_label": "emit_failure()"
     },
     {
@@ -1823,7 +1886,7 @@
       "source_file": "src/observability/event_logging_utils.py",
       "source_location": "L1",
       "id": "observability_event_logging_utils_rationale_1",
-      "community": 1,
+      "community": 0,
       "norm_label": "small helper utilities for observability event emission.  provides helpers to"
     },
     {
@@ -1832,7 +1895,7 @@
       "source_file": "src/observability/event_logging_utils.py",
       "source_location": "L24",
       "id": "observability_event_logging_utils_rationale_24",
-      "community": 1,
+      "community": 0,
       "norm_label": "emit a single observability event with consistent shape.      args:         r"
     },
     {
@@ -2975,7 +3038,7 @@
       "source_file": "src/tools/patches.py",
       "source_location": "L29",
       "id": "tools_patches_generate_unified",
-      "community": 9,
+      "community": 0,
       "norm_label": "generate_unified()"
     },
     {
@@ -3011,7 +3074,7 @@
       "source_file": "src/tools/patches.py",
       "source_location": "L30",
       "id": "tools_patches_rationale_30",
-      "community": 9,
+      "community": 0,
       "norm_label": "return a unified diff string describing changes from original -> modified."
     },
     {
@@ -3114,6 +3177,87 @@
       "norm_label": "int"
     },
     {
+      "label": "_run_git()",
+      "file_type": "code",
+      "source_file": "src/git/branch_manager.py",
+      "source_location": "L36",
+      "community": 7,
+      "norm_label": "_run_git()",
+      "id": "git_branch_manager_run_git"
+    },
+    {
+      "label": "Path",
+      "file_type": "code",
+      "source_file": "src/git/branch_manager.py",
+      "source_location": "L36",
+      "community": 7,
+      "norm_label": "path",
+      "id": "src_git_branch_manager_py_path"
+    },
+    {
+      "label": "CompletedProcess",
+      "file_type": "code",
+      "source_file": "src/git/branch_manager.py",
+      "source_location": "L36",
+      "community": 7,
+      "norm_label": "completedprocess",
+      "id": "completedprocess"
+    },
+    {
+      "label": "Convert a free-text task description into a safe branch-name segment.",
+      "file_type": "rationale",
+      "source_file": "src/git/branch_manager.py",
+      "source_location": "L23",
+      "community": 7,
+      "norm_label": "convert a free-text task description into a safe branch-name segment.",
+      "id": "git_branch_manager_rationale_23"
+    },
+    {
+      "label": "Return the full branch name: ``<prefix><sanitized-task>``.",
+      "file_type": "rationale",
+      "source_file": "src/git/branch_manager.py",
+      "source_location": "L32",
+      "community": 7,
+      "norm_label": "return the full branch name: ``<prefix><sanitized-task>``.",
+      "id": "git_branch_manager_rationale_32"
+    },
+    {
+      "label": "Return True if *branch_name* exists locally in the repo.",
+      "file_type": "rationale",
+      "source_file": "src/git/branch_manager.py",
+      "source_location": "L47",
+      "community": 7,
+      "norm_label": "return true if *branch_name* exists locally in the repo.",
+      "id": "git_branch_manager_rationale_47"
+    },
+    {
+      "label": "Push *branch_name* to the authenticated remote URL.      Embeds credentials in t",
+      "file_type": "rationale",
+      "source_file": "src/git/branch_manager.py",
+      "source_location": "L64",
+      "community": 7,
+      "norm_label": "push *branch_name* to the authenticated remote url.      embeds credentials in t",
+      "id": "git_branch_manager_rationale_64"
+    },
+    {
+      "label": "Read the contents of selected related files, excluding the target file.      C",
+      "file_type": "rationale",
+      "source_file": "src/graph/nodes/context_builder.py",
+      "source_location": "L90",
+      "community": 6,
+      "norm_label": "read the contents of selected related files, excluding the target file.      c",
+      "id": "nodes_context_builder_rationale_90"
+    },
+    {
+      "label": "Select files from the graphify graph most relevant to the task.      Scores gr",
+      "file_type": "rationale",
+      "source_file": "src/graph/nodes/context_builder.py",
+      "source_location": "L118",
+      "community": 6,
+      "norm_label": "select files from the graphify graph most relevant to the task.      scores gr",
+      "id": "nodes_context_builder_rationale_118"
+    },
+    {
       "label": "Path",
       "file_type": "code",
       "source_file": "src/config_loader.py",
@@ -3172,7 +3316,7 @@
       "file_type": "rationale",
       "source_file": "src/graph/nodes/file_writer.py",
       "source_location": "L22",
-      "community": 11,
+      "community": 0,
       "norm_label": "write generated content to disk or apply a unified diff.      expected state inp",
       "id": "nodes_file_writer_rationale_22"
     },
@@ -3217,7 +3361,7 @@
       "file_type": "code",
       "source_file": "src/observability/context.py",
       "source_location": "L22",
-      "community": 9,
+      "community": 0,
       "norm_label": "new()",
       "id": "observability_context_new"
     },
@@ -3282,7 +3426,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 15,
+      "community": 0,
       "norm_label": "ollamaclient.chat",
       "id": "core_ollama_client_chat"
     },
@@ -3308,7 +3452,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 13,
+      "community": 0,
       "norm_label": "graphstate: original_code field",
       "id": "concept_state_field_original_code"
     },
@@ -3334,7 +3478,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 15,
+      "community": 2,
       "norm_label": "graphstate: repository_context field",
       "id": "concept_state_field_repository_context"
     },
@@ -3360,7 +3504,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 14,
+      "community": 12,
       "norm_label": "graphstate: review_passed field",
       "id": "concept_state_field_review_passed"
     },
@@ -3373,7 +3517,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 14,
+      "community": 12,
       "norm_label": "graphstate: verification_passed field",
       "id": "concept_state_field_verification_passed"
     },
@@ -3399,7 +3543,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 21,
+      "community": 4,
       "norm_label": "tasktype (passive|active)",
       "id": "scheduler_task_tasktype"
     },
@@ -3425,7 +3569,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 21,
+      "community": 4,
       "norm_label": "passive mode - continuous repository analysis",
       "id": "docs_project_plan_passive_mode"
     },
@@ -3438,7 +3582,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 21,
+      "community": 4,
       "norm_label": "active mode - user-triggered code modification",
       "id": "docs_project_plan_active_mode"
     },
@@ -3490,7 +3634,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 21,
+      "community": 4,
       "norm_label": "phase 1 - file mutation mvp",
       "id": "docs_project_plan_phase1_file_mutation_mvp"
     },
@@ -3529,7 +3673,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 21,
+      "community": 4,
       "norm_label": "phase 4 - passive analysis system",
       "id": "docs_project_plan_phase4_passive_analysis"
     },
@@ -3821,9 +3965,9 @@
       "source_file": "src/config_loader.py",
       "source_location": "L185",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_config_loader_py",
-      "target": "src_config_loader_update_repository_timestamps",
-      "confidence_score": 1.0
+      "target": "src_config_loader_update_repository_timestamps"
     },
     {
       "relation": "rationale_for",
@@ -3941,9 +4085,9 @@
       "source_file": "src/config_loader.py",
       "source_location": "L50",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_config_loader_raise_invalid_field",
-      "target": "src_config_loader_py_path",
-      "confidence_score": 1.0
+      "target": "src_config_loader_py_path"
     },
     {
       "relation": "references",
@@ -3963,9 +4107,9 @@
       "source_file": "src/config_loader.py",
       "source_location": "L122",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_config_loader_get_repository_config",
-      "target": "src_config_loader_py_path",
-      "confidence_score": 1.0
+      "target": "src_config_loader_py_path"
     },
     {
       "relation": "references",
@@ -3974,9 +4118,9 @@
       "source_file": "src/config_loader.py",
       "source_location": "L153",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_config_loader_load_config",
-      "target": "src_config_loader_py_path",
-      "confidence_score": 1.0
+      "target": "src_config_loader_py_path"
     },
     {
       "relation": "references",
@@ -3985,9 +4129,9 @@
       "source_file": "src/config_loader.py",
       "source_location": "L68",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_config_loader_load_model_config",
-      "target": "src_config_loader_py_path",
-      "confidence_score": 1.0
+      "target": "src_config_loader_py_path"
     },
     {
       "relation": "references",
@@ -3996,9 +4140,9 @@
       "source_file": "src/config_loader.py",
       "source_location": "L77",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_config_loader_load_repository_config",
-      "target": "src_config_loader_py_path",
-      "confidence_score": 1.0
+      "target": "src_config_loader_py_path"
     },
     {
       "relation": "references",
@@ -4007,9 +4151,9 @@
       "source_file": "src/config_loader.py",
       "source_location": "L61",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_config_loader_require_int",
-      "target": "src_config_loader_py_path",
-      "confidence_score": 1.0
+      "target": "src_config_loader_py_path"
     },
     {
       "relation": "references",
@@ -4018,9 +4162,9 @@
       "source_file": "src/config_loader.py",
       "source_location": "L54",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_config_loader_require_str",
-      "target": "src_config_loader_py_path",
-      "confidence_score": 1.0
+      "target": "src_config_loader_py_path"
     },
     {
       "relation": "references",
@@ -4029,9 +4173,9 @@
       "source_file": "src/config_loader.py",
       "source_location": "L185",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_config_loader_update_repository_timestamps",
-      "target": "src_config_loader_py_path",
-      "confidence_score": 1.0
+      "target": "src_config_loader_py_path"
     },
     {
       "relation": "references",
@@ -4150,9 +4294,9 @@
       "source_file": "src/config_loader.py",
       "source_location": "L185",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_config_loader_update_repository_timestamps",
-      "target": "src_config_loader_py_str",
-      "confidence_score": 1.0
+      "target": "src_config_loader_py_str"
     },
     {
       "relation": "calls",
@@ -4216,9 +4360,9 @@
       "source_file": "src/config_loader.py",
       "source_location": "L54",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_config_loader_require_str",
-      "target": "src_config_loader_py_any",
-      "confidence_score": 1.0
+      "target": "src_config_loader_py_any"
     },
     {
       "relation": "references",
@@ -4227,9 +4371,9 @@
       "source_file": "src/config_loader.py",
       "source_location": "L68",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_config_loader_load_model_config",
-      "target": "src_config_loader_py_any",
-      "confidence_score": 1.0
+      "target": "src_config_loader_py_any"
     },
     {
       "relation": "references",
@@ -4238,9 +4382,9 @@
       "source_file": "src/config_loader.py",
       "source_location": "L77",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_config_loader_load_repository_config",
-      "target": "src_config_loader_py_any",
-      "confidence_score": 1.0
+      "target": "src_config_loader_py_any"
     },
     {
       "relation": "references",
@@ -4249,9 +4393,9 @@
       "source_file": "src/config_loader.py",
       "source_location": "L61",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_config_loader_require_int",
-      "target": "src_config_loader_py_any",
-      "confidence_score": 1.0
+      "target": "src_config_loader_py_any"
     },
     {
       "relation": "calls",
@@ -4304,9 +4448,9 @@
       "source_file": "src/config_loader.py",
       "source_location": "L61",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_config_loader_require_int",
-      "target": "src_config_loader_py_int",
-      "confidence_score": 1.0
+      "target": "src_config_loader_py_int"
     },
     {
       "relation": "references",
@@ -4315,9 +4459,9 @@
       "source_file": "src/config_loader.py",
       "source_location": "L149",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_config_loader_get_max_iterations",
-      "target": "src_config_loader_py_int",
-      "confidence_score": 1.0
+      "target": "src_config_loader_py_int"
     },
     {
       "relation": "references",
@@ -4403,9 +4547,9 @@
       "source_file": "src/graph/nodes/branch_creator.py",
       "source_location": "L38",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "nodes_branch_creator_branch_creator_node",
-      "target": "src_config_loader_get_repository_config",
-      "confidence_score": 1.0
+      "target": "src_config_loader_get_repository_config"
     },
     {
       "relation": "calls",
@@ -4414,9 +4558,9 @@
       "source_file": "src/graph/nodes/file_writer.py",
       "source_location": "L82",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "nodes_file_writer_file_writer_node",
-      "target": "src_config_loader_get_repository_config",
-      "confidence_score": 1.0
+      "target": "src_config_loader_get_repository_config"
     },
     {
       "relation": "calls",
@@ -4478,9 +4622,9 @@
       "source_file": "src/config_loader.py",
       "source_location": "L116",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_config_loader_rationale_116",
-      "target": "src_config_loader_get_repository_config",
-      "confidence_score": 1.0
+      "target": "src_config_loader_get_repository_config"
     },
     {
       "relation": "imports",
@@ -4489,9 +4633,9 @@
       "source_file": "src/graph/nodes/branch_creator.py",
       "source_location": "L13",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_graph_nodes_branch_creator_py",
-      "target": "src_config_loader_get_repository_config",
-      "confidence_score": 1.0
+      "target": "src_config_loader_get_repository_config"
     },
     {
       "relation": "imports",
@@ -4500,9 +4644,9 @@
       "source_file": "src/graph/nodes/file_writer.py",
       "source_location": "L10",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_graph_nodes_file_writer_py",
-      "target": "src_config_loader_get_repository_config",
-      "confidence_score": 1.0
+      "target": "src_config_loader_get_repository_config"
     },
     {
       "relation": "imports",
@@ -4511,9 +4655,9 @@
       "source_file": "src/scheduler/executor.py",
       "source_location": "L26",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_scheduler_executor_py",
-      "target": "src_config_loader_get_repository_config",
-      "confidence_score": 1.0
+      "target": "src_config_loader_get_repository_config"
     },
     {
       "relation": "calls",
@@ -4632,9 +4776,9 @@
       "source_file": "src/graph/nodes/file_writer.py",
       "source_location": "L83",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "nodes_file_writer_file_writer_node",
-      "target": "src_config_loader_update_repository_timestamps",
-      "confidence_score": 1.0
+      "target": "src_config_loader_update_repository_timestamps"
     },
     {
       "relation": "calls",
@@ -4653,9 +4797,9 @@
       "source_file": "src/config_loader.py",
       "source_location": "L192",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_config_loader_rationale_192",
-      "target": "src_config_loader_update_repository_timestamps",
-      "confidence_score": 1.0
+      "target": "src_config_loader_update_repository_timestamps"
     },
     {
       "relation": "imports",
@@ -4664,9 +4808,9 @@
       "source_file": "src/graph/nodes/file_writer.py",
       "source_location": "L10",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_graph_nodes_file_writer_py",
-      "target": "src_config_loader_update_repository_timestamps",
-      "confidence_score": 1.0
+      "target": "src_config_loader_update_repository_timestamps"
     },
     {
       "relation": "imports",
@@ -4675,9 +4819,9 @@
       "source_file": "src/scheduler/executor.py",
       "source_location": "L26",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_scheduler_executor_py",
-      "target": "src_config_loader_update_repository_timestamps",
-      "confidence_score": 1.0
+      "target": "src_config_loader_update_repository_timestamps"
     },
     {
       "relation": "rationale_for",
@@ -4767,9 +4911,9 @@
       "source_file": "src/graph/nodes/support.py",
       "source_location": "L9",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "src_graph_nodes_support_py_bool",
-      "target": "core_ollama_client_ollamaclient",
-      "confidence_score": 0.5
+      "target": "core_ollama_client_ollamaclient"
     },
     {
       "relation": "uses",
@@ -4945,8 +5089,18 @@
       "source_file": "src/git/branch_manager.py",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "git_branch_manager_rationale_1",
-      "target": "src_git_branch_manager_py",
+      "target": "src_git_branch_manager_py"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/git/branch_manager.py",
+      "source_location": "L38",
+      "weight": 1.0,
+      "source": "src_git_branch_manager_py",
+      "target": "git_branch_manager_auth_url",
       "confidence_score": 1.0
     },
     {
@@ -4955,9 +5109,9 @@
       "source_file": "src/git/branch_manager.py",
       "source_location": "L46",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_git_branch_manager_py",
-      "target": "git_branch_manager_branch_exists",
-      "confidence_score": 1.0
+      "target": "git_branch_manager_branch_exists"
     },
     {
       "relation": "contains",
@@ -4965,8 +5119,18 @@
       "source_file": "src/git/branch_manager.py",
       "source_location": "L31",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_git_branch_manager_py",
-      "target": "git_branch_manager_build_branch_name",
+      "target": "git_branch_manager_build_branch_name"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/git/branch_manager.py",
+      "source_location": "L82",
+      "weight": 1.0,
+      "source": "src_git_branch_manager_py",
+      "target": "git_branch_manager_commit_file",
       "confidence_score": 1.0
     },
     {
@@ -4975,8 +5139,18 @@
       "source_file": "src/git/branch_manager.py",
       "source_location": "L81",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_git_branch_manager_py",
-      "target": "git_branch_manager_create_task_branch",
+      "target": "git_branch_manager_create_task_branch"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/git/branch_manager.py",
+      "source_location": "L31",
+      "weight": 1.0,
+      "source": "src_git_branch_manager_py",
+      "target": "git_branch_manager_open_repo",
       "confidence_score": 1.0
     },
     {
@@ -4985,9 +5159,9 @@
       "source_file": "src/git/branch_manager.py",
       "source_location": "L57",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_git_branch_manager_py",
-      "target": "git_branch_manager_push_branch",
-      "confidence_score": 1.0
+      "target": "git_branch_manager_push_branch"
     },
     {
       "relation": "contains",
@@ -4995,9 +5169,9 @@
       "source_file": "src/git/branch_manager.py",
       "source_location": "L36",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_git_branch_manager_py",
-      "target": "git_branch_manager_run_git",
-      "confidence_score": 1.0
+      "target": "git_branch_manager_run_git"
     },
     {
       "relation": "contains",
@@ -5005,9 +5179,9 @@
       "source_file": "src/git/branch_manager.py",
       "source_location": "L22",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_git_branch_manager_py",
-      "target": "git_branch_manager_sanitize_task_slug",
-      "confidence_score": 1.0
+      "target": "git_branch_manager_sanitize_task_slug"
     },
     {
       "relation": "calls",
@@ -5016,9 +5190,9 @@
       "source_file": "src/git/branch_manager.py",
       "source_location": "L33",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "git_branch_manager_build_branch_name",
-      "target": "git_branch_manager_sanitize_task_slug",
-      "confidence_score": 1.0
+      "target": "git_branch_manager_sanitize_task_slug"
     },
     {
       "relation": "rationale_for",
@@ -5026,9 +5200,9 @@
       "source_file": "src/git/branch_manager.py",
       "source_location": "L23",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "git_branch_manager_rationale_23",
-      "target": "git_branch_manager_sanitize_task_slug",
-      "confidence_score": 1.0
+      "target": "git_branch_manager_sanitize_task_slug"
     },
     {
       "relation": "references",
@@ -5037,7 +5211,18 @@
       "source_file": "src/git/branch_manager.py",
       "source_location": "L22",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "git_branch_manager_sanitize_task_slug",
+      "target": "src_git_branch_manager_py_str"
+    },
+    {
+      "relation": "references",
+      "context": "return_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/git/branch_manager.py",
+      "source_location": "L38",
+      "weight": 1.0,
+      "source": "git_branch_manager_auth_url",
       "target": "src_git_branch_manager_py_str",
       "confidence_score": 1.0
     },
@@ -5048,9 +5233,9 @@
       "source_file": "src/git/branch_manager.py",
       "source_location": "L46",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "git_branch_manager_branch_exists",
-      "target": "src_git_branch_manager_py_str",
-      "confidence_score": 1.0
+      "target": "src_git_branch_manager_py_str"
     },
     {
       "relation": "references",
@@ -5059,7 +5244,18 @@
       "source_file": "src/git/branch_manager.py",
       "source_location": "L31",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "git_branch_manager_build_branch_name",
+      "target": "src_git_branch_manager_py_str"
+    },
+    {
+      "relation": "references",
+      "context": "return_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/git/branch_manager.py",
+      "source_location": "L82",
+      "weight": 1.0,
+      "source": "git_branch_manager_commit_file",
       "target": "src_git_branch_manager_py_str",
       "confidence_score": 1.0
     },
@@ -5070,7 +5266,18 @@
       "source_file": "src/git/branch_manager.py",
       "source_location": "L81",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "git_branch_manager_create_task_branch",
+      "target": "src_git_branch_manager_py_str"
+    },
+    {
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/git/branch_manager.py",
+      "source_location": "L31",
+      "weight": 1.0,
+      "source": "git_branch_manager_open_repo",
       "target": "src_git_branch_manager_py_str",
       "confidence_score": 1.0
     },
@@ -5081,9 +5288,9 @@
       "source_file": "src/git/branch_manager.py",
       "source_location": "L57",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "git_branch_manager_push_branch",
-      "target": "src_git_branch_manager_py_str",
-      "confidence_score": 1.0
+      "target": "src_git_branch_manager_py_str"
     },
     {
       "relation": "references",
@@ -5092,9 +5299,9 @@
       "source_file": "src/git/branch_manager.py",
       "source_location": "L36",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "git_branch_manager_run_git",
-      "target": "src_git_branch_manager_py_str",
-      "confidence_score": 1.0
+      "target": "src_git_branch_manager_py_str"
     },
     {
       "relation": "calls",
@@ -5103,7 +5310,17 @@
       "source_file": "src/git/branch_manager.py",
       "source_location": "L96",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "git_branch_manager_create_task_branch",
+      "target": "git_branch_manager_build_branch_name"
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/git/branch_manager.py",
+      "source_location": "L27",
+      "weight": 1.0,
+      "source": "git_branch_manager_rationale_27",
       "target": "git_branch_manager_build_branch_name",
       "confidence_score": 1.0
     },
@@ -5113,63 +5330,19 @@
       "source_file": "src/git/branch_manager.py",
       "source_location": "L32",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "git_branch_manager_rationale_32",
-      "target": "git_branch_manager_build_branch_name",
-      "confidence_score": 1.0
+      "target": "git_branch_manager_build_branch_name"
     },
     {
       "relation": "calls",
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "src/git/branch_manager.py",
-      "source_location": "L100",
-      "weight": 1.0,
-      "source": "git_branch_manager_create_task_branch",
-      "target": "git_branch_manager_run_git",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "src/git/branch_manager.py",
-      "source_location": "L77",
-      "weight": 1.0,
-      "source": "git_branch_manager_push_branch",
-      "target": "git_branch_manager_run_git",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "references",
-      "context": "generic_arg",
-      "confidence": "EXTRACTED",
-      "source_file": "src/git/branch_manager.py",
-      "source_location": "L36",
-      "weight": 1.0,
-      "source": "git_branch_manager_run_git",
-      "target": "completedprocess",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "references",
-      "context": "parameter_type",
-      "confidence": "EXTRACTED",
-      "source_file": "src/git/branch_manager.py",
-      "source_location": "L36",
-      "weight": 1.0,
-      "source": "git_branch_manager_run_git",
-      "target": "src_git_branch_manager_py_path",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "src/git/branch_manager.py",
-      "source_location": "L50",
+      "source_location": "L46",
       "weight": 1.0,
       "source": "git_branch_manager_branch_exists",
-      "target": "src_git_branch_manager_py_path",
+      "target": "git_branch_manager_open_repo",
       "confidence_score": 1.0
     },
     {
@@ -5177,10 +5350,32 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "src/git/branch_manager.py",
-      "source_location": "L95",
+      "source_location": "L92",
+      "weight": 1.0,
+      "source": "git_branch_manager_commit_file",
+      "target": "git_branch_manager_open_repo",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/git/branch_manager.py",
+      "source_location": "L60",
       "weight": 1.0,
       "source": "git_branch_manager_create_task_branch",
-      "target": "src_git_branch_manager_py_path",
+      "target": "git_branch_manager_open_repo",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "return_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/git/branch_manager.py",
+      "source_location": "L31",
+      "weight": 1.0,
+      "source": "git_branch_manager_open_repo",
+      "target": "repo",
       "confidence_score": 1.0
     },
     {
@@ -5188,10 +5383,21 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "src/git/branch_manager.py",
-      "source_location": "L69",
+      "source_location": "L113",
       "weight": 1.0,
       "source": "git_branch_manager_push_branch",
-      "target": "src_git_branch_manager_py_path",
+      "target": "git_branch_manager_open_repo",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/git/branch_manager.py",
+      "source_location": "L114",
+      "weight": 1.0,
+      "source": "git_branch_manager_push_branch",
+      "target": "git_branch_manager_auth_url",
       "confidence_score": 1.0
     },
     {
@@ -5201,9 +5407,20 @@
       "source_file": "src/git/branch_manager.py",
       "source_location": "L46",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "git_branch_manager_branch_exists",
-      "target": "src_git_branch_manager_py_bool",
-      "confidence_score": 1.0
+      "target": "src_git_branch_manager_py_bool"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/git/branch_manager.py",
+      "source_location": "L50",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "git_branch_manager_branch_exists",
+      "target": "src_git_branch_manager_py_path"
     },
     {
       "relation": "calls",
@@ -5212,7 +5429,17 @@
       "source_file": "src/git/branch_manager.py",
       "source_location": "L108",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "git_branch_manager_create_task_branch",
+      "target": "git_branch_manager_branch_exists"
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/git/branch_manager.py",
+      "source_location": "L45",
+      "weight": 1.0,
+      "source": "git_branch_manager_rationale_45",
       "target": "git_branch_manager_branch_exists",
       "confidence_score": 1.0
     },
@@ -5222,18 +5449,40 @@
       "source_file": "src/git/branch_manager.py",
       "source_location": "L47",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "git_branch_manager_rationale_47",
-      "target": "git_branch_manager_branch_exists",
-      "confidence_score": 1.0
+      "target": "git_branch_manager_branch_exists"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/git/branch_manager.py",
+      "source_location": "L100",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "git_branch_manager_create_task_branch",
+      "target": "git_branch_manager_run_git"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/git/branch_manager.py",
+      "source_location": "L95",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "git_branch_manager_create_task_branch",
+      "target": "src_git_branch_manager_py_path"
     },
     {
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "src/git/branch_manager.py",
-      "source_location": "L64",
+      "source_location": "L56",
       "weight": 1.0,
-      "source": "git_branch_manager_rationale_64",
-      "target": "git_branch_manager_push_branch",
+      "source": "git_branch_manager_rationale_56",
+      "target": "git_branch_manager_create_task_branch",
       "confidence_score": 1.0
     },
     {
@@ -5242,9 +5491,9 @@
       "source_file": "src/git/branch_manager.py",
       "source_location": "L87",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "git_branch_manager_rationale_87",
-      "target": "git_branch_manager_create_task_branch",
-      "confidence_score": 1.0
+      "target": "git_branch_manager_create_task_branch"
     },
     {
       "relation": "calls",
@@ -5253,9 +5502,9 @@
       "source_file": "src/graph/nodes/branch_creator.py",
       "source_location": "L40",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "nodes_branch_creator_branch_creator_node",
-      "target": "git_branch_manager_create_task_branch",
-      "confidence_score": 1.0
+      "target": "git_branch_manager_create_task_branch"
     },
     {
       "relation": "imports",
@@ -5264,9 +5513,83 @@
       "source_file": "src/graph/nodes/branch_creator.py",
       "source_location": "L14",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_graph_nodes_branch_creator_py",
-      "target": "git_branch_manager_create_task_branch",
+      "target": "git_branch_manager_create_task_branch"
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/git/branch_manager.py",
+      "source_location": "L87",
+      "weight": 1.0,
+      "source": "git_branch_manager_rationale_87",
+      "target": "git_branch_manager_commit_file",
       "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/graph/nodes/git_committer.py",
+      "source_location": "L38",
+      "weight": 1.0,
+      "source": "nodes_git_committer_git_committer_node",
+      "target": "git_branch_manager_commit_file",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/graph/nodes/git_committer.py",
+      "source_location": "L12",
+      "weight": 1.0,
+      "source": "src_graph_nodes_git_committer_py",
+      "target": "git_branch_manager_commit_file",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/git/branch_manager.py",
+      "source_location": "L77",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "git_branch_manager_push_branch",
+      "target": "git_branch_manager_run_git"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/git/branch_manager.py",
+      "source_location": "L69",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "git_branch_manager_push_branch",
+      "target": "src_git_branch_manager_py_path"
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/git/branch_manager.py",
+      "source_location": "L112",
+      "weight": 1.0,
+      "source": "git_branch_manager_rationale_112",
+      "target": "git_branch_manager_push_branch",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/git/branch_manager.py",
+      "source_location": "L64",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "git_branch_manager_rationale_64",
+      "target": "git_branch_manager_push_branch"
     },
     {
       "relation": "rationale_for",
@@ -5274,9 +5597,9 @@
       "source_file": "src/git/pr_creator.py",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "git_pr_creator_rationale_1",
-      "target": "src_git_pr_creator_py",
-      "confidence_score": 1.0
+      "target": "src_git_pr_creator_py"
     },
     {
       "relation": "contains",
@@ -5284,9 +5607,9 @@
       "source_file": "src/git/pr_creator.py",
       "source_location": "L22",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_git_pr_creator_py",
-      "target": "git_pr_creator_create_pull_request",
-      "confidence_score": 1.0
+      "target": "git_pr_creator_create_pull_request"
     },
     {
       "relation": "contains",
@@ -5294,9 +5617,9 @@
       "source_file": "src/git/pr_creator.py",
       "source_location": "L12",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_git_pr_creator_py",
-      "target": "git_pr_creator_parse_owner_repo",
-      "confidence_score": 1.0
+      "target": "git_pr_creator_parse_owner_repo"
     },
     {
       "relation": "calls",
@@ -5305,9 +5628,9 @@
       "source_file": "src/git/pr_creator.py",
       "source_location": "L43",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "git_pr_creator_create_pull_request",
-      "target": "git_pr_creator_parse_owner_repo",
-      "confidence_score": 1.0
+      "target": "git_pr_creator_parse_owner_repo"
     },
     {
       "relation": "references",
@@ -5316,9 +5639,9 @@
       "source_file": "src/git/pr_creator.py",
       "source_location": "L12",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "git_pr_creator_parse_owner_repo",
-      "target": "src_git_pr_creator_py_str",
-      "confidence_score": 1.0
+      "target": "src_git_pr_creator_py_str"
     },
     {
       "relation": "rationale_for",
@@ -5326,9 +5649,9 @@
       "source_file": "src/git/pr_creator.py",
       "source_location": "L13",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "git_pr_creator_rationale_13",
-      "target": "git_pr_creator_parse_owner_repo",
-      "confidence_score": 1.0
+      "target": "git_pr_creator_parse_owner_repo"
     },
     {
       "relation": "references",
@@ -5337,9 +5660,9 @@
       "source_file": "src/git/pr_creator.py",
       "source_location": "L22",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "git_pr_creator_create_pull_request",
-      "target": "src_git_pr_creator_py_str",
-      "confidence_score": 1.0
+      "target": "src_git_pr_creator_py_str"
     },
     {
       "relation": "rationale_for",
@@ -5347,9 +5670,9 @@
       "source_file": "src/git/pr_creator.py",
       "source_location": "L30",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "git_pr_creator_rationale_30",
-      "target": "git_pr_creator_create_pull_request",
-      "confidence_score": 1.0
+      "target": "git_pr_creator_create_pull_request"
     },
     {
       "relation": "contains",
@@ -5450,9 +5773,9 @@
       "source_file": "src/graph/nodes/branch_creator.py",
       "source_location": "L16",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_graph_nodes_branch_creator_py",
-      "target": "graph_state_graphstate",
-      "confidence_score": 1.0
+      "target": "graph_state_graphstate"
     },
     {
       "relation": "uses",
@@ -5460,9 +5783,9 @@
       "source_file": "src/graph/nodes/branch_creator.py",
       "source_location": "L16",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "src_graph_nodes_branch_creator_py_graphstate",
-      "target": "graph_state_graphstate",
-      "confidence_score": 0.5
+      "target": "graph_state_graphstate"
     },
     {
       "relation": "uses",
@@ -5470,9 +5793,9 @@
       "source_file": "src/graph/nodes/branch_creator.py",
       "source_location": "L16",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "src_graph_nodes_branch_creator_py_runcontext",
-      "target": "graph_state_graphstate",
-      "confidence_score": 0.5
+      "target": "graph_state_graphstate"
     },
     {
       "relation": "imports",
@@ -5673,6 +5996,37 @@
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
+      "source_file": "src/graph/nodes/git_committer.py",
+      "source_location": "L14",
+      "weight": 1.0,
+      "source": "src_graph_nodes_git_committer_py",
+      "target": "graph_state_graphstate",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "src/graph/nodes/git_committer.py",
+      "source_location": "L14",
+      "weight": 0.8,
+      "source": "src_graph_nodes_git_committer_py_graphstate",
+      "target": "graph_state_graphstate",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "src/graph/nodes/git_committer.py",
+      "source_location": "L14",
+      "weight": 0.8,
+      "source": "src_graph_nodes_git_committer_py_runcontext",
+      "target": "graph_state_graphstate",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
       "source_file": "src/graph/nodes/graphify_indexer.py",
       "source_location": "L14",
       "weight": 1.0,
@@ -5768,9 +6122,9 @@
       "source_file": "src/graph/nodes/support.py",
       "source_location": "L10",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "src_graph_nodes_support_py_bool",
-      "target": "graph_state_graphstate",
-      "confidence_score": 0.5
+      "target": "graph_state_graphstate"
     },
     {
       "relation": "uses",
@@ -6126,9 +6480,9 @@
       "source_file": "src/graph/nodes/branch_creator.py",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "nodes_branch_creator_rationale_1",
-      "target": "src_graph_nodes_branch_creator_py",
-      "confidence_score": 1.0
+      "target": "src_graph_nodes_branch_creator_py"
     },
     {
       "relation": "contains",
@@ -6136,9 +6490,9 @@
       "source_file": "src/graph/nodes/branch_creator.py",
       "source_location": "L23",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_graph_nodes_branch_creator_py",
-      "target": "nodes_branch_creator_branch_creator_node",
-      "confidence_score": 1.0
+      "target": "nodes_branch_creator_branch_creator_node"
     },
     {
       "relation": "imports",
@@ -6147,9 +6501,9 @@
       "source_file": "src/graph/nodes/branch_creator.py",
       "source_location": "L15",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_graph_nodes_branch_creator_py",
-      "target": "nodes_support_require_state_value",
-      "confidence_score": 1.0
+      "target": "nodes_support_require_state_value"
     },
     {
       "relation": "imports",
@@ -6158,9 +6512,9 @@
       "source_file": "src/graph/nodes/branch_creator.py",
       "source_location": "L17",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_graph_nodes_branch_creator_py",
-      "target": "observability_context_runcontext",
-      "confidence_score": 1.0
+      "target": "observability_context_runcontext"
     },
     {
       "relation": "imports",
@@ -6169,9 +6523,9 @@
       "source_file": "src/graph/nodes/branch_creator.py",
       "source_location": "L18",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_graph_nodes_branch_creator_py",
-      "target": "observability_event_logging_utils_emit_failure",
-      "confidence_score": 1.0
+      "target": "observability_event_logging_utils_emit_failure"
     },
     {
       "relation": "imports",
@@ -6180,9 +6534,9 @@
       "source_file": "src/graph/nodes/branch_creator.py",
       "source_location": "L18",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_graph_nodes_branch_creator_py",
-      "target": "observability_event_logging_utils_emit_success",
-      "confidence_score": 1.0
+      "target": "observability_event_logging_utils_emit_success"
     },
     {
       "relation": "calls",
@@ -6191,9 +6545,9 @@
       "source_file": "src/graph/nodes/branch_creator.py",
       "source_location": "L35",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "nodes_branch_creator_branch_creator_node",
-      "target": "nodes_support_require_state_value",
-      "confidence_score": 1.0
+      "target": "nodes_support_require_state_value"
     },
     {
       "relation": "calls",
@@ -6202,9 +6556,9 @@
       "source_file": "src/graph/nodes/branch_creator.py",
       "source_location": "L56",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "nodes_branch_creator_branch_creator_node",
-      "target": "observability_event_logging_utils_emit_failure",
-      "confidence_score": 1.0
+      "target": "observability_event_logging_utils_emit_failure"
     },
     {
       "relation": "calls",
@@ -6213,9 +6567,9 @@
       "source_file": "src/graph/nodes/branch_creator.py",
       "source_location": "L47",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "nodes_branch_creator_branch_creator_node",
-      "target": "observability_event_logging_utils_emit_success",
-      "confidence_score": 1.0
+      "target": "observability_event_logging_utils_emit_success"
     },
     {
       "relation": "references",
@@ -6224,9 +6578,9 @@
       "source_file": "src/graph/nodes/branch_creator.py",
       "source_location": "L23",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "nodes_branch_creator_branch_creator_node",
-      "target": "src_graph_nodes_branch_creator_py_graphstate",
-      "confidence_score": 1.0
+      "target": "src_graph_nodes_branch_creator_py_graphstate"
     },
     {
       "relation": "references",
@@ -6235,9 +6589,9 @@
       "source_file": "src/graph/nodes/branch_creator.py",
       "source_location": "L23",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "nodes_branch_creator_branch_creator_node",
-      "target": "src_graph_nodes_branch_creator_py_runcontext",
-      "confidence_score": 1.0
+      "target": "src_graph_nodes_branch_creator_py_runcontext"
     },
     {
       "relation": "rationale_for",
@@ -6245,9 +6599,9 @@
       "source_file": "src/graph/nodes/branch_creator.py",
       "source_location": "L24",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "nodes_branch_creator_rationale_24",
-      "target": "nodes_branch_creator_branch_creator_node",
-      "confidence_score": 1.0
+      "target": "nodes_branch_creator_branch_creator_node"
     },
     {
       "relation": "imports",
@@ -6256,9 +6610,9 @@
       "source_file": "src/graph/nodes/node_index.py",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_graph_nodes_node_index_py",
-      "target": "nodes_branch_creator_branch_creator_node",
-      "confidence_score": 1.0
+      "target": "nodes_branch_creator_branch_creator_node"
     },
     {
       "relation": "uses",
@@ -6266,9 +6620,9 @@
       "source_file": "src/graph/nodes/branch_creator.py",
       "source_location": "L17",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "src_graph_nodes_branch_creator_py_graphstate",
-      "target": "observability_context_runcontext",
-      "confidence_score": 0.5
+      "target": "observability_context_runcontext"
     },
     {
       "relation": "uses",
@@ -6276,9 +6630,9 @@
       "source_file": "src/graph/nodes/branch_creator.py",
       "source_location": "L17",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "src_graph_nodes_branch_creator_py_runcontext",
-      "target": "observability_context_runcontext",
-      "confidence_score": 0.5
+      "target": "observability_context_runcontext"
     },
     {
       "relation": "contains",
@@ -6935,6 +7289,16 @@
       "target": "nodes_context_builder_read_related_files"
     },
     {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/graph/nodes/context_builder.py",
+      "source_location": "L95",
+      "weight": 1.0,
+      "source": "nodes_context_builder_rationale_95",
+      "target": "nodes_context_builder_read_related_files",
+      "confidence_score": 1.0
+    },
+    {
       "relation": "references",
       "context": "generic_arg",
       "confidence": "EXTRACTED",
@@ -7016,6 +7380,16 @@
       "confidence_score": 1.0,
       "source": "nodes_context_builder_rationale_118",
       "target": "nodes_context_builder_select_files_from_graph"
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/graph/nodes/context_builder.py",
+      "source_location": "L123",
+      "weight": 1.0,
+      "source": "nodes_context_builder_rationale_123",
+      "target": "nodes_context_builder_select_files_from_graph",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
@@ -7738,9 +8112,9 @@
       "source_file": "src/graph/nodes/file_writer.py",
       "source_location": "L24",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "nodes_file_writer_rationale_24",
-      "target": "nodes_file_writer_file_writer_node",
-      "confidence_score": 1.0
+      "target": "nodes_file_writer_file_writer_node"
     },
     {
       "relation": "imports",
@@ -7772,6 +8146,166 @@
       "confidence_score": 0.5,
       "source": "src_graph_nodes_file_writer_py_runcontext",
       "target": "observability_context_runcontext"
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/graph/nodes/git_committer.py",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "nodes_git_committer_rationale_1",
+      "target": "src_graph_nodes_git_committer_py",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/graph/nodes/git_committer.py",
+      "source_location": "L21",
+      "weight": 1.0,
+      "source": "src_graph_nodes_git_committer_py",
+      "target": "nodes_git_committer_git_committer_node",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/graph/nodes/git_committer.py",
+      "source_location": "L13",
+      "weight": 1.0,
+      "source": "src_graph_nodes_git_committer_py",
+      "target": "nodes_support_require_state_value",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/graph/nodes/git_committer.py",
+      "source_location": "L15",
+      "weight": 1.0,
+      "source": "src_graph_nodes_git_committer_py",
+      "target": "observability_context_runcontext",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/graph/nodes/git_committer.py",
+      "source_location": "L16",
+      "weight": 1.0,
+      "source": "src_graph_nodes_git_committer_py",
+      "target": "observability_event_logging_utils_emit_failure",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/graph/nodes/git_committer.py",
+      "source_location": "L16",
+      "weight": 1.0,
+      "source": "src_graph_nodes_git_committer_py",
+      "target": "observability_event_logging_utils_emit_success",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/graph/nodes/git_committer.py",
+      "source_location": "L34",
+      "weight": 1.0,
+      "source": "nodes_git_committer_git_committer_node",
+      "target": "nodes_support_require_state_value",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/graph/nodes/git_committer.py",
+      "source_location": "L49",
+      "weight": 1.0,
+      "source": "nodes_git_committer_git_committer_node",
+      "target": "observability_event_logging_utils_emit_failure",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/graph/nodes/git_committer.py",
+      "source_location": "L40",
+      "weight": 1.0,
+      "source": "nodes_git_committer_git_committer_node",
+      "target": "observability_event_logging_utils_emit_success",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/graph/nodes/git_committer.py",
+      "source_location": "L21",
+      "weight": 1.0,
+      "source": "nodes_git_committer_git_committer_node",
+      "target": "src_graph_nodes_git_committer_py_graphstate",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/graph/nodes/git_committer.py",
+      "source_location": "L21",
+      "weight": 1.0,
+      "source": "nodes_git_committer_git_committer_node",
+      "target": "src_graph_nodes_git_committer_py_runcontext",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/graph/nodes/git_committer.py",
+      "source_location": "L22",
+      "weight": 1.0,
+      "source": "nodes_git_committer_rationale_22",
+      "target": "nodes_git_committer_git_committer_node",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/graph/nodes/node_index.py",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "src_graph_nodes_node_index_py",
+      "target": "nodes_git_committer_git_committer_node",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "src/graph/nodes/git_committer.py",
+      "source_location": "L15",
+      "weight": 0.8,
+      "source": "src_graph_nodes_git_committer_py_graphstate",
+      "target": "observability_context_runcontext",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "src/graph/nodes/git_committer.py",
+      "source_location": "L15",
+      "weight": 0.8,
+      "source": "src_graph_nodes_git_committer_py_runcontext",
+      "target": "observability_context_runcontext",
+      "confidence_score": 0.5
     },
     {
       "relation": "rationale_for",
@@ -8427,9 +8961,9 @@
       "source_file": "src/graph/nodes/support.py",
       "source_location": "L44",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "nodes_support_validate_python_syntax",
-      "target": "src_graph_nodes_support_py_bool",
-      "confidence_score": 1.0
+      "target": "src_graph_nodes_support_py_bool"
     },
     {
       "relation": "calls",
@@ -11166,9 +11700,9 @@
       "source_file": "src/scheduler/executor.py",
       "source_location": "L10",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scheduler_executor_rationale_10",
-      "target": "scheduler_executor_workflowexecutor",
-      "confidence_score": 1.0
+      "target": "scheduler_executor_workflowexecutor"
     },
     {
       "relation": "rationale_for",
@@ -12115,6 +12649,28 @@
       "target": "src_tools_sandbox_runner_py_str"
     },
     {
+      "relation": "references",
+      "context": "generic_arg",
+      "confidence": "EXTRACTED",
+      "source_file": "src/git/branch_manager.py",
+      "source_location": "L36",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "git_branch_manager_run_git",
+      "target": "completedprocess"
+    },
+    {
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/git/branch_manager.py",
+      "source_location": "L36",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "git_branch_manager_run_git",
+      "target": "src_git_branch_manager_py_path"
+    },
+    {
       "relation": "conceptually_related_to",
       "confidence": "INFERRED",
       "confidence_score": 0.95,
@@ -12519,5 +13075,5 @@
       "source_file": "docs/CONTEXT_CONTRACT.md"
     }
   ],
-  "built_at_commit": "e0849cbcff8a9ab2e7b72d539fceb849b9976466"
+  "built_at_commit": "e362bf5e673b18957109e1bd5044450d59908650"
 }
