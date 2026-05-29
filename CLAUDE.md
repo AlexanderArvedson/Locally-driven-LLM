@@ -1,3 +1,9 @@
+## general 
+
+Rules:
+- Update relevant .md documents if we modify a file or similar that's part of what it's describing. 
+- Leave comments fitted after the language explaining the purpose of functions, classes, methods, etc. Explaining the purpose of the code.
+
 ## graphify
 
 This project has a knowledge graph at graphify-out/ with god nodes, community structure, and cross-file relationships.

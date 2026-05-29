@@ -1,11 +1,13 @@
 {
   "0": "Graph State Data Flow",
+  "1": "Community 1",
   "2": "Repository Context & Graph State",
   "3": "Test Infrastructure & Fixtures",
   "4": "Design Contracts & Project Plan",
   "5": "LLM Pipeline & Sandbox",
   "6": "Repository Indexer Protocol",
   "7": "Community 7",
+  "9": "Community 9",
   "10": "Patch Application",
   "12": "Simple Repo Fixture",
   "16": "Infrastructure & Docs",

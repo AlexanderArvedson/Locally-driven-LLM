@@ -1,5 +1,6 @@
 from typing import TypedDict, NotRequired
 
+from src.graph.graph_handle import GraphHandle
 from src.repository.repository_types import RepositorySnapshot
 from src.repository.context_contract import RepositoryContextPayload
 
@@ -66,3 +67,7 @@ class GraphState(TypedDict):
     # Set by file_writer_node and verifier_node to signal write/verify outcomes.
     verification_passed: NotRequired[bool]
     verification_feedback: NotRequired[str]
+
+    # Set by graph_resolver_node. repo_sha is the git HEAD at resolve time.
+    repo_sha: NotRequired[str]
+    graph_handle: NotRequired[GraphHandle]
