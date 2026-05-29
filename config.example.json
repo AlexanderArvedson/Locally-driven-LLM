@@ -20,7 +20,6 @@
 
       "graph": {
         "mode": "hybrid",
-        "staleness_strategy": "sha_based",
         "auto_update": true
       },
 

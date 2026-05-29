@@ -26,6 +26,17 @@ class ModelConfig:
 
 
 @dataclass(frozen=True)
+class GraphConfig:
+    mode: str        # "hybrid" | "system" | "repo_local"
+    auto_update: bool
+
+
+@dataclass(frozen=True)
+class SystemConfig:
+    context_path: str  # e.g. "~/.graphify-system"
+
+
+@dataclass(frozen=True)
 class RepositoryConfig:
     name: str
     url: str
@@ -34,8 +45,8 @@ class RepositoryConfig:
     local_path: str
     created_at: str | None
     updated_at: str | None
-    context_path: str
     max_iterations: int
+    graph: GraphConfig
     credentials: dict[str, str] | None
     models: dict[str, ModelConfig]
     slack_webhook_url: str | None
@@ -44,6 +55,7 @@ class RepositoryConfig:
 @dataclass(frozen=True)
 class AppConfig:
     cron: str
+    system: SystemConfig
     repositories: tuple[RepositoryConfig, ...]
 
 
@@ -74,6 +86,24 @@ def _load_model_config(raw: dict[str, Any], *, source: Path) -> ModelConfig:
     )
 
 
+def _load_graph_config(raw: dict[str, Any], *, source: Path) -> GraphConfig:
+    mode = raw.get("mode", "hybrid")
+    if mode not in ("hybrid", "system", "repo_local"):
+        raise ValueError(f"Invalid graph.mode {mode!r} in {source}; must be 'hybrid', 'system', or 'repo_local'")
+    auto_update = raw.get("auto_update", True)
+    if not isinstance(auto_update, bool):
+        raise ValueError(f"Invalid graph.auto_update in {source}; must be a boolean")
+    return GraphConfig(mode=mode, auto_update=auto_update)
+
+
+def _load_system_config(raw: dict[str, Any]) -> SystemConfig:
+    system_raw = raw.get("system", {})
+    context_path = system_raw.get("context_path", "~/.graphify-system")
+    if not isinstance(context_path, str) or not context_path.strip():
+        context_path = "~/.graphify-system"
+    return SystemConfig(context_path=context_path)
+
+
 def _load_repository_config(raw: dict[str, Any], *, source: Path) -> RepositoryConfig:
     models_raw = raw.get("models")
     if not isinstance(models_raw, dict):
@@ -94,6 +124,11 @@ def _load_repository_config(raw: dict[str, Any], *, source: Path) -> RepositoryC
             raise ValueError(f"Missing or invalid object value for 'credentials.git' in {source}")
         credentials_raw = git_creds
 
+    integrations = raw.get("integrations", {})
+    slack_webhook_url = raw.get("slack_webhook_url") or (integrations.get("slack_webhook_url") if isinstance(integrations, dict) else None)
+    if slack_webhook_url is not None and not isinstance(slack_webhook_url, str):
+        _raise_invalid_field(source, "slack_webhook_url")
+
     return RepositoryConfig(
         name=_require_str(raw, "name", source=source),
         url=_require_str(raw, "url", source=source),
@@ -102,11 +137,11 @@ def _load_repository_config(raw: dict[str, Any], *, source: Path) -> RepositoryC
         local_path=_require_str(raw, "local_path", source=source),
         created_at=raw.get("created_at") if raw.get("created_at") is None or isinstance(raw.get("created_at"), str) else _raise_invalid_field(source, "created_at"),
         updated_at=raw.get("updated_at") if raw.get("updated_at") is None or isinstance(raw.get("updated_at"), str) else _raise_invalid_field(source, "updated_at"),
-        context_path=_require_str(raw, "context_path", source=source),
         max_iterations=_require_int(raw, "max_iterations", source=source),
+        graph=_load_graph_config(raw.get("graph", {}), source=source),
         credentials=credentials_raw,
         models=models,
-        slack_webhook_url=raw.get("slack_webhook_url") if raw.get("slack_webhook_url") is None or isinstance(raw.get("slack_webhook_url"), str) else _raise_invalid_field(source, "slack_webhook_url"),
+        slack_webhook_url=slack_webhook_url,
     )
 
 
@@ -155,6 +190,14 @@ def get_max_iterations(repo_path: str | None = None) -> int:
     return get_repository_config(repo_path).max_iterations
 
 
+def get_graph_config(repo_path: str | None = None) -> GraphConfig:
+    return get_repository_config(repo_path).graph
+
+
+def get_system_context_path() -> Path:
+    return Path(APP_CONFIG.system.context_path).expanduser()
+
+
 def load_config(config_path: Path | None = None) -> AppConfig:
     path = config_path or CONFIG_PATH
     if not path.exists():
@@ -176,6 +219,7 @@ def load_config(config_path: Path | None = None) -> AppConfig:
 
     return AppConfig(
         cron=_require_str(raw, "cron", source=path),
+        system=_load_system_config(raw),
         repositories=tuple(repositories),
     )
 

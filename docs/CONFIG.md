@@ -60,9 +60,10 @@ Controls the knowledge graph that the agent uses to understand the repository's 
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `mode` | string | Graph construction strategy. `"hybrid"` first tries to use the repository's own local graphify and falls back to the system-built graph if none is found. `"system"` always uses the application's own constructed graph of the repository. `"local"` uses the existing graphify that belongs to the repository — fails if none is present. |
-| `staleness_strategy` | string | How the system detects that the graph needs rebuilding. `"sha_based"` compares file content hashes — efficient and accurate. `"timestamp"` uses file modification times — faster but can produce false negatives. |
-| `auto_update` | boolean | When `true` the graph is automatically rebuilt after the agent modifies files. Set to `false` to manage graph updates manually. |
+| `mode` | string | Graph storage strategy. `"hybrid"` checks the repository's own `.graphify/` directory first, then falls back to the system-managed store, building if neither is present. `"system"` always uses the system-managed store (under `system.context_path/graphs/`). `"repo_local"` uses only `.graphify/` inside the repository — raises an error if none is present. |
+| `auto_update` | boolean | When `true` the graph is automatically built or rebuilt in system/hybrid mode whenever the current git HEAD has no matching graph. Set to `false` to manage graph updates manually (an error is raised if no valid graph exists). |
+
+Graph freshness is determined exclusively by comparing the git HEAD SHA at run time against the SHA recorded in `graph_meta.json` alongside each `graph.json`. Timestamps are never used.
 
 ---
 
