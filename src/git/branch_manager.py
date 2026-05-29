@@ -89,9 +89,25 @@ def create_task_branch(
     """Create (or check out) a task branch from *base_branch*.
 
     Returns the full branch name.
+    Raises RuntimeError if the working tree has uncommitted changes that
+    would prevent the checkout — this typically means a previous run was
+    interrupted after writing the file but before committing it.
     """
     repo = _open_repo(repo_path)
     branch_name = build_branch_name(prefix, task)
+
+    if repo.is_dirty(untracked_files=False):
+        dirty_files = (
+            [item.a_path for item in repo.index.diff(None)]
+            + [item.a_path for item in repo.index.diff("HEAD")]
+        )
+        raise RuntimeError(
+            f"Working tree has uncommitted changes, cannot checkout branch.\n"
+            f"Affected files: {dirty_files}\n"
+            "This usually means a previous run was interrupted after writing "
+            "the file but before committing. Run `git checkout -- .` in the "
+            "repository to discard the changes and retry."
+        )
 
     try:
         repo.remote("origin").fetch(base_branch)
@@ -124,12 +140,14 @@ def commit_file(
     """
     repo = _open_repo(repo_path)
 
-    repo.index.add([file_path])
-
-    if not repo.index.diff("HEAD"):
+    # Check whether the file actually differs from HEAD before staging.
+    # Staging first and checking after can leave the index dirty when the
+    # content is unchanged, which breaks subsequent branch checkouts.
+    if not repo.is_dirty(path=file_path, untracked_files=False):
         logger.info("Nothing to commit for '%s' — file unchanged.", file_path)
         return ""
 
+    repo.index.add([file_path])
     commit = repo.index.commit(message)
     logger.info("Committed '%s' as %s.", file_path, commit.hexsha[:8])
     return commit.hexsha
