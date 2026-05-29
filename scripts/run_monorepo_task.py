@@ -100,13 +100,17 @@ def main() -> int:
         return 0
 
     print(f"Pushing branch '{branch_name}' to origin…")
-    push_branch(
-        repo_path=repo_path,
-        branch_name=branch_name,
-        remote_url=repo.url,
-        username=username,
-        token=token,
-    )
+    try:
+        push_branch(
+            repo_path=repo_path,
+            branch_name=branch_name,
+            remote_url=repo.url,
+            username=username,
+            token=token,
+        )
+    except RuntimeError as push_err:
+        print(f"Push failed: {push_err}")
+        return 1
     print("Push complete.")
     print()
 
