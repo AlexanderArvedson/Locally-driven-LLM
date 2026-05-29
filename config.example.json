@@ -7,14 +7,14 @@
 
   "repositories": [
     {
-      "name": "Name of the repository",
-      "url": "the url to the git repository",
+      "name": "",
+      "url": "https://github.com/owner/repo.git",
       "base_branch": "main",
-      "prefix": "DEV-AI-DATE-",
-      "local_path": "absolute path to the local repository",
+      "prefix": "AI-",
+      "local_path": "",
 
-      "created_at": "timestamp",
-      "updated_at": "timestamp",
+      "created_at": null,
+      "updated_at": null,
 
       "max_iterations": 10,
 
@@ -26,40 +26,40 @@
 
       "credentials": {
         "git": {
-          "username": "username",
-          "token": "personal_access_token"
+          "username": "",
+          "token": ""
         }
       },
 
       "models": {
         "chat": {
-          "name": "your-chat-model",
-          "provider": "your-provider",
+          "name": "",
+          "provider": "ollama",
           "api_key": null,
-          "url": "https://example.com/your-chat-model-endpoint"
+          "url": "http://localhost:11434"
         },
         "coder": {
-          "name": "your-llm-model",
-          "provider": "your-provider",
+          "name": "",
+          "provider": "ollama",
           "api_key": null,
-          "url": "https://example.com/your-llm-endpoint"
+          "url": "http://localhost:11434"
         },
         "reviewer": {
-          "name": "your-reviewer-model",
-          "provider": "your-provider",
+          "name": "",
+          "provider": "ollama",
           "api_key": null,
-          "url": "https://example.com/your-reviewer-endpoint"
+          "url": "http://localhost:11434"
         },
         "embedding": {
-          "name": "your-embedding-model",
-          "provider": "your-provider",
+          "name": "",
+          "provider": "ollama",
           "api_key": null,
-          "url": "https://example.com/your-embedding-endpoint"
+          "url": "http://localhost:11434"
         }
       },
 
       "integrations": {
-        "slack_webhook_url": "https://hooks.slack.com/services/your/webhook/url"
+        "slack_webhook_url": null
       }
     }
   ]

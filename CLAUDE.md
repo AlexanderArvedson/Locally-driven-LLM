@@ -1,3 +1,8 @@
+## general 
+
+Rules:
+- Update relevant .md documents if we modify a file or similar that's part of what it's describing. 
+
 ## graphify
 
 This project has a knowledge graph at graphify-out/ with god nodes, community structure, and cross-file relationships.
