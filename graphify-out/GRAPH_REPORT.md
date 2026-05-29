@@ -1,42 +1,34 @@
 # Graph Report - Locally-driven-langgraph-LLM  (2026-05-29)
 
 ## Corpus Check
-- 40 files · ~8,807 words
+- 41 files · ~9,000 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 361 nodes · 818 edges · 30 communities (22 shown, 8 thin omitted)
-- Extraction: 77% EXTRACTED · 23% INFERRED · 0% AMBIGUOUS · INFERRED: 189 edges (avg confidence: 0.59)
+- 377 nodes · 857 edges · 22 communities (14 shown, 8 thin omitted)
+- Extraction: 77% EXTRACTED · 23% INFERRED · 0% AMBIGUOUS · INFERRED: 193 edges (avg confidence: 0.59)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `e0849cbc`
+- Built from commit: `e362bf5e`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
 ## Community Hubs (Navigation)
 - [[_COMMUNITY_Graph State Data Flow|Graph State Data Flow]]
-- [[_COMMUNITY_Fixture App & Legacy Adapter|Fixture App & Legacy Adapter]]
 - [[_COMMUNITY_Repository Context & Graph State|Repository Context & Graph State]]
 - [[_COMMUNITY_Test Infrastructure & Fixtures|Test Infrastructure & Fixtures]]
 - [[_COMMUNITY_Design Contracts & Project Plan|Design Contracts & Project Plan]]
 - [[_COMMUNITY_LLM Pipeline & Sandbox|LLM Pipeline & Sandbox]]
 - [[_COMMUNITY_Repository Indexer Protocol|Repository Indexer Protocol]]
 - [[_COMMUNITY_Community 7|Community 7]]
-- [[_COMMUNITY_Scheduler Entry & Execution Loop|Scheduler Entry & Execution Loop]]
-- [[_COMMUNITY_Stress Testing Scripts|Stress Testing Scripts]]
 - [[_COMMUNITY_Patch Application|Patch Application]]
-- [[_COMMUNITY_Fixture Mutation Scripts|Fixture Mutation Scripts]]
 - [[_COMMUNITY_Simple Repo Fixture|Simple Repo Fixture]]
-- [[_COMMUNITY_Repo Config Schema|Repo Config Schema]]
-- [[_COMMUNITY_Community 14|Community 14]]
-- [[_COMMUNITY_Community 15|Community 15]]
 - [[_COMMUNITY_Infrastructure & Docs|Infrastructure & Docs]]
 - [[_COMMUNITY_Sample Repo v2 Docs|Sample Repo v2 Docs]]
 - [[_COMMUNITY_Node Package Init|Node Package Init]]
 - [[_COMMUNITY_Node Index|Node Index]]
 - [[_COMMUNITY_Community 20|Community 20]]
-- [[_COMMUNITY_Community 21|Community 21]]
 - [[_COMMUNITY_Repository Package Init|Repository Package Init]]
 - [[_COMMUNITY_Repository Snapshot Builder|Repository Snapshot Builder]]
 - [[_COMMUNITY_Runtime Directory|Runtime Directory]]
@@ -45,13 +37,13 @@
 - [[_COMMUNITY_Community 38|Community 38]]
 
 ## God Nodes (most connected - your core abstractions)
-1. `RunContext` - 50 edges
-2. `GraphState` - 49 edges
+1. `RunContext` - 53 edges
+2. `GraphState` - 52 edges
 3. `RepositorySnapshot` - 32 edges
-4. `emit_success()` - 24 edges
-5. `emit_failure()` - 23 edges
+4. `emit_success()` - 26 edges
+5. `emit_failure()` - 25 edges
 6. `context_builder_node()` - 20 edges
-7. `require_state_value()` - 18 edges
+7. `require_state_value()` - 20 edges
 8. `ContextPackage` - 18 edges
 9. `file_writer_node()` - 17 edges
 10. `SimpleRepositoryIndexer` - 17 edges
@@ -88,71 +80,43 @@
 - **Project Development Phases (Phase 1-5)** — docs_project_plan_phase1_file_mutation_mvp, docs_project_plan_phase2_repo_awareness, docs_project_plan_phase3_async_execution, docs_project_plan_phase4_passive_analysis, docs_project_plan_phase5_advanced_maintenance [EXTRACTED 1.00]
 - **Context Contract Components (version, payload, determinism, prompt rendering)** — docs_context_contract_context_version, docs_context_contract_payload_shape, docs_context_contract_determinism_rules, docs_context_contract_prompt_rendering [EXTRACTED 1.00]
 
-## Communities (30 total, 8 thin omitted)
+## Communities (22 total, 8 thin omitted)
 
 ### Community 0 - "Graph State Data Flow"
-Cohesion: 0.16
-Nodes (15): bool, GraphState: generated_code field, Perform lightweight review checks on generated code.      Performs the followi, reviewer_node(), Remove a single pair of surrounding Markdown code fences., Validate that `content` compiles as Python., strip_code_fences(), validate_python_syntax() (+7 more)
-
-### Community 1 - "Fixture App & Legacy Adapter"
-Cohesion: 0.21
-Nodes (14): branch_creator_node(), Branch creator node.  Creates (or checks out) a task branch in the target reposi, Create a task branch in the target repository.      Reads ``repo_path`` and ``ta, emit_event(), emit_failure(), emit_success(), Small helper utilities for observability event emission.  Provides helpers to, Emit a single observability event with consistent shape.      Args:         r (+6 more)
+Cohesion: 0.06
+Nodes (81): bool, GraphState: generated_code field, GraphState: original_code field, OllamaClient.chat, GraphState, Shared state passed between LangGraph nodes.      This state represents a sing, make_graph(), Create and compile the StateGraph for a single run.      The returned graph is (+73 more)
 
 ### Community 2 - "Repository Context & Graph State"
 Cohesion: 0.11
-Nodes (28): SimpleContextBuilder.build_context, ContextBuilder, Context builder interface and a simple deterministic implementation.  The Cont, Interface for bounded context assembly., Build and return a bounded ContextPackage.          The implementation must be, build_repository_context_payload(), _dedupe_preserve_order(), DependencySummaryItem (+20 more)
+Nodes (29): GraphState: repository_context field, SimpleContextBuilder.build_context, ContextBuilder, Context builder interface and a simple deterministic implementation.  The Cont, Interface for bounded context assembly., Build and return a bounded ContextPackage.          The implementation must be, build_repository_context_payload(), _dedupe_preserve_order() (+21 more)
 
 ### Community 3 - "Test Infrastructure & Fixtures"
 Cohesion: 0.13
 Nodes (26): DependencyEdge, Repository indexer interfaces.  Skeleton only: no indexing logic yet., Interface for repository indexing.      The indexer builds an immutable `Repos, Build and return an immutable repository snapshot for `root_path`., Return symbol names for a given file from the snapshot., Return dependency target paths for a given file from the snapshot., RepositoryIndexer, DependencyEdge (+18 more)
 
 ### Community 4 - "Design Contracts & Project Plan"
-Cohesion: 0.10
-Nodes (23): Context Contract Version (CONTEXT_VERSION=1), Context Contract Determinism Rules, Context Contract Payload Shape, Context Contract Prompt Rendering ([REPOSITORY CONTEXT] block), Bounded Autonomy Design Principle, FIFO Task Queue - In-memory Deterministic Ordering, Mutation Exclusivity - One Active Workflow at a Time, Phase 2 - Repository Awareness (+15 more)
+Cohesion: 0.08
+Nodes (28): Context Contract Version (CONTEXT_VERSION=1), Context Contract Determinism Rules, Context Contract Payload Shape, Context Contract Prompt Rendering ([REPOSITORY CONTEXT] block), Active Mode - User-triggered Code Modification, Bounded Autonomy Design Principle, FIFO Task Queue - In-memory Deterministic Ordering, Mutation Exclusivity - One Active Workflow at a Time (+20 more)
 
 ### Community 5 - "LLM Pipeline & Sandbox"
-Cohesion: 0.25
-Nodes (6): LLMResult, Thin async client wrapper for Ollama HTTP API.  This module provides a minimal, Create a new `OllamaClient`.          Args:             base_url: Base URL of, Send a chat request to the Ollama API and return a parsed result.          The, float, str
+Cohesion: 0.19
+Nodes (9): LLMResult, OllamaClient, Thin async client wrapper for Ollama HTTP API.  This module provides a minimal, Create a new `OllamaClient`.          Args:             base_url: Base URL of, Send a chat request to the Ollama API and return a parsed result.          The, Close the underlying HTTP client connection pool., float, str (+1 more)
 
 ### Community 6 - "Repository Indexer Protocol"
 Cohesion: 0.08
-Nodes (34): GraphState: repository_snapshot field, context_builder_node(), Repository context builder node., Select files from the graphify graph most relevant to the task.      Scores gr, Build repository context for the current task and target file.      Expected sta, Build repository context for the current task and target file.      When `grap, Read the contents of selected related files, excluding the target file.      C, _read_related_files() (+26 more)
+Nodes (36): GraphState: repository_snapshot field, context_builder_node(), Repository context builder node., Select files from the graphify graph most relevant to the task.      Scores gr, Select files from the graphify graph most relevant to the task.      Scores gr, Build repository context for the current task and target file.      Expected sta, Build repository context for the current task and target file.      When `grap, Read the contents of selected related files, excluding the target file.      C (+28 more)
 
 ### Community 7 - "Community 7"
-Cohesion: 0.21
-Nodes (16): CompletedProcess, branch_exists(), build_branch_name(), create_task_branch(), push_branch(), Git branch management for target repositories.  Provides utilities to create tas, Convert a free-text task description into a safe branch-name segment., Return the full branch name: ``<prefix><sanitized-task>``. (+8 more)
-
-### Community 8 - "Scheduler Entry & Execution Loop"
-Cohesion: 0.26
-Nodes (11): GraphState, Shared state passed between LangGraph nodes.      This state represents a sing, _build_ast_graph(), graphify_indexer_node(), Graphify indexer node — builds a knowledge graph of the target repository.  Ru, Build or refresh the graphify knowledge graph for the target repository., Run AST-only graphify extraction and write graph.json to graph_dir., GraphState (+3 more)
-
-### Community 9 - "Stress Testing Scripts"
-Cohesion: 0.24
-Nodes (10): diff_generator_node(), Compute a unified diff between the original and generated code.      Expected, new(), RunContext helper for observability.  This module provides a minimal `RunConte, Minimal per-run observability context.      Attributes:         run_id: A UUI, RunContext, GraphState, RunContext (+2 more)
+Cohesion: 0.15
+Nodes (24): CompletedProcess, _auth_url(), branch_exists(), build_branch_name(), commit_file(), create_task_branch(), _open_repo(), push_branch() (+16 more)
 
 ### Community 10 - "Patch Application"
 Cohesion: 0.32
 Nodes (7): str, apply_ndiff(), apply_unified(), generate_ndiff(), Return an ndiff-formatted string describing changes from original -> modified., Apply an ndiff string to reconstruct the modified file and write it to path., Apply a unified diff to the file at `path`.      This is a lightweight unified
 
-### Community 11 - "Fixture Mutation Scripts"
-Cohesion: 0.20
-Nodes (9): make_graph(), Create and compile the StateGraph for a single run.      The returned graph is, file_writer_node(), Write generated content to disk or apply a unified diff.      Expected state inp, Write generated content to disk or apply a unified diff.      Expected state i, Aggregate export surface for graph nodes., GraphState, RunContext (+1 more)
-
 ### Community 12 - "Simple Repo Fixture"
-Cohesion: 0.21
-Nodes (27): Any, int, Path, AppConfig, get_coder_model(), get_max_iterations(), get_ollama_base_url(), get_primary_model() (+19 more)
-
-### Community 13 - "Repo Config Schema"
-Cohesion: 0.16
-Nodes (14): GraphState: original_code field, OllamaClient, Close the underlying HTTP client connection pool., file_reader_node(), Read the target file (or select one) and return its contents.      Expected st, Shared helpers for graph node implementations., Return a required value from `state` or raise ValueError., Pick the first Python file in a repo root deterministically. (+6 more)
-
-### Community 14 - "Community 14"
-Cohesion: 0.25
-Nodes (8): GraphState: review_passed field, GraphState: verification_passed field, Graph construction helpers for the file-edit workflow.  This module builds a `, Decide the next graph node after the `reviewer` node.      - If the review pas, Decide the next graph node after the `verifier` node.      - If verification p, route_after_review(), route_after_verification(), GraphState
-
-### Community 15 - "Community 15"
-Cohesion: 0.29
-Nodes (7): GraphState: repository_context field, OllamaClient.chat, coder_node(), _format_related_files(), GraphState, RunContext, str
+Cohesion: 0.14
+Nodes (35): Any, GraphState: review_passed field, GraphState: verification_passed field, Graph construction helpers for the file-edit workflow.  This module builds a `, Decide the next graph node after the `reviewer` node.      - If the review pas, Decide the next graph node after the `verifier` node.      - If verification p, route_after_review(), route_after_verification() (+27 more)
 
 ### Community 19 - "Node Index"
 Cohesion: 0.25
@@ -162,32 +126,28 @@ Nodes (7): ensure_runtime_dirs(), Centralized runtime artifact paths for determi
 Cohesion: 0.38
 Nodes (6): create_pull_request(), _parse_owner_repo(), GitHub pull request creation via the REST API., Extract (owner, repo) from a GitHub remote URL., Create a GitHub pull request and return its HTML URL.      Args:         remote_, str
 
-### Community 21 - "Community 21"
-Cohesion: 0.40
-Nodes (5): Active Mode - User-triggered Code Modification, Passive Mode - Continuous Repository Analysis, Phase 1 - File Mutation MVP, Phase 4 - Passive Analysis System, TaskType (passive|active)
-
 ### Community 37 - "Community 37"
 Cohesion: 0.18
 Nodes (9): Sandbox Subprocess Execution Pattern, int, str, int, str, Helper API to run untrusted/generated Python code in a subprocess sandbox.  Th, Run `code` in a subprocess with limits.      Args:         code: Python sourc, run_code_in_sandbox() (+1 more)
 
 ## Knowledge Gaps
-- **25 isolated node(s):** `CompletedProcess`, `bool`, `str`, `str`, `str` (+20 more)
+- **26 isolated node(s):** `Repo`, `bool`, `str`, `str`, `str` (+21 more)
   These have ≤1 connection - possible missing edges or undocumented components.
 - **8 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `GraphState` connect `Scheduler Entry & Execution Loop` to `Graph State Data Flow`, `Fixture App & Legacy Adapter`, `Repository Context & Graph State`, `Test Infrastructure & Fixtures`, `Design Contracts & Project Plan`, `Repository Indexer Protocol`, `Stress Testing Scripts`, `Fixture Mutation Scripts`, `Repo Config Schema`, `Community 14`, `Community 15`?**
-  _High betweenness centrality (0.344) - this node is a cross-community bridge._
-- **Why does `RepositorySnapshot` connect `Test Infrastructure & Fixtures` to `Scheduler Entry & Execution Loop`, `Repository Context & Graph State`, `Repository Indexer Protocol`?**
-  _High betweenness centrality (0.212) - this node is a cross-community bridge._
-- **Why does `RunContext` connect `Stress Testing Scripts` to `Graph State Data Flow`, `Fixture App & Legacy Adapter`, `Design Contracts & Project Plan`, `Repository Indexer Protocol`, `Scheduler Entry & Execution Loop`, `Fixture Mutation Scripts`, `Repo Config Schema`, `Community 14`, `Community 15`?**
-  _High betweenness centrality (0.148) - this node is a cross-community bridge._
-- **Are the 32 inferred relationships involving `RunContext` (e.g. with `WorkflowExecutor` and `GraphState`) actually correct?**
-  _`RunContext` has 32 INFERRED edges - model-reasoned connections that need verification._
-- **Are the 33 inferred relationships involving `GraphState` (e.g. with `RepositoryContextPayload` and `RepositorySnapshot`) actually correct?**
-  _`GraphState` has 33 INFERRED edges - model-reasoned connections that need verification._
+- **Why does `GraphState` connect `Graph State Data Flow` to `Repository Context & Graph State`, `Test Infrastructure & Fixtures`, `Design Contracts & Project Plan`, `LLM Pipeline & Sandbox`, `Repository Indexer Protocol`, `Simple Repo Fixture`?**
+  _High betweenness centrality (0.342) - this node is a cross-community bridge._
+- **Why does `RepositorySnapshot` connect `Test Infrastructure & Fixtures` to `Graph State Data Flow`, `Repository Context & Graph State`, `Repository Indexer Protocol`?**
+  _High betweenness centrality (0.204) - this node is a cross-community bridge._
+- **Why does `RunContext` connect `Graph State Data Flow` to `Design Contracts & Project Plan`, `Simple Repo Fixture`, `Repository Indexer Protocol`?**
+  _High betweenness centrality (0.150) - this node is a cross-community bridge._
+- **Are the 34 inferred relationships involving `RunContext` (e.g. with `WorkflowExecutor` and `GraphState`) actually correct?**
+  _`RunContext` has 34 INFERRED edges - model-reasoned connections that need verification._
+- **Are the 35 inferred relationships involving `GraphState` (e.g. with `RepositoryContextPayload` and `RepositorySnapshot`) actually correct?**
+  _`GraphState` has 35 INFERRED edges - model-reasoned connections that need verification._
 - **Are the 22 inferred relationships involving `RepositorySnapshot` (e.g. with `DependencyEdge` and `GraphState`) actually correct?**
   _`RepositorySnapshot` has 22 INFERRED edges - model-reasoned connections that need verification._
 - **Are the 6 inferred relationships involving `emit_success()` (e.g. with `coder_node()` and `context_builder_node()`) actually correct?**

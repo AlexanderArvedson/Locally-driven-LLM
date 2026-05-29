@@ -11,7 +11,7 @@ import logging
 import time
 
 from src.config_loader import get_repository_config
-from src.git.branch_manager import create_task_branch
+from src.git.branch_manager import clone_if_missing, create_task_branch
 from src.graph.nodes.support import require_state_value
 from src.graph.state import GraphState
 from src.observability.context import RunContext
@@ -36,6 +36,14 @@ async def branch_creator_node(state: GraphState, run_context: RunContext) -> dic
         task = require_state_value(state, "task")
 
         repo_config = get_repository_config(repo_path)
+        credentials = repo_config.credentials or {}
+
+        clone_if_missing(
+            remote_url=repo_config.url,
+            local_path=repo_path,
+            username=credentials.get("username", ""),
+            token=credentials.get("token", ""),
+        )
 
         branch_name = create_task_branch(
             repo_path=repo_path,
