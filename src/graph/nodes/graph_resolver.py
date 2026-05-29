@@ -39,10 +39,12 @@ _META_JSON_NAME = "graph_meta.json"
 # ---------------------------------------------------------------------------
 
 def _system_graph_dir(system_root: Path, repo_id: str, repo_sha: str) -> Path:
+    """Return the system-store directory for a specific repo and HEAD SHA."""
     return system_root / "graphs" / repo_id / repo_sha
 
 
 def _repo_local_graph_dir(repo_path: str) -> Path:
+    """Return the repo-local ``.graphify/`` directory path."""
     return Path(repo_path) / ".graphify"
 
 
@@ -51,11 +53,22 @@ def _repo_local_graph_dir(repo_path: str) -> Path:
 # ---------------------------------------------------------------------------
 
 def _compute_repo_id(url: str, local_path: str) -> str:
+    """Return a 16-char hex identifier stable for a given repo URL and local path.
+
+    Computed as the first 16 characters of sha256(url + local_path), giving a
+    collision-resistant directory name that is the same across machines cloning
+    the same remote to the same path.
+    """
     raw = (url + local_path).encode("utf-8")
     return hashlib.sha256(raw).hexdigest()[:16]
 
 
 def _get_head_sha(repo_path: str) -> str:
+    """Return the full 40-char hexsha of the current HEAD commit.
+
+    Raises ``RuntimeError`` if ``repo_path`` is not a valid git repository or
+    HEAD cannot be resolved (e.g. empty repo with no commits).
+    """
     try:
         repo = git.Repo(repo_path)
         return repo.head.commit.hexsha
@@ -68,6 +81,11 @@ def _get_head_sha(repo_path: str) -> str:
 # ---------------------------------------------------------------------------
 
 def _read_meta(graph_dir: Path) -> dict | None:
+    """Read and parse ``graph_meta.json`` from ``graph_dir``.
+
+    Returns the parsed dict on success, or ``None`` if the file does not exist
+    or contains invalid JSON.
+    """
     meta_path = graph_dir / _META_JSON_NAME
     if not meta_path.exists():
         return None
@@ -78,6 +96,12 @@ def _read_meta(graph_dir: Path) -> dict | None:
 
 
 def _write_meta(graph_dir: Path, repo_id: str, repo_sha: str) -> dict:
+    """Write ``graph_meta.json`` to ``graph_dir`` and return its contents.
+
+    The file records the HEAD SHA, schema version, and repo ID so that future
+    calls to ``_is_valid`` can verify freshness without inspecting timestamps.
+    ``graph_dir`` must already exist before this is called.
+    """
     meta: dict = {
         "repo_sha": repo_sha,
         "schema_version": GRAPH_SCHEMA_VERSION,
@@ -94,6 +118,17 @@ def _write_meta(graph_dir: Path, repo_id: str, repo_sha: str) -> dict:
 # ---------------------------------------------------------------------------
 
 def _is_valid(graph_dir: Path, repo_sha: str) -> tuple[bool, dict | None]:
+    """Check whether the graph at ``graph_dir`` is valid for ``repo_sha``.
+
+    A graph is valid only when all of the following hold:
+    - ``graph.json`` exists in ``graph_dir``
+    - ``graph_meta.json`` exists and is well-formed
+    - ``meta["repo_sha"]`` matches ``repo_sha``
+    - ``meta["schema_version"]`` matches ``GRAPH_SCHEMA_VERSION``
+
+    Returns a ``(True, meta)`` tuple on success, or ``(False, None)`` if any
+    condition fails. Timestamps are never consulted.
+    """
     if not (graph_dir / _GRAPH_JSON_NAME).exists():
         return False, None
     meta = _read_meta(graph_dir)

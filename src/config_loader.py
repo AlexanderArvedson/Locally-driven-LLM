@@ -27,12 +27,29 @@ class ModelConfig:
 
 @dataclass(frozen=True)
 class GraphConfig:
+    """Graph lifecycle settings for a repository.
+
+    Attributes:
+        mode: Storage strategy — ``"hybrid"`` prefers repo-local then system,
+            ``"system"`` always uses the system store,
+            ``"repo_local"`` uses only ``.graphify/`` inside the repo.
+        auto_update: When ``True``, the graph is built or rebuilt automatically
+            whenever no valid graph exists for the current HEAD SHA.
+    """
+
     mode: str        # "hybrid" | "system" | "repo_local"
     auto_update: bool
 
 
 @dataclass(frozen=True)
 class SystemConfig:
+    """Global system-level settings shared across all repositories.
+
+    Attributes:
+        context_path: Root directory for system-managed storage (run history,
+            cached graphs, etc.). Supports ``~`` expansion.
+    """
+
     context_path: str  # e.g. "~/.graphify-system"
 
 
@@ -87,6 +104,13 @@ def _load_model_config(raw: dict[str, Any], *, source: Path) -> ModelConfig:
 
 
 def _load_graph_config(raw: dict[str, Any], *, source: Path) -> GraphConfig:
+    """Parse the ``graph`` sub-object from a repository config entry.
+
+    Defaults to ``mode="hybrid"`` and ``auto_update=True`` when fields are
+    absent, so existing configs without a ``graph`` block continue to work.
+    Raises ``ValueError`` for unrecognised mode values or non-boolean
+    ``auto_update``.
+    """
     mode = raw.get("mode", "hybrid")
     if mode not in ("hybrid", "system", "repo_local"):
         raise ValueError(f"Invalid graph.mode {mode!r} in {source}; must be 'hybrid', 'system', or 'repo_local'")
@@ -97,6 +121,12 @@ def _load_graph_config(raw: dict[str, Any], *, source: Path) -> GraphConfig:
 
 
 def _load_system_config(raw: dict[str, Any]) -> SystemConfig:
+    """Parse the top-level ``system`` block from config.json.
+
+    Falls back to ``"~/.graphify-system"`` if the block or the
+    ``context_path`` key is absent, preserving backwards compatibility with
+    configs written before the system block was introduced.
+    """
     system_raw = raw.get("system", {})
     context_path = system_raw.get("context_path", "~/.graphify-system")
     if not isinstance(context_path, str) or not context_path.strip():
@@ -191,10 +221,19 @@ def get_max_iterations(repo_path: str | None = None) -> int:
 
 
 def get_graph_config(repo_path: str | None = None) -> GraphConfig:
+    """Return the graph lifecycle config for the repository matching ``repo_path``.
+
+    Falls back to the first configured repository when no match is found.
+    """
     return get_repository_config(repo_path).graph
 
 
 def get_system_context_path() -> Path:
+    """Return the expanded absolute path for the system-level context store.
+
+    Resolves the ``system.context_path`` value from config.json with ``~``
+    expansion applied.
+    """
     return Path(APP_CONFIG.system.context_path).expanduser()
 
 
