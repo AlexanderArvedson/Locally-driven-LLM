@@ -317,10 +317,12 @@ async def graph_resolver_node(state: GraphState, run_context: RunContext) -> dic
             },
             start,
         )
+        # graph_handle is internal to this node; downstream nodes receive only
+        # lightweight references (graph_path + repo_sha) so state stays lean.
         return {
-            "graph_handle": handle,
             "graph_path": str(handle.storage_path),
             "repo_sha": repo_sha,
+            "graph_snapshot_sha": repo_sha,
         }
     except Exception as exc:
         emit_failure(run_context, "graph_resolver_node", task, str(exc), start)

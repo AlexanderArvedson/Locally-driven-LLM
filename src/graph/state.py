@@ -1,8 +1,6 @@
 from typing import TypedDict, NotRequired
 
-from src.graph.graph_handle import GraphHandle
-from src.repository.repository_types import RepositorySnapshot
-from src.repository.context_contract import RepositoryContextPayload
+from src.retrieval.contracts.context_contract import RepositoryContextPayload
 
 
 class GraphState(TypedDict):
@@ -11,6 +9,10 @@ class GraphState(TypedDict):
 
     This state represents a single execution cycle in the maintenance workflow,
     where a task is processed, code is generated, and optionally reviewed.
+
+    Rule: state must only carry lightweight references and metadata.
+    Heavy objects (RepositorySnapshot, GraphHandle) are constructed locally
+    inside the nodes that need them and never stored here.
     """
 
     # Task selected by the user (e.g. "refactor this function", "write tests")
@@ -22,9 +24,8 @@ class GraphState(TypedDict):
     # Repository root path used for deterministic snapshot creation
     repo_path: NotRequired[str]
 
-    # Absolute path to context_path/graphify-out/ for the target repo.
-    # When set, the graphify_indexer node builds a knowledge graph there and
-    # context_builder uses it for graph-aware file selection.
+    # Absolute path to the resolved graphify-out/ directory for the target repo.
+    # Set by graph_resolver_node; consumed by retrieval_node.
     graph_path: NotRequired[str]
 
     # Original code content from the target file before modification
@@ -45,29 +46,35 @@ class GraphState(TypedDict):
     # Whether the latest review passed successfully
     review_passed: NotRequired[bool]
 
-    # Future expansion:
-    # context: NotRequired[str]
-    # passed: NotRequired[bool]
-    # model_used: NotRequired[str]
-    # messages: NotRequired[list[dict]]
-    # diff: NotRequired[str]
-    # embeddings: NotRequired[list[float]]
-
-    # Repository-aware additions
-    repository_context: NotRequired[RepositoryContextPayload]
-    repository_snapshot: NotRequired[RepositorySnapshot]
-
-    # Full contents of selected related files, keyed by relative path.
-    # Populated by context_builder_node; consumed by coder_node for prompt context.
-    related_file_contents: NotRequired[dict[str, str]]
-
-    # Branch created for this task, e.g. "feature/fix-auth-bug"
-    branch_name: NotRequired[str]
-
     # Set by file_writer_node and verifier_node to signal write/verify outcomes.
     verification_passed: NotRequired[bool]
     verification_feedback: NotRequired[str]
 
-    # Set by graph_resolver_node. repo_sha is the git HEAD at resolve time.
+    # --- Retrieval references (lightweight) ---
+
+    # UUID for the retrieval session that produced the current context.
+    retrieval_session_id: NotRequired[str]
+
+    # Repo-relative paths of the files selected by the retrieval pipeline.
+    selected_file_ids: NotRequired[list[str]]
+
+    # Git HEAD SHA of the graph snapshot used during retrieval.
+    # Empty string when retrieval fell back to the heuristic ranker.
+    graph_snapshot_sha: NotRequired[str]
+
+    # --- Context for LLM (bounded, derived by retrieval_node) ---
+
+    # Versioned, deterministic context payload consumed by coder_node.
+    repository_context: NotRequired[RepositoryContextPayload]
+
+    # Full contents of up to 5 related files, capped at 3 000 chars each.
+    # Populated by retrieval_node; consumed by coder_node for prompt context.
+    related_file_contents: NotRequired[dict[str, str]]
+
+    # --- Git fields ---
+
+    # Branch created for this task, e.g. "feature/fix-auth-bug"
+    branch_name: NotRequired[str]
+
+    # Git HEAD SHA at graph resolution time; also used as retrieval anchor.
     repo_sha: NotRequired[str]
-    graph_handle: NotRequired[GraphHandle]

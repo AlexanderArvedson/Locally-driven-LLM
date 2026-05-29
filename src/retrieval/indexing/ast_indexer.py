@@ -1,14 +1,9 @@
-"""Simple, deterministic repository indexer implementation.
+"""AST-based repository indexer.
 
-This indexer is intentionally small and isolated for Phase 2 Step 3.
-It uses the Python stdlib `ast` module only and produces a
-`RepositorySnapshot` from `src.repository.repository_types`.
-
-Constraints enforced:
-- AST parsing only (no runtime execution)
-- Deterministic directory/file ordering
-- Safely handle malformed Python files
-- No graph or LLM interactions
+Produces a RepositorySnapshot by walking the repository and parsing every
+Python file with the stdlib `ast` module. Deterministic: directories and
+files are visited in sorted order; malformed files are included with empty
+symbols/imports rather than skipped entirely.
 """
 
 from __future__ import annotations
@@ -17,22 +12,21 @@ import ast
 import os
 from typing import List
 
-from src.repository.repository_types import Symbol, DependencyEdge, FileNode, RepositorySnapshot
+from src.retrieval.contracts.types import Symbol, DependencyEdge, FileNode, RepositorySnapshot
 
 
 IGNORED_DIRS = {".git", "__pycache__", ".venv", "venv", "build", "dist", ".mypy_cache"}
 
 
-class SimpleRepositoryIndexer:
+class AstIndexer:
     """Concrete indexer producing a RepositorySnapshot for a given root."""
 
     def build_snapshot(self, root_path: str) -> RepositorySnapshot:
         files: List[FileNode] = []
         edges: List[DependencyEdge] = []
 
-        # Walk deterministically: sort directories and filenames
         for dirpath, dirnames, filenames in os.walk(root_path):
-            # prune ignored directories in-place to keep os.walk deterministic
+            # Prune ignored directories in-place to keep os.walk deterministic.
             dirnames[:] = [d for d in sorted(dirnames) if d not in IGNORED_DIRS]
 
             for fname in sorted(filenames):
@@ -50,7 +44,6 @@ class SimpleRepositoryIndexer:
                         src = fh.read()
                     node = ast.parse(src)
                 except Exception:
-                    # Malformed file: include entry with empty symbols/imports
                     files.append(FileNode(path=full_path, language="python", size=size, symbols=[], imports=[]))
                     continue
 
@@ -62,7 +55,6 @@ class SimpleRepositoryIndexer:
                         symbols.append(Symbol(name=child.name, kind="function", lineno=getattr(child, "lineno", None), docstring=ast.get_docstring(child)))
                     elif isinstance(child, ast.ClassDef):
                         symbols.append(Symbol(name=child.name, kind="class", lineno=getattr(child, "lineno", None), docstring=ast.get_docstring(child)))
-                        # collect methods
                         for m in [n for n in child.body if isinstance(n, ast.FunctionDef)]:
                             symbols.append(Symbol(name=f"{child.name}.{m.name}", kind="method", lineno=getattr(m, "lineno", None), docstring=ast.get_docstring(m)))
                     elif isinstance(child, ast.Import):
@@ -72,25 +64,24 @@ class SimpleRepositoryIndexer:
                         module = child.module or ""
                         imports.append(module)
 
-                # sort symbols and imports deterministically
                 symbols = sorted(symbols, key=lambda s: (s.name, s.kind))
                 imports = sorted(set([i for i in imports if i]))
 
                 files.append(FileNode(path=full_path, language="python", size=size, symbols=symbols, imports=imports))
 
-                # create shallow dependency edges (to_path holds module name for now)
                 for imp in imports:
                     edges.append(DependencyEdge(from_path=full_path, to_path=imp, import_text=imp))
 
-        # sort files deterministically by path
         files = sorted(files, key=lambda f: f.path)
         edges = sorted(edges, key=lambda e: (e.from_path, e.to_path))
 
         return RepositorySnapshot(files=files, edges=edges)
 
     def get_file_symbols(self, snapshot: RepositorySnapshot, file_path: str) -> List[Symbol]:
+        """Return Symbol list for a file from the snapshot."""
         f = snapshot.get_file(file_path)
         return f.symbols if f is not None else []
 
     def get_dependencies(self, snapshot: RepositorySnapshot, file_path: str) -> List[DependencyEdge]:
+        """Return outgoing DependencyEdge list for a file from the snapshot."""
         return [e for e in snapshot.edges if e.from_path == file_path]

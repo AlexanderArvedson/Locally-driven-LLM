@@ -1,22 +1,19 @@
-"""Repository indexer interfaces.
+"""Repository indexer protocol.
 
-Skeleton only: no indexing logic yet.
+Defines the RepositoryIndexer interface that all indexer implementations must
+satisfy. Consumers should operate on the resulting RepositorySnapshot rather
+than calling the indexer for ad-hoc file IO.
 """
 
 from __future__ import annotations
 
 from typing import Protocol, Sequence
 
-from src.repository.repository_types import RepositorySnapshot
+from src.retrieval.contracts.types import RepositorySnapshot
 
 
 class RepositoryIndexer(Protocol):
-    """Interface for repository indexing.
-
-    The indexer builds an immutable `RepositorySnapshot` for a given root
-    path. Consumers should operate on the snapshot and not call the
-    indexer to perform ad-hoc parsing or file IO.
-    """
+    """Interface for repository indexing."""
 
     def build_snapshot(self, root_path: str) -> RepositorySnapshot:
         """Build and return an immutable repository snapshot for `root_path`."""

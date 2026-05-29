@@ -2,7 +2,7 @@ import os
 import tempfile
 import unittest
 
-from src.repository.simple_repository_indexer import SimpleRepositoryIndexer
+from src.retrieval.indexing.ast_indexer import AstIndexer
 
 
 class TestRepositoryIndexer(unittest.TestCase):
@@ -15,7 +15,7 @@ class TestRepositoryIndexer(unittest.TestCase):
             with open(b_path, "w", encoding="utf-8") as f:
                 f.write("class Bar:\n    def method(self):\n        pass\n")
 
-            indexer = SimpleRepositoryIndexer()
+            indexer = AstIndexer()
             snapshot = indexer.build_snapshot(td)
 
             # two python files indexed

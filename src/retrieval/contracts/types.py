@@ -1,7 +1,7 @@
-"""Repository snapshot types for Phase 2.
+"""Core data types shared across the retrieval pipeline.
 
-These are minimal, structural-only dataclasses/TypedDicts used to stabilize
-contracts between indexer, retrieval, and context builder.
+Defines the immutable snapshot types (Symbol, FileNode, RepositorySnapshot),
+the dependency graph edge, and the bounded output types (ContextPackage).
 """
 
 from __future__ import annotations
@@ -15,7 +15,7 @@ class Symbol:
     """Represents a top-level symbol extracted from a file."""
 
     name: str
-    kind: str  # e.g. 'function', 'class', 'method'
+    kind: str  # 'function' | 'class' | 'method'
     lineno: Optional[int] = None
     docstring: Optional[str] = None
 
@@ -56,7 +56,7 @@ class RepositorySnapshot:
 
 @dataclass(frozen=True)
 class ContextPackage:
-    """Bounded context package returned by the ContextBuilder.
+    """Bounded context package returned by the ContextAssembler.
 
     Contains only lightweight, deterministic information derived from the
     snapshot: related file paths, a per-file list of symbol names (capped),

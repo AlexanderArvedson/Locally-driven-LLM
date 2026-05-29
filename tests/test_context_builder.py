@@ -2,9 +2,9 @@ import os
 import tempfile
 import unittest
 
-from src.repository.simple_repository_indexer import SimpleRepositoryIndexer
-from src.repository.retrieval_engine import SimpleRetrievalEngine
-from src.repository.context_builder import SimpleContextBuilder
+from src.retrieval.indexing.ast_indexer import AstIndexer
+from src.retrieval.ranking.heuristic_ranker import HeuristicRanker
+from src.retrieval.assembly.context_assembler import ContextAssembler
 
 
 class TestContextBuilder(unittest.TestCase):
@@ -23,13 +23,13 @@ class TestContextBuilder(unittest.TestCase):
             with open(target, "w", encoding="utf-8") as f:
                 f.write("import m0\nimport m1\n\ndef main():\n    pass\n")
 
-            indexer = SimpleRepositoryIndexer()
+            indexer = AstIndexer()
             snapshot = indexer.build_snapshot(td)
-            retriever = SimpleRetrievalEngine()
-            selected = retriever.select_files("Task", snapshot, target_file=os.path.normpath(target), max_files=10)
+            ranker = HeuristicRanker()
+            selected = ranker.rank_candidates("Task", snapshot, target_file=os.path.normpath(target), max_files=10)
 
-            builder = SimpleContextBuilder()
-            ctx = builder.build_context("Task", os.path.normpath(target), selected, snapshot, max_files=4, max_symbols_per_file=1, max_total_context_chars=100)
+            assembler = ContextAssembler()
+            ctx = assembler.build("Task", os.path.normpath(target), selected, snapshot, max_files=4, max_symbols_per_file=1, max_total_context_chars=100)
 
             self.assertEqual(ctx.primary_file, os.path.normpath(target))
             # max_files=4 should limit related_files

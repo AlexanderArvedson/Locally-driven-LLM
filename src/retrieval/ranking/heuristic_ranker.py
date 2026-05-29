@@ -1,58 +1,59 @@
-"""Deterministic retrieval engine and a simple implementation.
+"""Heuristic file ranker — deterministic, graph-free retrieval.
 
-The retrieval engine consumes a `RepositorySnapshot` and returns an
-ordered list of file paths according to deterministic heuristics. It does
-not perform any prompt formatting or file IO.
+HeuristicRanker scores repository files using import relationships, directory
+proximity, and task keyword matches. It is the fallback when no knowledge
+graph is available.
 """
 
 from __future__ import annotations
 
-from typing import Protocol, Sequence, Optional, List
 import os
 import re
+from typing import Protocol, Sequence, Optional, List
 
-from src.repository.repository_types import RepositorySnapshot
+from src.retrieval.contracts.types import RepositorySnapshot
 
 
-class RetrievalEngine(Protocol):
-    """Interface for deterministic file selection."""
+class RankerProtocol(Protocol):
+    """Interface for file ranking strategies."""
 
-    def select_files(self, task: str, snapshot: RepositorySnapshot, target_file: Optional[str] = None, max_files: int = 15) -> Sequence[str]:
-        """Return a deterministic, ordered list of file paths.
-
-        Args:
-            task: task description (opaque to retrieval heuristics)
-            snapshot: RepositorySnapshot to query
-            target_file: optional path to prioritize
-            max_files: hard cap for returned files
-        """
+    def rank_candidates(
+        self,
+        task: str,
+        snapshot: RepositorySnapshot,
+        target_file: Optional[str] = None,
+        max_files: int = 15,
+    ) -> List[str]:
+        """Return a deterministic, ordered list of file paths."""
         ...
 
 
-class SimpleRetrievalEngine:
-    """A deterministic, heuristic-based retrieval engine.
+class HeuristicRanker:
+    """Deterministic, heuristic-based file ranker.
 
-     Ordering rules (deterministic, score-based):
-     1. target file (if provided)
-     2. rank remaining files by weighted features:
-         - imported directly by target (highest)
-         - reverse dependencies of target
-         - nearby tests (same directory, then global tests)
-         - neighboring files in same directory
-         - task keyword matches in filename/symbol names
-     3. deterministic tie-break by normalized file path
-
-    Matching of module -> file is heuristic-only: we match by filename
-    basename against the import's last component (no module resolution).
+    Ordering rules (score-based, deterministic tie-break by path):
+    1. Target file always first (when provided and in snapshot).
+    2. Remaining files ranked by feature tuple:
+        - directly imported by target file (highest weight)
+        - imports target file
+        - test in same directory as target
+        - any test file
+        - same directory as target
+        - task keyword hits in filename/symbol names
     """
 
-    def select_files(self, task: str, snapshot: RepositorySnapshot, target_file: Optional[str] = None, max_files: int = 15) -> List[str]:
+    def rank_candidates(
+        self,
+        task: str,
+        snapshot: RepositorySnapshot,
+        target_file: Optional[str] = None,
+        max_files: int = 15,
+    ) -> List[str]:
         results: List[str] = []
 
         path_to_node = {f.path: f for f in snapshot.files}
         files_sorted = sorted(snapshot.files, key=lambda x: x.path)
 
-        # Always keep target first when provided and present in the snapshot.
         if target_file and target_file in path_to_node:
             results.append(target_file)
 
@@ -83,7 +84,6 @@ class SimpleRetrievalEngine:
             direct_imported_by_target = int(stem in target_import_last)
             term_hits = self._task_term_hits(task_terms, stem, [sym.name for sym in node.symbols])
 
-            # Higher tuple values rank first; path is deterministic tie-breaker.
             score = (
                 direct_imported_by_target,
                 imports_target,

@@ -5,17 +5,17 @@ import unittest
 
 from pathlib import Path
 
-from src.repository.context_builder import SimpleContextBuilder
-from src.repository.retrieval_engine import SimpleRetrievalEngine
-from src.repository.simple_repository_indexer import SimpleRepositoryIndexer
+from src.retrieval.assembly.context_assembler import ContextAssembler
+from src.retrieval.ranking.heuristic_ranker import HeuristicRanker
+from src.retrieval.indexing.ast_indexer import AstIndexer
 from tests.support.httpx_stub import httpx_stub
 
 from src.observability.context import RunContext
-from src.graph.nodes.context_builder import context_builder_node
+from src.graph.nodes.retrieval_node import retrieval_node
 
 
-class TestContextBuilderNode(unittest.TestCase):
-    def test_context_builder_node_creates_snapshot_and_context(self):
+class TestRetrievalNode(unittest.TestCase):
+    def test_retrieval_node_creates_context_payload(self):
         with tempfile.TemporaryDirectory() as td:
             repo_path = Path(td)
             a_path = repo_path / "a.py"
@@ -29,18 +29,23 @@ class TestContextBuilderNode(unittest.TestCase):
                 run_context = RunContext.new()
 
                 with httpx_stub():
-                    result = await context_builder_node(state, run_context)
+                    result = await retrieval_node(state, run_context)
 
-                self.assertIn("repository_context", state)
-                self.assertIn("repository_snapshot", state)
-                self.assertEqual(len(state["repository_snapshot"].files), 2)
+                # State must NOT contain heavyweight snapshot or graph handle.
+                self.assertNotIn("repository_snapshot", state)
+                self.assertNotIn("graph_handle", state)
 
-                pkg = state["repository_context"]
+                # Lightweight retrieval references must be present in the result.
+                self.assertIn("retrieval_session_id", result)
+                self.assertIn("selected_file_ids", result)
+                self.assertIn("graph_snapshot_sha", result)
+
+                # Versioned context payload must be populated.
+                self.assertIn("repository_context", result)
+                pkg = result["repository_context"]
                 self.assertEqual(pkg["primary_file"], os.path.relpath(str(a_path), str(repo_path)))
                 self.assertEqual(pkg["selected_files"][0], pkg["primary_file"])
                 self.assertIn(os.path.relpath(str(b_path), str(repo_path)), pkg["selected_files"])
-                self.assertIn("repository_context", result)
-                self.assertEqual(result["repository_context"], pkg)
 
             asyncio.run(run_node())
 
