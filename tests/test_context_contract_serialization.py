@@ -3,12 +3,12 @@ import os
 import tempfile
 import unittest
 
-from src.repository.context_contract import (
+from src.retrieval.contracts.context_contract import (
     build_repository_context_payload,
     format_repository_context_for_prompt,
     validate_repository_context_payload,
 )
-from src.repository.repository_types import ContextPackage, DependencyEdge
+from src.retrieval.contracts.types import ContextPackage, DependencyEdge
 
 
 class TestContextContractSerialization(unittest.TestCase):

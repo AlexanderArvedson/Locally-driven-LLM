@@ -1,7 +1,7 @@
 {
   "C:\\chas\\examensarbete\\Locally-driven-langgraph-LLM\\src\\config_loader.py": {
-    "mtime": 1779975462.4535797,
-    "ast_hash": "767784451866ba4e9bc8494c5607bc1a",
+    "mtime": 1780047393.8678195,
+    "ast_hash": "f36de4dd03708002cabcb6f5ad37503f",
     "semantic_hash": ""
   },
   "C:\\chas\\examensarbete\\Locally-driven-langgraph-LLM\\src\\__init__.py": {
@@ -35,13 +35,13 @@
     "semantic_hash": ""
   },
   "C:\\chas\\examensarbete\\Locally-driven-langgraph-LLM\\src\\graph\\state.py": {
-    "mtime": 1779974114.8657877,
-    "ast_hash": "0f8bf1766cd2fc6c8304def673157839",
+    "mtime": 1780047470.4574673,
+    "ast_hash": "29bc7e143e8430eb4766ab9f38480d13",
     "semantic_hash": ""
   },
   "C:\\chas\\examensarbete\\Locally-driven-langgraph-LLM\\src\\graph\\workflow.py": {
-    "mtime": 1780036509.040548,
-    "ast_hash": "043ccfece657543b53c9f490b64ec0bb",
+    "mtime": 1780047499.199287,
+    "ast_hash": "f2a28097c413a4329022dbbfad634357",
     "semantic_hash": ""
   },
   "C:\\chas\\examensarbete\\Locally-driven-langgraph-LLM\\src\\graph\\nodes\\branch_creator.py": {
@@ -75,13 +75,13 @@
     "semantic_hash": ""
   },
   "C:\\chas\\examensarbete\\Locally-driven-langgraph-LLM\\src\\graph\\nodes\\graphify_indexer.py": {
-    "mtime": 1779967108.7874942,
-    "ast_hash": "65f1b3ed1d390351f632aea2412c49a6",
+    "mtime": 1780047411.8033109,
+    "ast_hash": "01989c3c2ede2a5fe85b31558504eeb4",
     "semantic_hash": ""
   },
   "C:\\chas\\examensarbete\\Locally-driven-langgraph-LLM\\src\\graph\\nodes\\node_index.py": {
-    "mtime": 1780036509.040548,
-    "ast_hash": "6fed18b4b35332681c1ce137f1bbaddf",
+    "mtime": 1780047483.869927,
+    "ast_hash": "3727de5508eb8efd6f12dc43ab38dd1a",
     "semantic_hash": ""
   },
   "C:\\chas\\examensarbete\\Locally-driven-langgraph-LLM\\src\\graph\\nodes\\reviewer.py": {
@@ -202,6 +202,16 @@
   "C:\\chas\\examensarbete\\Locally-driven-langgraph-LLM\\src\\graph\\nodes\\git_committer.py": {
     "mtime": 1780036509.040548,
     "ast_hash": "2b00193851d97d3f579a271402f304e4",
+    "semantic_hash": ""
+  },
+  "C:\\chas\\examensarbete\\Locally-driven-langgraph-LLM\\src\\graph\\graph_handle.py": {
+    "mtime": 1780047343.4366624,
+    "ast_hash": "6dbddecd6155c596c40681fcd902f0ce",
+    "semantic_hash": ""
+  },
+  "C:\\chas\\examensarbete\\Locally-driven-langgraph-LLM\\src\\graph\\nodes\\graph_resolver.py": {
+    "mtime": 1780047450.7005787,
+    "ast_hash": "91cfe404c836533890a547307a96e37e",
     "semantic_hash": ""
   }
 }

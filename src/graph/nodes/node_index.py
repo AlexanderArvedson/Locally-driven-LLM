@@ -3,7 +3,7 @@
 from src.graph.nodes.branch_creator import branch_creator_node
 from src.graph.nodes.git_committer import git_committer_node
 from src.graph.nodes.coder import coder_node
-from src.graph.nodes.context_builder import context_builder_node
+from src.graph.nodes.retrieval_node import retrieval_node
 from src.graph.nodes.diff_generator import diff_generator_node
 from src.graph.nodes.file_reader import file_reader_node
 from src.graph.nodes.file_writer import file_writer_node
@@ -21,7 +21,7 @@ __all__ = [
     "git_committer_node",
     "file_reader_node",
     "graph_resolver_node",
-    "context_builder_node",
+    "retrieval_node",
     "coder_node",
     "diff_generator_node",
     "reviewer_node",

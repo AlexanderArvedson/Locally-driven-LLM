@@ -2,8 +2,8 @@ import os
 import tempfile
 import unittest
 
-from src.repository.simple_repository_indexer import SimpleRepositoryIndexer
-from src.repository.retrieval_engine import SimpleRetrievalEngine
+from src.retrieval.indexing.ast_indexer import AstIndexer
+from src.retrieval.ranking.heuristic_ranker import HeuristicRanker
 from tests.support.fixture_repo import temporary_fixture_repo
 
 
@@ -21,11 +21,11 @@ class TestRetrievalEngine(unittest.TestCase):
             with open(c_path, "w", encoding="utf-8") as f:
                 f.write("def cfunc():\n    pass\n")
 
-            indexer = SimpleRepositoryIndexer()
+            indexer = AstIndexer()
             snapshot = indexer.build_snapshot(td)
 
-            retriever = SimpleRetrievalEngine()
-            selected = retriever.select_files("Some task", snapshot, target_file=os.path.normpath(a_path), max_files=10)
+            ranker = HeuristicRanker()
+            selected = ranker.rank_candidates("Some task", snapshot, target_file=os.path.normpath(a_path), max_files=10)
 
             # target should be first
             self.assertGreaterEqual(len(selected), 1)
@@ -48,8 +48,8 @@ class TestRetrievalEngine(unittest.TestCase):
             with open(misc, "w", encoding="utf-8") as f:
                 f.write("def helper():\n    return 0\n")
 
-            snapshot = SimpleRepositoryIndexer().build_snapshot(td)
-            selected = SimpleRetrievalEngine().select_files(
+            snapshot = AstIndexer().build_snapshot(td)
+            selected = HeuristicRanker().rank_candidates(
                 "refactor auth profile flow",
                 snapshot,
                 target_file=None,
@@ -73,8 +73,8 @@ class TestRetrievalEngine(unittest.TestCase):
             with open(reverse_dep, "w", encoding="utf-8") as f:
                 f.write("import a\n")
 
-            snapshot = SimpleRepositoryIndexer().build_snapshot(td)
-            selected = SimpleRetrievalEngine().select_files(
+            snapshot = AstIndexer().build_snapshot(td)
+            selected = HeuristicRanker().rank_candidates(
                 "refactor a",
                 snapshot,
                 target_file=os.path.normpath(target),
@@ -91,8 +91,8 @@ class TestRetrievalEngine(unittest.TestCase):
         with temporary_fixture_repo("sample_repo_v2") as repo_path:
             target = os.path.normpath(os.path.join(repo_path, "app", "main.py"))
 
-            snapshot = SimpleRepositoryIndexer().build_snapshot(str(repo_path))
-            selected = SimpleRetrievalEngine().select_files(
+            snapshot = AstIndexer().build_snapshot(str(repo_path))
+            selected = HeuristicRanker().rank_candidates(
                 "refactor the task report pipeline and validation helpers",
                 snapshot,
                 target_file=target,

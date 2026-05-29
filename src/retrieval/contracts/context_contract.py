@@ -9,7 +9,7 @@ from __future__ import annotations
 import os
 from typing import Any, Iterable, Mapping, TypedDict
 
-from src.repository.repository_types import ContextPackage
+from src.retrieval.contracts.types import ContextPackage
 
 
 CONTEXT_VERSION = 1

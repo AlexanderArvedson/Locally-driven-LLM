@@ -5,12 +5,12 @@ import types
 from unittest.mock import AsyncMock, patch
 
 from src.core.runtime_paths import RUNS_DIR, ensure_runtime_dirs
-from src.repository.context_contract import (
+from src.retrieval.contracts.context_contract import (
     CONTEXT_VERSION,
     REQUIRED_CONTEXT_FIELDS,
     validate_repository_context_payload,
 )
-from src.repository.simple_repository_indexer import SimpleRepositoryIndexer
+from src.retrieval.indexing.ast_indexer import AstIndexer
 from src.observability.context import RunContext
 from tests.support.httpx_stub import httpx_stub
 from tests.support.fixture_repo import temporary_fixture_repo
@@ -32,7 +32,7 @@ class TestRetrievalIntegration(unittest.TestCase):
         with temporary_fixture_repo() as repo_copy:
             original_b = (repo_copy / "b.py").read_text(encoding="utf-8")
 
-            indexer = SimpleRepositoryIndexer()
+            indexer = AstIndexer()
             snapshot = indexer.build_snapshot(str(repo_copy))
             self.assertGreaterEqual(len(snapshot.files), 2)
 
@@ -95,7 +95,16 @@ class TestRetrievalIntegration(unittest.TestCase):
             self.assertTrue(log_path.exists(), "Expected runtime JSONL log was not created")
             events = [json.loads(line) for line in log_path.read_text(encoding="utf-8").splitlines()]
             event_nodes = [event["node"] for event in events]
-            self.assertIn("context_builder_node", event_nodes)
+            self.assertIn("retrieval_node", event_nodes)
+
+            # Lightweight retrieval references must be present in final state.
+            self.assertIn("retrieval_session_id", result)
+            self.assertIn("selected_file_ids", result)
+            self.assertIn("graph_snapshot_sha", result)
+
+            # Heavyweight objects must not appear in the state snapshot.
+            self.assertNotIn("repository_snapshot", result)
+            self.assertNotIn("graph_handle", result)
 
             return result
 
@@ -109,7 +118,7 @@ class TestRetrievalIntegration(unittest.TestCase):
         with temporary_fixture_repo(fixture_name) as repo_copy:
             original_service = (repo_copy / "app" / "services" / "task_service.py").read_text(encoding="utf-8")
 
-            indexer = SimpleRepositoryIndexer()
+            indexer = AstIndexer()
             snapshot = indexer.build_snapshot(str(repo_copy))
             self.assertGreaterEqual(len(snapshot.files), 3)
 
@@ -186,7 +195,7 @@ class TestRetrievalIntegration(unittest.TestCase):
             self.assertTrue(log_path.exists(), "Expected runtime JSONL log was not created")
             events = [json.loads(line) for line in log_path.read_text(encoding="utf-8").splitlines()]
             event_nodes = [event["node"] for event in events]
-            self.assertIn("context_builder_node", event_nodes)
+            self.assertIn("retrieval_node", event_nodes)
 
             self.assertGreaterEqual(len(captured_messages), 1)
 

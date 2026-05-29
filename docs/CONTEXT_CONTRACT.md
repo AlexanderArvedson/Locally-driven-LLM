@@ -1,11 +1,11 @@
 # Repository Context Contract (retrieval → coder)
 
-Last updated: 2026-05-26
+Last updated: 2026-05-29
 
 This document describes the authoritative, versioned contract used to pass
-repository-level context from the retrieval/context-builder nodes into the
-coder node prompt. The canonical implementation lives at
-`src/repository/context_contract.py` and contains the serializer,
+repository-level context from the retrieval node into the coder node prompt.
+The canonical implementation lives at
+`src/retrieval/contracts/context_contract.py` and contains the serializer,
 validator, and prompt renderer used across nodes and tests.
 
 ## Purpose
@@ -80,12 +80,26 @@ the exact formatting to detect accidental prompt drift.
 
 ## Where it's used
 
-- `src/graph/nodes/nodes.py` — `context_builder_node` builds the payload via
-  `build_repository_context_payload(...)` and stores it in graph state.
-- `src/graph/nodes/nodes.py` — `coder_node` calls
+- `src/graph/nodes/retrieval_node.py` — `retrieval_node` builds the payload
+  via `build_repository_context_payload(...)` and returns it in the state delta.
+- `src/graph/nodes/coder.py` — `coder_node` calls
   `format_repository_context_for_prompt(...)` to get a stable prompt section.
 - Tests in `tests/` import the constants and validator from
-  `src/repository/context_contract.py` to assert correctness and determinism.
+  `src/retrieval/contracts/context_contract.py` to assert correctness and
+  determinism.
+
+## GraphState lightweight references
+
+The retrieval pipeline stores only lightweight references in `GraphState`,
+not heavyweight objects:
+
+- `retrieval_session_id` (str): UUID for the retrieval run.
+- `selected_file_ids` (list[str]): repo-relative paths of selected files.
+- `graph_snapshot_sha` (str): git HEAD SHA used during graph-based retrieval;
+  empty string when heuristic fallback was used.
+
+`RepositorySnapshot` and `GraphHandle` are computed locally inside the nodes
+that need them and are never stored in `GraphState`.
 
 ## Example payload
 

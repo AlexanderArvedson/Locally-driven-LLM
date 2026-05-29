@@ -9,7 +9,7 @@ from src.config_loader import get_coder_model
 from src.graph.state import GraphState
 from src.observability.context import RunContext
 from src.observability.event_logging_utils import emit_failure, emit_success
-from src.repository.context_contract import format_repository_context_for_prompt
+from src.retrieval.contracts.context_contract import format_repository_context_for_prompt
 
 
 def _format_related_files(related_file_contents: dict[str, str]) -> str:
