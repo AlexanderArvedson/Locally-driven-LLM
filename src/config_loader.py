@@ -88,6 +88,11 @@ def _load_repository_config(raw: dict[str, Any], *, source: Path) -> RepositoryC
     credentials_raw = raw.get("credentials")
     if credentials_raw is not None and not isinstance(credentials_raw, dict):
         raise ValueError(f"Missing or invalid object value for 'credentials' in {source}")
+    if isinstance(credentials_raw, dict) and "git" in credentials_raw:
+        git_creds = credentials_raw["git"]
+        if not isinstance(git_creds, dict):
+            raise ValueError(f"Missing or invalid object value for 'credentials.git' in {source}")
+        credentials_raw = git_creds
 
     return RepositoryConfig(
         name=_require_str(raw, "name", source=source),
