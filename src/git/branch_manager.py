@@ -35,6 +35,39 @@ def _open_repo(repo_path: str) -> git.Repo:
         raise ValueError(f"Not a git repository: {repo_path}")
 
 
+def clone_if_missing(
+    remote_url: str,
+    local_path: str,
+    username: str = "",
+    token: str = "",
+) -> git.Repo:
+    """Return the repo at *local_path*, cloning from *remote_url* if absent.
+
+    If *local_path* already contains a valid git repository the clone step is
+    skipped and the existing repo is returned. Credentials are embedded in the
+    URL so no credential helper is required.
+    """
+    from pathlib import Path
+
+    path = Path(local_path)
+
+    if path.exists():
+        try:
+            repo = git.Repo(local_path)
+            logger.info("Repository already exists at '%s' — skipping clone.", local_path)
+            return repo
+        except InvalidGitRepositoryError:
+            raise ValueError(
+                f"Path '{local_path}' exists but is not a git repository."
+            )
+
+    url = _auth_url(remote_url, username, token) if token else remote_url
+    logger.info("Cloning '%s' into '%s'…", remote_url, local_path)
+    repo = git.Repo.clone_from(url, local_path)
+    logger.info("Clone complete.")
+    return repo
+
+
 def _auth_url(remote_url: str, username: str, token: str) -> str:
     if remote_url.startswith("https://"):
         return remote_url.replace("https://", f"https://{username}:{token}@", 1)

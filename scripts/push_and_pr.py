@@ -21,7 +21,7 @@ if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
 from src.config_loader import APP_CONFIG  # noqa: E402
-from src.git.branch_manager import commit_file, push_branch  # noqa: E402
+from src.git.branch_manager import clone_if_missing, commit_file, push_branch  # noqa: E402
 from src.git.pr_creator import create_pull_request  # noqa: E402
 
 
@@ -78,11 +78,26 @@ def main() -> int:
         return 1
 
     if args.dry_run:
+        print(f"[dry-run] Would ensure repo is cloned to: {repo.local_path}")
         if args.commit_file:
             print(f"[dry-run] Would commit: {args.commit_file}")
         print("[dry-run] Would push branch to remote.")
         print(f"[dry-run] Would create PR: 'AI: {task[:72]}' → {repo.base_branch}")
         return 0
+
+    # ── Clone if missing ─────────────────────────────────────────────────────
+    print(f"Ensuring repo exists at '{repo.local_path}'…")
+    try:
+        clone_if_missing(
+            remote_url=repo.url,
+            local_path=repo.local_path,
+            username=username,
+            token=token,
+        )
+    except ValueError as exc:
+        print(f"Clone failed: {exc}")
+        return 1
+    print()
 
     # ── Optional commit ───────────────────────────────────────────────────────
     if args.commit_file:
