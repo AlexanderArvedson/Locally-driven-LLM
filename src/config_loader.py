@@ -63,6 +63,7 @@ class RepositoryConfig:
     created_at: str | None
     updated_at: str | None
     max_iterations: int
+    semantic_threshold: float
     graph: GraphConfig
     credentials: dict[str, str] | None
     models: dict[str, ModelConfig]
@@ -168,6 +169,7 @@ def _load_repository_config(raw: dict[str, Any], *, source: Path) -> RepositoryC
         created_at=raw.get("created_at") if raw.get("created_at") is None or isinstance(raw.get("created_at"), str) else _raise_invalid_field(source, "created_at"),
         updated_at=raw.get("updated_at") if raw.get("updated_at") is None or isinstance(raw.get("updated_at"), str) else _raise_invalid_field(source, "updated_at"),
         max_iterations=_require_int(raw, "max_iterations", source=source),
+        semantic_threshold=float(raw.get("semantic_threshold", 0.75)),
         graph=_load_graph_config(raw.get("graph", {}), source=source),
         credentials=credentials_raw,
         models=models,
@@ -218,6 +220,24 @@ def get_coder_model(repo_path: str | None = None) -> str:
 
 def get_max_iterations(repo_path: str | None = None) -> int:
     return get_repository_config(repo_path).max_iterations
+
+
+def get_semantic_threshold(repo_path: str | None = None) -> float:
+    """Return the minimum task_alignment_score required for semantic_validator to pass."""
+    return get_repository_config(repo_path).semantic_threshold
+
+
+def get_semantic_model(repo_path: str | None = None) -> str:
+    """Return the model name for the semantic validator.
+
+    Prefers models["semantic_validator"], then falls back to models["reviewer"]
+    (the legacy key), then to the primary model.
+    """
+    models = get_repository_config(repo_path).models
+    for key in ("semantic_validator", "reviewer"):
+        if key in models:
+            return models[key].name
+    return get_primary_model(repo_path).name
 
 
 def get_graph_config(repo_path: str | None = None) -> GraphConfig:

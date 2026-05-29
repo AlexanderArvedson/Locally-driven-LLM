@@ -51,6 +51,7 @@ Managed automatically by the system. Set both to `null` when adding a new reposi
 | Field | Type | Description |
 |-------|------|-------------|
 | `max_iterations` | integer | Maximum number of LLM reasoning/coding iterations the agent may take before it is forced to stop and return its current result. Higher values allow more complex tasks but increase runtime and token usage. |
+| `semantic_threshold` | float | Minimum `task_alignment_score` (0.0–1.0) the semantic validator must assign before the pipeline proceeds to write the file. Default `0.75`. Lower values are more permissive; raise toward `1.0` for stricter intent checking. |
 
 ---
 
@@ -82,7 +83,7 @@ Authentication used when cloning or pushing to the remote repository.
 
 ### `models`
 
-Each key under `models` names a role the agent uses an LLM for. All four roles must be present; they may point to the same model if desired.
+Each key under `models` names a role the agent uses an LLM for. All four roles must be present; they may point to the same model if desired. All model entries share the same field schema.
 
 #### Common fields (all model entries)
 
@@ -99,7 +100,7 @@ Each key under `models` names a role the agent uses an LLM for. All four roles m
 |----------|---------|
 | `chat` | General-purpose conversational model used for planning and task decomposition. |
 | `coder` | Code generation model — should be a model fine-tuned for code (e.g. a Qwen-coder or DeepSeek-coder variant). |
-| `reviewer` | Model used to review and critique generated code before a PR is opened. |
+| `semantic_validator` | Model used to judge whether generated code satisfies the original task intent. Receives the task description, original code, and generated code; returns a structured JSON alignment score. Can be the same model as `coder`. |
 | `embedding` | Embedding model used to build the vector-similarity layer of the knowledge graph. Must produce dense vector outputs. |
 
 ---

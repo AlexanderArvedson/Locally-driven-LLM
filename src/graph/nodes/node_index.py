@@ -8,7 +8,8 @@ from src.graph.nodes.diff_generator import diff_generator_node
 from src.graph.nodes.file_reader import file_reader_node
 from src.graph.nodes.file_writer import file_writer_node
 from src.graph.nodes.graph_resolver import graph_resolver_node
-from src.graph.nodes.reviewer import reviewer_node
+from src.graph.nodes.static_validator import static_validator_node
+from src.graph.nodes.semantic_validator import semantic_validator_node
 from src.graph.nodes.support import client
 from src.config_loader import CODER_MODEL, MAX_ITERATIONS
 from src.graph.nodes.verifier import verifier_node
@@ -24,7 +25,8 @@ __all__ = [
     "retrieval_node",
     "coder_node",
     "diff_generator_node",
-    "reviewer_node",
+    "static_validator_node",
+    "semantic_validator_node",
     "verifier_node",
     "file_writer_node",
 ]
