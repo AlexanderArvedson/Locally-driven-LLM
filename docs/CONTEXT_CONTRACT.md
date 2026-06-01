@@ -107,6 +107,17 @@ not heavyweight objects:
   should consume this instead of `selected_file_ids`/`target_file` once migration
   is complete.
 
+### Git output fields
+
+- `branch_name` (str): the task branch created by `branch_creator_node`
+  (e.g. `DEV-AI-DATE-add-docstrings`). Used by `git_committer_node` to verify
+  the repo is on the correct branch before committing, preventing accidental
+  commits to `main` if the user switches branches mid-run.
+- `commit_sha` (str): full hex SHA of the commit created by
+  `git_committer_node`; empty string when `commit_file` found no diff (file
+  unchanged). `run_monorepo_task.py` gates the push and PR creation on this
+  being non-empty.
+
 `RepositorySnapshot` and `GraphHandle` are computed locally inside the nodes
 that need them and are never stored in `GraphState`.
 

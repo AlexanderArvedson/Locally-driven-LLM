@@ -39,6 +39,9 @@ async def git_committer_node(state: GraphState, run_context: RunContext) -> dict
         target_file = require_state_value(state, "target_file")
         expected_branch = require_state_value(state, "branch_name")
 
+        # Guard against the user switching branches mid-run, which would cause
+        # the commit to land on the wrong branch and the task branch to have
+        # no new commits when the PR is created.
         repo = git.Repo(repo_path)
         active_branch = repo.active_branch.name
         if active_branch != expected_branch:

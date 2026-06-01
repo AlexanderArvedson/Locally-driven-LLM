@@ -2,7 +2,7 @@
 
 Rules:
 - Update relevant .md documents if we modify a file or similar that's part of what it's describing. 
-- Leave comments fitted after the language explaining the purpose of functions, classes, methods, etc. Explaining the purpose of the code.
+- Leave comments fitted after the language explaining the purpose of functions, classes, methods, etc. Explaining the purpose of the code. For inline code comments inside functions, only leave comments if what the code section is obtuse. 
 
 ## graphify
 
