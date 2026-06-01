@@ -7,11 +7,11 @@
 
   "repositories": [
     {
-      "name": "",
+      "name": "example-repo",
       "url": "https://github.com/owner/repo.git",
       "base_branch": "main",
       "prefix": "AI-",
-      "local_path": "",
+      "local_path": "/path/to/repo",
 
       "created_at": null,
       "updated_at": null,
@@ -39,7 +39,7 @@
 
       "models": {
         "chat": {
-          "name": "",
+          "name": "qwen2.5-coder:7b",
           "provider": "ollama",
           "api_key": null,
           "url": "http://localhost:11434",
@@ -48,7 +48,7 @@
           "timeout_seconds": 300
         },
         "coder": {
-          "name": "",
+          "name": "qwen2.5-coder:7b",
           "provider": "ollama",
           "api_key": null,
           "url": "http://localhost:11434",
@@ -57,7 +57,7 @@
           "timeout_seconds": 300
         },
         "semantic_validator": {
-          "name": "",
+          "name": "qwen2.5-coder:7b",
           "provider": "ollama",
           "api_key": null,
           "url": "http://localhost:11434",
@@ -66,7 +66,7 @@
           "timeout_seconds": 300
         },
         "embedding": {
-          "name": "",
+          "name": "nomic-embed-text",
           "provider": "ollama",
           "api_key": null,
           "url": "http://localhost:11434",

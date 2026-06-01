@@ -199,7 +199,7 @@ def _to_relative_ids(selected: list[str], repo_path: str | None) -> list[str]:
     result = []
     for p in selected:
         try:
-            result.append(str(_Path(p).relative_to(repo)))
+            result.append(_Path(p).relative_to(repo).as_posix())
         except ValueError:
             result.append(p)
     return result

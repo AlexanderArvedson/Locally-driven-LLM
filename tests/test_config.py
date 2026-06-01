@@ -49,17 +49,12 @@ def _write_config(tmp_dir: str, repo_overrides: dict | None = None) -> Path:
 
 
 class TestConfig(unittest.TestCase):
-    def test_module_constants_match_config_file(self) -> None:
-        raw = json.loads(app_config.CONFIG_PATH.read_text(encoding="utf-8"))
-        repository = raw["repositories"][0]
-
-        self.assertEqual(app_config.APP_CONFIG.cron, raw["cron"])
-        self.assertEqual(
-            app_config.APP_CONFIG.repositories[0].max_workflow_revision_cycles,
-            repository["max_workflow_revision_cycles"],
-        )
-        self.assertEqual(app_config.get_repository_config().name, repository["name"])
-        self.assertEqual(app_config.MAX_WORKFLOW_REVISION_CYCLES, repository["max_workflow_revision_cycles"])
+    def test_example_config_loads_without_error(self) -> None:
+        """config.example.json must be loadable so CI and fresh checkouts work."""
+        loaded = app_config.load_config(app_config.EXAMPLE_CONFIG_PATH)
+        self.assertGreater(len(loaded.repositories), 0)
+        self.assertEqual(loaded.repositories[0].max_workflow_revision_cycles, 3)
+        self.assertIn("coder", loaded.repositories[0].models)
 
     def test_load_config_supports_explicit_file_path(self) -> None:
         with tempfile.TemporaryDirectory() as tmp_dir:

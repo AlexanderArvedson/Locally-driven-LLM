@@ -20,7 +20,7 @@ class TestCoderPromptContract(unittest.TestCase):
             nodes_module = importlib.import_module("src.graph.nodes.node_index")
         captured_prompts = []
 
-        async def fake_chat(messages, model, temperature):
+        async def fake_chat(messages, model, temperature, **_):
             captured_prompts.append(messages[1]["content"])
             return types.SimpleNamespace(message="def x():\n    return 1\n", input_tokens=1, output_tokens=1)
 
@@ -47,7 +47,7 @@ class TestCoderPromptContract(unittest.TestCase):
             nodes_module = importlib.import_module("src.graph.nodes.node_index")
         captured_prompts = []
 
-        async def fake_chat(messages, model, temperature):
+        async def fake_chat(messages, model, temperature, **_):
             captured_prompts.append(messages[1]["content"])
             return types.SimpleNamespace(message="def x():\n    return 1\n", input_tokens=1, output_tokens=1)
 
