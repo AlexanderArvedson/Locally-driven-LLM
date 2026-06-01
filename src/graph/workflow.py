@@ -65,6 +65,13 @@ def route_after_semantic(state: GraphState):
     return "coder"
 
 
+def route_after_planner(state: GraphState):
+    """Terminate early when the planner found no file to modify."""
+    if state.get("planner_error"):
+        return END
+    return "file_reader"
+
+
 def make_graph(run_context: RunContext):
     """Create and compile the StateGraph for a single run.
 
@@ -92,9 +99,10 @@ def make_graph(run_context: RunContext):
 
     # Register nodes from the aggregate index module.
     builder.add_node("branch_creator", _wrap(nodes_module.branch_creator_node))
-    builder.add_node("file_reader", _wrap(nodes_module.file_reader_node))
     builder.add_node("graph_resolver", _wrap(nodes_module.graph_resolver_node))
     builder.add_node("retrieval", _wrap(nodes_module.retrieval_node))
+    builder.add_node("planner", _wrap(nodes_module.planner_node))
+    builder.add_node("file_reader", _wrap(nodes_module.file_reader_node))
     builder.add_node("coder", _wrap(nodes_module.coder_node))
     builder.add_node("diff_generator", _wrap(nodes_module.diff_generator_node))
     builder.add_node("reviewer", _wrap(nodes_module.static_validator_node))
@@ -103,17 +111,27 @@ def make_graph(run_context: RunContext):
     builder.add_node("file_writer", _wrap(nodes_module.file_writer_node))
     builder.add_node("git_committer", _wrap(nodes_module.git_committer_node))
 
-    # Linear topology with conditional edges for retry/looping behavior.
-    # Static edges for the non-branching segments of the pipeline.
+    # Pipeline:
+    #   branch_creator → graph_resolver → retrieval → planner → file_reader → coder → ...
+    # planner selects target_file from retrieval candidates; terminates early on error.
     builder.add_edge(START, "branch_creator")
-    builder.add_edge("branch_creator", "file_reader")
-    builder.add_edge("file_reader", "graph_resolver")
+    builder.add_edge("branch_creator", "graph_resolver")
     builder.add_edge("graph_resolver", "retrieval")
-    builder.add_edge("retrieval", "coder")
+    builder.add_edge("retrieval", "planner")
+    builder.add_edge("file_reader", "coder")
     builder.add_edge("coder", "diff_generator")
     builder.add_edge("diff_generator", "reviewer")
     builder.add_edge("file_writer", "git_committer")
     builder.add_edge("git_committer", END)
+
+    builder.add_conditional_edges(
+        "planner",
+        route_after_planner,
+        {
+            "file_reader": "file_reader",
+            END: END,
+        },
+    )
 
     builder.add_conditional_edges(
         "reviewer",
