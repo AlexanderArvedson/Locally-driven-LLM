@@ -373,10 +373,21 @@ def get_system_context_path() -> Path:
     return Path(APP_CONFIG.system.context_path).expanduser()
 
 
+EXAMPLE_CONFIG_PATH = PROJECT_ROOT / "config.example.json"
+
+
 def load_config(config_path: Path | None = None) -> AppConfig:
     path = config_path or CONFIG_PATH
     if not path.exists():
-        raise FileNotFoundError(f"Missing required config file: {path}")
+        if config_path is not None:
+            # Caller requested a specific path that doesn't exist — always an error.
+            raise FileNotFoundError(f"Missing required config file: {path}")
+        # config.json absent (CI, fresh checkout): fall back to the tracked example
+        # file so the module imports cleanly without a local config.
+        if EXAMPLE_CONFIG_PATH.exists():
+            path = EXAMPLE_CONFIG_PATH
+        else:
+            raise FileNotFoundError(f"Missing required config file: {CONFIG_PATH}")
 
     raw = json.loads(path.read_text(encoding="utf-8"))
     if not isinstance(raw, dict):
