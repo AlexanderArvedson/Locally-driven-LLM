@@ -426,6 +426,21 @@ No lifecycle tracking beyond “running now / not running”.
 
 ---
 
+### Workflow Boundary Refactor (Phase 3 follow-up)
+
+Separates the external request contract from internal graph state. Required before Phase 4
+retrieval work to avoid state keys scattering across every node.
+
+- [x] Introduce `TaskRequest` dataclass (`src/scheduler/task_request.py`) as the external API
+- [x] Replace `Task.payload: Dict[str, Any]` with `Task.request: TaskRequest`
+- [x] Implement `GraphStateFactory.from_task_request()` (`src/scheduler/state_factory.py`) as the single conversion point
+- [x] Remove `cast(GraphState, task.payload)` from `WorkflowExecutor`; all state construction now flows through factory
+- [x] Add `task_request: NotRequired[TaskRequest]` to `GraphState` (nodes can migrate off individual string keys incrementally)
+- [x] Add `RetrievalRequest` and `RetrievalResult` dataclasses (`src/retrieval/contracts/retrieval_contract.py`)
+- [x] Add `retrieval_result: NotRequired[RetrievalResult]` to `GraphState` (ready for retrieval pipeline to populate)
+
+---
+
 ## Definition of Done
 
 Phase 3 is complete when:
@@ -462,7 +477,7 @@ Phase 3 is complete when:
 
 ## Stage
 
-Phase 1 — File Mutation MVP: Completed. Phase 2 — Repository Awareness: initial implementation completed and integrated. Phase 3 — Execution & Scheduling Layer: core scheduler implementation and `submit_task(task)` API completed.
+Phase 1 — File Mutation MVP: Completed. Phase 2 — Repository Awareness: initial implementation completed and integrated. Phase 3 — Execution & Scheduling Layer: core scheduler + workflow boundary refactor completed.
 
 ## Working capabilities
 

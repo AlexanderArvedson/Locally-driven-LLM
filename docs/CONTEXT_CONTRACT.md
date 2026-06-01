@@ -1,6 +1,6 @@
 # Repository Context Contract (retrieval → coder)
 
-Last updated: 2026-05-29
+Last updated: 2026-06-01
 
 This document describes the authoritative, versioned contract used to pass
 repository-level context from the retrieval node into the coder node prompt.
@@ -97,9 +97,44 @@ not heavyweight objects:
 - `selected_file_ids` (list[str]): repo-relative paths of selected files.
 - `graph_snapshot_sha` (str): git HEAD SHA used during graph-based retrieval;
   empty string when heuristic fallback was used.
+- `task_request` (`TaskRequest`): original external request; set by
+  `GraphStateFactory.from_task_request()` before graph invocation. Nodes
+  should prefer reading from this over individual `task`/`target_file` string
+  keys once the retrieval pipeline is fully wired.
+- `retrieval_result` (`RetrievalResult`): structured output contract from the
+  retrieval pipeline (`src/retrieval/contracts/retrieval_contract.py`).
+  Populated by `retrieval_node`; downstream nodes (coder, reviewer, committer)
+  should consume this instead of `selected_file_ids`/`target_file` once migration
+  is complete.
 
 `RepositorySnapshot` and `GraphHandle` are computed locally inside the nodes
 that need them and are never stored in `GraphState`.
+
+## Retrieval input/output contracts
+
+Two additional dataclasses decouple the retrieval pipeline from raw graph state keys.
+Both live in `src/retrieval/contracts/retrieval_contract.py`.
+
+### RetrievalRequest
+
+Input contract passed from the scheduler layer to the retrieval pipeline:
+
+- `task` (str): natural-language task description forwarded from `TaskRequest`.
+- `target_path` (str|None): repo-relative primary target file, or `None` for
+  autonomous file selection.
+- `max_files` (int): cap on the number of files to surface.
+
+### RetrievalResult
+
+Output contract written into `GraphState.retrieval_result`:
+
+- `primary_files` (list[str]): ordered repo-relative paths for the files to mutate.
+- `supporting_files` (list[str]): additional context-only files; not directly mutated.
+- `confidence` (float, 0.0–1.0): how fully the selected files cover the task scope.
+
+These contracts allow the retrieval implementation to be replaced without touching
+the coder, reviewer, or commit nodes — only the retrieval node and the factory need
+to change.
 
 ## Example payload
 
