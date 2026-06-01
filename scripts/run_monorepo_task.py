@@ -83,13 +83,19 @@ def main() -> int:
 
     branch_name: str = result.get("branch_name", expected_branch)
     updated_code = result.get("updated_code")
+    commit_sha: str = result.get("commit_sha", "")
 
     print(f"Branch created : {branch_name}")
     print(f"File modified  : {'yes' if updated_code else 'no'}")
+    print(f"Commit SHA     : {commit_sha or '(none)'}")
     print()
 
     if not updated_code:
         print("Workflow finished but no file was written — skipping push and PR.")
+        return 0
+
+    if not commit_sha:
+        print("File was written but git found no changes to commit (content unchanged) — skipping push and PR.")
         return 0
 
     # ── 2. Push branch ───────────────────────────────────────────────────────
@@ -125,14 +131,20 @@ def main() -> int:
     )
 
     print("Creating pull request…")
-    pr_url = create_pull_request(
-        remote_url=repo.url,
-        token=token,
-        head_branch=branch_name,
-        base_branch=repo.base_branch,
-        title=pr_title,
-        body=pr_body,
-    )
+    try:
+        pr_url = create_pull_request(
+            remote_url=repo.url,
+            token=token,
+            head_branch=branch_name,
+            base_branch=repo.base_branch,
+            title=pr_title,
+            body=pr_body,
+        )
+    except RuntimeError as pr_err:
+        if "No commits between" in str(pr_err):
+            print(f"PR skipped: remote branch has no commits ahead of '{repo.base_branch}' (branch: {branch_name}).")
+            return 0
+        raise
 
     print(f"Pull request opened: {pr_url}")
     return 0

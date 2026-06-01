@@ -140,3 +140,7 @@ class GraphState(TypedDict):
 
     # Git HEAD SHA at graph resolution time; also used as retrieval anchor.
     repo_sha: NotRequired[str]
+
+    # Full hex SHA of the commit created by git_committer_node; empty string
+    # when no commit was made (file unchanged or committer skipped).
+    commit_sha: NotRequired[str]
