@@ -1,6 +1,8 @@
 from typing import TypedDict, NotRequired
 
 from src.retrieval.contracts.context_contract import RepositoryContextPayload
+from src.retrieval.contracts.retrieval_contract import RetrievalResult
+from src.scheduler.task_request import TaskRequest
 
 
 class GraphState(TypedDict):
@@ -17,6 +19,11 @@ class GraphState(TypedDict):
 
     # Task selected by the user (e.g. "refactor this function", "write tests")
     task: str
+
+    # Original request contract; populated by GraphStateFactory.
+    # Nodes should prefer reading structured fields from here over individual
+    # string keys once the retrieval pipeline is wired up.
+    task_request: NotRequired[TaskRequest]
 
     # Target file path (added for repository-aware execution)
     target_file: NotRequired[str]
@@ -70,6 +77,10 @@ class GraphState(TypedDict):
     # Full contents of up to 5 related files, capped at 3 000 chars each.
     # Populated by retrieval_node; consumed by coder_node for prompt context.
     related_file_contents: NotRequired[dict[str, str]]
+
+    # Structured output from the retrieval pipeline. Downstream nodes should
+    # eventually consume this instead of individual selected_file_ids / target_file keys.
+    retrieval_result: NotRequired[RetrievalResult]
 
     # --- Static validator structured output ---
 
