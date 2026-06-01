@@ -1,7 +1,17 @@
 # Configuration Reference
 
-Copy `config.example.json` to `config.json` and fill in the values for your setup.
-`config.json` is gitignored and never committed.
+## Setup
+
+**Application config** — copy `config.example.json` to `config.json` and fill in the values for your setup. `config.json` is gitignored and never committed.
+
+**Docker / Ollama server config** — copy `.env.example` to `.env` and adjust the values as needed. `.env` is gitignored and read automatically by Docker Compose for `${VAR}` substitution in `docker-compose.yml`. The two variables it controls are:
+
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `OLLAMA_KEEP_ALIVE` | `60m` | How long Ollama keeps a loaded model in VRAM after the last request. Accepts duration strings (`60m`, `24h`), `0` (never unload), or `-1` (unload immediately after each request). |
+| `OLLAMA_NUM_PARALLEL` | `1` | Maximum number of requests the Ollama server handles concurrently. Higher values increase throughput at the cost of additional VRAM per slot. |
+
+After editing `.env`, apply the changes with `docker compose up --build`.
 
 ---
 
