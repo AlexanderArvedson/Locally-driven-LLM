@@ -94,6 +94,22 @@ When a limit is hit the system logs statistics including candidate count, select
 
 ---
 
+### `planner`
+
+Controls the file-selection step that runs after retrieval. When a task is submitted without an explicit `--target-file`, the planner asks the LLM to choose which files from the retrieval candidates actually need to be modified. The block may be omitted; all fields have defaults.
+
+| Field | Type | Default | Description |
+|-------|------|---------|-------------|
+| `max_files` | integer (1–10) | `3` | Maximum number of files the planner may select for modification in a single run. The LLM is prompted with this limit; its response is also hard-capped to this value after parsing. Raise for tasks that inherently touch multiple files; lower to keep changes tightly scoped. |
+
+#### Planner behaviour
+
+- When `--target-file` is provided the planner is skipped entirely and the supplied path is used directly.
+- When no target is specified the planner receives the ranked list from `retrieval` and makes an LLM call to select 1–`max_files` files to modify.
+- If the LLM returns an empty selection, or all selected paths are not in the retrieval candidates (hallucinations are filtered out), the run terminates with a `planner_error` and no files are written.
+
+---
+
 ### `credentials`
 
 Authentication used when cloning or pushing to the remote repository.

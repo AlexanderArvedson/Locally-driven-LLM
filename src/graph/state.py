@@ -28,6 +28,13 @@ class GraphState(TypedDict):
     # Target file path (added for repository-aware execution)
     target_file: NotRequired[str]
 
+    # All files selected by planner_node to be modified (1–3 entries).
+    # target_file is always chosen[0]; this list is kept for future multi-file looping.
+    target_files: NotRequired[list[str]]
+
+    # Set by planner_node when no suitable file is found; causes the run to terminate.
+    planner_error: NotRequired[str]
+
     # Repository root path used for deterministic snapshot creation
     repo_path: NotRequired[str]
 

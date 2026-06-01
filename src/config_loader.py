@@ -81,6 +81,18 @@ class RetrievalConfig:
 
 
 @dataclass(frozen=True)
+class PlannerConfig:
+    """Controls how many files the planner node may select for modification.
+
+    Attributes:
+        max_files: Maximum number of files the LLM planner may choose to
+            modify in a single run. Must be between 1 and 10.
+    """
+
+    max_files: int
+
+
+@dataclass(frozen=True)
 class SystemConfig:
     """Global system-level settings shared across all repositories.
 
@@ -105,6 +117,7 @@ class RepositoryConfig:
     semantic_threshold: float
     graph: GraphConfig
     retrieval: RetrievalConfig
+    planner: PlannerConfig
     credentials: dict[str, str] | None
     models: dict[str, ModelConfig]
     slack_webhook_url: str | None
@@ -225,6 +238,19 @@ def _load_retrieval_config(raw: dict[str, Any], *, source: Path) -> RetrievalCon
     )
 
 
+def _load_planner_config(raw: dict[str, Any], *, source: Path) -> PlannerConfig:
+    """Parse the ``planner`` sub-object from a repository config entry.
+
+    Defaults to ``max_files=3`` when the block or key is absent so existing
+    configs without a ``planner`` block continue to work.
+    Raises ``ValueError`` when the value is out of the allowed range.
+    """
+    max_files = raw.get("max_files", 3)
+    if not isinstance(max_files, int) or not (1 <= max_files <= 10):
+        raise ValueError(f"'planner.max_files' must be an integer between 1 and 10 in {source}")
+    return PlannerConfig(max_files=max_files)
+
+
 def _load_system_config(raw: dict[str, Any]) -> SystemConfig:
     """Parse the top-level ``system`` block from config.json.
 
@@ -280,6 +306,7 @@ def _load_repository_config(raw: dict[str, Any], *, source: Path) -> RepositoryC
         semantic_threshold=float(raw.get("semantic_threshold", 0.75)),
         graph=_load_graph_config(raw.get("graph", {}), source=source),
         retrieval=_load_retrieval_config(raw.get("retrieval", {}), source=source),
+        planner=_load_planner_config(raw.get("planner", {}), source=source),
         credentials=credentials_raw,
         models=models,
         slack_webhook_url=slack_webhook_url,
@@ -353,6 +380,11 @@ def get_max_workflow_revision_cycles(repo_path: str | None = None) -> int:
 def get_retrieval_config(repo_path: str | None = None) -> RetrievalConfig:
     """Return retrieval limits and behavior for the repository matching ``repo_path``."""
     return get_repository_config(repo_path).retrieval
+
+
+def get_planner_config(repo_path: str | None = None) -> PlannerConfig:
+    """Return planner settings for the repository matching ``repo_path``."""
+    return get_repository_config(repo_path).planner
 
 
 def get_semantic_threshold(repo_path: str | None = None) -> float:

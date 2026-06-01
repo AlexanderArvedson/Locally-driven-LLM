@@ -102,12 +102,15 @@ Responsibilities:
 ### Active Workflow
 
 1. User selects issue
-2. Context retrieval
-3. Modification planning
-4. Code generation
-5. Verification/reviewer loop
-6. Retry/refinement
-7. Final patch generation
+2. Graph resolution (knowledge graph freshness check)
+3. Context retrieval (ranked candidate files via graph or heuristic ranker)
+4. Planner (LLM selects 1–N files to modify from retrieval candidates; errors cleanly if none fit)
+5. File read (target file content loaded into state)
+6. Code generation
+7. Diff generation + static validation
+8. Verification/reviewer loop
+9. Semantic validation
+10. File write + git commit
 
 ---
 
@@ -489,6 +492,7 @@ Phase 1 — File Mutation MVP: Completed. Phase 2 — Repository Awareness: init
 - [x] Unit tests + integration tests covering indexer, retrieval, context builder, node wiring, and prompt contract
 - [x] Deterministic repository snapshotting and normalized, versioned context payloads
 - [x] Test fixtures and helpers to stabilize import-time dependencies
+- [x] Autonomous file selection — `planner_node` uses the LLM to pick which file(s) to modify from retrieval candidates; `--target-file` is now optional
 
 ## Current focus
 

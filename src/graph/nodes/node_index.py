@@ -8,6 +8,7 @@ from src.graph.nodes.diff_generator import diff_generator_node
 from src.graph.nodes.file_reader import file_reader_node
 from src.graph.nodes.file_writer import file_writer_node
 from src.graph.nodes.graph_resolver import graph_resolver_node
+from src.graph.nodes.planner import planner_node
 from src.graph.nodes.static_validator import static_validator_node
 from src.graph.nodes.semantic_validator import semantic_validator_node
 from src.graph.nodes.support import client
@@ -22,6 +23,7 @@ __all__ = [
     "git_committer_node",
     "file_reader_node",
     "graph_resolver_node",
+    "planner_node",
     "retrieval_node",
     "coder_node",
     "diff_generator_node",
