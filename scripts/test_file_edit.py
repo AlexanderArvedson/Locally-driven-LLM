@@ -3,6 +3,8 @@ from pathlib import Path
 
 from src.graph.workflow import make_graph
 from src.observability.context import RunContext
+from src.scheduler.state_factory import GraphStateFactory
+from src.scheduler.task_request import TaskRequest
 
 
 _REPO_ROOT = Path(__file__).resolve().parents[1]
@@ -15,12 +17,12 @@ async def main():
     run_context = RunContext.new()
     graph = make_graph(run_context)
 
-    result = await graph.ainvoke(
-        {
-            "task": "Add type hints to the function.",
-            "target_file": str(target_file),
-        }
+    request = TaskRequest(
+        task="Add type hints to the function.",
+        repo_path=str(_REPO_ROOT),
+        target_path=str(target_file),
     )
+    result = await graph.ainvoke(GraphStateFactory.from_task_request(request))
 
     after = target_file.read_text(encoding="utf-8")
 

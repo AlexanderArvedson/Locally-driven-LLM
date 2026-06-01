@@ -9,6 +9,7 @@ from src.scheduler.executor import WorkflowExecutor
 from src.scheduler.loop import ExecutionLoop
 from src.scheduler.queue import TaskQueue
 from src.scheduler.task import Task, TaskType
+from src.scheduler.task_request import TaskRequest
 
 
 pytestmark = pytest.mark.asyncio
@@ -86,7 +87,12 @@ async def execution_loop(task_queue: TaskQueue, workflow_executor: RecordingWork
 
 
 def make_task(task_id: str, task_type: TaskType) -> Task:
-    return Task(id=task_id, type=task_type, payload={}, created_at=0.0)
+    return Task(
+        id=task_id,
+        type=task_type,
+        request=TaskRequest(task="", repo_path=""),
+        created_at=0.0,
+    )
 
 
 async def test_active_tasks_execute_strictly_in_submission_order(

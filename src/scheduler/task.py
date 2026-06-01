@@ -1,7 +1,9 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Any, Dict, Literal
+from typing import Literal
+
+from .task_request import TaskRequest
 
 
 TaskType = Literal["passive", "active"]
@@ -9,7 +11,9 @@ TaskType = Literal["passive", "active"]
 
 @dataclass(slots=True)
 class Task:
+    """Scheduler work unit wrapping a validated TaskRequest."""
+
     id: str
     type: TaskType
-    payload: Dict[str, Any]
+    request: TaskRequest
     created_at: float

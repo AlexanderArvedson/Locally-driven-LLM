@@ -29,6 +29,7 @@ from src.config_loader import CODER_MODEL  # noqa: E402
 from src.scheduler.loop import ExecutionLoop  # noqa: E402
 from src.scheduler.queue import TaskQueue  # noqa: E402
 from src.scheduler.task import Task  # noqa: E402
+from src.scheduler.task_request import TaskRequest  # noqa: E402
 
 
 DEFAULT_REPO_PATH = PROJECT_ROOT / "tests" / "fixtures" / "sample_repo_v2"
@@ -95,11 +96,11 @@ def _make_task(repo_path: Path, target_file: Path, prompt: str) -> Task:
     return Task(
         id=uuid.uuid4().hex,
         type="active",
-        payload={
-            "task": prompt,
-            "repo_path": str(repo_path),
-            "target_file": str(target_file),
-        },
+        request=TaskRequest(
+            task=prompt,
+            repo_path=str(repo_path),
+            target_path=str(target_file),
+        ),
         created_at=time.time(),
     )
 
