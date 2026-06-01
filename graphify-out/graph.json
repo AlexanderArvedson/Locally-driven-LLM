@@ -527,7 +527,7 @@
       "source_file": "src/config_loader.py",
       "source_location": "L340",
       "id": "src_config_loader_get_retrieval_config",
-      "community": 6,
+      "community": 12,
       "norm_label": "get_retrieval_config()"
     },
     {
@@ -579,7 +579,7 @@
       "label": "load_config()",
       "file_type": "code",
       "source_file": "src/config_loader.py",
-      "source_location": "L376",
+      "source_location": "L379",
       "id": "src_config_loader_load_config",
       "community": 12,
       "norm_label": "load_config()"
@@ -588,9 +588,9 @@
       "label": "update_repository_timestamps()",
       "file_type": "code",
       "source_file": "src/config_loader.py",
-      "source_location": "L409",
+      "source_location": "L420",
       "id": "src_config_loader_update_repository_timestamps",
-      "community": 4,
+      "community": 12,
       "norm_label": "update_repository_timestamps()"
     },
     {
@@ -716,7 +716,7 @@
       "source_file": "src/config_loader.py",
       "source_location": "L341",
       "id": "src_config_loader_rationale_341",
-      "community": 6,
+      "community": 12,
       "norm_label": "return retrieval limits and behavior for the repository matching ``repo_path``."
     },
     {
@@ -759,9 +759,9 @@
       "label": "Persist ``created_at`` and/or ``updated_at`` for a repository in config.json.",
       "file_type": "rationale",
       "source_file": "src/config_loader.py",
-      "source_location": "L416",
-      "id": "src_config_loader_rationale_416",
-      "community": 4,
+      "source_location": "L427",
+      "id": "src_config_loader_rationale_427",
+      "community": 12,
       "norm_label": "persist ``created_at`` and/or ``updated_at`` for a repository in config.json."
     },
     {
@@ -1211,16 +1211,16 @@
       "source_file": "src/graph/state.py",
       "source_location": "L1",
       "id": "src_graph_state_py",
-      "community": 2,
+      "community": 9,
       "norm_label": "state.py"
     },
     {
       "label": "GraphState",
       "file_type": "code",
       "source_file": "src/graph/state.py",
-      "source_location": "L6",
+      "source_location": "L8",
       "id": "graph_state_graphstate",
-      "community": 32,
+      "community": 31,
       "norm_label": "graphstate"
     },
     {
@@ -1236,9 +1236,9 @@
       "label": "Shared state passed between LangGraph nodes.      This state represents a sing",
       "file_type": "rationale",
       "source_file": "src/graph/state.py",
-      "source_location": "L7",
-      "id": "graph_state_rationale_7",
-      "community": 32,
+      "source_location": "L9",
+      "id": "graph_state_rationale_9",
+      "community": 31,
       "norm_label": "shared state passed between langgraph nodes.      this state represents a sing"
     },
     {
@@ -1292,7 +1292,7 @@
       "source_file": "src/graph/workflow.py",
       "source_location": "L68",
       "id": "graph_workflow_make_graph",
-      "community": 32,
+      "community": 31,
       "norm_label": "make_graph()"
     },
     {
@@ -1301,7 +1301,7 @@
       "source_file": "src/graph/workflow.py",
       "source_location": "L68",
       "id": "src_graph_workflow_py_runcontext",
-      "community": 32,
+      "community": 31,
       "norm_label": "runcontext"
     },
     {
@@ -1346,7 +1346,7 @@
       "source_file": "src/graph/workflow.py",
       "source_location": "L69",
       "id": "graph_workflow_rationale_69",
-      "community": 32,
+      "community": 31,
       "norm_label": "create and compile the stategraph for a single run.      the returned graph is"
     },
     {
@@ -1355,7 +1355,7 @@
       "source_file": "src/graph/nodes/branch_creator.py",
       "source_location": "L1",
       "id": "src_graph_nodes_branch_creator_py",
-      "community": 7,
+      "community": 32,
       "norm_label": "branch_creator.py"
     },
     {
@@ -1364,7 +1364,7 @@
       "source_file": "src/graph/nodes/branch_creator.py",
       "source_location": "L23",
       "id": "nodes_branch_creator_branch_creator_node",
-      "community": 7,
+      "community": 32,
       "norm_label": "branch_creator_node()"
     },
     {
@@ -1391,7 +1391,7 @@
       "source_file": "src/graph/nodes/branch_creator.py",
       "source_location": "L1",
       "id": "nodes_branch_creator_rationale_1",
-      "community": 7,
+      "community": 32,
       "norm_label": "branch creator node.  creates (or checks out) a task branch in the target repo"
     },
     {
@@ -1400,7 +1400,7 @@
       "source_file": "src/graph/nodes/branch_creator.py",
       "source_location": "L24",
       "id": "nodes_branch_creator_rationale_24",
-      "community": 7,
+      "community": 32,
       "norm_label": "create a task branch in the target repository.      reads ``repo_path`` and ``"
     },
     {
@@ -1517,7 +1517,7 @@
       "source_file": "src/graph/nodes/file_reader.py",
       "source_location": "L14",
       "id": "nodes_file_reader_file_reader_node",
-      "community": 26,
+      "community": 31,
       "norm_label": "file_reader_node()"
     },
     {
@@ -1526,7 +1526,7 @@
       "source_file": "src/graph/nodes/file_reader.py",
       "source_location": "L14",
       "id": "src_graph_nodes_file_reader_py_graphstate",
-      "community": 26,
+      "community": 31,
       "norm_label": "graphstate"
     },
     {
@@ -1535,7 +1535,7 @@
       "source_file": "src/graph/nodes/file_reader.py",
       "source_location": "L14",
       "id": "src_graph_nodes_file_reader_py_runcontext",
-      "community": 26,
+      "community": 31,
       "norm_label": "runcontext"
     },
     {
@@ -1544,7 +1544,7 @@
       "source_file": "src/graph/nodes/file_reader.py",
       "source_location": "L15",
       "id": "nodes_file_reader_rationale_15",
-      "community": 26,
+      "community": 31,
       "norm_label": "read the target file (or select one) and return its contents.      expected st"
     },
     {
@@ -1553,7 +1553,7 @@
       "source_file": "src/graph/nodes/file_writer.py",
       "source_location": "L1",
       "id": "src_graph_nodes_file_writer_py",
-      "community": 28,
+      "community": 19,
       "norm_label": "file_writer.py"
     },
     {
@@ -1562,7 +1562,7 @@
       "source_file": "src/graph/nodes/file_writer.py",
       "source_location": "L23",
       "id": "nodes_file_writer_file_writer_node",
-      "community": 28,
+      "community": 19,
       "norm_label": "file_writer_node()"
     },
     {
@@ -1571,7 +1571,7 @@
       "source_file": "src/graph/nodes/file_writer.py",
       "source_location": "L23",
       "id": "src_graph_nodes_file_writer_py_graphstate",
-      "community": 28,
+      "community": 19,
       "norm_label": "graphstate"
     },
     {
@@ -1580,7 +1580,7 @@
       "source_file": "src/graph/nodes/file_writer.py",
       "source_location": "L23",
       "id": "src_graph_nodes_file_writer_py_runcontext",
-      "community": 28,
+      "community": 19,
       "norm_label": "runcontext"
     },
     {
@@ -1589,7 +1589,7 @@
       "source_file": "src/graph/nodes/file_writer.py",
       "source_location": "L24",
       "id": "nodes_file_writer_rationale_24",
-      "community": 28,
+      "community": 19,
       "norm_label": "write generated content to disk or apply a unified diff.      expected state i"
     },
     {
@@ -1598,7 +1598,7 @@
       "source_file": "src/graph/nodes/git_committer.py",
       "source_location": "L1",
       "id": "src_graph_nodes_git_committer_py",
-      "community": 19,
+      "community": 28,
       "norm_label": "git_committer.py"
     },
     {
@@ -1607,7 +1607,7 @@
       "source_file": "src/graph/nodes/git_committer.py",
       "source_location": "L21",
       "id": "nodes_git_committer_git_committer_node",
-      "community": 19,
+      "community": 28,
       "norm_label": "git_committer_node()"
     },
     {
@@ -1616,7 +1616,7 @@
       "source_file": "src/graph/nodes/git_committer.py",
       "source_location": "L21",
       "id": "src_graph_nodes_git_committer_py_graphstate",
-      "community": 19,
+      "community": 28,
       "norm_label": "graphstate"
     },
     {
@@ -1625,7 +1625,7 @@
       "source_file": "src/graph/nodes/git_committer.py",
       "source_location": "L21",
       "id": "src_graph_nodes_git_committer_py_runcontext",
-      "community": 19,
+      "community": 28,
       "norm_label": "runcontext"
     },
     {
@@ -1634,7 +1634,7 @@
       "source_file": "src/graph/nodes/git_committer.py",
       "source_location": "L1",
       "id": "nodes_git_committer_rationale_1",
-      "community": 19,
+      "community": 28,
       "norm_label": "git committer node.  stages the modified target file and creates a git commit"
     },
     {
@@ -1643,7 +1643,7 @@
       "source_file": "src/graph/nodes/git_committer.py",
       "source_location": "L22",
       "id": "nodes_git_committer_rationale_22",
-      "community": 19,
+      "community": 28,
       "norm_label": "stage and commit the modified target file.      expected state keys:     - ``"
     },
     {
@@ -1652,7 +1652,7 @@
       "source_file": "src/graph/nodes/graphify_indexer.py",
       "source_location": "L1",
       "id": "src_graph_nodes_graphify_indexer_py",
-      "community": 32,
+      "community": 28,
       "norm_label": "graphify_indexer.py"
     },
     {
@@ -1679,7 +1679,7 @@
       "source_file": "src/graph/nodes/graphify_indexer.py",
       "source_location": "L14",
       "id": "src_graph_nodes_graphify_indexer_py_path",
-      "community": 32,
+      "community": 27,
       "norm_label": "path"
     },
     {
@@ -1688,7 +1688,7 @@
       "source_file": "src/graph/nodes/graphify_indexer.py",
       "source_location": "L1",
       "id": "nodes_graphify_indexer_rationale_1",
-      "community": 32,
+      "community": 28,
       "norm_label": "graphify indexer \u2014 internal graph-building utility.  provides `build_ast_graph"
     },
     {
@@ -2021,7 +2021,7 @@
       "source_file": "src/graph/nodes/retrieval_node.py",
       "source_location": "L170",
       "id": "nodes_retrieval_node_heuristic_rank",
-      "community": 6,
+      "community": 39,
       "norm_label": "_heuristic_rank()"
     },
     {
@@ -2030,7 +2030,7 @@
       "source_file": "src/graph/nodes/retrieval_node.py",
       "source_location": "L170",
       "id": "src_graph_nodes_retrieval_node_py_str",
-      "community": 6,
+      "community": 39,
       "norm_label": "str"
     },
     {
@@ -2039,7 +2039,7 @@
       "source_file": "src/graph/nodes/retrieval_node.py",
       "source_location": "L175",
       "id": "nodes_retrieval_node_read_related_files",
-      "community": 6,
+      "community": 40,
       "norm_label": "_read_related_files()"
     },
     {
@@ -2048,7 +2048,7 @@
       "source_file": "src/graph/nodes/retrieval_node.py",
       "source_location": "L193",
       "id": "nodes_retrieval_node_to_relative_ids",
-      "community": 6,
+      "community": 39,
       "norm_label": "_to_relative_ids()"
     },
     {
@@ -2075,7 +2075,7 @@
       "source_file": "src/graph/nodes/retrieval_node.py",
       "source_location": "L171",
       "id": "nodes_retrieval_node_rationale_171",
-      "community": 6,
+      "community": 39,
       "norm_label": "fallback ranking when graph is unavailable."
     },
     {
@@ -2084,7 +2084,7 @@
       "source_file": "src/graph/nodes/retrieval_node.py",
       "source_location": "L176",
       "id": "nodes_retrieval_node_rationale_176",
-      "community": 6,
+      "community": 40,
       "norm_label": "read bounded file contents for the coder prompt, excluding target file."
     },
     {
@@ -2093,7 +2093,7 @@
       "source_file": "src/graph/nodes/retrieval_node.py",
       "source_location": "L194",
       "id": "nodes_retrieval_node_rationale_194",
-      "community": 6,
+      "community": 39,
       "norm_label": "convert absolute paths to repo-relative strings when possible."
     },
     {
@@ -2102,7 +2102,7 @@
       "source_file": "src/graph/nodes/reviewer.py",
       "source_location": "L1",
       "id": "src_graph_nodes_reviewer_py",
-      "community": 1,
+      "community": 26,
       "norm_label": "reviewer.py"
     },
     {
@@ -2111,7 +2111,7 @@
       "source_file": "src/graph/nodes/reviewer.py",
       "source_location": "L17",
       "id": "nodes_reviewer_reviewer_node",
-      "community": 1,
+      "community": 19,
       "norm_label": "reviewer_node()"
     },
     {
@@ -2120,7 +2120,7 @@
       "source_file": "src/graph/nodes/reviewer.py",
       "source_location": "L17",
       "id": "src_graph_nodes_reviewer_py_graphstate",
-      "community": 1,
+      "community": 19,
       "norm_label": "graphstate"
     },
     {
@@ -2129,7 +2129,7 @@
       "source_file": "src/graph/nodes/reviewer.py",
       "source_location": "L17",
       "id": "src_graph_nodes_reviewer_py_runcontext",
-      "community": 1,
+      "community": 19,
       "norm_label": "runcontext"
     },
     {
@@ -2138,7 +2138,7 @@
       "source_file": "src/graph/nodes/reviewer.py",
       "source_location": "L18",
       "id": "nodes_reviewer_rationale_18",
-      "community": 1,
+      "community": 19,
       "norm_label": "perform lightweight review checks on generated code.      performs the followi"
     },
     {
@@ -2228,7 +2228,7 @@
       "source_file": "src/graph/nodes/static_validator.py",
       "source_location": "L1",
       "id": "src_graph_nodes_static_validator_py",
-      "community": 29,
+      "community": 26,
       "norm_label": "static_validator.py"
     },
     {
@@ -2237,7 +2237,7 @@
       "source_file": "src/graph/nodes/static_validator.py",
       "source_location": "L23",
       "id": "nodes_static_validator_static_validator_node",
-      "community": 29,
+      "community": 26,
       "norm_label": "static_validator_node()"
     },
     {
@@ -2246,7 +2246,7 @@
       "source_file": "src/graph/nodes/static_validator.py",
       "source_location": "L23",
       "id": "src_graph_nodes_static_validator_py_graphstate",
-      "community": 29,
+      "community": 26,
       "norm_label": "graphstate"
     },
     {
@@ -2255,7 +2255,7 @@
       "source_file": "src/graph/nodes/static_validator.py",
       "source_location": "L23",
       "id": "src_graph_nodes_static_validator_py_runcontext",
-      "community": 29,
+      "community": 26,
       "norm_label": "runcontext"
     },
     {
@@ -2264,7 +2264,7 @@
       "source_file": "src/graph/nodes/static_validator.py",
       "source_location": "L1",
       "id": "nodes_static_validator_rationale_1",
-      "community": 29,
+      "community": 26,
       "norm_label": "static validator node.  replaces the former reviewer node. responsibilities ar"
     },
     {
@@ -2273,7 +2273,7 @@
       "source_file": "src/graph/nodes/static_validator.py",
       "source_location": "L24",
       "id": "nodes_static_validator_rationale_24",
-      "community": 29,
+      "community": 26,
       "norm_label": "validate generated code for structural correctness.      runs python syntax va"
     },
     {
@@ -2318,7 +2318,7 @@
       "source_file": "src/graph/nodes/support.py",
       "source_location": "L31",
       "id": "nodes_support_strip_code_fences",
-      "community": 1,
+      "community": 19,
       "norm_label": "strip_code_fences()"
     },
     {
@@ -2327,7 +2327,7 @@
       "source_file": "src/graph/nodes/support.py",
       "source_location": "L44",
       "id": "nodes_support_validate_python_syntax",
-      "community": 1,
+      "community": 26,
       "norm_label": "validate_python_syntax()"
     },
     {
@@ -2336,7 +2336,7 @@
       "source_file": "src/graph/nodes/support.py",
       "source_location": "L44",
       "id": "src_graph_nodes_support_py_bool",
-      "community": 1,
+      "community": 26,
       "norm_label": "bool"
     },
     {
@@ -2372,7 +2372,7 @@
       "source_file": "src/graph/nodes/support.py",
       "source_location": "L32",
       "id": "nodes_support_rationale_32",
-      "community": 1,
+      "community": 19,
       "norm_label": "remove a single pair of surrounding markdown code fences."
     },
     {
@@ -2381,7 +2381,7 @@
       "source_file": "src/graph/nodes/support.py",
       "source_location": "L45",
       "id": "nodes_support_rationale_45",
-      "community": 1,
+      "community": 26,
       "norm_label": "validate that `content` compiles as python."
     },
     {
@@ -3168,6 +3168,51 @@
       "norm_label": "render repository context in a fixed, deterministic prompt section."
     },
     {
+      "label": "retrieval_contract.py",
+      "file_type": "code",
+      "source_file": "src/retrieval/contracts/retrieval_contract.py",
+      "source_location": "L1",
+      "id": "src_retrieval_contracts_retrieval_contract_py",
+      "community": 9,
+      "norm_label": "retrieval_contract.py"
+    },
+    {
+      "label": "RetrievalRequest",
+      "file_type": "code",
+      "source_file": "src/retrieval/contracts/retrieval_contract.py",
+      "source_location": "L7",
+      "id": "contracts_retrieval_contract_retrievalrequest",
+      "community": 9,
+      "norm_label": "retrievalrequest"
+    },
+    {
+      "label": "RetrievalResult",
+      "file_type": "code",
+      "source_file": "src/retrieval/contracts/retrieval_contract.py",
+      "source_location": "L21",
+      "id": "contracts_retrieval_contract_retrievalresult",
+      "community": 9,
+      "norm_label": "retrievalresult"
+    },
+    {
+      "label": "Input contract passed from the scheduler layer to the retrieval pipeline.",
+      "file_type": "rationale",
+      "source_file": "src/retrieval/contracts/retrieval_contract.py",
+      "source_location": "L8",
+      "id": "contracts_retrieval_contract_rationale_8",
+      "community": 9,
+      "norm_label": "input contract passed from the scheduler layer to the retrieval pipeline."
+    },
+    {
+      "label": "Output contract from the retrieval pipeline, stored in GraphState.      Downst",
+      "file_type": "rationale",
+      "source_file": "src/retrieval/contracts/retrieval_contract.py",
+      "source_location": "L22",
+      "id": "contracts_retrieval_contract_rationale_22",
+      "community": 9,
+      "norm_label": "output contract from the retrieval pipeline, stored in graphstate.      downst"
+    },
+    {
       "label": "types.py",
       "file_type": "code",
       "source_file": "src/retrieval/contracts/types.py",
@@ -3317,7 +3362,7 @@
       "source_file": "src/retrieval/graph/graph_query.py",
       "source_location": "L1",
       "id": "src_retrieval_graph_graph_query_py",
-      "community": 6,
+      "community": 36,
       "norm_label": "graph_query.py"
     },
     {
@@ -3326,7 +3371,7 @@
       "source_file": "src/retrieval/graph/graph_query.py",
       "source_location": "L22",
       "id": "graph_graph_query_graphquery",
-      "community": 6,
+      "community": 36,
       "norm_label": "graphquery"
     },
     {
@@ -3335,7 +3380,7 @@
       "source_file": "src/retrieval/graph/graph_query.py",
       "source_location": "L33",
       "id": "graph_graph_query_graphquery_init",
-      "community": 6,
+      "community": 29,
       "norm_label": ".__init__()"
     },
     {
@@ -3344,7 +3389,7 @@
       "source_file": "src/retrieval/graph/graph_query.py",
       "source_location": "L33",
       "id": "src_retrieval_graph_graph_query_py_str",
-      "community": 6,
+      "community": 29,
       "norm_label": "str"
     },
     {
@@ -3353,7 +3398,7 @@
       "source_file": "src/retrieval/graph/graph_query.py",
       "source_location": "L39",
       "id": "graph_graph_query_graphquery_from_path",
-      "community": 6,
+      "community": 29,
       "norm_label": ".from_path()"
     },
     {
@@ -3362,7 +3407,7 @@
       "source_file": "src/retrieval/graph/graph_query.py",
       "source_location": "L39",
       "id": "src_retrieval_graph_graph_query_py_path",
-      "community": 6,
+      "community": 29,
       "norm_label": "path"
     },
     {
@@ -3371,7 +3416,7 @@
       "source_file": "src/retrieval/graph/graph_query.py",
       "source_location": "L72",
       "id": "graph_graph_query_graphquery_query_by_keywords",
-      "community": 6,
+      "community": 29,
       "norm_label": ".query_by_keywords()"
     },
     {
@@ -3380,7 +3425,7 @@
       "source_file": "src/retrieval/graph/graph_query.py",
       "source_location": "L72",
       "id": "src_retrieval_graph_graph_query_py_int",
-      "community": 6,
+      "community": 29,
       "norm_label": "int"
     },
     {
@@ -3389,7 +3434,7 @@
       "source_file": "src/retrieval/graph/graph_query.py",
       "source_location": "L72",
       "id": "src_retrieval_graph_graph_query_py_float",
-      "community": 6,
+      "community": 29,
       "norm_label": "float"
     },
     {
@@ -3398,7 +3443,7 @@
       "source_file": "src/retrieval/graph/graph_query.py",
       "source_location": "L87",
       "id": "graph_graph_query_graphquery_expand_by_dependency",
-      "community": 6,
+      "community": 29,
       "norm_label": ".expand_by_dependency()"
     },
     {
@@ -3407,7 +3452,7 @@
       "source_file": "src/retrieval/graph/graph_query.py",
       "source_location": "L113",
       "id": "graph_graph_query_graphquery_files_for_nodes",
-      "community": 6,
+      "community": 29,
       "norm_label": ".files_for_nodes()"
     },
     {
@@ -3416,7 +3461,7 @@
       "source_file": "src/retrieval/graph/graph_query.py",
       "source_location": "L131",
       "id": "graph_graph_query_graphquery_files_for_scored_nodes",
-      "community": 6,
+      "community": 29,
       "norm_label": ".files_for_scored_nodes()"
     },
     {
@@ -3425,7 +3470,7 @@
       "source_file": "src/retrieval/graph/graph_query.py",
       "source_location": "L153",
       "id": "graph_graph_query_graphquery_task_words",
-      "community": 6,
+      "community": 36,
       "norm_label": ".task_words()"
     },
     {
@@ -3434,7 +3479,7 @@
       "source_file": "src/retrieval/graph/graph_query.py",
       "source_location": "L1",
       "id": "graph_graph_query_rationale_1",
-      "community": 6,
+      "community": 36,
       "norm_label": "graph query utilities for the retrieval pipeline.  graphquery loads graph.json"
     },
     {
@@ -3443,7 +3488,7 @@
       "source_file": "src/retrieval/graph/graph_query.py",
       "source_location": "L23",
       "id": "graph_graph_query_rationale_23",
-      "community": 6,
+      "community": 36,
       "norm_label": "loads graph.json once and exposes keyword + dependency queries.      construct"
     },
     {
@@ -3452,7 +3497,7 @@
       "source_file": "src/retrieval/graph/graph_query.py",
       "source_location": "L40",
       "id": "graph_graph_query_rationale_40",
-      "community": 6,
+      "community": 29,
       "norm_label": "load graph.json from `graph_dir` and return a graphquery instance.          re"
     },
     {
@@ -3461,7 +3506,7 @@
       "source_file": "src/retrieval/graph/graph_query.py",
       "source_location": "L73",
       "id": "graph_graph_query_rationale_73",
-      "community": 6,
+      "community": 29,
       "norm_label": "return (node_id, score) pairs ranked by keyword overlap with task words."
     },
     {
@@ -3470,7 +3515,7 @@
       "source_file": "src/retrieval/graph/graph_query.py",
       "source_location": "L88",
       "id": "graph_graph_query_rationale_88",
-      "community": 6,
+      "community": 29,
       "norm_label": "bfs expansion: return all node_ids reachable within `hops` edges.          inc"
     },
     {
@@ -3479,7 +3524,7 @@
       "source_file": "src/retrieval/graph/graph_query.py",
       "source_location": "L114",
       "id": "graph_graph_query_rationale_114",
-      "community": 6,
+      "community": 29,
       "norm_label": "map resolved absolute file paths to their highest node score.          nodes w"
     },
     {
@@ -3488,7 +3533,7 @@
       "source_file": "src/retrieval/graph/graph_query.py",
       "source_location": "L136",
       "id": "graph_graph_query_rationale_136",
-      "community": 6,
+      "community": 29,
       "norm_label": "like `files_for_nodes` but preserves per-node scores.          maps each absol"
     },
     {
@@ -3497,7 +3542,7 @@
       "source_file": "src/retrieval/graph/graph_query.py",
       "source_location": "L154",
       "id": "graph_graph_query_rationale_154",
-      "community": 6,
+      "community": 36,
       "norm_label": "extract normalised, non-stopword tokens from a task string."
     },
     {
@@ -3767,7 +3812,7 @@
       "source_file": "src/retrieval/ranking/graph_ranker.py",
       "source_location": "L1",
       "id": "src_retrieval_ranking_graph_ranker_py",
-      "community": 6,
+      "community": 36,
       "norm_label": "graph_ranker.py"
     },
     {
@@ -3785,7 +3830,7 @@
       "source_file": "src/retrieval/ranking/graph_ranker.py",
       "source_location": "L24",
       "id": "ranking_graph_ranker_graphranker_rank_candidates",
-      "community": 6,
+      "community": 36,
       "norm_label": ".rank_candidates()"
     },
     {
@@ -3794,7 +3839,7 @@
       "source_file": "src/retrieval/ranking/graph_ranker.py",
       "source_location": "L24",
       "id": "src_retrieval_ranking_graph_ranker_py_str",
-      "community": 6,
+      "community": 36,
       "norm_label": "str"
     },
     {
@@ -3803,7 +3848,7 @@
       "source_file": "src/retrieval/ranking/graph_ranker.py",
       "source_location": "L24",
       "id": "graphquery",
-      "community": 6,
+      "community": 36,
       "norm_label": "graphquery"
     },
     {
@@ -3812,7 +3857,7 @@
       "source_file": "src/retrieval/ranking/graph_ranker.py",
       "source_location": "L24",
       "id": "src_retrieval_ranking_graph_ranker_py_int",
-      "community": 6,
+      "community": 36,
       "norm_label": "int"
     },
     {
@@ -3821,7 +3866,7 @@
       "source_file": "src/retrieval/ranking/graph_ranker.py",
       "source_location": "L1",
       "id": "ranking_graph_ranker_rationale_1",
-      "community": 6,
+      "community": 36,
       "norm_label": "graph-aware file ranker.  graphranker uses a graphquery instance to rank file"
     },
     {
@@ -3839,7 +3884,7 @@
       "source_file": "src/retrieval/ranking/graph_ranker.py",
       "source_location": "L32",
       "id": "ranking_graph_ranker_rationale_32",
-      "community": 6,
+      "community": 36,
       "norm_label": "return an ordered list of file paths relevant to `task`.          pipeline:"
     },
     {
@@ -4017,7 +4062,7 @@
       "label": "WorkflowExecutor",
       "file_type": "code",
       "source_file": "src/scheduler/executor.py",
-      "source_location": "L9",
+      "source_location": "L8",
       "id": "scheduler_executor_workflowexecutor",
       "community": 4,
       "norm_label": "workflowexecutor"
@@ -4026,7 +4071,7 @@
       "label": ".__init__()",
       "file_type": "code",
       "source_file": "src/scheduler/executor.py",
-      "source_location": "L18",
+      "source_location": "L17",
       "id": "scheduler_executor_workflowexecutor_init",
       "community": 4,
       "norm_label": ".__init__()"
@@ -4035,7 +4080,7 @@
       "label": ".execute()",
       "file_type": "code",
       "source_file": "src/scheduler/executor.py",
-      "source_location": "L22",
+      "source_location": "L21",
       "id": "scheduler_executor_workflowexecutor_execute",
       "community": 4,
       "norm_label": ".execute()"
@@ -4044,7 +4089,7 @@
       "label": "Task",
       "file_type": "code",
       "source_file": "src/scheduler/executor.py",
-      "source_location": "L22",
+      "source_location": "L21",
       "id": "src_scheduler_executor_py_task",
       "community": 4,
       "norm_label": "task"
@@ -4053,8 +4098,8 @@
       "label": "Executor that runs a workflow graph for a given `Task`.      The executor acce",
       "file_type": "rationale",
       "source_file": "src/scheduler/executor.py",
-      "source_location": "L10",
-      "id": "scheduler_executor_rationale_10",
+      "source_location": "L9",
+      "id": "scheduler_executor_rationale_9",
       "community": 4,
       "norm_label": "executor that runs a workflow graph for a given `task`.      the executor acce"
     },
@@ -4221,6 +4266,69 @@
       "norm_label": ".dequeue()"
     },
     {
+      "label": "state_factory.py",
+      "file_type": "code",
+      "source_file": "src/scheduler/state_factory.py",
+      "source_location": "L1",
+      "id": "src_scheduler_state_factory_py",
+      "community": 4,
+      "norm_label": "state_factory.py"
+    },
+    {
+      "label": "GraphStateFactory",
+      "file_type": "code",
+      "source_file": "src/scheduler/state_factory.py",
+      "source_location": "L7",
+      "id": "scheduler_state_factory_graphstatefactory",
+      "community": 4,
+      "norm_label": "graphstatefactory"
+    },
+    {
+      "label": ".from_task_request()",
+      "file_type": "code",
+      "source_file": "src/scheduler/state_factory.py",
+      "source_location": "L15",
+      "id": "scheduler_state_factory_graphstatefactory_from_task_request",
+      "community": 4,
+      "norm_label": ".from_task_request()"
+    },
+    {
+      "label": "TaskRequest",
+      "file_type": "code",
+      "source_file": "src/scheduler/state_factory.py",
+      "source_location": "L15",
+      "id": "taskrequest",
+      "community": 4,
+      "norm_label": "taskrequest"
+    },
+    {
+      "label": "GraphState",
+      "file_type": "code",
+      "source_file": "src/scheduler/state_factory.py",
+      "source_location": "L15",
+      "id": "src_scheduler_state_factory_py_graphstate",
+      "community": 4,
+      "norm_label": "graphstate"
+    },
+    {
+      "label": "Converts an external TaskRequest into the internal GraphState.      This is th",
+      "file_type": "rationale",
+      "source_file": "src/scheduler/state_factory.py",
+      "source_location": "L8",
+      "id": "scheduler_state_factory_rationale_8",
+      "community": 4,
+      "norm_label": "converts an external taskrequest into the internal graphstate.      this is th"
+    },
+    {
+      "label": "Build the initial GraphState from a validated TaskRequest.",
+      "file_type": "rationale",
+      "source_file": "src/scheduler/state_factory.py",
+      "source_location": "L16",
+      "id": "scheduler_state_factory_rationale_16",
+      "community": 4,
+      "norm_label": "build the initial graphstate from a validated taskrequest."
+    },
+    {
       "label": "task.py",
       "file_type": "code",
       "source_file": "src/scheduler/task.py",
@@ -4233,10 +4341,46 @@
       "label": "Task",
       "file_type": "code",
       "source_file": "src/scheduler/task.py",
-      "source_location": "L11",
+      "source_location": "L13",
       "id": "scheduler_task_task",
       "community": 4,
       "norm_label": "task"
+    },
+    {
+      "label": "Scheduler work unit wrapping a validated TaskRequest.",
+      "file_type": "rationale",
+      "source_file": "src/scheduler/task.py",
+      "source_location": "L14",
+      "id": "scheduler_task_rationale_14",
+      "community": 4,
+      "norm_label": "scheduler work unit wrapping a validated taskrequest."
+    },
+    {
+      "label": "task_request.py",
+      "file_type": "code",
+      "source_file": "src/scheduler/task_request.py",
+      "source_location": "L1",
+      "id": "src_scheduler_task_request_py",
+      "community": 4,
+      "norm_label": "task_request.py"
+    },
+    {
+      "label": "TaskRequest",
+      "file_type": "code",
+      "source_file": "src/scheduler/task_request.py",
+      "source_location": "L7",
+      "id": "scheduler_task_request_taskrequest",
+      "community": 4,
+      "norm_label": "taskrequest"
+    },
+    {
+      "label": "External request contract for submitting a task to the workflow.      Separate",
+      "file_type": "rationale",
+      "source_file": "src/scheduler/task_request.py",
+      "source_location": "L8",
+      "id": "scheduler_task_request_rationale_8",
+      "community": 4,
+      "norm_label": "external request contract for submitting a task to the workflow.      separate"
     },
     {
       "label": "__init__.py",
@@ -4253,7 +4397,7 @@
       "source_file": "src/tools/files.py",
       "source_location": "L1",
       "id": "src_tools_files_py",
-      "community": 6,
+      "community": 40,
       "norm_label": "files.py"
     },
     {
@@ -4262,7 +4406,7 @@
       "source_file": "src/tools/files.py",
       "source_location": "L5",
       "id": "tools_files_read_file",
-      "community": 6,
+      "community": 40,
       "norm_label": "read_file()"
     },
     {
@@ -4271,7 +4415,7 @@
       "source_file": "src/tools/files.py",
       "source_location": "L5",
       "id": "src_tools_files_py_str",
-      "community": 6,
+      "community": 40,
       "norm_label": "str"
     },
     {
@@ -4280,7 +4424,7 @@
       "source_file": "src/tools/files.py",
       "source_location": "L9",
       "id": "tools_files_write_file",
-      "community": 6,
+      "community": 40,
       "norm_label": "write_file()"
     },
     {
@@ -4464,6 +4608,33 @@
       "norm_label": "int"
     },
     {
+      "label": "Persist ``created_at`` and/or ``updated_at`` for a repository in config.json.",
+      "file_type": "rationale",
+      "source_file": "src/config_loader.py",
+      "source_location": "L416",
+      "community": 12,
+      "norm_label": "persist ``created_at`` and/or ``updated_at`` for a repository in config.json.",
+      "id": "src_config_loader_rationale_416"
+    },
+    {
+      "label": "Shared state passed between LangGraph nodes.      This state represents a sing",
+      "file_type": "rationale",
+      "source_file": "src/graph/state.py",
+      "source_location": "L7",
+      "community": 31,
+      "norm_label": "shared state passed between langgraph nodes.      this state represents a sing",
+      "id": "graph_state_rationale_7"
+    },
+    {
+      "label": "Executor that runs a workflow graph for a given `Task`.      The executor acce",
+      "file_type": "rationale",
+      "source_file": "src/scheduler/executor.py",
+      "source_location": "L10",
+      "community": 4,
+      "norm_label": "executor that runs a workflow graph for a given `task`.      the executor acce",
+      "id": "scheduler_executor_rationale_10"
+    },
+    {
       "label": "get_max_iterations()",
       "file_type": "code",
       "source_file": "src/config_loader.py",
@@ -4549,7 +4720,7 @@
       "file_type": "rationale",
       "source_file": "src/config_loader.py",
       "source_location": "L300",
-      "community": 4,
+      "community": 12,
       "norm_label": "persist ``created_at`` and/or ``updated_at`` for a repository in config.json.",
       "id": "src_config_loader_rationale_300"
     },
@@ -4594,7 +4765,7 @@
       "file_type": "rationale",
       "source_file": "src/graph/nodes/retrieval_node.py",
       "source_location": "L137",
-      "community": 6,
+      "community": 39,
       "norm_label": "fallback ranking when graph is unavailable.",
       "id": "nodes_retrieval_node_rationale_137"
     },
@@ -4603,7 +4774,7 @@
       "file_type": "rationale",
       "source_file": "src/graph/nodes/retrieval_node.py",
       "source_location": "L142",
-      "community": 6,
+      "community": 40,
       "norm_label": "read bounded file contents for the coder prompt, excluding target file.",
       "id": "nodes_retrieval_node_rationale_142"
     },
@@ -4612,7 +4783,7 @@
       "file_type": "rationale",
       "source_file": "src/graph/nodes/retrieval_node.py",
       "source_location": "L160",
-      "community": 6,
+      "community": 39,
       "norm_label": "convert absolute paths to repo-relative strings when possible.",
       "id": "nodes_retrieval_node_rationale_160"
     },
@@ -4648,7 +4819,7 @@
       "file_type": "rationale",
       "source_file": "src/graph/nodes/retrieval_node.py",
       "source_location": "L138",
-      "community": 6,
+      "community": 39,
       "norm_label": "fallback ranking when graph is unavailable.",
       "id": "nodes_retrieval_node_rationale_138"
     },
@@ -4657,7 +4828,7 @@
       "file_type": "rationale",
       "source_file": "src/graph/nodes/retrieval_node.py",
       "source_location": "L143",
-      "community": 6,
+      "community": 40,
       "norm_label": "read bounded file contents for the coder prompt, excluding target file.",
       "id": "nodes_retrieval_node_rationale_143"
     },
@@ -4666,7 +4837,7 @@
       "file_type": "rationale",
       "source_file": "src/graph/nodes/retrieval_node.py",
       "source_location": "L161",
-      "community": 6,
+      "community": 39,
       "norm_label": "convert absolute paths to repo-relative strings when possible.",
       "id": "nodes_retrieval_node_rationale_161"
     },
@@ -4756,7 +4927,7 @@
       "file_type": "rationale",
       "source_file": "src/config_loader.py",
       "source_location": "L280",
-      "community": 4,
+      "community": 12,
       "norm_label": "persist ``created_at`` and/or ``updated_at`` for a repository in config.json.",
       "id": "src_config_loader_rationale_280"
     },
@@ -4792,18 +4963,9 @@
       "file_type": "rationale",
       "source_file": "src/config_loader.py",
       "source_location": "L241",
-      "community": 4,
+      "community": 12,
       "norm_label": "persist ``created_at`` and/or ``updated_at`` for a repository in config.json.",
       "id": "src_config_loader_rationale_241"
-    },
-    {
-      "label": "Shared state passed between LangGraph nodes.      This state represents a sing",
-      "file_type": "rationale",
-      "source_file": "src/graph/state.py",
-      "source_location": "L9",
-      "community": 32,
-      "norm_label": "shared state passed between langgraph nodes.      this state represents a sing",
-      "id": "graph_state_rationale_9"
     },
     {
       "label": "Resolve a valid knowledge graph for the target repository.      Determines the c",
@@ -4828,7 +4990,7 @@
       "file_type": "rationale",
       "source_file": "src/config_loader.py",
       "source_location": "L192",
-      "community": 4,
+      "community": 12,
       "norm_label": "persist ``created_at`` and/or ``updated_at`` for a repository in config.json.",
       "id": "src_config_loader_rationale_192"
     },
@@ -4837,7 +4999,7 @@
       "file_type": "rationale",
       "source_file": "src/graph/state.py",
       "source_location": "L8",
-      "community": 32,
+      "community": 31,
       "norm_label": "shared state passed between langgraph nodes.      this state represents a sing",
       "id": "graph_state_rationale_8"
     },
@@ -4846,7 +5008,7 @@
       "file_type": "code",
       "source_file": "src/graph/nodes/graphify_indexer.py",
       "source_location": "L21",
-      "community": 32,
+      "community": 27,
       "norm_label": "graphify_indexer_node()",
       "id": "nodes_graphify_indexer_graphify_indexer_node"
     },
@@ -4855,7 +5017,7 @@
       "file_type": "code",
       "source_file": "src/graph/nodes/graphify_indexer.py",
       "source_location": "L21",
-      "community": 32,
+      "community": 27,
       "norm_label": "graphstate",
       "id": "src_graph_nodes_graphify_indexer_py_graphstate"
     },
@@ -4864,7 +5026,7 @@
       "file_type": "code",
       "source_file": "src/graph/nodes/graphify_indexer.py",
       "source_location": "L21",
-      "community": 32,
+      "community": 27,
       "norm_label": "runcontext",
       "id": "src_graph_nodes_graphify_indexer_py_runcontext"
     },
@@ -4873,7 +5035,7 @@
       "file_type": "rationale",
       "source_file": "src/graph/nodes/graphify_indexer.py",
       "source_location": "L22",
-      "community": 32,
+      "community": 27,
       "norm_label": "build or refresh the graphify knowledge graph for the target repository.",
       "id": "nodes_graphify_indexer_rationale_22"
     },
@@ -5026,25 +5188,16 @@
       "file_type": "code",
       "source_file": "src/graph/nodes/support.py",
       "source_location": "L44",
-      "community": 1,
+      "community": 26,
       "norm_label": "bool",
       "id": "bool"
-    },
-    {
-      "label": "Executor that runs a workflow graph for a given `Task`.      The executor accept",
-      "file_type": "rationale",
-      "source_file": "src/scheduler/executor.py",
-      "source_location": "L9",
-      "community": 4,
-      "norm_label": "executor that runs a workflow graph for a given `task`.      the executor accept",
-      "id": "scheduler_executor_rationale_9"
     },
     {
       "label": "Write generated content to disk or apply a unified diff.      Expected state inp",
       "file_type": "rationale",
       "source_file": "src/graph/nodes/file_writer.py",
       "source_location": "L22",
-      "community": 28,
+      "community": 19,
       "norm_label": "write generated content to disk or apply a unified diff.      expected state inp",
       "id": "nodes_file_writer_rationale_22"
     },
@@ -5092,7 +5245,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 26,
+      "community": 31,
       "norm_label": "graphstate: original_code field",
       "id": "concept_state_field_original_code"
     },
@@ -5105,7 +5258,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 1,
+      "community": 19,
       "norm_label": "graphstate: generated_code field",
       "id": "concept_state_field_generated_code"
     },
@@ -5183,7 +5336,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 4,
+      "community": 41,
       "norm_label": "tasktype (passive|active)",
       "id": "scheduler_task_tasktype"
     },
@@ -5209,7 +5362,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 4,
+      "community": 41,
       "norm_label": "passive mode - continuous repository analysis",
       "id": "docs_project_plan_passive_mode"
     },
@@ -5222,7 +5375,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 4,
+      "community": 41,
       "norm_label": "active mode - user-triggered code modification",
       "id": "docs_project_plan_active_mode"
     },
@@ -5274,7 +5427,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 4,
+      "community": 41,
       "norm_label": "phase 1 - file mutation mvp",
       "id": "docs_project_plan_phase1_file_mutation_mvp"
     },
@@ -5313,7 +5466,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 4,
+      "community": 41,
       "norm_label": "phase 4 - passive analysis system",
       "id": "docs_project_plan_phase4_passive_analysis"
     },
@@ -5475,9 +5628,9 @@
       "source_file": "src/config_loader.py",
       "source_location": "L306",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_config_loader_py",
-      "target": "src_config_loader_get_coder_model_config",
-      "confidence_score": 1.0
+      "target": "src_config_loader_get_coder_model_config"
     },
     {
       "relation": "contains",
@@ -5505,9 +5658,9 @@
       "source_file": "src/config_loader.py",
       "source_location": "L335",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_config_loader_py",
-      "target": "src_config_loader_get_max_workflow_revision_cycles",
-      "confidence_score": 1.0
+      "target": "src_config_loader_get_max_workflow_revision_cycles"
     },
     {
       "relation": "contains",
@@ -5545,9 +5698,9 @@
       "source_file": "src/config_loader.py",
       "source_location": "L340",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_config_loader_py",
-      "target": "src_config_loader_get_retrieval_config",
-      "confidence_score": 1.0
+      "target": "src_config_loader_get_retrieval_config"
     },
     {
       "relation": "contains",
@@ -5565,9 +5718,9 @@
       "source_file": "src/config_loader.py",
       "source_location": "L311",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_config_loader_py",
-      "target": "src_config_loader_get_semantic_model_config",
-      "confidence_score": 1.0
+      "target": "src_config_loader_get_semantic_model_config"
     },
     {
       "relation": "contains",
@@ -5645,9 +5798,9 @@
       "source_file": "src/config_loader.py",
       "source_location": "L187",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_config_loader_py",
-      "target": "src_config_loader_load_retrieval_config",
-      "confidence_score": 1.0
+      "target": "src_config_loader_load_retrieval_config"
     },
     {
       "relation": "contains",
@@ -5715,9 +5868,9 @@
       "source_file": "src/config_loader.py",
       "source_location": "L62",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_config_loader_py",
-      "target": "src_config_loader_retrievalconfig",
-      "confidence_score": 1.0
+      "target": "src_config_loader_retrievalconfig"
     },
     {
       "relation": "contains",
@@ -5765,9 +5918,9 @@
       "source_file": "src/retrieval/budgeting/context_budget.py",
       "source_location": "L21",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "budgeting_context_budget_budgetallocation",
-      "target": "src_config_loader_modelconfig",
-      "confidence_score": 0.5
+      "target": "src_config_loader_modelconfig"
     },
     {
       "relation": "uses",
@@ -5775,9 +5928,9 @@
       "source_file": "src/retrieval/budgeting/context_budget.py",
       "source_location": "L21",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "budgeting_context_budget_contextbudget",
-      "target": "src_config_loader_modelconfig",
-      "confidence_score": 0.5
+      "target": "src_config_loader_modelconfig"
     },
     {
       "relation": "references",
@@ -5786,9 +5939,9 @@
       "source_file": "src/config_loader.py",
       "source_location": "L306",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_config_loader_get_coder_model_config",
-      "target": "src_config_loader_modelconfig",
-      "confidence_score": 1.0
+      "target": "src_config_loader_modelconfig"
     },
     {
       "relation": "references",
@@ -5808,9 +5961,9 @@
       "source_file": "src/config_loader.py",
       "source_location": "L311",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_config_loader_get_semantic_model_config",
-      "target": "src_config_loader_modelconfig",
-      "confidence_score": 1.0
+      "target": "src_config_loader_modelconfig"
     },
     {
       "relation": "references",
@@ -5829,9 +5982,9 @@
       "source_file": "src/config_loader.py",
       "source_location": "L22",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_config_loader_rationale_22",
-      "target": "src_config_loader_modelconfig",
-      "confidence_score": 1.0
+      "target": "src_config_loader_modelconfig"
     },
     {
       "relation": "references",
@@ -5851,9 +6004,9 @@
       "source_file": "src/retrieval/budgeting/context_budget.py",
       "source_location": "L21",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_retrieval_budgeting_context_budget_py",
-      "target": "src_config_loader_modelconfig",
-      "confidence_score": 1.0
+      "target": "src_config_loader_modelconfig"
     },
     {
       "relation": "uses",
@@ -5861,9 +6014,9 @@
       "source_file": "src/retrieval/budgeting/context_budget.py",
       "source_location": "L21",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "src_retrieval_budgeting_context_budget_py_int",
-      "target": "src_config_loader_modelconfig",
-      "confidence_score": 0.5
+      "target": "src_config_loader_modelconfig"
     },
     {
       "relation": "uses",
@@ -5871,9 +6024,9 @@
       "source_file": "src/retrieval/budgeting/context_budget.py",
       "source_location": "L21",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "src_retrieval_budgeting_context_budget_py_str",
-      "target": "src_config_loader_modelconfig",
-      "confidence_score": 0.5
+      "target": "src_config_loader_modelconfig"
     },
     {
       "relation": "uses",
@@ -5881,9 +6034,9 @@
       "source_file": "src/retrieval/budgeting/context_budget.py",
       "source_location": "L21",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "tokencounter",
-      "target": "src_config_loader_modelconfig",
-      "confidence_score": 0.5
+      "target": "src_config_loader_modelconfig"
     },
     {
       "relation": "uses",
@@ -5943,9 +6096,9 @@
       "source_file": "src/config_loader.py",
       "source_location": "L47",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_config_loader_rationale_47",
-      "target": "src_config_loader_graphconfig",
-      "confidence_score": 1.0
+      "target": "src_config_loader_graphconfig"
     },
     {
       "relation": "imports",
@@ -6015,9 +6168,9 @@
       "source_file": "src/config_loader.py",
       "source_location": "L340",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_config_loader_get_retrieval_config",
-      "target": "src_config_loader_retrievalconfig",
-      "confidence_score": 1.0
+      "target": "src_config_loader_retrievalconfig"
     },
     {
       "relation": "references",
@@ -6026,9 +6179,9 @@
       "source_file": "src/config_loader.py",
       "source_location": "L187",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_config_loader_load_retrieval_config",
-      "target": "src_config_loader_retrievalconfig",
-      "confidence_score": 1.0
+      "target": "src_config_loader_retrievalconfig"
     },
     {
       "relation": "rationale_for",
@@ -6036,9 +6189,9 @@
       "source_file": "src/config_loader.py",
       "source_location": "L63",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_config_loader_rationale_63",
-      "target": "src_config_loader_retrievalconfig",
-      "confidence_score": 1.0
+      "target": "src_config_loader_retrievalconfig"
     },
     {
       "relation": "references",
@@ -6067,9 +6220,9 @@
       "source_file": "src/config_loader.py",
       "source_location": "L82",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_config_loader_rationale_82",
-      "target": "src_config_loader_systemconfig",
-      "confidence_score": 1.0
+      "target": "src_config_loader_systemconfig"
     },
     {
       "relation": "references",
@@ -6232,9 +6385,9 @@
       "source_file": "src/config_loader.py",
       "source_location": "L187",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_config_loader_load_retrieval_config",
-      "target": "src_config_loader_py_path",
-      "confidence_score": 1.0
+      "target": "src_config_loader_py_path"
     },
     {
       "relation": "references",
@@ -6287,9 +6440,9 @@
       "source_file": "src/config_loader.py",
       "source_location": "L306",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_config_loader_get_coder_model_config",
-      "target": "src_config_loader_py_str",
-      "confidence_score": 1.0
+      "target": "src_config_loader_py_str"
     },
     {
       "relation": "references",
@@ -6320,9 +6473,9 @@
       "source_file": "src/config_loader.py",
       "source_location": "L335",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_config_loader_get_max_workflow_revision_cycles",
-      "target": "src_config_loader_py_str",
-      "confidence_score": 1.0
+      "target": "src_config_loader_py_str"
     },
     {
       "relation": "references",
@@ -6364,9 +6517,9 @@
       "source_file": "src/config_loader.py",
       "source_location": "L340",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_config_loader_get_retrieval_config",
-      "target": "src_config_loader_py_str",
-      "confidence_score": 1.0
+      "target": "src_config_loader_py_str"
     },
     {
       "relation": "references",
@@ -6386,9 +6539,9 @@
       "source_file": "src/config_loader.py",
       "source_location": "L311",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_config_loader_get_semantic_model_config",
-      "target": "src_config_loader_py_str",
-      "confidence_score": 1.0
+      "target": "src_config_loader_py_str"
     },
     {
       "relation": "references",
@@ -6441,9 +6594,9 @@
       "source_file": "src/config_loader.py",
       "source_location": "L187",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_config_loader_load_retrieval_config",
-      "target": "src_config_loader_py_str",
-      "confidence_score": 1.0
+      "target": "src_config_loader_py_str"
     },
     {
       "relation": "references",
@@ -6606,9 +6759,9 @@
       "source_file": "src/config_loader.py",
       "source_location": "L187",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_config_loader_load_retrieval_config",
-      "target": "src_config_loader_py_any",
-      "confidence_score": 1.0
+      "target": "src_config_loader_py_any"
     },
     {
       "relation": "references",
@@ -6705,9 +6858,9 @@
       "source_file": "src/config_loader.py",
       "source_location": "L335",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_config_loader_get_max_workflow_revision_cycles",
-      "target": "src_config_loader_py_int",
-      "confidence_score": 1.0
+      "target": "src_config_loader_py_int"
     },
     {
       "relation": "references",
@@ -6748,9 +6901,9 @@
       "source_file": "src/config_loader.py",
       "source_location": "L136",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_config_loader_rationale_136",
-      "target": "src_config_loader_load_model_config",
-      "confidence_score": 1.0
+      "target": "src_config_loader_load_model_config"
     },
     {
       "relation": "calls",
@@ -6789,9 +6942,9 @@
       "source_file": "src/config_loader.py",
       "source_location": "L171",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_config_loader_rationale_171",
-      "target": "src_config_loader_load_graph_config",
-      "confidence_score": 1.0
+      "target": "src_config_loader_load_graph_config"
     },
     {
       "relation": "calls",
@@ -6800,9 +6953,9 @@
       "source_file": "src/config_loader.py",
       "source_location": "L269",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_config_loader_load_repository_config",
-      "target": "src_config_loader_load_retrieval_config",
-      "confidence_score": 1.0
+      "target": "src_config_loader_load_retrieval_config"
     },
     {
       "relation": "rationale_for",
@@ -6810,9 +6963,9 @@
       "source_file": "src/config_loader.py",
       "source_location": "L188",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_config_loader_rationale_188",
-      "target": "src_config_loader_load_retrieval_config",
-      "confidence_score": 1.0
+      "target": "src_config_loader_load_retrieval_config"
     },
     {
       "relation": "calls",
@@ -6851,9 +7004,9 @@
       "source_file": "src/config_loader.py",
       "source_location": "L216",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_config_loader_rationale_216",
-      "target": "src_config_loader_load_system_config",
-      "confidence_score": 1.0
+      "target": "src_config_loader_load_system_config"
     },
     {
       "relation": "calls",
@@ -6895,9 +7048,9 @@
       "source_file": "src/config_loader.py",
       "source_location": "L308",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_config_loader_get_coder_model_config",
-      "target": "src_config_loader_select_primary_model",
-      "confidence_score": 1.0
+      "target": "src_config_loader_select_primary_model"
     },
     {
       "relation": "calls",
@@ -6961,9 +7114,9 @@
       "source_file": "src/config_loader.py",
       "source_location": "L308",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_config_loader_get_coder_model_config",
-      "target": "src_config_loader_get_repository_config",
-      "confidence_score": 1.0
+      "target": "src_config_loader_get_repository_config"
     },
     {
       "relation": "calls",
@@ -6994,9 +7147,9 @@
       "source_file": "src/config_loader.py",
       "source_location": "L337",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_config_loader_get_max_workflow_revision_cycles",
-      "target": "src_config_loader_get_repository_config",
-      "confidence_score": 1.0
+      "target": "src_config_loader_get_repository_config"
     },
     {
       "relation": "calls",
@@ -7027,9 +7180,9 @@
       "source_file": "src/config_loader.py",
       "source_location": "L342",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_config_loader_get_retrieval_config",
-      "target": "src_config_loader_get_repository_config",
-      "confidence_score": 1.0
+      "target": "src_config_loader_get_repository_config"
     },
     {
       "relation": "calls",
@@ -7049,9 +7202,9 @@
       "source_file": "src/config_loader.py",
       "source_location": "L317",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_config_loader_get_semantic_model_config",
-      "target": "src_config_loader_get_repository_config",
-      "confidence_score": 1.0
+      "target": "src_config_loader_get_repository_config"
     },
     {
       "relation": "calls",
@@ -7120,9 +7273,9 @@
       "source_file": "src/config_loader.py",
       "source_location": "L284",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_config_loader_rationale_284",
-      "target": "src_config_loader_get_repository_config",
-      "confidence_score": 1.0
+      "target": "src_config_loader_get_repository_config"
     },
     {
       "relation": "imports",
@@ -7208,9 +7361,9 @@
       "source_file": "src/config_loader.py",
       "source_location": "L321",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_config_loader_get_semantic_model_config",
-      "target": "src_config_loader_get_primary_model",
-      "confidence_score": 1.0
+      "target": "src_config_loader_get_primary_model"
     },
     {
       "relation": "calls",
@@ -7219,9 +7372,9 @@
       "source_file": "src/graph/nodes/coder.py",
       "source_location": "L30",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "nodes_coder_coder_node",
-      "target": "src_config_loader_get_coder_model_config",
-      "confidence_score": 1.0
+      "target": "src_config_loader_get_coder_model_config"
     },
     {
       "relation": "calls",
@@ -7230,9 +7383,9 @@
       "source_file": "src/graph/nodes/retrieval_node.py",
       "source_location": "L67",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "nodes_retrieval_node_retrieval_node",
-      "target": "src_config_loader_get_coder_model_config",
-      "confidence_score": 1.0
+      "target": "src_config_loader_get_coder_model_config"
     },
     {
       "relation": "rationale_for",
@@ -7240,9 +7393,9 @@
       "source_file": "src/config_loader.py",
       "source_location": "L307",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_config_loader_rationale_307",
-      "target": "src_config_loader_get_coder_model_config",
-      "confidence_score": 1.0
+      "target": "src_config_loader_get_coder_model_config"
     },
     {
       "relation": "imports",
@@ -7251,9 +7404,9 @@
       "source_file": "src/graph/nodes/coder.py",
       "source_location": "L8",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_graph_nodes_coder_py",
-      "target": "src_config_loader_get_coder_model_config",
-      "confidence_score": 1.0
+      "target": "src_config_loader_get_coder_model_config"
     },
     {
       "relation": "imports",
@@ -7262,9 +7415,9 @@
       "source_file": "src/graph/nodes/retrieval_node.py",
       "source_location": "L20",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_graph_nodes_retrieval_node_py",
-      "target": "src_config_loader_get_coder_model_config",
-      "confidence_score": 1.0
+      "target": "src_config_loader_get_coder_model_config"
     },
     {
       "relation": "calls",
@@ -7273,9 +7426,9 @@
       "source_file": "src/graph/nodes/semantic_validator.py",
       "source_location": "L74",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "nodes_semantic_validator_semantic_validator_node",
-      "target": "src_config_loader_get_semantic_model_config",
-      "confidence_score": 1.0
+      "target": "src_config_loader_get_semantic_model_config"
     },
     {
       "relation": "calls",
@@ -7284,9 +7437,9 @@
       "source_file": "src/config_loader.py",
       "source_location": "L356",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_config_loader_get_semantic_model",
-      "target": "src_config_loader_get_semantic_model_config",
-      "confidence_score": 1.0
+      "target": "src_config_loader_get_semantic_model_config"
     },
     {
       "relation": "rationale_for",
@@ -7294,9 +7447,9 @@
       "source_file": "src/config_loader.py",
       "source_location": "L312",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_config_loader_rationale_312",
-      "target": "src_config_loader_get_semantic_model_config",
-      "confidence_score": 1.0
+      "target": "src_config_loader_get_semantic_model_config"
     },
     {
       "relation": "imports",
@@ -7305,9 +7458,9 @@
       "source_file": "src/graph/nodes/semantic_validator.py",
       "source_location": "L14",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_graph_nodes_semantic_validator_py",
-      "target": "src_config_loader_get_semantic_model_config",
-      "confidence_score": 1.0
+      "target": "src_config_loader_get_semantic_model_config"
     },
     {
       "relation": "imports",
@@ -7349,9 +7502,9 @@
       "source_file": "src/graph/workflow.py",
       "source_location": "L35",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "graph_workflow_route_after_review",
-      "target": "src_config_loader_get_max_workflow_revision_cycles",
-      "confidence_score": 1.0
+      "target": "src_config_loader_get_max_workflow_revision_cycles"
     },
     {
       "relation": "calls",
@@ -7360,9 +7513,9 @@
       "source_file": "src/graph/workflow.py",
       "source_location": "L63",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "graph_workflow_route_after_semantic",
-      "target": "src_config_loader_get_max_workflow_revision_cycles",
-      "confidence_score": 1.0
+      "target": "src_config_loader_get_max_workflow_revision_cycles"
     },
     {
       "relation": "calls",
@@ -7371,9 +7524,9 @@
       "source_file": "src/graph/workflow.py",
       "source_location": "L49",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "graph_workflow_route_after_verification",
-      "target": "src_config_loader_get_max_workflow_revision_cycles",
-      "confidence_score": 1.0
+      "target": "src_config_loader_get_max_workflow_revision_cycles"
     },
     {
       "relation": "rationale_for",
@@ -7381,9 +7534,9 @@
       "source_file": "src/config_loader.py",
       "source_location": "L336",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_config_loader_rationale_336",
-      "target": "src_config_loader_get_max_workflow_revision_cycles",
-      "confidence_score": 1.0
+      "target": "src_config_loader_get_max_workflow_revision_cycles"
     },
     {
       "relation": "imports",
@@ -7392,9 +7545,9 @@
       "source_file": "src/graph/workflow.py",
       "source_location": "L17",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_graph_workflow_py",
-      "target": "src_config_loader_get_max_workflow_revision_cycles",
-      "confidence_score": 1.0
+      "target": "src_config_loader_get_max_workflow_revision_cycles"
     },
     {
       "relation": "calls",
@@ -7403,9 +7556,9 @@
       "source_file": "src/graph/nodes/retrieval_node.py",
       "source_location": "L66",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "nodes_retrieval_node_retrieval_node",
-      "target": "src_config_loader_get_retrieval_config",
-      "confidence_score": 1.0
+      "target": "src_config_loader_get_retrieval_config"
     },
     {
       "relation": "rationale_for",
@@ -7413,9 +7566,9 @@
       "source_file": "src/config_loader.py",
       "source_location": "L341",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_config_loader_rationale_341",
-      "target": "src_config_loader_get_retrieval_config",
-      "confidence_score": 1.0
+      "target": "src_config_loader_get_retrieval_config"
     },
     {
       "relation": "imports",
@@ -7424,9 +7577,9 @@
       "source_file": "src/graph/nodes/retrieval_node.py",
       "source_location": "L20",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_graph_nodes_retrieval_node_py",
-      "target": "src_config_loader_get_retrieval_config",
-      "confidence_score": 1.0
+      "target": "src_config_loader_get_retrieval_config"
     },
     {
       "relation": "calls",
@@ -7466,9 +7619,9 @@
       "source_file": "src/config_loader.py",
       "source_location": "L346",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_config_loader_rationale_346",
-      "target": "src_config_loader_get_semantic_threshold",
-      "confidence_score": 1.0
+      "target": "src_config_loader_get_semantic_threshold"
     },
     {
       "relation": "imports",
@@ -7508,9 +7661,9 @@
       "source_file": "src/config_loader.py",
       "source_location": "L351",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_config_loader_rationale_351",
-      "target": "src_config_loader_get_semantic_model",
-      "confidence_score": 1.0
+      "target": "src_config_loader_get_semantic_model"
     },
     {
       "relation": "imports",
@@ -7560,9 +7713,9 @@
       "source_file": "src/config_loader.py",
       "source_location": "L360",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_config_loader_rationale_360",
-      "target": "src_config_loader_get_graph_config",
-      "confidence_score": 1.0
+      "target": "src_config_loader_get_graph_config"
     },
     {
       "relation": "imports",
@@ -7612,9 +7765,9 @@
       "source_file": "src/config_loader.py",
       "source_location": "L368",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_config_loader_rationale_368",
-      "target": "src_config_loader_get_system_context_path",
-      "confidence_score": 1.0
+      "target": "src_config_loader_get_system_context_path"
     },
     {
       "relation": "imports",
@@ -7706,7 +7859,17 @@
       "source_file": "src/config_loader.py",
       "source_location": "L416",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_config_loader_rationale_416",
+      "target": "src_config_loader_update_repository_timestamps"
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/config_loader.py",
+      "source_location": "L427",
+      "weight": 1.0,
+      "source": "src_config_loader_rationale_427",
       "target": "src_config_loader_update_repository_timestamps",
       "confidence_score": 1.0
     },
@@ -7882,9 +8045,9 @@
       "source_file": "src/core/ollama_client.py",
       "source_location": "L26",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "core_ollama_client_rationale_26",
-      "target": "core_ollama_client_ollamaclient_init",
-      "confidence_score": 1.0
+      "target": "core_ollama_client_ollamaclient_init"
     },
     {
       "relation": "references",
@@ -7915,9 +8078,9 @@
       "source_file": "src/core/ollama_client.py",
       "source_location": "L36",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "core_ollama_client_ollamaclient_chat",
-      "target": "src_core_ollama_client_py_int",
-      "confidence_score": 1.0
+      "target": "src_core_ollama_client_py_int"
     },
     {
       "relation": "rationale_for",
@@ -7935,9 +8098,9 @@
       "source_file": "src/core/ollama_client.py",
       "source_location": "L44",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "core_ollama_client_rationale_44",
-      "target": "core_ollama_client_ollamaclient_chat",
-      "confidence_score": 1.0
+      "target": "core_ollama_client_ollamaclient_chat"
     },
     {
       "relation": "rationale_for",
@@ -7955,9 +8118,9 @@
       "source_file": "src/core/ollama_client.py",
       "source_location": "L94",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "core_ollama_client_rationale_94",
-      "target": "core_ollama_client_ollamaclient_close",
-      "confidence_score": 1.0
+      "target": "core_ollama_client_ollamaclient_close"
     },
     {
       "relation": "rationale_for",
@@ -8915,6 +9078,17 @@
       "target": "contracts_context_contract_repositorycontextpayload"
     },
     {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/graph/state.py",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "src_graph_state_py",
+      "target": "contracts_retrieval_contract_retrievalresult",
+      "confidence_score": 1.0
+    },
+    {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/graph/state.py",
@@ -8925,6 +9099,17 @@
       "target": "graph_state_graphstate"
     },
     {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/graph/state.py",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "src_graph_state_py",
+      "target": "scheduler_task_request_taskrequest",
+      "confidence_score": 1.0
+    },
+    {
       "relation": "uses",
       "confidence": "INFERRED",
       "source_file": "src/graph/state.py",
@@ -8933,6 +9118,26 @@
       "confidence_score": 0.5,
       "source": "graph_state_graphstate",
       "target": "contracts_context_contract_repositorycontextpayload"
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "src/graph/state.py",
+      "source_location": "L4",
+      "weight": 0.8,
+      "source": "graph_state_graphstate",
+      "target": "contracts_retrieval_contract_retrievalresult",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "src/graph/state.py",
+      "source_location": "L5",
+      "weight": 0.8,
+      "source": "graph_state_graphstate",
+      "target": "scheduler_task_request_taskrequest",
+      "confidence_score": 0.5
     },
     {
       "relation": "inherits",
@@ -9013,6 +9218,16 @@
       "confidence_score": 0.5,
       "source": "scheduler_executor_workflowexecutor",
       "target": "graph_state_graphstate"
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "src/scheduler/state_factory.py",
+      "source_location": "L3",
+      "weight": 0.8,
+      "source": "scheduler_state_factory_graphstatefactory",
+      "target": "graph_state_graphstate",
+      "confidence_score": 0.5
     },
     {
       "relation": "imports",
@@ -9599,6 +9814,37 @@
       "confidence_score": 0.5,
       "source": "src_scheduler_executor_py_task",
       "target": "graph_state_graphstate"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/scheduler/state_factory.py",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "src_scheduler_state_factory_py",
+      "target": "graph_state_graphstate",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "src/scheduler/state_factory.py",
+      "source_location": "L3",
+      "weight": 0.8,
+      "source": "src_scheduler_state_factory_py_graphstate",
+      "target": "graph_state_graphstate",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "src/scheduler/state_factory.py",
+      "source_location": "L3",
+      "weight": 0.8,
+      "source": "taskrequest",
+      "target": "graph_state_graphstate",
+      "confidence_score": 0.5
     },
     {
       "relation": "inherits",
@@ -12245,9 +12491,9 @@
       "source_file": "src/graph/nodes/retrieval_node.py",
       "source_location": "L42",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "nodes_retrieval_node_rationale_42",
-      "target": "nodes_retrieval_node_retrieval_node",
-      "confidence_score": 1.0
+      "target": "nodes_retrieval_node_retrieval_node"
     },
     {
       "relation": "calls",
@@ -12580,9 +12826,9 @@
       "source_file": "src/graph/nodes/retrieval_node.py",
       "source_location": "L171",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "nodes_retrieval_node_rationale_171",
-      "target": "nodes_retrieval_node_heuristic_rank",
-      "confidence_score": 1.0
+      "target": "nodes_retrieval_node_heuristic_rank"
     },
     {
       "relation": "references",
@@ -12702,9 +12948,9 @@
       "source_file": "src/graph/nodes/retrieval_node.py",
       "source_location": "L176",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "nodes_retrieval_node_rationale_176",
-      "target": "nodes_retrieval_node_read_related_files",
-      "confidence_score": 1.0
+      "target": "nodes_retrieval_node_read_related_files"
     },
     {
       "relation": "calls",
@@ -12743,9 +12989,9 @@
       "source_file": "src/graph/nodes/retrieval_node.py",
       "source_location": "L194",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "nodes_retrieval_node_rationale_194",
-      "target": "nodes_retrieval_node_to_relative_ids",
-      "confidence_score": 1.0
+      "target": "nodes_retrieval_node_to_relative_ids"
     },
     {
       "relation": "contains",
@@ -14918,9 +15164,9 @@
       "source_file": "src/retrieval/budgeting/context_budget.py",
       "source_location": "L26",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "budgeting_context_budget_rationale_26",
-      "target": "budgeting_context_budget_budgetallocation",
-      "confidence_score": 1.0
+      "target": "budgeting_context_budget_budgetallocation"
     },
     {
       "relation": "method",
@@ -14958,9 +15204,9 @@
       "source_file": "src/retrieval/budgeting/context_budget.py",
       "source_location": "L48",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "budgeting_context_budget_rationale_48",
-      "target": "budgeting_context_budget_contextbudget",
-      "confidence_score": 1.0
+      "target": "budgeting_context_budget_contextbudget"
     },
     {
       "relation": "references",
@@ -14980,9 +15226,9 @@
       "source_file": "src/retrieval/budgeting/context_budget.py",
       "source_location": "L55",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "budgeting_context_budget_contextbudget_init",
-      "target": "tokencounter",
-      "confidence_score": 1.0
+      "target": "tokencounter"
     },
     {
       "relation": "references",
@@ -15011,9 +15257,9 @@
       "source_file": "src/retrieval/budgeting/context_budget.py",
       "source_location": "L76",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "budgeting_context_budget_rationale_76",
-      "target": "budgeting_context_budget_contextbudget_allocate",
-      "confidence_score": 1.0
+      "target": "budgeting_context_budget_contextbudget_allocate"
     },
     {
       "relation": "rationale_for",
@@ -15380,6 +15626,46 @@
       "confidence_score": 1.0,
       "source": "contracts_context_contract_rationale_140",
       "target": "contracts_context_contract_format_repository_context_for_prompt"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/retrieval/contracts/retrieval_contract.py",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "src_retrieval_contracts_retrieval_contract_py",
+      "target": "contracts_retrieval_contract_retrievalrequest",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/retrieval/contracts/retrieval_contract.py",
+      "source_location": "L21",
+      "weight": 1.0,
+      "source": "src_retrieval_contracts_retrieval_contract_py",
+      "target": "contracts_retrieval_contract_retrievalresult",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/retrieval/contracts/retrieval_contract.py",
+      "source_location": "L8",
+      "weight": 1.0,
+      "source": "contracts_retrieval_contract_rationale_8",
+      "target": "contracts_retrieval_contract_retrievalrequest",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/retrieval/contracts/retrieval_contract.py",
+      "source_location": "L22",
+      "weight": 1.0,
+      "source": "contracts_retrieval_contract_rationale_22",
+      "target": "contracts_retrieval_contract_retrievalresult",
+      "confidence_score": 1.0
     },
     {
       "relation": "rationale_for",
@@ -17003,6 +17289,17 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "src/scheduler/executor.py",
+      "source_location": "L23",
+      "weight": 1.0,
+      "source": "src_scheduler_executor_py",
+      "target": "scheduler_state_factory_graphstatefactory",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/scheduler/executor.py",
       "source_location": "L5",
       "weight": 1.0,
       "confidence_score": 1.0,
@@ -17091,6 +17388,16 @@
       "confidence_score": 1.0,
       "source": "scheduler_executor_workflowexecutor",
       "target": "scheduler_executor_workflowexecutor_init"
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "src/scheduler/executor.py",
+      "source_location": "L23",
+      "weight": 0.8,
+      "source": "scheduler_executor_workflowexecutor",
+      "target": "scheduler_state_factory_graphstatefactory",
+      "confidence_score": 0.5
     },
     {
       "relation": "uses",
@@ -17194,6 +17501,16 @@
       "weight": 1.0,
       "source": "scheduler_loop_executionloop_consume",
       "target": "scheduler_executor_workflowexecutor_execute"
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "src/scheduler/executor.py",
+      "source_location": "L23",
+      "weight": 0.8,
+      "source": "src_scheduler_executor_py_task",
+      "target": "scheduler_state_factory_graphstatefactory",
+      "confidence_score": 0.5
     },
     {
       "relation": "uses",
@@ -17685,6 +18002,120 @@
       "target": "scheduler_task_task"
     },
     {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/scheduler/state_factory.py",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "src_scheduler_state_factory_py",
+      "target": "scheduler_state_factory_graphstatefactory",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/scheduler/state_factory.py",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "src_scheduler_state_factory_py",
+      "target": "scheduler_task_request_taskrequest",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/scheduler/state_factory.py",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "src_scheduler_state_factory_py",
+      "target": "src_scheduler_task_request_py",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "src/scheduler/state_factory.py",
+      "source_location": "L15",
+      "weight": 1.0,
+      "source": "scheduler_state_factory_graphstatefactory",
+      "target": "scheduler_state_factory_graphstatefactory_from_task_request",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "src/scheduler/state_factory.py",
+      "source_location": "L4",
+      "weight": 0.8,
+      "source": "scheduler_state_factory_graphstatefactory",
+      "target": "scheduler_task_request_taskrequest",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/scheduler/state_factory.py",
+      "source_location": "L8",
+      "weight": 1.0,
+      "source": "scheduler_state_factory_rationale_8",
+      "target": "scheduler_state_factory_graphstatefactory",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "return_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/scheduler/state_factory.py",
+      "source_location": "L15",
+      "weight": 1.0,
+      "source": "scheduler_state_factory_graphstatefactory_from_task_request",
+      "target": "src_scheduler_state_factory_py_graphstate",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/scheduler/state_factory.py",
+      "source_location": "L15",
+      "weight": 1.0,
+      "source": "scheduler_state_factory_graphstatefactory_from_task_request",
+      "target": "taskrequest",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/scheduler/state_factory.py",
+      "source_location": "L16",
+      "weight": 1.0,
+      "source": "scheduler_state_factory_rationale_16",
+      "target": "scheduler_state_factory_graphstatefactory_from_task_request",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "src/scheduler/state_factory.py",
+      "source_location": "L4",
+      "weight": 0.8,
+      "source": "taskrequest",
+      "target": "scheduler_task_request_taskrequest",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "src/scheduler/state_factory.py",
+      "source_location": "L4",
+      "weight": 0.8,
+      "source": "src_scheduler_state_factory_py_graphstate",
+      "target": "scheduler_task_request_taskrequest",
+      "confidence_score": 0.5
+    },
+    {
       "relation": "re_exports",
       "context": "export",
       "confidence": "EXTRACTED",
@@ -17696,6 +18127,17 @@
       "target": "src_scheduler_task_py"
     },
     {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/scheduler/task.py",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "src_scheduler_task_py",
+      "target": "scheduler_task_request_taskrequest",
+      "confidence_score": 1.0
+    },
+    {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/scheduler/task.py",
@@ -17704,6 +18146,37 @@
       "confidence_score": 1.0,
       "source": "src_scheduler_task_py",
       "target": "scheduler_task_task"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/scheduler/task.py",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "src_scheduler_task_py",
+      "target": "src_scheduler_task_request_py",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/scheduler/task.py",
+      "source_location": "L14",
+      "weight": 1.0,
+      "source": "scheduler_task_rationale_14",
+      "target": "scheduler_task_task",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "src/scheduler/task.py",
+      "source_location": "L6",
+      "weight": 0.8,
+      "source": "scheduler_task_task",
+      "target": "scheduler_task_request_taskrequest",
+      "confidence_score": 0.5
     },
     {
       "relation": "references",
@@ -17725,6 +18198,48 @@
       "confidence_score": 1.0,
       "source": "src_scheduler_init_py",
       "target": "scheduler_task_task"
+    },
+    {
+      "relation": "re_exports",
+      "context": "export",
+      "confidence": "EXTRACTED",
+      "source_file": "src/scheduler/__init__.py",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "src_scheduler_init_py",
+      "target": "src_scheduler_task_request_py",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/scheduler/task_request.py",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "src_scheduler_task_request_py",
+      "target": "scheduler_task_request_taskrequest",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/scheduler/task_request.py",
+      "source_location": "L8",
+      "weight": 1.0,
+      "source": "scheduler_task_request_rationale_8",
+      "target": "scheduler_task_request_taskrequest",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/scheduler/__init__.py",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "src_scheduler_init_py",
+      "target": "scheduler_task_request_taskrequest",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -18466,5 +18981,5 @@
       "source_file": "docs/CONTEXT_CONTRACT.md"
     }
   ],
-  "built_at_commit": "279504dff6457839e7c079b6954620adb5361ddb"
+  "built_at_commit": "e11bc7bf150f501f366512a2f43fc60a8d796e3c"
 }
