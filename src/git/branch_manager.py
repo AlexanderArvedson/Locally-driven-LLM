@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import logging
+import os
 import re
 
 import git
@@ -136,21 +137,33 @@ def commit_file(
     """Stage *file_path* and create a commit in the repo.
 
     Returns the hex SHA of the new commit, or an empty string if there was
-    nothing to commit (file unchanged on disk).
+    nothing to commit (file unchanged on disk). Handles both tracked
+    (modified) and untracked (new) files.
     """
     repo = _open_repo(repo_path)
+    rel_path = os.path.relpath(file_path, repo_path)
+    # Git uses forward slashes internally; normalise for the untracked check.
+    rel_path_fwd = rel_path.replace("\\", "/")
 
-    # Check whether the file actually differs from HEAD before staging.
-    # Staging first and checking after can leave the index dirty when the
-    # content is unchanged, which breaks subsequent branch checkouts.
-    if not repo.is_dirty(path=file_path, untracked_files=False):
-        logger.info("Nothing to commit for '%s' — file unchanged.", file_path)
+    is_new = rel_path_fwd in repo.untracked_files
+    if not is_new and not repo.is_dirty(path=rel_path, untracked_files=False):
+        logger.info("Nothing to commit for '%s' — file unchanged.", rel_path)
         return ""
 
-    repo.index.add([file_path])
+    repo.index.add([rel_path])
     commit = repo.index.commit(message)
-    logger.info("Committed '%s' as %s.", file_path, commit.hexsha[:8])
+    logger.info("Committed '%s' as %s.", rel_path, commit.hexsha[:8])
     return commit.hexsha
+
+
+def get_diff_stat(repo_path: str, base_branch: str) -> str:
+    """Return a human-readable diff --stat between origin/<base_branch> and HEAD."""
+    repo = _open_repo(repo_path)
+    try:
+        return repo.git.diff(f"origin/{base_branch}...HEAD", stat=True).strip()
+    except GitCommandError as exc:
+        logger.warning("Could not compute diff stat: %s", exc)
+        return ""
 
 
 def push_branch(

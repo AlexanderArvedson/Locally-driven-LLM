@@ -38,8 +38,11 @@ async def coder_node(state: GraphState, run_context: RunContext) -> dict:
             f"{_format_related_files(related_file_contents)}\n\n"
             "[INSTRUCTION]\n"
             "Only modify the target file.\n"
+            "Make ONLY the minimal changes required to complete the task.\n"
+            "Preserve all existing code structure, style, comments, imports, and formatting exactly.\n"
+            "Do NOT reformat, reorder, rename, or rewrite any lines not directly required by the task.\n"
             "Use repository context and related files for reasoning only.\n"
-            "Return the FULL updated file only as plain text.\n"
+            "Return the FULL updated file as plain text.\n"
             "Do NOT wrap your output in markdown code fences (```), backticks, or add any explanation.\n"
             "Output should be the literal file contents to write to disk."
         )
@@ -76,7 +79,7 @@ async def coder_node(state: GraphState, run_context: RunContext) -> dict:
             user_prompt = (
                 f"{user_prompt}\n\n"
                 + "\n\n".join(failure_parts)
-                + "\n\nRevise the code to address all issues above. Return the full updated file only."
+                + "\n\nRevise the code to address all issues above. Make only the minimal changes needed; preserve all unchanged lines exactly. Return the full updated file only."
             )
 
         result = await client.chat(

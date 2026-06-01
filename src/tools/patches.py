@@ -107,4 +107,6 @@ def apply_unified(path: str, unified_str: str) -> None:
         out_lines.append(orig_lines[idx])
         idx += 1
 
-    Path(path).write_text("\n".join(out_lines) + ("\n" if out_lines and not out_lines[-1].endswith("\n") else ""), encoding="utf-8")
+    # Preserve the original file's trailing-newline behaviour.
+    trailing = "\n" if orig.endswith("\n") else ""
+    Path(path).write_text("\n".join(out_lines) + trailing, encoding="utf-8")
