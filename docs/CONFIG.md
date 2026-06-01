@@ -1,7 +1,17 @@
 # Configuration Reference
 
-Copy `config.example.json` to `config.json` and fill in the values for your setup.
-`config.json` is gitignored and never committed.
+## Setup
+
+**Application config** — copy `config.example.json` to `config.json` and fill in the values for your setup. `config.json` is gitignored and never committed.
+
+**Docker / Ollama server config** — copy `.env.example` to `.env` and adjust the values as needed. `.env` is gitignored and read automatically by Docker Compose for `${VAR}` substitution in `docker-compose.yml`. The two variables it controls are:
+
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `OLLAMA_KEEP_ALIVE` | `60m` | How long Ollama keeps a loaded model in VRAM after the last request. Accepts duration strings (`60m`, `24h`), `0` (never unload), or `-1` (unload immediately after each request). |
+| `OLLAMA_NUM_PARALLEL` | `1` | Maximum number of requests the Ollama server handles concurrently. Higher values increase throughput at the cost of additional VRAM per slot. |
+
+After editing `.env`, apply the changes with `docker compose up --build`.
 
 ---
 
@@ -111,6 +121,7 @@ Each key under `models` names a role the agent uses an LLM for. All four roles m
 | `url` | string | — | Base URL of the model's API endpoint. For Ollama the default is `"http://localhost:11434"`. |
 | `temperature` | number \| null | `null` | Sampling temperature passed to the provider. When `null` the parameter is omitted from the request and the model uses its own default. Must be ≥ 0 when non-null. |
 | `max_tokens` | integer \| null | `null` | Maximum tokens the model may generate per request. When `null` the parameter is omitted. Must be > 0 when non-null. For Ollama this maps to `num_predict`. |
+| `num_ctx` | integer \| null | `null` | Per-request context window size passed to Ollama as `num_ctx`. Overrides the model's compiled default for that request. When `null` the parameter is omitted. Must be > 0 when non-null. Has no effect for non-Ollama providers. |
 | `timeout_seconds` | integer (> 0) | `300` | Per-request wall-clock timeout in seconds. The request is cancelled and an error is raised if the model does not respond within this duration. |
 
 #### Roles

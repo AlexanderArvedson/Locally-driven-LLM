@@ -96,6 +96,7 @@ async def coder_node(state: GraphState, run_context: RunContext) -> dict:
             model=model_cfg.name,
             temperature=model_cfg.temperature,
             max_tokens=model_cfg.max_tokens,
+            num_ctx=model_cfg.num_ctx,
             timeout_seconds=model_cfg.timeout_seconds,
         )
 

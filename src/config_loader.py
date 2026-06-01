@@ -30,6 +30,8 @@ class ModelConfig:
             When ``None`` the parameter is omitted from the request entirely.
         max_tokens: Maximum tokens the model may generate per request when
             non-null. When ``None`` the parameter is omitted from the request.
+        num_ctx: Context window size passed to Ollama as ``num_ctx``. Overrides
+            the model's compiled default. When ``None`` the parameter is omitted.
         timeout_seconds: Per-request wall-clock timeout. Must be > 0.
     """
 
@@ -39,6 +41,7 @@ class ModelConfig:
     url: str | None = None
     temperature: float | None = None
     max_tokens: int | None = None
+    num_ctx: int | None = None
     timeout_seconds: int = 300
 
 
@@ -152,6 +155,15 @@ def _load_model_config(raw: dict[str, Any], *, source: Path) -> ModelConfig:
             raise ValueError(f"'max_tokens' must be > 0 when provided in {source}")
         max_tokens = max_tokens_raw
 
+    num_ctx_raw = raw.get("num_ctx")
+    num_ctx: int | None = None
+    if num_ctx_raw is not None:
+        if not isinstance(num_ctx_raw, int):
+            raise ValueError(f"'num_ctx' must be an integer or null in {source}")
+        if num_ctx_raw <= 0:
+            raise ValueError(f"'num_ctx' must be > 0 when provided in {source}")
+        num_ctx = num_ctx_raw
+
     timeout_raw = raw.get("timeout_seconds", 300)
     if not isinstance(timeout_raw, int) or timeout_raw <= 0:
         raise ValueError(f"'timeout_seconds' must be a positive integer in {source}")
@@ -163,6 +175,7 @@ def _load_model_config(raw: dict[str, Any], *, source: Path) -> ModelConfig:
         url=raw.get("url") if raw.get("url") is None or isinstance(raw.get("url"), str) else _raise_invalid_field(source, "url"),
         temperature=temperature,
         max_tokens=max_tokens,
+        num_ctx=num_ctx,
         timeout_seconds=timeout_raw,
     )
 
