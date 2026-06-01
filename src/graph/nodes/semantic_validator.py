@@ -100,6 +100,7 @@ async def semantic_validator_node(state: GraphState, run_context: RunContext) ->
             model=model_cfg.name,
             temperature=model_cfg.temperature,
             max_tokens=model_cfg.max_tokens,
+            num_ctx=model_cfg.num_ctx,
             timeout_seconds=model_cfg.timeout_seconds,
         )
 

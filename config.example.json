@@ -45,6 +45,7 @@
           "url": "http://localhost:11434",
           "temperature": null,
           "max_tokens": null,
+          "num_ctx": null,
           "timeout_seconds": 300
         },
         "coder": {
@@ -54,6 +55,7 @@
           "url": "http://localhost:11434",
           "temperature": null,
           "max_tokens": null,
+          "num_ctx": null,
           "timeout_seconds": 300
         },
         "semantic_validator": {
@@ -63,6 +65,7 @@
           "url": "http://localhost:11434",
           "temperature": null,
           "max_tokens": null,
+          "num_ctx": null,
           "timeout_seconds": 300
         },
         "embedding": {
@@ -72,6 +75,7 @@
           "url": "http://localhost:11434",
           "temperature": null,
           "max_tokens": null,
+          "num_ctx": null,
           "timeout_seconds": 300
         }
       },

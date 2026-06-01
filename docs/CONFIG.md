@@ -111,6 +111,7 @@ Each key under `models` names a role the agent uses an LLM for. All four roles m
 | `url` | string | — | Base URL of the model's API endpoint. For Ollama the default is `"http://localhost:11434"`. |
 | `temperature` | number \| null | `null` | Sampling temperature passed to the provider. When `null` the parameter is omitted from the request and the model uses its own default. Must be ≥ 0 when non-null. |
 | `max_tokens` | integer \| null | `null` | Maximum tokens the model may generate per request. When `null` the parameter is omitted. Must be > 0 when non-null. For Ollama this maps to `num_predict`. |
+| `num_ctx` | integer \| null | `null` | Per-request context window size passed to Ollama as `num_ctx`. Overrides the model's compiled default for that request. When `null` the parameter is omitted. Must be > 0 when non-null. Has no effect for non-Ollama providers. |
 | `timeout_seconds` | integer (> 0) | `300` | Per-request wall-clock timeout in seconds. The request is cancelled and an error is raised if the model does not respond within this duration. |
 
 #### Roles

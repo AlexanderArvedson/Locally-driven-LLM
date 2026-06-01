@@ -39,6 +39,7 @@ class OllamaClient:
         model: str,
         temperature: Optional[float] = None,
         max_tokens: Optional[int] = None,
+        num_ctx: Optional[int] = None,
         timeout_seconds: int = 300,
     ) -> LLMResult:
         """Send a chat request to the Ollama API and return a parsed result.
@@ -51,6 +52,8 @@ class OllamaClient:
                 ``None``, letting the model use its default.
             max_tokens: Maximum tokens to generate (mapped to Ollama's
                 ``num_predict``). Omitted from the request when ``None``.
+            num_ctx: Context window size (mapped to Ollama's ``num_ctx``).
+                Omitted from the request when ``None``.
             timeout_seconds: Per-request wall-clock timeout. Overrides the
                 global client timeout for this call.
 
@@ -62,6 +65,8 @@ class OllamaClient:
             options["temperature"] = temperature
         if max_tokens is not None:
             options["num_predict"] = max_tokens
+        if num_ctx is not None:
+            options["num_ctx"] = num_ctx
 
         payload: dict = {
             "model": model,
