@@ -9,6 +9,8 @@ from __future__ import annotations
 import logging
 import time
 
+import git
+
 from src.git.branch_manager import commit_file
 from src.graph.nodes.support import require_state_value
 from src.graph.state import GraphState
@@ -25,14 +27,25 @@ async def git_committer_node(state: GraphState, run_context: RunContext) -> dict
     - ``repo_path``: root of the git repository
     - ``target_file``: absolute path to the file that was written
     - ``task``: used as the commit message body
+    - ``branch_name``: the task branch that must be active when committing
 
-    Returns an empty dict — this node exists for its git side-effect only.
+    Returns ``commit_sha`` — the hex SHA of the new commit, or ``""`` when
+    the file was unchanged and nothing was committed.
     """
     start = time.time()
     task = state.get("task", "")
     try:
         repo_path = require_state_value(state, "repo_path")
         target_file = require_state_value(state, "target_file")
+        expected_branch = require_state_value(state, "branch_name")
+
+        repo = git.Repo(repo_path)
+        active_branch = repo.active_branch.name
+        if active_branch != expected_branch:
+            raise RuntimeError(
+                f"Refusing to commit: repo is on '{active_branch}' but the task "
+                f"branch is '{expected_branch}'. Check out the task branch before committing."
+            )
 
         message = f"AI: {task}"
         sha = commit_file(repo_path, target_file, message)
