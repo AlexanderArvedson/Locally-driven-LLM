@@ -47,7 +47,10 @@ def apply_unified(path: str, unified_str: str) -> None:
     if not unified_str.strip():
         return
 
-    orig = Path(path).read_text(encoding="utf-8")
+    raw = Path(path).read_bytes()
+    use_crlf = b"\r\n" in raw
+    # Normalise to LF for processing regardless of on-disk endings.
+    orig = raw.decode("utf-8").replace("\r\n", "\n").replace("\r", "\n")
     orig_lines = orig.splitlines(keepends=False)
 
     out_lines: list[str] = []
@@ -107,6 +110,9 @@ def apply_unified(path: str, unified_str: str) -> None:
         out_lines.append(orig_lines[idx])
         idx += 1
 
-    # Preserve the original file's trailing-newline behaviour.
     trailing = "\n" if orig.endswith("\n") else ""
-    Path(path).write_text("\n".join(out_lines) + trailing, encoding="utf-8")
+    result = "\n".join(out_lines) + trailing
+    # Re-apply the original file's line endings before writing.
+    if use_crlf:
+        result = result.replace("\n", "\r\n")
+    Path(path).write_bytes(result.encode("utf-8"))
