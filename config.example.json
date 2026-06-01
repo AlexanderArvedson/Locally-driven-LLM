@@ -30,6 +30,10 @@
         "limit_reached_behavior": "warn"
       },
 
+      "planner": {
+        "max_files": 3
+      },
+
       "credentials": {
         "git": {
           "username": "",

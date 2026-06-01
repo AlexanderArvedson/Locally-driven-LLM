@@ -16,15 +16,13 @@ import logging
 import re
 import time
 
-from src.config_loader import get_coder_model_config
+from src.config_loader import get_coder_model_config, get_planner_config
 from src.graph.nodes.support import client
 from src.graph.state import GraphState
 from src.observability.context import RunContext
 from src.observability.event_logging_utils import emit_failure, emit_success
 
 logger = logging.getLogger(__name__)
-
-_MAX_PLANNER_FILES = 3
 
 
 async def planner_node(state: GraphState, run_context: RunContext) -> dict:
@@ -48,6 +46,7 @@ async def planner_node(state: GraphState, run_context: RunContext) -> dict:
         task = state.get("task", "")
         candidates = state.get("selected_file_ids", [])
         repo_path = state.get("repo_path")
+        max_files = get_planner_config(repo_path).max_files
 
         if not candidates:
             error = "Planner: retrieval returned no candidate files to choose from."
@@ -63,7 +62,7 @@ async def planner_node(state: GraphState, run_context: RunContext) -> dict:
             "[INSTRUCTION]\n"
             "Select the files from the list above that must be MODIFIED to complete the task.\n"
             "Do NOT select files that are only needed for reading context.\n"
-            f"Select at most {_MAX_PLANNER_FILES} files.\n"
+            f"Select at most {max_files} files.\n"
             "If no file in the list needs modification, return an empty array.\n"
             'Return ONLY a JSON array of file paths, e.g.: ["src/foo.py", "src/bar.py"]\n'
             "Do NOT include any explanation or markdown — only the JSON array."
@@ -84,7 +83,7 @@ async def planner_node(state: GraphState, run_context: RunContext) -> dict:
             timeout_seconds=model_cfg.timeout_seconds,
         )
 
-        chosen = _parse_file_list(result.message, candidates)
+        chosen = _parse_file_list(result.message, candidates)[:max_files]
 
         if not chosen:
             error = (
@@ -130,4 +129,4 @@ def _parse_file_list(raw: str, valid_candidates: list[str]) -> list[str]:
 
     # Guard against hallucinated paths — only keep known candidates.
     candidate_set = set(valid_candidates)
-    return [f for f in chosen if f in candidate_set][:_MAX_PLANNER_FILES]
+    return [f for f in chosen if f in candidate_set]
