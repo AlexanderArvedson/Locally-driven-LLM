@@ -93,6 +93,10 @@ async def planner_node(state: GraphState, run_context: RunContext) -> dict:
             emit_failure(run_context, "planner_node", error, start)
             return {"planner_error": error}
 
+        # selected_file_ids are repo-relative; resolve to absolute paths so that
+        # downstream nodes (file_reader, file_writer) can open them directly.
+        chosen = _resolve_paths(chosen, repo_path)
+
         emit_success(run_context, "planner_node", {"chosen_files": chosen}, start)
         return {
             "target_file": chosen[0],
@@ -101,6 +105,22 @@ async def planner_node(state: GraphState, run_context: RunContext) -> dict:
     except Exception as exc:
         emit_failure(run_context, "planner_node", str(exc), start)
         raise
+
+
+def _resolve_paths(paths: list[str], repo_path: str | None) -> list[str]:
+    """Convert repo-relative paths to absolute paths using repo_path as the root.
+
+    Paths that are already absolute are returned unchanged.
+    """
+    if not repo_path:
+        return paths
+    from pathlib import Path as _Path
+    root = _Path(repo_path)
+    result = []
+    for p in paths:
+        pp = _Path(p)
+        result.append(str(pp) if pp.is_absolute() else str(root / pp))
+    return result
 
 
 def _parse_file_list(raw: str, valid_candidates: list[str]) -> list[str]:
