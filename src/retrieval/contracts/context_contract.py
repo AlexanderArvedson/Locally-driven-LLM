@@ -45,7 +45,7 @@ def _normalize_path(path: str, repo_path: str | None) -> str:
     if not repo_path:
         return path
     try:
-        return os.path.relpath(path, repo_path)
+        return os.path.relpath(path, repo_path).replace(os.sep, "/")
     except Exception:
         return path
 

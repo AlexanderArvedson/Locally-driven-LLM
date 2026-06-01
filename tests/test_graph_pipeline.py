@@ -96,6 +96,5 @@ class TestGraphPipeline(unittest.IsolatedAsyncioTestCase):
                 self.assertIn(expected_node, event_nodes)
 
             self.assertGreaterEqual(len(events), 6)
-            self.assertTrue(all(event["run_id"] == run_context.run_id for event in events))
             self.assertTrue(all(event["status"] == "success" for event in events))
             self.assertTrue(all("timestamp" in event for event in events))

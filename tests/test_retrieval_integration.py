@@ -16,6 +16,21 @@ from tests.support.httpx_stub import httpx_stub
 from tests.support.fixture_repo import temporary_fixture_repo
 
 
+async def _noop_branch_creator(state, run_context):
+    """Stub: skip git branch setup in retrieval integration tests."""
+    return {"branch_name": "test/refactor-code"}
+
+
+async def _noop_graph_resolver(state, run_context):
+    """Stub: skip graph resolution; forces heuristic ranking in retrieval_node."""
+    return {"graph_path": None, "repo_sha": "deadbeef"}
+
+
+async def _noop_git_committer(state, run_context):
+    """Stub: skip git commit in retrieval integration tests."""
+    return {}
+
+
 class TestRetrievalIntegration(unittest.TestCase):
     def setUp(self):
         ensure_runtime_dirs()
@@ -42,23 +57,29 @@ class TestRetrievalIntegration(unittest.TestCase):
                 from src.graph.workflow import make_graph
                 from src.graph.nodes import node_index as nodes_module
 
-                graph = make_graph(run_context)
-
                 captured_messages = []
 
-                async def fake_chat(messages, model, temperature):
+                async def fake_chat(messages, model, temperature, **_):
                     captured_messages.append(messages)
                     user_prompt = messages[1]["content"]
                     self.assertIn("[TASK]", user_prompt)
-                    self.assertIn("[TARGET FILE]", user_prompt)
-                    self.assertIn("[FILE CONTENT]", user_prompt)
-                    self.assertIn("[REPOSITORY CONTEXT]", user_prompt)
-                    self.assertIn("selected_files", user_prompt)
-                    self.assertIn("[INSTRUCTION]", user_prompt)
-                    self.assertIn("Only modify the target file.", user_prompt)
+                    # Coder-specific sections are only present in coder_node calls,
+                    # not in semantic_validator_node which uses a different prompt shape.
+                    if "[FILE CONTENT]" in user_prompt:
+                        self.assertIn("[TARGET FILE]", user_prompt)
+                        self.assertIn("[REPOSITORY CONTEXT]", user_prompt)
+                        self.assertIn("selected_files", user_prompt)
+                        self.assertIn("[INSTRUCTION]", user_prompt)
+                        self.assertIn("Only modify the target file.", user_prompt)
                     return fake_result
 
-                with patch.object(nodes_module.client, "chat", new=AsyncMock(side_effect=fake_chat)):
+                with (
+                    patch.object(nodes_module, "branch_creator_node", new=_noop_branch_creator),
+                    patch.object(nodes_module, "graph_resolver_node", new=_noop_graph_resolver),
+                    patch.object(nodes_module, "git_committer_node", new=_noop_git_committer),
+                    patch.object(nodes_module.client, "chat", new=AsyncMock(side_effect=fake_chat)),
+                ):
+                    graph = make_graph(run_context)
                     result = asyncio.run(
                         graph.ainvoke(
                             {
@@ -128,23 +149,29 @@ class TestRetrievalIntegration(unittest.TestCase):
                 from src.graph.workflow import make_graph
                 from src.graph.nodes import node_index as nodes_module
 
-                graph = make_graph(run_context)
-
                 captured_messages = []
 
-                async def fake_chat(messages, model, temperature):
+                async def fake_chat(messages, model, temperature, **_):
                     captured_messages.append(messages)
                     user_prompt = messages[1]["content"]
                     self.assertIn("[TASK]", user_prompt)
-                    self.assertIn("[TARGET FILE]", user_prompt)
-                    self.assertIn("[FILE CONTENT]", user_prompt)
-                    self.assertIn("[REPOSITORY CONTEXT]", user_prompt)
-                    self.assertIn("selected_files", user_prompt)
-                    self.assertIn("[INSTRUCTION]", user_prompt)
-                    self.assertIn("Only modify the target file.", user_prompt)
+                    # Coder-specific sections are only present in coder_node calls,
+                    # not in semantic_validator_node which uses a different prompt shape.
+                    if "[FILE CONTENT]" in user_prompt:
+                        self.assertIn("[TARGET FILE]", user_prompt)
+                        self.assertIn("[REPOSITORY CONTEXT]", user_prompt)
+                        self.assertIn("selected_files", user_prompt)
+                        self.assertIn("[INSTRUCTION]", user_prompt)
+                        self.assertIn("Only modify the target file.", user_prompt)
                     return fake_result
 
-                with patch.object(nodes_module.client, "chat", new=AsyncMock(side_effect=fake_chat)):
+                with (
+                    patch.object(nodes_module, "branch_creator_node", new=_noop_branch_creator),
+                    patch.object(nodes_module, "graph_resolver_node", new=_noop_graph_resolver),
+                    patch.object(nodes_module, "git_committer_node", new=_noop_git_committer),
+                    patch.object(nodes_module.client, "chat", new=AsyncMock(side_effect=fake_chat)),
+                ):
+                    graph = make_graph(run_context)
                     result = asyncio.run(
                         graph.ainvoke(
                             {
