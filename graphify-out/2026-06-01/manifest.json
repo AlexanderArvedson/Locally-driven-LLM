@@ -35,8 +35,8 @@
     "semantic_hash": ""
   },
   "C:\\chas\\examensarbete\\Locally-driven-langgraph-LLM\\src\\graph\\state.py": {
-    "mtime": 1780299024.6545212,
-    "ast_hash": "84bbedea8ba2fffa00ce83240d47537d",
+    "mtime": 1780304679.6081126,
+    "ast_hash": "0545e889886606974776e543957fc437",
     "semantic_hash": ""
   },
   "C:\\chas\\examensarbete\\Locally-driven-langgraph-LLM\\src\\graph\\workflow.py": {
@@ -160,8 +160,8 @@
     "semantic_hash": ""
   },
   "C:\\chas\\examensarbete\\Locally-driven-langgraph-LLM\\src\\graph\\nodes\\git_committer.py": {
-    "mtime": 1780085649.2571237,
-    "ast_hash": "fd6861ca818156f54eba8e72fd41c222",
+    "mtime": 1780305062.8562088,
+    "ast_hash": "2fed3a0620e68b55367b2c34c1d163d1",
     "semantic_hash": ""
   },
   "C:\\chas\\examensarbete\\Locally-driven-langgraph-LLM\\src\\graph\\graph_handle.py": {
