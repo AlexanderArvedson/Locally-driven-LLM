@@ -50,7 +50,7 @@ Managed automatically by the system. Set both to `null` when adding a new reposi
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `max_iterations` | integer | Maximum number of LLM reasoning/coding iterations the agent may take before it is forced to stop and return its current result. Higher values allow more complex tasks but increase runtime and token usage. |
+| `max_workflow_revision_cycles` | integer (≥ 1) | Maximum number of complete implement → validate → correct loops the workflow may run before it is forced to stop and return its current result. Higher values allow more complex tasks but increase runtime and token usage. |
 | `semantic_threshold` | float | Minimum `task_alignment_score` (0.0–1.0) the semantic validator must assign before the pipeline proceeds to write the file. Default `0.75`. Lower values are more permissive; raise toward `1.0` for stricter intent checking. |
 
 ---
@@ -65,6 +65,22 @@ Controls the knowledge graph that the agent uses to understand the repository's 
 | `auto_update` | boolean | When `true` the graph is automatically built or rebuilt in system/hybrid mode whenever the current git HEAD has no matching graph. Set to `false` to manage graph updates manually (an error is raised if no valid graph exists). |
 
 Graph freshness is determined exclusively by comparing the git HEAD SHA at run time against the SHA recorded in `graph_meta.json` alongside each `graph.json`. Timestamps are never used.
+
+---
+
+### `retrieval`
+
+Controls how many files and tokens the retrieval pipeline assembles into the LLM context window. All fields have defaults so the block may be omitted.
+
+| Field | Type | Default | Description |
+|-------|------|---------|-------------|
+| `max_context_files` | integer (> 0) | `20` | Maximum number of files the retrieval pipeline may include in the assembled context. Files are added in descending relevance order until this cap or the token budget is reached, whichever comes first. |
+| `max_context_tokens` | integer (> 0) | `12000` | Maximum estimated token count of the assembled retrieval context. The token count is estimated using `TokenCounter` before inference so the LLM never receives more context than this budget allows. |
+| `limit_reached_behavior` | string | `"warn"` | Action taken when either retrieval limit is hit. `"ignore"` silently truncates. `"warn"` logs a warning and continues. `"fail"` aborts retrieval with a `RuntimeError`, causing the workflow run to fail. |
+
+#### Retrieval statistics
+
+When a limit is hit the system logs statistics including candidate count, selected count, and token budget used. These are always included in the `emit_success` payload for the `retrieval_node`.
 
 ---
 
@@ -87,12 +103,15 @@ Each key under `models` names a role the agent uses an LLM for. All four roles m
 
 #### Common fields (all model entries)
 
-| Field | Type | Description |
-|-------|------|-------------|
-| `name` | string | Model identifier as recognised by the provider (e.g. `"llama3"`, `"qwen2.5-coder:7b"`, `"mistral"`). |
-| `provider` | string | Provider backend. Use `"ollama"` for locally-run models, or the provider name for hosted APIs. |
-| `api_key` | string \| null | API key for hosted providers. Set to `null` for local models that require no authentication. |
-| `url` | string | Base URL of the model's API endpoint. For Ollama the default is `"http://localhost:11434"`. |
+| Field | Type | Default | Description |
+|-------|------|---------|-------------|
+| `name` | string | — | Model identifier as recognised by the provider (e.g. `"llama3"`, `"qwen2.5-coder:7b"`, `"mistral"`). |
+| `provider` | string | — | Provider backend. Use `"ollama"` for locally-run models, or the provider name for hosted APIs (e.g. `"openai"`). |
+| `api_key` | string \| null | `null` | API key for hosted providers. Set to `null` for local models that require no authentication. |
+| `url` | string | — | Base URL of the model's API endpoint. For Ollama the default is `"http://localhost:11434"`. |
+| `temperature` | number \| null | `null` | Sampling temperature passed to the provider. When `null` the parameter is omitted from the request and the model uses its own default. Must be ≥ 0 when non-null. |
+| `max_tokens` | integer \| null | `null` | Maximum tokens the model may generate per request. When `null` the parameter is omitted. Must be > 0 when non-null. For Ollama this maps to `num_predict`. |
+| `timeout_seconds` | integer (> 0) | `300` | Per-request wall-clock timeout in seconds. The request is cancelled and an error is raised if the model does not respond within this duration. |
 
 #### Roles
 

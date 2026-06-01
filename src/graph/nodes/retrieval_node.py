@@ -5,22 +5,25 @@ Pipeline stages (all internal; only lightweight references enter GraphState):
   2. Candidate retrieval — graph keyword query or heuristic fallback
   3. Semantic ranking    — graph-aware (GraphRanker) or heuristic (HeuristicRanker)
   4. Dependency expansion — one BFS hop via GraphQuery (graph path only)
-  5. Context budgeting   — enforce file-count and char limits (ContextBudget)
+  5. Context budgeting   — enforce file-count and token limits (ContextBudget)
   6. Context assembly    — build bounded ContextPackage (ContextAssembler)
   7. Return lightweight state delta (session ID, file IDs, SHA, payload)
 """
 
 from __future__ import annotations
 
+import logging
 import time
 import uuid
 from pathlib import Path
 
+from src.config_loader import get_retrieval_config, get_coder_model_config
 from src.graph.state import GraphState
 from src.observability.context import RunContext
 from src.observability.event_logging_utils import emit_failure, emit_success
 from src.retrieval.assembly.context_assembler import ContextAssembler
 from src.retrieval.budgeting.context_budget import ContextBudget
+from src.retrieval.budgeting.token_counter import TokenCounter
 from src.retrieval.contracts.context_contract import build_repository_context_payload
 from src.retrieval.graph.graph_query import GraphQuery
 from src.retrieval.indexing.ast_indexer import AstIndexer
@@ -28,6 +31,8 @@ from src.retrieval.ranking.graph_ranker import GraphRanker
 from src.retrieval.ranking.heuristic_ranker import HeuristicRanker
 from src.tools.files import read_file
 
+
+logger = logging.getLogger(__name__)
 
 _MAX_RELATED_FILES = 5
 _MAX_CHARS_PER_FILE = 3_000
@@ -56,6 +61,11 @@ async def retrieval_node(state: GraphState, run_context: RunContext) -> dict:
         repo_path = state.get("repo_path")
         graph_path = state.get("graph_path")
         repo_sha = state.get("repo_sha", "")
+
+        # Load retrieval limits and model config for token counting.
+        retrieval_cfg = get_retrieval_config(repo_path)
+        model_cfg = get_coder_model_config(repo_path)
+        token_counter = TokenCounter()
 
         # --- Stage 1: AST indexing (local; never stored in state) ---
         indexer = AstIndexer()
@@ -91,13 +101,34 @@ async def retrieval_node(state: GraphState, run_context: RunContext) -> dict:
             ranked = _heuristic_rank(task, snapshot, target_file)
 
         # --- Stage 5: context budgeting ---
-        budget = ContextBudget(max_files=15, max_chars_per_file=_MAX_CHARS_PER_FILE, max_total_chars=30_000)
+        budget = ContextBudget(
+            max_files=retrieval_cfg.max_context_files,
+            max_chars_per_file=_MAX_CHARS_PER_FILE,
+            max_total_chars=_MAX_CHARS_PER_FILE * retrieval_cfg.max_context_files,
+            max_context_tokens=retrieval_cfg.max_context_tokens,
+            token_counter=token_counter,
+            model_config=model_cfg,
+        )
         allocation = budget.allocate(ranked, target_file)
         selected = allocation.selected_files
 
+        # --- Handle limit_reached_behavior ---
+        if allocation.limit_hit:
+            msg = (
+                f"Retrieval context truncated. "
+                f"Selected {len(selected)} files out of {allocation.candidate_files} candidates. "
+                f"token_budget_used={allocation.token_budget_used}."
+            )
+            behavior = retrieval_cfg.limit_reached_behavior
+            if behavior == "warn":
+                logger.warning(msg)
+            elif behavior == "fail":
+                raise RuntimeError(msg)
+            # "ignore" → no action
+
         # --- Stage 6: context assembly ---
         assembler = ContextAssembler()
-        context_pkg = assembler.build(task, target_file, selected, snapshot, max_files=15)
+        context_pkg = assembler.build(task, target_file, selected, snapshot, max_files=retrieval_cfg.max_context_files)
         payload = build_repository_context_payload(context_pkg, selected, repo_path=repo_path)
 
         # --- Stage 7: read bounded file contents for the coder prompt ---
@@ -112,8 +143,11 @@ async def retrieval_node(state: GraphState, run_context: RunContext) -> dict:
             "retrieval_node",
             {
                 "session_id": session_id,
-                "num_selected": len(selected),
-                "files_dropped": allocation.files_dropped,
+                "candidate_files": allocation.candidate_files,
+                "selected_files": len(selected),
+                "excluded_files": allocation.files_dropped,
+                "token_budget_used": allocation.token_budget_used,
+                "limit_hit": allocation.limit_hit,
                 "total_symbols": context_pkg.total_symbols,
                 "used_graph": used_graph,
                 "graph_snapshot_sha": graph_snapshot_sha[:8] if graph_snapshot_sha else "",

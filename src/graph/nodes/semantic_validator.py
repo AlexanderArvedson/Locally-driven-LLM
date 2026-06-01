@@ -11,7 +11,7 @@ import json
 import time
 
 from src.graph.nodes.support import client, require_state_value, strip_code_fences
-from src.config_loader import get_semantic_model, get_semantic_threshold
+from src.config_loader import get_semantic_model_config, get_semantic_threshold
 from src.graph.state import GraphState
 from src.observability.context import RunContext
 from src.observability.event_logging_utils import emit_failure, emit_success
@@ -71,7 +71,7 @@ async def semantic_validator_node(state: GraphState, run_context: RunContext) ->
         review_feedback = state.get("review_feedback") or "passed"
         verification_feedback = state.get("verification_feedback") or "passed"
 
-        model = get_semantic_model(state.get("repo_path"))
+        model_cfg = get_semantic_model_config(state.get("repo_path"))
         threshold = get_semantic_threshold(state.get("repo_path"))
 
         user_prompt = (
@@ -97,8 +97,10 @@ async def semantic_validator_node(state: GraphState, run_context: RunContext) ->
                 {"role": "system", "content": _SYSTEM_PROMPT},
                 {"role": "user", "content": user_prompt},
             ],
-            model=model,
-            temperature=0.1,
+            model=model_cfg.name,
+            temperature=model_cfg.temperature,
+            max_tokens=model_cfg.max_tokens,
+            timeout_seconds=model_cfg.timeout_seconds,
         )
 
         raw = strip_code_fences(response.message)

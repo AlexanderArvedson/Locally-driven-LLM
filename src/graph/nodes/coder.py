@@ -5,7 +5,7 @@ from __future__ import annotations
 import time
 
 from src.graph.nodes.support import client, require_state_value
-from src.config_loader import get_coder_model
+from src.config_loader import get_coder_model_config
 from src.graph.state import GraphState
 from src.observability.context import RunContext
 from src.observability.event_logging_utils import emit_failure, emit_success
@@ -27,7 +27,7 @@ async def coder_node(state: GraphState, run_context: RunContext) -> dict:
         iteration = state.get("iteration", 0) + 1
         original_code = require_state_value(state, "original_code")
         repository_context = state.get("repository_context")
-        coder_model = get_coder_model(state.get("repo_path"))
+        model_cfg = get_coder_model_config(state.get("repo_path"))
 
         related_file_contents = state.get("related_file_contents", {})
         user_prompt = (
@@ -93,11 +93,13 @@ async def coder_node(state: GraphState, run_context: RunContext) -> dict:
                     "content": user_prompt,
                 },
             ],
-            model=coder_model,
-            temperature=0.2,
+            model=model_cfg.name,
+            temperature=model_cfg.temperature,
+            max_tokens=model_cfg.max_tokens,
+            timeout_seconds=model_cfg.timeout_seconds,
         )
 
-        emit_success(run_context, "coder_node", {"model": coder_model}, start)
+        emit_success(run_context, "coder_node", {"model": model_cfg.name}, start)
 
         return {
             "generated_code": result.message,

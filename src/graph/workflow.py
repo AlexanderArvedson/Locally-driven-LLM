@@ -14,7 +14,7 @@ from langgraph.graph import StateGraph, START, END
 
 from src.graph.state import GraphState
 from src.graph.nodes import node_index as nodes_module
-from src.config_loader import get_max_iterations
+from src.config_loader import get_max_workflow_revision_cycles
 from src.observability.context import RunContext
 
 
@@ -32,7 +32,7 @@ def route_after_review(state: GraphState):
     """
     if state.get("review_passed"):
         return "verifier"
-    if state.get("iteration", 0) >= get_max_iterations(state.get("repo_path")):
+    if state.get("iteration", 0) >= get_max_workflow_revision_cycles(state.get("repo_path")):
         return END
     return "coder"
 
@@ -46,7 +46,7 @@ def route_after_verification(state: GraphState):
     """
     if state.get("verification_passed"):
         return "semantic_validator"
-    if state.get("iteration", 0) >= get_max_iterations(state.get("repo_path")):
+    if state.get("iteration", 0) >= get_max_workflow_revision_cycles(state.get("repo_path")):
         return END
     return "coder"
 
@@ -60,7 +60,7 @@ def route_after_semantic(state: GraphState):
     """
     if state.get("semantic_passed"):
         return "file_writer"
-    if state.get("iteration", 0) >= get_max_iterations(state.get("repo_path")):
+    if state.get("iteration", 0) >= get_max_workflow_revision_cycles(state.get("repo_path")):
         return END
     return "coder"
 

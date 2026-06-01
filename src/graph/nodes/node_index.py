@@ -11,13 +11,13 @@ from src.graph.nodes.graph_resolver import graph_resolver_node
 from src.graph.nodes.static_validator import static_validator_node
 from src.graph.nodes.semantic_validator import semantic_validator_node
 from src.graph.nodes.support import client
-from src.config_loader import CODER_MODEL, MAX_ITERATIONS
+from src.config_loader import CODER_MODEL, MAX_WORKFLOW_REVISION_CYCLES
 from src.graph.nodes.verifier import verifier_node
 
 __all__ = [
     "client",
     "CODER_MODEL",
-    "MAX_ITERATIONS",
+    "MAX_WORKFLOW_REVISION_CYCLES",
     "branch_creator_node",
     "git_committer_node",
     "file_reader_node",
