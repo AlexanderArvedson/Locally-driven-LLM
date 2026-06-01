@@ -19,6 +19,8 @@ if str(PROJECT_ROOT) not in sys.path:
 from src.graph.workflow import make_graph  # noqa: E402
 from src.config_loader import CODER_MODEL  # noqa: E402
 from src.observability.context import RunContext  # noqa: E402
+from src.scheduler.state_factory import GraphStateFactory  # noqa: E402
+from src.scheduler.task_request import TaskRequest  # noqa: E402
 
 
 DEFAULT_REPO_PATH = PROJECT_ROOT / "tests" / "fixtures" / "sample_repo_v2"
@@ -41,13 +43,12 @@ def _resolve_path(value: str | None, default: Path) -> Path:
 async def _run(repo_path: Path, target_file: Path, task: str) -> dict[str, object]:
     run_context = RunContext.new()
     graph = make_graph(run_context)
-    return await graph.ainvoke(
-        {
-            "task": task,
-            "repo_path": str(repo_path),
-            "target_file": str(target_file),
-        }
+    request = TaskRequest(
+        task=task,
+        repo_path=str(repo_path),
+        target_path=str(target_file),
     )
+    return await graph.ainvoke(GraphStateFactory.from_task_request(request))
 
 
 def build_parser() -> argparse.ArgumentParser:

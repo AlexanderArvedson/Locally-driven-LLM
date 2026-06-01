@@ -26,6 +26,8 @@ from src.git.branch_manager import build_branch_name, push_branch  # noqa: E402
 from src.git.pr_creator import create_pull_request  # noqa: E402
 from src.graph.workflow import make_graph  # noqa: E402
 from src.observability.context import RunContext  # noqa: E402
+from src.scheduler.state_factory import GraphStateFactory  # noqa: E402
+from src.scheduler.task_request import TaskRequest  # noqa: E402
 
 
 DEFAULT_TASK = "Add a docstring to each public function that is currently missing one."
@@ -41,12 +43,12 @@ def _pick_repo():
 async def _run_workflow(repo_path: str, task: str, target_file: str | None) -> dict:
     run_context = RunContext.new()
     graph = make_graph(run_context)
-
-    state: dict = {"task": task, "repo_path": repo_path}
-    if target_file:
-        state["target_file"] = target_file
-
-    return await graph.ainvoke(state)
+    request = TaskRequest(
+        task=task,
+        repo_path=repo_path,
+        target_path=target_file,
+    )
+    return await graph.ainvoke(GraphStateFactory.from_task_request(request))
 
 
 def main() -> int:
