@@ -1,16 +1,16 @@
 # Graph Report - Locally-driven-langgraph-LLM  (2026-06-01)
 
 ## Corpus Check
-- 57 files · ~14,966 words
+- 57 files · ~15,051 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 578 nodes · 1250 edges · 42 communities (27 shown, 15 thin omitted)
+- 579 nodes · 1251 edges · 42 communities (28 shown, 14 thin omitted)
 - Extraction: 81% EXTRACTED · 19% INFERRED · 0% AMBIGUOUS · INFERRED: 242 edges (avg confidence: 0.55)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `e11bc7bf`
+- Built from commit: `586cddb6`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -100,31 +100,31 @@
 - **Project Development Phases (Phase 1-5)** — docs_project_plan_phase1_file_mutation_mvp, docs_project_plan_phase2_repo_awareness, docs_project_plan_phase3_async_execution, docs_project_plan_phase4_passive_analysis, docs_project_plan_phase5_advanced_maintenance [EXTRACTED 1.00]
 - **Context Contract Components (version, payload, determinism, prompt rendering)** — docs_context_contract_context_version, docs_context_contract_payload_shape, docs_context_contract_determinism_rules, docs_context_contract_prompt_rendering [EXTRACTED 1.00]
 
-## Communities (42 total, 15 thin omitted)
+## Communities (42 total, 14 thin omitted)
 
 ### Community 0 - "Graph State Data Flow"
 Cohesion: 0.22
 Nodes (7): BudgetAllocation, Context window budget allocation.  ContextBudget enforces per-file character l, Result of a budget allocation pass., Result of a budget allocation pass.      Attributes:         selected_files:, Return the largest prefix of `ranked_files` that fits the budget.          Tar, Return the largest prefix of `ranked_files` that fits within all limits., str
 
 ### Community 1 - "Community 1"
-Cohesion: 0.32
-Nodes (7): _classify_error(), Return a coarse error category from subprocess output., Verify generated code by executing it in a sandboxed subprocess.      Subproce, verifier_node(), GraphState, RunContext, str
+Cohesion: 0.28
+Nodes (8): GraphState: verification_passed field, _classify_error(), Return a coarse error category from subprocess output., Verify generated code by executing it in a sandboxed subprocess.      Subproce, verifier_node(), GraphState, RunContext, str
 
 ### Community 2 - "Repository Context & Graph State"
-Cohesion: 0.14
-Nodes (24): Build and return a bounded ContextPackage.          Must be deterministic and, build_repository_context_payload(), _dedupe_preserve_order(), DependencySummaryItem, format_repository_context_for_prompt(), _normalize_path(), Versioned contract for retrieval -> coder repository context payloads.  This m, Validate structural invariants for a repository context payload. (+16 more)
+Cohesion: 0.19
+Nodes (12): ensure_runtime_dirs(), Centralized runtime artifact paths for deterministic CI and local runs.  All r, Create all required runtime directories if they don't exist.      Uses `parent, format_run_console(), log_event(), Minimal JSONL logger and run summary writer for per-run observability events., Append `event` as one JSON line to the per-run JSONL file.      Writes directl, Append `event` as one JSON line to the per-run JSONL file.      Writes compact (+4 more)
 
 ### Community 3 - "Test Infrastructure & Fixtures"
-Cohesion: 0.07
-Nodes (41): ContextAssemblerProtocol, Context assembler — builds bounded ContextPackage from ranked files.  ContextA, Interface for bounded context assembly., DependencyEdge, FileNode, Core data types shared across the retrieval pipeline.  Defines the immutable s, Represents a top-level symbol extracted from a file., Represents a directed import relationship between files. (+33 more)
+Cohesion: 0.05
+Nodes (58): ContextAssemblerProtocol, Context assembler — builds bounded ContextPackage from ranked files.  ContextA, Interface for bounded context assembly., Build and return a bounded ContextPackage.          Must be deterministic and, build_repository_context_payload(), _dedupe_preserve_order(), DependencySummaryItem, format_repository_context_for_prompt() (+50 more)
 
 ### Community 4 - "Design Contracts & Project Plan"
 Cohesion: 0.06
-Nodes (44): ensure_runtime_dirs(), Centralized runtime artifact paths for deterministic CI and local runs.  All r, Create all required runtime directories if they don't exist.      Uses `parent, Context Contract Version (CONTEXT_VERSION=1), Context Contract Determinism Rules, Context Contract Payload Shape, Context Contract Prompt Rendering ([REPOSITORY CONTEXT] block), Bounded Autonomy Design Principle (+36 more)
+Nodes (44): Context Contract Version (CONTEXT_VERSION=1), Context Contract Determinism Rules, Context Contract Payload Shape, Context Contract Prompt Rendering ([REPOSITORY CONTEXT] block), Active Mode - User-triggered Code Modification, Bounded Autonomy Design Principle, FIFO Task Queue - In-memory Deterministic Ordering, Mutation Exclusivity - One Active Workflow at a Time (+36 more)
 
 ### Community 5 - "LLM Pipeline & Sandbox"
-Cohesion: 0.18
-Nodes (9): LLMResult, Thin async client wrapper for Ollama HTTP API.  This module provides a minimal, Create a new `OllamaClient`.          Args:             base_url: Base URL of, Create a new `OllamaClient`.          Args:             base_url: Base URL of, Send a chat request to the Ollama API and return a parsed result.          The, Send a chat request to the Ollama API and return a parsed result.          Arg, float, int (+1 more)
+Cohesion: 0.13
+Nodes (14): LLMResult, OllamaClient, Thin async client wrapper for Ollama HTTP API.  This module provides a minimal, Create a new `OllamaClient`.          Args:             base_url: Base URL of, Create a new `OllamaClient`.          Args:             base_url: Base URL of, Send a chat request to the Ollama API and return a parsed result.          The, Send a chat request to the Ollama API and return a parsed result.          Arg, Close the underlying HTTP client connection pool. (+6 more)
 
 ### Community 6 - "Repository Indexer Protocol"
 Cohesion: 0.19
@@ -135,36 +135,36 @@ Cohesion: 0.11
 Nodes (32): CompletedProcess, _auth_url(), branch_exists(), build_branch_name(), clone_if_missing(), commit_file(), create_task_branch(), _open_repo() (+24 more)
 
 ### Community 9 - "Community 9"
-Cohesion: 0.07
-Nodes (50): Output contract from the retrieval pipeline, stored in GraphState.      Downst, Input contract passed from the scheduler layer to the retrieval pipeline., RetrievalRequest, RetrievalResult, GraphHandle, Immutable reference to a resolved, validated knowledge graph.      Produced ex, GraphConfig, GraphHandle (+42 more)
+Cohesion: 0.06
+Nodes (59): Output contract from the retrieval pipeline, stored in GraphState.      Downst, Input contract passed from the scheduler layer to the retrieval pipeline., RetrievalRequest, RetrievalResult, GraphHandle, Immutable reference to a resolved, validated knowledge graph.      Produced ex, GraphState, Shared state passed between LangGraph nodes.      This state represents a sing (+51 more)
 
 ### Community 10 - "Patch Application"
 Cohesion: 0.32
 Nodes (7): str, apply_ndiff(), apply_unified(), generate_ndiff(), Return an ndiff-formatted string describing changes from original -> modified., Apply an ndiff string to reconstruct the modified file and write it to path., Apply a unified diff to the file at `path`.      This is a lightweight unified
 
 ### Community 12 - "Simple Repo Fixture"
-Cohesion: 0.06
-Nodes (77): Any, GraphState: review_passed field, GraphState: verification_passed field, Graph construction helpers for the file-edit workflow.  This module builds a `, Decide the next graph node after the `reviewer` (static_validator) node., Decide the next graph node after the `verifier` node.      - If verification p, Decide the next graph node after the `semantic_validator` node.      - If sema, route_after_review() (+69 more)
+Cohesion: 0.07
+Nodes (67): Any, Graph construction helpers for the file-edit workflow.  This module builds a `, Decide the next graph node after the `reviewer` (static_validator) node., Decide the next graph node after the `verifier` node.      - If verification p, route_after_review(), route_after_semantic(), route_after_verification(), int (+59 more)
 
 ### Community 19 - "Community 19"
-Cohesion: 0.16
-Nodes (13): GraphState: generated_code field, file_writer_node(), Write generated content to disk or apply a unified diff.      Expected state inp, Write generated content to disk or apply a unified diff.      Expected state i, Aggregate export surface for graph nodes., Perform lightweight review checks on generated code.      Performs the followi, reviewer_node(), Remove a single pair of surrounding Markdown code fences. (+5 more)
+Cohesion: 0.21
+Nodes (11): GraphState: original_code field, file_reader_node(), Read the target file (or select one) and return its contents.      Expected st, Shared helpers for graph node implementations., Return a required value from `state` or raise ValueError., Pick the first Python file in a repo root deterministically., require_state_value(), select_target_file_from_repo_path() (+3 more)
 
 ### Community 20 - "Community 20"
 Cohesion: 0.38
 Nodes (6): create_pull_request(), _parse_owner_repo(), GitHub pull request creation via the REST API., Extract (owner, repo) from a GitHub remote URL., Create a GitHub pull request and return its HTML URL.      Args:         remote_, str
 
 ### Community 26 - "Community 26"
-Cohesion: 0.14
-Nodes (17): bool, OllamaClient, Static validator node.  Replaces the former reviewer node. Responsibilities ar, Validate generated code for structural correctness.      Runs Python syntax va, static_validator_node(), Shared helpers for graph node implementations., Return a required value from `state` or raise ValueError., Validate that `content` compiles as Python. (+9 more)
+Cohesion: 0.15
+Nodes (15): bool, GraphState: review_passed field, Perform lightweight review checks on generated code.      Performs the followi, reviewer_node(), Static validator node.  Replaces the former reviewer node. Responsibilities ar, Validate generated code for structural correctness.      Runs Python syntax va, static_validator_node(), Remove a single pair of surrounding Markdown code fences. (+7 more)
 
 ### Community 27 - "Community 27"
-Cohesion: 0.16
-Nodes (16): diff_generator_node(), Compute a unified diff between the original and generated code.      Expected, graphify_indexer_node(), Build or refresh the graphify knowledge graph for the target repository., new(), RunContext helper for observability.  This module provides a minimal `RunConte, Minimal per-run observability context.      Attributes:         run_id: A UUI, Per-run observability context.      Attributes:         run_id: A UUID4 strin (+8 more)
+Cohesion: 0.22
+Nodes (11): diff_generator_node(), Compute a unified diff between the original and generated code.      Expected, new(), RunContext helper for observability.  This module provides a minimal `RunConte, Minimal per-run observability context.      Attributes:         run_id: A UUI, Per-run observability context.      Attributes:         run_id: A UUID4 strin, RunContext, GraphState (+3 more)
 
 ### Community 28 - "Community 28"
-Cohesion: 0.16
-Nodes (18): git_committer_node(), Git committer node.  Stages the modified target file and creates a git commit, Stage and commit the modified target file.      Expected state keys:     - ``, Graphify indexer — internal graph-building utility.  Provides `build_ast_graph, emit_event(), emit_failure(), emit_success(), Small helper utilities for observability event emission.  Provides helpers to (+10 more)
+Cohesion: 0.22
+Nodes (13): Graphify indexer — internal graph-building utility.  Provides `build_ast_graph, emit_event(), emit_failure(), emit_success(), Small helper utilities for observability event emission.  Provides helpers to, Emit a single observability event with consistent shape.      Args:         r, Emit a single compact observability event.      Args:         run_context: Th, Emit a success event for the given node. (+5 more)
 
 ### Community 29 - "Community 29"
 Cohesion: 0.18
@@ -175,12 +175,16 @@ Cohesion: 0.25
 Nodes (8): _build_semantic_feedback(), Semantic validator node.  Evaluates whether the generated code correctly satis, Format the LLM evaluation into a concise string for the coder prompt., Evaluate task-intent alignment of the generated code using an LLM judge., semantic_validator_node(), GraphState, RunContext, str
 
 ### Community 31 - "Community 31"
-Cohesion: 0.15
-Nodes (19): GraphState: original_code field, GraphState: repository_context field, OllamaClient.chat, GraphState, Shared state passed between LangGraph nodes.      This state represents a sing, Shared state passed between LangGraph nodes.      This state represents a sing, Shared state passed between LangGraph nodes.      This state represents a sing, make_graph() (+11 more)
+Cohesion: 0.12
+Nodes (17): GraphState: generated_code field, GraphState: repository_context field, OllamaClient.chat, make_graph(), Decide the next graph node after the `semantic_validator` node.      - If sema, Create and compile the StateGraph for a single run.      The returned graph is, coder_node(), _format_related_files() (+9 more)
 
 ### Community 32 - "Community 32"
-Cohesion: 0.33
-Nodes (5): branch_creator_node(), Branch creator node.  Creates (or checks out) a task branch in the target repo, Create a task branch in the target repository.      Reads ``repo_path`` and ``, GraphState, RunContext
+Cohesion: 0.25
+Nodes (6): branch_creator_node(), Branch creator node.  Creates (or checks out) a task branch in the target repo, Create a task branch in the target repository.      Reads ``repo_path`` and ``, Aggregate export surface for graph nodes., GraphState, RunContext
+
+### Community 33 - "Community 33"
+Cohesion: 0.30
+Nodes (7): HeuristicRanker, Return a deterministic, ordered list of file paths., Deterministic, heuristic-based file ranker.      Ordering rules (score-based,, bool, int, RepositorySnapshot, str
 
 ### Community 36 - "Community 36"
 Cohesion: 0.18
@@ -199,22 +203,22 @@ Cohesion: 0.29
 Nodes (7): Read bounded file contents for the coder prompt, excluding target file., Read bounded file contents for the coder prompt, excluding target file., Read bounded file contents for the coder prompt, excluding target file., _read_related_files(), str, read_file(), write_file()
 
 ### Community 41 - "Community 41"
-Cohesion: 0.40
-Nodes (5): Active Mode - User-triggered Code Modification, Passive Mode - Continuous Repository Analysis, Phase 1 - File Mutation MVP, Phase 4 - Passive Analysis System, TaskType (passive|active)
+Cohesion: 0.29
+Nodes (6): git_committer_node(), Git committer node.  Stages the modified target file and creates a git commit, Stage and commit the modified target file.      Expected state keys:     - ``, Stage and commit the modified target file.      Expected state keys:     - ``, GraphState, RunContext
 
 ## Knowledge Gaps
 - **25 isolated node(s):** `float`, `int`, `bool`, `str`, `str` (+20 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **15 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **14 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `GraphState` connect `Community 31` to `Community 32`, `Community 1`, `Repository Context & Graph State`, `Design Contracts & Project Plan`, `Repository Indexer Protocol`, `Community 39`, `Community 9`, `Simple Repo Fixture`, `Community 19`, `Community 26`, `Community 27`, `Community 28`, `Community 30`?**
+- **Why does `GraphState` connect `Community 9` to `Community 32`, `Community 1`, `Test Infrastructure & Fixtures`, `Design Contracts & Project Plan`, `LLM Pipeline & Sandbox`, `Repository Indexer Protocol`, `Community 39`, `Community 41`, `Simple Repo Fixture`, `Community 19`, `Community 26`, `Community 27`, `Community 28`, `Community 30`, `Community 31`?**
   _High betweenness centrality (0.261) - this node is a cross-community bridge._
-- **Why does `RunContext` connect `Community 27` to `Community 32`, `Community 1`, `Design Contracts & Project Plan`, `Repository Indexer Protocol`, `Community 39`, `Community 9`, `Simple Repo Fixture`, `Community 19`, `Community 26`, `Community 28`, `Community 30`, `Community 31`?**
-  _High betweenness centrality (0.163) - this node is a cross-community bridge._
-- **Why does `get_repository_config()` connect `Simple Repo Fixture` to `Community 32`, `Community 9`, `Community 19`, `Design Contracts & Project Plan`?**
+- **Why does `RunContext` connect `Community 27` to `Community 32`, `Community 1`, `Design Contracts & Project Plan`, `Repository Indexer Protocol`, `Community 39`, `Community 9`, `Community 41`, `Simple Repo Fixture`, `Community 19`, `Community 26`, `Community 28`, `Community 30`, `Community 31`?**
+  _High betweenness centrality (0.162) - this node is a cross-community bridge._
+- **Why does `get_repository_config()` connect `Simple Repo Fixture` to `Community 32`, `Design Contracts & Project Plan`, `Community 9`, `Community 28`, `Community 31`?**
   _High betweenness centrality (0.083) - this node is a cross-community bridge._
 - **Are the 51 inferred relationships involving `GraphState` (e.g. with `RepositoryContextPayload` and `RetrievalResult`) actually correct?**
   _`GraphState` has 51 INFERRED edges - model-reasoned connections that need verification._
