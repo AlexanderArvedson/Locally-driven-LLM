@@ -26,6 +26,7 @@ from src.git.branch_manager import build_branch_name, get_diff_stat, push_branch
 from src.git.pr_creator import create_pull_request  # noqa: E402
 from src.graph.workflow import make_graph  # noqa: E402
 from src.observability.context import RunContext  # noqa: E402
+from src.observability.logger import format_run_console, write_run_summary  # noqa: E402
 from src.scheduler.state_factory import GraphStateFactory  # noqa: E402
 from src.scheduler.task_request import TaskRequest  # noqa: E402
 
@@ -40,7 +41,7 @@ def _pick_repo():
     return APP_CONFIG.repositories[0]
 
 
-async def _run_workflow(repo_path: str, task: str, target_file: str | None) -> dict:
+async def _run_workflow(repo_path: str, task: str, target_file: str | None) -> tuple[dict, RunContext]:
     run_context = RunContext.new()
     graph = make_graph(run_context)
     request = TaskRequest(
@@ -48,7 +49,8 @@ async def _run_workflow(repo_path: str, task: str, target_file: str | None) -> d
         repo_path=repo_path,
         target_path=target_file,
     )
-    return await graph.ainvoke(GraphStateFactory.from_task_request(request))
+    result = await graph.ainvoke(GraphStateFactory.from_task_request(request))
+    return result, run_context
 
 
 def main() -> int:
@@ -79,11 +81,16 @@ def main() -> int:
 
     # ── 1. Run workflow (creates branch, modifies file) ──────────────────────
     print("Running workflow…")
-    result = asyncio.run(_run_workflow(repo_path, task, target_file))
+    result, run_context = asyncio.run(_run_workflow(repo_path, task, target_file))
 
     branch_name: str = result.get("branch_name", expected_branch)
     updated_code = result.get("updated_code")
     commit_sha: str = result.get("commit_sha", "")
+
+    final_status = "success" if updated_code and commit_sha else "no_changes"
+    write_run_summary(run_context, final_status)
+    print(format_run_console(run_context, final_status))
+    print()
 
     print(f"Branch created : {branch_name}")
     print(f"File modified  : {'yes' if updated_code else 'no'}")
