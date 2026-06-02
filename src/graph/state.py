@@ -140,6 +140,10 @@ class GraphState(TypedDict):
     # 0.0–1.0 confidence in the above evaluation.
     semantic_confidence: NotRequired[float]
 
+    # 0.0–1.0 estimate of how likely the change breaks existing behaviour outside
+    # the task scope. Populated by semantic_validator_node; factored into pass/fail.
+    regression_risk: NotRequired[float]
+
     # --- Git fields ---
 
     # Branch created for this task, e.g. "feature/fix-auth-bug"

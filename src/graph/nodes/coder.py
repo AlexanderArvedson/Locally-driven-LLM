@@ -60,7 +60,9 @@ async def coder_node(state: GraphState, run_context: RunContext) -> dict:
 
         verification_feedback = state.get("verification_feedback", "")
         error_type = state.get("error_type")
-        if verification_feedback:
+        # ImportError means the sandbox lacks project-local packages — unfixable by
+        # the coder. Passing it as feedback causes the model to return unchanged code.
+        if verification_feedback and error_type != "ImportError":
             label = f"RUNTIME FAILURE ({error_type}):" if error_type else "RUNTIME FAILURE:"
             failure_parts.append(f"{label}\n{verification_feedback}")
 
