@@ -497,6 +497,8 @@ dependencies = [
     { name = "pydantic" },
     { name = "python-dotenv" },
     { name = "tenacity" },
+    { name = "tree-sitter" },
+    { name = "tree-sitter-python" },
     { name = "uvicorn", extra = ["standard"] },
 ]
 
@@ -525,6 +527,8 @@ requires-dist = [
     { name = "python-dotenv", specifier = ">=1.2.2" },
     { name = "ruff", marker = "extra == 'dev'", specifier = ">=0.15.14" },
     { name = "tenacity", specifier = ">=9.1.4" },
+    { name = "tree-sitter", specifier = ">=0.22" },
+    { name = "tree-sitter-python", specifier = ">=0.23" },
     { name = "uvicorn", extras = ["standard"], specifier = ">=0.47.0" },
 ]
 provides-extras = ["dev", "tools"]
