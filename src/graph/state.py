@@ -60,7 +60,7 @@ class GraphState(TypedDict):
     # Whether the latest review passed successfully
     review_passed: NotRequired[bool]
 
-    # Set by file_writer_node and verifier_node to signal write/verify outcomes.
+    # Set by file_writer_node to signal write outcomes.
     verification_passed: NotRequired[bool]
     verification_feedback: NotRequired[str]
 
@@ -99,20 +99,6 @@ class GraphState(TypedDict):
 
     # Individual error strings from syntax or lint checks.
     review_errors: NotRequired[list[str]]
-
-    # --- Verifier structured output ---
-
-    # True when the code executed without exceptions.
-    runtime_ok: NotRequired[bool]
-
-    # Categorised error type, e.g. "SyntaxError", "ImportError", "RuntimeError".
-    error_type: NotRequired[str]
-
-    # Raw stderr captured from subprocess execution.
-    verifier_stderr: NotRequired[str]
-
-    # Raw stdout captured from subprocess execution.
-    verifier_stdout: NotRequired[str]
 
     # --- Semantic validator output ---
 

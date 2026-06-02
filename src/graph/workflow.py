@@ -22,7 +22,7 @@ from src.observability.context import RunContext
 def route_after_review(state: GraphState):
     """Decide the next graph node after the `reviewer` (static_validator) node.
 
-    - If the review passed, continue to the `verifier` node.
+    - If the review passed, continue to the `semantic_validator` node.
     - If the iteration limit was reached, end the run.
     - Otherwise, route back to `coder` for another iteration.
 
@@ -31,26 +31,6 @@ def route_after_review(state: GraphState):
     `END`.
     """
     if state.get("review_passed"):
-        return "verifier"
-    if state.get("iteration", 0) >= get_max_workflow_revision_cycles(state.get("repo_path")):
-        return END
-    return "coder"
-
-
-def route_after_verification(state: GraphState):
-    """Decide the next graph node after the `verifier` node.
-
-    - If verification passed, proceed to the `semantic_validator` node.
-    - If the failure is an ImportError, proceed to `semantic_validator` anyway.
-      Import failures are environment issues (project-local packages not on the
-      sandbox path), not code quality issues — the static_validator already
-      confirmed syntax correctness.
-    - If the iteration limit was reached, end the run.
-    - Otherwise, retry by routing to `coder`.
-    """
-    if state.get("verification_passed"):
-        return "semantic_validator"
-    if state.get("error_type") == "ImportError":
         return "semantic_validator"
     if state.get("iteration", 0) >= get_max_workflow_revision_cycles(state.get("repo_path")):
         return END
@@ -112,7 +92,6 @@ def make_graph(run_context: RunContext):
     builder.add_node("coder", _wrap(nodes_module.coder_node))
     builder.add_node("diff_generator", _wrap(nodes_module.diff_generator_node))
     builder.add_node("reviewer", _wrap(nodes_module.static_validator_node))
-    builder.add_node("verifier", _wrap(nodes_module.verifier_node))
     builder.add_node("semantic_validator", _wrap(nodes_module.semantic_validator_node))
     builder.add_node("file_writer", _wrap(nodes_module.file_writer_node))
     builder.add_node("git_committer", _wrap(nodes_module.git_committer_node))
@@ -142,16 +121,6 @@ def make_graph(run_context: RunContext):
     builder.add_conditional_edges(
         "reviewer",
         route_after_review,
-        {
-            "coder": "coder",
-            "verifier": "verifier",
-            END: END,
-        },
-    )
-
-    builder.add_conditional_edges(
-        "verifier",
-        route_after_verification,
         {
             "coder": "coder",
             "semantic_validator": "semantic_validator",
