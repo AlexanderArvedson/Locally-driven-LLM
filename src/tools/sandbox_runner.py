@@ -56,7 +56,7 @@ def main(argv: list[str] | None = None) -> int:
         code = se.code if isinstance(se.code, int) else 1
         return code
     except Exception as exc:
-        print(f"Sandbox execution failed: {exc}", file=sys.stderr)
+        print(f"Sandbox execution failed: {type(exc).__name__}: {exc}", file=sys.stderr)
         return 1
 
 
