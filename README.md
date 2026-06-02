@@ -2,7 +2,7 @@
 
 Quick notes (how to run the file-edit MVP):
 
-Before running the app, create a local `config.json` from `config.example.json` and edit the values for your machine and model setup. The repository ignores `config.json`, so each checkout can keep its own runtime settings. The example file is just a template; the local file is where the real repo-specific values live. The `max_iterations` field under each repository controls the allowed iterations for workflows. `api_key` is optional and is only needed for hosted providers; leave it `null` when using local hosting such as Ollama.
+Before running the app, create a local `config.json` from `config.example.json` and edit the values for your machine and model setup. The repository ignores `config.json`, so each checkout can keep its own runtime settings. The example file is just a template; the local file is where the real repo-specific values live. The `max_workflow_revision_cycles` field under each repository controls the maximum number of implement → validate → correct loops the workflow may run. `api_key` is optional and is only needed for hosted providers; leave it `null` when using local hosting such as Ollama.
 
 ```bash
 cp config.example.json config.json
@@ -11,7 +11,7 @@ cp config.example.json config.json
 - Run unit tests:
 
 ```bash
-python3 -m unittest -q
+uv run -m pytest -q
 ```
 
 - Run the single-file edit smoke test as a local integration check (uses `sandbox/example.py`):
@@ -31,16 +31,16 @@ If a patch fails to apply the tool will save artifacts under `.runtime/failed_pa
 Observability
 -------------
 
-Run the file-edit smoke path to generate a per-run JSONL trace under `.runtime/runs/`:
+`run_monorepo_task` prints a human-readable execution trace to the console at the end of every run, showing each node, its duration, and the first line of any failure reason:
 
 ```bash
-uv run -m scripts.test_file_edit
+uv run -m scripts.run_monorepo_task --task "add docstrings to all public methods in foo.py"
 ```
 
-Inspect the most recent run (requires `jq`):
+A full per-run JSONL event log is written to `.runtime/runs/<run_id>.jsonl` for streaming inspection, and an aggregated JSON summary to `.runtime/runs/<run_id>.json`. Inspect the most recent run (requires `jq`):
 
 ```bash
-ls -1 .runtime/runs | tail -n1 | xargs -I{} sh -c 'cat .runtime/runs/{} | jq'
+ls -1 .runtime/runs/*.jsonl | tail -n1 | xargs cat | jq
 ```
 
 Logs and runtime artifacts are ignored by git; see `.gitignore` for entries such as `.runtime/`.

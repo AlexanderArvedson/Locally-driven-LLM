@@ -61,7 +61,7 @@ Managed automatically by the system. Set both to `null` when adding a new reposi
 | Field | Type | Description |
 |-------|------|-------------|
 | `max_workflow_revision_cycles` | integer (≥ 1) | Maximum number of complete implement → validate → correct loops the workflow may run before it is forced to stop and return its current result. Higher values allow more complex tasks but increase runtime and token usage. |
-| `semantic_threshold` | float | Minimum `task_alignment_score` (0.0–1.0) the semantic validator must assign before the pipeline proceeds to write the file. Default `0.75`. Lower values are more permissive; raise toward `1.0` for stricter intent checking. |
+| `semantic_threshold` | float | Minimum *effective score* (0.0–1.0) the semantic validator must produce before the pipeline proceeds to write the file. Default `0.75`. The effective score is `task_alignment_score` minus a penalty for high `regression_risk` (risk above 0.4 is penalised at 0.5× the excess). Lower values are more permissive; raise toward `1.0` for stricter intent checking. |
 
 ---
 
@@ -147,7 +147,7 @@ Each key under `models` names a role the agent uses an LLM for. All four roles m
 |----------|---------|
 | `chat` | General-purpose conversational model used for planning and task decomposition. |
 | `coder` | Code generation model — should be a model fine-tuned for code (e.g. a Qwen-coder or DeepSeek-coder variant). |
-| `semantic_validator` | Model used to judge whether generated code satisfies the original task intent. Receives the task description, original code, and generated code; returns a structured JSON alignment score. Can be the same model as `coder`. |
+| `semantic_validator` | Model used to judge whether generated code satisfies the original task intent. Receives the task description, a unified diff of the change, and a truncated original file snippet for context; returns a structured JSON evaluation including `task_alignment_score` and `regression_risk`. Can be the same model as `coder`. |
 | `embedding` | Embedding model used to build the vector-similarity layer of the knowledge graph. Must produce dense vector outputs. |
 
 ---
