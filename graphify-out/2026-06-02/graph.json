@@ -419,7 +419,7 @@
       "source_file": "src/config_loader.py",
       "source_location": "L147",
       "id": "src_config_loader_py_int",
-      "community": 42,
+      "community": 33,
       "norm_label": "int"
     },
     {
@@ -599,7 +599,7 @@
       "source_file": "src/config_loader.py",
       "source_location": "L412",
       "id": "src_config_loader_get_graph_config",
-      "community": 9,
+      "community": 4,
       "norm_label": "get_graph_config()"
     },
     {
@@ -608,7 +608,7 @@
       "source_file": "src/config_loader.py",
       "source_location": "L420",
       "id": "src_config_loader_get_system_context_path",
-      "community": 9,
+      "community": 4,
       "norm_label": "get_system_context_path()"
     },
     {
@@ -806,7 +806,7 @@
       "source_file": "src/config_loader.py",
       "source_location": "L413",
       "id": "src_config_loader_rationale_413",
-      "community": 9,
+      "community": 4,
       "norm_label": "return the graph lifecycle config for the repository matching ``repo_path``."
     },
     {
@@ -815,7 +815,7 @@
       "source_file": "src/config_loader.py",
       "source_location": "L421",
       "id": "src_config_loader_rationale_421",
-      "community": 9,
+      "community": 4,
       "norm_label": "return the expanded absolute path for the system-level context store.      resol"
     },
     {
@@ -1031,7 +1031,7 @@
       "source_file": "src/tools/patches.py",
       "source_location": "L40",
       "id": "tools_patches_apply_unified",
-      "community": 10,
+      "community": 19,
       "norm_label": "apply_unified()"
     },
     {
@@ -1067,7 +1067,7 @@
       "source_file": "src/tools/patches.py",
       "source_location": "L41",
       "id": "tools_patches_rationale_41",
-      "community": 10,
+      "community": 19,
       "norm_label": "apply a unified diff to the file at `path`.      this is a lightweight unified d"
     },
     {
@@ -1526,7 +1526,7 @@
       "source_file": "src/scheduler/task.py",
       "source_location": "L1",
       "id": "src_scheduler_task_py",
-      "community": 55,
+      "community": 31,
       "norm_label": "task.py"
     },
     {
@@ -1535,7 +1535,7 @@
       "source_file": "src/scheduler/task.py",
       "source_location": "L13",
       "id": "scheduler_task_task",
-      "community": 55,
+      "community": 31,
       "norm_label": "task"
     },
     {
@@ -1544,7 +1544,7 @@
       "source_file": "src/scheduler/task.py",
       "source_location": "L14",
       "id": "scheduler_task_rationale_14",
-      "community": 55,
+      "community": 31,
       "norm_label": "scheduler work unit wrapping a validated taskrequest."
     },
     {
@@ -1553,7 +1553,7 @@
       "source_file": "src/scheduler/task_request.py",
       "source_location": "L1",
       "id": "src_scheduler_task_request_py",
-      "community": 44,
+      "community": 31,
       "norm_label": "task_request.py"
     },
     {
@@ -1562,7 +1562,7 @@
       "source_file": "src/scheduler/task_request.py",
       "source_location": "L7",
       "id": "scheduler_task_request_taskrequest",
-      "community": 44,
+      "community": 31,
       "norm_label": "taskrequest"
     },
     {
@@ -1571,7 +1571,7 @@
       "source_file": "src/scheduler/task_request.py",
       "source_location": "L8",
       "id": "scheduler_task_request_rationale_8",
-      "community": 44,
+      "community": 31,
       "norm_label": "external request contract for submitting a task to the workflow.      separates"
     },
     {
@@ -1580,7 +1580,7 @@
       "source_file": "src/scheduler/executor.py",
       "source_location": "L1",
       "id": "src_scheduler_executor_py",
-      "community": 55,
+      "community": 31,
       "norm_label": "executor.py"
     },
     {
@@ -1589,7 +1589,7 @@
       "source_file": "src/scheduler/executor.py",
       "source_location": "L8",
       "id": "scheduler_executor_workflowexecutor",
-      "community": 54,
+      "community": 31,
       "norm_label": "workflowexecutor"
     },
     {
@@ -1598,7 +1598,7 @@
       "source_file": "src/scheduler/executor.py",
       "source_location": "L17",
       "id": "scheduler_executor_workflowexecutor_init",
-      "community": 54,
+      "community": 31,
       "norm_label": ".__init__()"
     },
     {
@@ -1625,7 +1625,7 @@
       "source_file": "src/scheduler/executor.py",
       "source_location": "L9",
       "id": "scheduler_executor_rationale_9",
-      "community": 54,
+      "community": 31,
       "norm_label": "executor that runs a workflow graph for a given `task`.      the executor accept"
     },
     {
@@ -1634,7 +1634,7 @@
       "source_file": "src/scheduler/queue.py",
       "source_location": "L1",
       "id": "src_scheduler_queue_py",
-      "community": 55,
+      "community": 31,
       "norm_label": "queue.py"
     },
     {
@@ -1643,7 +1643,7 @@
       "source_file": "src/scheduler/queue.py",
       "source_location": "L8",
       "id": "scheduler_queue_taskqueue",
-      "community": 4,
+      "community": 31,
       "norm_label": "taskqueue"
     },
     {
@@ -1652,7 +1652,7 @@
       "source_file": "src/scheduler/queue.py",
       "source_location": "L9",
       "id": "scheduler_queue_taskqueue_init",
-      "community": 4,
+      "community": 31,
       "norm_label": ".__init__()"
     },
     {
@@ -1661,7 +1661,7 @@
       "source_file": "src/scheduler/queue.py",
       "source_location": "L12",
       "id": "scheduler_queue_taskqueue_enqueue",
-      "community": 4,
+      "community": 31,
       "norm_label": ".enqueue()"
     },
     {
@@ -1670,7 +1670,7 @@
       "source_file": "src/scheduler/queue.py",
       "source_location": "L12",
       "id": "src_scheduler_queue_py_task",
-      "community": 4,
+      "community": 31,
       "norm_label": "task"
     },
     {
@@ -1679,7 +1679,7 @@
       "source_file": "src/scheduler/queue.py",
       "source_location": "L15",
       "id": "scheduler_queue_taskqueue_dequeue",
-      "community": 4,
+      "community": 31,
       "norm_label": ".dequeue()"
     },
     {
@@ -1688,7 +1688,7 @@
       "source_file": "src/scheduler/loop.py",
       "source_location": "L1",
       "id": "src_scheduler_loop_py",
-      "community": 55,
+      "community": 31,
       "norm_label": "loop.py"
     },
     {
@@ -1697,7 +1697,7 @@
       "source_file": "src/scheduler/loop.py",
       "source_location": "L11",
       "id": "scheduler_loop_executionloop",
-      "community": 4,
+      "community": 31,
       "norm_label": "executionloop"
     },
     {
@@ -1706,7 +1706,7 @@
       "source_file": "src/scheduler/loop.py",
       "source_location": "L21",
       "id": "scheduler_loop_executionloop_init",
-      "community": 54,
+      "community": 31,
       "norm_label": ".__init__()"
     },
     {
@@ -1715,7 +1715,7 @@
       "source_file": "src/scheduler/loop.py",
       "source_location": "L21",
       "id": "taskqueue",
-      "community": 54,
+      "community": 31,
       "norm_label": "taskqueue"
     },
     {
@@ -1724,7 +1724,7 @@
       "source_file": "src/scheduler/loop.py",
       "source_location": "L21",
       "id": "workflowexecutor",
-      "community": 54,
+      "community": 31,
       "norm_label": "workflowexecutor"
     },
     {
@@ -1733,7 +1733,7 @@
       "source_file": "src/scheduler/loop.py",
       "source_location": "L29",
       "id": "scheduler_loop_executionloop_start",
-      "community": 4,
+      "community": 31,
       "norm_label": ".start()"
     },
     {
@@ -1742,7 +1742,7 @@
       "source_file": "src/scheduler/loop.py",
       "source_location": "L36",
       "id": "scheduler_loop_executionloop_submit_task",
-      "community": 4,
+      "community": 31,
       "norm_label": ".submit_task()"
     },
     {
@@ -1751,7 +1751,7 @@
       "source_file": "src/scheduler/loop.py",
       "source_location": "L36",
       "id": "src_scheduler_loop_py_task",
-      "community": 4,
+      "community": 31,
       "norm_label": "task"
     },
     {
@@ -1760,7 +1760,7 @@
       "source_file": "src/scheduler/loop.py",
       "source_location": "L42",
       "id": "scheduler_loop_executionloop_stop",
-      "community": 4,
+      "community": 31,
       "norm_label": ".stop()"
     },
     {
@@ -1769,7 +1769,7 @@
       "source_file": "src/scheduler/loop.py",
       "source_location": "L59",
       "id": "scheduler_loop_executionloop_run",
-      "community": 4,
+      "community": 31,
       "norm_label": ".run()"
     },
     {
@@ -1778,7 +1778,7 @@
       "source_file": "src/scheduler/loop.py",
       "source_location": "L67",
       "id": "scheduler_loop_executionloop_consume",
-      "community": 4,
+      "community": 31,
       "norm_label": "._consume()"
     },
     {
@@ -1787,7 +1787,7 @@
       "source_file": "src/scheduler/loop.py",
       "source_location": "L12",
       "id": "scheduler_loop_rationale_12",
-      "community": 4,
+      "community": 31,
       "norm_label": "background execution loop that consumes tasks from a `taskqueue`.      responsib"
     },
     {
@@ -1796,7 +1796,7 @@
       "source_file": "src/scheduler/state_factory.py",
       "source_location": "L1",
       "id": "src_scheduler_state_factory_py",
-      "community": 44,
+      "community": 31,
       "norm_label": "state_factory.py"
     },
     {
@@ -1805,7 +1805,7 @@
       "source_file": "src/scheduler/state_factory.py",
       "source_location": "L7",
       "id": "scheduler_state_factory_graphstatefactory",
-      "community": 44,
+      "community": 31,
       "norm_label": "graphstatefactory"
     },
     {
@@ -1814,7 +1814,7 @@
       "source_file": "src/scheduler/state_factory.py",
       "source_location": "L15",
       "id": "scheduler_state_factory_graphstatefactory_from_task_request",
-      "community": 44,
+      "community": 31,
       "norm_label": ".from_task_request()"
     },
     {
@@ -1823,7 +1823,7 @@
       "source_file": "src/scheduler/state_factory.py",
       "source_location": "L15",
       "id": "taskrequest",
-      "community": 44,
+      "community": 31,
       "norm_label": "taskrequest"
     },
     {
@@ -1832,7 +1832,7 @@
       "source_file": "src/scheduler/state_factory.py",
       "source_location": "L15",
       "id": "src_scheduler_state_factory_py_graphstate",
-      "community": 44,
+      "community": 31,
       "norm_label": "graphstate"
     },
     {
@@ -1841,7 +1841,7 @@
       "source_file": "src/scheduler/state_factory.py",
       "source_location": "L8",
       "id": "scheduler_state_factory_rationale_8",
-      "community": 44,
+      "community": 31,
       "norm_label": "converts an external taskrequest into the internal graphstate.      this is the"
     },
     {
@@ -1850,7 +1850,7 @@
       "source_file": "src/scheduler/state_factory.py",
       "source_location": "L16",
       "id": "scheduler_state_factory_rationale_16",
-      "community": 44,
+      "community": 31,
       "norm_label": "build the initial graphstate from a validated taskrequest."
     },
     {
@@ -1859,7 +1859,7 @@
       "source_file": "src/scheduler/__init__.py",
       "source_location": "L1",
       "id": "src_scheduler_init_py",
-      "community": 55,
+      "community": 31,
       "norm_label": "__init__.py"
     },
     {
@@ -2129,7 +2129,7 @@
       "source_file": "src/retrieval/assembly/context_assembler.py",
       "source_location": "L1",
       "id": "src_retrieval_assembly_context_assembler_py",
-      "community": 3,
+      "community": 57,
       "norm_label": "context_assembler.py"
     },
     {
@@ -2138,7 +2138,7 @@
       "source_file": "src/retrieval/assembly/context_assembler.py",
       "source_location": "L15",
       "id": "assembly_context_assembler_contextassemblerprotocol",
-      "community": 3,
+      "community": 57,
       "norm_label": "contextassemblerprotocol"
     },
     {
@@ -2147,7 +2147,7 @@
       "source_file": "",
       "source_location": "",
       "id": "protocol",
-      "community": 3,
+      "community": 57,
       "norm_label": "protocol"
     },
     {
@@ -2156,7 +2156,7 @@
       "source_file": "src/retrieval/assembly/context_assembler.py",
       "source_location": "L18",
       "id": "assembly_context_assembler_contextassemblerprotocol_build",
-      "community": 3,
+      "community": 57,
       "norm_label": ".build()"
     },
     {
@@ -2165,7 +2165,7 @@
       "source_file": "src/retrieval/assembly/context_assembler.py",
       "source_location": "L18",
       "id": "src_retrieval_assembly_context_assembler_py_str",
-      "community": 3,
+      "community": 57,
       "norm_label": "str"
     },
     {
@@ -2174,7 +2174,7 @@
       "source_file": "src/retrieval/assembly/context_assembler.py",
       "source_location": "L18",
       "id": "src_retrieval_assembly_context_assembler_py_repositorysnapshot",
-      "community": 3,
+      "community": 57,
       "norm_label": "repositorysnapshot"
     },
     {
@@ -2183,7 +2183,7 @@
       "source_file": "src/retrieval/assembly/context_assembler.py",
       "source_location": "L18",
       "id": "src_retrieval_assembly_context_assembler_py_int",
-      "community": 3,
+      "community": 57,
       "norm_label": "int"
     },
     {
@@ -2192,7 +2192,7 @@
       "source_file": "src/retrieval/assembly/context_assembler.py",
       "source_location": "L18",
       "id": "src_retrieval_assembly_context_assembler_py_contextpackage",
-      "community": 3,
+      "community": 57,
       "norm_label": "contextpackage"
     },
     {
@@ -2210,7 +2210,7 @@
       "source_file": "src/retrieval/assembly/context_assembler.py",
       "source_location": "L43",
       "id": "assembly_context_assembler_contextassembler_build",
-      "community": 3,
+      "community": 57,
       "norm_label": ".build()"
     },
     {
@@ -2219,7 +2219,7 @@
       "source_file": "src/retrieval/assembly/context_assembler.py",
       "source_location": "L1",
       "id": "assembly_context_assembler_rationale_1",
-      "community": 3,
+      "community": 57,
       "norm_label": "context assembler \u2014 builds bounded contextpackage from ranked files.  contextass"
     },
     {
@@ -2228,7 +2228,7 @@
       "source_file": "src/retrieval/assembly/context_assembler.py",
       "source_location": "L16",
       "id": "assembly_context_assembler_rationale_16",
-      "community": 3,
+      "community": 57,
       "norm_label": "interface for bounded context assembly."
     },
     {
@@ -2237,7 +2237,7 @@
       "source_file": "src/retrieval/assembly/context_assembler.py",
       "source_location": "L29",
       "id": "assembly_context_assembler_rationale_29",
-      "community": 3,
+      "community": 57,
       "norm_label": "build and return a bounded contextpackage.          must be deterministic and mu"
     },
     {
@@ -2669,7 +2669,7 @@
       "source_file": "src/retrieval/ranking/heuristic_ranker.py",
       "source_location": "L31",
       "id": "ranking_heuristic_ranker_heuristicranker",
-      "community": 29,
+      "community": 3,
       "norm_label": "heuristicranker"
     },
     {
@@ -2685,7 +2685,7 @@
       "label": "._is_test_path()",
       "file_type": "code",
       "source_file": "src/retrieval/ranking/heuristic_ranker.py",
-      "source_location": "L102",
+      "source_location": "L105",
       "id": "ranking_heuristic_ranker_heuristicranker_is_test_path",
       "community": 3,
       "norm_label": "._is_test_path()"
@@ -2694,7 +2694,7 @@
       "label": "bool",
       "file_type": "code",
       "source_file": "src/retrieval/ranking/heuristic_ranker.py",
-      "source_location": "L102",
+      "source_location": "L105",
       "id": "src_retrieval_ranking_heuristic_ranker_py_bool",
       "community": 3,
       "norm_label": "bool"
@@ -2703,7 +2703,7 @@
       "label": "._task_terms()",
       "file_type": "code",
       "source_file": "src/retrieval/ranking/heuristic_ranker.py",
-      "source_location": "L108",
+      "source_location": "L111",
       "id": "ranking_heuristic_ranker_heuristicranker_task_terms",
       "community": 3,
       "norm_label": "._task_terms()"
@@ -2712,7 +2712,7 @@
       "label": "._task_term_hits()",
       "file_type": "code",
       "source_file": "src/retrieval/ranking/heuristic_ranker.py",
-      "source_location": "L113",
+      "source_location": "L116",
       "id": "ranking_heuristic_ranker_heuristicranker_task_term_hits",
       "community": 3,
       "norm_label": "._task_term_hits()"
@@ -2750,7 +2750,7 @@
       "source_file": "src/retrieval/ranking/heuristic_ranker.py",
       "source_location": "L32",
       "id": "ranking_heuristic_ranker_rationale_32",
-      "community": 29,
+      "community": 3,
       "norm_label": "deterministic, heuristic-based file ranker.      ordering rules (score-based, de"
     },
     {
@@ -2777,7 +2777,7 @@
       "source_file": "src/retrieval/budgeting/context_budget.py",
       "source_location": "L47",
       "id": "budgeting_context_budget_contextbudget",
-      "community": 0,
+      "community": 29,
       "norm_label": "contextbudget"
     },
     {
@@ -2786,7 +2786,7 @@
       "source_file": "src/retrieval/budgeting/context_budget.py",
       "source_location": "L55",
       "id": "budgeting_context_budget_contextbudget_init",
-      "community": 0,
+      "community": 29,
       "norm_label": ".__init__()"
     },
     {
@@ -2795,7 +2795,7 @@
       "source_file": "src/retrieval/budgeting/context_budget.py",
       "source_location": "L55",
       "id": "src_retrieval_budgeting_context_budget_py_int",
-      "community": 0,
+      "community": 29,
       "norm_label": "int"
     },
     {
@@ -2804,7 +2804,7 @@
       "source_file": "src/retrieval/budgeting/context_budget.py",
       "source_location": "L55",
       "id": "tokencounter",
-      "community": 0,
+      "community": 29,
       "norm_label": "tokencounter"
     },
     {
@@ -2849,7 +2849,7 @@
       "source_file": "src/retrieval/budgeting/context_budget.py",
       "source_location": "L48",
       "id": "budgeting_context_budget_rationale_48",
-      "community": 0,
+      "community": 29,
       "norm_label": "allocates ranked files against char-per-file, file-count, and token limits."
     },
     {
@@ -3317,7 +3317,7 @@
       "source_file": "src/retrieval/contracts/types.py",
       "source_location": "L58",
       "id": "contracts_types_contextpackage",
-      "community": 3,
+      "community": 57,
       "norm_label": "contextpackage"
     },
     {
@@ -3371,7 +3371,7 @@
       "source_file": "src/retrieval/contracts/types.py",
       "source_location": "L59",
       "id": "contracts_types_rationale_59",
-      "community": 3,
+      "community": 57,
       "norm_label": "bounded context package returned by the contextassembler.      contains only lig"
     },
     {
@@ -3398,7 +3398,7 @@
       "source_file": "src/retrieval/contracts/retrieval_contract.py",
       "source_location": "L1",
       "id": "src_retrieval_contracts_retrieval_contract_py",
-      "community": 57,
+      "community": 9,
       "norm_label": "retrieval_contract.py"
     },
     {
@@ -3407,7 +3407,7 @@
       "source_file": "src/retrieval/contracts/retrieval_contract.py",
       "source_location": "L7",
       "id": "contracts_retrieval_contract_retrievalrequest",
-      "community": 57,
+      "community": 9,
       "norm_label": "retrievalrequest"
     },
     {
@@ -3416,7 +3416,7 @@
       "source_file": "src/retrieval/contracts/retrieval_contract.py",
       "source_location": "L21",
       "id": "contracts_retrieval_contract_retrievalresult",
-      "community": 57,
+      "community": 9,
       "norm_label": "retrievalresult"
     },
     {
@@ -3425,7 +3425,7 @@
       "source_file": "src/retrieval/contracts/retrieval_contract.py",
       "source_location": "L8",
       "id": "contracts_retrieval_contract_rationale_8",
-      "community": 57,
+      "community": 9,
       "norm_label": "input contract passed from the scheduler layer to the retrieval pipeline."
     },
     {
@@ -3434,7 +3434,7 @@
       "source_file": "src/retrieval/contracts/retrieval_contract.py",
       "source_location": "L22",
       "id": "contracts_retrieval_contract_rationale_22",
-      "community": 57,
+      "community": 9,
       "norm_label": "output contract from the retrieval pipeline, stored in graphstate.      downstre"
     },
     {
@@ -3443,7 +3443,7 @@
       "source_file": "src/graph/state.py",
       "source_location": "L1",
       "id": "src_graph_state_py",
-      "community": 57,
+      "community": 9,
       "norm_label": "state.py"
     },
     {
@@ -3452,7 +3452,7 @@
       "source_file": "src/graph/state.py",
       "source_location": "L8",
       "id": "graph_state_graphstate",
-      "community": 36,
+      "community": 48,
       "norm_label": "graphstate"
     },
     {
@@ -3461,7 +3461,7 @@
       "source_file": "src/graph/state.py",
       "source_location": "L9",
       "id": "graph_state_rationale_9",
-      "community": 36,
+      "community": 48,
       "norm_label": "shared state passed between langgraph nodes.      this state represents a single"
     },
     {
@@ -3729,16 +3729,25 @@
       "label": "_build_semantic_feedback()",
       "file_type": "code",
       "source_file": "src/graph/nodes/semantic_validator.py",
-      "source_location": "L36",
+      "source_location": "L46",
       "id": "nodes_semantic_validator_build_semantic_feedback",
       "community": 30,
       "norm_label": "_build_semantic_feedback()"
     },
     {
+      "label": "float",
+      "file_type": "code",
+      "source_file": "src/graph/nodes/semantic_validator.py",
+      "source_location": "L46",
+      "id": "src_graph_nodes_semantic_validator_py_float",
+      "community": 30,
+      "norm_label": "float"
+    },
+    {
       "label": "str",
       "file_type": "code",
       "source_file": "src/graph/nodes/semantic_validator.py",
-      "source_location": "L36",
+      "source_location": "L46",
       "id": "src_graph_nodes_semantic_validator_py_str",
       "community": 30,
       "norm_label": "str"
@@ -3747,7 +3756,7 @@
       "label": "semantic_validator_node()",
       "file_type": "code",
       "source_file": "src/graph/nodes/semantic_validator.py",
-      "source_location": "L55",
+      "source_location": "L67",
       "id": "nodes_semantic_validator_semantic_validator_node",
       "community": 30,
       "norm_label": "semantic_validator_node()"
@@ -3756,7 +3765,7 @@
       "label": "GraphState",
       "file_type": "code",
       "source_file": "src/graph/nodes/semantic_validator.py",
-      "source_location": "L55",
+      "source_location": "L67",
       "id": "src_graph_nodes_semantic_validator_py_graphstate",
       "community": 30,
       "norm_label": "graphstate"
@@ -3765,7 +3774,7 @@
       "label": "RunContext",
       "file_type": "code",
       "source_file": "src/graph/nodes/semantic_validator.py",
-      "source_location": "L55",
+      "source_location": "L67",
       "id": "src_graph_nodes_semantic_validator_py_runcontext",
       "community": 30,
       "norm_label": "runcontext"
@@ -3783,19 +3792,19 @@
       "label": "Format the LLM evaluation into a concise string for the coder prompt.",
       "file_type": "rationale",
       "source_file": "src/graph/nodes/semantic_validator.py",
-      "source_location": "L37",
-      "id": "nodes_semantic_validator_rationale_37",
+      "source_location": "L47",
+      "id": "nodes_semantic_validator_rationale_47",
       "community": 30,
       "norm_label": "format the llm evaluation into a concise string for the coder prompt."
     },
     {
-      "label": "Evaluate task-intent alignment of the generated code using an LLM judge.      Re",
+      "label": "Evaluate task-intent alignment and regression risk of the generated change.",
       "file_type": "rationale",
       "source_file": "src/graph/nodes/semantic_validator.py",
-      "source_location": "L56",
-      "id": "nodes_semantic_validator_rationale_56",
+      "source_location": "L68",
+      "id": "nodes_semantic_validator_rationale_68",
       "community": 30,
-      "norm_label": "evaluate task-intent alignment of the generated code using an llm judge.      re"
+      "norm_label": "evaluate task-intent alignment and regression risk of the generated change."
     },
     {
       "label": "graph_resolver.py",
@@ -4154,7 +4163,7 @@
       "source_file": "src/graph/nodes/support.py",
       "source_location": "L44",
       "id": "nodes_support_validate_python_syntax",
-      "community": 26,
+      "community": 1,
       "norm_label": "validate_python_syntax()"
     },
     {
@@ -4163,7 +4172,7 @@
       "source_file": "src/graph/nodes/support.py",
       "source_location": "L44",
       "id": "src_graph_nodes_support_py_bool",
-      "community": 26,
+      "community": 1,
       "norm_label": "bool"
     },
     {
@@ -4208,7 +4217,7 @@
       "source_file": "src/graph/nodes/support.py",
       "source_location": "L45",
       "id": "nodes_support_rationale_45",
-      "community": 26,
+      "community": 1,
       "norm_label": "validate that `content` compiles as python."
     },
     {
@@ -4226,7 +4235,7 @@
       "source_file": "src/graph/nodes/graphify_indexer.py",
       "source_location": "L1",
       "id": "src_graph_nodes_graphify_indexer_py",
-      "community": 36,
+      "community": 28,
       "norm_label": "graphify_indexer.py"
     },
     {
@@ -4235,7 +4244,7 @@
       "source_file": "src/graph/nodes/graphify_indexer.py",
       "source_location": "L14",
       "id": "nodes_graphify_indexer_build_ast_graph",
-      "community": 36,
+      "community": 9,
       "norm_label": "build_ast_graph()"
     },
     {
@@ -4244,7 +4253,7 @@
       "source_file": "src/graph/nodes/graphify_indexer.py",
       "source_location": "L14",
       "id": "src_graph_nodes_graphify_indexer_py_str",
-      "community": 36,
+      "community": 9,
       "norm_label": "str"
     },
     {
@@ -4253,7 +4262,7 @@
       "source_file": "src/graph/nodes/graphify_indexer.py",
       "source_location": "L14",
       "id": "src_graph_nodes_graphify_indexer_py_path",
-      "community": 36,
+      "community": 40,
       "norm_label": "path"
     },
     {
@@ -4262,7 +4271,7 @@
       "source_file": "src/graph/nodes/graphify_indexer.py",
       "source_location": "L1",
       "id": "nodes_graphify_indexer_rationale_1",
-      "community": 36,
+      "community": 28,
       "norm_label": "graphify indexer \u2014 internal graph-building utility.  provides `build_ast_graph`,"
     },
     {
@@ -4271,7 +4280,7 @@
       "source_file": "src/graph/nodes/graphify_indexer.py",
       "source_location": "L15",
       "id": "nodes_graphify_indexer_rationale_15",
-      "community": 36,
+      "community": 9,
       "norm_label": "run ast-only graphify extraction and write graph.json to graph_dir."
     },
     {
@@ -4406,7 +4415,7 @@
       "source_file": "src/graph/nodes/reviewer.py",
       "source_location": "L1",
       "id": "src_graph_nodes_reviewer_py",
-      "community": 26,
+      "community": 1,
       "norm_label": "reviewer.py"
     },
     {
@@ -4415,7 +4424,7 @@
       "source_file": "src/graph/nodes/reviewer.py",
       "source_location": "L17",
       "id": "nodes_reviewer_reviewer_node",
-      "community": 19,
+      "community": 1,
       "norm_label": "reviewer_node()"
     },
     {
@@ -4424,7 +4433,7 @@
       "source_file": "src/graph/nodes/reviewer.py",
       "source_location": "L17",
       "id": "src_graph_nodes_reviewer_py_graphstate",
-      "community": 19,
+      "community": 1,
       "norm_label": "graphstate"
     },
     {
@@ -4433,7 +4442,7 @@
       "source_file": "src/graph/nodes/reviewer.py",
       "source_location": "L17",
       "id": "src_graph_nodes_reviewer_py_runcontext",
-      "community": 19,
+      "community": 1,
       "norm_label": "runcontext"
     },
     {
@@ -4442,7 +4451,7 @@
       "source_file": "src/graph/nodes/reviewer.py",
       "source_location": "L18",
       "id": "nodes_reviewer_rationale_18",
-      "community": 19,
+      "community": 1,
       "norm_label": "perform lightweight review checks on generated code.      performs the following"
     },
     {
@@ -4460,7 +4469,7 @@
       "source_file": "src/graph/nodes/planner.py",
       "source_location": "L29",
       "id": "nodes_planner_planner_node",
-      "community": 28,
+      "community": 2,
       "norm_label": "planner_node()"
     },
     {
@@ -4469,7 +4478,7 @@
       "source_file": "src/graph/nodes/planner.py",
       "source_location": "L29",
       "id": "src_graph_nodes_planner_py_graphstate",
-      "community": 28,
+      "community": 2,
       "norm_label": "graphstate"
     },
     {
@@ -4478,7 +4487,7 @@
       "source_file": "src/graph/nodes/planner.py",
       "source_location": "L29",
       "id": "src_graph_nodes_planner_py_runcontext",
-      "community": 28,
+      "community": 2,
       "norm_label": "runcontext"
     },
     {
@@ -4523,7 +4532,7 @@
       "source_file": "src/graph/nodes/planner.py",
       "source_location": "L30",
       "id": "nodes_planner_rationale_30",
-      "community": 28,
+      "community": 2,
       "norm_label": "select the file(s) to modify for the current task.      state inputs consumed:"
     },
     {
@@ -4550,7 +4559,7 @@
       "source_file": "src/graph/nodes/static_validator.py",
       "source_location": "L1",
       "id": "src_graph_nodes_static_validator_py",
-      "community": 26,
+      "community": 19,
       "norm_label": "static_validator.py"
     },
     {
@@ -4559,7 +4568,7 @@
       "source_file": "src/graph/nodes/static_validator.py",
       "source_location": "L23",
       "id": "nodes_static_validator_static_validator_node",
-      "community": 26,
+      "community": 19,
       "norm_label": "static_validator_node()"
     },
     {
@@ -4568,7 +4577,7 @@
       "source_file": "src/graph/nodes/static_validator.py",
       "source_location": "L23",
       "id": "src_graph_nodes_static_validator_py_graphstate",
-      "community": 26,
+      "community": 19,
       "norm_label": "graphstate"
     },
     {
@@ -4577,7 +4586,7 @@
       "source_file": "src/graph/nodes/static_validator.py",
       "source_location": "L23",
       "id": "src_graph_nodes_static_validator_py_runcontext",
-      "community": 26,
+      "community": 19,
       "norm_label": "runcontext"
     },
     {
@@ -4586,7 +4595,7 @@
       "source_file": "src/graph/nodes/static_validator.py",
       "source_location": "L1",
       "id": "nodes_static_validator_rationale_1",
-      "community": 26,
+      "community": 19,
       "norm_label": "static validator node.  replaces the former reviewer node. responsibilities are"
     },
     {
@@ -4595,7 +4604,7 @@
       "source_file": "src/graph/nodes/static_validator.py",
       "source_location": "L24",
       "id": "nodes_static_validator_rationale_24",
-      "community": 26,
+      "community": 19,
       "norm_label": "validate generated code for structural correctness.      runs python syntax vali"
     },
     {
@@ -4604,7 +4613,7 @@
       "source_file": "src/graph/nodes/file_reader.py",
       "source_location": "L1",
       "id": "src_graph_nodes_file_reader_py",
-      "community": 28,
+      "community": 26,
       "norm_label": "file_reader.py"
     },
     {
@@ -4613,7 +4622,7 @@
       "source_file": "src/graph/nodes/file_reader.py",
       "source_location": "L14",
       "id": "nodes_file_reader_file_reader_node",
-      "community": 48,
+      "community": 26,
       "norm_label": "file_reader_node()"
     },
     {
@@ -4622,7 +4631,7 @@
       "source_file": "src/graph/nodes/file_reader.py",
       "source_location": "L14",
       "id": "src_graph_nodes_file_reader_py_graphstate",
-      "community": 48,
+      "community": 26,
       "norm_label": "graphstate"
     },
     {
@@ -4631,7 +4640,7 @@
       "source_file": "src/graph/nodes/file_reader.py",
       "source_location": "L14",
       "id": "src_graph_nodes_file_reader_py_runcontext",
-      "community": 48,
+      "community": 26,
       "norm_label": "runcontext"
     },
     {
@@ -4640,7 +4649,7 @@
       "source_file": "src/graph/nodes/file_reader.py",
       "source_location": "L15",
       "id": "nodes_file_reader_rationale_15",
-      "community": 48,
+      "community": 26,
       "norm_label": "read the target file (or select one) and return its contents.      expected stat"
     },
     {
@@ -4721,7 +4730,7 @@
       "source_file": "src/graph/nodes/node_index.py",
       "source_location": "L1",
       "id": "src_graph_nodes_node_index_py",
-      "community": 19,
+      "community": 58,
       "norm_label": "node_index.py"
     },
     {
@@ -4730,7 +4739,7 @@
       "source_file": "src/graph/nodes/node_index.py",
       "source_location": "L1",
       "id": "nodes_node_index_rationale_1",
-      "community": 19,
+      "community": 58,
       "norm_label": "aggregate export surface for graph nodes."
     },
     {
@@ -4775,7 +4784,7 @@
       "source_file": "src/graph/nodes/retrieval_node.py",
       "source_location": "L170",
       "id": "nodes_retrieval_node_heuristic_rank",
-      "community": 29,
+      "community": 49,
       "norm_label": "_heuristic_rank()"
     },
     {
@@ -4784,7 +4793,7 @@
       "source_file": "src/graph/nodes/retrieval_node.py",
       "source_location": "L170",
       "id": "src_graph_nodes_retrieval_node_py_str",
-      "community": 29,
+      "community": 49,
       "norm_label": "str"
     },
     {
@@ -4793,7 +4802,7 @@
       "source_file": "src/graph/nodes/retrieval_node.py",
       "source_location": "L175",
       "id": "nodes_retrieval_node_read_related_files",
-      "community": 32,
+      "community": 39,
       "norm_label": "_read_related_files()"
     },
     {
@@ -4829,7 +4838,7 @@
       "source_file": "src/graph/nodes/retrieval_node.py",
       "source_location": "L171",
       "id": "nodes_retrieval_node_rationale_171",
-      "community": 29,
+      "community": 49,
       "norm_label": "fallback ranking when graph is unavailable."
     },
     {
@@ -4838,7 +4847,7 @@
       "source_file": "src/graph/nodes/retrieval_node.py",
       "source_location": "L176",
       "id": "nodes_retrieval_node_rationale_176",
-      "community": 32,
+      "community": 39,
       "norm_label": "read bounded file contents for the coder prompt, excluding target file."
     },
     {
@@ -4849,6 +4858,24 @@
       "id": "nodes_retrieval_node_rationale_194",
       "community": 49,
       "norm_label": "convert absolute paths to repo-relative strings when possible."
+    },
+    {
+      "label": "Format the LLM evaluation into a concise string for the coder prompt.",
+      "file_type": "rationale",
+      "source_file": "src/graph/nodes/semantic_validator.py",
+      "source_location": "L37",
+      "community": 30,
+      "norm_label": "format the llm evaluation into a concise string for the coder prompt.",
+      "id": "nodes_semantic_validator_rationale_37"
+    },
+    {
+      "label": "Evaluate task-intent alignment of the generated code using an LLM judge.      Re",
+      "file_type": "rationale",
+      "source_file": "src/graph/nodes/semantic_validator.py",
+      "source_location": "L56",
+      "community": 30,
+      "norm_label": "evaluate task-intent alignment of the generated code using an llm judge.      re",
+      "id": "nodes_semantic_validator_rationale_56"
     },
     {
       "label": "Decide the next graph node after the `semantic_validator` node.      - If semant",
@@ -4882,7 +4909,7 @@
       "file_type": "rationale",
       "source_file": "src/graph/nodes/planner.py",
       "source_location": "L29",
-      "community": 28,
+      "community": 2,
       "norm_label": "select the file(s) to modify for the current task.      state inputs consumed:",
       "id": "nodes_planner_rationale_29"
     },
@@ -5062,7 +5089,7 @@
       "file_type": "rationale",
       "source_file": "src/config_loader.py",
       "source_location": "L405",
-      "community": 9,
+      "community": 4,
       "norm_label": "return the graph lifecycle config for the repository matching ``repo_path``.",
       "id": "src_config_loader_rationale_405"
     },
@@ -5224,7 +5251,7 @@
       "file_type": "rationale",
       "source_file": "src/config_loader.py",
       "source_location": "L373",
-      "community": 9,
+      "community": 4,
       "norm_label": "return the graph lifecycle config for the repository matching ``repo_path``.",
       "id": "src_config_loader_rationale_373"
     },
@@ -5368,7 +5395,7 @@
       "file_type": "rationale",
       "source_file": "src/config_loader.py",
       "source_location": "L368",
-      "community": 9,
+      "community": 4,
       "norm_label": "return the expanded absolute path for the system-level context store.      res",
       "id": "src_config_loader_rationale_368"
     },
@@ -5476,7 +5503,7 @@
       "file_type": "rationale",
       "source_file": "src/graph/state.py",
       "source_location": "L7",
-      "community": 36,
+      "community": 48,
       "norm_label": "shared state passed between langgraph nodes.      this state represents a sing",
       "id": "graph_state_rationale_7"
     },
@@ -5485,7 +5512,7 @@
       "file_type": "rationale",
       "source_file": "src/scheduler/executor.py",
       "source_location": "L10",
-      "community": 54,
+      "community": 31,
       "norm_label": "executor that runs a workflow graph for a given `task`.      the executor acce",
       "id": "scheduler_executor_rationale_10"
     },
@@ -5494,7 +5521,7 @@
       "file_type": "code",
       "source_file": "src/config_loader.py",
       "source_location": "L221",
-      "community": 42,
+      "community": 33,
       "norm_label": "get_max_iterations()",
       "id": "src_config_loader_get_max_iterations"
     },
@@ -5557,7 +5584,7 @@
       "file_type": "rationale",
       "source_file": "src/config_loader.py",
       "source_location": "L244",
-      "community": 9,
+      "community": 4,
       "norm_label": "return the graph lifecycle config for the repository matching ``repo_path``.",
       "id": "src_config_loader_rationale_244"
     },
@@ -5566,7 +5593,7 @@
       "file_type": "rationale",
       "source_file": "src/config_loader.py",
       "source_location": "L252",
-      "community": 9,
+      "community": 4,
       "norm_label": "return the expanded absolute path for the system-level context store.      res",
       "id": "src_config_loader_rationale_252"
     },
@@ -5620,7 +5647,7 @@
       "file_type": "rationale",
       "source_file": "src/graph/nodes/retrieval_node.py",
       "source_location": "L137",
-      "community": 29,
+      "community": 49,
       "norm_label": "fallback ranking when graph is unavailable.",
       "id": "nodes_retrieval_node_rationale_137"
     },
@@ -5629,7 +5656,7 @@
       "file_type": "rationale",
       "source_file": "src/graph/nodes/retrieval_node.py",
       "source_location": "L142",
-      "community": 32,
+      "community": 39,
       "norm_label": "read bounded file contents for the coder prompt, excluding target file.",
       "id": "nodes_retrieval_node_rationale_142"
     },
@@ -5656,7 +5683,7 @@
       "file_type": "rationale",
       "source_file": "src/retrieval/budgeting/context_budget.py",
       "source_location": "L25",
-      "community": 0,
+      "community": 29,
       "norm_label": "allocates ranked files against char and file-count limits.      limits are adv",
       "id": "budgeting_context_budget_rationale_25"
     },
@@ -5674,7 +5701,7 @@
       "file_type": "rationale",
       "source_file": "src/graph/nodes/retrieval_node.py",
       "source_location": "L138",
-      "community": 29,
+      "community": 49,
       "norm_label": "fallback ranking when graph is unavailable.",
       "id": "nodes_retrieval_node_rationale_138"
     },
@@ -5683,7 +5710,7 @@
       "file_type": "rationale",
       "source_file": "src/graph/nodes/retrieval_node.py",
       "source_location": "L143",
-      "community": 32,
+      "community": 39,
       "norm_label": "read bounded file contents for the coder prompt, excluding target file.",
       "id": "nodes_retrieval_node_rationale_143"
     },
@@ -5764,7 +5791,7 @@
       "file_type": "rationale",
       "source_file": "src/config_loader.py",
       "source_location": "L224",
-      "community": 9,
+      "community": 4,
       "norm_label": "return the graph lifecycle config for the repository matching ``repo_path``.",
       "id": "src_config_loader_rationale_224"
     },
@@ -5773,7 +5800,7 @@
       "file_type": "rationale",
       "source_file": "src/config_loader.py",
       "source_location": "L232",
-      "community": 9,
+      "community": 4,
       "norm_label": "return the expanded absolute path for the system-level context store.      res",
       "id": "src_config_loader_rationale_232"
     },
@@ -5854,7 +5881,7 @@
       "file_type": "rationale",
       "source_file": "src/graph/state.py",
       "source_location": "L8",
-      "community": 36,
+      "community": 48,
       "norm_label": "shared state passed between langgraph nodes.      this state represents a sing",
       "id": "graph_state_rationale_8"
     },
@@ -5863,7 +5890,7 @@
       "file_type": "code",
       "source_file": "src/graph/nodes/graphify_indexer.py",
       "source_location": "L21",
-      "community": 36,
+      "community": 40,
       "norm_label": "graphify_indexer_node()",
       "id": "nodes_graphify_indexer_graphify_indexer_node"
     },
@@ -5872,7 +5899,7 @@
       "file_type": "code",
       "source_file": "src/graph/nodes/graphify_indexer.py",
       "source_location": "L21",
-      "community": 36,
+      "community": 40,
       "norm_label": "graphstate",
       "id": "src_graph_nodes_graphify_indexer_py_graphstate"
     },
@@ -5881,7 +5908,7 @@
       "file_type": "code",
       "source_file": "src/graph/nodes/graphify_indexer.py",
       "source_location": "L21",
-      "community": 36,
+      "community": 40,
       "norm_label": "runcontext",
       "id": "src_graph_nodes_graphify_indexer_py_runcontext"
     },
@@ -5890,7 +5917,7 @@
       "file_type": "rationale",
       "source_file": "src/graph/nodes/graphify_indexer.py",
       "source_location": "L22",
-      "community": 36,
+      "community": 40,
       "norm_label": "build or refresh the graphify knowledge graph for the target repository.",
       "id": "nodes_graphify_indexer_rationale_22"
     },
@@ -5899,7 +5926,7 @@
       "file_type": "rationale",
       "source_file": "src/graph/nodes/graphify_indexer.py",
       "source_location": "L58",
-      "community": 36,
+      "community": 9,
       "norm_label": "run ast-only graphify extraction and write graph.json to graph_dir.",
       "id": "nodes_graphify_indexer_rationale_58"
     },
@@ -6016,7 +6043,7 @@
       "file_type": "code",
       "source_file": "src/config_loader.py",
       "source_location": "L61",
-      "community": 42,
+      "community": 33,
       "norm_label": "int",
       "id": "int"
     },
@@ -6034,7 +6061,7 @@
       "file_type": "code",
       "source_file": "src/graph/nodes/support.py",
       "source_location": "L44",
-      "community": 26,
+      "community": 1,
       "norm_label": "bool",
       "id": "bool"
     },
@@ -6091,7 +6118,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 48,
+      "community": 26,
       "norm_label": "graphstate: original_code field",
       "id": "concept_state_field_original_code"
     },
@@ -6104,7 +6131,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 19,
+      "community": 1,
       "norm_label": "graphstate: generated_code field",
       "id": "concept_state_field_generated_code"
     },
@@ -6182,7 +6209,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 50,
+      "community": 31,
       "norm_label": "tasktype (passive|active)",
       "id": "scheduler_task_tasktype"
     },
@@ -6208,7 +6235,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 50,
+      "community": 31,
       "norm_label": "passive mode - continuous repository analysis",
       "id": "docs_project_plan_passive_mode"
     },
@@ -6221,7 +6248,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 50,
+      "community": 31,
       "norm_label": "active mode - user-triggered code modification",
       "id": "docs_project_plan_active_mode"
     },
@@ -6234,7 +6261,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 53,
+      "community": 31,
       "norm_label": "mutation exclusivity - one active workflow at a time",
       "id": "docs_project_plan_mutation_exclusivity"
     },
@@ -6247,7 +6274,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 4,
+      "community": 31,
       "norm_label": "fifo task queue - in-memory deterministic ordering",
       "id": "docs_project_plan_fifo_queue"
     },
@@ -6260,7 +6287,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 53,
+      "community": 31,
       "norm_label": "bounded autonomy design principle",
       "id": "docs_project_plan_bounded_autonomy"
     },
@@ -6273,7 +6300,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 50,
+      "community": 31,
       "norm_label": "phase 1 - file mutation mvp",
       "id": "docs_project_plan_phase1_file_mutation_mvp"
     },
@@ -6286,7 +6313,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 53,
+      "community": 31,
       "norm_label": "phase 2 - repository awareness",
       "id": "docs_project_plan_phase2_repo_awareness"
     },
@@ -6299,7 +6326,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 53,
+      "community": 31,
       "norm_label": "phase 3 - async execution coordinator",
       "id": "docs_project_plan_phase3_async_execution"
     },
@@ -6312,7 +6339,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 50,
+      "community": 31,
       "norm_label": "phase 4 - passive analysis system",
       "id": "docs_project_plan_phase4_passive_analysis"
     },
@@ -6338,7 +6365,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 54,
+      "community": 31,
       "norm_label": "workflowexecutor as single orchestration boundary",
       "id": "docs_project_plan_workflow_executor_boundary"
     },
@@ -6351,7 +6378,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 53,
+      "community": 31,
       "norm_label": "context contract version (context_version=1)",
       "id": "docs_context_contract_context_version"
     },
@@ -6364,7 +6391,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 53,
+      "community": 31,
       "norm_label": "context contract payload shape",
       "id": "docs_context_contract_payload_shape"
     },
@@ -6377,7 +6404,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 53,
+      "community": 31,
       "norm_label": "context contract determinism rules",
       "id": "docs_context_contract_determinism_rules"
     },
@@ -6390,7 +6417,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 53,
+      "community": 31,
       "norm_label": "context contract prompt rendering ([repository context] block)",
       "id": "docs_context_contract_prompt_rendering"
     },
@@ -12879,6 +12906,16 @@
       "source_file": "src/graph/nodes/semantic_validator.py",
       "source_location": "L16",
       "weight": 0.8,
+      "source": "src_graph_nodes_semantic_validator_py_float",
+      "target": "observability_context_runcontext",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "src/graph/nodes/semantic_validator.py",
+      "source_location": "L16",
+      "weight": 0.8,
       "confidence_score": 0.5,
       "source": "src_graph_nodes_semantic_validator_py_graphstate",
       "target": "observability_context_runcontext"
@@ -16800,9 +16837,9 @@
       "source_file": "src/graph/nodes/planner.py",
       "source_location": "L64",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "nodes_planner_planner_node",
-      "target": "contracts_context_contract_format_repository_context_for_prompt",
-      "confidence_score": 1.0
+      "target": "contracts_context_contract_format_repository_context_for_prompt"
     },
     {
       "relation": "imports",
@@ -16822,9 +16859,9 @@
       "source_file": "src/graph/nodes/planner.py",
       "source_location": "L24",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_graph_nodes_planner_py",
-      "target": "contracts_context_contract_format_repository_context_for_prompt",
-      "confidence_score": 1.0
+      "target": "contracts_context_contract_format_repository_context_for_prompt"
     },
     {
       "relation": "rationale_for",
@@ -17568,6 +17605,16 @@
       "source_file": "src/graph/nodes/semantic_validator.py",
       "source_location": "L15",
       "weight": 0.8,
+      "source": "src_graph_nodes_semantic_validator_py_float",
+      "target": "graph_state_graphstate",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "src/graph/nodes/semantic_validator.py",
+      "source_location": "L15",
+      "weight": 0.8,
       "confidence_score": 0.5,
       "source": "src_graph_nodes_semantic_validator_py_graphstate",
       "target": "graph_state_graphstate"
@@ -18041,9 +18088,9 @@
       "source_file": "src/graph/workflow.py",
       "source_location": "L61",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "graph_workflow_rationale_61",
-      "target": "graph_workflow_route_after_semantic",
-      "confidence_score": 1.0
+      "target": "graph_workflow_route_after_semantic"
     },
     {
       "relation": "calls",
@@ -18072,9 +18119,9 @@
       "source_file": "src/graph/workflow.py",
       "source_location": "L75",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "graph_workflow_rationale_75",
-      "target": "graph_workflow_route_after_planner",
-      "confidence_score": 1.0
+      "target": "graph_workflow_route_after_planner"
     },
     {
       "relation": "calls",
@@ -18173,9 +18220,9 @@
       "source_file": "src/graph/workflow.py",
       "source_location": "L82",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "graph_workflow_rationale_82",
-      "target": "graph_workflow_make_graph",
-      "confidence_score": 1.0
+      "target": "graph_workflow_make_graph"
     },
     {
       "relation": "rationale_for",
@@ -18423,6 +18470,17 @@
     },
     {
       "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/graph/nodes/semantic_validator.py",
+      "source_location": "L46",
+      "weight": 1.0,
+      "source": "nodes_semantic_validator_build_semantic_feedback",
+      "target": "src_graph_nodes_semantic_validator_py_float",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
       "context": "return_type",
       "confidence": "EXTRACTED",
       "source_file": "src/graph/nodes/semantic_validator.py",
@@ -18441,6 +18499,16 @@
       "confidence_score": 1.0,
       "source": "nodes_semantic_validator_rationale_37",
       "target": "nodes_semantic_validator_build_semantic_feedback"
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/graph/nodes/semantic_validator.py",
+      "source_location": "L47",
+      "weight": 1.0,
+      "source": "nodes_semantic_validator_rationale_47",
+      "target": "nodes_semantic_validator_build_semantic_feedback",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -18462,6 +18530,16 @@
       "confidence_score": 1.0,
       "source": "nodes_semantic_validator_rationale_56",
       "target": "nodes_semantic_validator_semantic_validator_node"
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/graph/nodes/semantic_validator.py",
+      "source_location": "L68",
+      "weight": 1.0,
+      "source": "nodes_semantic_validator_rationale_68",
+      "target": "nodes_semantic_validator_semantic_validator_node",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -20178,9 +20256,9 @@
       "source_file": "src/graph/nodes/planner.py",
       "source_location": "L30",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "nodes_planner_rationale_30",
-      "target": "nodes_planner_planner_node",
-      "confidence_score": 1.0
+      "target": "nodes_planner_planner_node"
     },
     {
       "relation": "imports",
@@ -20219,9 +20297,9 @@
       "source_file": "src/graph/nodes/planner.py",
       "source_location": "L115",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "nodes_planner_rationale_115",
-      "target": "nodes_planner_resolve_paths",
-      "confidence_score": 1.0
+      "target": "nodes_planner_resolve_paths"
     },
     {
       "relation": "references",
@@ -20271,9 +20349,9 @@
       "source_file": "src/graph/nodes/planner.py",
       "source_location": "L131",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "nodes_planner_rationale_131",
-      "target": "nodes_planner_parse_file_list",
-      "confidence_score": 1.0
+      "target": "nodes_planner_parse_file_list"
     },
     {
       "relation": "rationale_for",
@@ -21234,5 +21312,5 @@
       "source_file": "docs/CONTEXT_CONTRACT.md"
     }
   ],
-  "built_at_commit": "af002fa064fd37f6e9bf5d30a5980be2a9c22e93"
+  "built_at_commit": "c448d715e326974fb1a395bf7045f85afd423d19"
 }

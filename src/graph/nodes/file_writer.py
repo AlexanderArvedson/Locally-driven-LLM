@@ -39,22 +39,33 @@ async def file_writer_node(state: GraphState, run_context: RunContext) -> dict:
         if state.get("generated_diff"):
             try:
                 apply_unified(target_file, require_state_value(state, "generated_diff"))
-            except Exception as exc:
+            except Exception as patch_exc:
+                # Diff failed to apply — save the bad patch for inspection and
+                # fall back to writing generated_code in full. This avoids
+                # burning a retry cycle when the full content is already correct.
                 ensure_runtime_dirs()
                 failed_path = FAILED_PATCHES_DIR / (Path(target_file).name + ".failed.patch")
                 try:
                     failed_path.write_text(require_state_value(state, "generated_diff"), encoding="utf-8")
                 except Exception as wexc:
-                    logger.error("Failed to write failed patch file: %s", wexc)
+                    logger.error("Failed to save failed patch: %s", wexc)
 
-                logger.error("Applying unified diff failed for %s: %s; saved to %s", target_file, exc, failed_path)
+                logger.warning(
+                    "Unified diff failed for %s (%s); falling back to whole-file write. Patch saved at %s",
+                    target_file, patch_exc, failed_path,
+                )
 
-                emit_failure(run_context, "file_writer_node", str(exc), start)
-
-                return {
-                    "verification_passed": False,
-                    "verification_feedback": f"Applying unified diff failed: {exc}; saved failed patch at {failed_path}",
-                }
+                try:
+                    write_file(target_file, generated_code)
+                except Exception as fallback_exc:
+                    logger.error("Whole-file fallback also failed for %s: %s", target_file, fallback_exc)
+                    emit_failure(run_context, "file_writer_node", str(fallback_exc), start)
+                    return {
+                        "verification_passed": False,
+                        "verification_feedback": (
+                            f"Diff failed ({patch_exc}) and whole-file fallback also failed: {fallback_exc}"
+                        ),
+                    }
         else:
             try:
                 write_file(target_file, generated_code)

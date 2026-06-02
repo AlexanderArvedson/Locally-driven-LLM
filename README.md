@@ -26,7 +26,7 @@ uv run -m scripts.test_file_edit
 uv run -m scripts.stress_scheduler_fixture_repo --in-place
 ```
 
-If a patch fails to apply the tool will save artifacts under `.runtime/failed_patches/` for manual inspection.
+If a patch fails to apply, the tool falls back to a whole-file write using the already-generated code and saves the failed diff under `.runtime/failed_patches/` for manual inspection. If both the patch and the whole-file write fail, the run is aborted with a verification failure.
 
 Observability
 -------------

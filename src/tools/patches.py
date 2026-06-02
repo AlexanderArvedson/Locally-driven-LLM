@@ -1,10 +1,12 @@
-# This module provides tools for generating and applying patches to files using the ndiff format from the difflib library. 
-# It includes functions to create an ndiff string that describes the differences between an original and modified version of a file, 
+# This module provides tools for generating and applying patches to files using the ndiff format from the difflib library.
+# It includes functions to create an ndiff string that describes the differences between an original and modified version of a file,
 # as well as a function to apply such an ndiff string to reconstruct the modified file and write it to disk.
 
 from pathlib import Path
 from difflib import ndiff, restore, unified_diff
 import re
+
+from src.tools.files import atomic_write_bytes
 
 
 # This function takes the original and modified content of a file as strings 
@@ -22,15 +24,14 @@ def apply_ndiff(path: str, ndiff_str: str) -> None:
     modified content) from an ndiff output.
     """
     lines = list(restore(ndiff_str.splitlines(), 2))
-    Path(path).write_text("\n".join(lines), encoding="utf-8")
+    atomic_write_bytes(Path(path), "\n".join(lines).encode("utf-8"))
 
 
 # generates a unified diff string that describes the changes from the original to the modified content.
 def generate_unified(original: str, modified: str, fromfile: str = "a", tofile: str = "b") -> str:
     """Return a unified diff string describing changes from original -> modified."""
-    # Use keepends to preserve newline characters for unified diff clarity
-    orig_lines = original.splitlines(keepends=True)
-    mod_lines = modified.splitlines(keepends=True)
+    orig_lines = original.splitlines()
+    mod_lines = modified.splitlines()
     ud = unified_diff(orig_lines, mod_lines, fromfile=fromfile, tofile=tofile, lineterm="")
     return "\n".join(list(ud))
 
@@ -115,4 +116,4 @@ def apply_unified(path: str, unified_str: str) -> None:
     # Re-apply the original file's line endings before writing.
     if use_crlf:
         result = result.replace("\n", "\r\n")
-    Path(path).write_bytes(result.encode("utf-8"))
+    atomic_write_bytes(Path(path), result.encode("utf-8"))
