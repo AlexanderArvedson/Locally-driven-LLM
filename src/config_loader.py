@@ -33,6 +33,8 @@ class ModelConfig:
         num_ctx: Context window size passed to Ollama as ``num_ctx``. Overrides
             the model's compiled default. When ``None`` the parameter is omitted.
         timeout_seconds: Per-request wall-clock timeout. Must be > 0.
+        allow_gpu: When ``True``, the model may offload layers to the GPU if one
+            is available. When ``False``, inference is forced to CPU only.
     """
 
     name: str
@@ -43,6 +45,7 @@ class ModelConfig:
     max_tokens: int | None = None
     num_ctx: int | None = None
     timeout_seconds: int = 300
+    allow_gpu: bool = True
 
 
 @dataclass(frozen=True)
@@ -181,6 +184,10 @@ def _load_model_config(raw: dict[str, Any], *, source: Path) -> ModelConfig:
     if not isinstance(timeout_raw, int) or timeout_raw <= 0:
         raise ValueError(f"'timeout_seconds' must be a positive integer in {source}")
 
+    allow_gpu_raw = raw.get("allow_gpu", True)
+    if not isinstance(allow_gpu_raw, bool):
+        raise ValueError(f"'allow_gpu' must be a boolean in {source}")
+
     return ModelConfig(
         name=_require_str(raw, "name", source=source),
         provider=_require_str(raw, "provider", source=source),
@@ -190,6 +197,7 @@ def _load_model_config(raw: dict[str, Any], *, source: Path) -> ModelConfig:
         max_tokens=max_tokens,
         num_ctx=num_ctx,
         timeout_seconds=timeout_raw,
+        allow_gpu=allow_gpu_raw,
     )
 
 
