@@ -171,8 +171,11 @@ def _parse_plan(raw: str, valid_files: list[str]) -> list[dict]:
                 logger.warning("change_planner: could not parse plan JSON: %r", raw[:300])
                 return []
 
-    # Validate and normalise each step.
+    # Validate, normalise, and deduplicate steps.
+    # The LLM occasionally emits the same file more than once; keep only the
+    # first occurrence so plan_dispatcher doesn't process the same file twice.
     valid_set = set(valid_files)
+    seen_files: set[str] = set()
     result: list[dict] = []
     for step in parsed:
         if not isinstance(step, dict):
@@ -181,6 +184,10 @@ def _parse_plan(raw: str, valid_files: list[str]) -> list[dict]:
         if file_path not in valid_set:
             logger.warning("change_planner: skipping step with unknown file %r", file_path)
             continue
+        if file_path in seen_files:
+            logger.warning("change_planner: skipping duplicate step for file %r", file_path)
+            continue
+        seen_files.add(file_path)
         result.append(
             {
                 "file": file_path,

@@ -84,20 +84,28 @@ def main() -> int:
     result, run_context = asyncio.run(_run_workflow(repo_path, task, target_file))
 
     branch_name: str = result.get("branch_name", expected_branch)
-    updated_code = result.get("updated_code")
     commit_sha: str = result.get("commit_sha", "")
+    modified_files: list[str] = result.get("modified_files") or []
+    # updated_code is reset between steps in multi-file plans; use commit_sha
+    # and modified_files as the canonical success signals instead.
+    files_written = bool(modified_files or result.get("updated_code"))
 
-    final_status = "success" if updated_code and commit_sha else "no_changes"
+    final_status = "success" if commit_sha else "no_changes"
     write_run_summary(run_context, final_status)
     print(format_run_console(run_context, final_status))
     print()
 
     print(f"Branch created : {branch_name}")
-    print(f"File modified  : {'yes' if updated_code else 'no'}")
+    if modified_files:
+        print(f"Files modified : {len(modified_files)}")
+        for f in modified_files:
+            print(f"               - {f}")
+    else:
+        print(f"File modified  : {'yes' if files_written else 'no'}")
     print(f"Commit SHA     : {commit_sha or '(none)'}")
     print()
 
-    if not updated_code:
+    if not files_written:
         print("Workflow finished but no file was written — skipping push and PR.")
         return 0
 
