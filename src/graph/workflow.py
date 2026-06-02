@@ -11,15 +11,17 @@ signature it expects.
 
 Multi-file execution path:
   retrieval → planner → dependency_analyzer → change_planner
-  → plan_dispatcher → file_reader → coder → … → file_writer ─┐
-                  ↑                                            │ (more steps)
-                  └────────────────────────────────────────────┘
-                                                               │ (done)
-                                                        git_committer → END
+  → plan_dispatcher → file_reader → coder → diff_generator → reviewer
+  → semantic_validator → file_writer ─┐
+          ↑                            │ (more steps)
+          └────────────────────────────┘
+                                       │ (done)
+                                git_committer → END
 
 Single-file execution path (unchanged):
   retrieval → planner → [dep_analyzer: single_file] → file_reader → coder
-  → … → file_writer → git_committer → END
+  → diff_generator → reviewer → semantic_validator → file_writer
+  → git_committer → END
 
 Explicit target_file path (user-supplied, bypasses dependency analysis):
   retrieval → planner → file_reader → coder → … → file_writer → git_committer → END
@@ -45,25 +47,6 @@ def _exhaustion_target(state: GraphState) -> str:
 def route_after_review(state: GraphState):
     """Decide the next node after the reviewer (static_validator) node."""
     if state.get("review_passed"):
-        return "verifier"
-    if state.get("iteration", 0) >= get_max_workflow_revision_cycles(state.get("repo_path")):
-        return _exhaustion_target(state)
-    return "coder"
-
-
-def route_after_verification(state: GraphState):
-    """Decide the next node after the verifier node.
-
-    For non-final steps in a multi-file plan, RuntimeErrors are treated as
-    environment noise (the repo is in a transitional state) and pass through to
-    the semantic validator rather than triggering a coder retry.
-    """
-    if state.get("verification_passed"):
-        return "semantic_validator"
-    error_type = state.get("error_type")
-    if error_type == "ImportError":
-        return "semantic_validator"
-    if state.get("is_intermediate_step") and error_type == "RuntimeError":
         return "semantic_validator"
     if state.get("iteration", 0) >= get_max_workflow_revision_cycles(state.get("repo_path")):
         return _exhaustion_target(state)
@@ -163,7 +146,6 @@ def make_graph(run_context: RunContext):
     builder.add_node("coder",             _wrap(nodes_module.coder_node))
     builder.add_node("diff_generator",    _wrap(nodes_module.diff_generator_node))
     builder.add_node("reviewer",          _wrap(nodes_module.static_validator_node))
-    builder.add_node("verifier",          _wrap(nodes_module.verifier_node))
     builder.add_node("semantic_validator", _wrap(nodes_module.semantic_validator_node))
     builder.add_node("file_writer",       _wrap(nodes_module.file_writer_node))
     builder.add_node("git_committer",     _wrap(nodes_module.git_committer_node))
@@ -220,22 +202,10 @@ def make_graph(run_context: RunContext):
         },
     )
 
-    # Reviewer (static validator): retry or advance.
+    # Reviewer (static validator): retry or advance to semantic validation.
     builder.add_conditional_edges(
         "reviewer",
         route_after_review,
-        {
-            "coder": "coder",
-            "verifier": "verifier",
-            "git_committer": "git_committer",
-            END: END,
-        },
-    )
-
-    # Verifier: retry, pass-through (ImportError / intermediate RuntimeError), or advance.
-    builder.add_conditional_edges(
-        "verifier",
-        route_after_verification,
         {
             "coder": "coder",
             "semantic_validator": "semantic_validator",

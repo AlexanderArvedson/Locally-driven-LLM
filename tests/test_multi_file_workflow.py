@@ -13,7 +13,7 @@ from unittest.mock import AsyncMock, patch, MagicMock
 from src.core.ollama_client import LLMResult
 from src.core.runtime_paths import ensure_runtime_dirs
 from src.graph.state import GraphState
-from src.graph.workflow import make_graph, route_after_file_writer, route_after_verification
+from src.graph.workflow import make_graph, route_after_file_writer
 from src.observability.context import RunContext
 from src.retrieval.contracts.types import DependencyEdge, RepositorySnapshot
 
@@ -48,35 +48,6 @@ class TestRouteAfterFileWriter(unittest.TestCase):
             "current_plan_step": 1,
         }
         assert route_after_file_writer(state) == "git_committer"
-
-
-class TestRouteAfterVerification(unittest.TestCase):
-    def test_passes_runtime_error_through_for_intermediate_step(self):
-        state: GraphState = {
-            "verification_passed": False,
-            "error_type": "RuntimeError",
-            "is_intermediate_step": True,
-            "iteration": 0,
-        }
-        assert route_after_verification(state) == "semantic_validator"
-
-    def test_retries_runtime_error_on_final_step(self):
-        state: GraphState = {
-            "verification_passed": False,
-            "error_type": "RuntimeError",
-            "is_intermediate_step": False,
-            "iteration": 0,
-        }
-        assert route_after_verification(state) == "coder"
-
-    def test_always_passes_import_error_through(self):
-        state: GraphState = {
-            "verification_passed": False,
-            "error_type": "ImportError",
-            "is_intermediate_step": False,
-            "iteration": 0,
-        }
-        assert route_after_verification(state) == "semantic_validator"
 
 
 # ---------------------------------------------------------------------------
@@ -165,8 +136,7 @@ class TestMultiFilePipeline(unittest.IsolatedAsyncioTestCase):
                  patch.object(nodes_module, "planner_node", fake_planner), \
                  patch.object(nodes_module, "dependency_analyzer_node", fake_dep_analyzer), \
                  patch.object(nodes_module, "git_committer_node", fake_git_committer), \
-                 patch.object(OllamaClient, "chat", fake_chat), \
-                 patch("src.graph.nodes.verifier.run_code_in_sandbox", return_value=(0, "", "")):
+                 patch.object(OllamaClient, "chat", fake_chat):
 
                 graph = make_graph(RunContext.new())
                 final_state = await graph.ainvoke({
