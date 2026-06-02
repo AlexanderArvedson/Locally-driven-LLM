@@ -14,6 +14,9 @@ from src.graph.nodes.semantic_validator import semantic_validator_node
 from src.graph.nodes.support import client
 from src.config_loader import CODER_MODEL, MAX_WORKFLOW_REVISION_CYCLES
 from src.graph.nodes.verifier import verifier_node
+from src.graph.nodes.dependency_analyzer import dependency_analyzer_node
+from src.graph.nodes.change_planner import change_planner_node
+from src.graph.nodes.plan_dispatcher import plan_dispatcher_node
 
 __all__ = [
     "client",
@@ -31,4 +34,7 @@ __all__ = [
     "semantic_validator_node",
     "verifier_node",
     "file_writer_node",
+    "dependency_analyzer_node",
+    "change_planner_node",
+    "plan_dispatcher_node",
 ]

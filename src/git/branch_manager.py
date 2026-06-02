@@ -129,6 +129,36 @@ def create_task_branch(
     return branch_name
 
 
+def commit_files(
+    repo_path: str,
+    file_paths: list[str],
+    message: str,
+) -> str:
+    """Stage all files in file_paths and create a single commit.
+
+    Returns the hex SHA of the new commit, or an empty string when none of the
+    files had changes to commit. Handles both tracked and untracked files.
+    """
+    repo = _open_repo(repo_path)
+    rel_paths = [os.path.relpath(fp, repo_path) for fp in file_paths]
+
+    stageable = []
+    for rel_path in rel_paths:
+        rel_fwd = rel_path.replace("\\", "/")
+        is_new = rel_fwd in repo.untracked_files
+        if is_new or repo.is_dirty(path=rel_path, untracked_files=False):
+            stageable.append(rel_path)
+
+    if not stageable:
+        logger.info("Nothing to commit — no files changed.")
+        return ""
+
+    repo.index.add(stageable)
+    commit = repo.index.commit(message)
+    logger.info("Committed %d file(s) as %s.", len(stageable), commit.hexsha[:8])
+    return commit.hexsha
+
+
 def commit_file(
     repo_path: str,
     file_path: str,

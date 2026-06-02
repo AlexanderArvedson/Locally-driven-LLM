@@ -38,11 +38,11 @@ async def planner_node(state: GraphState, run_context: RunContext) -> dict:
     """
     start = time.time()
     try:
-        # Respect an explicit caller-supplied target; skip LLM selection.
+        # Respect an explicit caller-supplied target; skip LLM selection and dependency analysis.
         if state.get("target_file"):
             target = state["target_file"]
             emit_success(run_context, "planner_node", {"skipped": True, "target_file": target}, start)
-            return {"target_files": [target]}
+            return {"target_files": [target], "explicit_target_file": True}
 
         task = state.get("task", "")
         candidates = state.get("selected_file_ids", [])

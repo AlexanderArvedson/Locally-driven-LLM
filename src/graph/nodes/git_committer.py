@@ -11,7 +11,7 @@ import time
 
 import git
 
-from src.git.branch_manager import commit_file
+from src.git.branch_manager import commit_file, commit_files
 from src.graph.nodes.support import require_state_value
 from src.graph.state import GraphState
 from src.observability.context import RunContext
@@ -50,8 +50,26 @@ async def git_committer_node(state: GraphState, run_context: RunContext) -> dict
                 f"branch is '{expected_branch}'. Check out the task branch before committing."
             )
 
-        message = f"AI: {task}"
-        sha = commit_file(repo_path, target_file, message)
+        modified_files: list[str] = state.get("modified_files") or []
+        change_plan: list[dict] = state.get("change_plan") or []
+
+        # Detect partial completion: multi-file plan that did not finish all steps.
+        is_partial = bool(change_plan) and (
+            state.get("plan_failed") or len(modified_files) < len(change_plan)
+        )
+        if is_partial:
+            message = (
+                f"AI: {task}\n\n"
+                f"(partial: completed {len(modified_files)}/{len(change_plan)} steps)"
+            )
+        else:
+            message = f"AI: {task}"
+
+        # For multi-file plans, stage all successfully written files as one commit.
+        if modified_files:
+            sha = commit_files(repo_path, modified_files, message)
+        else:
+            sha = commit_file(repo_path, target_file, message)
 
         emit_success(
             run_context,

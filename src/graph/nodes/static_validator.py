@@ -8,6 +8,7 @@ belongs here — those judgements are delegated to semantic_validator.
 
 from __future__ import annotations
 
+import re
 import shutil
 import subprocess
 import tempfile
@@ -18,6 +19,22 @@ from src.graph.nodes.support import require_state_value, strip_code_fences, vali
 from src.graph.state import GraphState
 from src.observability.context import RunContext
 from src.observability.event_logging_utils import emit_failure, emit_success
+
+# Patterns that indicate the LLM truncated its output instead of returning the
+# full file content. These are valid Python (comments), so compile() won't catch
+# them, but writing them to disk silently corrupts or deletes the file.
+_LAZY_OUTPUT_RE = re.compile(
+    r"#\s*(?:"
+    r"\.{2,}\s*rest"                                    # # ... rest
+    r"|rest\s+of\s+(the\s+)?(code|file|impl\w*|class|method|function|module)"
+    r"|\.{2,}\s*(unchanged|same|existing|remaining)"    # # ... unchanged
+    r"|remaining\s+(code|methods?|functions?)\s*(unchanged|remain|stay)"
+    r"|same\s+as\s+(before|original|above)"             # # same as before
+    r"|code\s+(continues|goes\s+here)"                  # # code continues
+    r"|\[?\s*(rest|remainder)\s+of\s+(the\s+)?file"     # # [rest of file]
+    r")",
+    re.IGNORECASE,
+)
 
 
 async def static_validator_node(state: GraphState, run_context: RunContext) -> dict:
@@ -34,6 +51,28 @@ async def static_validator_node(state: GraphState, run_context: RunContext) -> d
     start = time.time()
     try:
         code = strip_code_fences(require_state_value(state, "generated_code"))
+
+        # Detect lazy/truncated output before syntax validation so that a
+        # corrupted file is never written to disk. LLMs sometimes emit a
+        # comment like "# rest of the code unchanged" instead of the full
+        # file content; this is structurally valid Python but functionally
+        # destructive.
+        lazy_match = _LAZY_OUTPUT_RE.search(code)
+        if lazy_match:
+            feedback = (
+                f"Generated code appears truncated: found lazy-output comment "
+                f"{lazy_match.group(0)!r}. "
+                "You must return the COMPLETE file content — every line, "
+                "including all unchanged code. Never use placeholder comments."
+            )
+            emit_failure(run_context, "static_validator_node", feedback, start)
+            return {
+                "review_passed": False,
+                "review_feedback": feedback,
+                "syntax_ok": False,
+                "lint_ok": False,
+                "review_errors": [feedback],
+            }
 
         passed, syntax_error = validate_python_syntax(code)
         if not passed:

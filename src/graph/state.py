@@ -144,6 +144,44 @@ class GraphState(TypedDict):
     # the task scope. Populated by semantic_validator_node; factored into pass/fail.
     regression_risk: NotRequired[float]
 
+    # --- Multi-file execution plan ---
+
+    # "single_file" when only one file needs modification; "multi_file" otherwise.
+    # Set by dependency_analyzer_node.
+    plan_scope: NotRequired[str]
+
+    # Full set of files that need modification, determined by dependency_analyzer_node.
+    # Ordered: definition files first, importer files after.
+    affected_files: NotRequired[list[str]]
+
+    # Ordered list of ChangePlanStep dicts produced by change_planner_node.
+    # Each step: {file, operation, symbol, change, reason}.
+    change_plan: NotRequired[list[dict]]
+
+    # Index of the NEXT step to execute (0-based). Incremented by plan_dispatcher_node.
+    current_plan_step: NotRequired[int]
+
+    # The ChangePlanStep dict currently being executed. Set by plan_dispatcher_node so
+    # coder_node can include the specific symbol/change instruction without re-indexing.
+    active_plan_step: NotRequired[dict]
+
+    # Absolute paths of files successfully written so far in the current plan.
+    # Accumulated by plan_dispatcher_node; staged as a group by git_committer_node.
+    modified_files: NotRequired[list[str]]
+
+    # True for all non-final steps in a multi-file plan.
+    # When set, route_after_verification treats RuntimeError as a pass-through
+    # (expected during cross-file edits where the repo is in a transitional state).
+    is_intermediate_step: NotRequired[bool]
+
+    # Set when a plan step fails all retry cycles mid-plan.
+    # git_committer_node includes a partial-completion note in the commit message.
+    plan_failed: NotRequired[bool]
+
+    # True when target_file was supplied by the caller rather than chosen by the LLM.
+    # Causes route_after_planner to bypass dependency_analyzer and go directly to file_reader.
+    explicit_target_file: NotRequired[bool]
+
     # --- Git fields ---
 
     # Branch created for this task, e.g. "feature/fix-auth-bug"

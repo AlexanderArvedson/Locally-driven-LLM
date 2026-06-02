@@ -7,7 +7,7 @@ the dependency graph edge, and the bounded output types (ContextPackage).
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import List, Optional
+from typing import List, Optional, TypedDict
 
 
 @dataclass(frozen=True)
@@ -52,6 +52,21 @@ class RepositorySnapshot:
             if f.path == path:
                 return f
         return None
+
+
+class ChangePlanStep(TypedDict):
+    """A single step in a multi-file execution plan.
+
+    Produced by change_planner_node and consumed by plan_dispatcher_node and
+    coder_node. Specifies both the file to modify and the symbol-level change,
+    giving the coder precise instructions rather than just a filename.
+    """
+
+    file: str       # absolute path to the file to modify
+    operation: str  # "modify" | "create"
+    symbol: str     # primary symbol being changed, e.g. "get_repository_context"
+    change: str     # specific change, e.g. "rename to get_repo_context"
+    reason: str     # why this file needs to change, e.g. "update call site"
 
 
 @dataclass(frozen=True)

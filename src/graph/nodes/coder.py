@@ -30,8 +30,21 @@ async def coder_node(state: GraphState, run_context: RunContext) -> dict:
         model_cfg = get_coder_model_config(state.get("repo_path"))
 
         related_file_contents = state.get("related_file_contents", {})
+
+        # For multi-file plans, include the symbol-level instruction for this step.
+        active_step: dict | None = state.get("active_plan_step")
+        plan_step_section = ""
+        if active_step:
+            plan_step_section = (
+                f"[PLAN STEP]\n"
+                f"Symbol: {active_step.get('symbol', '')}\n"
+                f"Change: {active_step.get('change', '')}\n"
+                f"Reason: {active_step.get('reason', '')}\n\n"
+            )
+
         user_prompt = (
             f"[TASK]\n{state['task']}\n\n"
+            f"{plan_step_section}"
             f"[TARGET FILE]\n{state.get('target_file', '')}\n\n"
             f"[FILE CONTENT]\n{original_code}\n\n"
             f"{format_repository_context_for_prompt(repository_context)}\n\n"

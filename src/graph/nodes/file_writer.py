@@ -65,6 +65,7 @@ async def file_writer_node(state: GraphState, run_context: RunContext) -> dict:
                         "verification_feedback": (
                             f"Diff failed ({patch_exc}) and whole-file fallback also failed: {fallback_exc}"
                         ),
+                        "plan_failed": True,
                     }
         else:
             try:
@@ -83,6 +84,7 @@ async def file_writer_node(state: GraphState, run_context: RunContext) -> dict:
                 return {
                     "verification_passed": False,
                     "verification_feedback": f"Writing file failed: {exc}; saved generated output at {failed_path}",
+                    "plan_failed": True,
                 }
 
         emit_success(run_context, "file_writer_node", {"updated_length": len(generated_code)}, start)
@@ -98,7 +100,12 @@ async def file_writer_node(state: GraphState, run_context: RunContext) -> dict:
             except Exception as ts_exc:
                 logger.warning("Could not update updated_at timestamp: %s", ts_exc)
 
-        return {"updated_code": generated_code}
+        # Append to the running list of successfully written files for multi-file plans.
+        existing_modified = list(state.get("modified_files") or [])
+        if target_file not in existing_modified:
+            existing_modified.append(target_file)
+
+        return {"updated_code": generated_code, "modified_files": existing_modified}
     except Exception as e:
         emit_failure(run_context, "file_writer_node", str(e), start)
         raise
