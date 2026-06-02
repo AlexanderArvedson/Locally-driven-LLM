@@ -17,28 +17,39 @@ from src.observability.context import RunContext
 from src.observability.event_logging_utils import emit_failure, emit_success
 
 _SYSTEM_PROMPT = (
-    "You are a code review expert. Evaluate whether the generated code correctly "
-    "implements the requested task. Respond only with valid JSON — no markdown fences, "
-    "no explanation outside the JSON object."
+    "You are a strict code review expert evaluating a code change for correctness and safety. "
+    "A change passes ONLY when it fully implements the task AND does not alter existing "
+    "behaviour outside the task scope. Regressions are as serious as missing requirements. "
+    "Respond only with valid JSON — no markdown fences, no explanation outside the JSON object."
 )
 
+# Conservative fallback: parse failure is treated as uncertain, not a pass.
 _FALLBACK_RESULT = {
-    "passed": True,
-    "task_alignment_score": 1.0,
+    "passed": False,
+    "task_alignment_score": 0.5,
+    "regression_risk": 0.5,
     "missing_requirements": [],
     "incorrect_behaviors": [],
     "unnecessary_changes": [],
-    "notes": "JSON parse failed — soft pass applied.",
-    "confidence": 0.3,
+    "notes": "JSON parse failed — conservative score applied.",
+    "confidence": 0.1,
 }
 
+# regression_risk above this threshold penalises the effective score.
+_REGRESSION_RISK_TOLERANCE = 0.4
+# Weight applied to the excess regression risk when computing the effective score.
+_REGRESSION_RISK_WEIGHT = 0.5
+# Original code is included as context only; cap it to avoid burning context budget.
+_ORIGINAL_CODE_CONTEXT_CHARS = 1_500
 
-def _build_semantic_feedback(result: dict) -> str:
+
+def _build_semantic_feedback(result: dict, effective_score: float) -> str:
     """Format the LLM evaluation into a concise string for the coder prompt."""
     parts = []
     missing = result.get("missing_requirements") or []
     incorrect = result.get("incorrect_behaviors") or []
     unnecessary = result.get("unnecessary_changes") or []
+    regression_risk = float(result.get("regression_risk", 0.0))
 
     if missing:
         parts.append("Missing requirements:\n" + "\n".join(f"- {r}" for r in missing))
@@ -46,50 +57,74 @@ def _build_semantic_feedback(result: dict) -> str:
         parts.append("Incorrect behaviors:\n" + "\n".join(f"- {b}" for b in incorrect))
     if unnecessary:
         parts.append("Unnecessary changes:\n" + "\n".join(f"- {c}" for c in unnecessary))
+    if regression_risk > _REGRESSION_RISK_TOLERANCE:
+        parts.append(f"Regression risk: {regression_risk:.2f} — the change likely alters existing behaviour outside the task scope.")
 
-    score = result.get("task_alignment_score", 0.0)
-    parts.append(f"Alignment score: {score:.2f}")
+    parts.append(f"Effective score: {effective_score:.2f}")
     return "\n\n".join(parts)
 
 
 async def semantic_validator_node(state: GraphState, run_context: RunContext) -> dict:
-    """Evaluate task-intent alignment of the generated code using an LLM judge.
+    """Evaluate task-intent alignment and regression risk of the generated change.
 
-    Reads task, generated_code, original_code, and prior validation feedback
-    from state. Returns a structured evaluation including task_alignment_score
-    and categorised issues. Applies a threshold gate: if score >= configured
-    threshold, semantic_passed is True regardless of the LLM passed flag —
-    this prevents overly sensitive LLM judgements from blocking correct code.
+    Uses the unified diff as the primary evaluation target rather than two full
+    file listings — this keeps the prompt focused on what actually changed and
+    leaves more context budget for reasoning. A truncated snippet of the original
+    file is included for background context only.
+
+    Pass/fail is determined by an effective score that penalises high regression
+    risk: effective_score = task_alignment_score - max(0, regression_risk - tolerance) * weight.
 
     This node does not execute code and does not rewrite it.
     """
     start = time.time()
     try:
         task = require_state_value(state, "task")
-        generated_code = strip_code_fences(require_state_value(state, "generated_code"))
-        original_code = state.get("original_code") or "N/A"
+        generated_diff = state.get("generated_diff") or ""
+        original_code = state.get("original_code") or ""
         review_feedback = state.get("review_feedback") or "passed"
-        verification_feedback = state.get("verification_feedback") or "passed"
+        # ImportError from the sandbox means project-local packages are not on the
+        # sandbox path — an environment issue, not a code regression. Passing the
+        # raw error to the model causes it to score regression_risk at 1.0 for
+        # something the generated code did not cause.
+        error_type = state.get("error_type")
+        if error_type == "ImportError":
+            verification_feedback = "passed (sandbox import errors are environment-only; not a code quality signal)"
+        else:
+            verification_feedback = state.get("verification_feedback") or "passed"
 
         model_cfg = get_semantic_model_config(state.get("repo_path"))
         threshold = get_semantic_threshold(state.get("repo_path"))
 
+        # Truncate original to a brief context snippet — the diff carries the detail.
+        original_snippet = (
+            original_code[:_ORIGINAL_CODE_CONTEXT_CHARS] + "\n... [truncated]"
+            if len(original_code) > _ORIGINAL_CODE_CONTEXT_CHARS
+            else original_code or "N/A"
+        )
+
         user_prompt = (
             f"[TASK]\n{task}\n\n"
-            f"[ORIGINAL CODE]\n{original_code}\n\n"
-            f"[GENERATED CODE]\n{generated_code}\n\n"
+            f"[ORIGINAL FILE (context only, truncated)]\n{original_snippet}\n\n"
+            f"[DIFF]\n{generated_diff or '(no diff — file may be unchanged)'}\n\n"
             f"[STATIC VALIDATION]\n{review_feedback}\n\n"
             f"[RUNTIME VALIDATION]\n{verification_feedback}\n\n"
             "[INSTRUCTION]\n"
-            "Evaluate whether the generated code correctly and completely implements the task.\n"
+            "Evaluate the diff above. Answer two questions:\n"
+            "1. Does the diff correctly and completely implement the task?\n"
+            "2. Does the diff alter any existing behaviour NOT explicitly required by the task?\n"
+            "List every functional regression or unrequested behaviour change in "
+            "'incorrect_behaviors' or 'unnecessary_changes' — do not omit them.\n"
             "Return a JSON object with exactly these keys:\n"
             '- "passed": bool\n'
-            '- "task_alignment_score": float between 0.0 and 1.0\n'
+            '- "task_alignment_score": float 0.0–1.0\n'
+            '- "regression_risk": float 0.0–1.0 '
+            "(0.0 = no existing behaviour changed, 1.0 = major regression)\n"
             '- "missing_requirements": list of strings\n'
             '- "incorrect_behaviors": list of strings\n'
             '- "unnecessary_changes": list of strings\n'
             '- "notes": string\n'
-            '- "confidence": float between 0.0 and 1.0'
+            '- "confidence": float 0.0–1.0'
         )
 
         response = await client.chat(
@@ -111,14 +146,21 @@ async def semantic_validator_node(state: GraphState, run_context: RunContext) ->
         except (json.JSONDecodeError, ValueError):
             result = _FALLBACK_RESULT
 
-        score = float(result.get("task_alignment_score", 0.0))
-        semantic_passed = score >= threshold
+        task_alignment_score = float(result.get("task_alignment_score", 0.0))
+        regression_risk = float(result.get("regression_risk", 0.0))
 
-        feedback = _build_semantic_feedback(result) if not semantic_passed else ""
+        # Penalise scores where regression risk exceeds the tolerance threshold.
+        penalty = max(0.0, regression_risk - _REGRESSION_RISK_TOLERANCE) * _REGRESSION_RISK_WEIGHT
+        effective_score = max(0.0, task_alignment_score - penalty)
+        semantic_passed = effective_score >= threshold
+
+        feedback = _build_semantic_feedback(result, effective_score) if not semantic_passed else ""
 
         payload = {
             "semantic_passed": semantic_passed,
-            "task_alignment_score": score,
+            "task_alignment_score": task_alignment_score,
+            "regression_risk": regression_risk,
+            "effective_score": round(effective_score, 3),
         }
         if semantic_passed:
             emit_success(run_context, "semantic_validator_node", payload, start)
@@ -128,7 +170,8 @@ async def semantic_validator_node(state: GraphState, run_context: RunContext) ->
         return {
             "semantic_passed": semantic_passed,
             "semantic_feedback": feedback,
-            "task_alignment_score": score,
+            "task_alignment_score": task_alignment_score,
+            "regression_risk": regression_risk,
             "missing_requirements": result.get("missing_requirements") or [],
             "incorrect_behaviors": result.get("incorrect_behaviors") or [],
             "unnecessary_changes": result.get("unnecessary_changes") or [],

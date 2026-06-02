@@ -94,7 +94,10 @@ class HeuristicRanker:
             )
             ranked.append((score, path))
 
-        ranked.sort(key=lambda item: (item[0], item[1]), reverse=True)
+        # Sort by score descending, then by path ascending for a deterministic
+        # tie-break. Negating each score component avoids reverse=True on the
+        # whole tuple, which would incorrectly sort equal-score paths descending.
+        ranked.sort(key=lambda item: (tuple(-x for x in item[0]), item[1]))
         results.extend([path for _score, path in ranked])
         return results[:max_files]
 
