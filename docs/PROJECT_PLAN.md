@@ -159,7 +159,6 @@ The system currently supports:
 - [x] unified diff generation
 - [x] diff application with safety checks
 - [x] reviewer node (syntax / basic lint gating)
-- [x] verifier node (execution smoke test)
 - [x] retry loop (bounded iterations)
 - [x] safe writer (patch fallback to whole-file write; abort only if both fail)
 - [x] failed artifact persistence (`.runtime/failed_patches/`)
@@ -171,7 +170,7 @@ The system currently supports:
 
 - `src/tools/files.py` — file I/O
 - `src/tools/patches.py` — diff generation + application
-- `src/graph/nodes/nodes.py` — coder, reviewer, verifier, writer
+- `src/graph/nodes/` — coder, static_validator, semantic_validator, file_writer, and supporting nodes
 - `src/graph/workflow.py` — execution graph
 - `scripts/test_file_edit.py` — smoke test
 - `tests/test_patches.py` — unit tests
@@ -190,7 +189,6 @@ A run is valid only if:
 
 - [x] no uncontrolled file overwrite occurs (atomic writes via temp-then-rename)
 - [x] diff application falls back to whole-file write on failure; aborts only if both fail
-- [x] verifier executes and produces pass/fail
 - [x] failed outputs are persisted in `.runtime/failed_patches/`
 
 ---
@@ -242,7 +240,6 @@ Phase 1 is complete when:
 - [x] structured logs exist for all nodes
 - [x] failed patches are persisted reliably
 - [x] diff application is deterministic
-- [x] verifier gate is enforced before write
 - [ ] optional Langfuse integration is implemented
 
 ---
