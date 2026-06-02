@@ -24,9 +24,12 @@ async def static_validator_node(state: GraphState, run_context: RunContext) -> d
     """Validate generated code for structural correctness.
 
     Runs Python syntax validation via compile() and, when ruff is available
-    on PATH, a ruff check pass. Returns structured output describing each
-    check independently so downstream nodes can distinguish syntax errors
-    from lint violations.
+    on PATH, a ruff check pass. Auto-fixable lint issues are corrected in-place
+    via ``ruff check --fix`` before the final check; only issues ruff cannot fix
+    automatically are returned as failures and trigger a coder retry. When fixes
+    are applied the corrected code is propagated back into state via
+    ``generated_code`` so downstream nodes (diff_generator, verifier,
+    semantic_validator) operate on the cleaned version.
     """
     start = time.time()
     try:
@@ -44,15 +47,19 @@ async def static_validator_node(state: GraphState, run_context: RunContext) -> d
             }
 
         if shutil.which("ruff"):
-            tf = None
             tf_name = None
             try:
-                tf = tempfile.NamedTemporaryFile("w", suffix=".py", delete=False)
-                tf.write(code)
-                tf.flush()
-                tf_name = tf.name
-                tf.close()
+                with tempfile.NamedTemporaryFile("w", suffix=".py", delete=False, encoding="utf-8") as tf:
+                    tf.write(code)
+                    tf_name = tf.name
 
+                # Apply auto-fixable issues silently before deciding to fail.
+                subprocess.run(["ruff", "check", "--fix", tf_name], capture_output=True, text=True)
+
+                # Read back in case ruff modified the file.
+                fixed_code = Path(tf_name).read_text(encoding="utf-8")
+
+                # Final check — only genuinely unfixable issues remain here.
                 res = subprocess.run(["ruff", "check", tf_name], capture_output=True, text=True)
                 if res.returncode != 0:
                     ruff_out = (res.stdout or "") + ("\n" + res.stderr if res.stderr else "")
@@ -65,6 +72,8 @@ async def static_validator_node(state: GraphState, run_context: RunContext) -> d
                         "lint_ok": False,
                         "review_errors": ruff_out.splitlines(),
                     }
+
+                code = fixed_code
             except FileNotFoundError:
                 pass
             finally:
@@ -81,6 +90,7 @@ async def static_validator_node(state: GraphState, run_context: RunContext) -> d
             "syntax_ok": True,
             "lint_ok": True,
             "review_errors": [],
+            "generated_code": code,
         }
 
     except Exception as e:
