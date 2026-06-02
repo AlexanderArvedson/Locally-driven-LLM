@@ -1,4 +1,6 @@
 # File handling tools for the project. Provides functions to read and write files.
+import os
+import tempfile
 from pathlib import Path
 
 
@@ -15,6 +17,26 @@ def _detect_crlf(path: str) -> bool:
         return False
 
 
+def atomic_write_bytes(path: Path, data: bytes) -> None:
+    """Write data to path atomically using a temp file in the same directory.
+
+    Writes to a sibling temp file first, then os.replace() renames it into
+    place. os.replace() is atomic on POSIX when src and dst share a filesystem,
+    so a crash mid-write cannot leave a partially written file at path.
+    """
+    fd, tmp = tempfile.mkstemp(dir=path.parent)
+    try:
+        with os.fdopen(fd, "wb") as f:
+            f.write(data)
+        os.replace(tmp, path)
+    except BaseException:
+        try:
+            os.unlink(tmp)
+        except OSError:
+            pass
+        raise
+
+
 # Writes the given content to a file, preserving the original file's line
 # endings to avoid spurious per-line diffs in git. New files default to LF.
 def write_file(path: str, content: str) -> None:
@@ -23,4 +45,4 @@ def write_file(path: str, content: str) -> None:
     content = content.replace("\r\n", "\n").replace("\r", "\n")
     if use_crlf:
         content = content.replace("\n", "\r\n")
-    Path(path).write_bytes(content.encode("utf-8"))
+    atomic_write_bytes(Path(path), content.encode("utf-8"))
