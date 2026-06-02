@@ -154,14 +154,14 @@ Embeddings are one component, not the core mechanism.
 
 The system currently supports:
 
-- [x] deterministic file read/write
+- [x] deterministic file read/write (atomic write via temp-then-rename)
 - [x] full-file context injection into LLM
 - [x] unified diff generation
 - [x] diff application with safety checks
 - [x] reviewer node (syntax / basic lint gating)
 - [x] verifier node (execution smoke test)
 - [x] retry loop (bounded iterations)
-- [x] safe writer (abort-on-failure)
+- [x] safe writer (patch fallback to whole-file write; abort only if both fail)
 - [x] failed artifact persistence (`.runtime/failed_patches/`)
 - [x] smoke + unit test coverage for patching
 
@@ -188,8 +188,8 @@ Modify a real file via LLM-generated diff with full safety gating.
 
 A run is valid only if:
 
-- [x] no uncontrolled file overwrite occurs
-- [x] diff is either applied or rejected deterministically
+- [x] no uncontrolled file overwrite occurs (atomic writes via temp-then-rename)
+- [x] diff application falls back to whole-file write on failure; aborts only if both fail
 - [x] verifier executes and produces pass/fail
 - [x] failed outputs are persisted in `.runtime/failed_patches/`
 
