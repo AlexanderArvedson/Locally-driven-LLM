@@ -104,7 +104,6 @@ class TestGraphPipeline(unittest.IsolatedAsyncioTestCase):
                 "coder_node",
                 "diff_generator_node",
                 "static_validator_node",
-                "verifier_node",
                 "semantic_validator_node",
                 "file_writer_node",
             ):

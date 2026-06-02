@@ -13,8 +13,6 @@ from src.graph.nodes.static_validator import static_validator_node
 from src.graph.nodes.semantic_validator import semantic_validator_node
 from src.graph.nodes.support import client
 from src.config_loader import CODER_MODEL, MAX_WORKFLOW_REVISION_CYCLES
-from src.graph.nodes.verifier import verifier_node
-
 __all__ = [
     "client",
     "CODER_MODEL",
@@ -29,6 +27,5 @@ __all__ = [
     "diff_generator_node",
     "static_validator_node",
     "semantic_validator_node",
-    "verifier_node",
     "file_writer_node",
 ]

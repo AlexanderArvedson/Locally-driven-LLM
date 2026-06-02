@@ -28,8 +28,8 @@ async def static_validator_node(state: GraphState, run_context: RunContext) -> d
     via ``ruff check --fix`` before the final check; only issues ruff cannot fix
     automatically are returned as failures and trigger a coder retry. When fixes
     are applied the corrected code is propagated back into state via
-    ``generated_code`` so downstream nodes (diff_generator, verifier,
-    semantic_validator) operate on the cleaned version.
+    ``generated_code`` so downstream nodes (diff_generator, semantic_validator)
+    operate on the cleaned version.
     """
     start = time.time()
     try:
