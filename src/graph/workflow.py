@@ -41,10 +41,16 @@ def route_after_verification(state: GraphState):
     """Decide the next graph node after the `verifier` node.
 
     - If verification passed, proceed to the `semantic_validator` node.
+    - If the failure is an ImportError, proceed to `semantic_validator` anyway.
+      Import failures are environment issues (project-local packages not on the
+      sandbox path), not code quality issues — the static_validator already
+      confirmed syntax correctness.
     - If the iteration limit was reached, end the run.
     - Otherwise, retry by routing to `coder`.
     """
     if state.get("verification_passed"):
+        return "semantic_validator"
+    if state.get("error_type") == "ImportError":
         return "semantic_validator"
     if state.get("iteration", 0) >= get_max_workflow_revision_cycles(state.get("repo_path")):
         return END

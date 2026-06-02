@@ -21,6 +21,7 @@ from src.graph.nodes.support import client
 from src.graph.state import GraphState
 from src.observability.context import RunContext
 from src.observability.event_logging_utils import emit_failure, emit_success
+from src.retrieval.contracts.context_contract import format_repository_context_for_prompt
 
 logger = logging.getLogger(__name__)
 
@@ -55,10 +56,12 @@ async def planner_node(state: GraphState, run_context: RunContext) -> dict:
 
         model_cfg = get_coder_model_config(repo_path)
         candidate_list = "\n".join(f"- {f}" for f in candidates)
+        repository_context = state.get("repository_context")
 
         user_prompt = (
             f"[TASK]\n{task}\n\n"
             f"[CANDIDATE FILES]\n{candidate_list}\n\n"
+            f"{format_repository_context_for_prompt(repository_context)}\n\n"
             "[INSTRUCTION]\n"
             "Select the files from the list above that must be MODIFIED to complete the task.\n"
             "Do NOT select files that are only needed for reading context.\n"
