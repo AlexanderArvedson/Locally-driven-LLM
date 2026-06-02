@@ -42,11 +42,26 @@ class TestGraphPipeline(unittest.IsolatedAsyncioTestCase):
             log_path.unlink()
 
     async def test_mocked_graph_pipeline_completes_and_logs(self):
-        fake_result = LLMResult(
+        fake_code_result = LLMResult(
             message="def add(a, b):\n    return a + b\n",
             input_tokens=10,
             output_tokens=20,
         )
+        fake_semantic_result = LLMResult(
+            message='{"passed": true, "task_alignment_score": 0.9, "regression_risk": 0.1, "missing_requirements": [], "incorrect_behaviors": [], "unnecessary_changes": [], "notes": "change looks correct", "confidence": 0.9}',
+            input_tokens=10,
+            output_tokens=50,
+        )
+
+        async def _fake_chat(messages, **kwargs):
+            # Semantic validator prompts are identified by the [DIFF] section.
+            user_prompt = messages[1]["content"] if len(messages) > 1 else ""
+            if "[DIFF]" in user_prompt:
+                return fake_semantic_result
+            return fake_code_result
+
+        # Keep a reference to fake_result for the generated_code assertion below.
+        fake_result = fake_code_result
 
         with tempfile.TemporaryDirectory() as tmp_dir:
             target_file = Path(tmp_dir) / "example.py"
@@ -60,7 +75,7 @@ class TestGraphPipeline(unittest.IsolatedAsyncioTestCase):
                 patch.object(nodes_module, "graph_resolver_node", new=_noop_graph_resolver),
                 patch.object(nodes_module, "retrieval_node", new=_noop_retrieval),
                 patch.object(nodes_module, "git_committer_node", new=_noop_git_committer),
-                patch.object(nodes_module.client, "chat", new=AsyncMock(return_value=fake_result)) as mock_chat,
+                patch.object(nodes_module.client, "chat", new=AsyncMock(side_effect=_fake_chat)) as mock_chat,
             ):
                 # Recompile graph inside the patch context so node stubs are picked up.
                 graph = make_graph(run_context)

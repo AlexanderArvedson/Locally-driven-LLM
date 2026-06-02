@@ -46,6 +46,7 @@ async def static_validator_node(state: GraphState, run_context: RunContext) -> d
                 "review_errors": [syntax_error],
             }
 
+        ruff_changed = False
         if shutil.which("ruff"):
             tf_name = None
             try:
@@ -58,6 +59,7 @@ async def static_validator_node(state: GraphState, run_context: RunContext) -> d
 
                 # Read back in case ruff modified the file.
                 fixed_code = Path(tf_name).read_text(encoding="utf-8")
+                ruff_changed = fixed_code != code
 
                 # Final check — only genuinely unfixable issues remain here.
                 res = subprocess.run(["ruff", "check", tf_name], capture_output=True, text=True)
@@ -73,7 +75,8 @@ async def static_validator_node(state: GraphState, run_context: RunContext) -> d
                         "review_errors": ruff_out.splitlines(),
                     }
 
-                code = fixed_code
+                if ruff_changed:
+                    code = fixed_code
             except FileNotFoundError:
                 pass
             finally:
@@ -84,14 +87,19 @@ async def static_validator_node(state: GraphState, run_context: RunContext) -> d
                     pass
 
         emit_success(run_context, "static_validator_node", {"review_passed": True}, start)
-        return {
+        result = {
             "review_passed": True,
             "review_feedback": "",
             "syntax_ok": True,
             "lint_ok": True,
             "review_errors": [],
-            "generated_code": code,
         }
+        # Only propagate corrected code when ruff actually changed something.
+        # Unconditionally returning generated_code would overwrite the original
+        # with a strip_code_fences-processed copy, losing trailing newlines.
+        if ruff_changed:
+            result["generated_code"] = code
+        return result
 
     except Exception as e:
         emit_failure(run_context, "static_validator_node", str(e), start)

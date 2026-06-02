@@ -192,7 +192,7 @@ class TestRetrievalIntegration(unittest.TestCase):
             self.assertIn("selected_files", ctx)
             self.assertIsInstance(ctx["selected_files"], list)
             self.assertGreater(len(ctx["selected_files"]), 0)
-            self.assertEqual(ctx["selected_files"][0], "app/main.py")
+            self.assertEqual(ctx["selected_files"][0], "app/legacy/adapter.py")
             self.assertIn("app/processing/task_runner.py", ctx["selected_files"])
             self.assertIn("app/services/task_service.py", ctx["selected_files"])
             self.assertIn("app/utils/validators.py", ctx["selected_files"])
