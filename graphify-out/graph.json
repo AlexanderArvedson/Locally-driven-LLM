@@ -419,7 +419,7 @@
       "source_file": "src/config_loader.py",
       "source_location": "L147",
       "id": "src_config_loader_py_int",
-      "community": 33,
+      "community": 42,
       "norm_label": "int"
     },
     {
@@ -590,7 +590,7 @@
       "source_file": "src/config_loader.py",
       "source_location": "L403",
       "id": "src_config_loader_get_semantic_model",
-      "community": 59,
+      "community": 12,
       "norm_label": "get_semantic_model()"
     },
     {
@@ -797,7 +797,7 @@
       "source_file": "src/config_loader.py",
       "source_location": "L404",
       "id": "src_config_loader_rationale_404",
-      "community": 59,
+      "community": 12,
       "norm_label": "return the model name for the semantic validator.      prefers models[\"semantic_"
     },
     {
@@ -1157,7 +1157,7 @@
       "source_file": "src/core/ollama_client.py",
       "source_location": "L37",
       "id": "core_ollama_client_ollamaclient",
-      "community": 26,
+      "community": 19,
       "norm_label": "ollamaclient"
     },
     {
@@ -1643,7 +1643,7 @@
       "source_file": "src/scheduler/executor.py",
       "source_location": "L21",
       "id": "scheduler_executor_workflowexecutor_execute",
-      "community": 54,
+      "community": 2,
       "norm_label": ".execute()"
     },
     {
@@ -1652,7 +1652,7 @@
       "source_file": "src/scheduler/executor.py",
       "source_location": "L21",
       "id": "src_scheduler_executor_py_task",
-      "community": 54,
+      "community": 2,
       "norm_label": "task"
     },
     {
@@ -1904,7 +1904,7 @@
       "source_file": "src/observability/context.py",
       "source_location": "L1",
       "id": "src_observability_context_py",
-      "community": 10,
+      "community": 30,
       "norm_label": "context.py"
     },
     {
@@ -1913,7 +1913,7 @@
       "source_file": "src/observability/context.py",
       "source_location": "L17",
       "id": "observability_context_runcontext",
-      "community": 10,
+      "community": 30,
       "norm_label": "runcontext"
     },
     {
@@ -1922,7 +1922,7 @@
       "source_file": "src/observability/context.py",
       "source_location": "L32",
       "id": "observability_context_runcontext_new",
-      "community": 54,
+      "community": 2,
       "norm_label": ".new()"
     },
     {
@@ -1931,7 +1931,7 @@
       "source_file": "src/observability/context.py",
       "source_location": "L1",
       "id": "observability_context_rationale_1",
-      "community": 10,
+      "community": 30,
       "norm_label": "runcontext helper for observability.  this module provides a minimal `runcontext"
     },
     {
@@ -1940,7 +1940,7 @@
       "source_file": "src/observability/context.py",
       "source_location": "L18",
       "id": "observability_context_rationale_18",
-      "community": 10,
+      "community": 30,
       "norm_label": "per-run observability context.      attributes:         run_id: a uuid4 string u"
     },
     {
@@ -1949,7 +1949,7 @@
       "source_file": "src/observability/context.py",
       "source_location": "L33",
       "id": "observability_context_rationale_33",
-      "community": 54,
+      "community": 2,
       "norm_label": "create a fresh runcontext with a new uuid4 run_id and current timestamp."
     },
     {
@@ -2916,6 +2916,546 @@
       "norm_label": "context window budget allocation for constrained llm context."
     },
     {
+      "label": "protocol.py",
+      "file_type": "code",
+      "source_file": "src/retrieval/slicing/protocol.py",
+      "source_location": "L1",
+      "id": "src_retrieval_slicing_protocol_py",
+      "community": 1,
+      "norm_label": "protocol.py"
+    },
+    {
+      "label": "SymbolSlice",
+      "file_type": "code",
+      "source_file": "src/retrieval/slicing/protocol.py",
+      "source_location": "L15",
+      "id": "slicing_protocol_symbolslice",
+      "community": 1,
+      "norm_label": "symbolslice"
+    },
+    {
+      "label": "LanguageSlicer",
+      "file_type": "code",
+      "source_file": "src/retrieval/slicing/protocol.py",
+      "source_location": "L26",
+      "id": "slicing_protocol_languageslicer",
+      "community": 1,
+      "norm_label": "languageslicer"
+    },
+    {
+      "label": ".extract_symbol()",
+      "file_type": "code",
+      "source_file": "src/retrieval/slicing/protocol.py",
+      "source_location": "L29",
+      "id": "slicing_protocol_languageslicer_extract_symbol",
+      "community": 1,
+      "norm_label": ".extract_symbol()"
+    },
+    {
+      "label": "str",
+      "file_type": "code",
+      "source_file": "src/retrieval/slicing/protocol.py",
+      "source_location": "L29",
+      "id": "src_retrieval_slicing_protocol_py_str",
+      "community": 1,
+      "norm_label": "str"
+    },
+    {
+      "label": ".extract_imports_for()",
+      "file_type": "code",
+      "source_file": "src/retrieval/slicing/protocol.py",
+      "source_location": "L33",
+      "id": "slicing_protocol_languageslicer_extract_imports_for",
+      "community": 1,
+      "norm_label": ".extract_imports_for()"
+    },
+    {
+      "label": ".extract_class_context()",
+      "file_type": "code",
+      "source_file": "src/retrieval/slicing/protocol.py",
+      "source_location": "L37",
+      "id": "slicing_protocol_languageslicer_extract_class_context",
+      "community": 1,
+      "norm_label": ".extract_class_context()"
+    },
+    {
+      "label": ".extract_contracts()",
+      "file_type": "code",
+      "source_file": "src/retrieval/slicing/protocol.py",
+      "source_location": "L41",
+      "id": "slicing_protocol_languageslicer_extract_contracts",
+      "community": 1,
+      "norm_label": ".extract_contracts()"
+    },
+    {
+      "label": ".stitch_symbol()",
+      "file_type": "code",
+      "source_file": "src/retrieval/slicing/protocol.py",
+      "source_location": "L45",
+      "id": "slicing_protocol_languageslicer_stitch_symbol",
+      "community": 1,
+      "norm_label": ".stitch_symbol()"
+    },
+    {
+      "label": "Language-agnostic slicing Protocol.  Defines the shared contract that every lang",
+      "file_type": "rationale",
+      "source_file": "src/retrieval/slicing/protocol.py",
+      "source_location": "L1",
+      "id": "slicing_protocol_rationale_1",
+      "community": 1,
+      "norm_label": "language-agnostic slicing protocol.  defines the shared contract that every lang"
+    },
+    {
+      "label": "Everything extracted about one symbol from a source file.",
+      "file_type": "rationale",
+      "source_file": "src/retrieval/slicing/protocol.py",
+      "source_location": "L16",
+      "id": "slicing_protocol_rationale_16",
+      "community": 1,
+      "norm_label": "everything extracted about one symbol from a source file."
+    },
+    {
+      "label": "Extract and stitch back a named symbol within a source file.",
+      "file_type": "rationale",
+      "source_file": "src/retrieval/slicing/protocol.py",
+      "source_location": "L27",
+      "id": "slicing_protocol_rationale_27",
+      "community": 1,
+      "norm_label": "extract and stitch back a named symbol within a source file."
+    },
+    {
+      "label": "Return a SymbolSlice for the named function/class, or None if not found.",
+      "file_type": "rationale",
+      "source_file": "src/retrieval/slicing/protocol.py",
+      "source_location": "L30",
+      "id": "slicing_protocol_rationale_30",
+      "community": 1,
+      "norm_label": "return a symbolslice for the named function/class, or none if not found."
+    },
+    {
+      "label": "Return import lines that are actually referenced by the named symbol.",
+      "file_type": "rationale",
+      "source_file": "src/retrieval/slicing/protocol.py",
+      "source_location": "L34",
+      "id": "slicing_protocol_rationale_34",
+      "community": 1,
+      "norm_label": "return import lines that are actually referenced by the named symbol."
+    },
+    {
+      "label": "If method_name is a method, return its enclosing class header + docstring.",
+      "file_type": "rationale",
+      "source_file": "src/retrieval/slicing/protocol.py",
+      "source_location": "L38",
+      "id": "slicing_protocol_rationale_38",
+      "community": 1,
+      "norm_label": "if method_name is a method, return its enclosing class header + docstring."
+    },
+    {
+      "label": "Return type-contract class definitions (TypedDict/dataclass/Protocol) used by th",
+      "file_type": "rationale",
+      "source_file": "src/retrieval/slicing/protocol.py",
+      "source_location": "L42",
+      "id": "slicing_protocol_rationale_42",
+      "community": 1,
+      "norm_label": "return type-contract class definitions (typeddict/dataclass/protocol) used by th"
+    },
+    {
+      "label": "Replace the original symbol with the modified version and return the full file.",
+      "file_type": "rationale",
+      "source_file": "src/retrieval/slicing/protocol.py",
+      "source_location": "L46",
+      "id": "slicing_protocol_rationale_46",
+      "community": 1,
+      "norm_label": "replace the original symbol with the modified version and return the full file."
+    },
+    {
+      "label": "registry.py",
+      "file_type": "code",
+      "source_file": "src/retrieval/slicing/registry.py",
+      "source_location": "L1",
+      "id": "src_retrieval_slicing_registry_py",
+      "community": 1,
+      "norm_label": "registry.py"
+    },
+    {
+      "label": "get_slicer()",
+      "file_type": "code",
+      "source_file": "src/retrieval/slicing/registry.py",
+      "source_location": "L19",
+      "id": "slicing_registry_get_slicer",
+      "community": 1,
+      "norm_label": "get_slicer()"
+    },
+    {
+      "label": "str",
+      "file_type": "code",
+      "source_file": "src/retrieval/slicing/registry.py",
+      "source_location": "L19",
+      "id": "src_retrieval_slicing_registry_py_str",
+      "community": 1,
+      "norm_label": "str"
+    },
+    {
+      "label": "LanguageSlicer",
+      "file_type": "code",
+      "source_file": "src/retrieval/slicing/registry.py",
+      "source_location": "L19",
+      "id": "languageslicer",
+      "community": 1,
+      "norm_label": "languageslicer"
+    },
+    {
+      "label": "Maps file extensions to their LanguageSlicer implementation.  To add support for",
+      "file_type": "rationale",
+      "source_file": "src/retrieval/slicing/registry.py",
+      "source_location": "L1",
+      "id": "slicing_registry_rationale_1",
+      "community": 1,
+      "norm_label": "maps file extensions to their languageslicer implementation.  to add support for"
+    },
+    {
+      "label": "Return the slicer for file_path's extension, or None for unsupported languages.",
+      "file_type": "rationale",
+      "source_file": "src/retrieval/slicing/registry.py",
+      "source_location": "L20",
+      "id": "slicing_registry_rationale_20",
+      "community": 1,
+      "norm_label": "return the slicer for file_path's extension, or none for unsupported languages."
+    },
+    {
+      "label": "__init__.py",
+      "file_type": "code",
+      "source_file": "src/retrieval/slicing/__init__.py",
+      "source_location": "L1",
+      "id": "src_retrieval_slicing_init_py",
+      "community": 1,
+      "norm_label": "__init__.py"
+    },
+    {
+      "label": "Symbol-level context slicing for language-agnostic code extraction.",
+      "file_type": "rationale",
+      "source_file": "src/retrieval/slicing/__init__.py",
+      "source_location": "L1",
+      "id": "slicing_init_rationale_1",
+      "community": 1,
+      "norm_label": "symbol-level context slicing for language-agnostic code extraction."
+    },
+    {
+      "label": "python_slicer.py",
+      "file_type": "code",
+      "source_file": "src/retrieval/slicing/python_slicer.py",
+      "source_location": "L1",
+      "id": "src_retrieval_slicing_python_slicer_py",
+      "community": 1,
+      "norm_label": "python_slicer.py"
+    },
+    {
+      "label": "_make_parser()",
+      "file_type": "code",
+      "source_file": "src/retrieval/slicing/python_slicer.py",
+      "source_location": "L23",
+      "id": "slicing_python_slicer_make_parser",
+      "community": 1,
+      "norm_label": "_make_parser()"
+    },
+    {
+      "label": "Parser",
+      "file_type": "code",
+      "source_file": "src/retrieval/slicing/python_slicer.py",
+      "source_location": "L23",
+      "id": "parser",
+      "community": 1,
+      "norm_label": "parser"
+    },
+    {
+      "label": "PythonSlicer",
+      "file_type": "code",
+      "source_file": "src/retrieval/slicing/python_slicer.py",
+      "source_location": "L27",
+      "id": "slicing_python_slicer_pythonslicer",
+      "community": 1,
+      "norm_label": "pythonslicer"
+    },
+    {
+      "label": ".extract_symbol()",
+      "file_type": "code",
+      "source_file": "src/retrieval/slicing/python_slicer.py",
+      "source_location": "L30",
+      "id": "slicing_python_slicer_pythonslicer_extract_symbol",
+      "community": 1,
+      "norm_label": ".extract_symbol()"
+    },
+    {
+      "label": "str",
+      "file_type": "code",
+      "source_file": "src/retrieval/slicing/python_slicer.py",
+      "source_location": "L30",
+      "id": "src_retrieval_slicing_python_slicer_py_str",
+      "community": 1,
+      "norm_label": "str"
+    },
+    {
+      "label": "SymbolSlice",
+      "file_type": "code",
+      "source_file": "src/retrieval/slicing/python_slicer.py",
+      "source_location": "L30",
+      "id": "symbolslice",
+      "community": 1,
+      "norm_label": "symbolslice"
+    },
+    {
+      "label": ".extract_imports_for()",
+      "file_type": "code",
+      "source_file": "src/retrieval/slicing/python_slicer.py",
+      "source_location": "L46",
+      "id": "slicing_python_slicer_pythonslicer_extract_imports_for",
+      "community": 1,
+      "norm_label": ".extract_imports_for()"
+    },
+    {
+      "label": ".extract_class_context()",
+      "file_type": "code",
+      "source_file": "src/retrieval/slicing/python_slicer.py",
+      "source_location": "L69",
+      "id": "slicing_python_slicer_pythonslicer_extract_class_context",
+      "community": 1,
+      "norm_label": ".extract_class_context()"
+    },
+    {
+      "label": ".extract_contracts()",
+      "file_type": "code",
+      "source_file": "src/retrieval/slicing/python_slicer.py",
+      "source_location": "L94",
+      "id": "slicing_python_slicer_pythonslicer_extract_contracts",
+      "community": 1,
+      "norm_label": ".extract_contracts()"
+    },
+    {
+      "label": ".stitch_symbol()",
+      "file_type": "code",
+      "source_file": "src/retrieval/slicing/python_slicer.py",
+      "source_location": "L120",
+      "id": "slicing_python_slicer_pythonslicer_stitch_symbol",
+      "community": 1,
+      "norm_label": ".stitch_symbol()"
+    },
+    {
+      "label": "_node_name()",
+      "file_type": "code",
+      "source_file": "src/retrieval/slicing/python_slicer.py",
+      "source_location": "L151",
+      "id": "slicing_python_slicer_node_name",
+      "community": 1,
+      "norm_label": "_node_name()"
+    },
+    {
+      "label": "Node",
+      "file_type": "code",
+      "source_file": "src/retrieval/slicing/python_slicer.py",
+      "source_location": "L151",
+      "id": "node",
+      "community": 1,
+      "norm_label": "node"
+    },
+    {
+      "label": "_find_symbol()",
+      "file_type": "code",
+      "source_file": "src/retrieval/slicing/python_slicer.py",
+      "source_location": "L156",
+      "id": "slicing_python_slicer_find_symbol",
+      "community": 1,
+      "norm_label": "_find_symbol()"
+    },
+    {
+      "label": "_build_slice()",
+      "file_type": "code",
+      "source_file": "src/retrieval/slicing/python_slicer.py",
+      "source_location": "L178",
+      "id": "slicing_python_slicer_build_slice",
+      "community": 1,
+      "norm_label": "_build_slice()"
+    },
+    {
+      "label": "_collect_names()",
+      "file_type": "code",
+      "source_file": "src/retrieval/slicing/python_slicer.py",
+      "source_location": "L200",
+      "id": "slicing_python_slicer_collect_names",
+      "community": 1,
+      "norm_label": "_collect_names()"
+    },
+    {
+      "label": "_walk_names()",
+      "file_type": "code",
+      "source_file": "src/retrieval/slicing/python_slicer.py",
+      "source_location": "L207",
+      "id": "slicing_python_slicer_walk_names",
+      "community": 1,
+      "norm_label": "_walk_names()"
+    },
+    {
+      "label": "_import_exposes_used_name()",
+      "file_type": "code",
+      "source_file": "src/retrieval/slicing/python_slicer.py",
+      "source_location": "L214",
+      "id": "slicing_python_slicer_import_exposes_used_name",
+      "community": 1,
+      "norm_label": "_import_exposes_used_name()"
+    },
+    {
+      "label": "bool",
+      "file_type": "code",
+      "source_file": "src/retrieval/slicing/python_slicer.py",
+      "source_location": "L214",
+      "id": "src_retrieval_slicing_python_slicer_py_bool",
+      "community": 1,
+      "norm_label": "bool"
+    },
+    {
+      "label": "_get_docstring()",
+      "file_type": "code",
+      "source_file": "src/retrieval/slicing/python_slicer.py",
+      "source_location": "L245",
+      "id": "slicing_python_slicer_get_docstring",
+      "community": 1,
+      "norm_label": "_get_docstring()"
+    },
+    {
+      "label": "_is_contract()",
+      "file_type": "code",
+      "source_file": "src/retrieval/slicing/python_slicer.py",
+      "source_location": "L259",
+      "id": "slicing_python_slicer_is_contract",
+      "community": 1,
+      "norm_label": "_is_contract()"
+    },
+    {
+      "label": "Python implementation of LanguageSlicer using tree-sitter.  Uses tree-sitter-pyt",
+      "file_type": "rationale",
+      "source_file": "src/retrieval/slicing/python_slicer.py",
+      "source_location": "L1",
+      "id": "slicing_python_slicer_rationale_1",
+      "community": 1,
+      "norm_label": "python implementation of languageslicer using tree-sitter.  uses tree-sitter-pyt"
+    },
+    {
+      "label": "LanguageSlicer implementation for Python source files.",
+      "file_type": "rationale",
+      "source_file": "src/retrieval/slicing/python_slicer.py",
+      "source_location": "L28",
+      "id": "slicing_python_slicer_rationale_28",
+      "community": 1,
+      "norm_label": "languageslicer implementation for python source files."
+    },
+    {
+      "label": "Return a SymbolSlice for the named function/async function/class.          Searc",
+      "file_type": "rationale",
+      "source_file": "src/retrieval/slicing/python_slicer.py",
+      "source_location": "L31",
+      "id": "slicing_python_slicer_rationale_31",
+      "community": 1,
+      "norm_label": "return a symbolslice for the named function/async function/class.          searc"
+    },
+    {
+      "label": "Return import lines actually referenced by the named symbol.",
+      "file_type": "rationale",
+      "source_file": "src/retrieval/slicing/python_slicer.py",
+      "source_location": "L47",
+      "id": "slicing_python_slicer_rationale_47",
+      "community": 1,
+      "norm_label": "return import lines actually referenced by the named symbol."
+    },
+    {
+      "label": "If method_name is a method, return its enclosing class header + docstring.",
+      "file_type": "rationale",
+      "source_file": "src/retrieval/slicing/python_slicer.py",
+      "source_location": "L70",
+      "id": "slicing_python_slicer_rationale_70",
+      "community": 1,
+      "norm_label": "if method_name is a method, return its enclosing class header + docstring."
+    },
+    {
+      "label": "Return TypedDict/dataclass/Protocol class definitions used by the symbol.",
+      "file_type": "rationale",
+      "source_file": "src/retrieval/slicing/python_slicer.py",
+      "source_location": "L95",
+      "id": "slicing_python_slicer_rationale_95",
+      "community": 1,
+      "norm_label": "return typeddict/dataclass/protocol class definitions used by the symbol."
+    },
+    {
+      "label": "Replace the original symbol with modified and return the full file.          Re-",
+      "file_type": "rationale",
+      "source_file": "src/retrieval/slicing/python_slicer.py",
+      "source_location": "L121",
+      "id": "slicing_python_slicer_rationale_121",
+      "community": 1,
+      "norm_label": "replace the original symbol with modified and return the full file.          re-"
+    },
+    {
+      "label": "Return the text of a node's name field, or empty string if absent.",
+      "file_type": "rationale",
+      "source_file": "src/retrieval/slicing/python_slicer.py",
+      "source_location": "L152",
+      "id": "slicing_python_slicer_rationale_152",
+      "community": 1,
+      "norm_label": "return the text of a node's name field, or empty string if absent."
+    },
+    {
+      "label": "Find the AST node for name at module level or one class deep.",
+      "file_type": "rationale",
+      "source_file": "src/retrieval/slicing/python_slicer.py",
+      "source_location": "L157",
+      "id": "slicing_python_slicer_rationale_157",
+      "community": 1,
+      "norm_label": "find the ast node for name at module level or one class deep."
+    },
+    {
+      "label": "Build a SymbolSlice from a tree-sitter node.",
+      "file_type": "rationale",
+      "source_file": "src/retrieval/slicing/python_slicer.py",
+      "source_location": "L179",
+      "id": "slicing_python_slicer_rationale_179",
+      "community": 1,
+      "norm_label": "build a symbolslice from a tree-sitter node."
+    },
+    {
+      "label": "Collect every identifier name referenced within a subtree.",
+      "file_type": "rationale",
+      "source_file": "src/retrieval/slicing/python_slicer.py",
+      "source_location": "L201",
+      "id": "slicing_python_slicer_rationale_201",
+      "community": 1,
+      "norm_label": "collect every identifier name referenced within a subtree."
+    },
+    {
+      "label": "Return True if any name exposed by this import is in used.",
+      "file_type": "rationale",
+      "source_file": "src/retrieval/slicing/python_slicer.py",
+      "source_location": "L215",
+      "id": "slicing_python_slicer_rationale_215",
+      "community": 1,
+      "norm_label": "return true if any name exposed by this import is in used."
+    },
+    {
+      "label": "Extract the docstring from a class or function body node.",
+      "file_type": "rationale",
+      "source_file": "src/retrieval/slicing/python_slicer.py",
+      "source_location": "L246",
+      "id": "slicing_python_slicer_rationale_246",
+      "community": 1,
+      "norm_label": "extract the docstring from a class or function body node."
+    },
+    {
+      "label": "Return True if the class looks like a TypedDict, dataclass, or Protocol.",
+      "file_type": "rationale",
+      "source_file": "src/retrieval/slicing/python_slicer.py",
+      "source_location": "L260",
+      "id": "slicing_python_slicer_rationale_260",
+      "community": 1,
+      "norm_label": "return true if the class looks like a typeddict, dataclass, or protocol."
+    },
+    {
       "label": "graph_query.py",
       "file_type": "code",
       "source_file": "src/retrieval/graph/graph_query.py",
@@ -3587,7 +4127,7 @@
       "source_file": "src/graph/workflow.py",
       "source_location": "L61",
       "id": "src_graph_workflow_py_runcontext",
-      "community": 33,
+      "community": 30,
       "norm_label": "runcontext"
     },
     {
@@ -4136,7 +4676,7 @@
       "source_file": "src/graph/nodes/support.py",
       "source_location": "L1",
       "id": "src_graph_nodes_support_py",
-      "community": 26,
+      "community": 19,
       "norm_label": "support.py"
     },
     {
@@ -4145,7 +4685,7 @@
       "source_file": "src/graph/nodes/support.py",
       "source_location": "L23",
       "id": "nodes_support_require_state_value",
-      "community": 26,
+      "community": 19,
       "norm_label": "require_state_value()"
     },
     {
@@ -4154,7 +4694,7 @@
       "source_file": "src/graph/nodes/support.py",
       "source_location": "L23",
       "id": "src_graph_nodes_support_py_graphstate",
-      "community": 26,
+      "community": 19,
       "norm_label": "graphstate"
     },
     {
@@ -4163,7 +4703,7 @@
       "source_file": "src/graph/nodes/support.py",
       "source_location": "L23",
       "id": "src_graph_nodes_support_py_str",
-      "community": 26,
+      "community": 19,
       "norm_label": "str"
     },
     {
@@ -4181,7 +4721,7 @@
       "source_file": "src/graph/nodes/support.py",
       "source_location": "L44",
       "id": "nodes_support_validate_python_syntax",
-      "community": 1,
+      "community": 19,
       "norm_label": "validate_python_syntax()"
     },
     {
@@ -4190,7 +4730,7 @@
       "source_file": "src/graph/nodes/support.py",
       "source_location": "L44",
       "id": "src_graph_nodes_support_py_bool",
-      "community": 1,
+      "community": 19,
       "norm_label": "bool"
     },
     {
@@ -4199,7 +4739,7 @@
       "source_file": "src/graph/nodes/support.py",
       "source_location": "L58",
       "id": "nodes_support_select_target_file_from_repo_path",
-      "community": 26,
+      "community": 19,
       "norm_label": "select_target_file_from_repo_path()"
     },
     {
@@ -4208,7 +4748,7 @@
       "source_file": "src/graph/nodes/support.py",
       "source_location": "L1",
       "id": "nodes_support_rationale_1",
-      "community": 26,
+      "community": 19,
       "norm_label": "shared helpers for graph node implementations."
     },
     {
@@ -4217,7 +4757,7 @@
       "source_file": "src/graph/nodes/support.py",
       "source_location": "L24",
       "id": "nodes_support_rationale_24",
-      "community": 26,
+      "community": 19,
       "norm_label": "return a required value from `state` or raise valueerror."
     },
     {
@@ -4235,7 +4775,7 @@
       "source_file": "src/graph/nodes/support.py",
       "source_location": "L45",
       "id": "nodes_support_rationale_45",
-      "community": 1,
+      "community": 19,
       "norm_label": "validate that `content` compiles as python."
     },
     {
@@ -4244,7 +4784,7 @@
       "source_file": "src/graph/nodes/support.py",
       "source_location": "L59",
       "id": "nodes_support_rationale_59",
-      "community": 26,
+      "community": 19,
       "norm_label": "pick the first python file in a repo root deterministically."
     },
     {
@@ -4307,52 +4847,88 @@
       "source_file": "src/graph/nodes/coder.py",
       "source_location": "L1",
       "id": "src_graph_nodes_coder_py",
-      "community": 48,
+      "community": 57,
       "norm_label": "coder.py"
     },
     {
-      "label": "_format_related_files()",
+      "label": "_format_target_symbol()",
       "file_type": "code",
       "source_file": "src/graph/nodes/coder.py",
-      "source_location": "L15",
-      "id": "nodes_coder_format_related_files",
-      "community": 48,
-      "norm_label": "_format_related_files()"
+      "source_location": "L23",
+      "id": "nodes_coder_format_target_symbol",
+      "community": 57,
+      "norm_label": "_format_target_symbol()"
     },
     {
       "label": "str",
       "file_type": "code",
       "source_file": "src/graph/nodes/coder.py",
-      "source_location": "L15",
+      "source_location": "L23",
       "id": "src_graph_nodes_coder_py_str",
-      "community": 48,
+      "community": 57,
       "norm_label": "str"
+    },
+    {
+      "label": "_format_contracts()",
+      "file_type": "code",
+      "source_file": "src/graph/nodes/coder.py",
+      "source_location": "L43",
+      "id": "nodes_coder_format_contracts",
+      "community": 57,
+      "norm_label": "_format_contracts()"
+    },
+    {
+      "label": "_build_symbol_prompt()",
+      "file_type": "code",
+      "source_file": "src/graph/nodes/coder.py",
+      "source_location": "L50",
+      "id": "nodes_coder_build_symbol_prompt",
+      "community": 57,
+      "norm_label": "_build_symbol_prompt()"
+    },
+    {
+      "label": "_format_related_files()",
+      "file_type": "code",
+      "source_file": "src/graph/nodes/coder.py",
+      "source_location": "L86",
+      "id": "nodes_coder_format_related_files",
+      "community": 57,
+      "norm_label": "_format_related_files()"
+    },
+    {
+      "label": "_build_full_file_prompt()",
+      "file_type": "code",
+      "source_file": "src/graph/nodes/coder.py",
+      "source_location": "L95",
+      "id": "nodes_coder_build_full_file_prompt",
+      "community": 57,
+      "norm_label": "_build_full_file_prompt()"
     },
     {
       "label": "coder_node()",
       "file_type": "code",
       "source_file": "src/graph/nodes/coder.py",
-      "source_location": "L24",
+      "source_location": "L134",
       "id": "nodes_coder_coder_node",
-      "community": 48,
+      "community": 57,
       "norm_label": "coder_node()"
     },
     {
       "label": "GraphState",
       "file_type": "code",
       "source_file": "src/graph/nodes/coder.py",
-      "source_location": "L24",
+      "source_location": "L134",
       "id": "src_graph_nodes_coder_py_graphstate",
-      "community": 48,
+      "community": 40,
       "norm_label": "graphstate"
     },
     {
       "label": "RunContext",
       "file_type": "code",
       "source_file": "src/graph/nodes/coder.py",
-      "source_location": "L24",
+      "source_location": "L134",
       "id": "src_graph_nodes_coder_py_runcontext",
-      "community": 48,
+      "community": 40,
       "norm_label": "runcontext"
     },
     {
@@ -4361,7 +4937,7 @@
       "source_file": "src/graph/nodes/reviewer.py",
       "source_location": "L1",
       "id": "src_graph_nodes_reviewer_py",
-      "community": 1,
+      "community": 19,
       "norm_label": "reviewer.py"
     },
     {
@@ -4370,7 +4946,7 @@
       "source_file": "src/graph/nodes/reviewer.py",
       "source_location": "L17",
       "id": "nodes_reviewer_reviewer_node",
-      "community": 1,
+      "community": 58,
       "norm_label": "reviewer_node()"
     },
     {
@@ -4379,7 +4955,7 @@
       "source_file": "src/graph/nodes/reviewer.py",
       "source_location": "L17",
       "id": "src_graph_nodes_reviewer_py_graphstate",
-      "community": 1,
+      "community": 58,
       "norm_label": "graphstate"
     },
     {
@@ -4388,7 +4964,7 @@
       "source_file": "src/graph/nodes/reviewer.py",
       "source_location": "L17",
       "id": "src_graph_nodes_reviewer_py_runcontext",
-      "community": 1,
+      "community": 58,
       "norm_label": "runcontext"
     },
     {
@@ -4397,7 +4973,7 @@
       "source_file": "src/graph/nodes/reviewer.py",
       "source_location": "L18",
       "id": "nodes_reviewer_rationale_18",
-      "community": 1,
+      "community": 58,
       "norm_label": "perform lightweight review checks on generated code.      performs the following"
     },
     {
@@ -4406,7 +4982,7 @@
       "source_file": "src/graph/nodes/planner.py",
       "source_location": "L1",
       "id": "src_graph_nodes_planner_py",
-      "community": 10,
+      "community": 39,
       "norm_label": "planner.py"
     },
     {
@@ -4415,7 +4991,7 @@
       "source_file": "src/graph/nodes/planner.py",
       "source_location": "L29",
       "id": "nodes_planner_planner_node",
-      "community": 10,
+      "community": 39,
       "norm_label": "planner_node()"
     },
     {
@@ -4424,7 +5000,7 @@
       "source_file": "src/graph/nodes/planner.py",
       "source_location": "L29",
       "id": "src_graph_nodes_planner_py_graphstate",
-      "community": 10,
+      "community": 39,
       "norm_label": "graphstate"
     },
     {
@@ -4433,14 +5009,14 @@
       "source_file": "src/graph/nodes/planner.py",
       "source_location": "L29",
       "id": "src_graph_nodes_planner_py_runcontext",
-      "community": 10,
+      "community": 39,
       "norm_label": "runcontext"
     },
     {
       "label": "_resolve_paths()",
       "file_type": "code",
       "source_file": "src/graph/nodes/planner.py",
-      "source_location": "L114",
+      "source_location": "L123",
       "id": "nodes_planner_resolve_paths",
       "community": 39,
       "norm_label": "_resolve_paths()"
@@ -4449,19 +5025,19 @@
       "label": "str",
       "file_type": "code",
       "source_file": "src/graph/nodes/planner.py",
-      "source_location": "L114",
+      "source_location": "L123",
       "id": "src_graph_nodes_planner_py_str",
       "community": 39,
       "norm_label": "str"
     },
     {
-      "label": "_parse_file_list()",
+      "label": "_parse_planner_response()",
       "file_type": "code",
       "source_file": "src/graph/nodes/planner.py",
-      "source_location": "L130",
-      "id": "nodes_planner_parse_file_list",
+      "source_location": "L139",
+      "id": "nodes_planner_parse_planner_response",
       "community": 39,
-      "norm_label": "_parse_file_list()"
+      "norm_label": "_parse_planner_response()"
     },
     {
       "label": "Planner node \u2014 selects which file(s) to modify from retrieval candidates.  When",
@@ -4469,7 +5045,7 @@
       "source_file": "src/graph/nodes/planner.py",
       "source_location": "L1",
       "id": "nodes_planner_rationale_1",
-      "community": 10,
+      "community": 39,
       "norm_label": "planner node \u2014 selects which file(s) to modify from retrieval candidates.  when"
     },
     {
@@ -4478,26 +5054,26 @@
       "source_file": "src/graph/nodes/planner.py",
       "source_location": "L30",
       "id": "nodes_planner_rationale_30",
-      "community": 10,
+      "community": 39,
       "norm_label": "select the file(s) to modify for the current task.      state inputs consumed:"
     },
     {
       "label": "Convert repo-relative paths to absolute paths using repo_path as the root.",
       "file_type": "rationale",
       "source_file": "src/graph/nodes/planner.py",
-      "source_location": "L115",
-      "id": "nodes_planner_rationale_115",
+      "source_location": "L124",
+      "id": "nodes_planner_rationale_124",
       "community": 39,
       "norm_label": "convert repo-relative paths to absolute paths using repo_path as the root."
     },
     {
-      "label": "Parse a JSON array from LLM output, filtering to known candidate paths.",
+      "label": "Parse the planner LLM response into (chosen_files, target_symbol).      Accepts",
       "file_type": "rationale",
       "source_file": "src/graph/nodes/planner.py",
-      "source_location": "L131",
-      "id": "nodes_planner_rationale_131",
+      "source_location": "L140",
+      "id": "nodes_planner_rationale_140",
       "community": 39,
-      "norm_label": "parse a json array from llm output, filtering to known candidate paths."
+      "norm_label": "parse the planner llm response into (chosen_files, target_symbol).      accepts"
     },
     {
       "label": "static_validator.py",
@@ -4566,7 +5142,7 @@
       "label": "file_reader_node()",
       "file_type": "code",
       "source_file": "src/graph/nodes/file_reader.py",
-      "source_location": "L14",
+      "source_location": "L18",
       "id": "nodes_file_reader_file_reader_node",
       "community": 26,
       "norm_label": "file_reader_node()"
@@ -4575,7 +5151,7 @@
       "label": "GraphState",
       "file_type": "code",
       "source_file": "src/graph/nodes/file_reader.py",
-      "source_location": "L14",
+      "source_location": "L18",
       "id": "src_graph_nodes_file_reader_py_graphstate",
       "community": 26,
       "norm_label": "graphstate"
@@ -4584,19 +5160,46 @@
       "label": "RunContext",
       "file_type": "code",
       "source_file": "src/graph/nodes/file_reader.py",
-      "source_location": "L14",
+      "source_location": "L18",
       "id": "src_graph_nodes_file_reader_py_runcontext",
       "community": 26,
       "norm_label": "runcontext"
     },
     {
-      "label": "Read the target file (or select one) and return its contents.      Expected stat",
+      "label": "_build_context_slice()",
+      "file_type": "code",
+      "source_file": "src/graph/nodes/file_reader.py",
+      "source_location": "L68",
+      "id": "nodes_file_reader_build_context_slice",
+      "community": 26,
+      "norm_label": "_build_context_slice()"
+    },
+    {
+      "label": "str",
+      "file_type": "code",
+      "source_file": "src/graph/nodes/file_reader.py",
+      "source_location": "L68",
+      "id": "src_graph_nodes_file_reader_py_str",
+      "community": 26,
+      "norm_label": "str"
+    },
+    {
+      "label": "Read the target file and, when a target symbol is set, build a context slice.",
       "file_type": "rationale",
       "source_file": "src/graph/nodes/file_reader.py",
-      "source_location": "L15",
-      "id": "nodes_file_reader_rationale_15",
+      "source_location": "L19",
+      "id": "nodes_file_reader_rationale_19",
       "community": 26,
-      "norm_label": "read the target file (or select one) and return its contents.      expected stat"
+      "norm_label": "read the target file and, when a target symbol is set, build a context slice."
+    },
+    {
+      "label": "Assemble the context dict for the coder's focused prompt.",
+      "file_type": "rationale",
+      "source_file": "src/graph/nodes/file_reader.py",
+      "source_location": "L69",
+      "id": "nodes_file_reader_rationale_69",
+      "community": 26,
+      "norm_label": "assemble the context dict for the coder's focused prompt."
     },
     {
       "label": "__init__.py",
@@ -4806,6 +5409,42 @@
       "norm_label": "convert absolute paths to repo-relative strings when possible."
     },
     {
+      "label": "_parse_file_list()",
+      "file_type": "code",
+      "source_file": "src/graph/nodes/planner.py",
+      "source_location": "L130",
+      "community": 39,
+      "norm_label": "_parse_file_list()",
+      "id": "nodes_planner_parse_file_list"
+    },
+    {
+      "label": "Convert repo-relative paths to absolute paths using repo_path as the root.",
+      "file_type": "rationale",
+      "source_file": "src/graph/nodes/planner.py",
+      "source_location": "L115",
+      "community": 39,
+      "norm_label": "convert repo-relative paths to absolute paths using repo_path as the root.",
+      "id": "nodes_planner_rationale_115"
+    },
+    {
+      "label": "Parse a JSON array from LLM output, filtering to known candidate paths.",
+      "file_type": "rationale",
+      "source_file": "src/graph/nodes/planner.py",
+      "source_location": "L131",
+      "community": 39,
+      "norm_label": "parse a json array from llm output, filtering to known candidate paths.",
+      "id": "nodes_planner_rationale_131"
+    },
+    {
+      "label": "Read the target file (or select one) and return its contents.      Expected stat",
+      "file_type": "rationale",
+      "source_file": "src/graph/nodes/file_reader.py",
+      "source_location": "L15",
+      "community": 26,
+      "norm_label": "read the target file (or select one) and return its contents.      expected stat",
+      "id": "nodes_file_reader_rationale_15"
+    },
+    {
       "label": "route_after_verification()",
       "file_type": "code",
       "source_file": "src/graph/workflow.py",
@@ -4927,7 +5566,7 @@
       "file_type": "rationale",
       "source_file": "src/graph/nodes/planner.py",
       "source_location": "L29",
-      "community": 10,
+      "community": 39,
       "norm_label": "select the file(s) to modify for the current task.      state inputs consumed:",
       "id": "nodes_planner_rationale_29"
     },
@@ -5098,7 +5737,7 @@
       "file_type": "rationale",
       "source_file": "src/config_loader.py",
       "source_location": "L396",
-      "community": 59,
+      "community": 12,
       "norm_label": "return the model name for the semantic validator.      prefers models[\"semanti",
       "id": "src_config_loader_rationale_396"
     },
@@ -5260,7 +5899,7 @@
       "file_type": "rationale",
       "source_file": "src/config_loader.py",
       "source_location": "L364",
-      "community": 59,
+      "community": 12,
       "norm_label": "return the model name for the semantic validator.      prefers models[\"semanti",
       "id": "src_config_loader_rationale_364"
     },
@@ -5404,7 +6043,7 @@
       "file_type": "rationale",
       "source_file": "src/config_loader.py",
       "source_location": "L351",
-      "community": 59,
+      "community": 12,
       "norm_label": "return the model name for the semantic validator.      prefers models[\"semanti",
       "id": "src_config_loader_rationale_351"
     },
@@ -5539,7 +6178,7 @@
       "file_type": "code",
       "source_file": "src/config_loader.py",
       "source_location": "L221",
-      "community": 33,
+      "community": 42,
       "norm_label": "get_max_iterations()",
       "id": "src_config_loader_get_max_iterations"
     },
@@ -5593,7 +6232,7 @@
       "file_type": "rationale",
       "source_file": "src/config_loader.py",
       "source_location": "L231",
-      "community": 59,
+      "community": 12,
       "norm_label": "return the model name for the semantic validator.      prefers models[\"semanti",
       "id": "src_config_loader_rationale_231"
     },
@@ -5746,7 +6385,7 @@
       "file_type": "rationale",
       "source_file": "src/observability/context.py",
       "source_location": "L14",
-      "community": 10,
+      "community": 30,
       "norm_label": "minimal per-run observability context.      attributes:         run_id: a uui",
       "id": "observability_context_rationale_14"
     },
@@ -5755,7 +6394,7 @@
       "file_type": "rationale",
       "source_file": "src/observability/context.py",
       "source_location": "L23",
-      "community": 54,
+      "community": 2,
       "norm_label": "create a fresh runcontext with a new uuid4 run_id.",
       "id": "observability_context_rationale_23"
     },
@@ -6061,7 +6700,7 @@
       "file_type": "code",
       "source_file": "src/config_loader.py",
       "source_location": "L61",
-      "community": 33,
+      "community": 42,
       "norm_label": "int",
       "id": "int"
     },
@@ -6079,7 +6718,7 @@
       "file_type": "code",
       "source_file": "src/graph/nodes/support.py",
       "source_location": "L44",
-      "community": 1,
+      "community": 19,
       "norm_label": "bool",
       "id": "bool"
     },
@@ -6097,7 +6736,7 @@
       "file_type": "code",
       "source_file": "src/observability/context.py",
       "source_location": "L22",
-      "community": 10,
+      "community": 30,
       "norm_label": "new()",
       "id": "observability_context_new"
     },
@@ -6110,7 +6749,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 48,
+      "community": 57,
       "norm_label": "ollamaclient.chat",
       "id": "core_ollama_client_chat"
     },
@@ -6136,7 +6775,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 26,
+      "community": 57,
       "norm_label": "graphstate: original_code field",
       "id": "concept_state_field_original_code"
     },
@@ -6149,7 +6788,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 1,
+      "community": 58,
       "norm_label": "graphstate: generated_code field",
       "id": "concept_state_field_generated_code"
     },
@@ -6162,7 +6801,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 48,
+      "community": 57,
       "norm_label": "graphstate: repository_context field",
       "id": "concept_state_field_repository_context"
     },
@@ -12768,6 +13407,16 @@
       "target": "observability_context_runcontext"
     },
     {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "src/graph/nodes/file_reader.py",
+      "source_location": "L10",
+      "weight": 0.8,
+      "source": "src_graph_nodes_file_reader_py_str",
+      "target": "observability_context_runcontext",
+      "confidence_score": 0.5
+    },
+    {
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
@@ -14310,6 +14959,16 @@
       "confidence_score": 1.0,
       "source": "ranking_heuristic_ranker_rankerprotocol",
       "target": "protocol"
+    },
+    {
+      "relation": "inherits",
+      "confidence": "EXTRACTED",
+      "source_file": "src/retrieval/slicing/protocol.py",
+      "source_location": "L26",
+      "weight": 1.0,
+      "source": "slicing_protocol_languageslicer",
+      "target": "protocol",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
@@ -16097,6 +16756,1287 @@
     {
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
+      "source_file": "src/retrieval/slicing/protocol.py",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "slicing_protocol_rationale_1",
+      "target": "src_retrieval_slicing_protocol_py",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "re_exports",
+      "context": "export",
+      "confidence": "EXTRACTED",
+      "source_file": "src/retrieval/slicing/__init__.py",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "src_retrieval_slicing_init_py",
+      "target": "src_retrieval_slicing_protocol_py",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/retrieval/slicing/protocol.py",
+      "source_location": "L26",
+      "weight": 1.0,
+      "source": "src_retrieval_slicing_protocol_py",
+      "target": "slicing_protocol_languageslicer",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/retrieval/slicing/protocol.py",
+      "source_location": "L15",
+      "weight": 1.0,
+      "source": "src_retrieval_slicing_protocol_py",
+      "target": "slicing_protocol_symbolslice",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/graph/nodes/coder.py",
+      "source_location": "L218",
+      "weight": 1.0,
+      "source": "nodes_coder_coder_node",
+      "target": "slicing_protocol_symbolslice",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "return_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/retrieval/slicing/protocol.py",
+      "source_location": "L29",
+      "weight": 1.0,
+      "source": "slicing_protocol_languageslicer_extract_symbol",
+      "target": "slicing_protocol_symbolslice",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/retrieval/slicing/protocol.py",
+      "source_location": "L45",
+      "weight": 1.0,
+      "source": "slicing_protocol_languageslicer_stitch_symbol",
+      "target": "slicing_protocol_symbolslice",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/retrieval/slicing/protocol.py",
+      "source_location": "L16",
+      "weight": 1.0,
+      "source": "slicing_protocol_rationale_16",
+      "target": "slicing_protocol_symbolslice",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/retrieval/slicing/python_slicer.py",
+      "source_location": "L191",
+      "weight": 1.0,
+      "source": "slicing_python_slicer_build_slice",
+      "target": "slicing_protocol_symbolslice",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/graph/nodes/coder.py",
+      "source_location": "L14",
+      "weight": 1.0,
+      "source": "src_graph_nodes_coder_py",
+      "target": "slicing_protocol_symbolslice",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/graph/nodes/file_reader.py",
+      "source_location": "L12",
+      "weight": 1.0,
+      "source": "src_graph_nodes_file_reader_py",
+      "target": "slicing_protocol_symbolslice",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/retrieval/slicing/__init__.py",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "src_retrieval_slicing_init_py",
+      "target": "slicing_protocol_symbolslice",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/retrieval/slicing/python_slicer.py",
+      "source_location": "L13",
+      "weight": 1.0,
+      "source": "src_retrieval_slicing_python_slicer_py",
+      "target": "slicing_protocol_symbolslice",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "src/retrieval/slicing/protocol.py",
+      "source_location": "L37",
+      "weight": 1.0,
+      "source": "slicing_protocol_languageslicer",
+      "target": "slicing_protocol_languageslicer_extract_class_context",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "src/retrieval/slicing/protocol.py",
+      "source_location": "L41",
+      "weight": 1.0,
+      "source": "slicing_protocol_languageslicer",
+      "target": "slicing_protocol_languageslicer_extract_contracts",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "src/retrieval/slicing/protocol.py",
+      "source_location": "L33",
+      "weight": 1.0,
+      "source": "slicing_protocol_languageslicer",
+      "target": "slicing_protocol_languageslicer_extract_imports_for",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "src/retrieval/slicing/protocol.py",
+      "source_location": "L29",
+      "weight": 1.0,
+      "source": "slicing_protocol_languageslicer",
+      "target": "slicing_protocol_languageslicer_extract_symbol",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "src/retrieval/slicing/protocol.py",
+      "source_location": "L45",
+      "weight": 1.0,
+      "source": "slicing_protocol_languageslicer",
+      "target": "slicing_protocol_languageslicer_stitch_symbol",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/retrieval/slicing/protocol.py",
+      "source_location": "L27",
+      "weight": 1.0,
+      "source": "slicing_protocol_rationale_27",
+      "target": "slicing_protocol_languageslicer",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/retrieval/slicing/__init__.py",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "src_retrieval_slicing_init_py",
+      "target": "slicing_protocol_languageslicer",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/retrieval/slicing/python_slicer.py",
+      "source_location": "L13",
+      "weight": 1.0,
+      "source": "src_retrieval_slicing_python_slicer_py",
+      "target": "slicing_protocol_languageslicer",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/retrieval/slicing/registry.py",
+      "source_location": "L11",
+      "weight": 1.0,
+      "source": "src_retrieval_slicing_registry_py",
+      "target": "slicing_protocol_languageslicer",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/retrieval/slicing/protocol.py",
+      "source_location": "L29",
+      "weight": 1.0,
+      "source": "slicing_protocol_languageslicer_extract_symbol",
+      "target": "src_retrieval_slicing_protocol_py_str",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/retrieval/slicing/protocol.py",
+      "source_location": "L30",
+      "weight": 1.0,
+      "source": "slicing_protocol_rationale_30",
+      "target": "slicing_protocol_languageslicer_extract_symbol",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "return_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/retrieval/slicing/protocol.py",
+      "source_location": "L37",
+      "weight": 1.0,
+      "source": "slicing_protocol_languageslicer_extract_class_context",
+      "target": "src_retrieval_slicing_protocol_py_str",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "return_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/retrieval/slicing/protocol.py",
+      "source_location": "L41",
+      "weight": 1.0,
+      "source": "slicing_protocol_languageslicer_extract_contracts",
+      "target": "src_retrieval_slicing_protocol_py_str",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "return_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/retrieval/slicing/protocol.py",
+      "source_location": "L33",
+      "weight": 1.0,
+      "source": "slicing_protocol_languageslicer_extract_imports_for",
+      "target": "src_retrieval_slicing_protocol_py_str",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "return_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/retrieval/slicing/protocol.py",
+      "source_location": "L45",
+      "weight": 1.0,
+      "source": "slicing_protocol_languageslicer_stitch_symbol",
+      "target": "src_retrieval_slicing_protocol_py_str",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/retrieval/slicing/protocol.py",
+      "source_location": "L34",
+      "weight": 1.0,
+      "source": "slicing_protocol_rationale_34",
+      "target": "slicing_protocol_languageslicer_extract_imports_for",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/retrieval/slicing/protocol.py",
+      "source_location": "L38",
+      "weight": 1.0,
+      "source": "slicing_protocol_rationale_38",
+      "target": "slicing_protocol_languageslicer_extract_class_context",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/retrieval/slicing/protocol.py",
+      "source_location": "L42",
+      "weight": 1.0,
+      "source": "slicing_protocol_rationale_42",
+      "target": "slicing_protocol_languageslicer_extract_contracts",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/retrieval/slicing/protocol.py",
+      "source_location": "L46",
+      "weight": 1.0,
+      "source": "slicing_protocol_rationale_46",
+      "target": "slicing_protocol_languageslicer_stitch_symbol",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/retrieval/slicing/registry.py",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "slicing_registry_rationale_1",
+      "target": "src_retrieval_slicing_registry_py",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "re_exports",
+      "context": "export",
+      "confidence": "EXTRACTED",
+      "source_file": "src/retrieval/slicing/__init__.py",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "src_retrieval_slicing_init_py",
+      "target": "src_retrieval_slicing_registry_py",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/retrieval/slicing/registry.py",
+      "source_location": "L12",
+      "weight": 1.0,
+      "source": "src_retrieval_slicing_registry_py",
+      "target": "slicing_python_slicer_pythonslicer",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/retrieval/slicing/registry.py",
+      "source_location": "L19",
+      "weight": 1.0,
+      "source": "src_retrieval_slicing_registry_py",
+      "target": "slicing_registry_get_slicer",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/graph/nodes/coder.py",
+      "source_location": "L216",
+      "weight": 1.0,
+      "source": "nodes_coder_coder_node",
+      "target": "slicing_registry_get_slicer",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/graph/nodes/file_reader.py",
+      "source_location": "L38",
+      "weight": 1.0,
+      "source": "nodes_file_reader_file_reader_node",
+      "target": "slicing_registry_get_slicer",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "return_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/retrieval/slicing/registry.py",
+      "source_location": "L19",
+      "weight": 1.0,
+      "source": "slicing_registry_get_slicer",
+      "target": "languageslicer",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/retrieval/slicing/registry.py",
+      "source_location": "L19",
+      "weight": 1.0,
+      "source": "slicing_registry_get_slicer",
+      "target": "src_retrieval_slicing_registry_py_str",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/retrieval/slicing/registry.py",
+      "source_location": "L20",
+      "weight": 1.0,
+      "source": "slicing_registry_rationale_20",
+      "target": "slicing_registry_get_slicer",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/graph/nodes/coder.py",
+      "source_location": "L14",
+      "weight": 1.0,
+      "source": "src_graph_nodes_coder_py",
+      "target": "slicing_registry_get_slicer",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/graph/nodes/file_reader.py",
+      "source_location": "L12",
+      "weight": 1.0,
+      "source": "src_graph_nodes_file_reader_py",
+      "target": "slicing_registry_get_slicer",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/retrieval/slicing/__init__.py",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "src_retrieval_slicing_init_py",
+      "target": "slicing_registry_get_slicer",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "src/retrieval/slicing/registry.py",
+      "source_location": "L12",
+      "weight": 0.8,
+      "source": "src_retrieval_slicing_registry_py_str",
+      "target": "slicing_python_slicer_pythonslicer",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "src/retrieval/slicing/registry.py",
+      "source_location": "L12",
+      "weight": 0.8,
+      "source": "languageslicer",
+      "target": "slicing_python_slicer_pythonslicer",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/retrieval/slicing/__init__.py",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "slicing_init_rationale_1",
+      "target": "src_retrieval_slicing_init_py",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/retrieval/slicing/python_slicer.py",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "slicing_python_slicer_rationale_1",
+      "target": "src_retrieval_slicing_python_slicer_py",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/retrieval/slicing/python_slicer.py",
+      "source_location": "L178",
+      "weight": 1.0,
+      "source": "src_retrieval_slicing_python_slicer_py",
+      "target": "slicing_python_slicer_build_slice",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/retrieval/slicing/python_slicer.py",
+      "source_location": "L200",
+      "weight": 1.0,
+      "source": "src_retrieval_slicing_python_slicer_py",
+      "target": "slicing_python_slicer_collect_names",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/retrieval/slicing/python_slicer.py",
+      "source_location": "L156",
+      "weight": 1.0,
+      "source": "src_retrieval_slicing_python_slicer_py",
+      "target": "slicing_python_slicer_find_symbol",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/retrieval/slicing/python_slicer.py",
+      "source_location": "L245",
+      "weight": 1.0,
+      "source": "src_retrieval_slicing_python_slicer_py",
+      "target": "slicing_python_slicer_get_docstring",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/retrieval/slicing/python_slicer.py",
+      "source_location": "L214",
+      "weight": 1.0,
+      "source": "src_retrieval_slicing_python_slicer_py",
+      "target": "slicing_python_slicer_import_exposes_used_name",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/retrieval/slicing/python_slicer.py",
+      "source_location": "L259",
+      "weight": 1.0,
+      "source": "src_retrieval_slicing_python_slicer_py",
+      "target": "slicing_python_slicer_is_contract",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/retrieval/slicing/python_slicer.py",
+      "source_location": "L23",
+      "weight": 1.0,
+      "source": "src_retrieval_slicing_python_slicer_py",
+      "target": "slicing_python_slicer_make_parser",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/retrieval/slicing/python_slicer.py",
+      "source_location": "L151",
+      "weight": 1.0,
+      "source": "src_retrieval_slicing_python_slicer_py",
+      "target": "slicing_python_slicer_node_name",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/retrieval/slicing/python_slicer.py",
+      "source_location": "L27",
+      "weight": 1.0,
+      "source": "src_retrieval_slicing_python_slicer_py",
+      "target": "slicing_python_slicer_pythonslicer",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/retrieval/slicing/python_slicer.py",
+      "source_location": "L207",
+      "weight": 1.0,
+      "source": "src_retrieval_slicing_python_slicer_py",
+      "target": "slicing_python_slicer_walk_names",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "return_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/retrieval/slicing/python_slicer.py",
+      "source_location": "L23",
+      "weight": 1.0,
+      "source": "slicing_python_slicer_make_parser",
+      "target": "parser",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/retrieval/slicing/python_slicer.py",
+      "source_location": "L71",
+      "weight": 1.0,
+      "source": "slicing_python_slicer_pythonslicer_extract_class_context",
+      "target": "slicing_python_slicer_make_parser",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/retrieval/slicing/python_slicer.py",
+      "source_location": "L96",
+      "weight": 1.0,
+      "source": "slicing_python_slicer_pythonslicer_extract_contracts",
+      "target": "slicing_python_slicer_make_parser",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/retrieval/slicing/python_slicer.py",
+      "source_location": "L48",
+      "weight": 1.0,
+      "source": "slicing_python_slicer_pythonslicer_extract_imports_for",
+      "target": "slicing_python_slicer_make_parser",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/retrieval/slicing/python_slicer.py",
+      "source_location": "L36",
+      "weight": 1.0,
+      "source": "slicing_python_slicer_pythonslicer_extract_symbol",
+      "target": "slicing_python_slicer_make_parser",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "src/retrieval/slicing/python_slicer.py",
+      "source_location": "L69",
+      "weight": 1.0,
+      "source": "slicing_python_slicer_pythonslicer",
+      "target": "slicing_python_slicer_pythonslicer_extract_class_context",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "src/retrieval/slicing/python_slicer.py",
+      "source_location": "L94",
+      "weight": 1.0,
+      "source": "slicing_python_slicer_pythonslicer",
+      "target": "slicing_python_slicer_pythonslicer_extract_contracts",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "src/retrieval/slicing/python_slicer.py",
+      "source_location": "L46",
+      "weight": 1.0,
+      "source": "slicing_python_slicer_pythonslicer",
+      "target": "slicing_python_slicer_pythonslicer_extract_imports_for",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "src/retrieval/slicing/python_slicer.py",
+      "source_location": "L30",
+      "weight": 1.0,
+      "source": "slicing_python_slicer_pythonslicer",
+      "target": "slicing_python_slicer_pythonslicer_extract_symbol",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "src/retrieval/slicing/python_slicer.py",
+      "source_location": "L120",
+      "weight": 1.0,
+      "source": "slicing_python_slicer_pythonslicer",
+      "target": "slicing_python_slicer_pythonslicer_stitch_symbol",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/retrieval/slicing/python_slicer.py",
+      "source_location": "L28",
+      "weight": 1.0,
+      "source": "slicing_python_slicer_rationale_28",
+      "target": "slicing_python_slicer_pythonslicer",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/retrieval/slicing/python_slicer.py",
+      "source_location": "L44",
+      "weight": 1.0,
+      "source": "slicing_python_slicer_pythonslicer_extract_symbol",
+      "target": "slicing_python_slicer_build_slice",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/retrieval/slicing/python_slicer.py",
+      "source_location": "L40",
+      "weight": 1.0,
+      "source": "slicing_python_slicer_pythonslicer_extract_symbol",
+      "target": "slicing_python_slicer_find_symbol",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/retrieval/slicing/python_slicer.py",
+      "source_location": "L30",
+      "weight": 1.0,
+      "source": "slicing_python_slicer_pythonslicer_extract_symbol",
+      "target": "src_retrieval_slicing_python_slicer_py_str",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "return_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/retrieval/slicing/python_slicer.py",
+      "source_location": "L30",
+      "weight": 1.0,
+      "source": "slicing_python_slicer_pythonslicer_extract_symbol",
+      "target": "symbolslice",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/retrieval/slicing/python_slicer.py",
+      "source_location": "L31",
+      "weight": 1.0,
+      "source": "slicing_python_slicer_rationale_31",
+      "target": "slicing_python_slicer_pythonslicer_extract_symbol",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "generic_arg",
+      "confidence": "EXTRACTED",
+      "source_file": "src/retrieval/slicing/python_slicer.py",
+      "source_location": "L178",
+      "weight": 1.0,
+      "source": "slicing_python_slicer_build_slice",
+      "target": "src_retrieval_slicing_python_slicer_py_str",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "generic_arg",
+      "confidence": "EXTRACTED",
+      "source_file": "src/retrieval/slicing/python_slicer.py",
+      "source_location": "L200",
+      "weight": 1.0,
+      "source": "slicing_python_slicer_collect_names",
+      "target": "src_retrieval_slicing_python_slicer_py_str",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/retrieval/slicing/python_slicer.py",
+      "source_location": "L156",
+      "weight": 1.0,
+      "source": "slicing_python_slicer_find_symbol",
+      "target": "src_retrieval_slicing_python_slicer_py_str",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "return_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/retrieval/slicing/python_slicer.py",
+      "source_location": "L245",
+      "weight": 1.0,
+      "source": "slicing_python_slicer_get_docstring",
+      "target": "src_retrieval_slicing_python_slicer_py_str",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "generic_arg",
+      "confidence": "EXTRACTED",
+      "source_file": "src/retrieval/slicing/python_slicer.py",
+      "source_location": "L214",
+      "weight": 1.0,
+      "source": "slicing_python_slicer_import_exposes_used_name",
+      "target": "src_retrieval_slicing_python_slicer_py_str",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "return_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/retrieval/slicing/python_slicer.py",
+      "source_location": "L151",
+      "weight": 1.0,
+      "source": "slicing_python_slicer_node_name",
+      "target": "src_retrieval_slicing_python_slicer_py_str",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "return_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/retrieval/slicing/python_slicer.py",
+      "source_location": "L69",
+      "weight": 1.0,
+      "source": "slicing_python_slicer_pythonslicer_extract_class_context",
+      "target": "src_retrieval_slicing_python_slicer_py_str",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "return_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/retrieval/slicing/python_slicer.py",
+      "source_location": "L94",
+      "weight": 1.0,
+      "source": "slicing_python_slicer_pythonslicer_extract_contracts",
+      "target": "src_retrieval_slicing_python_slicer_py_str",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "return_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/retrieval/slicing/python_slicer.py",
+      "source_location": "L46",
+      "weight": 1.0,
+      "source": "slicing_python_slicer_pythonslicer_extract_imports_for",
+      "target": "src_retrieval_slicing_python_slicer_py_str",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "return_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/retrieval/slicing/python_slicer.py",
+      "source_location": "L120",
+      "weight": 1.0,
+      "source": "slicing_python_slicer_pythonslicer_stitch_symbol",
+      "target": "src_retrieval_slicing_python_slicer_py_str",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "generic_arg",
+      "confidence": "EXTRACTED",
+      "source_file": "src/retrieval/slicing/python_slicer.py",
+      "source_location": "L207",
+      "weight": 1.0,
+      "source": "slicing_python_slicer_walk_names",
+      "target": "src_retrieval_slicing_python_slicer_py_str",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "return_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/retrieval/slicing/python_slicer.py",
+      "source_location": "L178",
+      "weight": 1.0,
+      "source": "slicing_python_slicer_build_slice",
+      "target": "symbolslice",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/retrieval/slicing/python_slicer.py",
+      "source_location": "L120",
+      "weight": 1.0,
+      "source": "slicing_python_slicer_pythonslicer_stitch_symbol",
+      "target": "symbolslice",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/retrieval/slicing/python_slicer.py",
+      "source_location": "L55",
+      "weight": 1.0,
+      "source": "slicing_python_slicer_pythonslicer_extract_imports_for",
+      "target": "slicing_python_slicer_collect_names",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/retrieval/slicing/python_slicer.py",
+      "source_location": "L51",
+      "weight": 1.0,
+      "source": "slicing_python_slicer_pythonslicer_extract_imports_for",
+      "target": "slicing_python_slicer_find_symbol",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/retrieval/slicing/python_slicer.py",
+      "source_location": "L62",
+      "weight": 1.0,
+      "source": "slicing_python_slicer_pythonslicer_extract_imports_for",
+      "target": "slicing_python_slicer_import_exposes_used_name",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/retrieval/slicing/python_slicer.py",
+      "source_location": "L47",
+      "weight": 1.0,
+      "source": "slicing_python_slicer_rationale_47",
+      "target": "slicing_python_slicer_pythonslicer_extract_imports_for",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/retrieval/slicing/python_slicer.py",
+      "source_location": "L87",
+      "weight": 1.0,
+      "source": "slicing_python_slicer_pythonslicer_extract_class_context",
+      "target": "slicing_python_slicer_get_docstring",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/retrieval/slicing/python_slicer.py",
+      "source_location": "L85",
+      "weight": 1.0,
+      "source": "slicing_python_slicer_pythonslicer_extract_class_context",
+      "target": "slicing_python_slicer_node_name",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/retrieval/slicing/python_slicer.py",
+      "source_location": "L70",
+      "weight": 1.0,
+      "source": "slicing_python_slicer_rationale_70",
+      "target": "slicing_python_slicer_pythonslicer_extract_class_context",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/retrieval/slicing/python_slicer.py",
+      "source_location": "L103",
+      "weight": 1.0,
+      "source": "slicing_python_slicer_pythonslicer_extract_contracts",
+      "target": "slicing_python_slicer_collect_names",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/retrieval/slicing/python_slicer.py",
+      "source_location": "L99",
+      "weight": 1.0,
+      "source": "slicing_python_slicer_pythonslicer_extract_contracts",
+      "target": "slicing_python_slicer_find_symbol",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/retrieval/slicing/python_slicer.py",
+      "source_location": "L113",
+      "weight": 1.0,
+      "source": "slicing_python_slicer_pythonslicer_extract_contracts",
+      "target": "slicing_python_slicer_is_contract",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/retrieval/slicing/python_slicer.py",
+      "source_location": "L111",
+      "weight": 1.0,
+      "source": "slicing_python_slicer_pythonslicer_extract_contracts",
+      "target": "slicing_python_slicer_node_name",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/retrieval/slicing/python_slicer.py",
+      "source_location": "L95",
+      "weight": 1.0,
+      "source": "slicing_python_slicer_rationale_95",
+      "target": "slicing_python_slicer_pythonslicer_extract_contracts",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/retrieval/slicing/python_slicer.py",
+      "source_location": "L121",
+      "weight": 1.0,
+      "source": "slicing_python_slicer_rationale_121",
+      "target": "slicing_python_slicer_pythonslicer_stitch_symbol",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/retrieval/slicing/python_slicer.py",
+      "source_location": "L161",
+      "weight": 1.0,
+      "source": "slicing_python_slicer_find_symbol",
+      "target": "slicing_python_slicer_node_name",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/retrieval/slicing/python_slicer.py",
+      "source_location": "L220",
+      "weight": 1.0,
+      "source": "slicing_python_slicer_import_exposes_used_name",
+      "target": "slicing_python_slicer_node_name",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/retrieval/slicing/python_slicer.py",
+      "source_location": "L264",
+      "weight": 1.0,
+      "source": "slicing_python_slicer_is_contract",
+      "target": "slicing_python_slicer_node_name",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/retrieval/slicing/python_slicer.py",
+      "source_location": "L151",
+      "weight": 1.0,
+      "source": "slicing_python_slicer_node_name",
+      "target": "node",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/retrieval/slicing/python_slicer.py",
+      "source_location": "L152",
+      "weight": 1.0,
+      "source": "slicing_python_slicer_rationale_152",
+      "target": "slicing_python_slicer_node_name",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/retrieval/slicing/python_slicer.py",
+      "source_location": "L178",
+      "weight": 1.0,
+      "source": "slicing_python_slicer_build_slice",
+      "target": "node",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/retrieval/slicing/python_slicer.py",
+      "source_location": "L200",
+      "weight": 1.0,
+      "source": "slicing_python_slicer_collect_names",
+      "target": "node",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "return_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/retrieval/slicing/python_slicer.py",
+      "source_location": "L156",
+      "weight": 1.0,
+      "source": "slicing_python_slicer_find_symbol",
+      "target": "node",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/retrieval/slicing/python_slicer.py",
+      "source_location": "L245",
+      "weight": 1.0,
+      "source": "slicing_python_slicer_get_docstring",
+      "target": "node",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/retrieval/slicing/python_slicer.py",
+      "source_location": "L214",
+      "weight": 1.0,
+      "source": "slicing_python_slicer_import_exposes_used_name",
+      "target": "node",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/retrieval/slicing/python_slicer.py",
+      "source_location": "L259",
+      "weight": 1.0,
+      "source": "slicing_python_slicer_is_contract",
+      "target": "node",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/retrieval/slicing/python_slicer.py",
+      "source_location": "L207",
+      "weight": 1.0,
+      "source": "slicing_python_slicer_walk_names",
+      "target": "node",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/retrieval/slicing/python_slicer.py",
+      "source_location": "L157",
+      "weight": 1.0,
+      "source": "slicing_python_slicer_rationale_157",
+      "target": "slicing_python_slicer_find_symbol",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/retrieval/slicing/python_slicer.py",
+      "source_location": "L179",
+      "weight": 1.0,
+      "source": "slicing_python_slicer_rationale_179",
+      "target": "slicing_python_slicer_build_slice",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/retrieval/slicing/python_slicer.py",
+      "source_location": "L203",
+      "weight": 1.0,
+      "source": "slicing_python_slicer_collect_names",
+      "target": "slicing_python_slicer_walk_names",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/retrieval/slicing/python_slicer.py",
+      "source_location": "L201",
+      "weight": 1.0,
+      "source": "slicing_python_slicer_rationale_201",
+      "target": "slicing_python_slicer_collect_names",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "return_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/retrieval/slicing/python_slicer.py",
+      "source_location": "L214",
+      "weight": 1.0,
+      "source": "slicing_python_slicer_import_exposes_used_name",
+      "target": "src_retrieval_slicing_python_slicer_py_bool",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/retrieval/slicing/python_slicer.py",
+      "source_location": "L215",
+      "weight": 1.0,
+      "source": "slicing_python_slicer_rationale_215",
+      "target": "slicing_python_slicer_import_exposes_used_name",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "return_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/retrieval/slicing/python_slicer.py",
+      "source_location": "L259",
+      "weight": 1.0,
+      "source": "slicing_python_slicer_is_contract",
+      "target": "src_retrieval_slicing_python_slicer_py_bool",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/retrieval/slicing/python_slicer.py",
+      "source_location": "L246",
+      "weight": 1.0,
+      "source": "slicing_python_slicer_rationale_246",
+      "target": "slicing_python_slicer_get_docstring",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/retrieval/slicing/python_slicer.py",
+      "source_location": "L260",
+      "weight": 1.0,
+      "source": "slicing_python_slicer_rationale_260",
+      "target": "slicing_python_slicer_is_contract",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
       "source_file": "src/retrieval/graph/graph_query.py",
       "source_location": "L1",
       "weight": 1.0,
@@ -16904,6 +18844,17 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "src/graph/nodes/coder.py",
+      "source_location": "L107",
+      "weight": 1.0,
+      "source": "nodes_coder_build_full_file_prompt",
+      "target": "contracts_context_contract_format_repository_context_for_prompt",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/graph/nodes/coder.py",
       "source_location": "L38",
       "weight": 1.0,
       "confidence_score": 1.0,
@@ -17380,6 +19331,16 @@
       "confidence_score": 0.5,
       "source": "src_graph_nodes_file_reader_py_runcontext",
       "target": "graph_state_graphstate"
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "src/graph/nodes/file_reader.py",
+      "source_location": "L9",
+      "weight": 0.8,
+      "source": "src_graph_nodes_file_reader_py_str",
+      "target": "graph_state_graphstate",
+      "confidence_score": 0.5
     },
     {
       "relation": "imports",
@@ -18086,9 +20047,9 @@
       "source_file": "src/graph/workflow.py",
       "source_location": "L41",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "graph_workflow_rationale_41",
-      "target": "graph_workflow_route_after_semantic",
-      "confidence_score": 1.0
+      "target": "graph_workflow_route_after_semantic"
     },
     {
       "relation": "rationale_for",
@@ -18127,9 +20088,9 @@
       "source_file": "src/graph/workflow.py",
       "source_location": "L55",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "graph_workflow_rationale_55",
-      "target": "graph_workflow_route_after_planner",
-      "confidence_score": 1.0
+      "target": "graph_workflow_route_after_planner"
     },
     {
       "relation": "rationale_for",
@@ -18218,9 +20179,9 @@
       "source_file": "src/graph/workflow.py",
       "source_location": "L62",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "graph_workflow_rationale_62",
-      "target": "graph_workflow_make_graph",
-      "confidence_score": 1.0
+      "target": "graph_workflow_make_graph"
     },
     {
       "relation": "rationale_for",
@@ -19552,6 +21513,17 @@
       "relation": "calls",
       "context": "call",
       "confidence": "EXTRACTED",
+      "source_file": "src/graph/nodes/coder.py",
+      "source_location": "L215",
+      "weight": 1.0,
+      "source": "nodes_coder_coder_node",
+      "target": "nodes_support_strip_code_fences",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
       "source_file": "src/graph/nodes/reviewer.py",
       "source_location": "line 32",
       "weight": 1.0,
@@ -19579,6 +21551,17 @@
       "confidence_score": 1.0,
       "source": "nodes_support_rationale_32",
       "target": "nodes_support_strip_code_fences"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/graph/nodes/coder.py",
+      "source_location": "L9",
+      "weight": 1.0,
+      "source": "src_graph_nodes_coder_py",
+      "target": "nodes_support_strip_code_fences",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports",
@@ -19819,6 +21802,26 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/graph/nodes/coder.py",
+      "source_location": "L95",
+      "weight": 1.0,
+      "source": "src_graph_nodes_coder_py",
+      "target": "nodes_coder_build_full_file_prompt",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/graph/nodes/coder.py",
+      "source_location": "L50",
+      "weight": 1.0,
+      "source": "src_graph_nodes_coder_py",
+      "target": "nodes_coder_build_symbol_prompt",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/graph/nodes/coder.py",
       "source_location": "L15",
       "weight": 1.0,
       "confidence_score": 1.0,
@@ -19829,11 +21832,130 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/graph/nodes/coder.py",
+      "source_location": "L43",
+      "weight": 1.0,
+      "source": "src_graph_nodes_coder_py",
+      "target": "nodes_coder_format_contracts",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/graph/nodes/coder.py",
       "source_location": "L15",
       "weight": 1.0,
       "confidence_score": 1.0,
       "source": "src_graph_nodes_coder_py",
       "target": "nodes_coder_format_related_files"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/graph/nodes/coder.py",
+      "source_location": "L23",
+      "weight": 1.0,
+      "source": "src_graph_nodes_coder_py",
+      "target": "nodes_coder_format_target_symbol",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/graph/nodes/coder.py",
+      "source_location": "L61",
+      "weight": 1.0,
+      "source": "nodes_coder_build_symbol_prompt",
+      "target": "nodes_coder_format_target_symbol",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "return_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/graph/nodes/coder.py",
+      "source_location": "L23",
+      "weight": 1.0,
+      "source": "nodes_coder_format_target_symbol",
+      "target": "src_graph_nodes_coder_py_str",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "return_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/graph/nodes/coder.py",
+      "source_location": "L95",
+      "weight": 1.0,
+      "source": "nodes_coder_build_full_file_prompt",
+      "target": "src_graph_nodes_coder_py_str",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "return_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/graph/nodes/coder.py",
+      "source_location": "L50",
+      "weight": 1.0,
+      "source": "nodes_coder_build_symbol_prompt",
+      "target": "src_graph_nodes_coder_py_str",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "return_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/graph/nodes/coder.py",
+      "source_location": "L43",
+      "weight": 1.0,
+      "source": "nodes_coder_format_contracts",
+      "target": "src_graph_nodes_coder_py_str",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "return_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/graph/nodes/coder.py",
+      "source_location": "L15",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "nodes_coder_format_related_files",
+      "target": "src_graph_nodes_coder_py_str"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/graph/nodes/coder.py",
+      "source_location": "L63",
+      "weight": 1.0,
+      "source": "nodes_coder_build_symbol_prompt",
+      "target": "nodes_coder_format_contracts",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/graph/nodes/coder.py",
+      "source_location": "L181",
+      "weight": 1.0,
+      "source": "nodes_coder_coder_node",
+      "target": "nodes_coder_build_symbol_prompt",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/graph/nodes/coder.py",
+      "source_location": "L108",
+      "weight": 1.0,
+      "source": "nodes_coder_build_full_file_prompt",
+      "target": "nodes_coder_format_related_files",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -19847,15 +21969,15 @@
       "target": "nodes_coder_format_related_files"
     },
     {
-      "relation": "references",
-      "context": "return_type",
+      "relation": "calls",
+      "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "src/graph/nodes/coder.py",
-      "source_location": "L15",
+      "source_location": "L187",
       "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "nodes_coder_format_related_files",
-      "target": "src_graph_nodes_coder_py_str"
+      "source": "nodes_coder_coder_node",
+      "target": "nodes_coder_build_full_file_prompt",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
@@ -20027,6 +22149,16 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/graph/nodes/planner.py",
+      "source_location": "L139",
+      "weight": 1.0,
+      "source": "src_graph_nodes_planner_py",
+      "target": "nodes_planner_parse_planner_response",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/graph/nodes/planner.py",
       "source_location": "L28",
       "weight": 1.0,
       "confidence_score": 1.0,
@@ -20053,6 +22185,17 @@
       "confidence_score": 1.0,
       "source": "nodes_planner_planner_node",
       "target": "nodes_planner_parse_file_list"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/graph/nodes/planner.py",
+      "source_location": "L93",
+      "weight": 1.0,
+      "source": "nodes_planner_planner_node",
+      "target": "nodes_planner_parse_planner_response",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -20149,6 +22292,16 @@
       "target": "nodes_planner_resolve_paths"
     },
     {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/graph/nodes/planner.py",
+      "source_location": "L124",
+      "weight": 1.0,
+      "source": "nodes_planner_rationale_124",
+      "target": "nodes_planner_resolve_paths",
+      "confidence_score": 1.0
+    },
+    {
       "relation": "references",
       "context": "generic_arg",
       "confidence": "EXTRACTED",
@@ -20171,34 +22324,25 @@
       "target": "src_graph_nodes_planner_py_str"
     },
     {
-      "relation": "rationale_for",
+      "relation": "references",
+      "context": "generic_arg",
       "confidence": "EXTRACTED",
       "source_file": "src/graph/nodes/planner.py",
-      "source_location": "L127",
+      "source_location": "L139",
       "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "nodes_planner_rationale_127",
-      "target": "nodes_planner_parse_file_list"
+      "source": "nodes_planner_parse_planner_response",
+      "target": "src_graph_nodes_planner_py_str",
+      "confidence_score": 1.0
     },
     {
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "src/graph/nodes/planner.py",
-      "source_location": "L128",
+      "source_location": "L140",
       "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "nodes_planner_rationale_128",
-      "target": "nodes_planner_parse_file_list"
-    },
-    {
-      "relation": "rationale_for",
-      "confidence": "EXTRACTED",
-      "source_file": "src/graph/nodes/planner.py",
-      "source_location": "L131",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "nodes_planner_rationale_131",
-      "target": "nodes_planner_parse_file_list"
+      "source": "nodes_planner_rationale_140",
+      "target": "nodes_planner_parse_planner_response",
+      "confidence_score": 1.0
     },
     {
       "relation": "rationale_for",
@@ -20267,6 +22411,16 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/graph/nodes/file_reader.py",
+      "source_location": "L68",
+      "weight": 1.0,
+      "source": "src_graph_nodes_file_reader_py",
+      "target": "nodes_file_reader_build_context_slice",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/graph/nodes/file_reader.py",
       "source_location": "L14",
       "weight": 1.0,
       "confidence_score": 1.0,
@@ -20282,6 +22436,17 @@
       "weight": 1.0,
       "source": "nodes_file_reader_file_reader_node",
       "target": "concept_state_field_original_code"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/graph/nodes/file_reader.py",
+      "source_location": "L40",
+      "weight": 1.0,
+      "source": "nodes_file_reader_file_reader_node",
+      "target": "nodes_file_reader_build_context_slice",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
@@ -20316,6 +22481,16 @@
       "target": "nodes_file_reader_file_reader_node"
     },
     {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/graph/nodes/file_reader.py",
+      "source_location": "L19",
+      "weight": 1.0,
+      "source": "nodes_file_reader_rationale_19",
+      "target": "nodes_file_reader_file_reader_node",
+      "confidence_score": 1.0
+    },
+    {
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
@@ -20325,6 +22500,27 @@
       "confidence_score": 1.0,
       "source": "src_graph_nodes_node_index_py",
       "target": "nodes_file_reader_file_reader_node"
+    },
+    {
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/graph/nodes/file_reader.py",
+      "source_location": "L68",
+      "weight": 1.0,
+      "source": "nodes_file_reader_build_context_slice",
+      "target": "src_graph_nodes_file_reader_py_str",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/graph/nodes/file_reader.py",
+      "source_location": "L69",
+      "weight": 1.0,
+      "source": "nodes_file_reader_rationale_69",
+      "target": "nodes_file_reader_build_context_slice",
+      "confidence_score": 1.0
     },
     {
       "relation": "rationale_for",
@@ -20688,6 +22884,36 @@
       "confidence_score": 1.0,
       "source": "nodes_retrieval_node_rationale_194",
       "target": "nodes_retrieval_node_to_relative_ids"
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/graph/nodes/planner.py",
+      "source_location": "L127",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "nodes_planner_rationale_127",
+      "target": "nodes_planner_parse_file_list"
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/graph/nodes/planner.py",
+      "source_location": "L128",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "nodes_planner_rationale_128",
+      "target": "nodes_planner_parse_file_list"
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/graph/nodes/planner.py",
+      "source_location": "L131",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "nodes_planner_rationale_131",
+      "target": "nodes_planner_parse_file_list"
     },
     {
       "relation": "references",
@@ -21180,5 +23406,5 @@
       "source_file": "docs/CONTEXT_CONTRACT.md"
     }
   ],
-  "built_at_commit": "b405e3f5775f8d0951fbf4c430d015d3b6888069"
+  "built_at_commit": "734abd278f86486050fd9484329007e95c36da29"
 }

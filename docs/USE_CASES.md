@@ -20,6 +20,8 @@ It is called in data_processing_task.py:70.
 
 With the command to remove dead code, and without a specific target file, it broke a use case by removing a function used in other places.
 
+required specific name to modify, with correct syntax. otherwise it did not know what to do.
+
 ### Documentation
 
 Single test done, decent results so far. It seems to have successfully added docstrings to all the functions in the file, without destroying anything.
