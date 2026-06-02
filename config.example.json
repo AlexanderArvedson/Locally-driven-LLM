@@ -50,7 +50,8 @@
           "temperature": null,
           "max_tokens": null,
           "num_ctx": null,
-          "timeout_seconds": 300
+          "timeout_seconds": 300,
+          "allow_gpu": true
         },
         "coder": {
           "name": "qwen2.5-coder:7b",
@@ -60,7 +61,8 @@
           "temperature": null,
           "max_tokens": null,
           "num_ctx": null,
-          "timeout_seconds": 300
+          "timeout_seconds": 300,
+          "allow_gpu": true
         },
         "semantic_validator": {
           "name": "qwen2.5-coder:7b",
@@ -70,7 +72,8 @@
           "temperature": null,
           "max_tokens": null,
           "num_ctx": null,
-          "timeout_seconds": 300
+          "timeout_seconds": 300,
+          "allow_gpu": true
         },
         "embedding": {
           "name": "nomic-embed-text",
@@ -80,7 +83,8 @@
           "temperature": null,
           "max_tokens": null,
           "num_ctx": null,
-          "timeout_seconds": 300
+          "timeout_seconds": 300,
+          "allow_gpu": true
         }
       },
 

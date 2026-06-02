@@ -5,13 +5,26 @@ to call the Ollama chat endpoint. It keeps the surface intentionally small
 for testability. The `LLMResult` dataclass represents a small subset of
 response metadata needed by the rest of the codebase.
 
-Inference parameters (temperature, max_tokens, timeout_seconds) are accepted
-per-request so each model role can apply its own configured values.
+Inference parameters (temperature, max_tokens, timeout_seconds, num_gpu) are
+accepted per-request so each model role can apply its own configured values.
+GPU offloading is controlled via ``num_gpu``: pass ``-1`` (auto / all layers)
+to use the GPU, or ``0`` to force CPU-only inference.
 """
 
 from typing import List, Dict, Optional
 import httpx
 from dataclasses import dataclass
+
+
+def _gpu_layers(allow_gpu: bool) -> int:
+    """Return the Ollama ``num_gpu`` value for a given ``allow_gpu`` flag.
+
+    Ollama interprets ``-1`` as "offload all layers automatically" and ``0``
+    as CPU-only. There is no runtime GPU-presence check here — Ollama itself
+    gracefully falls back to CPU when no compatible GPU is found, so passing
+    ``-1`` on a CPU-only host is safe.
+    """
+    return -1 if allow_gpu else 0
 
 
 @dataclass
@@ -41,6 +54,7 @@ class OllamaClient:
         max_tokens: Optional[int] = None,
         num_ctx: Optional[int] = None,
         timeout_seconds: int = 300,
+        allow_gpu: bool = True,
     ) -> LLMResult:
         """Send a chat request to the Ollama API and return a parsed result.
 
@@ -56,11 +70,14 @@ class OllamaClient:
                 Omitted from the request when ``None``.
             timeout_seconds: Per-request wall-clock timeout. Overrides the
                 global client timeout for this call.
+            allow_gpu: When ``True``, Ollama offloads all layers to the GPU
+                (``num_gpu=-1``). When ``False``, inference runs on CPU only
+                (``num_gpu=0``).
 
         Raises:
             RuntimeError: On HTTP error responses from Ollama.
         """
-        options: dict = {}
+        options: dict = {"num_gpu": _gpu_layers(allow_gpu)}
         if temperature is not None:
             options["temperature"] = temperature
         if max_tokens is not None:

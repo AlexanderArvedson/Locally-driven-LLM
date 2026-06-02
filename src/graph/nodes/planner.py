@@ -81,6 +81,7 @@ async def planner_node(state: GraphState, run_context: RunContext) -> dict:
             max_tokens=256,
             num_ctx=model_cfg.num_ctx,
             timeout_seconds=model_cfg.timeout_seconds,
+            allow_gpu=model_cfg.allow_gpu,
         )
 
         chosen = _parse_file_list(result.message, candidates)[:max_files]

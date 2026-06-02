@@ -102,6 +102,7 @@ async def semantic_validator_node(state: GraphState, run_context: RunContext) ->
             max_tokens=model_cfg.max_tokens,
             num_ctx=model_cfg.num_ctx,
             timeout_seconds=model_cfg.timeout_seconds,
+            allow_gpu=model_cfg.allow_gpu,
         )
 
         raw = strip_code_fences(response.message)

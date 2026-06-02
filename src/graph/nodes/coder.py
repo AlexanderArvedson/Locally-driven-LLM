@@ -101,6 +101,7 @@ async def coder_node(state: GraphState, run_context: RunContext) -> dict:
             max_tokens=model_cfg.max_tokens,
             num_ctx=model_cfg.num_ctx,
             timeout_seconds=model_cfg.timeout_seconds,
+            allow_gpu=model_cfg.allow_gpu,
         )
 
         emit_success(run_context, "coder_node", {"model": model_cfg.name}, start)
