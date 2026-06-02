@@ -139,6 +139,7 @@ Each key under `models` names a role the agent uses an LLM for. All four roles m
 | `max_tokens` | integer \| null | `null` | Maximum tokens the model may generate per request. When `null` the parameter is omitted. Must be > 0 when non-null. For Ollama this maps to `num_predict`. |
 | `num_ctx` | integer \| null | `null` | Per-request context window size passed to Ollama as `num_ctx`. Overrides the model's compiled default for that request. When `null` the parameter is omitted. Must be > 0 when non-null. Has no effect for non-Ollama providers. |
 | `timeout_seconds` | integer (> 0) | `300` | Per-request wall-clock timeout in seconds. The request is cancelled and an error is raised if the model does not respond within this duration. |
+| `allow_gpu` | boolean | `true` | When `true`, Ollama offloads all model layers to the GPU (`num_gpu=-1`). When `false`, inference runs on CPU only (`num_gpu=0`). Ollama gracefully falls back to CPU if no compatible GPU is found, so `true` is safe on CPU-only hosts. |
 
 #### Roles
 
