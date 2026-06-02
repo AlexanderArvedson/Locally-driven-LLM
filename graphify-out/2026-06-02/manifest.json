@@ -20,13 +20,13 @@
     "semantic_hash": ""
   },
   "/home/alexa/projects/examensarbete/Locally-driven-langgraph-LLM/src/tools/files.py": {
-    "mtime": 1780325805.850358,
-    "ast_hash": "e22b4810c8ccd2271e7acee5c9f8ad92",
+    "mtime": 1780395313.5205805,
+    "ast_hash": "64a8646f2ef8716c880515a4fbfbfd30",
     "semantic_hash": ""
   },
   "/home/alexa/projects/examensarbete/Locally-driven-langgraph-LLM/src/tools/patches.py": {
-    "mtime": 1780325805.850358,
-    "ast_hash": "fcc676eb21f36c30990f6f8db4a900a8",
+    "mtime": 1780395505.1725624,
+    "ast_hash": "69f898d4e29a276615540aec81ca9c3b",
     "semantic_hash": ""
   },
   "/home/alexa/projects/examensarbete/Locally-driven-langgraph-LLM/src/core/ollama_client.py": {
@@ -160,8 +160,8 @@
     "semantic_hash": ""
   },
   "/home/alexa/projects/examensarbete/Locally-driven-langgraph-LLM/src/retrieval/graph/graph_query.py": {
-    "mtime": 1780391759.864922,
-    "ast_hash": "8786be513b486b8ae1b10c7a7307fcf9",
+    "mtime": 1780394105.0246978,
+    "ast_hash": "01da9bbd1732d4fa1eca83dc4b958694",
     "semantic_hash": ""
   },
   "/home/alexa/projects/examensarbete/Locally-driven-langgraph-LLM/src/retrieval/graph/__init__.py": {
@@ -190,8 +190,8 @@
     "semantic_hash": ""
   },
   "/home/alexa/projects/examensarbete/Locally-driven-langgraph-LLM/src/graph/state.py": {
-    "mtime": 1780391882.576912,
-    "ast_hash": "86b576a1ee4bf7631ded364ca6d622da",
+    "mtime": 1780394105.0246978,
+    "ast_hash": "e8612610e43bc2eef28ac5da396428fc",
     "semantic_hash": ""
   },
   "/home/alexa/projects/examensarbete/Locally-driven-langgraph-LLM/src/graph/graph_handle.py": {
@@ -200,8 +200,8 @@
     "semantic_hash": ""
   },
   "/home/alexa/projects/examensarbete/Locally-driven-langgraph-LLM/src/graph/workflow.py": {
-    "mtime": 1780392002.1089015,
-    "ast_hash": "9a7ad833d85712d8918927424add395b",
+    "mtime": 1780394105.0246978,
+    "ast_hash": "16bc7f641f141f5ed835ed0246aa4ff5",
     "semantic_hash": ""
   },
   "/home/alexa/projects/examensarbete/Locally-driven-langgraph-LLM/src/graph/nodes/branch_creator.py": {
@@ -225,8 +225,8 @@
     "semantic_hash": ""
   },
   "/home/alexa/projects/examensarbete/Locally-driven-langgraph-LLM/src/graph/nodes/file_writer.py": {
-    "mtime": 1780325805.842358,
-    "ast_hash": "4a2a17eca26d5f2cc2b31c17ba25c508",
+    "mtime": 1780395360.7085752,
+    "ast_hash": "d52e35c1aadf61556d3152af3bd3852b",
     "semantic_hash": ""
   },
   "/home/alexa/projects/examensarbete/Locally-driven-langgraph-LLM/src/graph/nodes/support.py": {
@@ -245,8 +245,8 @@
     "semantic_hash": ""
   },
   "/home/alexa/projects/examensarbete/Locally-driven-langgraph-LLM/src/graph/nodes/coder.py": {
-    "mtime": 1780392072.1528943,
-    "ast_hash": "7dcf55f302ae7b0acc96c3721f4d60d6",
+    "mtime": 1780394105.0246978,
+    "ast_hash": "f242a09fa2b201aafbada7b7bf43c54b",
     "semantic_hash": ""
   },
   "/home/alexa/projects/examensarbete/Locally-driven-langgraph-LLM/src/graph/nodes/reviewer.py": {
@@ -280,18 +280,13 @@
     "semantic_hash": ""
   },
   "/home/alexa/projects/examensarbete/Locally-driven-langgraph-LLM/src/graph/nodes/node_index.py": {
-    "mtime": 1780392093.172892,
-    "ast_hash": "477231aeb08b169d83e6414952f2f641",
+    "mtime": 1780394105.0246978,
+    "ast_hash": "87b30aa8913517dba31a4c396fcd6df5",
     "semantic_hash": ""
   },
   "/home/alexa/projects/examensarbete/Locally-driven-langgraph-LLM/src/graph/nodes/retrieval_node.py": {
     "mtime": 1780325805.842358,
     "ast_hash": "35dc34e5a24b9ee9ee28714f5e4cfbac",
-    "semantic_hash": ""
-  },
-  "/home/alexa/projects/examensarbete/Locally-driven-langgraph-LLM/src/graph/nodes/graph_analyzer.py": {
-    "mtime": 1780391857.792914,
-    "ast_hash": "75c0a132e9faaff3cfed2424be233fe5",
     "semantic_hash": ""
   }
 }
