@@ -1,16 +1,16 @@
-# Graph Report - Locally-driven-langgraph-LLM  (2026-06-03)
+# Graph Report - Locally-driven-langgraph-LLM  (2026-06-02)
 
 ## Corpus Check
-- 60 files · ~18,665 words
+- 61 files · ~18,679 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 755 nodes · 1520 edges · 58 communities (43 shown, 15 thin omitted)
-- Extraction: 84% EXTRACTED · 16% INFERRED · 0% AMBIGUOUS · INFERRED: 240 edges (avg confidence: 0.55)
+- 748 nodes · 1528 edges · 56 communities (41 shown, 15 thin omitted)
+- Extraction: 84% EXTRACTED · 16% INFERRED · 0% AMBIGUOUS · INFERRED: 245 edges (avg confidence: 0.55)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `e66b9b34`
+- Built from commit: `734abd27`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -25,7 +25,6 @@
 - [[_COMMUNITY_Community 7|Community 7]]
 - [[_COMMUNITY_Community 8|Community 8]]
 - [[_COMMUNITY_Community 9|Community 9]]
-- [[_COMMUNITY_Community 10|Community 10]]
 - [[_COMMUNITY_Community 11|Community 11]]
 - [[_COMMUNITY_Simple Repo Fixture|Simple Repo Fixture]]
 - [[_COMMUNITY_Community 13|Community 13]]
@@ -61,7 +60,6 @@
 - [[_COMMUNITY_Community 45|Community 45]]
 - [[_COMMUNITY_Community 46|Community 46]]
 - [[_COMMUNITY_Community 47|Community 47]]
-- [[_COMMUNITY_Community 48|Community 48]]
 - [[_COMMUNITY_Community 49|Community 49]]
 - [[_COMMUNITY_Community 50|Community 50]]
 - [[_COMMUNITY_Community 51|Community 51]]
@@ -73,15 +71,15 @@
 - [[_COMMUNITY_Community 61|Community 61]]
 
 ## God Nodes (most connected - your core abstractions)
-1. `GraphState` - 74 edges
-2. `RunContext` - 68 edges
-3. `get_repository_config()` - 32 edges
-4. `emit_success()` - 31 edges
-5. `emit_failure()` - 30 edges
+1. `GraphState` - 76 edges
+2. `RunContext` - 70 edges
+3. `emit_success()` - 33 edges
+4. `get_repository_config()` - 32 edges
+5. `emit_failure()` - 32 edges
 6. `RepositorySnapshot` - 27 edges
 7. `str` - 24 edges
-8. `coder_node()` - 21 edges
-9. `require_state_value()` - 20 edges
+8. `require_state_value()` - 22 edges
+9. `coder_node()` - 21 edges
 10. `retrieval_node()` - 19 edges
 
 ## Surprising Connections (you probably didn't know these)
@@ -116,15 +114,15 @@
 - **Project Development Phases (Phase 1-5)** — docs_project_plan_phase1_file_mutation_mvp, docs_project_plan_phase2_repo_awareness, docs_project_plan_phase3_async_execution, docs_project_plan_phase4_passive_analysis, docs_project_plan_phase5_advanced_maintenance [EXTRACTED 1.00]
 - **Context Contract Components (version, payload, determinism, prompt rendering)** — docs_context_contract_context_version, docs_context_contract_payload_shape, docs_context_contract_determinism_rules, docs_context_contract_prompt_rendering [EXTRACTED 1.00]
 
-## Communities (58 total, 15 thin omitted)
+## Communities (56 total, 15 thin omitted)
 
 ### Community 0 - "Graph State Data Flow"
-Cohesion: 0.22
-Nodes (7): BudgetAllocation, Context window budget allocation.  ContextBudget enforces per-file character lim, Result of a budget allocation pass., Result of a budget allocation pass.      Attributes:         selected_files: Ord, Return the largest prefix of `ranked_files` that fits the budget.          Tar, Return the largest prefix of `ranked_files` that fits within all limits., str
+Cohesion: 0.14
+Nodes (12): BudgetAllocation, ContextBudget, Context window budget allocation.  ContextBudget enforces per-file character lim, Result of a budget allocation pass., Allocates ranked files against char and file-count limits.      Limits are adv, Result of a budget allocation pass.      Attributes:         selected_files: Ord, Return the largest prefix of `ranked_files` that fits the budget.          Tar, Allocates ranked files against char-per-file, file-count, and token limits. (+4 more)
 
 ### Community 1 - "Community 1"
-Cohesion: 0.05
-Nodes (53): LanguageSlicer, Node, Parser, Symbol-level context slicing for language-agnostic code extraction., LanguageSlicer, Language-agnostic slicing Protocol.  Defines the shared contract that every lang, Everything extracted about one symbol from a source file., Extract and stitch back a named symbol within a source file. (+45 more)
+Cohesion: 0.06
+Nodes (46): LanguageSlicer, Node, Parser, Symbol-level context slicing for language-agnostic code extraction., LanguageSlicer, Language-agnostic slicing Protocol.  Defines the shared contract that every lang, Everything extracted about one symbol from a source file., Extract and stitch back a named symbol within a source file. (+38 more)
 
 ### Community 2 - "Repository Context & Graph State"
 Cohesion: 0.13
@@ -132,15 +130,15 @@ Nodes (15): ensure_runtime_dirs(), Centralized runtime artifact paths for determ
 
 ### Community 3 - "Test Infrastructure & Fixtures"
 Cohesion: 0.06
-Nodes (48): ContextAssemblerProtocol, Context assembler — builds bounded ContextPackage from ranked files.  ContextAss, Interface for bounded context assembly., Build and return a bounded ContextPackage.          Must be deterministic and mu, ContextPackage, DependencyEdge, FileNode, Core data types shared across the retrieval pipeline.  Defines the immutable sna (+40 more)
+Nodes (44): ContextAssemblerProtocol, Context assembler — builds bounded ContextPackage from ranked files.  ContextAss, Interface for bounded context assembly., Build and return a bounded ContextPackage.          Must be deterministic and mu, DependencyEdge, FileNode, Core data types shared across the retrieval pipeline.  Defines the immutable sna, Represents a top-level symbol extracted from a file. (+36 more)
 
 ### Community 4 - "Design Contracts & Project Plan"
 Cohesion: 0.50
 Nodes (4): Convert absolute paths to repo-relative strings when possible., Convert absolute paths to repo-relative strings when possible., Convert absolute paths to repo-relative strings when possible., _to_relative_ids()
 
 ### Community 5 - "LLM Pipeline & Sandbox"
-Cohesion: 0.10
-Nodes (21): _gpu_layers(), LLMResult, OllamaClient, Thin async client wrapper for Ollama HTTP API.  This module provides a minimal `, Close the underlying HTTP client connection pool., Return the Ollama ``num_gpu`` value for a given ``allow_gpu`` flag.      Ollama, Create a new `OllamaClient`.          Args:             base_url: Base URL of, Create a new `OllamaClient`.          Args:             base_url: Base URL of (+13 more)
+Cohesion: 0.14
+Nodes (15): _gpu_layers(), LLMResult, Thin async client wrapper for Ollama HTTP API.  This module provides a minimal `, Return the Ollama ``num_gpu`` value for a given ``allow_gpu`` flag.      Ollama, Create a new `OllamaClient`.          Args:             base_url: Base URL of, Create a new `OllamaClient`.          Args:             base_url: Base URL of, Send a chat request to the Ollama API and return a parsed result.          The, Create a new `OllamaClient`.          Args:             base_url: Base URL of th (+7 more)
 
 ### Community 6 - "Repository Indexer Protocol"
 Cohesion: 0.15
@@ -151,44 +149,40 @@ Cohesion: 0.09
 Nodes (39): CompletedProcess, _auth_url(), branch_exists(), build_branch_name(), clone_if_missing(), commit_file(), create_task_branch(), get_diff_stat() (+31 more)
 
 ### Community 9 - "Community 9"
-Cohesion: 0.11
-Nodes (36): GraphHandle, Immutable reference to a resolved, validated knowledge graph.      Produced excl, GraphConfig, GraphHandle, _build_graph(), _compute_repo_id(), _get_head_sha(), graph_resolver_node() (+28 more)
-
-### Community 10 - "Community 10"
-Cohesion: 0.17
-Nodes (12): get_graph_config(), get_system_context_path(), Return the graph lifecycle config for the repository matching ``repo_path``., Return the expanded absolute path for the system-level context store.      Res, Return the graph lifecycle config for the repository matching ``repo_path``., Return the expanded absolute path for the system-level context store.      Res, Return the full ModelConfig for the semantic validator role.      Prefers models, Return the expanded absolute path for the system-level context store.      Res (+4 more)
+Cohesion: 0.07
+Nodes (48): GraphHandle, Immutable reference to a resolved, validated knowledge graph.      Produced excl, GraphConfig, GraphHandle, _build_graph(), _compute_repo_id(), _get_head_sha(), graph_resolver_node() (+40 more)
 
 ### Community 12 - "Simple Repo Fixture"
-Cohesion: 0.19
-Nodes (18): AppConfig, get_coder_model(), get_coder_model_config(), get_ollama_base_url(), get_primary_model(), get_semantic_model_config(), ModelConfig, str (+10 more)
+Cohesion: 0.14
+Nodes (24): AppConfig, get_coder_model(), get_coder_model_config(), get_ollama_base_url(), get_primary_model(), get_semantic_model(), get_semantic_model_config(), ModelConfig (+16 more)
 
 ### Community 19 - "Community 19"
 Cohesion: 0.12
-Nodes (20): bool, diff_generator_node(), Compute a unified diff between the original and generated code.      Expected st, Static validator node.  Replaces the former reviewer node. Responsibilities are, Validate generated code for structural correctness.      Runs Python syntax vali, static_validator_node(), Shared helpers for graph node implementations., Return a required value from `state` or raise ValueError. (+12 more)
+Nodes (23): bool, OllamaClient, diff_generator_node(), Compute a unified diff between the original and generated code.      Expected st, Static validator node.  Replaces the former reviewer node. Responsibilities are, Validate generated code for structural correctness.      Runs Python syntax vali, static_validator_node(), Shared helpers for graph node implementations. (+15 more)
 
 ### Community 20 - "Community 20"
 Cohesion: 0.38
 Nodes (6): create_pull_request(), _parse_owner_repo(), GitHub pull request creation via the REST API., Extract (owner, repo) from a GitHub remote URL., Create a GitHub pull request and return its HTML URL.      Args:         remote_, str
 
 ### Community 26 - "Community 26"
-Cohesion: 0.18
-Nodes (12): GraphState: original_code field, _build_context_slice(), file_reader_node(), Read the target file (or select one) and return its contents.      Expected stat, Read the target file and, when a target symbol is set, build a context slice., Assemble the context dict for the coder's focused prompt., Pick the first Python file in a repo root deterministically., Pick the first Python file in a repo root deterministically. (+4 more)
+Cohesion: 0.25
+Nodes (8): _build_context_slice(), file_reader_node(), Read the target file (or select one) and return its contents.      Expected stat, Read the target file and, when a target symbol is set, build a context slice., Assemble the context dict for the coder's focused prompt., GraphState, RunContext, str
 
 ### Community 27 - "Community 27"
 Cohesion: 0.29
 Nodes (7): get_semantic_threshold(), float, Return the minimum task_alignment_score required for semantic_validator to pass., Return the minimum task_alignment_score required for semantic_validator to pass., Return the minimum task_alignment_score required for semantic_validator to pass., Return the minimum task_alignment_score required for semantic_validator to pass., Return the minimum task_alignment_score required for semantic_validator to pass.
 
 ### Community 28 - "Community 28"
-Cohesion: 0.16
-Nodes (18): branch_creator_node(), Branch creator node.  Creates (or checks out) a task branch in the target reposi, Create a task branch in the target repository.      Reads ``repo_path`` and ``ta, Planner node — selects which file(s) to modify from retrieval candidates.  When, emit_event(), emit_failure(), emit_success(), Small helper utilities for observability event emission.  Provides helpers to em (+10 more)
+Cohesion: 0.17
+Nodes (17): branch_creator_node(), Branch creator node.  Creates (or checks out) a task branch in the target reposi, Create a task branch in the target repository.      Reads ``repo_path`` and ``ta, emit_event(), emit_failure(), emit_success(), Small helper utilities for observability event emission.  Provides helpers to em, Emit a single observability event with consistent shape.      Args:         r (+9 more)
 
 ### Community 29 - "Community 29"
-Cohesion: 0.19
-Nodes (15): ContextAssembler, Deterministic, capped context assembler that consumes a snapshot.      Returns a, ContextBudget, Allocates ranked files against char and file-count limits.      Limits are adv, Allocates ranked files against char-per-file, file-count, and token limits., Retrieval node — orchestrates the graph-backed retrieval pipeline.  Pipeline sta, Build repository context for the current task and target file.      Retrieval, Build repository context for the current task and target file.      Retrieval st (+7 more)
+Cohesion: 0.16
+Nodes (21): ContextAssembler, Deterministic, capped context assembler that consumes a snapshot.      Returns a, _heuristic_rank(), Retrieval node — orchestrates the graph-backed retrieval pipeline.  Pipeline sta, Fallback ranking when graph is unavailable., Fallback ranking when graph is unavailable., Read bounded file contents for the coder prompt, excluding target file., Read bounded file contents for the coder prompt, excluding target file. (+13 more)
 
 ### Community 30 - "Community 30"
-Cohesion: 0.18
-Nodes (11): _build_semantic_feedback(), Semantic validator node.  Evaluates whether the generated code correctly satisfi, Format the LLM evaluation into a concise string for the coder prompt., Format the LLM evaluation into a concise string for the coder prompt., Evaluate task-intent alignment of the generated code using an LLM judge.      Re, Evaluate task-intent alignment and regression risk of the generated change., semantic_validator_node(), float (+3 more)
+Cohesion: 0.14
+Nodes (17): _build_semantic_feedback(), Semantic validator node.  Evaluates whether the generated code correctly satisfi, Format the LLM evaluation into a concise string for the coder prompt., Format the LLM evaluation into a concise string for the coder prompt., Evaluate task-intent alignment of the generated code using an LLM judge.      Re, Evaluate task-intent alignment and regression risk of the generated change., semantic_validator_node(), new() (+9 more)
 
 ### Community 31 - "Community 31"
 Cohesion: 0.23
@@ -199,8 +193,8 @@ Cohesion: 0.29
 Nodes (7): GraphStateFactory, Build the initial GraphState from a validated TaskRequest., Converts an external TaskRequest into the internal GraphState.      This is the, External request contract for submitting a task to the workflow.      Separates, TaskRequest, GraphState, TaskRequest
 
 ### Community 33 - "Community 33"
-Cohesion: 0.11
-Nodes (27): GraphState: review_passed field, GraphState: verification_passed field, make_graph(), Graph construction helpers for the file-edit workflow.  This module builds a `St, Decide the next graph node after the `reviewer` (static_validator) node.      -, Decide the next graph node after the `semantic_validator` node.      - If semant, Terminate early when the planner found no file to modify., Decide the next graph node after the `semantic_validator` node.      - If semant (+19 more)
+Cohesion: 0.12
+Nodes (23): GraphState: review_passed field, GraphState: verification_passed field, make_graph(), Graph construction helpers for the file-edit workflow.  This module builds a `St, Decide the next graph node after the `reviewer` (static_validator) node.      -, Decide the next graph node after the `semantic_validator` node.      - If semant, Terminate early when the planner found no file to modify., Decide the next graph node after the `semantic_validator` node.      - If semant (+15 more)
 
 ### Community 36 - "Community 36"
 Cohesion: 0.20
@@ -211,20 +205,20 @@ Cohesion: 0.18
 Nodes (9): Sandbox Subprocess Execution Pattern, int, str, int, str, Helper API to run untrusted/generated Python code in a subprocess sandbox.  This, Run `code` in a subprocess with limits.      Args:         code: Python source t, run_code_in_sandbox() (+1 more)
 
 ### Community 39 - "Community 39"
-Cohesion: 0.08
-Nodes (32): build_repository_context_payload(), _dedupe_preserve_order(), DependencySummaryItem, format_repository_context_for_prompt(), _normalize_path(), Versioned contract for retrieval -> coder repository context payloads.  This mod, Validate structural invariants for a repository context payload., Render repository context in a fixed, deterministic prompt section. (+24 more)
+Cohesion: 0.13
+Nodes (18): _parse_file_list(), _parse_planner_response(), planner_node(), Planner node — selects which file(s) to modify from retrieval candidates.  When, Convert repo-relative paths to absolute paths using repo_path as the root., Convert repo-relative paths to absolute paths using repo_path as the root., Convert repo-relative paths to absolute paths using repo_path as the root., Convert repo-relative paths to absolute paths using repo_path as the root. (+10 more)
 
 ### Community 40 - "Community 40"
-Cohesion: 0.17
-Nodes (15): build_ast_graph(), graphify_indexer_node(), Graphify indexer — internal graph-building utility.  Provides `build_ast_graph`,, Run AST-only graphify extraction and write graph.json to graph_dir., Build or refresh the graphify knowledge graph for the target repository., Run AST-only graphify extraction and write graph.json to graph_dir., new(), RunContext helper for observability.  This module provides a minimal `RunContext (+7 more)
+Cohesion: 0.16
+Nodes (16): GraphState, Shared state passed between LangGraph nodes.      This state represents a sing, Shared state passed between LangGraph nodes.      This state represents a sing, Shared state passed between LangGraph nodes.      This state represents a single, build_ast_graph(), graphify_indexer_node(), Graphify indexer — internal graph-building utility.  Provides `build_ast_graph`,, Run AST-only graphify extraction and write graph.json to graph_dir. (+8 more)
 
 ### Community 41 - "Community 41"
-Cohesion: 0.13
-Nodes (16): RepositoryContextPayload, Output contract from the retrieval pipeline, stored in GraphState.      Downstre, Input contract passed from the scheduler layer to the retrieval pipeline., RetrievalRequest, RetrievalResult, GraphState, Shared state passed between LangGraph nodes.      This state represents a sing, Shared state passed between LangGraph nodes.      This state represents a sing (+8 more)
+Cohesion: 0.29
+Nodes (6): git_committer_node(), Git committer node.  Stages the modified target file and creates a git commit on, Stage and commit the modified target file.      Expected state keys:     - ``, Stage and commit the modified target file.      Expected state keys:     - ``rep, GraphState, RunContext
 
 ### Community 42 - "Community 42"
-Cohesion: 0.20
-Nodes (10): get_repository_config(), Return the configured repository that best matches `repo_path`.      If no repo, Return the configured repository that best matches `repo_path`.      If no rep, Return the configured repository that best matches `repo_path`.      If no repo, Return the configured repository that best matches `repo_path`.      If no rep, Return the configured repository that best matches `repo_path`.      If no rep, Return the configured repository that best matches `repo_path`.      If no rep, Return the configured repository that best matches `repo_path`.      If no rep (+2 more)
+Cohesion: 0.15
+Nodes (13): int, get_max_iterations(), get_repository_config(), int, Return the configured repository that best matches `repo_path`.      If no repo, Return the configured repository that best matches `repo_path`.      If no rep, Return the configured repository that best matches `repo_path`.      If no repo, Return the configured repository that best matches `repo_path`.      If no rep (+5 more)
 
 ### Community 43 - "Community 43"
 Cohesion: 0.27
@@ -246,10 +240,6 @@ Nodes (11): get_planner_config(), PlannerConfig, Global system-level settings sh
 Cohesion: 0.11
 Nodes (24): bytes, bool, Path, str, str, atomic_write_bytes(), _detect_crlf(), Return True if the file contains CRLF line endings. (+16 more)
 
-### Community 48 - "Community 48"
-Cohesion: 0.22
-Nodes (9): _heuristic_rank(), Fallback ranking when graph is unavailable., Fallback ranking when graph is unavailable., Read bounded file contents for the coder prompt, excluding target file., Read bounded file contents for the coder prompt, excluding target file., Fallback ranking when graph is unavailable., Read bounded file contents for the coder prompt, excluding target file., _read_related_files() (+1 more)
-
 ### Community 49 - "Community 49"
 Cohesion: 0.29
 Nodes (6): WorkflowExecutor as Single Orchestration Boundary, Executor that runs a workflow graph for a given `Task`.      The executor acce, Executor that runs a workflow graph for a given `Task`.      The executor accept, WorkflowExecutor, TaskQueue, WorkflowExecutor
@@ -259,8 +249,8 @@ Cohesion: 0.29
 Nodes (7): _load_graph_config(), Parse the ``graph`` sub-object from a repository config entry.      Defaults t, Parse the ``graph`` sub-object from a repository config entry.      Defaults t, Parse the ``graph`` sub-object from a repository config entry.      Defaults t, Parse the ``graph`` sub-object from a repository config entry.      Defaults t, Parse the ``graph`` sub-object from a repository config entry.      Defaults t, Parse the ``graph`` sub-object from a repository config entry.      Defaults to
 
 ### Community 52 - "Community 52"
-Cohesion: 0.33
-Nodes (6): get_semantic_model(), Return the model name for the semantic validator.      Prefers models["semanti, Return the model name for the semantic validator.      Prefers models["semanti, Return the model name for the semantic validator.      Prefers models["semanti, Return the model name for the semantic validator.      Prefers models["semanti, Return the model name for the semantic validator.      Prefers models["semantic_
+Cohesion: 0.40
+Nodes (4): Close the underlying HTTP client connection pool., Close the underlying HTTP client connection pool., Close the underlying HTTP client connection pool., Close the underlying HTTP client connection pool.
 
 ### Community 53 - "Community 53"
 Cohesion: 0.40
@@ -271,36 +261,36 @@ Cohesion: 0.29
 Nodes (7): _load_system_config(), Parse the top-level ``system`` block from config.json.      Falls back to ``"~, Parse the top-level ``system`` block from config.json.      Falls back to ``"~, Parse the top-level ``system`` block from config.json.      Falls back to ``"~, Parse the top-level ``system`` block from config.json.      Falls back to ``"~, Parse the top-level ``system`` block from config.json.      Falls back to ``"~, Parse the top-level ``system`` block from config.json.      Falls back to ``"~/.
 
 ### Community 57 - "Community 57"
-Cohesion: 0.25
-Nodes (14): GraphState: repository_context field, OllamaClient.chat, _build_full_file_prompt(), _build_symbol_prompt(), coder_node(), _deindent(), _format_contracts(), _format_related_files() (+6 more)
+Cohesion: 0.10
+Nodes (33): GraphState: original_code field, GraphState: repository_context field, build_repository_context_payload(), _dedupe_preserve_order(), DependencySummaryItem, format_repository_context_for_prompt(), _normalize_path(), Versioned contract for retrieval -> coder repository context payloads.  This mod (+25 more)
 
 ### Community 58 - "Community 58"
-Cohesion: 0.25
-Nodes (7): GraphState: generated_code field, file_writer_node(), Write generated content to disk or apply a unified diff.      Expected state inp, Write generated content to disk or apply a unified diff.      Expected state inp, Aggregate export surface for graph nodes., GraphState, RunContext
+Cohesion: 0.18
+Nodes (11): GraphState: generated_code field, file_writer_node(), Write generated content to disk or apply a unified diff.      Expected state inp, Write generated content to disk or apply a unified diff.      Expected state inp, Aggregate export surface for graph nodes., Perform lightweight review checks on generated code.      Performs the following, reviewer_node(), GraphState (+3 more)
 
 ### Community 61 - "Community 61"
 Cohesion: 0.22
 Nodes (8): GraphQuery, Graph query utilities for the retrieval pipeline.  GraphQuery loads graph.json o, Loads graph.json once and exposes keyword + dependency queries.      Constructed, GraphQuery, Graph-aware file ranker.  GraphRanker uses a GraphQuery instance to rank file ca, Return an ordered list of file paths relevant to `task`.          Pipeline:, int, str
 
 ## Knowledge Gaps
-- **29 isolated node(s):** `float`, `str`, `int`, `str`, `int` (+24 more)
+- **28 isolated node(s):** `float`, `str`, `int`, `str`, `int` (+23 more)
   These have ≤1 connection - possible missing edges or undocumented components.
 - **15 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `GraphState` connect `Community 41` to `Community 32`, `Community 33`, `Repository Context & Graph State`, `Community 58`, `LLM Pipeline & Sandbox`, `Community 39`, `Community 40`, `Community 9`, `Community 48`, `Community 49`, `Community 50`, `Community 19`, `Community 57`, `Community 26`, `Community 28`, `Community 29`, `Community 30`?**
-  _High betweenness centrality (0.228) - this node is a cross-community bridge._
-- **Why does `RunContext` connect `Community 40` to `Community 33`, `Repository Context & Graph State`, `Community 58`, `Community 39`, `Community 9`, `Community 41`, `Community 48`, `Community 49`, `Community 50`, `Community 19`, `Community 57`, `Community 26`, `Community 28`, `Community 29`, `Community 30`?**
+- **Why does `GraphState` connect `Community 40` to `Community 32`, `Community 33`, `Repository Context & Graph State`, `Community 58`, `Community 39`, `Community 9`, `Community 41`, `Community 49`, `Community 50`, `Community 19`, `Community 57`, `Community 26`, `Community 28`, `Community 29`, `Community 30`?**
+  _High betweenness centrality (0.227) - this node is a cross-community bridge._
+- **Why does `RunContext` connect `Community 30` to `Community 33`, `Repository Context & Graph State`, `Community 58`, `Community 39`, `Community 40`, `Community 9`, `Community 41`, `Community 49`, `Community 50`, `Community 19`, `Community 57`, `Community 26`, `Community 28`, `Community 29`?**
   _High betweenness centrality (0.140) - this node is a cross-community bridge._
 - **Why does `SymbolSlice` connect `Community 1` to `Community 57`, `Community 26`?**
-  _High betweenness centrality (0.109) - this node is a cross-community bridge._
-- **Are the 52 inferred relationships involving `GraphState` (e.g. with `RepositoryContextPayload` and `RetrievalResult`) actually correct?**
-  _`GraphState` has 52 INFERRED edges - model-reasoned connections that need verification._
-- **Are the 46 inferred relationships involving `RunContext` (e.g. with `GraphConfig` and `GraphHandle`) actually correct?**
-  _`RunContext` has 46 INFERRED edges - model-reasoned connections that need verification._
-- **Are the 3 inferred relationships involving `emit_success()` (e.g. with `coder_node()` and `file_reader_node()`) actually correct?**
-  _`emit_success()` has 3 INFERRED edges - model-reasoned connections that need verification._
-- **Are the 3 inferred relationships involving `emit_failure()` (e.g. with `coder_node()` and `file_reader_node()`) actually correct?**
-  _`emit_failure()` has 3 INFERRED edges - model-reasoned connections that need verification._
+  _High betweenness centrality (0.096) - this node is a cross-community bridge._
+- **Are the 53 inferred relationships involving `GraphState` (e.g. with `RepositoryContextPayload` and `RetrievalResult`) actually correct?**
+  _`GraphState` has 53 INFERRED edges - model-reasoned connections that need verification._
+- **Are the 47 inferred relationships involving `RunContext` (e.g. with `GraphConfig` and `GraphHandle`) actually correct?**
+  _`RunContext` has 47 INFERRED edges - model-reasoned connections that need verification._
+- **Are the 4 inferred relationships involving `emit_success()` (e.g. with `coder_node()` and `file_reader_node()`) actually correct?**
+  _`emit_success()` has 4 INFERRED edges - model-reasoned connections that need verification._
+- **Are the 4 inferred relationships involving `emit_failure()` (e.g. with `coder_node()` and `file_reader_node()`) actually correct?**
+  _`emit_failure()` has 4 INFERRED edges - model-reasoned connections that need verification._
