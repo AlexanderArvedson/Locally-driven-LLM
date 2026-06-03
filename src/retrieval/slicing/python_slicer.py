@@ -135,9 +135,20 @@ class PythonSlicer:
         if mod_lines:
             first = mod_lines[0]
             actual_indent = len(first) - len(first.lstrip())
-            if actual_indent < sl.indent:
-                pad = " " * (sl.indent - actual_indent)
-                mod_lines = [pad + ln for ln in mod_lines]
+            if actual_indent != sl.indent:
+                # Normalise: strip the detected outer indent then re-apply the expected one.
+                shift = sl.indent - actual_indent
+                if shift > 0:
+                    # LLM under-indented — add missing spaces to every line.
+                    pad = " " * shift
+                    mod_lines = [pad + ln for ln in mod_lines]
+                else:
+                    # LLM over-indented — strip the excess from lines that have it.
+                    excess = -shift
+                    mod_lines = [
+                        ln[min(excess, len(ln) - len(ln.lstrip())):] if ln.strip() else ln
+                        for ln in mod_lines
+                    ]
 
         prefix = lines[: sl.start_line - 1]
         suffix = lines[sl.end_line :]

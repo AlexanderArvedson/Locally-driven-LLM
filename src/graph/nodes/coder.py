@@ -20,6 +20,20 @@ logger = logging.getLogger(__name__)
 # Symbol-mode prompt helpers
 # ---------------------------------------------------------------------------
 
+def _deindent(source: str, indent: int) -> str:
+    """Strip `indent` leading spaces from every line that has them."""
+    if indent == 0:
+        return source
+    pad = " " * indent
+    result = []
+    for line in source.splitlines(keepends=True):
+        if line.startswith(pad):
+            result.append(line[indent:])
+        else:
+            result.append(line)
+    return "".join(result)
+
+
 def _format_target_symbol(ctx: dict, target_file: str) -> str:
     fname = target_file.split("/")[-1] if target_file else ""
     parts = [f"[TARGET SYMBOL — {fname}]"]
@@ -34,8 +48,12 @@ def _format_target_symbol(ctx: dict, target_file: str) -> str:
 
     symbol = ctx.get("target_symbol", "")
     src = ctx.get("target_source", "")
+    indent = ctx.get("symbol_indent", 0)
     if src:
-        parts.append(f"--- Symbol: {symbol} ---\n{src.rstrip()}")
+        # De-indent to 0 so the model reasons about clean code. stitch_symbol
+        # re-applies the original indentation on the way back.
+        display_src = _deindent(src, indent)
+        parts.append(f"--- Symbol: {symbol} ---\n{display_src.rstrip()}")
 
     return "\n\n".join(parts)
 
@@ -71,7 +89,9 @@ def _build_symbol_prompt(
         f"Modify the [{symbol}] symbol shown above to complete the task.\n"
         "Return ONLY the modified symbol — the complete definition including "
         "any decorators, the def/class header, docstring, and body.\n"
-        f"Preserve the original indentation exactly (the symbol lives in {fname}).\n"
+        "Return the symbol with NO leading indentation on the def/class line (start at column 0).\n"
+        "Use standard 4-space indentation for the body. The stitcher will re-apply the "
+        f"correct file-level indent ({fname}) automatically.\n"
         "Do NOT include class definitions, other methods, imports, or any surrounding code.\n"
         "Do NOT wrap output in markdown code fences.\n"
         "Output should be ONLY the symbol source, ready to be spliced back into the file."
