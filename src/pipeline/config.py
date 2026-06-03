@@ -1,0 +1,80 @@
+"""Pipeline configuration loader.
+
+Reads the top-level ``neo4j`` block and the per-repository ``pipeline`` block
+from config.json, assembling a ``PipelineConfig`` that combines pipeline-specific
+settings with the existing repository model/path fields.
+
+Intentionally does not import from ``src/config_loader.py`` or any other
+subsystem — the pipeline is self-contained.
+"""
+
+from __future__ import annotations
+
+import json
+from pathlib import Path
+
+from src.pipeline.contracts import Neo4jConfig, PipelineConfig, SimilarityConfig
+
+
+def load_pipeline_config(config_path: str | Path = "config.json", repo_name: str | None = None) -> PipelineConfig:
+    """Load pipeline configuration for a repository.
+
+    Args:
+        config_path: Path to the JSON config file.
+        repo_name: Name of the repository entry to use. When ``None``, the
+            first repository in the list is used.
+
+    Raises:
+        FileNotFoundError: If the config file does not exist.
+        KeyError: If required fields are missing.
+        ValueError: If no matching repository is found.
+    """
+    path = Path(config_path)
+    if not path.exists():
+        raise FileNotFoundError(f"Config file not found: {path}")
+
+    with path.open() as f:
+        raw = json.load(f)
+
+    repos: list[dict] = raw.get("repositories", [])
+    if not repos:
+        raise ValueError("No repositories configured in config.json")
+
+    if repo_name is not None:
+        repo = next((r for r in repos if r.get("name") == repo_name), None)
+        if repo is None:
+            raise ValueError(f"Repository '{repo_name}' not found in config.json")
+    else:
+        repo = repos[0]
+
+    models = repo["models"]
+    embed_model = models["embedding"]
+    chat_model = models["chat"]
+
+    pipeline_block = repo.get("pipeline", {})
+    sim_block = pipeline_block.get("similarity", {})
+
+    neo4j_block = raw["neo4j"]
+
+    return PipelineConfig(
+        repo_path=repo["local_path"],
+        repo_name=repo["name"],
+        supported_languages=pipeline_block.get("supported_languages", ["python"]),
+        ignore_paths=pipeline_block.get("ignore_paths", [".venv", "node_modules", "__pycache__", ".git"]),
+        embedding_model=embed_model["name"],
+        embedding_url=embed_model.get("url", "http://localhost:11434"),
+        allow_gpu=embed_model.get("allow_gpu", True),
+        chat_model=chat_model["name"],
+        similarity=SimilarityConfig(
+            threshold=sim_block.get("threshold", 0.82),
+            top_n=sim_block.get("top_n", 20),
+            code_weight=sim_block.get("code_weight", 0.70),
+            description_weight=sim_block.get("description_weight", 0.30),
+        ),
+        neo4j=Neo4jConfig(
+            uri=neo4j_block["uri"],
+            database=neo4j_block.get("database", "neo4j"),
+            username=neo4j_block["username"],
+            password=neo4j_block["password"],
+        ),
+    )
