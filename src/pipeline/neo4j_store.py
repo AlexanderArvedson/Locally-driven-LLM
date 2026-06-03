@@ -31,7 +31,7 @@ def _ddl(template: str, **kwargs: int) -> LiteralString:
 # Cypher statements
 # ---------------------------------------------------------------------------
 
-_CONSTRAINT = """
+_CONSTRAINT: LiteralString = """
 CREATE CONSTRAINT function_id_unique IF NOT EXISTS
 FOR (f:Function) REQUIRE f.id IS UNIQUE
 """
@@ -40,19 +40,19 @@ _INDEX_REPO = "CREATE INDEX function_repo_index IF NOT EXISTS FOR (f:Function) O
 _INDEX_FILE = "CREATE INDEX function_file_path_index IF NOT EXISTS FOR (f:Function) ON (f.filePath)"
 _INDEX_NAME = "CREATE INDEX function_name_index IF NOT EXISTS FOR (f:Function) ON (f.functionName)"
 
-_VECTOR_INDEX_CODE = """
+_VECTOR_INDEX_CODE: LiteralString = """
 CREATE VECTOR INDEX function_code_embedding_index IF NOT EXISTS
 FOR (f:Function) ON (f.codeEmbedding)
 OPTIONS {{ indexConfig: {{ `vector.dimensions`: {dim}, `vector.similarity_function`: 'cosine' }} }}
 """
 
-_VECTOR_INDEX_DESC = """
+_VECTOR_INDEX_DESC: LiteralString = """
 CREATE VECTOR INDEX function_desc_embedding_index IF NOT EXISTS
 FOR (f:Function) ON (f.descriptionEmbedding)
 OPTIONS {{ indexConfig: {{ `vector.dimensions`: {dim}, `vector.similarity_function`: 'cosine' }} }}
 """
 
-_UPSERT_FUNCTION = """
+_UPSERT_FUNCTION: LiteralString = """
 UNWIND $records AS rec
 MERGE (f:Function {id: rec.id})
 SET
@@ -75,26 +75,26 @@ SET
   f.createdAt             = CASE WHEN f.createdAt IS NULL THEN rec.createdAt ELSE f.createdAt END
 """
 
-_GET_HASHES = """
+_GET_HASHES: LiteralString = """
 MATCH (f:Function {repo: $repo})
 WHERE f.isDeleted = false
 RETURN f.id AS id, f.sourceHash AS sourceHash
 """
 
-_SOFT_DELETE = """
+_SOFT_DELETE: LiteralString = """
 MATCH (f:Function {repo: $repo})
 WHERE NOT f.id IN $seen_ids AND f.isDeleted = false
 SET f.isDeleted = true
 RETURN count(f) AS deleted
 """
 
-_GET_ALL_EMBEDDINGS = """
+_GET_ALL_EMBEDDINGS: LiteralString = """
 MATCH (f:Function {repo: $repo})
 WHERE f.isDeleted = false AND f.codeEmbedding IS NOT NULL
 RETURN f.id AS id, f.codeEmbedding AS codeEmbedding, f.descriptionEmbedding AS descriptionEmbedding
 """
 
-_UPSERT_EDGE = """
+_UPSERT_EDGE: LiteralString = """
 UNWIND $edges AS edge
 MATCH (a:Function {id: edge.sourceId})
 MATCH (b:Function {id: edge.targetId})
