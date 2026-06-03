@@ -23,6 +23,7 @@ def _parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Function embedding and similarity pipeline")
     parser.add_argument("--config", default="config.json", help="Path to config.json")
     parser.add_argument("--repo", default=None, help="Repository name to process")
+    parser.add_argument("--path", default=None, help="Override repo_path (e.g. a subfolder for quick testing)")
     parser.add_argument(
         "--dry-run",
         action="store_true",
@@ -38,6 +39,10 @@ def _parse_args() -> argparse.Namespace:
 
 async def _run(args: argparse.Namespace) -> int:
     config = load_pipeline_config(config_path=args.config, repo_name=args.repo)
+
+    if args.path:
+        from dataclasses import replace
+        config = replace(config, repo_path=args.path)
 
     print(f"Repository : {config.repo_name}")
     print(f"Path       : {config.repo_path}")
