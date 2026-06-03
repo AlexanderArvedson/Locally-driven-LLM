@@ -24,9 +24,10 @@ from src.pipeline.similarity import compute_similarity_edges
 class EmbeddingPipeline:
     """Orchestrates all pipeline stages for a single repository."""
 
-    def __init__(self, config: PipelineConfig, dry_run: bool = False) -> None:
+    def __init__(self, config: PipelineConfig, dry_run: bool = False, skip_descriptions: bool = False) -> None:
         self._config = config
         self._dry_run = dry_run
+        self._skip_descriptions = skip_descriptions
         self._client = OllamaClient(base_url=config.embedding_url)
         self._store = Neo4jStore(config.neo4j)
         self._extractor = FunctionExtractor(config)
@@ -87,13 +88,16 @@ class EmbeddingPipeline:
             logger.info("Embedding source code for {} functions...", len(changed))
             await self._embedder.embed_code_batch(changed)
 
-            logger.info("Generating descriptions for {} functions...", len(changed))
-            await self._describer.describe_batch(changed)
+            if not self._skip_descriptions:
+                logger.info("Generating descriptions for {} functions...", len(changed))
+                await self._describer.describe_batch(changed)
 
-            described = [r for r in changed if r.description]
-            if described:
-                logger.info("Embedding descriptions for {} functions...", len(described))
-                await self._embedder.embed_description_batch(described)
+                described = [r for r in changed if r.description]
+                if described:
+                    logger.info("Embedding descriptions for {} functions...", len(described))
+                    await self._embedder.embed_description_batch(described)
+            else:
+                logger.info("Skipping description generation (--no-descriptions)")
 
         # Update lastSeenAt for all records (including unchanged ones).
         now = datetime.now(timezone.utc).isoformat()

@@ -28,6 +28,11 @@ def _parse_args() -> argparse.Namespace:
         action="store_true",
         help="Extract and embed but skip Neo4j writes",
     )
+    parser.add_argument(
+        "--no-descriptions",
+        action="store_true",
+        help="Skip LLM description generation and description embeddings",
+    )
     return parser.parse_args()
 
 
@@ -41,9 +46,10 @@ async def _run(args: argparse.Namespace) -> int:
     print(f"Chat model : {config.chat_model}")
     print(f"Neo4j      : {config.neo4j.uri}/{config.neo4j.database}")
     print(f"Dry run    : {args.dry_run}")
+    print(f"Descriptions: {'off' if args.no_descriptions else 'on'}")
     print()
 
-    pipeline = EmbeddingPipeline(config, dry_run=args.dry_run)
+    pipeline = EmbeddingPipeline(config, dry_run=args.dry_run, skip_descriptions=args.no_descriptions)
     try:
         result = await pipeline.run()
     finally:
