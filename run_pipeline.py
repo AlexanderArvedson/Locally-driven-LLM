@@ -17,6 +17,7 @@ import sys
 
 from src.pipeline.config import load_pipeline_config
 from src.pipeline.pipeline import EmbeddingPipeline
+from src.pipeline.reporter import generate_report
 
 
 def _parse_args() -> argparse.Namespace:
@@ -34,6 +35,16 @@ def _parse_args() -> argparse.Namespace:
         action="store_true",
         help="Skip LLM description generation and description embeddings",
     )
+    parser.add_argument(
+        "--report",
+        action="store_true",
+        help="Generate a markdown similarity report after the pipeline completes",
+    )
+    parser.add_argument(
+        "--report-only",
+        action="store_true",
+        help="Skip the pipeline and only generate a report from the current Neo4j data",
+    )
     return parser.parse_args()
 
 
@@ -43,6 +54,12 @@ async def _run(args: argparse.Namespace) -> int:
     if args.path:
         from dataclasses import replace
         config = replace(config, repo_path=args.path)
+
+    if args.report_only:
+        print(f"Generating report for: {config.repo_name}")
+        report_path = await generate_report(config.neo4j, config.repo_name)
+        print(f"Report written to: {report_path}")
+        return 0
 
     print(f"Repository : {config.repo_name}")
     print(f"Path       : {config.repo_path}")
@@ -73,9 +90,13 @@ async def _run(args: argparse.Namespace) -> int:
         print(f"  Errors     : {len(result.errors)}")
         for err in result.errors:
             print(f"    - {err}")
-        return 1
 
-    return 0
+    if (args.report or args.report_only) and not args.dry_run:
+        print()
+        report_path = await generate_report(config.neo4j, config.repo_name)
+        print(f"Report written to: {report_path}")
+
+    return 1 if result.errors else 0
 
 
 def main() -> None:
