@@ -38,7 +38,8 @@ def strip_code_fences(content: str) -> str:
     if lines and lines[-1].startswith("```"):
         lines = lines[:-1]
 
-    return "\n".join(lines).strip("\n")
+    result = "\n".join(lines)
+    return (result + "\n") if result else result
 
 
 def validate_python_syntax(content: str) -> tuple[bool, str]:

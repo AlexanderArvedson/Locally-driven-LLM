@@ -130,6 +130,16 @@ class GraphState(TypedDict):
     # the task scope. Populated by semantic_validator_node; factored into pass/fail.
     regression_risk: NotRequired[float]
 
+    # --- Symbol-level context slice (set by file_reader_node) ---
+
+    # The function/method/class name to modify; set by planner_node when the LLM
+    # identifies a specific symbol. Triggers symbol-mode in file_reader and coder.
+    target_symbol: NotRequired[str]
+
+    # Built by file_reader_node when target_symbol is set and the slicer finds it.
+    # None means no valid slice was found → coder falls back to full-file mode.
+    context_slice: NotRequired[dict | None]
+
     # --- Git fields ---
 
     # Branch created for this task, e.g. "feature/fix-auth-bug"

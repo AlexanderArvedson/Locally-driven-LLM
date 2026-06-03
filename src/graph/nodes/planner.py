@@ -66,16 +66,19 @@ async def planner_node(state: GraphState, run_context: RunContext) -> dict:
             "Select the files from the list above that must be MODIFIED to complete the task.\n"
             "Do NOT select files that are only needed for reading context.\n"
             f"Select at most {max_files} files.\n"
-            "If no file in the list needs modification, return an empty array.\n"
-            'Return ONLY a JSON array of file paths, e.g.: ["src/foo.py", "src/bar.py"]\n'
-            "Do NOT include any explanation or markdown — only the JSON array."
+            "If no file in the list needs modification, use an empty array for 'files'.\n"
+            "Also identify the single function, method, or class name that must be changed "
+            "to complete the task (leave 'symbol' empty if the change spans the whole file "
+            "or if you are unsure).\n"
+            "Return ONLY a JSON object with this exact shape — no explanation, no markdown:\n"
+            '{"files": ["src/foo.py"], "symbol": "my_function"}'
         )
 
         result = await client.chat(
             messages=[
                 {
                     "role": "system",
-                    "content": "You are a code planning assistant. Respond only with a valid JSON array.",
+                    "content": "You are a code planning assistant. Respond only with a valid JSON object.",
                 },
                 {"role": "user", "content": user_prompt},
             ],
@@ -87,7 +90,8 @@ async def planner_node(state: GraphState, run_context: RunContext) -> dict:
             allow_gpu=model_cfg.allow_gpu,
         )
 
-        chosen = _parse_file_list(result.message, candidates)[:max_files]
+        chosen, target_symbol = _parse_planner_response(result.message, candidates)
+        chosen = chosen[:max_files]
 
         if not chosen:
             error = (
@@ -101,11 +105,16 @@ async def planner_node(state: GraphState, run_context: RunContext) -> dict:
         # downstream nodes (file_reader, file_writer) can open them directly.
         chosen = _resolve_paths(chosen, repo_path)
 
-        emit_success(run_context, "planner_node", {"chosen_files": chosen}, start)
-        return {
-            "target_file": chosen[0],
-            "target_files": chosen,
-        }
+        emit_success(
+            run_context,
+            "planner_node",
+            {"chosen_files": chosen, "target_symbol": target_symbol or None},
+            start,
+        )
+        delta: dict = {"target_file": chosen[0], "target_files": chosen}
+        if target_symbol:
+            delta["target_symbol"] = target_symbol
+        return delta
     except Exception as exc:
         emit_failure(run_context, "planner_node", str(exc), start)
         raise
@@ -127,8 +136,13 @@ def _resolve_paths(paths: list[str], repo_path: str | None) -> list[str]:
     return result
 
 
-def _parse_file_list(raw: str, valid_candidates: list[str]) -> list[str]:
-    """Parse a JSON array from LLM output, filtering to known candidate paths."""
+def _parse_planner_response(raw: str, valid_candidates: list[str]) -> tuple[list[str], str | None]:
+    """Parse the planner LLM response into (chosen_files, target_symbol).
+
+    Accepts the new ``{"files": [...], "symbol": "..."}`` shape.
+    Falls back to a bare JSON array for backwards compatibility with prompts
+    that may still return one.
+    """
     text = raw.strip()
 
     # Strip markdown code fences if present.
@@ -138,19 +152,40 @@ def _parse_file_list(raw: str, valid_candidates: list[str]) -> list[str]:
         text = "\n".join(lines[1:end]).strip()
 
     chosen: list[str] = []
+    symbol: str | None = None
+
     try:
         parsed = json.loads(text)
-        if isinstance(parsed, list):
+        if isinstance(parsed, dict):
+            files = parsed.get("files", [])
+            if isinstance(files, list):
+                chosen = [str(p) for p in files]
+            raw_symbol = parsed.get("symbol", "")
+            symbol = str(raw_symbol).strip() if raw_symbol else None
+        elif isinstance(parsed, list):
+            # Backwards-compatible bare array.
             chosen = [str(p) for p in parsed]
     except json.JSONDecodeError:
-        # Fallback: find the first [...] block and re-parse it.
-        m = re.search(r"\[([^\]]*)\]", text, re.DOTALL)
+        # Fallback: find the first {...} block.
+        m = re.search(r"\{[^}]*\}", text, re.DOTALL)
         if m:
             try:
-                chosen = json.loads(f"[{m.group(1)}]")
+                parsed = json.loads(m.group(0))
+                files = parsed.get("files", [])
+                chosen = [str(p) for p in files] if isinstance(files, list) else []
+                raw_symbol = parsed.get("symbol", "")
+                symbol = str(raw_symbol).strip() if raw_symbol else None
             except json.JSONDecodeError:
-                logger.warning("planner_node: could not parse LLM response as file list: %r", raw[:200])
+                pass
+        if not chosen:
+            # Last resort: find the first [...] block.
+            m2 = re.search(r"\[([^\]]*)\]", text, re.DOTALL)
+            if m2:
+                try:
+                    chosen = json.loads(f"[{m2.group(1)}]")
+                except json.JSONDecodeError:
+                    logger.warning("planner_node: could not parse LLM response: %r", raw[:200])
 
     # Guard against hallucinated paths — only keep known candidates.
     candidate_set = set(valid_candidates)
-    return [f for f in chosen if f in candidate_set]
+    return [f for f in chosen if f in candidate_set], symbol or None
