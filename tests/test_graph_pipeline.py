@@ -43,7 +43,7 @@ class TestGraphPipeline(unittest.IsolatedAsyncioTestCase):
 
     async def test_mocked_graph_pipeline_completes_and_logs(self):
         fake_code_result = LLMResult(
-            message="def add(a, b):\n    return a + b\n",
+            message="from typing import Union\n\ndef add(a: Union[int, float], b: Union[int, float]) -> Union[int, float]:\n    return a + b\n",
             input_tokens=10,
             output_tokens=20,
         )
@@ -92,7 +92,7 @@ class TestGraphPipeline(unittest.IsolatedAsyncioTestCase):
             self.assertGreaterEqual(result["iteration"], 1)
             self.assertTrue(result["review_passed"])
             self.assertIn("updated_code", result)
-            self.assertIn("def add(a, b):", target_file.read_text(encoding="utf-8"))
+            self.assertIn("def add(a: Union[int, float]", target_file.read_text(encoding="utf-8"))
 
             log_path = RUNS_DIR / f"{run_context.run_id}.jsonl"
             self.assertTrue(log_path.exists(), "Expected runtime JSONL log was not created")

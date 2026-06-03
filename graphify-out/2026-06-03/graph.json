@@ -419,7 +419,7 @@
       "source_file": "src/config_loader.py",
       "source_location": "L147",
       "id": "src_config_loader_py_int",
-      "community": 33,
+      "community": 42,
       "norm_label": "int"
     },
     {
@@ -590,7 +590,7 @@
       "source_file": "src/config_loader.py",
       "source_location": "L403",
       "id": "src_config_loader_get_semantic_model",
-      "community": 52,
+      "community": 12,
       "norm_label": "get_semantic_model()"
     },
     {
@@ -599,7 +599,7 @@
       "source_file": "src/config_loader.py",
       "source_location": "L412",
       "id": "src_config_loader_get_graph_config",
-      "community": 10,
+      "community": 9,
       "norm_label": "get_graph_config()"
     },
     {
@@ -608,7 +608,7 @@
       "source_file": "src/config_loader.py",
       "source_location": "L420",
       "id": "src_config_loader_get_system_context_path",
-      "community": 10,
+      "community": 9,
       "norm_label": "get_system_context_path()"
     },
     {
@@ -752,7 +752,7 @@
       "source_file": "src/config_loader.py",
       "source_location": "L360",
       "id": "src_config_loader_rationale_360",
-      "community": 10,
+      "community": 9,
       "norm_label": "return the full modelconfig for the semantic validator role.      prefers models"
     },
     {
@@ -797,7 +797,7 @@
       "source_file": "src/config_loader.py",
       "source_location": "L404",
       "id": "src_config_loader_rationale_404",
-      "community": 52,
+      "community": 12,
       "norm_label": "return the model name for the semantic validator.      prefers models[\"semantic_"
     },
     {
@@ -806,7 +806,7 @@
       "source_file": "src/config_loader.py",
       "source_location": "L413",
       "id": "src_config_loader_rationale_413",
-      "community": 10,
+      "community": 9,
       "norm_label": "return the graph lifecycle config for the repository matching ``repo_path``."
     },
     {
@@ -815,7 +815,7 @@
       "source_file": "src/config_loader.py",
       "source_location": "L421",
       "id": "src_config_loader_rationale_421",
-      "community": 10,
+      "community": 9,
       "norm_label": "return the expanded absolute path for the system-level context store.      resol"
     },
     {
@@ -1157,7 +1157,7 @@
       "source_file": "src/core/ollama_client.py",
       "source_location": "L37",
       "id": "core_ollama_client_ollamaclient",
-      "community": 5,
+      "community": 19,
       "norm_label": "ollamaclient"
     },
     {
@@ -1202,7 +1202,7 @@
       "source_file": "src/core/ollama_client.py",
       "source_location": "L115",
       "id": "core_ollama_client_ollamaclient_close",
-      "community": 5,
+      "community": 52,
       "norm_label": ".close()"
     },
     {
@@ -1247,7 +1247,7 @@
       "source_file": "src/core/ollama_client.py",
       "source_location": "L116",
       "id": "core_ollama_client_rationale_116",
-      "community": 5,
+      "community": 52,
       "norm_label": "close the underlying http client connection pool."
     },
     {
@@ -1904,7 +1904,7 @@
       "source_file": "src/observability/context.py",
       "source_location": "L1",
       "id": "src_observability_context_py",
-      "community": 40,
+      "community": 30,
       "norm_label": "context.py"
     },
     {
@@ -1913,7 +1913,7 @@
       "source_file": "src/observability/context.py",
       "source_location": "L17",
       "id": "observability_context_runcontext",
-      "community": 40,
+      "community": 30,
       "norm_label": "runcontext"
     },
     {
@@ -1931,7 +1931,7 @@
       "source_file": "src/observability/context.py",
       "source_location": "L1",
       "id": "observability_context_rationale_1",
-      "community": 40,
+      "community": 30,
       "norm_label": "runcontext helper for observability.  this module provides a minimal `runcontext"
     },
     {
@@ -1940,7 +1940,7 @@
       "source_file": "src/observability/context.py",
       "source_location": "L18",
       "id": "observability_context_rationale_18",
-      "community": 40,
+      "community": 30,
       "norm_label": "per-run observability context.      attributes:         run_id: a uuid4 string u"
     },
     {
@@ -2705,7 +2705,7 @@
       "source_file": "src/retrieval/ranking/heuristic_ranker.py",
       "source_location": "L31",
       "id": "ranking_heuristic_ranker_heuristicranker",
-      "community": 3,
+      "community": 29,
       "norm_label": "heuristicranker"
     },
     {
@@ -2786,7 +2786,7 @@
       "source_file": "src/retrieval/ranking/heuristic_ranker.py",
       "source_location": "L32",
       "id": "ranking_heuristic_ranker_rationale_32",
-      "community": 3,
+      "community": 29,
       "norm_label": "deterministic, heuristic-based file ranker.      ordering rules (score-based, de"
     },
     {
@@ -2813,7 +2813,7 @@
       "source_file": "src/retrieval/budgeting/context_budget.py",
       "source_location": "L47",
       "id": "budgeting_context_budget_contextbudget",
-      "community": 29,
+      "community": 0,
       "norm_label": "contextbudget"
     },
     {
@@ -2822,7 +2822,7 @@
       "source_file": "src/retrieval/budgeting/context_budget.py",
       "source_location": "L55",
       "id": "budgeting_context_budget_contextbudget_init",
-      "community": 29,
+      "community": 0,
       "norm_label": ".__init__()"
     },
     {
@@ -2831,7 +2831,7 @@
       "source_file": "src/retrieval/budgeting/context_budget.py",
       "source_location": "L55",
       "id": "src_retrieval_budgeting_context_budget_py_int",
-      "community": 29,
+      "community": 0,
       "norm_label": "int"
     },
     {
@@ -2840,7 +2840,7 @@
       "source_file": "src/retrieval/budgeting/context_budget.py",
       "source_location": "L55",
       "id": "tokencounter",
-      "community": 29,
+      "community": 0,
       "norm_label": "tokencounter"
     },
     {
@@ -2885,7 +2885,7 @@
       "source_file": "src/retrieval/budgeting/context_budget.py",
       "source_location": "L48",
       "id": "budgeting_context_budget_rationale_48",
-      "community": 29,
+      "community": 0,
       "norm_label": "allocates ranked files against char-per-file, file-count, and token limits."
     },
     {
@@ -3243,7 +3243,7 @@
       "label": "_node_name()",
       "file_type": "code",
       "source_file": "src/retrieval/slicing/python_slicer.py",
-      "source_location": "L162",
+      "source_location": "L151",
       "id": "slicing_python_slicer_node_name",
       "community": 1,
       "norm_label": "_node_name()"
@@ -3252,7 +3252,7 @@
       "label": "Node",
       "file_type": "code",
       "source_file": "src/retrieval/slicing/python_slicer.py",
-      "source_location": "L162",
+      "source_location": "L151",
       "id": "node",
       "community": 1,
       "norm_label": "node"
@@ -3261,7 +3261,7 @@
       "label": "_find_symbol()",
       "file_type": "code",
       "source_file": "src/retrieval/slicing/python_slicer.py",
-      "source_location": "L167",
+      "source_location": "L156",
       "id": "slicing_python_slicer_find_symbol",
       "community": 1,
       "norm_label": "_find_symbol()"
@@ -3270,7 +3270,7 @@
       "label": "_build_slice()",
       "file_type": "code",
       "source_file": "src/retrieval/slicing/python_slicer.py",
-      "source_location": "L189",
+      "source_location": "L178",
       "id": "slicing_python_slicer_build_slice",
       "community": 1,
       "norm_label": "_build_slice()"
@@ -3279,7 +3279,7 @@
       "label": "_collect_names()",
       "file_type": "code",
       "source_file": "src/retrieval/slicing/python_slicer.py",
-      "source_location": "L211",
+      "source_location": "L200",
       "id": "slicing_python_slicer_collect_names",
       "community": 1,
       "norm_label": "_collect_names()"
@@ -3288,7 +3288,7 @@
       "label": "_walk_names()",
       "file_type": "code",
       "source_file": "src/retrieval/slicing/python_slicer.py",
-      "source_location": "L218",
+      "source_location": "L207",
       "id": "slicing_python_slicer_walk_names",
       "community": 1,
       "norm_label": "_walk_names()"
@@ -3297,7 +3297,7 @@
       "label": "_import_exposes_used_name()",
       "file_type": "code",
       "source_file": "src/retrieval/slicing/python_slicer.py",
-      "source_location": "L225",
+      "source_location": "L214",
       "id": "slicing_python_slicer_import_exposes_used_name",
       "community": 1,
       "norm_label": "_import_exposes_used_name()"
@@ -3306,7 +3306,7 @@
       "label": "bool",
       "file_type": "code",
       "source_file": "src/retrieval/slicing/python_slicer.py",
-      "source_location": "L225",
+      "source_location": "L214",
       "id": "src_retrieval_slicing_python_slicer_py_bool",
       "community": 1,
       "norm_label": "bool"
@@ -3315,7 +3315,7 @@
       "label": "_get_docstring()",
       "file_type": "code",
       "source_file": "src/retrieval/slicing/python_slicer.py",
-      "source_location": "L256",
+      "source_location": "L245",
       "id": "slicing_python_slicer_get_docstring",
       "community": 1,
       "norm_label": "_get_docstring()"
@@ -3324,7 +3324,7 @@
       "label": "_is_contract()",
       "file_type": "code",
       "source_file": "src/retrieval/slicing/python_slicer.py",
-      "source_location": "L270",
+      "source_location": "L259",
       "id": "slicing_python_slicer_is_contract",
       "community": 1,
       "norm_label": "_is_contract()"
@@ -3396,8 +3396,8 @@
       "label": "Return the text of a node's name field, or empty string if absent.",
       "file_type": "rationale",
       "source_file": "src/retrieval/slicing/python_slicer.py",
-      "source_location": "L163",
-      "id": "slicing_python_slicer_rationale_163",
+      "source_location": "L152",
+      "id": "slicing_python_slicer_rationale_152",
       "community": 1,
       "norm_label": "return the text of a node's name field, or empty string if absent."
     },
@@ -3405,8 +3405,8 @@
       "label": "Find the AST node for name at module level or one class deep.",
       "file_type": "rationale",
       "source_file": "src/retrieval/slicing/python_slicer.py",
-      "source_location": "L168",
-      "id": "slicing_python_slicer_rationale_168",
+      "source_location": "L157",
+      "id": "slicing_python_slicer_rationale_157",
       "community": 1,
       "norm_label": "find the ast node for name at module level or one class deep."
     },
@@ -3414,8 +3414,8 @@
       "label": "Build a SymbolSlice from a tree-sitter node.",
       "file_type": "rationale",
       "source_file": "src/retrieval/slicing/python_slicer.py",
-      "source_location": "L190",
-      "id": "slicing_python_slicer_rationale_190",
+      "source_location": "L179",
+      "id": "slicing_python_slicer_rationale_179",
       "community": 1,
       "norm_label": "build a symbolslice from a tree-sitter node."
     },
@@ -3423,8 +3423,8 @@
       "label": "Collect every identifier name referenced within a subtree.",
       "file_type": "rationale",
       "source_file": "src/retrieval/slicing/python_slicer.py",
-      "source_location": "L212",
-      "id": "slicing_python_slicer_rationale_212",
+      "source_location": "L201",
+      "id": "slicing_python_slicer_rationale_201",
       "community": 1,
       "norm_label": "collect every identifier name referenced within a subtree."
     },
@@ -3432,8 +3432,8 @@
       "label": "Return True if any name exposed by this import is in used.",
       "file_type": "rationale",
       "source_file": "src/retrieval/slicing/python_slicer.py",
-      "source_location": "L226",
-      "id": "slicing_python_slicer_rationale_226",
+      "source_location": "L215",
+      "id": "slicing_python_slicer_rationale_215",
       "community": 1,
       "norm_label": "return true if any name exposed by this import is in used."
     },
@@ -3441,8 +3441,8 @@
       "label": "Extract the docstring from a class or function body node.",
       "file_type": "rationale",
       "source_file": "src/retrieval/slicing/python_slicer.py",
-      "source_location": "L257",
-      "id": "slicing_python_slicer_rationale_257",
+      "source_location": "L246",
+      "id": "slicing_python_slicer_rationale_246",
       "community": 1,
       "norm_label": "extract the docstring from a class or function body node."
     },
@@ -3450,8 +3450,8 @@
       "label": "Return True if the class looks like a TypedDict, dataclass, or Protocol.",
       "file_type": "rationale",
       "source_file": "src/retrieval/slicing/python_slicer.py",
-      "source_location": "L271",
-      "id": "slicing_python_slicer_rationale_271",
+      "source_location": "L260",
+      "id": "slicing_python_slicer_rationale_260",
       "community": 1,
       "norm_label": "return true if the class looks like a typeddict, dataclass, or protocol."
     },
@@ -3668,7 +3668,7 @@
       "source_file": "src/retrieval/contracts/context_contract.py",
       "source_location": "L1",
       "id": "src_retrieval_contracts_context_contract_py",
-      "community": 39,
+      "community": 57,
       "norm_label": "context_contract.py"
     },
     {
@@ -3677,7 +3677,7 @@
       "source_file": "src/retrieval/contracts/context_contract.py",
       "source_location": "L28",
       "id": "contracts_context_contract_dependencysummaryitem",
-      "community": 39,
+      "community": 57,
       "norm_label": "dependencysummaryitem"
     },
     {
@@ -3686,7 +3686,7 @@
       "source_file": "",
       "source_location": "",
       "id": "typeddict",
-      "community": 41,
+      "community": 57,
       "norm_label": "typeddict"
     },
     {
@@ -3695,7 +3695,7 @@
       "source_file": "src/retrieval/contracts/context_contract.py",
       "source_location": "L34",
       "id": "contracts_context_contract_repositorycontextpayload",
-      "community": 41,
+      "community": 57,
       "norm_label": "repositorycontextpayload"
     },
     {
@@ -3704,7 +3704,7 @@
       "source_file": "src/retrieval/contracts/context_contract.py",
       "source_location": "L44",
       "id": "contracts_context_contract_normalize_path",
-      "community": 39,
+      "community": 57,
       "norm_label": "_normalize_path()"
     },
     {
@@ -3713,7 +3713,7 @@
       "source_file": "src/retrieval/contracts/context_contract.py",
       "source_location": "L44",
       "id": "src_retrieval_contracts_context_contract_py_str",
-      "community": 39,
+      "community": 57,
       "norm_label": "str"
     },
     {
@@ -3722,7 +3722,7 @@
       "source_file": "src/retrieval/contracts/context_contract.py",
       "source_location": "L53",
       "id": "contracts_context_contract_dedupe_preserve_order",
-      "community": 39,
+      "community": 57,
       "norm_label": "_dedupe_preserve_order()"
     },
     {
@@ -3731,7 +3731,7 @@
       "source_file": "src/retrieval/contracts/context_contract.py",
       "source_location": "L63",
       "id": "contracts_context_contract_target_first",
-      "community": 39,
+      "community": 57,
       "norm_label": "_target_first()"
     },
     {
@@ -3740,7 +3740,7 @@
       "source_file": "src/retrieval/contracts/context_contract.py",
       "source_location": "L70",
       "id": "contracts_context_contract_build_repository_context_payload",
-      "community": 39,
+      "community": 57,
       "norm_label": "build_repository_context_payload()"
     },
     {
@@ -3749,7 +3749,7 @@
       "source_file": "src/retrieval/contracts/context_contract.py",
       "source_location": "L70",
       "id": "src_retrieval_contracts_context_contract_py_contextpackage",
-      "community": 39,
+      "community": 57,
       "norm_label": "contextpackage"
     },
     {
@@ -3758,7 +3758,7 @@
       "source_file": "src/retrieval/contracts/context_contract.py",
       "source_location": "L116",
       "id": "contracts_context_contract_validate_repository_context_payload",
-      "community": 39,
+      "community": 57,
       "norm_label": "validate_repository_context_payload()"
     },
     {
@@ -3767,7 +3767,7 @@
       "source_file": "src/retrieval/contracts/context_contract.py",
       "source_location": "L116",
       "id": "src_retrieval_contracts_context_contract_py_any",
-      "community": 39,
+      "community": 57,
       "norm_label": "any"
     },
     {
@@ -3776,7 +3776,7 @@
       "source_file": "src/retrieval/contracts/context_contract.py",
       "source_location": "L116",
       "id": "src_retrieval_contracts_context_contract_py_bool",
-      "community": 39,
+      "community": 57,
       "norm_label": "bool"
     },
     {
@@ -3785,7 +3785,7 @@
       "source_file": "src/retrieval/contracts/context_contract.py",
       "source_location": "L139",
       "id": "contracts_context_contract_format_repository_context_for_prompt",
-      "community": 39,
+      "community": 57,
       "norm_label": "format_repository_context_for_prompt()"
     },
     {
@@ -3794,7 +3794,7 @@
       "source_file": "src/retrieval/contracts/context_contract.py",
       "source_location": "L1",
       "id": "contracts_context_contract_rationale_1",
-      "community": 39,
+      "community": 57,
       "norm_label": "versioned contract for retrieval -> coder repository context payloads.  this mod"
     },
     {
@@ -3803,7 +3803,7 @@
       "source_file": "src/retrieval/contracts/context_contract.py",
       "source_location": "L76",
       "id": "contracts_context_contract_rationale_76",
-      "community": 39,
+      "community": 57,
       "norm_label": "build a versioned, deterministic context payload from contextpackage."
     },
     {
@@ -3812,7 +3812,7 @@
       "source_file": "src/retrieval/contracts/context_contract.py",
       "source_location": "L117",
       "id": "contracts_context_contract_rationale_117",
-      "community": 39,
+      "community": 57,
       "norm_label": "validate structural invariants for a repository context payload."
     },
     {
@@ -3821,7 +3821,7 @@
       "source_file": "src/retrieval/contracts/context_contract.py",
       "source_location": "L140",
       "id": "contracts_context_contract_rationale_140",
-      "community": 39,
+      "community": 57,
       "norm_label": "render repository context in a fixed, deterministic prompt section."
     },
     {
@@ -3893,7 +3893,7 @@
       "source_file": "src/retrieval/contracts/types.py",
       "source_location": "L58",
       "id": "contracts_types_contextpackage",
-      "community": 3,
+      "community": 57,
       "norm_label": "contextpackage"
     },
     {
@@ -3947,7 +3947,7 @@
       "source_file": "src/retrieval/contracts/types.py",
       "source_location": "L59",
       "id": "contracts_types_rationale_59",
-      "community": 3,
+      "community": 57,
       "norm_label": "bounded context package returned by the contextassembler.      contains only lig"
     },
     {
@@ -3974,7 +3974,7 @@
       "source_file": "src/retrieval/contracts/retrieval_contract.py",
       "source_location": "L1",
       "id": "src_retrieval_contracts_retrieval_contract_py",
-      "community": 41,
+      "community": 57,
       "norm_label": "retrieval_contract.py"
     },
     {
@@ -3983,7 +3983,7 @@
       "source_file": "src/retrieval/contracts/retrieval_contract.py",
       "source_location": "L7",
       "id": "contracts_retrieval_contract_retrievalrequest",
-      "community": 41,
+      "community": 57,
       "norm_label": "retrievalrequest"
     },
     {
@@ -3992,7 +3992,7 @@
       "source_file": "src/retrieval/contracts/retrieval_contract.py",
       "source_location": "L21",
       "id": "contracts_retrieval_contract_retrievalresult",
-      "community": 41,
+      "community": 57,
       "norm_label": "retrievalresult"
     },
     {
@@ -4001,7 +4001,7 @@
       "source_file": "src/retrieval/contracts/retrieval_contract.py",
       "source_location": "L8",
       "id": "contracts_retrieval_contract_rationale_8",
-      "community": 41,
+      "community": 57,
       "norm_label": "input contract passed from the scheduler layer to the retrieval pipeline."
     },
     {
@@ -4010,7 +4010,7 @@
       "source_file": "src/retrieval/contracts/retrieval_contract.py",
       "source_location": "L22",
       "id": "contracts_retrieval_contract_rationale_22",
-      "community": 41,
+      "community": 57,
       "norm_label": "output contract from the retrieval pipeline, stored in graphstate.      downstre"
     },
     {
@@ -4019,7 +4019,7 @@
       "source_file": "src/graph/state.py",
       "source_location": "L1",
       "id": "src_graph_state_py",
-      "community": 41,
+      "community": 57,
       "norm_label": "state.py"
     },
     {
@@ -4028,7 +4028,7 @@
       "source_file": "src/graph/state.py",
       "source_location": "L8",
       "id": "graph_state_graphstate",
-      "community": 41,
+      "community": 40,
       "norm_label": "graphstate"
     },
     {
@@ -4037,7 +4037,7 @@
       "source_file": "src/graph/state.py",
       "source_location": "L9",
       "id": "graph_state_rationale_9",
-      "community": 41,
+      "community": 40,
       "norm_label": "shared state passed between langgraph nodes.      this state represents a single"
     },
     {
@@ -4127,7 +4127,7 @@
       "source_file": "src/graph/workflow.py",
       "source_location": "L61",
       "id": "src_graph_workflow_py_runcontext",
-      "community": 33,
+      "community": 30,
       "norm_label": "runcontext"
     },
     {
@@ -4631,7 +4631,7 @@
       "source_file": "src/graph/nodes/file_writer.py",
       "source_location": "L1",
       "id": "src_graph_nodes_file_writer_py",
-      "community": 19,
+      "community": 28,
       "norm_label": "file_writer.py"
     },
     {
@@ -4694,7 +4694,7 @@
       "source_file": "src/graph/nodes/support.py",
       "source_location": "L23",
       "id": "src_graph_nodes_support_py_graphstate",
-      "community": 5,
+      "community": 19,
       "norm_label": "graphstate"
     },
     {
@@ -4719,7 +4719,7 @@
       "label": "validate_python_syntax()",
       "file_type": "code",
       "source_file": "src/graph/nodes/support.py",
-      "source_location": "L45",
+      "source_location": "L44",
       "id": "nodes_support_validate_python_syntax",
       "community": 19,
       "norm_label": "validate_python_syntax()"
@@ -4728,7 +4728,7 @@
       "label": "bool",
       "file_type": "code",
       "source_file": "src/graph/nodes/support.py",
-      "source_location": "L45",
+      "source_location": "L44",
       "id": "src_graph_nodes_support_py_bool",
       "community": 19,
       "norm_label": "bool"
@@ -4737,9 +4737,9 @@
       "label": "select_target_file_from_repo_path()",
       "file_type": "code",
       "source_file": "src/graph/nodes/support.py",
-      "source_location": "L59",
+      "source_location": "L58",
       "id": "nodes_support_select_target_file_from_repo_path",
-      "community": 26,
+      "community": 19,
       "norm_label": "select_target_file_from_repo_path()"
     },
     {
@@ -4773,8 +4773,8 @@
       "label": "Validate that `content` compiles as Python.",
       "file_type": "rationale",
       "source_file": "src/graph/nodes/support.py",
-      "source_location": "L46",
-      "id": "nodes_support_rationale_46",
+      "source_location": "L45",
+      "id": "nodes_support_rationale_45",
       "community": 19,
       "norm_label": "validate that `content` compiles as python."
     },
@@ -4782,9 +4782,9 @@
       "label": "Pick the first Python file in a repo root deterministically.",
       "file_type": "rationale",
       "source_file": "src/graph/nodes/support.py",
-      "source_location": "L60",
-      "id": "nodes_support_rationale_60",
-      "community": 26,
+      "source_location": "L59",
+      "id": "nodes_support_rationale_59",
+      "community": 19,
       "norm_label": "pick the first python file in a repo root deterministically."
     },
     {
@@ -4851,13 +4851,13 @@
       "norm_label": "coder.py"
     },
     {
-      "label": "_deindent()",
+      "label": "_format_target_symbol()",
       "file_type": "code",
       "source_file": "src/graph/nodes/coder.py",
       "source_location": "L23",
-      "id": "nodes_coder_deindent",
+      "id": "nodes_coder_format_target_symbol",
       "community": 57,
-      "norm_label": "_deindent()"
+      "norm_label": "_format_target_symbol()"
     },
     {
       "label": "str",
@@ -4869,28 +4869,10 @@
       "norm_label": "str"
     },
     {
-      "label": "int",
-      "file_type": "code",
-      "source_file": "src/graph/nodes/coder.py",
-      "source_location": "L23",
-      "id": "src_graph_nodes_coder_py_int",
-      "community": 57,
-      "norm_label": "int"
-    },
-    {
-      "label": "_format_target_symbol()",
-      "file_type": "code",
-      "source_file": "src/graph/nodes/coder.py",
-      "source_location": "L37",
-      "id": "nodes_coder_format_target_symbol",
-      "community": 57,
-      "norm_label": "_format_target_symbol()"
-    },
-    {
       "label": "_format_contracts()",
       "file_type": "code",
       "source_file": "src/graph/nodes/coder.py",
-      "source_location": "L61",
+      "source_location": "L43",
       "id": "nodes_coder_format_contracts",
       "community": 57,
       "norm_label": "_format_contracts()"
@@ -4899,7 +4881,7 @@
       "label": "_build_symbol_prompt()",
       "file_type": "code",
       "source_file": "src/graph/nodes/coder.py",
-      "source_location": "L68",
+      "source_location": "L50",
       "id": "nodes_coder_build_symbol_prompt",
       "community": 57,
       "norm_label": "_build_symbol_prompt()"
@@ -4908,7 +4890,7 @@
       "label": "_format_related_files()",
       "file_type": "code",
       "source_file": "src/graph/nodes/coder.py",
-      "source_location": "L106",
+      "source_location": "L86",
       "id": "nodes_coder_format_related_files",
       "community": 57,
       "norm_label": "_format_related_files()"
@@ -4917,7 +4899,7 @@
       "label": "_build_full_file_prompt()",
       "file_type": "code",
       "source_file": "src/graph/nodes/coder.py",
-      "source_location": "L115",
+      "source_location": "L95",
       "id": "nodes_coder_build_full_file_prompt",
       "community": 57,
       "norm_label": "_build_full_file_prompt()"
@@ -4926,7 +4908,7 @@
       "label": "coder_node()",
       "file_type": "code",
       "source_file": "src/graph/nodes/coder.py",
-      "source_location": "L154",
+      "source_location": "L134",
       "id": "nodes_coder_coder_node",
       "community": 57,
       "norm_label": "coder_node()"
@@ -4935,28 +4917,64 @@
       "label": "GraphState",
       "file_type": "code",
       "source_file": "src/graph/nodes/coder.py",
-      "source_location": "L154",
+      "source_location": "L134",
       "id": "src_graph_nodes_coder_py_graphstate",
-      "community": 57,
+      "community": 40,
       "norm_label": "graphstate"
     },
     {
       "label": "RunContext",
       "file_type": "code",
       "source_file": "src/graph/nodes/coder.py",
-      "source_location": "L154",
+      "source_location": "L134",
       "id": "src_graph_nodes_coder_py_runcontext",
-      "community": 57,
+      "community": 40,
       "norm_label": "runcontext"
     },
     {
-      "label": "Strip `indent` leading spaces from every line that has them.",
+      "label": "reviewer.py",
+      "file_type": "code",
+      "source_file": "src/graph/nodes/reviewer.py",
+      "source_location": "L1",
+      "id": "src_graph_nodes_reviewer_py",
+      "community": 19,
+      "norm_label": "reviewer.py"
+    },
+    {
+      "label": "reviewer_node()",
+      "file_type": "code",
+      "source_file": "src/graph/nodes/reviewer.py",
+      "source_location": "L17",
+      "id": "nodes_reviewer_reviewer_node",
+      "community": 58,
+      "norm_label": "reviewer_node()"
+    },
+    {
+      "label": "GraphState",
+      "file_type": "code",
+      "source_file": "src/graph/nodes/reviewer.py",
+      "source_location": "L17",
+      "id": "src_graph_nodes_reviewer_py_graphstate",
+      "community": 58,
+      "norm_label": "graphstate"
+    },
+    {
+      "label": "RunContext",
+      "file_type": "code",
+      "source_file": "src/graph/nodes/reviewer.py",
+      "source_location": "L17",
+      "id": "src_graph_nodes_reviewer_py_runcontext",
+      "community": 58,
+      "norm_label": "runcontext"
+    },
+    {
+      "label": "Perform lightweight review checks on generated code.      Performs the following",
       "file_type": "rationale",
-      "source_file": "src/graph/nodes/coder.py",
-      "source_location": "L24",
-      "id": "nodes_coder_rationale_24",
-      "community": 57,
-      "norm_label": "strip `indent` leading spaces from every line that has them."
+      "source_file": "src/graph/nodes/reviewer.py",
+      "source_location": "L18",
+      "id": "nodes_reviewer_rationale_18",
+      "community": 58,
+      "norm_label": "perform lightweight review checks on generated code.      performs the following"
     },
     {
       "label": "planner.py",
@@ -4964,7 +4982,7 @@
       "source_file": "src/graph/nodes/planner.py",
       "source_location": "L1",
       "id": "src_graph_nodes_planner_py",
-      "community": 28,
+      "community": 39,
       "norm_label": "planner.py"
     },
     {
@@ -5027,7 +5045,7 @@
       "source_file": "src/graph/nodes/planner.py",
       "source_location": "L1",
       "id": "nodes_planner_rationale_1",
-      "community": 28,
+      "community": 39,
       "norm_label": "planner node \u2014 selects which file(s) to modify from retrieval candidates.  when"
     },
     {
@@ -5315,7 +5333,7 @@
       "source_file": "src/graph/nodes/retrieval_node.py",
       "source_location": "L170",
       "id": "nodes_retrieval_node_heuristic_rank",
-      "community": 48,
+      "community": 29,
       "norm_label": "_heuristic_rank()"
     },
     {
@@ -5324,7 +5342,7 @@
       "source_file": "src/graph/nodes/retrieval_node.py",
       "source_location": "L170",
       "id": "src_graph_nodes_retrieval_node_py_str",
-      "community": 48,
+      "community": 29,
       "norm_label": "str"
     },
     {
@@ -5333,7 +5351,7 @@
       "source_file": "src/graph/nodes/retrieval_node.py",
       "source_location": "L175",
       "id": "nodes_retrieval_node_read_related_files",
-      "community": 48,
+      "community": 29,
       "norm_label": "_read_related_files()"
     },
     {
@@ -5369,7 +5387,7 @@
       "source_file": "src/graph/nodes/retrieval_node.py",
       "source_location": "L171",
       "id": "nodes_retrieval_node_rationale_171",
-      "community": 48,
+      "community": 29,
       "norm_label": "fallback ranking when graph is unavailable."
     },
     {
@@ -5378,7 +5396,7 @@
       "source_file": "src/graph/nodes/retrieval_node.py",
       "source_location": "L176",
       "id": "nodes_retrieval_node_rationale_176",
-      "community": 48,
+      "community": 29,
       "norm_label": "read bounded file contents for the coder prompt, excluding target file."
     },
     {
@@ -5389,87 +5407,6 @@
       "id": "nodes_retrieval_node_rationale_194",
       "community": 4,
       "norm_label": "convert absolute paths to repo-relative strings when possible."
-    },
-    {
-      "label": "Return the text of a node's name field, or empty string if absent.",
-      "file_type": "rationale",
-      "source_file": "src/retrieval/slicing/python_slicer.py",
-      "source_location": "L152",
-      "community": 1,
-      "norm_label": "return the text of a node's name field, or empty string if absent.",
-      "id": "slicing_python_slicer_rationale_152"
-    },
-    {
-      "label": "Find the AST node for name at module level or one class deep.",
-      "file_type": "rationale",
-      "source_file": "src/retrieval/slicing/python_slicer.py",
-      "source_location": "L157",
-      "community": 1,
-      "norm_label": "find the ast node for name at module level or one class deep.",
-      "id": "slicing_python_slicer_rationale_157"
-    },
-    {
-      "label": "Build a SymbolSlice from a tree-sitter node.",
-      "file_type": "rationale",
-      "source_file": "src/retrieval/slicing/python_slicer.py",
-      "source_location": "L179",
-      "community": 1,
-      "norm_label": "build a symbolslice from a tree-sitter node.",
-      "id": "slicing_python_slicer_rationale_179"
-    },
-    {
-      "label": "Collect every identifier name referenced within a subtree.",
-      "file_type": "rationale",
-      "source_file": "src/retrieval/slicing/python_slicer.py",
-      "source_location": "L201",
-      "community": 1,
-      "norm_label": "collect every identifier name referenced within a subtree.",
-      "id": "slicing_python_slicer_rationale_201"
-    },
-    {
-      "label": "Return True if any name exposed by this import is in used.",
-      "file_type": "rationale",
-      "source_file": "src/retrieval/slicing/python_slicer.py",
-      "source_location": "L215",
-      "community": 1,
-      "norm_label": "return true if any name exposed by this import is in used.",
-      "id": "slicing_python_slicer_rationale_215"
-    },
-    {
-      "label": "Extract the docstring from a class or function body node.",
-      "file_type": "rationale",
-      "source_file": "src/retrieval/slicing/python_slicer.py",
-      "source_location": "L246",
-      "community": 1,
-      "norm_label": "extract the docstring from a class or function body node.",
-      "id": "slicing_python_slicer_rationale_246"
-    },
-    {
-      "label": "Return True if the class looks like a TypedDict, dataclass, or Protocol.",
-      "file_type": "rationale",
-      "source_file": "src/retrieval/slicing/python_slicer.py",
-      "source_location": "L260",
-      "community": 1,
-      "norm_label": "return true if the class looks like a typeddict, dataclass, or protocol.",
-      "id": "slicing_python_slicer_rationale_260"
-    },
-    {
-      "label": "Validate that `content` compiles as Python.",
-      "file_type": "rationale",
-      "source_file": "src/graph/nodes/support.py",
-      "source_location": "L45",
-      "community": 19,
-      "norm_label": "validate that `content` compiles as python.",
-      "id": "nodes_support_rationale_45"
-    },
-    {
-      "label": "Pick the first Python file in a repo root deterministically.",
-      "file_type": "rationale",
-      "source_file": "src/graph/nodes/support.py",
-      "source_location": "L59",
-      "community": 26,
-      "norm_label": "pick the first python file in a repo root deterministically.",
-      "id": "nodes_support_rationale_59"
     },
     {
       "label": "_parse_file_list()",
@@ -5800,7 +5737,7 @@
       "file_type": "rationale",
       "source_file": "src/config_loader.py",
       "source_location": "L396",
-      "community": 52,
+      "community": 12,
       "norm_label": "return the model name for the semantic validator.      prefers models[\"semanti",
       "id": "src_config_loader_rationale_396"
     },
@@ -5809,7 +5746,7 @@
       "file_type": "rationale",
       "source_file": "src/config_loader.py",
       "source_location": "L405",
-      "community": 10,
+      "community": 9,
       "norm_label": "return the graph lifecycle config for the repository matching ``repo_path``.",
       "id": "src_config_loader_rationale_405"
     },
@@ -5845,7 +5782,7 @@
       "file_type": "rationale",
       "source_file": "src/core/ollama_client.py",
       "source_location": "L99",
-      "community": 5,
+      "community": 52,
       "norm_label": "close the underlying http client connection pool.",
       "id": "core_ollama_client_rationale_99"
     },
@@ -5962,7 +5899,7 @@
       "file_type": "rationale",
       "source_file": "src/config_loader.py",
       "source_location": "L364",
-      "community": 52,
+      "community": 12,
       "norm_label": "return the model name for the semantic validator.      prefers models[\"semanti",
       "id": "src_config_loader_rationale_364"
     },
@@ -5971,7 +5908,7 @@
       "file_type": "rationale",
       "source_file": "src/config_loader.py",
       "source_location": "L373",
-      "community": 10,
+      "community": 9,
       "norm_label": "return the graph lifecycle config for the repository matching ``repo_path``.",
       "id": "src_config_loader_rationale_373"
     },
@@ -6106,7 +6043,7 @@
       "file_type": "rationale",
       "source_file": "src/config_loader.py",
       "source_location": "L351",
-      "community": 52,
+      "community": 12,
       "norm_label": "return the model name for the semantic validator.      prefers models[\"semanti",
       "id": "src_config_loader_rationale_351"
     },
@@ -6115,7 +6052,7 @@
       "file_type": "rationale",
       "source_file": "src/config_loader.py",
       "source_location": "L368",
-      "community": 10,
+      "community": 9,
       "norm_label": "return the expanded absolute path for the system-level context store.      res",
       "id": "src_config_loader_rationale_368"
     },
@@ -6142,7 +6079,7 @@
       "file_type": "rationale",
       "source_file": "src/core/ollama_client.py",
       "source_location": "L94",
-      "community": 5,
+      "community": 52,
       "norm_label": "close the underlying http client connection pool.",
       "id": "core_ollama_client_rationale_94"
     },
@@ -6223,7 +6160,7 @@
       "file_type": "rationale",
       "source_file": "src/graph/state.py",
       "source_location": "L7",
-      "community": 41,
+      "community": 40,
       "norm_label": "shared state passed between langgraph nodes.      this state represents a sing",
       "id": "graph_state_rationale_7"
     },
@@ -6241,7 +6178,7 @@
       "file_type": "code",
       "source_file": "src/config_loader.py",
       "source_location": "L221",
-      "community": 33,
+      "community": 42,
       "norm_label": "get_max_iterations()",
       "id": "src_config_loader_get_max_iterations"
     },
@@ -6295,7 +6232,7 @@
       "file_type": "rationale",
       "source_file": "src/config_loader.py",
       "source_location": "L231",
-      "community": 52,
+      "community": 12,
       "norm_label": "return the model name for the semantic validator.      prefers models[\"semanti",
       "id": "src_config_loader_rationale_231"
     },
@@ -6304,7 +6241,7 @@
       "file_type": "rationale",
       "source_file": "src/config_loader.py",
       "source_location": "L244",
-      "community": 10,
+      "community": 9,
       "norm_label": "return the graph lifecycle config for the repository matching ``repo_path``.",
       "id": "src_config_loader_rationale_244"
     },
@@ -6313,7 +6250,7 @@
       "file_type": "rationale",
       "source_file": "src/config_loader.py",
       "source_location": "L252",
-      "community": 10,
+      "community": 9,
       "norm_label": "return the expanded absolute path for the system-level context store.      res",
       "id": "src_config_loader_rationale_252"
     },
@@ -6349,7 +6286,7 @@
       "file_type": "rationale",
       "source_file": "src/core/ollama_client.py",
       "source_location": "L68",
-      "community": 5,
+      "community": 52,
       "norm_label": "close the underlying http client connection pool.",
       "id": "core_ollama_client_rationale_68"
     },
@@ -6367,7 +6304,7 @@
       "file_type": "rationale",
       "source_file": "src/graph/nodes/retrieval_node.py",
       "source_location": "L137",
-      "community": 48,
+      "community": 29,
       "norm_label": "fallback ranking when graph is unavailable.",
       "id": "nodes_retrieval_node_rationale_137"
     },
@@ -6376,7 +6313,7 @@
       "file_type": "rationale",
       "source_file": "src/graph/nodes/retrieval_node.py",
       "source_location": "L142",
-      "community": 48,
+      "community": 29,
       "norm_label": "read bounded file contents for the coder prompt, excluding target file.",
       "id": "nodes_retrieval_node_rationale_142"
     },
@@ -6403,7 +6340,7 @@
       "file_type": "rationale",
       "source_file": "src/retrieval/budgeting/context_budget.py",
       "source_location": "L25",
-      "community": 29,
+      "community": 0,
       "norm_label": "allocates ranked files against char and file-count limits.      limits are adv",
       "id": "budgeting_context_budget_rationale_25"
     },
@@ -6421,7 +6358,7 @@
       "file_type": "rationale",
       "source_file": "src/graph/nodes/retrieval_node.py",
       "source_location": "L138",
-      "community": 48,
+      "community": 29,
       "norm_label": "fallback ranking when graph is unavailable.",
       "id": "nodes_retrieval_node_rationale_138"
     },
@@ -6430,7 +6367,7 @@
       "file_type": "rationale",
       "source_file": "src/graph/nodes/retrieval_node.py",
       "source_location": "L143",
-      "community": 48,
+      "community": 29,
       "norm_label": "read bounded file contents for the coder prompt, excluding target file.",
       "id": "nodes_retrieval_node_rationale_143"
     },
@@ -6448,7 +6385,7 @@
       "file_type": "rationale",
       "source_file": "src/observability/context.py",
       "source_location": "L14",
-      "community": 40,
+      "community": 30,
       "norm_label": "minimal per-run observability context.      attributes:         run_id: a uui",
       "id": "observability_context_rationale_14"
     },
@@ -6511,7 +6448,7 @@
       "file_type": "rationale",
       "source_file": "src/config_loader.py",
       "source_location": "L224",
-      "community": 10,
+      "community": 9,
       "norm_label": "return the graph lifecycle config for the repository matching ``repo_path``.",
       "id": "src_config_loader_rationale_224"
     },
@@ -6520,7 +6457,7 @@
       "file_type": "rationale",
       "source_file": "src/config_loader.py",
       "source_location": "L232",
-      "community": 10,
+      "community": 9,
       "norm_label": "return the expanded absolute path for the system-level context store.      res",
       "id": "src_config_loader_rationale_232"
     },
@@ -6601,7 +6538,7 @@
       "file_type": "rationale",
       "source_file": "src/graph/state.py",
       "source_location": "L8",
-      "community": 41,
+      "community": 40,
       "norm_label": "shared state passed between langgraph nodes.      this state represents a sing",
       "id": "graph_state_rationale_8"
     },
@@ -6763,7 +6700,7 @@
       "file_type": "code",
       "source_file": "src/config_loader.py",
       "source_location": "L61",
-      "community": 33,
+      "community": 42,
       "norm_label": "int",
       "id": "int"
     },
@@ -6799,7 +6736,7 @@
       "file_type": "code",
       "source_file": "src/observability/context.py",
       "source_location": "L22",
-      "community": 40,
+      "community": 30,
       "norm_label": "new()",
       "id": "observability_context_new"
     },
@@ -6838,7 +6775,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 26,
+      "community": 57,
       "norm_label": "graphstate: original_code field",
       "id": "concept_state_field_original_code"
     },
@@ -13391,16 +13328,6 @@
       "relation": "uses",
       "confidence": "INFERRED",
       "source_file": "src/graph/nodes/coder.py",
-      "source_location": "L11",
-      "weight": 0.8,
-      "source": "src_graph_nodes_coder_py_int",
-      "target": "observability_context_runcontext",
-      "confidence_score": 0.5
-    },
-    {
-      "relation": "uses",
-      "confidence": "INFERRED",
-      "source_file": "src/graph/nodes/coder.py",
       "source_location": "L10",
       "weight": 0.8,
       "confidence_score": 0.5,
@@ -13485,9 +13412,9 @@
       "source_file": "src/graph/nodes/file_reader.py",
       "source_location": "L10",
       "weight": 0.8,
-      "confidence_score": 0.5,
       "source": "src_graph_nodes_file_reader_py_str",
-      "target": "observability_context_runcontext"
+      "target": "observability_context_runcontext",
+      "confidence_score": 0.5
     },
     {
       "relation": "imports",
@@ -13743,6 +13670,37 @@
       "weight": 0.8,
       "confidence_score": 0.5,
       "source": "src_graph_nodes_retrieval_node_py_str",
+      "target": "observability_context_runcontext"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/graph/nodes/reviewer.py",
+      "source_location": "L13",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_graph_nodes_reviewer_py",
+      "target": "observability_context_runcontext"
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "src/graph/nodes/reviewer.py",
+      "source_location": "L13",
+      "weight": 0.8,
+      "confidence_score": 0.5,
+      "source": "src_graph_nodes_reviewer_py_graphstate",
+      "target": "observability_context_runcontext"
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "src/graph/nodes/reviewer.py",
+      "source_location": "L13",
+      "weight": 0.8,
+      "confidence_score": 0.5,
+      "source": "src_graph_nodes_reviewer_py_runcontext",
       "target": "observability_context_runcontext"
     },
     {
@@ -14391,6 +14349,17 @@
     {
       "relation": "calls",
       "context": "call",
+      "confidence": "INFERRED",
+      "source_file": "src/graph/nodes/reviewer.py",
+      "source_location": "L72",
+      "weight": 1.0,
+      "confidence_score": 0.8,
+      "source": "nodes_reviewer_reviewer_node",
+      "target": "observability_event_logging_utils_emit_success"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "src/graph/nodes/semantic_validator.py",
       "source_location": "L120",
@@ -14534,6 +14503,17 @@
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
+      "source_file": "src/graph/nodes/reviewer.py",
+      "source_location": "L14",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_graph_nodes_reviewer_py",
+      "target": "observability_event_logging_utils_emit_success"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
       "source_file": "src/graph/nodes/semantic_validator.py",
       "source_location": "L17",
       "weight": 1.0,
@@ -14660,6 +14640,17 @@
       "weight": 1.0,
       "confidence_score": 1.0,
       "source": "nodes_retrieval_node_retrieval_node",
+      "target": "observability_event_logging_utils_emit_failure"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "source_file": "src/graph/nodes/reviewer.py",
+      "source_location": "L36",
+      "weight": 1.0,
+      "confidence_score": 0.8,
+      "source": "nodes_reviewer_reviewer_node",
       "target": "observability_event_logging_utils_emit_failure"
     },
     {
@@ -14802,6 +14793,17 @@
       "weight": 1.0,
       "confidence_score": 1.0,
       "source": "src_graph_nodes_retrieval_node_py",
+      "target": "observability_event_logging_utils_emit_failure"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/graph/nodes/reviewer.py",
+      "source_location": "L14",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_graph_nodes_reviewer_py",
       "target": "observability_event_logging_utils_emit_failure"
     },
     {
@@ -14964,9 +14966,9 @@
       "source_file": "src/retrieval/slicing/protocol.py",
       "source_location": "L26",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "slicing_protocol_languageslicer",
-      "target": "protocol"
+      "target": "protocol",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
@@ -16757,9 +16759,9 @@
       "source_file": "src/retrieval/slicing/protocol.py",
       "source_location": "L1",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "slicing_protocol_rationale_1",
-      "target": "src_retrieval_slicing_protocol_py"
+      "target": "src_retrieval_slicing_protocol_py",
+      "confidence_score": 1.0
     },
     {
       "relation": "re_exports",
@@ -16768,9 +16770,9 @@
       "source_file": "src/retrieval/slicing/__init__.py",
       "source_location": "L3",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "src_retrieval_slicing_init_py",
-      "target": "src_retrieval_slicing_protocol_py"
+      "target": "src_retrieval_slicing_protocol_py",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -16778,9 +16780,9 @@
       "source_file": "src/retrieval/slicing/protocol.py",
       "source_location": "L26",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "src_retrieval_slicing_protocol_py",
-      "target": "slicing_protocol_languageslicer"
+      "target": "slicing_protocol_languageslicer",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -16788,9 +16790,9 @@
       "source_file": "src/retrieval/slicing/protocol.py",
       "source_location": "L15",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "src_retrieval_slicing_protocol_py",
-      "target": "slicing_protocol_symbolslice"
+      "target": "slicing_protocol_symbolslice",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -16799,9 +16801,9 @@
       "source_file": "src/graph/nodes/coder.py",
       "source_location": "L218",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "nodes_coder_coder_node",
-      "target": "slicing_protocol_symbolslice"
+      "target": "slicing_protocol_symbolslice",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
@@ -16810,9 +16812,9 @@
       "source_file": "src/retrieval/slicing/protocol.py",
       "source_location": "L29",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "slicing_protocol_languageslicer_extract_symbol",
-      "target": "slicing_protocol_symbolslice"
+      "target": "slicing_protocol_symbolslice",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
@@ -16821,9 +16823,9 @@
       "source_file": "src/retrieval/slicing/protocol.py",
       "source_location": "L45",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "slicing_protocol_languageslicer_stitch_symbol",
-      "target": "slicing_protocol_symbolslice"
+      "target": "slicing_protocol_symbolslice",
+      "confidence_score": 1.0
     },
     {
       "relation": "rationale_for",
@@ -16831,9 +16833,9 @@
       "source_file": "src/retrieval/slicing/protocol.py",
       "source_location": "L16",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "slicing_protocol_rationale_16",
-      "target": "slicing_protocol_symbolslice"
+      "target": "slicing_protocol_symbolslice",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -16842,9 +16844,9 @@
       "source_file": "src/retrieval/slicing/python_slicer.py",
       "source_location": "L191",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "slicing_python_slicer_build_slice",
-      "target": "slicing_protocol_symbolslice"
+      "target": "slicing_protocol_symbolslice",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports",
@@ -16853,9 +16855,9 @@
       "source_file": "src/graph/nodes/coder.py",
       "source_location": "L14",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "src_graph_nodes_coder_py",
-      "target": "slicing_protocol_symbolslice"
+      "target": "slicing_protocol_symbolslice",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports",
@@ -16864,9 +16866,9 @@
       "source_file": "src/graph/nodes/file_reader.py",
       "source_location": "L12",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "src_graph_nodes_file_reader_py",
-      "target": "slicing_protocol_symbolslice"
+      "target": "slicing_protocol_symbolslice",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports",
@@ -16875,9 +16877,9 @@
       "source_file": "src/retrieval/slicing/__init__.py",
       "source_location": "L3",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "src_retrieval_slicing_init_py",
-      "target": "slicing_protocol_symbolslice"
+      "target": "slicing_protocol_symbolslice",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports",
@@ -16886,9 +16888,9 @@
       "source_file": "src/retrieval/slicing/python_slicer.py",
       "source_location": "L13",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "src_retrieval_slicing_python_slicer_py",
-      "target": "slicing_protocol_symbolslice"
+      "target": "slicing_protocol_symbolslice",
+      "confidence_score": 1.0
     },
     {
       "relation": "method",
@@ -16896,9 +16898,9 @@
       "source_file": "src/retrieval/slicing/protocol.py",
       "source_location": "L37",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "slicing_protocol_languageslicer",
-      "target": "slicing_protocol_languageslicer_extract_class_context"
+      "target": "slicing_protocol_languageslicer_extract_class_context",
+      "confidence_score": 1.0
     },
     {
       "relation": "method",
@@ -16906,9 +16908,9 @@
       "source_file": "src/retrieval/slicing/protocol.py",
       "source_location": "L41",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "slicing_protocol_languageslicer",
-      "target": "slicing_protocol_languageslicer_extract_contracts"
+      "target": "slicing_protocol_languageslicer_extract_contracts",
+      "confidence_score": 1.0
     },
     {
       "relation": "method",
@@ -16916,9 +16918,9 @@
       "source_file": "src/retrieval/slicing/protocol.py",
       "source_location": "L33",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "slicing_protocol_languageslicer",
-      "target": "slicing_protocol_languageslicer_extract_imports_for"
+      "target": "slicing_protocol_languageslicer_extract_imports_for",
+      "confidence_score": 1.0
     },
     {
       "relation": "method",
@@ -16926,9 +16928,9 @@
       "source_file": "src/retrieval/slicing/protocol.py",
       "source_location": "L29",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "slicing_protocol_languageslicer",
-      "target": "slicing_protocol_languageslicer_extract_symbol"
+      "target": "slicing_protocol_languageslicer_extract_symbol",
+      "confidence_score": 1.0
     },
     {
       "relation": "method",
@@ -16936,9 +16938,9 @@
       "source_file": "src/retrieval/slicing/protocol.py",
       "source_location": "L45",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "slicing_protocol_languageslicer",
-      "target": "slicing_protocol_languageslicer_stitch_symbol"
+      "target": "slicing_protocol_languageslicer_stitch_symbol",
+      "confidence_score": 1.0
     },
     {
       "relation": "rationale_for",
@@ -16946,9 +16948,9 @@
       "source_file": "src/retrieval/slicing/protocol.py",
       "source_location": "L27",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "slicing_protocol_rationale_27",
-      "target": "slicing_protocol_languageslicer"
+      "target": "slicing_protocol_languageslicer",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports",
@@ -16957,9 +16959,9 @@
       "source_file": "src/retrieval/slicing/__init__.py",
       "source_location": "L3",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "src_retrieval_slicing_init_py",
-      "target": "slicing_protocol_languageslicer"
+      "target": "slicing_protocol_languageslicer",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports",
@@ -16968,9 +16970,9 @@
       "source_file": "src/retrieval/slicing/python_slicer.py",
       "source_location": "L13",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "src_retrieval_slicing_python_slicer_py",
-      "target": "slicing_protocol_languageslicer"
+      "target": "slicing_protocol_languageslicer",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports",
@@ -16979,9 +16981,9 @@
       "source_file": "src/retrieval/slicing/registry.py",
       "source_location": "L11",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "src_retrieval_slicing_registry_py",
-      "target": "slicing_protocol_languageslicer"
+      "target": "slicing_protocol_languageslicer",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
@@ -16990,9 +16992,9 @@
       "source_file": "src/retrieval/slicing/protocol.py",
       "source_location": "L29",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "slicing_protocol_languageslicer_extract_symbol",
-      "target": "src_retrieval_slicing_protocol_py_str"
+      "target": "src_retrieval_slicing_protocol_py_str",
+      "confidence_score": 1.0
     },
     {
       "relation": "rationale_for",
@@ -17000,9 +17002,9 @@
       "source_file": "src/retrieval/slicing/protocol.py",
       "source_location": "L30",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "slicing_protocol_rationale_30",
-      "target": "slicing_protocol_languageslicer_extract_symbol"
+      "target": "slicing_protocol_languageslicer_extract_symbol",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
@@ -17011,9 +17013,9 @@
       "source_file": "src/retrieval/slicing/protocol.py",
       "source_location": "L37",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "slicing_protocol_languageslicer_extract_class_context",
-      "target": "src_retrieval_slicing_protocol_py_str"
+      "target": "src_retrieval_slicing_protocol_py_str",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
@@ -17022,9 +17024,9 @@
       "source_file": "src/retrieval/slicing/protocol.py",
       "source_location": "L41",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "slicing_protocol_languageslicer_extract_contracts",
-      "target": "src_retrieval_slicing_protocol_py_str"
+      "target": "src_retrieval_slicing_protocol_py_str",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
@@ -17033,9 +17035,9 @@
       "source_file": "src/retrieval/slicing/protocol.py",
       "source_location": "L33",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "slicing_protocol_languageslicer_extract_imports_for",
-      "target": "src_retrieval_slicing_protocol_py_str"
+      "target": "src_retrieval_slicing_protocol_py_str",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
@@ -17044,9 +17046,9 @@
       "source_file": "src/retrieval/slicing/protocol.py",
       "source_location": "L45",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "slicing_protocol_languageslicer_stitch_symbol",
-      "target": "src_retrieval_slicing_protocol_py_str"
+      "target": "src_retrieval_slicing_protocol_py_str",
+      "confidence_score": 1.0
     },
     {
       "relation": "rationale_for",
@@ -17054,9 +17056,9 @@
       "source_file": "src/retrieval/slicing/protocol.py",
       "source_location": "L34",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "slicing_protocol_rationale_34",
-      "target": "slicing_protocol_languageslicer_extract_imports_for"
+      "target": "slicing_protocol_languageslicer_extract_imports_for",
+      "confidence_score": 1.0
     },
     {
       "relation": "rationale_for",
@@ -17064,9 +17066,9 @@
       "source_file": "src/retrieval/slicing/protocol.py",
       "source_location": "L38",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "slicing_protocol_rationale_38",
-      "target": "slicing_protocol_languageslicer_extract_class_context"
+      "target": "slicing_protocol_languageslicer_extract_class_context",
+      "confidence_score": 1.0
     },
     {
       "relation": "rationale_for",
@@ -17074,9 +17076,9 @@
       "source_file": "src/retrieval/slicing/protocol.py",
       "source_location": "L42",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "slicing_protocol_rationale_42",
-      "target": "slicing_protocol_languageslicer_extract_contracts"
+      "target": "slicing_protocol_languageslicer_extract_contracts",
+      "confidence_score": 1.0
     },
     {
       "relation": "rationale_for",
@@ -17084,9 +17086,9 @@
       "source_file": "src/retrieval/slicing/protocol.py",
       "source_location": "L46",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "slicing_protocol_rationale_46",
-      "target": "slicing_protocol_languageslicer_stitch_symbol"
+      "target": "slicing_protocol_languageslicer_stitch_symbol",
+      "confidence_score": 1.0
     },
     {
       "relation": "rationale_for",
@@ -17094,9 +17096,9 @@
       "source_file": "src/retrieval/slicing/registry.py",
       "source_location": "L1",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "slicing_registry_rationale_1",
-      "target": "src_retrieval_slicing_registry_py"
+      "target": "src_retrieval_slicing_registry_py",
+      "confidence_score": 1.0
     },
     {
       "relation": "re_exports",
@@ -17105,9 +17107,9 @@
       "source_file": "src/retrieval/slicing/__init__.py",
       "source_location": "L4",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "src_retrieval_slicing_init_py",
-      "target": "src_retrieval_slicing_registry_py"
+      "target": "src_retrieval_slicing_registry_py",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports",
@@ -17116,9 +17118,9 @@
       "source_file": "src/retrieval/slicing/registry.py",
       "source_location": "L12",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "src_retrieval_slicing_registry_py",
-      "target": "slicing_python_slicer_pythonslicer"
+      "target": "slicing_python_slicer_pythonslicer",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -17126,9 +17128,9 @@
       "source_file": "src/retrieval/slicing/registry.py",
       "source_location": "L19",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "src_retrieval_slicing_registry_py",
-      "target": "slicing_registry_get_slicer"
+      "target": "slicing_registry_get_slicer",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -17137,9 +17139,9 @@
       "source_file": "src/graph/nodes/coder.py",
       "source_location": "L216",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "nodes_coder_coder_node",
-      "target": "slicing_registry_get_slicer"
+      "target": "slicing_registry_get_slicer",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -17148,9 +17150,9 @@
       "source_file": "src/graph/nodes/file_reader.py",
       "source_location": "L38",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "nodes_file_reader_file_reader_node",
-      "target": "slicing_registry_get_slicer"
+      "target": "slicing_registry_get_slicer",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
@@ -17159,9 +17161,9 @@
       "source_file": "src/retrieval/slicing/registry.py",
       "source_location": "L19",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "slicing_registry_get_slicer",
-      "target": "languageslicer"
+      "target": "languageslicer",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
@@ -17170,9 +17172,9 @@
       "source_file": "src/retrieval/slicing/registry.py",
       "source_location": "L19",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "slicing_registry_get_slicer",
-      "target": "src_retrieval_slicing_registry_py_str"
+      "target": "src_retrieval_slicing_registry_py_str",
+      "confidence_score": 1.0
     },
     {
       "relation": "rationale_for",
@@ -17180,9 +17182,9 @@
       "source_file": "src/retrieval/slicing/registry.py",
       "source_location": "L20",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "slicing_registry_rationale_20",
-      "target": "slicing_registry_get_slicer"
+      "target": "slicing_registry_get_slicer",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports",
@@ -17191,9 +17193,9 @@
       "source_file": "src/graph/nodes/coder.py",
       "source_location": "L14",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "src_graph_nodes_coder_py",
-      "target": "slicing_registry_get_slicer"
+      "target": "slicing_registry_get_slicer",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports",
@@ -17202,9 +17204,9 @@
       "source_file": "src/graph/nodes/file_reader.py",
       "source_location": "L12",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "src_graph_nodes_file_reader_py",
-      "target": "slicing_registry_get_slicer"
+      "target": "slicing_registry_get_slicer",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports",
@@ -17213,9 +17215,9 @@
       "source_file": "src/retrieval/slicing/__init__.py",
       "source_location": "L4",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "src_retrieval_slicing_init_py",
-      "target": "slicing_registry_get_slicer"
+      "target": "slicing_registry_get_slicer",
+      "confidence_score": 1.0
     },
     {
       "relation": "uses",
@@ -17223,9 +17225,9 @@
       "source_file": "src/retrieval/slicing/registry.py",
       "source_location": "L12",
       "weight": 0.8,
-      "confidence_score": 0.5,
       "source": "src_retrieval_slicing_registry_py_str",
-      "target": "slicing_python_slicer_pythonslicer"
+      "target": "slicing_python_slicer_pythonslicer",
+      "confidence_score": 0.5
     },
     {
       "relation": "uses",
@@ -17233,9 +17235,9 @@
       "source_file": "src/retrieval/slicing/registry.py",
       "source_location": "L12",
       "weight": 0.8,
-      "confidence_score": 0.5,
       "source": "languageslicer",
-      "target": "slicing_python_slicer_pythonslicer"
+      "target": "slicing_python_slicer_pythonslicer",
+      "confidence_score": 0.5
     },
     {
       "relation": "rationale_for",
@@ -17243,9 +17245,9 @@
       "source_file": "src/retrieval/slicing/__init__.py",
       "source_location": "L1",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "slicing_init_rationale_1",
-      "target": "src_retrieval_slicing_init_py"
+      "target": "src_retrieval_slicing_init_py",
+      "confidence_score": 1.0
     },
     {
       "relation": "rationale_for",
@@ -17253,9 +17255,9 @@
       "source_file": "src/retrieval/slicing/python_slicer.py",
       "source_location": "L1",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "slicing_python_slicer_rationale_1",
-      "target": "src_retrieval_slicing_python_slicer_py"
+      "target": "src_retrieval_slicing_python_slicer_py",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -17263,9 +17265,9 @@
       "source_file": "src/retrieval/slicing/python_slicer.py",
       "source_location": "L178",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "src_retrieval_slicing_python_slicer_py",
-      "target": "slicing_python_slicer_build_slice"
+      "target": "slicing_python_slicer_build_slice",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -17273,9 +17275,9 @@
       "source_file": "src/retrieval/slicing/python_slicer.py",
       "source_location": "L200",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "src_retrieval_slicing_python_slicer_py",
-      "target": "slicing_python_slicer_collect_names"
+      "target": "slicing_python_slicer_collect_names",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -17283,9 +17285,9 @@
       "source_file": "src/retrieval/slicing/python_slicer.py",
       "source_location": "L156",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "src_retrieval_slicing_python_slicer_py",
-      "target": "slicing_python_slicer_find_symbol"
+      "target": "slicing_python_slicer_find_symbol",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -17293,9 +17295,9 @@
       "source_file": "src/retrieval/slicing/python_slicer.py",
       "source_location": "L245",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "src_retrieval_slicing_python_slicer_py",
-      "target": "slicing_python_slicer_get_docstring"
+      "target": "slicing_python_slicer_get_docstring",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -17303,9 +17305,9 @@
       "source_file": "src/retrieval/slicing/python_slicer.py",
       "source_location": "L214",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "src_retrieval_slicing_python_slicer_py",
-      "target": "slicing_python_slicer_import_exposes_used_name"
+      "target": "slicing_python_slicer_import_exposes_used_name",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -17313,9 +17315,9 @@
       "source_file": "src/retrieval/slicing/python_slicer.py",
       "source_location": "L259",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "src_retrieval_slicing_python_slicer_py",
-      "target": "slicing_python_slicer_is_contract"
+      "target": "slicing_python_slicer_is_contract",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -17323,9 +17325,9 @@
       "source_file": "src/retrieval/slicing/python_slicer.py",
       "source_location": "L23",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "src_retrieval_slicing_python_slicer_py",
-      "target": "slicing_python_slicer_make_parser"
+      "target": "slicing_python_slicer_make_parser",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -17333,9 +17335,9 @@
       "source_file": "src/retrieval/slicing/python_slicer.py",
       "source_location": "L151",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "src_retrieval_slicing_python_slicer_py",
-      "target": "slicing_python_slicer_node_name"
+      "target": "slicing_python_slicer_node_name",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -17343,9 +17345,9 @@
       "source_file": "src/retrieval/slicing/python_slicer.py",
       "source_location": "L27",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "src_retrieval_slicing_python_slicer_py",
-      "target": "slicing_python_slicer_pythonslicer"
+      "target": "slicing_python_slicer_pythonslicer",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -17353,9 +17355,9 @@
       "source_file": "src/retrieval/slicing/python_slicer.py",
       "source_location": "L207",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "src_retrieval_slicing_python_slicer_py",
-      "target": "slicing_python_slicer_walk_names"
+      "target": "slicing_python_slicer_walk_names",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
@@ -17364,9 +17366,9 @@
       "source_file": "src/retrieval/slicing/python_slicer.py",
       "source_location": "L23",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "slicing_python_slicer_make_parser",
-      "target": "parser"
+      "target": "parser",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -17375,9 +17377,9 @@
       "source_file": "src/retrieval/slicing/python_slicer.py",
       "source_location": "L71",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "slicing_python_slicer_pythonslicer_extract_class_context",
-      "target": "slicing_python_slicer_make_parser"
+      "target": "slicing_python_slicer_make_parser",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -17386,9 +17388,9 @@
       "source_file": "src/retrieval/slicing/python_slicer.py",
       "source_location": "L96",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "slicing_python_slicer_pythonslicer_extract_contracts",
-      "target": "slicing_python_slicer_make_parser"
+      "target": "slicing_python_slicer_make_parser",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -17397,9 +17399,9 @@
       "source_file": "src/retrieval/slicing/python_slicer.py",
       "source_location": "L48",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "slicing_python_slicer_pythonslicer_extract_imports_for",
-      "target": "slicing_python_slicer_make_parser"
+      "target": "slicing_python_slicer_make_parser",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -17408,9 +17410,9 @@
       "source_file": "src/retrieval/slicing/python_slicer.py",
       "source_location": "L36",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "slicing_python_slicer_pythonslicer_extract_symbol",
-      "target": "slicing_python_slicer_make_parser"
+      "target": "slicing_python_slicer_make_parser",
+      "confidence_score": 1.0
     },
     {
       "relation": "method",
@@ -17418,9 +17420,9 @@
       "source_file": "src/retrieval/slicing/python_slicer.py",
       "source_location": "L69",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "slicing_python_slicer_pythonslicer",
-      "target": "slicing_python_slicer_pythonslicer_extract_class_context"
+      "target": "slicing_python_slicer_pythonslicer_extract_class_context",
+      "confidence_score": 1.0
     },
     {
       "relation": "method",
@@ -17428,9 +17430,9 @@
       "source_file": "src/retrieval/slicing/python_slicer.py",
       "source_location": "L94",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "slicing_python_slicer_pythonslicer",
-      "target": "slicing_python_slicer_pythonslicer_extract_contracts"
+      "target": "slicing_python_slicer_pythonslicer_extract_contracts",
+      "confidence_score": 1.0
     },
     {
       "relation": "method",
@@ -17438,9 +17440,9 @@
       "source_file": "src/retrieval/slicing/python_slicer.py",
       "source_location": "L46",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "slicing_python_slicer_pythonslicer",
-      "target": "slicing_python_slicer_pythonslicer_extract_imports_for"
+      "target": "slicing_python_slicer_pythonslicer_extract_imports_for",
+      "confidence_score": 1.0
     },
     {
       "relation": "method",
@@ -17448,9 +17450,9 @@
       "source_file": "src/retrieval/slicing/python_slicer.py",
       "source_location": "L30",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "slicing_python_slicer_pythonslicer",
-      "target": "slicing_python_slicer_pythonslicer_extract_symbol"
+      "target": "slicing_python_slicer_pythonslicer_extract_symbol",
+      "confidence_score": 1.0
     },
     {
       "relation": "method",
@@ -17458,9 +17460,9 @@
       "source_file": "src/retrieval/slicing/python_slicer.py",
       "source_location": "L120",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "slicing_python_slicer_pythonslicer",
-      "target": "slicing_python_slicer_pythonslicer_stitch_symbol"
+      "target": "slicing_python_slicer_pythonslicer_stitch_symbol",
+      "confidence_score": 1.0
     },
     {
       "relation": "rationale_for",
@@ -17468,9 +17470,9 @@
       "source_file": "src/retrieval/slicing/python_slicer.py",
       "source_location": "L28",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "slicing_python_slicer_rationale_28",
-      "target": "slicing_python_slicer_pythonslicer"
+      "target": "slicing_python_slicer_pythonslicer",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -17479,9 +17481,9 @@
       "source_file": "src/retrieval/slicing/python_slicer.py",
       "source_location": "L44",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "slicing_python_slicer_pythonslicer_extract_symbol",
-      "target": "slicing_python_slicer_build_slice"
+      "target": "slicing_python_slicer_build_slice",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -17490,9 +17492,9 @@
       "source_file": "src/retrieval/slicing/python_slicer.py",
       "source_location": "L40",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "slicing_python_slicer_pythonslicer_extract_symbol",
-      "target": "slicing_python_slicer_find_symbol"
+      "target": "slicing_python_slicer_find_symbol",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
@@ -17501,9 +17503,9 @@
       "source_file": "src/retrieval/slicing/python_slicer.py",
       "source_location": "L30",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "slicing_python_slicer_pythonslicer_extract_symbol",
-      "target": "src_retrieval_slicing_python_slicer_py_str"
+      "target": "src_retrieval_slicing_python_slicer_py_str",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
@@ -17512,9 +17514,9 @@
       "source_file": "src/retrieval/slicing/python_slicer.py",
       "source_location": "L30",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "slicing_python_slicer_pythonslicer_extract_symbol",
-      "target": "symbolslice"
+      "target": "symbolslice",
+      "confidence_score": 1.0
     },
     {
       "relation": "rationale_for",
@@ -17522,9 +17524,9 @@
       "source_file": "src/retrieval/slicing/python_slicer.py",
       "source_location": "L31",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "slicing_python_slicer_rationale_31",
-      "target": "slicing_python_slicer_pythonslicer_extract_symbol"
+      "target": "slicing_python_slicer_pythonslicer_extract_symbol",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
@@ -17533,9 +17535,9 @@
       "source_file": "src/retrieval/slicing/python_slicer.py",
       "source_location": "L178",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "slicing_python_slicer_build_slice",
-      "target": "src_retrieval_slicing_python_slicer_py_str"
+      "target": "src_retrieval_slicing_python_slicer_py_str",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
@@ -17544,9 +17546,9 @@
       "source_file": "src/retrieval/slicing/python_slicer.py",
       "source_location": "L200",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "slicing_python_slicer_collect_names",
-      "target": "src_retrieval_slicing_python_slicer_py_str"
+      "target": "src_retrieval_slicing_python_slicer_py_str",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
@@ -17555,9 +17557,9 @@
       "source_file": "src/retrieval/slicing/python_slicer.py",
       "source_location": "L156",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "slicing_python_slicer_find_symbol",
-      "target": "src_retrieval_slicing_python_slicer_py_str"
+      "target": "src_retrieval_slicing_python_slicer_py_str",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
@@ -17566,9 +17568,9 @@
       "source_file": "src/retrieval/slicing/python_slicer.py",
       "source_location": "L245",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "slicing_python_slicer_get_docstring",
-      "target": "src_retrieval_slicing_python_slicer_py_str"
+      "target": "src_retrieval_slicing_python_slicer_py_str",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
@@ -17577,9 +17579,9 @@
       "source_file": "src/retrieval/slicing/python_slicer.py",
       "source_location": "L214",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "slicing_python_slicer_import_exposes_used_name",
-      "target": "src_retrieval_slicing_python_slicer_py_str"
+      "target": "src_retrieval_slicing_python_slicer_py_str",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
@@ -17588,9 +17590,9 @@
       "source_file": "src/retrieval/slicing/python_slicer.py",
       "source_location": "L151",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "slicing_python_slicer_node_name",
-      "target": "src_retrieval_slicing_python_slicer_py_str"
+      "target": "src_retrieval_slicing_python_slicer_py_str",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
@@ -17599,9 +17601,9 @@
       "source_file": "src/retrieval/slicing/python_slicer.py",
       "source_location": "L69",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "slicing_python_slicer_pythonslicer_extract_class_context",
-      "target": "src_retrieval_slicing_python_slicer_py_str"
+      "target": "src_retrieval_slicing_python_slicer_py_str",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
@@ -17610,9 +17612,9 @@
       "source_file": "src/retrieval/slicing/python_slicer.py",
       "source_location": "L94",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "slicing_python_slicer_pythonslicer_extract_contracts",
-      "target": "src_retrieval_slicing_python_slicer_py_str"
+      "target": "src_retrieval_slicing_python_slicer_py_str",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
@@ -17621,9 +17623,9 @@
       "source_file": "src/retrieval/slicing/python_slicer.py",
       "source_location": "L46",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "slicing_python_slicer_pythonslicer_extract_imports_for",
-      "target": "src_retrieval_slicing_python_slicer_py_str"
+      "target": "src_retrieval_slicing_python_slicer_py_str",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
@@ -17632,9 +17634,9 @@
       "source_file": "src/retrieval/slicing/python_slicer.py",
       "source_location": "L120",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "slicing_python_slicer_pythonslicer_stitch_symbol",
-      "target": "src_retrieval_slicing_python_slicer_py_str"
+      "target": "src_retrieval_slicing_python_slicer_py_str",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
@@ -17643,9 +17645,9 @@
       "source_file": "src/retrieval/slicing/python_slicer.py",
       "source_location": "L207",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "slicing_python_slicer_walk_names",
-      "target": "src_retrieval_slicing_python_slicer_py_str"
+      "target": "src_retrieval_slicing_python_slicer_py_str",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
@@ -17654,9 +17656,9 @@
       "source_file": "src/retrieval/slicing/python_slicer.py",
       "source_location": "L178",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "slicing_python_slicer_build_slice",
-      "target": "symbolslice"
+      "target": "symbolslice",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
@@ -17665,9 +17667,9 @@
       "source_file": "src/retrieval/slicing/python_slicer.py",
       "source_location": "L120",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "slicing_python_slicer_pythonslicer_stitch_symbol",
-      "target": "symbolslice"
+      "target": "symbolslice",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -17676,9 +17678,9 @@
       "source_file": "src/retrieval/slicing/python_slicer.py",
       "source_location": "L55",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "slicing_python_slicer_pythonslicer_extract_imports_for",
-      "target": "slicing_python_slicer_collect_names"
+      "target": "slicing_python_slicer_collect_names",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -17687,9 +17689,9 @@
       "source_file": "src/retrieval/slicing/python_slicer.py",
       "source_location": "L51",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "slicing_python_slicer_pythonslicer_extract_imports_for",
-      "target": "slicing_python_slicer_find_symbol"
+      "target": "slicing_python_slicer_find_symbol",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -17698,9 +17700,9 @@
       "source_file": "src/retrieval/slicing/python_slicer.py",
       "source_location": "L62",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "slicing_python_slicer_pythonslicer_extract_imports_for",
-      "target": "slicing_python_slicer_import_exposes_used_name"
+      "target": "slicing_python_slicer_import_exposes_used_name",
+      "confidence_score": 1.0
     },
     {
       "relation": "rationale_for",
@@ -17708,9 +17710,9 @@
       "source_file": "src/retrieval/slicing/python_slicer.py",
       "source_location": "L47",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "slicing_python_slicer_rationale_47",
-      "target": "slicing_python_slicer_pythonslicer_extract_imports_for"
+      "target": "slicing_python_slicer_pythonslicer_extract_imports_for",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -17719,9 +17721,9 @@
       "source_file": "src/retrieval/slicing/python_slicer.py",
       "source_location": "L87",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "slicing_python_slicer_pythonslicer_extract_class_context",
-      "target": "slicing_python_slicer_get_docstring"
+      "target": "slicing_python_slicer_get_docstring",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -17730,9 +17732,9 @@
       "source_file": "src/retrieval/slicing/python_slicer.py",
       "source_location": "L85",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "slicing_python_slicer_pythonslicer_extract_class_context",
-      "target": "slicing_python_slicer_node_name"
+      "target": "slicing_python_slicer_node_name",
+      "confidence_score": 1.0
     },
     {
       "relation": "rationale_for",
@@ -17740,9 +17742,9 @@
       "source_file": "src/retrieval/slicing/python_slicer.py",
       "source_location": "L70",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "slicing_python_slicer_rationale_70",
-      "target": "slicing_python_slicer_pythonslicer_extract_class_context"
+      "target": "slicing_python_slicer_pythonslicer_extract_class_context",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -17751,9 +17753,9 @@
       "source_file": "src/retrieval/slicing/python_slicer.py",
       "source_location": "L103",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "slicing_python_slicer_pythonslicer_extract_contracts",
-      "target": "slicing_python_slicer_collect_names"
+      "target": "slicing_python_slicer_collect_names",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -17762,9 +17764,9 @@
       "source_file": "src/retrieval/slicing/python_slicer.py",
       "source_location": "L99",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "slicing_python_slicer_pythonslicer_extract_contracts",
-      "target": "slicing_python_slicer_find_symbol"
+      "target": "slicing_python_slicer_find_symbol",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -17773,9 +17775,9 @@
       "source_file": "src/retrieval/slicing/python_slicer.py",
       "source_location": "L113",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "slicing_python_slicer_pythonslicer_extract_contracts",
-      "target": "slicing_python_slicer_is_contract"
+      "target": "slicing_python_slicer_is_contract",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -17784,9 +17786,9 @@
       "source_file": "src/retrieval/slicing/python_slicer.py",
       "source_location": "L111",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "slicing_python_slicer_pythonslicer_extract_contracts",
-      "target": "slicing_python_slicer_node_name"
+      "target": "slicing_python_slicer_node_name",
+      "confidence_score": 1.0
     },
     {
       "relation": "rationale_for",
@@ -17794,9 +17796,9 @@
       "source_file": "src/retrieval/slicing/python_slicer.py",
       "source_location": "L95",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "slicing_python_slicer_rationale_95",
-      "target": "slicing_python_slicer_pythonslicer_extract_contracts"
+      "target": "slicing_python_slicer_pythonslicer_extract_contracts",
+      "confidence_score": 1.0
     },
     {
       "relation": "rationale_for",
@@ -17804,9 +17806,9 @@
       "source_file": "src/retrieval/slicing/python_slicer.py",
       "source_location": "L121",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "slicing_python_slicer_rationale_121",
-      "target": "slicing_python_slicer_pythonslicer_stitch_symbol"
+      "target": "slicing_python_slicer_pythonslicer_stitch_symbol",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -17815,9 +17817,9 @@
       "source_file": "src/retrieval/slicing/python_slicer.py",
       "source_location": "L161",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "slicing_python_slicer_find_symbol",
-      "target": "slicing_python_slicer_node_name"
+      "target": "slicing_python_slicer_node_name",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -17826,9 +17828,9 @@
       "source_file": "src/retrieval/slicing/python_slicer.py",
       "source_location": "L220",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "slicing_python_slicer_import_exposes_used_name",
-      "target": "slicing_python_slicer_node_name"
+      "target": "slicing_python_slicer_node_name",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -17837,9 +17839,9 @@
       "source_file": "src/retrieval/slicing/python_slicer.py",
       "source_location": "L264",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "slicing_python_slicer_is_contract",
-      "target": "slicing_python_slicer_node_name"
+      "target": "slicing_python_slicer_node_name",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
@@ -17848,9 +17850,9 @@
       "source_file": "src/retrieval/slicing/python_slicer.py",
       "source_location": "L151",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "slicing_python_slicer_node_name",
-      "target": "node"
+      "target": "node",
+      "confidence_score": 1.0
     },
     {
       "relation": "rationale_for",
@@ -17858,17 +17860,7 @@
       "source_file": "src/retrieval/slicing/python_slicer.py",
       "source_location": "L152",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "slicing_python_slicer_rationale_152",
-      "target": "slicing_python_slicer_node_name"
-    },
-    {
-      "relation": "rationale_for",
-      "confidence": "EXTRACTED",
-      "source_file": "src/retrieval/slicing/python_slicer.py",
-      "source_location": "L163",
-      "weight": 1.0,
-      "source": "slicing_python_slicer_rationale_163",
       "target": "slicing_python_slicer_node_name",
       "confidence_score": 1.0
     },
@@ -17879,9 +17871,9 @@
       "source_file": "src/retrieval/slicing/python_slicer.py",
       "source_location": "L178",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "slicing_python_slicer_build_slice",
-      "target": "node"
+      "target": "node",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
@@ -17890,9 +17882,9 @@
       "source_file": "src/retrieval/slicing/python_slicer.py",
       "source_location": "L200",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "slicing_python_slicer_collect_names",
-      "target": "node"
+      "target": "node",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
@@ -17901,9 +17893,9 @@
       "source_file": "src/retrieval/slicing/python_slicer.py",
       "source_location": "L156",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "slicing_python_slicer_find_symbol",
-      "target": "node"
+      "target": "node",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
@@ -17912,9 +17904,9 @@
       "source_file": "src/retrieval/slicing/python_slicer.py",
       "source_location": "L245",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "slicing_python_slicer_get_docstring",
-      "target": "node"
+      "target": "node",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
@@ -17923,9 +17915,9 @@
       "source_file": "src/retrieval/slicing/python_slicer.py",
       "source_location": "L214",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "slicing_python_slicer_import_exposes_used_name",
-      "target": "node"
+      "target": "node",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
@@ -17934,9 +17926,9 @@
       "source_file": "src/retrieval/slicing/python_slicer.py",
       "source_location": "L259",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "slicing_python_slicer_is_contract",
-      "target": "node"
+      "target": "node",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
@@ -17945,9 +17937,9 @@
       "source_file": "src/retrieval/slicing/python_slicer.py",
       "source_location": "L207",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "slicing_python_slicer_walk_names",
-      "target": "node"
+      "target": "node",
+      "confidence_score": 1.0
     },
     {
       "relation": "rationale_for",
@@ -17955,17 +17947,7 @@
       "source_file": "src/retrieval/slicing/python_slicer.py",
       "source_location": "L157",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "slicing_python_slicer_rationale_157",
-      "target": "slicing_python_slicer_find_symbol"
-    },
-    {
-      "relation": "rationale_for",
-      "confidence": "EXTRACTED",
-      "source_file": "src/retrieval/slicing/python_slicer.py",
-      "source_location": "L168",
-      "weight": 1.0,
-      "source": "slicing_python_slicer_rationale_168",
       "target": "slicing_python_slicer_find_symbol",
       "confidence_score": 1.0
     },
@@ -17975,17 +17957,7 @@
       "source_file": "src/retrieval/slicing/python_slicer.py",
       "source_location": "L179",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "slicing_python_slicer_rationale_179",
-      "target": "slicing_python_slicer_build_slice"
-    },
-    {
-      "relation": "rationale_for",
-      "confidence": "EXTRACTED",
-      "source_file": "src/retrieval/slicing/python_slicer.py",
-      "source_location": "L190",
-      "weight": 1.0,
-      "source": "slicing_python_slicer_rationale_190",
       "target": "slicing_python_slicer_build_slice",
       "confidence_score": 1.0
     },
@@ -17996,9 +17968,9 @@
       "source_file": "src/retrieval/slicing/python_slicer.py",
       "source_location": "L203",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "slicing_python_slicer_collect_names",
-      "target": "slicing_python_slicer_walk_names"
+      "target": "slicing_python_slicer_walk_names",
+      "confidence_score": 1.0
     },
     {
       "relation": "rationale_for",
@@ -18006,17 +17978,7 @@
       "source_file": "src/retrieval/slicing/python_slicer.py",
       "source_location": "L201",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "slicing_python_slicer_rationale_201",
-      "target": "slicing_python_slicer_collect_names"
-    },
-    {
-      "relation": "rationale_for",
-      "confidence": "EXTRACTED",
-      "source_file": "src/retrieval/slicing/python_slicer.py",
-      "source_location": "L212",
-      "weight": 1.0,
-      "source": "slicing_python_slicer_rationale_212",
       "target": "slicing_python_slicer_collect_names",
       "confidence_score": 1.0
     },
@@ -18027,9 +17989,9 @@
       "source_file": "src/retrieval/slicing/python_slicer.py",
       "source_location": "L214",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "slicing_python_slicer_import_exposes_used_name",
-      "target": "src_retrieval_slicing_python_slicer_py_bool"
+      "target": "src_retrieval_slicing_python_slicer_py_bool",
+      "confidence_score": 1.0
     },
     {
       "relation": "rationale_for",
@@ -18037,17 +17999,7 @@
       "source_file": "src/retrieval/slicing/python_slicer.py",
       "source_location": "L215",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "slicing_python_slicer_rationale_215",
-      "target": "slicing_python_slicer_import_exposes_used_name"
-    },
-    {
-      "relation": "rationale_for",
-      "confidence": "EXTRACTED",
-      "source_file": "src/retrieval/slicing/python_slicer.py",
-      "source_location": "L226",
-      "weight": 1.0,
-      "source": "slicing_python_slicer_rationale_226",
       "target": "slicing_python_slicer_import_exposes_used_name",
       "confidence_score": 1.0
     },
@@ -18058,9 +18010,9 @@
       "source_file": "src/retrieval/slicing/python_slicer.py",
       "source_location": "L259",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "slicing_python_slicer_is_contract",
-      "target": "src_retrieval_slicing_python_slicer_py_bool"
+      "target": "src_retrieval_slicing_python_slicer_py_bool",
+      "confidence_score": 1.0
     },
     {
       "relation": "rationale_for",
@@ -18068,17 +18020,7 @@
       "source_file": "src/retrieval/slicing/python_slicer.py",
       "source_location": "L246",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "slicing_python_slicer_rationale_246",
-      "target": "slicing_python_slicer_get_docstring"
-    },
-    {
-      "relation": "rationale_for",
-      "confidence": "EXTRACTED",
-      "source_file": "src/retrieval/slicing/python_slicer.py",
-      "source_location": "L257",
-      "weight": 1.0,
-      "source": "slicing_python_slicer_rationale_257",
       "target": "slicing_python_slicer_get_docstring",
       "confidence_score": 1.0
     },
@@ -18088,17 +18030,7 @@
       "source_file": "src/retrieval/slicing/python_slicer.py",
       "source_location": "L260",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "slicing_python_slicer_rationale_260",
-      "target": "slicing_python_slicer_is_contract"
-    },
-    {
-      "relation": "rationale_for",
-      "confidence": "EXTRACTED",
-      "source_file": "src/retrieval/slicing/python_slicer.py",
-      "source_location": "L271",
-      "weight": 1.0,
-      "source": "slicing_python_slicer_rationale_271",
       "target": "slicing_python_slicer_is_contract",
       "confidence_score": 1.0
     },
@@ -18914,9 +18846,9 @@
       "source_file": "src/graph/nodes/coder.py",
       "source_location": "L107",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "nodes_coder_build_full_file_prompt",
-      "target": "contracts_context_contract_format_repository_context_for_prompt"
+      "target": "contracts_context_contract_format_repository_context_for_prompt",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -19322,16 +19254,6 @@
       "relation": "uses",
       "confidence": "INFERRED",
       "source_file": "src/graph/nodes/coder.py",
-      "source_location": "L10",
-      "weight": 0.8,
-      "source": "src_graph_nodes_coder_py_int",
-      "target": "graph_state_graphstate",
-      "confidence_score": 0.5
-    },
-    {
-      "relation": "uses",
-      "confidence": "INFERRED",
-      "source_file": "src/graph/nodes/coder.py",
       "source_location": "L9",
       "weight": 0.8,
       "confidence_score": 0.5,
@@ -19416,9 +19338,9 @@
       "source_file": "src/graph/nodes/file_reader.py",
       "source_location": "L9",
       "weight": 0.8,
-      "confidence_score": 0.5,
       "source": "src_graph_nodes_file_reader_py_str",
-      "target": "graph_state_graphstate"
+      "target": "graph_state_graphstate",
+      "confidence_score": 0.5
     },
     {
       "relation": "imports",
@@ -19674,6 +19596,37 @@
       "weight": 0.8,
       "confidence_score": 0.5,
       "source": "src_graph_nodes_retrieval_node_py_str",
+      "target": "graph_state_graphstate"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/graph/nodes/reviewer.py",
+      "source_location": "L12",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_graph_nodes_reviewer_py",
+      "target": "graph_state_graphstate"
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "src/graph/nodes/reviewer.py",
+      "source_location": "L12",
+      "weight": 0.8,
+      "confidence_score": 0.5,
+      "source": "src_graph_nodes_reviewer_py_graphstate",
+      "target": "graph_state_graphstate"
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "src/graph/nodes/reviewer.py",
+      "source_location": "L12",
+      "weight": 0.8,
+      "confidence_score": 0.5,
+      "source": "src_graph_nodes_reviewer_py_runcontext",
       "target": "graph_state_graphstate"
     },
     {
@@ -20188,6 +20141,16 @@
       "weight": 1.0,
       "source": "graph_workflow_make_graph",
       "target": "nodes_file_writer_file_writer_node"
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/graph/workflow.py",
+      "source_location": "line 84",
+      "weight": 1.0,
+      "source": "graph_workflow_make_graph",
+      "target": "nodes_reviewer_reviewer_node"
     },
     {
       "relation": "references",
@@ -21407,6 +21370,17 @@
     {
       "relation": "calls",
       "context": "call",
+      "confidence": "INFERRED",
+      "source_file": "src/graph/nodes/reviewer.py",
+      "source_location": "L32",
+      "weight": 1.0,
+      "confidence_score": 0.8,
+      "source": "nodes_reviewer_reviewer_node",
+      "target": "nodes_support_require_state_value"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "src/graph/nodes/static_validator.py",
       "source_location": "L33",
@@ -21484,6 +21458,17 @@
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
+      "source_file": "src/graph/nodes/reviewer.py",
+      "source_location": "L11",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_graph_nodes_reviewer_py",
+      "target": "nodes_support_require_state_value"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
       "source_file": "src/graph/nodes/static_validator.py",
       "source_location": "L17",
       "weight": 1.0,
@@ -21531,8 +21516,19 @@
       "source_file": "src/graph/nodes/coder.py",
       "source_location": "L215",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "nodes_coder_coder_node",
+      "target": "nodes_support_strip_code_fences",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/graph/nodes/reviewer.py",
+      "source_location": "line 32",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "nodes_reviewer_reviewer_node",
       "target": "nodes_support_strip_code_fences"
     },
     {
@@ -21563,8 +21559,19 @@
       "source_file": "src/graph/nodes/coder.py",
       "source_location": "L9",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "src_graph_nodes_coder_py",
+      "target": "nodes_support_strip_code_fences",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/graph/nodes/reviewer.py",
+      "source_location": "L11",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_graph_nodes_reviewer_py",
       "target": "nodes_support_strip_code_fences"
     },
     {
@@ -21577,6 +21584,17 @@
       "confidence_score": 1.0,
       "source": "src_graph_nodes_static_validator_py",
       "target": "nodes_support_strip_code_fences"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/graph/nodes/reviewer.py",
+      "source_location": "line 33",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "nodes_reviewer_reviewer_node",
+      "target": "nodes_support_validate_python_syntax"
     },
     {
       "relation": "calls",
@@ -21600,16 +21618,6 @@
       "target": "nodes_support_validate_python_syntax"
     },
     {
-      "relation": "rationale_for",
-      "confidence": "EXTRACTED",
-      "source_file": "src/graph/nodes/support.py",
-      "source_location": "L46",
-      "weight": 1.0,
-      "source": "nodes_support_rationale_46",
-      "target": "nodes_support_validate_python_syntax",
-      "confidence_score": 1.0
-    },
-    {
       "relation": "references",
       "context": "generic_arg",
       "confidence": "EXTRACTED",
@@ -21630,6 +21638,17 @@
       "confidence_score": 1.0,
       "source": "nodes_support_validate_python_syntax",
       "target": "src_graph_nodes_support_py_bool"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/graph/nodes/reviewer.py",
+      "source_location": "L11",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_graph_nodes_reviewer_py",
+      "target": "nodes_support_validate_python_syntax"
     },
     {
       "relation": "imports",
@@ -21662,16 +21681,6 @@
       "confidence_score": 1.0,
       "source": "nodes_support_rationale_59",
       "target": "nodes_support_select_target_file_from_repo_path"
-    },
-    {
-      "relation": "rationale_for",
-      "confidence": "EXTRACTED",
-      "source_file": "src/graph/nodes/support.py",
-      "source_location": "L60",
-      "weight": 1.0,
-      "source": "nodes_support_rationale_60",
-      "target": "nodes_support_select_target_file_from_repo_path",
-      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -21795,9 +21804,9 @@
       "source_file": "src/graph/nodes/coder.py",
       "source_location": "L95",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "src_graph_nodes_coder_py",
-      "target": "nodes_coder_build_full_file_prompt"
+      "target": "nodes_coder_build_full_file_prompt",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -21805,9 +21814,9 @@
       "source_file": "src/graph/nodes/coder.py",
       "source_location": "L50",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "src_graph_nodes_coder_py",
-      "target": "nodes_coder_build_symbol_prompt"
+      "target": "nodes_coder_build_symbol_prompt",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -21823,21 +21832,11 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/graph/nodes/coder.py",
-      "source_location": "L23",
-      "weight": 1.0,
-      "source": "src_graph_nodes_coder_py",
-      "target": "nodes_coder_deindent",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "src/graph/nodes/coder.py",
       "source_location": "L43",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "src_graph_nodes_coder_py",
-      "target": "nodes_coder_format_contracts"
+      "target": "nodes_coder_format_contracts",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -21855,19 +21854,19 @@
       "source_file": "src/graph/nodes/coder.py",
       "source_location": "L23",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "src_graph_nodes_coder_py",
-      "target": "nodes_coder_format_target_symbol"
+      "target": "nodes_coder_format_target_symbol",
+      "confidence_score": 1.0
     },
     {
-      "relation": "references",
-      "context": "parameter_type",
+      "relation": "calls",
+      "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "src/graph/nodes/coder.py",
-      "source_location": "L23",
+      "source_location": "L61",
       "weight": 1.0,
-      "source": "nodes_coder_deindent",
-      "target": "src_graph_nodes_coder_py_int",
+      "source": "nodes_coder_build_symbol_prompt",
+      "target": "nodes_coder_format_target_symbol",
       "confidence_score": 1.0
     },
     {
@@ -21877,29 +21876,8 @@
       "source_file": "src/graph/nodes/coder.py",
       "source_location": "L23",
       "weight": 1.0,
-      "source": "nodes_coder_deindent",
-      "target": "src_graph_nodes_coder_py_str",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "src/graph/nodes/coder.py",
-      "source_location": "L55",
-      "weight": 1.0,
       "source": "nodes_coder_format_target_symbol",
-      "target": "nodes_coder_deindent",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "rationale_for",
-      "confidence": "EXTRACTED",
-      "source_file": "src/graph/nodes/coder.py",
-      "source_location": "L24",
-      "weight": 1.0,
-      "source": "nodes_coder_rationale_24",
-      "target": "nodes_coder_deindent",
+      "target": "src_graph_nodes_coder_py_str",
       "confidence_score": 1.0
     },
     {
@@ -21909,9 +21887,9 @@
       "source_file": "src/graph/nodes/coder.py",
       "source_location": "L95",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "nodes_coder_build_full_file_prompt",
-      "target": "src_graph_nodes_coder_py_str"
+      "target": "src_graph_nodes_coder_py_str",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
@@ -21920,9 +21898,9 @@
       "source_file": "src/graph/nodes/coder.py",
       "source_location": "L50",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "nodes_coder_build_symbol_prompt",
-      "target": "src_graph_nodes_coder_py_str"
+      "target": "src_graph_nodes_coder_py_str",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
@@ -21931,9 +21909,9 @@
       "source_file": "src/graph/nodes/coder.py",
       "source_location": "L43",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "nodes_coder_format_contracts",
-      "target": "src_graph_nodes_coder_py_str"
+      "target": "src_graph_nodes_coder_py_str",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
@@ -21947,37 +21925,15 @@
       "target": "src_graph_nodes_coder_py_str"
     },
     {
-      "relation": "references",
-      "context": "return_type",
-      "confidence": "EXTRACTED",
-      "source_file": "src/graph/nodes/coder.py",
-      "source_location": "L23",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "nodes_coder_format_target_symbol",
-      "target": "src_graph_nodes_coder_py_str"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "src/graph/nodes/coder.py",
-      "source_location": "L61",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "nodes_coder_build_symbol_prompt",
-      "target": "nodes_coder_format_target_symbol"
-    },
-    {
       "relation": "calls",
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "src/graph/nodes/coder.py",
       "source_location": "L63",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "nodes_coder_build_symbol_prompt",
-      "target": "nodes_coder_format_contracts"
+      "target": "nodes_coder_format_contracts",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -21986,9 +21942,9 @@
       "source_file": "src/graph/nodes/coder.py",
       "source_location": "L181",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "nodes_coder_coder_node",
-      "target": "nodes_coder_build_symbol_prompt"
+      "target": "nodes_coder_build_symbol_prompt",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -21997,9 +21953,9 @@
       "source_file": "src/graph/nodes/coder.py",
       "source_location": "L108",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "nodes_coder_build_full_file_prompt",
-      "target": "nodes_coder_format_related_files"
+      "target": "nodes_coder_format_related_files",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -22019,9 +21975,9 @@
       "source_file": "src/graph/nodes/coder.py",
       "source_location": "L187",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "nodes_coder_coder_node",
-      "target": "nodes_coder_build_full_file_prompt"
+      "target": "nodes_coder_build_full_file_prompt",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
@@ -22097,6 +22053,79 @@
       "target": "nodes_coder_coder_node"
     },
     {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/graph/nodes/reviewer.py",
+      "source_location": "L17",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_graph_nodes_reviewer_py",
+      "target": "nodes_reviewer_reviewer_node"
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/graph/nodes/reviewer.py",
+      "source_location": "L18",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "nodes_reviewer_rationale_18",
+      "target": "nodes_reviewer_reviewer_node"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/graph/nodes/reviewer.py",
+      "source_location": "line 32",
+      "weight": 1.0,
+      "source": "nodes_reviewer_reviewer_node",
+      "target": "concept_state_field_generated_code"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/graph/nodes/reviewer.py",
+      "source_location": "line 37",
+      "weight": 1.0,
+      "source": "nodes_reviewer_reviewer_node",
+      "target": "concept_state_field_review_passed"
+    },
+    {
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/graph/nodes/reviewer.py",
+      "source_location": "L17",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "nodes_reviewer_reviewer_node",
+      "target": "src_graph_nodes_reviewer_py_graphstate"
+    },
+    {
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/graph/nodes/reviewer.py",
+      "source_location": "L17",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "nodes_reviewer_reviewer_node",
+      "target": "src_graph_nodes_reviewer_py_runcontext"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/graph/nodes/node_index.py",
+      "source_location": "L9",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_graph_nodes_node_index_py",
+      "target": "nodes_reviewer_reviewer_node"
+    },
+    {
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "src/graph/nodes/planner.py",
@@ -22122,9 +22151,9 @@
       "source_file": "src/graph/nodes/planner.py",
       "source_location": "L139",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "src_graph_nodes_planner_py",
-      "target": "nodes_planner_parse_planner_response"
+      "target": "nodes_planner_parse_planner_response",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -22164,9 +22193,9 @@
       "source_file": "src/graph/nodes/planner.py",
       "source_location": "L93",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "nodes_planner_planner_node",
-      "target": "nodes_planner_parse_planner_response"
+      "target": "nodes_planner_parse_planner_response",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -22268,9 +22297,9 @@
       "source_file": "src/graph/nodes/planner.py",
       "source_location": "L124",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "nodes_planner_rationale_124",
-      "target": "nodes_planner_resolve_paths"
+      "target": "nodes_planner_resolve_paths",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
@@ -22301,9 +22330,9 @@
       "source_file": "src/graph/nodes/planner.py",
       "source_location": "L139",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "nodes_planner_parse_planner_response",
-      "target": "src_graph_nodes_planner_py_str"
+      "target": "src_graph_nodes_planner_py_str",
+      "confidence_score": 1.0
     },
     {
       "relation": "rationale_for",
@@ -22311,9 +22340,9 @@
       "source_file": "src/graph/nodes/planner.py",
       "source_location": "L140",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "nodes_planner_rationale_140",
-      "target": "nodes_planner_parse_planner_response"
+      "target": "nodes_planner_parse_planner_response",
+      "confidence_score": 1.0
     },
     {
       "relation": "rationale_for",
@@ -22384,9 +22413,9 @@
       "source_file": "src/graph/nodes/file_reader.py",
       "source_location": "L68",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "src_graph_nodes_file_reader_py",
-      "target": "nodes_file_reader_build_context_slice"
+      "target": "nodes_file_reader_build_context_slice",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -22415,9 +22444,9 @@
       "source_file": "src/graph/nodes/file_reader.py",
       "source_location": "L40",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "nodes_file_reader_file_reader_node",
-      "target": "nodes_file_reader_build_context_slice"
+      "target": "nodes_file_reader_build_context_slice",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
@@ -22457,9 +22486,9 @@
       "source_file": "src/graph/nodes/file_reader.py",
       "source_location": "L19",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "nodes_file_reader_rationale_19",
-      "target": "nodes_file_reader_file_reader_node"
+      "target": "nodes_file_reader_file_reader_node",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports",
@@ -22479,9 +22508,9 @@
       "source_file": "src/graph/nodes/file_reader.py",
       "source_location": "L68",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "nodes_file_reader_build_context_slice",
-      "target": "src_graph_nodes_file_reader_py_str"
+      "target": "src_graph_nodes_file_reader_py_str",
+      "confidence_score": 1.0
     },
     {
       "relation": "rationale_for",
@@ -22489,9 +22518,9 @@
       "source_file": "src/graph/nodes/file_reader.py",
       "source_location": "L69",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "nodes_file_reader_rationale_69",
-      "target": "nodes_file_reader_build_context_slice"
+      "target": "nodes_file_reader_build_context_slice",
+      "confidence_score": 1.0
     },
     {
       "relation": "rationale_for",
@@ -23377,5 +23406,5 @@
       "source_file": "docs/CONTEXT_CONTRACT.md"
     }
   ],
-  "built_at_commit": "e66b9b346a8f2f3378e70cec98085c6c9de9e421"
+  "built_at_commit": "734abd278f86486050fd9484329007e95c36da29"
 }

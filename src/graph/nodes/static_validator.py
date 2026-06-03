@@ -86,6 +86,28 @@ async def static_validator_node(state: GraphState, run_context: RunContext) -> d
                 except Exception:
                     pass
 
+        # Flag suspicious shrinkage before handing off to the semantic validator.
+        # A task should rarely remove more than 20% of the file's lines; more than
+        # that usually means the model deleted code it shouldn't have.
+        original_code = state.get("original_code") or ""
+        if original_code:
+            original_lines = len(original_code.splitlines())
+            generated_lines = len(code.splitlines())
+            if original_lines > 0 and generated_lines < original_lines * 0.80:
+                msg = (
+                    f"Generated code has {generated_lines} lines vs {original_lines} lines "
+                    f"in the original ({generated_lines / original_lines:.0%}). "
+                    "Possible scope drift — code may have been unintentionally removed."
+                )
+                emit_failure(run_context, "static_validator_node", msg, start)
+                return {
+                    "review_passed": False,
+                    "review_feedback": msg,
+                    "syntax_ok": True,
+                    "lint_ok": True,
+                    "review_errors": [msg],
+                }
+
         emit_success(run_context, "static_validator_node", {"review_passed": True}, start)
         result = {
             "review_passed": True,
