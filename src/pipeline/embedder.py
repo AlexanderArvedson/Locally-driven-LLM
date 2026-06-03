@@ -9,8 +9,15 @@ from __future__ import annotations
 import asyncio
 import json
 
+from loguru import logger
+
 from src.core.ollama_client import OllamaClient
 from src.pipeline.contracts import FunctionRecord, PipelineConfig
+
+# nomic-embed-text supports 8192 tokens. We explicitly request that context
+# in the embed call. At ~3-4 chars/token for code, 24 000 chars ≈ 6 000-8 000
+# tokens — leave a ~10% safety margin by capping at 22 000 chars.
+_MAX_CODE_CHARS = 22_000
 
 
 class EmbeddingService:
@@ -22,22 +29,34 @@ class EmbeddingService:
         self._allow_gpu = config.allow_gpu
 
     async def embed_code(self, record: FunctionRecord) -> None:
-        """Populate ``record.code_embedding`` in-place."""
-        if not record.source_code.strip():
+        """Populate ``record.code_embedding`` in-place.
+
+        Logs and skips on failure so a single bad function does not abort
+        the batch.
+        """
+        text = record.source_code.strip()
+        if not text:
             return
-        result = await self._client.embed(
-            record.source_code,
-            model=self._model,
-            allow_gpu=self._allow_gpu,
-        )
-        record.code_embedding = result.embedding
+        try:
+            result = await self._client.embed(
+                text[:_MAX_CODE_CHARS],
+                model=self._model,
+                allow_gpu=self._allow_gpu,
+            )
+            record.code_embedding = result.embedding
+        except Exception as e:
+            logger.warning(
+                "Skipping code embedding for {} ({}): {}",
+                record.qualified_name,
+                record.file_path,
+                e,
+            )
 
     async def embed_description(self, record: FunctionRecord) -> None:
         """Populate ``record.description_embedding`` in-place.
 
         Extracts the ``summary`` field from the JSON description string and
-        embeds it. Falls back to embedding the raw description if it is not
-        valid JSON.
+        embeds it. Logs and skips on failure.
         """
         if not record.description:
             return
@@ -52,12 +71,20 @@ class EmbeddingService:
         if not text.strip():
             return
 
-        result = await self._client.embed(
-            text,
-            model=self._model,
-            allow_gpu=self._allow_gpu,
-        )
-        record.description_embedding = result.embedding
+        try:
+            result = await self._client.embed(
+                text,
+                model=self._model,
+                allow_gpu=self._allow_gpu,
+            )
+            record.description_embedding = result.embedding
+        except Exception as e:
+            logger.warning(
+                "Skipping description embedding for {} ({}): {}",
+                record.qualified_name,
+                record.file_path,
+                e,
+            )
 
     async def embed_code_batch(
         self,

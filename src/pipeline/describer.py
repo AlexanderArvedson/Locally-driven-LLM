@@ -10,6 +10,8 @@ import asyncio
 import json
 import re
 
+from loguru import logger
+
 from src.core.ollama_client import OllamaClient
 from src.pipeline.contracts import FunctionRecord, PipelineConfig
 
@@ -34,6 +36,11 @@ Function metadata:
 
 Source code:
 {source_code}"""
+
+
+# qwen2.5-coder:7b is configured with num_ctx=16384. The prompt template adds
+# ~200 chars of overhead, so cap source code at 12 000 chars to stay safe.
+_MAX_SOURCE_CHARS = 12_000
 
 
 def _strip_fences(text: str) -> str:
@@ -62,7 +69,7 @@ class DescriptionService:
             language=record.language,
             file_path=record.file_path,
             qualified_name=record.qualified_name,
-            source_code=record.source_code,
+            source_code=record.source_code[:_MAX_SOURCE_CHARS],
         )
         messages = [{"role": "user", "content": prompt}]
 
@@ -77,8 +84,14 @@ class DescriptionService:
                 json.loads(cleaned)   # validate — raises if not JSON
                 record.description = cleaned
                 return
-            except (RuntimeError, json.JSONDecodeError):
+            except (RuntimeError, json.JSONDecodeError) as e:
                 if attempt == 1:
+                    logger.warning(
+                        "Skipping description for {} ({}): {}",
+                        record.qualified_name,
+                        record.file_path,
+                        e,
+                    )
                     record.description = None
 
     async def describe_batch(

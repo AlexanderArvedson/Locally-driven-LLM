@@ -121,6 +121,7 @@ class OllamaClient:
         self,
         text: str,
         model: str,
+        num_ctx: int = 8192,
         timeout_seconds: int = 120,
         allow_gpu: bool = True,
     ) -> EmbedResult:
@@ -129,6 +130,9 @@ class OllamaClient:
         Args:
             text: The text to embed.
             model: Ollama embedding model identifier (e.g. ``"nomic-embed-text"``).
+            num_ctx: Context window size. Defaults to 8192, the maximum for
+                nomic-embed-text. Ollama's own default is 2048, which causes
+                500s for functions longer than ~6 000 chars.
             timeout_seconds: Per-request wall-clock timeout.
             allow_gpu: When ``True``, offloads to GPU (``num_gpu=-1``).
 
@@ -138,7 +142,7 @@ class OllamaClient:
         payload: dict = {
             "model": model,
             "prompt": text,
-            "options": {"num_gpu": _gpu_layers(allow_gpu)},
+            "options": {"num_gpu": _gpu_layers(allow_gpu), "num_ctx": num_ctx},
         }
 
         response = await self._client.post(
