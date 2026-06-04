@@ -232,18 +232,19 @@ def _compute_clusters(edges: list[dict]) -> list[dict]:
 async def generate_report(
     neo4j_config: Neo4jConfig,
     repo_name: str,
-    output_path: str | Path | None = None,
+    output_dir: str | Path | None = None,
     top_n: int = 20,
     include_tests: bool = False,
     pipeline_config: PipelineConfig | None = None,
 ) -> Path:
-    """Query Neo4j and write a markdown report.
+    """Query Neo4j and write a report directory containing report.md and report.json.
 
     Args:
         neo4j_config: Connection settings for Neo4j.
         repo_name: The repository name to report on.
-        output_path: Where to write the report. Defaults to
-            ``pipeline-report-<timestamp>.md`` in the current directory.
+        output_dir: Directory to write the two report files into. Defaults to
+            ``run_reports/<timestamp>/`` relative to the current working directory.
+            Created automatically if it does not exist.
         top_n: How many items to show in each ranked section.
         include_tests: Whether to include test functions in graph stats.
         pipeline_config: Full pipeline config for metadata and reporter
@@ -251,21 +252,23 @@ async def generate_report(
             and model name is shown as "N/A".
 
     Returns:
-        Path to the written report file.
+        Path to the report directory.
     """
-    if output_path is None:
+    if output_dir is None:
         ts = datetime.now(timezone.utc).strftime("%Y%m%d-%H%M%S")
-        output_path = Path(f"pipeline-report-{ts}.md")
-    output_path = Path(output_path)
+        output_dir = Path("run_reports") / ts
+    output_dir = Path(output_dir)
+    output_dir.mkdir(parents=True, exist_ok=True)
 
     store = Neo4jStore(neo4j_config)
     try:
-        lines = await _build_report(store, repo_name, top_n, include_tests, pipeline_config)
+        lines, export = await _build_report(store, repo_name, top_n, include_tests, pipeline_config)
     finally:
         await store.close()
 
-    output_path.write_text("\n".join(lines), encoding="utf-8")
-    return output_path
+    (output_dir / "report.md").write_text("\n".join(lines), encoding="utf-8")
+    (output_dir / "report.json").write_text(json.dumps(export, indent=2), encoding="utf-8")
+    return output_dir
 
 
 async def _build_report(
@@ -274,7 +277,7 @@ async def _build_report(
     top_n: int,
     include_tests: bool,
     pipeline_config: PipelineConfig | None,
-) -> list[str]:
+) -> tuple[list[str], dict]:
     db = store._config.database
     driver = store._driver
 
@@ -589,9 +592,6 @@ async def _build_report(
     lines += flags if flags else ["_No flags raised._"]
     lines += ["", "---", ""]
 
-    # -----------------------------------------------------------------------
-    # Section 10 — Machine-readable JSON export
-    # -----------------------------------------------------------------------
     export = {
         "repo": repo,
         "timestamp": now,
@@ -669,13 +669,4 @@ async def _build_report(
         },
     }
 
-    lines += [
-        "## Machine-Readable Export",
-        "",
-        "```json",
-        json.dumps(export, indent=2),
-        "```",
-        "",
-    ]
-
-    return lines
+    return lines, export

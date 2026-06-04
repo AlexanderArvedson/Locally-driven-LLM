@@ -147,7 +147,12 @@ The following are created automatically on first run by `ensure_schema`:
 
 ## Report generation
 
-`--report` and `--report-only` write a markdown file to the project root named `pipeline-report-<timestamp>.md`.
+`--report` and `--report-only` create a timestamped directory under `run_reports/` containing two files:
+
+- `report.md` — the full human-readable markdown report
+- `report.json` — machine-readable export of all stats, clusters, failures, and flags
+
+`run_reports/` is gitignored. Each run gets its own directory (`run_reports/<timestamp>/`) so previous reports are never overwritten.
 
 The report is fully deterministic — no LLM reasoning is involved. It contains ten sections in order:
 

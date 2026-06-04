@@ -219,6 +219,7 @@ __marimo__/
 
 # Runtime artifacts
 .runtime/
+run_reports/
 
 # Local evaluation artifacts
 artifacts/
