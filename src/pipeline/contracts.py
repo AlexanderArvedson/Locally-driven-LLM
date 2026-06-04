@@ -95,6 +95,7 @@ class ReporterConfig:
     cluster_threshold: float = 0.92
     arch_coupling_threshold: float = 0.60
     test_pollution_threshold: int = 5
+    timezone: str = "UTC"
 
 
 @dataclass(frozen=True)

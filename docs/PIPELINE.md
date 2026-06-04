@@ -178,6 +178,7 @@ All report thresholds are configured under `pipeline.reporter` in `config.json`.
 | `cluster_threshold` | `0.92` | Minimum `combinedSimilarity` for an edge to be included in cluster computation |
 | `arch_coupling_threshold` | `0.60` | Inter-file edge ratio above which `ARCHITECTURE_COUPLING` is raised (requires ≥ 5 total edges) |
 | `test_pollution_threshold` | `5` | Minimum cross-boundary edges (test ↔ production) to raise `TEST_POLLUTION` |
+| `timezone` | `"UTC"` | IANA timezone for all report timestamps — set to your local zone (e.g. `"Europe/Stockholm"`) so the `Generated` header and report folder name match your clock |
 
 ---
 

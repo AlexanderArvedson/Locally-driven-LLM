@@ -12,6 +12,7 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
+from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
 from src.pipeline.contracts import (
     BatchSizeConfig,
@@ -22,6 +23,14 @@ from src.pipeline.contracts import (
     ReporterConfig,
     SimilarityConfig,
 )
+
+
+def _validate_timezone(tz: str) -> str:
+    try:
+        ZoneInfo(tz)
+    except (ZoneInfoNotFoundError, KeyError):
+        raise ValueError(f"Invalid 'reporter.timezone' value {tz!r}; must be a valid IANA timezone (e.g. 'UTC', 'Europe/Stockholm')")
+    return tz
 
 
 def load_pipeline_config(config_path: str | Path = "config.json", repo_name: str | None = None) -> PipelineConfig:
@@ -112,5 +121,6 @@ def load_pipeline_config(config_path: str | Path = "config.json", repo_name: str
             cluster_threshold=reporter_block.get("cluster_threshold", 0.92),
             arch_coupling_threshold=reporter_block.get("arch_coupling_threshold", 0.60),
             test_pollution_threshold=reporter_block.get("test_pollution_threshold", 5),
+            timezone=_validate_timezone(reporter_block.get("timezone", "UTC")),
         ),
     )
