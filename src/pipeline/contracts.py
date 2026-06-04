@@ -99,6 +99,7 @@ class PipelineConfig:
     embedding_url: str
     allow_gpu: bool
     chat_model: str
+    describer_model: str
     similarity: SimilarityConfig
     neo4j: Neo4jConfig
     concurrency: ConcurrencyConfig = field(default_factory=ConcurrencyConfig)

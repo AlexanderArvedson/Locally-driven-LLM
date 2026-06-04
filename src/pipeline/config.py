@@ -57,6 +57,7 @@ def load_pipeline_config(config_path: str | Path = "config.json", repo_name: str
     models = repo["models"]
     embed_model = models["embedding"]
     chat_model = models["chat"]
+    describer_model = models.get("describer") or chat_model
 
     pipeline_block = repo.get("pipeline", {})
     sim_block = pipeline_block.get("similarity", {})
@@ -75,6 +76,7 @@ def load_pipeline_config(config_path: str | Path = "config.json", repo_name: str
         embedding_url=embed_model.get("url", "http://localhost:11434"),
         allow_gpu=embed_model.get("allow_gpu", True),
         chat_model=chat_model["name"],
+        describer_model=describer_model["name"],
         similarity=SimilarityConfig(
             threshold=sim_block.get("threshold", 0.82),
             top_n=sim_block.get("top_n", 20),

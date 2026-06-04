@@ -51,7 +51,7 @@ class DescriptionService:
 
     def __init__(self, client: OllamaClient, config: PipelineConfig) -> None:
         self._client = client
-        self._model = config.chat_model
+        self._model = config.describer_model
         self._allow_gpu = config.allow_gpu
         self._max_source_chars = config.limits.max_description_source_chars
         self._describe_concurrency = config.concurrency.describe
