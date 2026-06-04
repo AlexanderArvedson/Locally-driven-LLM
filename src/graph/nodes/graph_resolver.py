@@ -20,7 +20,7 @@ from typing import Final
 import git
 from git.exc import InvalidGitRepositoryError
 
-from src.config_loader import GraphConfig, get_graph_config, get_repository_config, get_system_context_path
+from src.core.config_loader import GraphConfig, get_graph_config, get_repository_config, get_system_context_path
 from src.graph.graph_handle import GraphHandle
 from src.graph.nodes.graphify_indexer import build_ast_graph
 from src.graph.state import GraphState

@@ -21,7 +21,7 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
-from src.config_loader import APP_CONFIG  # noqa: E402
+from src.core.config_loader import APP_CONFIG  # noqa: E402
 from src.git.branch_manager import build_branch_name, get_diff_stat, push_branch  # noqa: E402
 from src.git.pr_creator import create_pull_request  # noqa: E402
 from src.graph.workflow import make_graph  # noqa: E402

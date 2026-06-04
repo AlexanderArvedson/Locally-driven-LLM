@@ -7,7 +7,7 @@ import time
 from datetime import datetime, timezone
 from pathlib import Path
 
-from src.config_loader import get_repository_config, update_repository_timestamps
+from src.core.config_loader import get_repository_config, update_repository_timestamps
 from src.core.runtime_paths import FAILED_PATCHES_DIR, ensure_runtime_dirs
 from src.graph.nodes.support import require_state_value, strip_code_fences
 from src.graph.state import GraphState

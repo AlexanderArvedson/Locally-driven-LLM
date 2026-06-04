@@ -4,7 +4,7 @@ Reads the top-level ``neo4j`` block and the per-repository ``pipeline`` block
 from config.json, assembling a ``PipelineConfig`` that combines pipeline-specific
 settings with the existing repository model/path fields.
 
-Intentionally does not import from ``src/config_loader.py`` or any other
+Intentionally does not import from ``src/core/config_loader.py`` or any other
 subsystem — the pipeline is self-contained.
 """
 

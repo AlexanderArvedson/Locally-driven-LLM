@@ -13,7 +13,7 @@ from pathlib import Path
 from typing import Any, Final
 
 
-PROJECT_ROOT = Path(__file__).resolve().parent.parent
+PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
 CONFIG_PATH = PROJECT_ROOT / "config.json"
 
 

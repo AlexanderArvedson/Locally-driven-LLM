@@ -23,7 +23,7 @@ class WorkflowExecutor:
         from src.scheduler.state_factory import GraphStateFactory
         from src.observability.context import RunContext
         from src.observability.logger import write_run_summary, format_run_console
-        from src.config_loader import get_repository_config, update_repository_timestamps
+        from src.core.config_loader import get_repository_config, update_repository_timestamps
 
         graph_factory = self._graph_factory or make_graph
         run_context_factory = self._run_context_factory or RunContext.new

@@ -5,7 +5,7 @@ import tempfile
 from pathlib import Path
 import unittest
 
-from src import config_loader as app_config
+from src.core import config_loader as app_config
 
 
 def _minimal_repo(overrides: dict | None = None) -> dict:

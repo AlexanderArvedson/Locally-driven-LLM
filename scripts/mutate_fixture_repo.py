@@ -17,7 +17,7 @@ if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
 from src.graph.workflow import make_graph  # noqa: E402
-from src.config_loader import CODER_MODEL  # noqa: E402
+from src.core.config_loader import CODER_MODEL  # noqa: E402
 from src.observability.context import RunContext  # noqa: E402
 from src.scheduler.state_factory import GraphStateFactory  # noqa: E402
 from src.scheduler.task_request import TaskRequest  # noqa: E402
