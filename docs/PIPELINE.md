@@ -8,20 +8,21 @@ It is a standalone subsystem under `src/pipeline/` and shares no code with the L
 
 ## How it works
 
-The pipeline runs twelve sequential stages:
+The pipeline runs thirteen sequential stages:
 
 1. **ensure_schema** — creates Neo4j constraints, property indexes, and vector indexes if they do not already exist.
 2. **extract** — walks the repository with tree-sitter, extracting every function and method as a `FunctionRecord` with source text, line numbers, language, and class membership.
-3. **get_existing_hashes** — fetches `{id: sourceHash}` for all live functions already in Neo4j.
-4. **partition** — splits extracted records into _changed_ (new or source-modified) and _unchanged_ (hash matches Neo4j).
-5. **embed_code** — sends each changed function's source code to the Ollama embedding model. Unchanged functions skip this stage.
-6. **describe** — sends each changed function to the Ollama chat model, requesting a structured JSON description (summary, inputs, outputs, side effects, errors, dependencies). Skipped when `--no-descriptions` is passed.
-7. **embed_description** — embeds the `summary` field of each generated description. Skipped with `--no-descriptions`.
-8. **upsert_functions** — writes all function nodes to Neo4j via `MERGE` on stable ID. Unchanged functions have their `lastSeenAt` updated; everything else is overwritten.
-9. **soft_delete** — marks any function previously seen in this repo but absent from the current scan as `isDeleted: true`.
-10. **get_all_embeddings** — fetches all live functions that have at least one embedding (code or description) from Neo4j for similarity computation. Functions with only a description embedding (e.g. those whose source code exceeded the embedding model's context window) are included.
-11. **compute_similarity** — builds cosine similarity matrices using numpy and produces `SimilarityEdge` records. For pairs where both functions have code embeddings the combined score is `code_weight × codeSimilarity + description_weight × descriptionSimilarity`. For pairs where at least one function lacks a code embedding, the score falls back to description similarity alone so that large orchestration functions are not excluded from the graph.
-12. **upsert_edges** — deletes all existing `SIMILAR_TO` edges for the repo and re-inserts the freshly computed set so stale edges from changed functions do not persist.
+3. **loc_filter** — if `pipeline.limits.min_loc_threshold` is greater than `0`, removes any function whose line count (`endLine - startLine + 1`) falls below the threshold. Filtered functions are never embedded, described, or stored. The count is reported in the CLI summary and the report's Graph Overview section. Disabled by default (`0`).
+4. **get_existing_hashes** — fetches `{id: sourceHash}` for all live functions already in Neo4j.
+5. **partition** — splits extracted records into _changed_ (new or source-modified) and _unchanged_ (hash matches Neo4j).
+6. **embed_code** — sends each changed function's source code to the Ollama embedding model. Unchanged functions skip this stage.
+7. **describe** — sends each changed function to the Ollama chat model, requesting a structured JSON description (summary, inputs, outputs, side effects, errors, dependencies). Skipped when `--no-descriptions` is passed.
+8. **embed_description** — embeds the `summary` field of each generated description. Skipped with `--no-descriptions`.
+9. **upsert_functions** — writes all function nodes to Neo4j via `MERGE` on stable ID. Unchanged functions have their `lastSeenAt` updated; everything else is overwritten.
+10. **soft_delete** — marks any function previously seen in this repo but absent from the current scan as `isDeleted: true`.
+11. **get_all_embeddings** — fetches all live functions that have at least one embedding (code or description) from Neo4j for similarity computation. Functions with only a description embedding (e.g. those whose source code exceeded the embedding model's context window) are included.
+12. **compute_similarity** — builds cosine similarity matrices using numpy and produces `SimilarityEdge` records. For pairs where both functions have code embeddings the combined score is `code_weight × codeSimilarity + description_weight × descriptionSimilarity`. For pairs where at least one function lacks a code embedding, the score falls back to description similarity alone so that large orchestration functions are not excluded from the graph.
+13. **upsert_edges** — deletes all existing `SIMILAR_TO` edges for the repo and re-inserts the freshly computed set so stale edges from changed functions do not persist.
 
 ---
 
@@ -160,7 +161,7 @@ The report is fully deterministic — no LLM reasoning is involved. It contains 
 |---|---|---|
 | 1 | **Metadata** | Repo name, timestamp, Neo4j database, pipeline version, embedding model |
 | 2 | **Embedding Integrity** | Per-status counts for code embedding and description stages; table of failed functions with stage and error type |
-| 3 | **Graph Overview** | Function count, edge count, edge density, isolated ratio, intra-file vs inter-file edge split, language breakdown |
+| 3 | **Graph Overview** | Function count, edge count, edge density, isolated ratio, intra-file vs inter-file edge split, language breakdown; LOC-filtered function count (when pipeline ran with a non-zero threshold) |
 | 4 | **Similarity Distribution** | Edge counts bucketed by `combinedSimilarity`: > 0.95 / 0.90–0.95 / 0.80–0.90 / ≤ 0.80 |
 | 5 | **Top N Most Similar Pairs** | Near-duplicate or shared-logic candidates, sorted by score |
 | 6 | **Top N Most Connected Functions** | Functions with the highest edge degree — likely utility or pattern code |

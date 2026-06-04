@@ -84,6 +84,8 @@ async def _run(args: argparse.Namespace) -> int:
     print()
     print("=== Pipeline Result ===")
     print(f"  Extracted  : {result.total_extracted}")
+    if config.limits.min_loc_threshold > 0:
+        print(f"  LOC filtered: {result.loc_filtered}")
     print(f"  Changed    : {result.changed}")
     print(f"  Unchanged  : {result.unchanged}")
     print(f"  Deleted    : {result.newly_deleted}")
@@ -101,6 +103,7 @@ async def _run(args: argparse.Namespace) -> int:
             config.neo4j, config.repo_name,
             include_tests=config.include_tests_in_graph,
             pipeline_config=config,
+            loc_filtered=result.loc_filtered,
         )
         print(f"Report written to: {report_dir}/")
 

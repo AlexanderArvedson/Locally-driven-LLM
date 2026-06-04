@@ -105,6 +105,7 @@ class LimitsConfig:
     max_description_source_chars: int = 12_000
     embedding_num_ctx: int = 8192
     context_overflow_char_threshold: int = 10_000
+    min_loc_threshold: int = 0   # 0 = disabled; functions below this LOC are skipped
 
 
 @dataclass(frozen=True)
@@ -133,6 +134,7 @@ class PipelineResult:
     """Summary of a completed pipeline run."""
 
     total_extracted: int = 0
+    loc_filtered: int = 0
     changed: int = 0
     unchanged: int = 0
     newly_deleted: int = 0
