@@ -110,6 +110,8 @@ UNWIND $edges AS edge
 MATCH (a:Function {id: edge.sourceId})
 MATCH (b:Function {id: edge.targetId})
 MERGE (a)-[r:SIMILAR_TO]->(b)
+ON CREATE SET
+  r.createdAt             = edge.createdAt
 SET
   r.codeSimilarity        = edge.codeSimilarity,
   r.descriptionSimilarity = edge.descriptionSimilarity,
@@ -259,6 +261,7 @@ class Neo4jStore:
                 "codeSimilarity": e.code_similarity,
                 "descriptionSimilarity": e.description_similarity,
                 "combinedSimilarity": e.combined_similarity,
+                "createdAt": e.created_at,
                 "updatedAt": e.updated_at,
             }
 

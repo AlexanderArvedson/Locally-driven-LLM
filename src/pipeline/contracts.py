@@ -56,6 +56,7 @@ class SimilarityEdge:
     code_similarity: float
     description_similarity: float
     combined_similarity: float
+    created_at: str = field(default_factory=_now_iso)
     updated_at: str = field(default_factory=_now_iso)
 
 
