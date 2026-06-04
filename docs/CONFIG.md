@@ -170,6 +170,8 @@ Controls the function embedding and similarity pipeline for this repository. See
 |-------|------|---------|-------------|
 | `supported_languages` | string[] | `["python"]` | Languages to extract functions from. Supported values: `"python"`, `"typescript"`, `"javascript"`. |
 | `ignore_paths` | string[] | `[".venv", "node_modules", "__pycache__", ".git"]` | Directory or file name segments to exclude when scanning the repository. Any path component matching one of these strings is skipped. |
+| `test_patterns` | string[] | `["tests/", "test_", "_test.py"]` | Substrings matched against each function's relative file path to identify test code. Matched functions are stored in Neo4j with `isTest: true`. Whether they participate in the similarity graph and report is controlled by `include_tests_in_graph`. |
+| `include_tests_in_graph` | boolean | `false` | When `false` (default), test functions are excluded from similarity computation and all report rankings. When `true`, they are included — useful if you want to see how test coverage maps to production logic. The test function count is always shown in the report summary regardless of this setting. |
 
 #### `pipeline.similarity`
 

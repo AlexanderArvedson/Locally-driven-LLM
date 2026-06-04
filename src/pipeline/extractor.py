@@ -127,6 +127,11 @@ def _source_hash(source_code: str) -> str:
 # Per-file extraction
 # ---------------------------------------------------------------------------
 
+def _is_test_file(rel_path: str, test_patterns: list[str]) -> bool:
+    """Return True if the relative path matches any configured test pattern."""
+    return any(pattern in rel_path for pattern in test_patterns)
+
+
 def _extract_from_file(
     file_path: Path,
     repo_root: Path,
@@ -134,6 +139,7 @@ def _extract_from_file(
     language_name: str,
     func_types: frozenset[str],
     parser: Parser,
+    test_patterns: list[str] | None = None,
 ) -> list[FunctionRecord]:
     try:
         source_bytes = file_path.read_bytes()
@@ -146,6 +152,7 @@ def _extract_from_file(
         return []
 
     rel_path = str(file_path.relative_to(repo_root))
+    is_test = _is_test_file(rel_path, test_patterns or [])
     records: list[FunctionRecord] = []
 
     for fn_node in _find_functions(tree.root_node, func_types):
@@ -175,6 +182,7 @@ def _extract_from_file(
             end_line=end_line,
             source_code=source_code,
             source_hash=_source_hash(source_code),
+            is_test=is_test,
         ))
 
     return records
@@ -233,6 +241,7 @@ class FunctionExtractor:
                     lang_name,
                     func_types,
                     parser,
+                    test_patterns=self._config.test_patterns,
                 )
             )
 
