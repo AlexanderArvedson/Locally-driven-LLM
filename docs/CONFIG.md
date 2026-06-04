@@ -157,3 +157,38 @@ Each key under `models` names a role the agent uses an LLM for. All four roles m
 | Field | Type | Description |
 |-------|------|-------------|
 | `slack_webhook_url` | string \| null | Incoming Webhook URL for Slack notifications. The agent posts a summary message when a PR is created. Set to `null` to disable Slack notifications. |
+
+---
+
+### `pipeline`
+
+Controls the function embedding and similarity pipeline for this repository. See `docs/PIPELINE.md` for full usage.
+
+| Field | Type | Default | Description |
+|-------|------|---------|-------------|
+| `supported_languages` | string[] | `["python"]` | Languages to extract functions from. Supported values: `"python"`, `"typescript"`, `"javascript"`. |
+| `ignore_paths` | string[] | `[".venv", "node_modules", "__pycache__", ".git"]` | Directory or file name segments to exclude when scanning the repository. Any path component matching one of these strings is skipped. |
+
+#### `pipeline.similarity`
+
+| Field | Type | Default | Description |
+|-------|------|---------|-------------|
+| `threshold` | float | `0.82` | Minimum cosine similarity required to create a `SIMILAR_TO` edge. Lower values produce denser graphs; raise toward `1.0` to keep only near-exact matches. |
+| `top_n` | integer | `20` | Maximum number of nearest neighbours to consider per function when computing edges. |
+| `code_weight` | float | `0.70` | Weight applied to code embedding similarity in the combined score. |
+| `description_weight` | float | `0.30` | Weight applied to description embedding similarity in the combined score. When description embeddings are absent the combined score falls back to the code similarity only. |
+
+The pipeline reads `models.embedding` and `models.chat` from the same repository entry — no duplication of model settings is needed.
+
+---
+
+## `neo4j`
+
+Top-level block shared across all repositories. Configures the Neo4j instance used by the embedding pipeline.
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `uri` | string | Bolt connection URI (e.g. `"bolt://localhost:7687"`). |
+| `database` | string | Neo4j database name. Use `"neo4j"` for the default database. |
+| `username` | string | Neo4j username. |
+| `password` | string | Neo4j password. Keep this in `config.json` which is gitignored; never commit it. |

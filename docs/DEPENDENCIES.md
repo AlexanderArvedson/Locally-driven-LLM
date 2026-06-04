@@ -55,9 +55,14 @@ The following dependencies are currently declared in `pyproject.toml`.
 - `langfuse>=4.6.1` - observability and tracing integration
 - `langgraph>=1.2.1` - graph-based workflow orchestration
 - `loguru>=0.7.3` - structured logging
+- `neo4j>=5.0` - async Neo4j driver used by the embedding pipeline to store function nodes and similarity edges
+- `numpy>=1.26` - vectorised cosine similarity matrix computation in the similarity stage
 - `pydantic>=2.13.4` - data validation and settings models
 - `python-dotenv>=1.2.2` - environment variable loading
 - `tenacity>=9.1.4` - retry logic
+- `tree-sitter>=0.22` - AST parsing core, used by both the retrieval slicer and the embedding pipeline extractor
+- `tree-sitter-python>=0.23` - Python grammar for tree-sitter
+- `tree-sitter-typescript>=0.23` - TypeScript and JavaScript grammar for tree-sitter, used by the embedding pipeline
 - `uvicorn[standard]>=0.47.0` - ASGI server for local execution
 
 ### Development extra
