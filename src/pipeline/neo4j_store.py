@@ -96,7 +96,8 @@ DELETE r
 
 _GET_ALL_EMBEDDINGS: LiteralString = """
 MATCH (f:Function {repo: $repo})
-WHERE f.isDeleted = false AND (f.isTest = false OR $include_tests) AND f.codeEmbedding IS NOT NULL
+WHERE f.isDeleted = false AND (f.isTest = false OR $include_tests)
+  AND (f.codeEmbedding IS NOT NULL OR f.descriptionEmbedding IS NOT NULL)
 RETURN f.id AS id, f.codeEmbedding AS codeEmbedding, f.descriptionEmbedding AS descriptionEmbedding
 """
 
@@ -220,7 +221,7 @@ class Neo4jStore:
         self,
         repo: str,
         include_tests: bool = False,
-    ) -> list[tuple[str, list[float], list[float] | None]]:
+    ) -> list[tuple[str, list[float] | None, list[float] | None]]:
         """Return ``[(id, code_embedding, description_embedding)]`` for all live functions.
 
         Args:
