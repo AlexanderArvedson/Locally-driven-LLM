@@ -222,6 +222,7 @@ Controls source text truncation and embedding context window size.
 | `max_description_source_chars` | integer | `12000` | Maximum characters of source code included in the LLM description prompt. Keeps the total prompt within the chat model's `num_ctx` budget. |
 | `embedding_num_ctx` | integer | `8192` | Context window size passed to Ollama on every embed request. Ollama's built-in default is 2048, which truncates long functions — this overrides it to the maximum supported by `nomic-embed-text`. |
 | `context_overflow_char_threshold` | integer | `10000` | When an Ollama embedding call fails with an HTTP 500, the pipeline uses this threshold to classify the failure: if the truncated input was at or above this many characters the status is set to `"context_overflow"`, otherwise `"error"`. Tune downward if you want to catch overflow failures earlier. |
+| `min_loc_threshold` | integer | `0` | Minimum lines of code a function must have to be included in the pipeline. Functions shorter than this value are silently skipped before embedding, description, and Neo4j storage. Set to `0` (default) to disable filtering. The count of excluded functions appears in the CLI output and in the report's Graph Overview section. |
 
 The pipeline reads `models.embedding` and `models.chat` from the same repository entry — no duplication of model settings is needed.
 

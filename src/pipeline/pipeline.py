@@ -71,6 +71,19 @@ class EmbeddingPipeline:
         result.total_extracted = len(all_records)
         logger.info("Extracted {} functions", result.total_extracted)
 
+        # Stage 2b: drop functions below the configured LOC threshold.
+        threshold = config.limits.min_loc_threshold
+        if threshold > 0:
+            before = len(all_records)
+            all_records = [r for r in all_records if (r.end_line - r.start_line + 1) >= threshold]
+            result.loc_filtered = before - len(all_records)
+            if result.loc_filtered:
+                logger.info(
+                    "Filtered {} functions below {} LOC threshold",
+                    result.loc_filtered,
+                    threshold,
+                )
+
         if not all_records:
             return
 

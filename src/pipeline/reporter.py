@@ -237,6 +237,7 @@ async def generate_report(
     top_n: int = 20,
     include_tests: bool = False,
     pipeline_config: PipelineConfig | None = None,
+    loc_filtered: int | None = None,
 ) -> Path:
     """Query Neo4j and write a report directory containing report.md and report.json.
 
@@ -264,7 +265,7 @@ async def generate_report(
 
     store = Neo4jStore(neo4j_config)
     try:
-        lines, export = await _build_report(store, repo_name, top_n, include_tests, pipeline_config)
+        lines, export = await _build_report(store, repo_name, top_n, include_tests, pipeline_config, loc_filtered)
     finally:
         await store.close()
 
@@ -279,6 +280,7 @@ async def _build_report(
     top_n: int,
     include_tests: bool,
     pipeline_config: PipelineConfig | None,
+    loc_filtered: int | None = None,
 ) -> tuple[list[str], dict]:
     db = store._config.database
     driver = store._driver
@@ -359,6 +361,8 @@ async def _build_report(
     # -----------------------------------------------------------------------
     # Section 1 — Metadata
     # -----------------------------------------------------------------------
+    min_loc = pipeline_config.limits.min_loc_threshold if pipeline_config else 0
+
     lines += [
         f"# Pipeline Report — `{repo}`",
         "",
@@ -371,6 +375,10 @@ async def _build_report(
         f"| Neo4j database | `{db}` |",
         f"| Pipeline version | {PIPELINE_VERSION} |",
         f"| Embedding model | `{embed_model}` |",
+    ]
+    if min_loc > 0:
+        lines.append(f"| Min LOC threshold | {min_loc} |")
+    lines += [
         "",
         "---",
         "",
@@ -455,8 +463,10 @@ async def _build_report(
         f"| Functions with at least one edge | {total - isolated} |",
         f"| Intra-file edges | {intra} |",
         f"| Inter-file edges | {inter} |",
-        "",
     ]
+    if loc_filtered is not None:
+        lines.append(f"| Functions excluded (LOC < {min_loc} threshold) | {loc_filtered} |")
+    lines.append("")
 
     if languages:
         lines += [
@@ -605,6 +615,7 @@ async def _build_report(
         "stats": {
             "total_functions": total,
             "test_functions": test_funcs,
+            "loc_filtered": loc_filtered,
             "edges": edges,
             "density": density,
             "isolated": isolated,
