@@ -201,6 +201,16 @@ Controls the number of records sent in a single Neo4j `UNWIND` batch. Larger bat
 | `function_upsert` | integer | `50` | Records per batch when upserting `Function` nodes. |
 | `edge_upsert` | integer | `200` | Records per batch when upserting `SIMILAR_TO` edges. |
 
+#### `pipeline.reporter`
+
+Controls the thresholds used when generating the post-run markdown report. All fields are optional — the block may be omitted entirely to use the defaults.
+
+| Field | Type | Default | Description |
+|---|---|---|---|
+| `cluster_threshold` | float | `0.92` | Minimum `combinedSimilarity` for a `SIMILAR_TO` edge to be included when computing duplication clusters. Raise to tighten cluster membership; lower to surface weaker groupings. |
+| `arch_coupling_threshold` | float | `0.60` | Inter-file edge ratio above which a file is flagged with `ARCHITECTURE_COUPLING`. Only applied to files with at least 5 total edges. |
+| `test_pollution_threshold` | integer | `5` | Minimum number of edges between test and production functions required to raise the `TEST_POLLUTION` flag. Only evaluated when `include_tests_in_graph` is `true`. |
+
 #### `pipeline.limits`
 
 Controls source text truncation and embedding context window size.

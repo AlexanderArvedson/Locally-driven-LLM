@@ -91,6 +91,13 @@ class BatchSizeConfig:
 
 
 @dataclass(frozen=True)
+class ReporterConfig:
+    cluster_threshold: float = 0.92
+    arch_coupling_threshold: float = 0.60
+    test_pollution_threshold: int = 5
+
+
+@dataclass(frozen=True)
 class LimitsConfig:
     """Source text truncation limits and embedding context window."""
     max_code_chars: int = 22_000
@@ -115,6 +122,7 @@ class PipelineConfig:
     concurrency: ConcurrencyConfig = field(default_factory=ConcurrencyConfig)
     batch_sizes: BatchSizeConfig = field(default_factory=BatchSizeConfig)
     limits: LimitsConfig = field(default_factory=LimitsConfig)
+    reporter: ReporterConfig = field(default_factory=ReporterConfig)
     test_patterns: list[str] = field(default_factory=lambda: ["tests/", "test_", "_test.py"])
     include_tests_in_graph: bool = False
 

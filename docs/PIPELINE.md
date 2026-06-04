@@ -147,13 +147,37 @@ The following are created automatically on first run by `ensure_schema`:
 
 ## Report generation
 
-`--report` and `--report-only` write a markdown file to the project root named `pipeline-report-<timestamp>.md`. The report includes:
+`--report` and `--report-only` create a timestamped directory under `run_reports/` containing two files:
 
-- Summary statistics (function count, edge count, isolated functions)
-- Language breakdown
-- Top 20 most similar function pairs (near-duplicates / shared logic candidates)
-- Top 20 most-connected functions (utility or pattern code reused across the codebase)
-- Top 20 files by edge count
+- `report.md` — the full human-readable markdown report
+- `report.json` — machine-readable export of all stats, clusters, failures, and flags
+
+`run_reports/` is gitignored. Each run gets its own directory (`run_reports/<timestamp>/`) so previous reports are never overwritten.
+
+The report is fully deterministic — no LLM reasoning is involved. It contains ten sections in order:
+
+| # | Section | Contents |
+|---|---|---|
+| 1 | **Metadata** | Repo name, timestamp, Neo4j database, pipeline version, embedding model |
+| 2 | **Embedding Integrity** | Per-status counts for code embedding and description stages; table of failed functions with stage and error type |
+| 3 | **Graph Overview** | Function count, edge count, edge density, isolated ratio, intra-file vs inter-file edge split, language breakdown |
+| 4 | **Similarity Distribution** | Edge counts bucketed by `combinedSimilarity`: > 0.95 / 0.90–0.95 / 0.80–0.90 / ≤ 0.80 |
+| 5 | **Top N Most Similar Pairs** | Near-duplicate or shared-logic candidates, sorted by score |
+| 6 | **Top N Most Connected Functions** | Functions with the highest edge degree — likely utility or pattern code |
+| 7 | **Top N Files by Edge Count** | Per-file edge count with inter-file ratio column |
+| 8 | **Duplication Clusters** | Connected components of `SIMILAR_TO` edges at score ≥ `CLUSTER_THRESHOLD` (default 0.92), computed in Python via BFS. Columns: cluster ID, size, max/avg score, files involved, representative function |
+| 9 | **Heuristic Flags** | Rule-based diagnostics: `HIGH_DUPLICATION_CLUSTER`, `CROSS_FILE_DUPLICATION`, `ARCHITECTURE_COUPLING`, `TEST_POLLUTION` (only when tests are included) |
+| 10 | **Machine-Readable Export** | Fenced JSON block with all stats, embedding counts, cluster list, failures, and top pairs for downstream tooling |
+
+### Thresholds
+
+All report thresholds are configured under `pipeline.reporter` in `config.json`. See `docs/CONFIG.md` for the full field reference.
+
+| Config key | Default | Description |
+|---|---|---|
+| `cluster_threshold` | `0.92` | Minimum `combinedSimilarity` for an edge to be included in cluster computation |
+| `arch_coupling_threshold` | `0.60` | Inter-file edge ratio above which `ARCHITECTURE_COUPLING` is raised (requires ≥ 5 total edges) |
+| `test_pollution_threshold` | `5` | Minimum cross-boundary edges (test ↔ production) to raise `TEST_POLLUTION` |
 
 ---
 

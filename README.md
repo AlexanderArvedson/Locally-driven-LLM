@@ -51,15 +51,20 @@ Function Embedding Pipeline
 A standalone subsystem that scans a repository, extracts every function and method, generates vector embeddings and LLM descriptions via Ollama, stores the results in Neo4j, and builds a weighted similarity graph between related functions. Useful for code search, duplicate detection, and architectural analysis.
 
 ```bash
-# First run — code-embedding similarity only (no LLM descriptions, much faster)
-uv run run_pipeline.py --no-descriptions
+# Full run — embeddings, descriptions, similarity graph, and report
+uv run run_pipeline.py --report
+
+# Code-embedding only (no LLM descriptions, much faster)
+uv run run_pipeline.py --no-descriptions --report
 
 # Target a subfolder for quick testing
 uv run run_pipeline.py --path /path/to/repo/subdir --no-descriptions
 
-# Generate a markdown report from the current graph without re-running
+# Generate a report from the current graph without re-running the pipeline
 uv run run_pipeline.py --report-only
 ```
+
+The report (`pipeline-report-<timestamp>.md`) includes embedding integrity stats, a similarity distribution histogram, duplication clusters, heuristic flags, and a machine-readable JSON footer. See `docs/PIPELINE.md` for the full report structure.
 
 Neo4j and Ollama must be running (`docker compose up -d`). The embedding model (`nomic-embed-text` by default) must be pulled into Ollama before the first run.
 
