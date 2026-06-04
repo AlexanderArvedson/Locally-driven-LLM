@@ -149,6 +149,7 @@ Each key under `models` names a role the agent uses an LLM for. All four roles m
 | `coder` | Code generation model — should be a model fine-tuned for code (e.g. a Qwen-coder or DeepSeek-coder variant). |
 | `semantic_validator` | Model used to judge whether generated code satisfies the original task intent. Receives the task description, a unified diff of the change, and a truncated original file snippet for context; returns a structured JSON evaluation including `task_alignment_score` and `regression_risk`. Can be the same model as `coder`. |
 | `describer` | Model used by the embedding pipeline to generate structured JSON descriptions of extracted functions. Falls back to `chat` if this key is absent, so it is optional. A smaller or faster model is sufficient here — descriptions do not require the same reasoning quality as code planning. |
+| `reporter` | Model reserved for future report analysis. Will be used to compare pipeline reports across runs and produce a synthesised document highlighting the most important findings, regressions, and patterns. Not wired into any pipeline stage yet — add it to your config now so the key is available when the feature is implemented. |
 | `embedding` | Embedding model used to build the vector-similarity layer of the knowledge graph. Must produce dense vector outputs. |
 
 ---

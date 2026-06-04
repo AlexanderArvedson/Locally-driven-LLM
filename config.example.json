@@ -86,6 +86,17 @@
           "timeout_seconds": 300,
           "allow_gpu": true
         },
+        "reporter": {
+          "name": "qwen2.5-coder:7b",
+          "provider": "ollama",
+          "api_key": null,
+          "url": "http://localhost:11434",
+          "temperature": null,
+          "max_tokens": null,
+          "num_ctx": null,
+          "timeout_seconds": 300,
+          "allow_gpu": true
+        },
         "embedding": {
           "name": "nomic-embed-text",
           "provider": "ollama",
