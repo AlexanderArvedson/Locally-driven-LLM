@@ -96,7 +96,7 @@ DELETE r
 
 _GET_ALL_EMBEDDINGS: LiteralString = """
 MATCH (f:Function {repo: $repo})
-WHERE f.isDeleted = false AND f.isTest = false AND f.codeEmbedding IS NOT NULL
+WHERE f.isDeleted = false AND (f.isTest = false OR $include_tests) AND f.codeEmbedding IS NOT NULL
 RETURN f.id AS id, f.codeEmbedding AS codeEmbedding, f.descriptionEmbedding AS descriptionEmbedding
 """
 
@@ -219,10 +219,16 @@ class Neo4jStore:
     async def get_all_embeddings(
         self,
         repo: str,
+        include_tests: bool = False,
     ) -> list[tuple[str, list[float], list[float] | None]]:
-        """Return ``[(id, code_embedding, description_embedding)]`` for all live functions."""
+        """Return ``[(id, code_embedding, description_embedding)]`` for all live functions.
+
+        Args:
+            include_tests: When ``True``, test functions (``isTest = true``) are
+                included in the returned set and therefore in the similarity graph.
+        """
         async with self._driver.session(database=self._config.database) as session:
-            result = await session.run(_GET_ALL_EMBEDDINGS, repo=repo)
+            result = await session.run(_GET_ALL_EMBEDDINGS, repo=repo, include_tests=include_tests)
             records = await result.data()
         return [(r["id"], r["codeEmbedding"], r["descriptionEmbedding"]) for r in records]
 

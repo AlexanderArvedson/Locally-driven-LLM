@@ -107,6 +107,7 @@ class PipelineConfig:
     batch_sizes: BatchSizeConfig = field(default_factory=BatchSizeConfig)
     limits: LimitsConfig = field(default_factory=LimitsConfig)
     test_patterns: list[str] = field(default_factory=lambda: ["tests/", "test_", "_test.py"])
+    include_tests_in_graph: bool = False
 
 
 @dataclass

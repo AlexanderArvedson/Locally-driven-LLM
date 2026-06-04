@@ -19,7 +19,8 @@ from src.pipeline.neo4j_store import Neo4jStore
 # ---------------------------------------------------------------------------
 
 _Q_STATS: LiteralString = """
-MATCH (f:Function {repo: $repo, isDeleted: false, isTest: false})
+MATCH (f:Function {repo: $repo, isDeleted: false})
+WHERE f.isTest = false OR $include_tests
 WITH count(f) AS total
 OPTIONAL MATCH ()-[r:SIMILAR_TO]->()
 RETURN total, count(r) AS edges
@@ -31,13 +32,14 @@ RETURN count(f) AS test_count
 """
 
 _Q_NO_EDGES: LiteralString = """
-MATCH (f:Function {repo: $repo, isDeleted: false, isTest: false})
-WHERE NOT (f)-[:SIMILAR_TO]-()
+MATCH (f:Function {repo: $repo, isDeleted: false})
+WHERE (f.isTest = false OR $include_tests) AND NOT (f)-[:SIMILAR_TO]-()
 RETURN count(f) AS isolated
 """
 
 _Q_TOP_PAIRS: LiteralString = """
-MATCH (a:Function {repo: $repo, isTest: false})-[r:SIMILAR_TO]->(b:Function {isTest: false})
+MATCH (a:Function {repo: $repo})-[r:SIMILAR_TO]->(b:Function)
+WHERE (a.isTest = false OR $include_tests) AND (b.isTest = false OR $include_tests)
 RETURN
   a.qualifiedName AS a_name,
   a.filePath      AS a_file,
@@ -49,7 +51,8 @@ LIMIT $limit
 """
 
 _Q_MOST_CONNECTED: LiteralString = """
-MATCH (f:Function {repo: $repo, isTest: false})-[r:SIMILAR_TO]-()
+MATCH (f:Function {repo: $repo})-[r:SIMILAR_TO]-()
+WHERE f.isTest = false OR $include_tests
 RETURN
   f.qualifiedName AS name,
   f.filePath      AS file,
@@ -59,7 +62,8 @@ LIMIT $limit
 """
 
 _Q_PER_FILE: LiteralString = """
-MATCH (f:Function {repo: $repo, isDeleted: false, isTest: false})
+MATCH (f:Function {repo: $repo, isDeleted: false})
+WHERE f.isTest = false OR $include_tests
 WITH f.filePath AS path, count(f) AS fn_count
 OPTIONAL MATCH (a:Function {repo: $repo, filePath: path})-[r:SIMILAR_TO]-()
 RETURN path, fn_count, count(r) AS edge_count
@@ -68,7 +72,8 @@ LIMIT $limit
 """
 
 _Q_LANGUAGE_BREAKDOWN: LiteralString = """
-MATCH (f:Function {repo: $repo, isDeleted: false, isTest: false})
+MATCH (f:Function {repo: $repo, isDeleted: false})
+WHERE f.isTest = false OR $include_tests
 RETURN f.language AS language, count(f) AS count
 ORDER BY count DESC
 """
@@ -83,6 +88,7 @@ async def generate_report(
     repo_name: str,
     output_path: str | Path | None = None,
     top_n: int = 20,
+    include_tests: bool = False,
 ) -> Path:
     """Query Neo4j and write a markdown report.
 
@@ -103,7 +109,7 @@ async def generate_report(
 
     store = Neo4jStore(neo4j_config)
     try:
-        lines = await _build_report(store, repo_name, top_n)
+        lines = await _build_report(store, repo_name, top_n, include_tests)
     finally:
         await store.close()
 
@@ -111,7 +117,7 @@ async def generate_report(
     return output_path
 
 
-async def _build_report(store: Neo4jStore, repo: str, top_n: int) -> list[str]:
+async def _build_report(store: Neo4jStore, repo: str, top_n: int, include_tests: bool = False) -> list[str]:
     db = store._config.database
     driver = store._driver
 
@@ -120,13 +126,13 @@ async def _build_report(store: Neo4jStore, repo: str, top_n: int) -> list[str]:
             result = await session.run(query, repo=repo, **params)
             return await result.data()
 
-    stats      = await run(_Q_STATS)
+    stats      = await run(_Q_STATS, include_tests=include_tests)
     test_count = await run(_Q_TEST_COUNT)
-    no_edges   = await run(_Q_NO_EDGES)
-    top_pairs  = await run(_Q_TOP_PAIRS, limit=top_n)
-    connected  = await run(_Q_MOST_CONNECTED, limit=top_n)
-    per_file   = await run(_Q_PER_FILE, limit=top_n)
-    languages  = await run(_Q_LANGUAGE_BREAKDOWN)
+    no_edges   = await run(_Q_NO_EDGES, include_tests=include_tests)
+    top_pairs  = await run(_Q_TOP_PAIRS, limit=top_n, include_tests=include_tests)
+    connected  = await run(_Q_MOST_CONNECTED, limit=top_n, include_tests=include_tests)
+    per_file   = await run(_Q_PER_FILE, limit=top_n, include_tests=include_tests)
+    languages  = await run(_Q_LANGUAGE_BREAKDOWN, include_tests=include_tests)
 
     total      = stats[0]["total"] if stats else 0
     edges      = stats[0]["edges"] if stats else 0
@@ -146,7 +152,7 @@ async def _build_report(store: Neo4jStore, repo: str, top_n: int) -> list[str]:
         f"| Metric | Value |",
         f"|---|---|",
         f"| Production functions indexed | {total} |",
-        f"| Test functions (excluded from graph) | {test_funcs} |",
+        f"| Test functions ({'included in' if include_tests else 'excluded from'} graph) | {test_funcs} |",
         f"| SIMILAR\\_TO edges | {edges} |",
         f"| Isolated functions (no edges) | {isolated} |",
         f"| Functions with at least one edge | {total - isolated} |",

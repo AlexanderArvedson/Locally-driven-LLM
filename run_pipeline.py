@@ -57,7 +57,10 @@ async def _run(args: argparse.Namespace) -> int:
 
     if args.report_only:
         print(f"Generating report for: {config.repo_name}")
-        report_path = await generate_report(config.neo4j, config.repo_name)
+        report_path = await generate_report(
+            config.neo4j, config.repo_name,
+            include_tests=config.include_tests_in_graph,
+        )
         print(f"Report written to: {report_path}")
         return 0
 
@@ -93,7 +96,10 @@ async def _run(args: argparse.Namespace) -> int:
 
     if (args.report or args.report_only) and not args.dry_run:
         print()
-        report_path = await generate_report(config.neo4j, config.repo_name)
+        report_path = await generate_report(
+            config.neo4j, config.repo_name,
+            include_tests=config.include_tests_in_graph,
+        )
         print(f"Report written to: {report_path}")
 
     return 1 if result.errors else 0

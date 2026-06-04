@@ -125,7 +125,10 @@ class EmbeddingPipeline:
             return
 
         logger.info("Loading embeddings for similarity computation...")
-        embeddings = await self._store.get_all_embeddings(config.repo_name)
+        embeddings = await self._store.get_all_embeddings(
+            config.repo_name,
+            include_tests=config.include_tests_in_graph,
+        )
         if len(embeddings) < 2:
             return
 
