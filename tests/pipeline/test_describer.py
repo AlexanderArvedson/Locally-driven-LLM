@@ -117,3 +117,68 @@ async def test_describe_sets_none_on_persistent_failure(monkeypatch):
     await service.describe(record)
 
     assert record.description is None
+
+
+@pytest.mark.asyncio
+async def test_describe_sets_ok_status_on_success(monkeypatch):
+    async def fake_chat(self, messages, model, **kwargs):
+        return LLMResult(message=_VALID_JSON, input_tokens=0, output_tokens=0)
+
+    monkeypatch.setattr(OllamaClient, "chat", fake_chat)
+
+    client = OllamaClient("http://localhost:11434")
+    service = DescriptionService(client, _make_config())
+    record = _make_record()
+    await service.describe(record)
+
+    assert record.description_status == "ok"
+
+
+@pytest.mark.asyncio
+async def test_describe_sets_invalid_json_status_on_persistent_bad_json(monkeypatch):
+    async def fake_chat(self, messages, model, **kwargs):
+        return LLMResult(message="not json", input_tokens=0, output_tokens=0)
+
+    monkeypatch.setattr(OllamaClient, "chat", fake_chat)
+
+    client = OllamaClient("http://localhost:11434")
+    service = DescriptionService(client, _make_config())
+    record = _make_record()
+    await service.describe(record)
+
+    assert record.description_status == "invalid_json"
+    assert record.description is None
+
+
+@pytest.mark.asyncio
+async def test_describe_sets_error_status_on_runtime_error(monkeypatch):
+    async def fake_chat(self, messages, model, **kwargs):
+        raise RuntimeError("Ollama chat request failed: 500")
+
+    monkeypatch.setattr(OllamaClient, "chat", fake_chat)
+
+    client = OllamaClient("http://localhost:11434")
+    service = DescriptionService(client, _make_config())
+    record = _make_record()
+    await service.describe(record)
+
+    assert record.description_status == "error"
+    assert record.description is None
+
+
+@pytest.mark.asyncio
+async def test_describe_sets_timeout_status(monkeypatch):
+    import asyncio
+
+    async def fake_chat(self, messages, model, **kwargs):
+        raise asyncio.TimeoutError()
+
+    monkeypatch.setattr(OllamaClient, "chat", fake_chat)
+
+    client = OllamaClient("http://localhost:11434")
+    service = DescriptionService(client, _make_config())
+    record = _make_record()
+    await service.describe(record)
+
+    assert record.description_status == "timeout"
+    assert record.description is None

@@ -210,6 +210,7 @@ Controls source text truncation and embedding context window size.
 | `max_code_chars` | integer | `22000` | Maximum characters of source code sent to the embedding model. At ~3–4 chars/token for code, 22 000 chars fits within the 8192-token context of `nomic-embed-text` with a safety margin. |
 | `max_description_source_chars` | integer | `12000` | Maximum characters of source code included in the LLM description prompt. Keeps the total prompt within the chat model's `num_ctx` budget. |
 | `embedding_num_ctx` | integer | `8192` | Context window size passed to Ollama on every embed request. Ollama's built-in default is 2048, which truncates long functions — this overrides it to the maximum supported by `nomic-embed-text`. |
+| `context_overflow_char_threshold` | integer | `10000` | When an Ollama embedding call fails with an HTTP 500, the pipeline uses this threshold to classify the failure: if the truncated input was at or above this many characters the status is set to `"context_overflow"`, otherwise `"error"`. Tune downward if you want to catch overflow failures earlier. |
 
 The pipeline reads `models.embedding` and `models.chat` from the same repository entry — no duplication of model settings is needed.
 

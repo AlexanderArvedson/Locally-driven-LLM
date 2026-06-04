@@ -73,7 +73,11 @@ SET
   f.lastSeenAt            = rec.lastSeenAt,
   f.isDeleted             = false,
   f.isTest                = rec.isTest,
-  f.createdAt             = CASE WHEN f.createdAt IS NULL THEN rec.createdAt ELSE f.createdAt END
+  f.createdAt             = CASE WHEN f.createdAt IS NULL THEN rec.createdAt ELSE f.createdAt END,
+  f.codeEmbeddingStatus        = CASE WHEN rec.codeEmbeddingStatus IS NOT NULL        THEN rec.codeEmbeddingStatus        ELSE f.codeEmbeddingStatus        END,
+  f.codeEmbeddingInputChars    = CASE WHEN rec.codeEmbeddingInputChars IS NOT NULL    THEN rec.codeEmbeddingInputChars    ELSE f.codeEmbeddingInputChars    END,
+  f.codeEmbeddingTruncatedChars= CASE WHEN rec.codeEmbeddingTruncatedChars IS NOT NULL THEN rec.codeEmbeddingTruncatedChars ELSE f.codeEmbeddingTruncatedChars END,
+  f.descriptionStatus          = CASE WHEN rec.descriptionStatus IS NOT NULL          THEN rec.descriptionStatus          ELSE f.descriptionStatus          END
 """
 
 _GET_HASHES: LiteralString = """
@@ -203,6 +207,10 @@ class Neo4jStore:
                 "updatedAt": r.updated_at,
                 "lastSeenAt": r.last_seen_at,
                 "isTest": r.is_test,
+                "codeEmbeddingStatus": r.code_embedding_status,
+                "codeEmbeddingInputChars": r.code_embedding_input_chars,
+                "codeEmbeddingTruncatedChars": r.code_embedding_truncated_chars,
+                "descriptionStatus": r.description_status,
             }
 
         async with self._driver.session(database=self._config.database) as session:
