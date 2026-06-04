@@ -210,6 +210,7 @@ Controls the thresholds used when generating the post-run markdown report. All f
 | `cluster_threshold` | float | `0.92` | Minimum `combinedSimilarity` for a `SIMILAR_TO` edge to be included when computing duplication clusters. Raise to tighten cluster membership; lower to surface weaker groupings. |
 | `arch_coupling_threshold` | float | `0.60` | Inter-file edge ratio above which a file is flagged with `ARCHITECTURE_COUPLING`. Only applied to files with at least 5 total edges. |
 | `test_pollution_threshold` | integer | `5` | Minimum number of edges between test and production functions required to raise the `TEST_POLLUTION` flag. Only evaluated when `include_tests_in_graph` is `true`. |
+| `timezone` | string | `"UTC"` | IANA timezone used for all timestamps in the generated report (e.g. `"Europe/Stockholm"`, `"America/New_York"`). Affects both the `Generated` header and the report directory name. |
 
 #### `pipeline.limits`
 
