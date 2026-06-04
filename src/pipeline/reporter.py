@@ -13,6 +13,7 @@ from collections import defaultdict, deque
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Final, LiteralString
+from zoneinfo import ZoneInfo
 
 from src.pipeline.contracts import Neo4jConfig, PipelineConfig, ReporterConfig
 from src.pipeline.neo4j_store import Neo4jStore
@@ -255,7 +256,8 @@ async def generate_report(
         Path to the report directory.
     """
     if output_dir is None:
-        ts = datetime.now(timezone.utc).strftime("%Y%m%d-%H%M%S")
+        tz_str = pipeline_config.reporter.timezone if pipeline_config else "UTC"
+        ts = datetime.now(ZoneInfo(tz_str)).strftime("%Y%m%d-%H%M%S")
         output_dir = Path("run_reports") / ts
     output_dir = Path(output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
@@ -346,7 +348,10 @@ async def _build_report(
 
     clusters = _compute_clusters(cluster_edges)
 
-    now = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
+    tz = ZoneInfo(reporter_cfg.timezone)
+    now_dt = datetime.now(tz)
+    tz_abbr = now_dt.strftime("%Z") or reporter_cfg.timezone
+    now = now_dt.strftime(f"%Y-%m-%d %H:%M {tz_abbr}")
     embed_model = pipeline_config.embedding_model if pipeline_config else "N/A"
 
     lines: list[str] = []
@@ -362,7 +367,7 @@ async def _build_report(
         "| Field | Value |",
         "|---|---|",
         f"| Repository | `{repo}` |",
-        f"| Generated (UTC) | {now} |",
+        f"| Generated ({reporter_cfg.timezone}) | {now} |",
         f"| Neo4j database | `{db}` |",
         f"| Pipeline version | {PIPELINE_VERSION} |",
         f"| Embedding model | `{embed_model}` |",
