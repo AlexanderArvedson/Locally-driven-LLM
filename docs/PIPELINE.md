@@ -131,6 +131,7 @@ Directed edge between two `Function` nodes. Only created when `source.id < targe
 | `codeSimilarity` | float | Cosine similarity between the two `codeEmbedding` vectors. |
 | `descriptionSimilarity` | float | Cosine similarity between the two `descriptionEmbedding` vectors. `0.0` when descriptions are absent. |
 | `combinedSimilarity` | float | Weighted combination: `code_weight × codeSimilarity + description_weight × descriptionSimilarity` when both functions have code embeddings. Falls back to `codeSimilarity` when description embeddings are absent. Falls back to `descriptionSimilarity` alone (unweighted) when at least one function has no code embedding. |
+| `createdAt` | string | ISO-8601 timestamp of first creation. Preserved on re-runs via `ON CREATE SET`. |
 | `updatedAt` | string | ISO-8601 timestamp of last update. |
 
 ### Indexes
