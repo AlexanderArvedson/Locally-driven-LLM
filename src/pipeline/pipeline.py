@@ -130,5 +130,8 @@ class EmbeddingPipeline:
         result.edges_written = len(edges)
         logger.info("Writing {} similarity edges...", result.edges_written)
 
+        # Delete existing edges before re-inserting so stale edges from
+        # functions whose embeddings changed do not survive the update.
+        await self._store.delete_similarity_edges(config.repo_name)
         if edges:
             await self._store.upsert_similarity_edges_batch(edges)

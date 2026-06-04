@@ -88,6 +88,11 @@ SET f.isDeleted = true
 RETURN count(f) AS deleted
 """
 
+_DELETE_SIMILARITY_EDGES: LiteralString = """
+MATCH (f:Function {repo: $repo})-[r:SIMILAR_TO]->()
+DELETE r
+"""
+
 _GET_ALL_EMBEDDINGS: LiteralString = """
 MATCH (f:Function {repo: $repo})
 WHERE f.isDeleted = false AND f.codeEmbedding IS NOT NULL
@@ -215,6 +220,15 @@ class Neo4jStore:
             result = await session.run(_GET_ALL_EMBEDDINGS, repo=repo)
             records = await result.data()
         return [(r["id"], r["codeEmbedding"], r["descriptionEmbedding"]) for r in records]
+
+    async def delete_similarity_edges(self, repo: str) -> None:
+        """Delete all SIMILAR_TO edges originating from functions in this repo.
+
+        Called before re-inserting the similarity graph so stale edges from
+        functions whose embeddings changed do not persist.
+        """
+        async with self._driver.session(database=self._config.database) as session:
+            await session.run(_DELETE_SIMILARITY_EDGES, repo=repo)
 
     async def upsert_similarity_edges_batch(
         self,
