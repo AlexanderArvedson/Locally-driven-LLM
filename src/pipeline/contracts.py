@@ -36,6 +36,7 @@ class FunctionRecord:
     updated_at: str = field(default_factory=_now_iso)
     last_seen_at: str = field(default_factory=_now_iso)
     is_deleted: bool = False
+    is_test: bool = False
 
 
 @dataclass
@@ -105,6 +106,7 @@ class PipelineConfig:
     concurrency: ConcurrencyConfig = field(default_factory=ConcurrencyConfig)
     batch_sizes: BatchSizeConfig = field(default_factory=BatchSizeConfig)
     limits: LimitsConfig = field(default_factory=LimitsConfig)
+    test_patterns: list[str] = field(default_factory=lambda: ["tests/", "test_", "_test.py"])
 
 
 @dataclass

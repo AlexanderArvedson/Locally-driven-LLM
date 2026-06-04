@@ -115,6 +115,7 @@ One node per extracted function or method.
 | `updatedAt` | string | ISO-8601 timestamp of most recent change. |
 | `lastSeenAt` | string | ISO-8601 timestamp of the most recent scan that included this function. Used to detect deletions. |
 | `isDeleted` | boolean | `true` if the function was absent from the most recent scan. |
+| `isTest` | boolean | `true` if the function's file path matches any pattern in `pipeline.test_patterns`. Test functions are stored but excluded from similarity computation and report rankings. |
 
 ### Relationship: `SIMILAR_TO`
 

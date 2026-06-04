@@ -72,6 +72,7 @@ SET
   f.updatedAt             = rec.updatedAt,
   f.lastSeenAt            = rec.lastSeenAt,
   f.isDeleted             = false,
+  f.isTest                = rec.isTest,
   f.createdAt             = CASE WHEN f.createdAt IS NULL THEN rec.createdAt ELSE f.createdAt END
 """
 
@@ -95,7 +96,7 @@ DELETE r
 
 _GET_ALL_EMBEDDINGS: LiteralString = """
 MATCH (f:Function {repo: $repo})
-WHERE f.isDeleted = false AND f.codeEmbedding IS NOT NULL
+WHERE f.isDeleted = false AND f.isTest = false AND f.codeEmbedding IS NOT NULL
 RETURN f.id AS id, f.codeEmbedding AS codeEmbedding, f.descriptionEmbedding AS descriptionEmbedding
 """
 
@@ -200,6 +201,7 @@ class Neo4jStore:
                 "createdAt": r.created_at,
                 "updatedAt": r.updated_at,
                 "lastSeenAt": r.last_seen_at,
+                "isTest": r.is_test,
             }
 
         async with self._driver.session(database=self._config.database) as session:

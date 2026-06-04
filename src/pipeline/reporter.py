@@ -19,20 +19,25 @@ from src.pipeline.neo4j_store import Neo4jStore
 # ---------------------------------------------------------------------------
 
 _Q_STATS: LiteralString = """
-MATCH (f:Function {repo: $repo, isDeleted: false})
+MATCH (f:Function {repo: $repo, isDeleted: false, isTest: false})
 WITH count(f) AS total
 OPTIONAL MATCH ()-[r:SIMILAR_TO]->()
 RETURN total, count(r) AS edges
 """
 
+_Q_TEST_COUNT: LiteralString = """
+MATCH (f:Function {repo: $repo, isDeleted: false, isTest: true})
+RETURN count(f) AS test_count
+"""
+
 _Q_NO_EDGES: LiteralString = """
-MATCH (f:Function {repo: $repo, isDeleted: false})
+MATCH (f:Function {repo: $repo, isDeleted: false, isTest: false})
 WHERE NOT (f)-[:SIMILAR_TO]-()
 RETURN count(f) AS isolated
 """
 
 _Q_TOP_PAIRS: LiteralString = """
-MATCH (a:Function {repo: $repo})-[r:SIMILAR_TO]->(b:Function)
+MATCH (a:Function {repo: $repo, isTest: false})-[r:SIMILAR_TO]->(b:Function {isTest: false})
 RETURN
   a.qualifiedName AS a_name,
   a.filePath      AS a_file,
@@ -44,7 +49,7 @@ LIMIT $limit
 """
 
 _Q_MOST_CONNECTED: LiteralString = """
-MATCH (f:Function {repo: $repo})-[r:SIMILAR_TO]-()
+MATCH (f:Function {repo: $repo, isTest: false})-[r:SIMILAR_TO]-()
 RETURN
   f.qualifiedName AS name,
   f.filePath      AS file,
@@ -54,7 +59,7 @@ LIMIT $limit
 """
 
 _Q_PER_FILE: LiteralString = """
-MATCH (f:Function {repo: $repo, isDeleted: false})
+MATCH (f:Function {repo: $repo, isDeleted: false, isTest: false})
 WITH f.filePath AS path, count(f) AS fn_count
 OPTIONAL MATCH (a:Function {repo: $repo, filePath: path})-[r:SIMILAR_TO]-()
 RETURN path, fn_count, count(r) AS edge_count
@@ -63,7 +68,7 @@ LIMIT $limit
 """
 
 _Q_LANGUAGE_BREAKDOWN: LiteralString = """
-MATCH (f:Function {repo: $repo, isDeleted: false})
+MATCH (f:Function {repo: $repo, isDeleted: false, isTest: false})
 RETURN f.language AS language, count(f) AS count
 ORDER BY count DESC
 """
@@ -116,15 +121,17 @@ async def _build_report(store: Neo4jStore, repo: str, top_n: int) -> list[str]:
             return await result.data()
 
     stats      = await run(_Q_STATS)
+    test_count = await run(_Q_TEST_COUNT)
     no_edges   = await run(_Q_NO_EDGES)
     top_pairs  = await run(_Q_TOP_PAIRS, limit=top_n)
     connected  = await run(_Q_MOST_CONNECTED, limit=top_n)
     per_file   = await run(_Q_PER_FILE, limit=top_n)
     languages  = await run(_Q_LANGUAGE_BREAKDOWN)
 
-    total     = stats[0]["total"] if stats else 0
-    edges     = stats[0]["edges"] if stats else 0
-    isolated  = no_edges[0]["isolated"] if no_edges else 0
+    total      = stats[0]["total"] if stats else 0
+    edges      = stats[0]["edges"] if stats else 0
+    isolated   = no_edges[0]["isolated"] if no_edges else 0
+    test_funcs = test_count[0]["test_count"] if test_count else 0
 
     now = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
     lines: list[str] = [
@@ -138,7 +145,8 @@ async def _build_report(store: Neo4jStore, repo: str, top_n: int) -> list[str]:
         f"",
         f"| Metric | Value |",
         f"|---|---|",
-        f"| Functions indexed | {total} |",
+        f"| Production functions indexed | {total} |",
+        f"| Test functions (excluded from graph) | {test_funcs} |",
         f"| SIMILAR\\_TO edges | {edges} |",
         f"| Isolated functions (no edges) | {isolated} |",
         f"| Functions with at least one edge | {total - isolated} |",
