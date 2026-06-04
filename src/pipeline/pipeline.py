@@ -29,7 +29,11 @@ class EmbeddingPipeline:
         self._dry_run = dry_run
         self._skip_descriptions = skip_descriptions
         self._client = OllamaClient(base_url=config.embedding_url)
-        self._store = Neo4jStore(config.neo4j)
+        self._store = Neo4jStore(
+            config.neo4j,
+            function_batch_size=config.batch_sizes.function_upsert,
+            edge_batch_size=config.batch_sizes.edge_upsert,
+        )
         self._extractor = FunctionExtractor(config)
         self._embedder = EmbeddingService(self._client, config)
         self._describer = DescriptionService(self._client, config)

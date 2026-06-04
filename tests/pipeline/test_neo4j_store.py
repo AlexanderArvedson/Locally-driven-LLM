@@ -66,7 +66,7 @@ def _make_store(rows_by_query=None) -> tuple[Neo4jStore, _StubDriver]:
     config = Neo4jConfig(uri="bolt://localhost:7687", database="neo4j", username="u", password="p")
     store = Neo4jStore(config)
     driver = _StubDriver(rows_by_query)
-    store._driver = driver
+    store._driver = driver  # type: ignore[assignment]
     return store, driver
 
 
@@ -124,7 +124,7 @@ async def test_upsert_functions_batch_uses_unwind():
     store._vector_dim = 3  # skip lazy init
 
     records = [_make_record("id1"), _make_record("id2")]
-    await store.upsert_functions_batch(records, batch_size=10)
+    await store.upsert_functions_batch(records)
 
     all_queries = [q for s in driver.sessions for q in s.queries]
     assert any("UNWIND" in q and "MERGE" in q for q in all_queries)

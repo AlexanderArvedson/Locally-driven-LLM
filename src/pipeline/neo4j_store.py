@@ -119,13 +119,20 @@ SET
 class Neo4jStore:
     """Async Neo4j driver wrapper for Function nodes and SIMILAR_TO edges."""
 
-    def __init__(self, config: Neo4jConfig) -> None:
+    def __init__(
+        self,
+        config: Neo4jConfig,
+        function_batch_size: int = 50,
+        edge_batch_size: int = 200,
+    ) -> None:
         self._config = config
         self._driver: AsyncDriver = AsyncGraphDatabase.driver(
             config.uri,
             auth=(config.username, config.password),
         )
         self._vector_dim: int | None = None
+        self._function_batch_size = function_batch_size
+        self._edge_batch_size = edge_batch_size
 
     async def close(self) -> None:
         """Close the driver connection pool."""
@@ -165,11 +172,7 @@ class Neo4jStore:
             records = await result.data()
         return {r["id"]: r["sourceHash"] for r in records}
 
-    async def upsert_functions_batch(
-        self,
-        records: list[FunctionRecord],
-        batch_size: int = 50,
-    ) -> None:
+    async def upsert_functions_batch(self, records: list[FunctionRecord]) -> None:
         """Batch-upsert Function nodes using UNWIND for efficiency."""
         # Infer and create vector indexes from the first embedding encountered.
         if self._vector_dim is None:
@@ -200,8 +203,8 @@ class Neo4jStore:
             }
 
         async with self._driver.session(database=self._config.database) as session:
-            for i in range(0, len(records), batch_size):
-                batch = [_to_dict(r) for r in records[i:i + batch_size]]
+            for i in range(0, len(records), self._function_batch_size):
+                batch = [_to_dict(r) for r in records[i:i + self._function_batch_size]]
                 await session.run(_UPSERT_FUNCTION, records=batch)
 
     async def soft_delete_missing(self, repo: str, seen_ids: set[str]) -> int:
@@ -230,11 +233,7 @@ class Neo4jStore:
         async with self._driver.session(database=self._config.database) as session:
             await session.run(_DELETE_SIMILARITY_EDGES, repo=repo)
 
-    async def upsert_similarity_edges_batch(
-        self,
-        edges: list[SimilarityEdge],
-        batch_size: int = 200,
-    ) -> None:
+    async def upsert_similarity_edges_batch(self, edges: list[SimilarityEdge]) -> None:
         """Batch-upsert SIMILAR_TO relationships using UNWIND."""
         def _to_dict(e: SimilarityEdge) -> dict:
             return {
@@ -247,6 +246,6 @@ class Neo4jStore:
             }
 
         async with self._driver.session(database=self._config.database) as session:
-            for i in range(0, len(edges), batch_size):
-                batch = [_to_dict(e) for e in edges[i:i + batch_size]]
+            for i in range(0, len(edges), self._edge_batch_size):
+                batch = [_to_dict(e) for e in edges[i:i + self._edge_batch_size]]
                 await session.run(_UPSERT_EDGE, edges=batch)

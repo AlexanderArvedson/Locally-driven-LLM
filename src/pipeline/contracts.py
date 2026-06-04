@@ -67,6 +67,29 @@ class SimilarityConfig:
 
 
 @dataclass(frozen=True)
+class ConcurrencyConfig:
+    """Max simultaneous Ollama requests per stage."""
+    embed_code: int = 4
+    embed_description: int = 4
+    describe: int = 2
+
+
+@dataclass(frozen=True)
+class BatchSizeConfig:
+    """Neo4j UNWIND batch sizes."""
+    function_upsert: int = 50
+    edge_upsert: int = 200
+
+
+@dataclass(frozen=True)
+class LimitsConfig:
+    """Source text truncation limits and embedding context window."""
+    max_code_chars: int = 22_000
+    max_description_source_chars: int = 12_000
+    embedding_num_ctx: int = 8192
+
+
+@dataclass(frozen=True)
 class PipelineConfig:
     repo_path: str
     repo_name: str
@@ -78,6 +101,9 @@ class PipelineConfig:
     chat_model: str
     similarity: SimilarityConfig
     neo4j: Neo4jConfig
+    concurrency: ConcurrencyConfig = field(default_factory=ConcurrencyConfig)
+    batch_sizes: BatchSizeConfig = field(default_factory=BatchSizeConfig)
+    limits: LimitsConfig = field(default_factory=LimitsConfig)
 
 
 @dataclass
