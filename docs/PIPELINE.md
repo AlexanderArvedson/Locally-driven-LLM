@@ -217,7 +217,7 @@ LIMIT 100;
 ```
 src/pipeline/
   contracts.py      — FunctionRecord, SimilarityEdge, PipelineConfig dataclasses
-  config.py         — load_pipeline_config(): reads neo4j + pipeline blocks from config.json
+  (config loader moved to src/core/pipeline_config.py)
   scanner.py        — repo file walker with ignore-path pruning
   extractor.py      — tree-sitter AST traversal, emits FunctionRecord per function
   embedder.py       — EmbeddingService: code and description embedding via OllamaClient
