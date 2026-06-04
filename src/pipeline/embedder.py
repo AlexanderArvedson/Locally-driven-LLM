@@ -14,11 +14,6 @@ from loguru import logger
 from src.core.ollama_client import OllamaClient
 from src.pipeline.contracts import FunctionRecord, PipelineConfig
 
-# nomic-embed-text supports 8192 tokens. We explicitly request that context
-# in the embed call. At ~3-4 chars/token for code, 24 000 chars ≈ 6 000-8 000
-# tokens — leave a ~10% safety margin by capping at 22 000 chars.
-_MAX_CODE_CHARS = 22_000
-
 
 class EmbeddingService:
     """Generates code and description embeddings using OllamaClient."""
@@ -27,6 +22,10 @@ class EmbeddingService:
         self._client = client
         self._model = config.embedding_model
         self._allow_gpu = config.allow_gpu
+        self._max_code_chars = config.limits.max_code_chars
+        self._num_ctx = config.limits.embedding_num_ctx
+        self._embed_code_concurrency = config.concurrency.embed_code
+        self._embed_description_concurrency = config.concurrency.embed_description
 
     async def embed_code(self, record: FunctionRecord) -> None:
         """Populate ``record.code_embedding`` in-place.
@@ -39,9 +38,10 @@ class EmbeddingService:
             return
         try:
             result = await self._client.embed(
-                text[:_MAX_CODE_CHARS],
+                text[:self._max_code_chars],
                 model=self._model,
                 allow_gpu=self._allow_gpu,
+                num_ctx=self._num_ctx,
             )
             record.code_embedding = result.embedding
         except Exception as e:
@@ -86,13 +86,9 @@ class EmbeddingService:
                 e,
             )
 
-    async def embed_code_batch(
-        self,
-        records: list[FunctionRecord],
-        concurrency: int = 4,
-    ) -> None:
+    async def embed_code_batch(self, records: list[FunctionRecord]) -> None:
         """Embed source code for all records in-place, respecting concurrency limit."""
-        sem = asyncio.Semaphore(concurrency)
+        sem = asyncio.Semaphore(self._embed_code_concurrency)
 
         async def _embed_one(record: FunctionRecord) -> None:
             async with sem:
@@ -100,13 +96,9 @@ class EmbeddingService:
 
         await asyncio.gather(*[_embed_one(r) for r in records])
 
-    async def embed_description_batch(
-        self,
-        records: list[FunctionRecord],
-        concurrency: int = 4,
-    ) -> None:
+    async def embed_description_batch(self, records: list[FunctionRecord]) -> None:
         """Embed descriptions for all records in-place, respecting concurrency limit."""
-        sem = asyncio.Semaphore(concurrency)
+        sem = asyncio.Semaphore(self._embed_description_concurrency)
 
         async def _embed_one(record: FunctionRecord) -> None:
             async with sem:

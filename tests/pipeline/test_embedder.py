@@ -4,13 +4,13 @@ import hashlib
 import pytest
 
 from src.core.ollama_client import EmbedResult, OllamaClient
-from src.pipeline.contracts import FunctionRecord, Neo4jConfig, PipelineConfig, SimilarityConfig
+from src.pipeline.contracts import ConcurrencyConfig, FunctionRecord, Neo4jConfig, PipelineConfig, SimilarityConfig
 from src.pipeline.embedder import EmbeddingService
 
 _NEO4J = Neo4jConfig(uri="bolt://localhost:7687", database="neo4j", username="neo4j", password="pw")
 
 
-def _make_config() -> PipelineConfig:
+def _make_config(concurrency: ConcurrencyConfig | None = None) -> PipelineConfig:
     return PipelineConfig(
         repo_path="/tmp",
         repo_name="repo",
@@ -22,6 +22,7 @@ def _make_config() -> PipelineConfig:
         chat_model="qwen2.5-coder:7b",
         similarity=SimilarityConfig(),
         neo4j=_NEO4J,
+        concurrency=concurrency or ConcurrencyConfig(),
     )
 
 
@@ -99,10 +100,11 @@ async def test_embed_batch_respects_concurrency(monkeypatch):
     monkeypatch.setattr(OllamaClient, "embed", fake_embed)
 
     client = OllamaClient("http://localhost:11434")
-    service = EmbeddingService(client, _make_config())
+    config = _make_config(concurrency=ConcurrencyConfig(embed_code=3))
+    service = EmbeddingService(client, config)
     records = [_make_record(f"def f{i}(): pass") for i in range(10)]
 
-    await service.embed_code_batch(records, concurrency=3)
+    await service.embed_code_batch(records)
 
     assert max_active <= 3
     assert all(r.code_embedding is not None for r in records)

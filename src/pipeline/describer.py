@@ -38,11 +38,6 @@ Source code:
 {source_code}"""
 
 
-# qwen2.5-coder:7b is configured with num_ctx=16384. The prompt template adds
-# ~200 chars of overhead, so cap source code at 12 000 chars to stay safe.
-_MAX_SOURCE_CHARS = 12_000
-
-
 def _strip_fences(text: str) -> str:
     """Remove triple-backtick code fences that models emit despite instructions."""
     text = text.strip()
@@ -58,6 +53,8 @@ class DescriptionService:
         self._client = client
         self._model = config.chat_model
         self._allow_gpu = config.allow_gpu
+        self._max_source_chars = config.limits.max_description_source_chars
+        self._describe_concurrency = config.concurrency.describe
 
     async def describe(self, record: FunctionRecord) -> None:
         """Populate ``record.description`` in-place with a JSON string.
@@ -69,7 +66,7 @@ class DescriptionService:
             language=record.language,
             file_path=record.file_path,
             qualified_name=record.qualified_name,
-            source_code=record.source_code[:_MAX_SOURCE_CHARS],
+            source_code=record.source_code[:self._max_source_chars],
         )
         messages = [{"role": "user", "content": prompt}]
 
@@ -94,17 +91,9 @@ class DescriptionService:
                     )
                     record.description = None
 
-    async def describe_batch(
-        self,
-        records: list[FunctionRecord],
-        concurrency: int = 2,
-    ) -> None:
-        """Generate descriptions for all records in-place, respecting concurrency limit.
-
-        Lower default concurrency than embedding because chat inference is more
-        GPU-bound.
-        """
-        sem = asyncio.Semaphore(concurrency)
+    async def describe_batch(self, records: list[FunctionRecord]) -> None:
+        """Generate descriptions for all records in-place, respecting concurrency limit."""
+        sem = asyncio.Semaphore(self._describe_concurrency)
 
         async def _describe_one(record: FunctionRecord) -> None:
             async with sem:

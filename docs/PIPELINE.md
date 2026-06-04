@@ -106,7 +106,7 @@ One node per extracted function or method.
 | `className` | string \| null | Enclosing class name, if applicable. |
 | `startLine` | integer | 1-indexed start line of the function body. |
 | `endLine` | integer | 1-indexed end line of the function body. |
-| `sourceCode` | string | Raw function source text (truncated at 22 000 chars for embedding). |
+| `sourceCode` | string | Raw function source text (truncated at `pipeline.limits.max_code_chars` characters before embedding; default 22 000). |
 | `sourceHash` | string | SHA-256 of `sourceCode`. Used for incremental skip logic. |
 | `description` | string \| null | JSON string with keys `summary`, `inputs`, `outputs`, `sideEffects`, `errors`, `dependencies`. Null when `--no-descriptions` was used or description generation failed. |
 | `codeEmbedding` | list\<float\> \| null | Embedding vector of source code. Null if embedding failed. |

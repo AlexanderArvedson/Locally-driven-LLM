@@ -13,7 +13,14 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from src.pipeline.contracts import Neo4jConfig, PipelineConfig, SimilarityConfig
+from src.pipeline.contracts import (
+    BatchSizeConfig,
+    ConcurrencyConfig,
+    LimitsConfig,
+    Neo4jConfig,
+    PipelineConfig,
+    SimilarityConfig,
+)
 
 
 def load_pipeline_config(config_path: str | Path = "config.json", repo_name: str | None = None) -> PipelineConfig:
@@ -53,6 +60,9 @@ def load_pipeline_config(config_path: str | Path = "config.json", repo_name: str
 
     pipeline_block = repo.get("pipeline", {})
     sim_block = pipeline_block.get("similarity", {})
+    concurrency_block = pipeline_block.get("concurrency", {})
+    batch_block = pipeline_block.get("batch_sizes", {})
+    limits_block = pipeline_block.get("limits", {})
 
     neo4j_block = raw["neo4j"]
 
@@ -76,5 +86,19 @@ def load_pipeline_config(config_path: str | Path = "config.json", repo_name: str
             database=neo4j_block.get("database", "neo4j"),
             username=neo4j_block["username"],
             password=neo4j_block["password"],
+        ),
+        concurrency=ConcurrencyConfig(
+            embed_code=concurrency_block.get("embed_code", 4),
+            embed_description=concurrency_block.get("embed_description", 4),
+            describe=concurrency_block.get("describe", 2),
+        ),
+        batch_sizes=BatchSizeConfig(
+            function_upsert=batch_block.get("function_upsert", 50),
+            edge_upsert=batch_block.get("edge_upsert", 200),
+        ),
+        limits=LimitsConfig(
+            max_code_chars=limits_block.get("max_code_chars", 22_000),
+            max_description_source_chars=limits_block.get("max_description_source_chars", 12_000),
+            embedding_num_ctx=limits_block.get("embedding_num_ctx", 8192),
         ),
     )

@@ -100,6 +100,20 @@
           "top_n": 20,
           "code_weight": 0.70,
           "description_weight": 0.30
+        },
+        "concurrency": {
+          "embed_code": 4,
+          "embed_description": 4,
+          "describe": 2
+        },
+        "batch_sizes": {
+          "function_upsert": 50,
+          "edge_upsert": 200
+        },
+        "limits": {
+          "max_code_chars": 22000,
+          "max_description_source_chars": 12000,
+          "embedding_num_ctx": 8192
         }
       }
     }

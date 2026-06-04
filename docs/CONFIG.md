@@ -178,6 +178,35 @@ Controls the function embedding and similarity pipeline for this repository. See
 | `code_weight` | float | `0.70` | Weight applied to code embedding similarity in the combined score. |
 | `description_weight` | float | `0.30` | Weight applied to description embedding similarity in the combined score. When description embeddings are absent the combined score falls back to the code similarity only. |
 
+#### `pipeline.concurrency`
+
+Controls the maximum number of simultaneous Ollama requests in each processing stage. Reduce these if the Ollama server becomes saturated or returns errors under load.
+
+| Field | Type | Default | Description |
+|-------|------|---------|-------------|
+| `embed_code` | integer | `4` | Max concurrent code embedding requests. |
+| `embed_description` | integer | `4` | Max concurrent description embedding requests. |
+| `describe` | integer | `2` | Max concurrent LLM description requests. Lower than embedding because chat inference is more GPU-bound. |
+
+#### `pipeline.batch_sizes`
+
+Controls the number of records sent in a single Neo4j `UNWIND` batch. Larger batches reduce round-trips but consume more memory.
+
+| Field | Type | Default | Description |
+|-------|------|---------|-------------|
+| `function_upsert` | integer | `50` | Records per batch when upserting `Function` nodes. |
+| `edge_upsert` | integer | `200` | Records per batch when upserting `SIMILAR_TO` edges. |
+
+#### `pipeline.limits`
+
+Controls source text truncation and embedding context window size.
+
+| Field | Type | Default | Description |
+|-------|------|---------|-------------|
+| `max_code_chars` | integer | `22000` | Maximum characters of source code sent to the embedding model. At ~3–4 chars/token for code, 22 000 chars fits within the 8192-token context of `nomic-embed-text` with a safety margin. |
+| `max_description_source_chars` | integer | `12000` | Maximum characters of source code included in the LLM description prompt. Keeps the total prompt within the chat model's `num_ctx` budget. |
+| `embedding_num_ctx` | integer | `8192` | Context window size passed to Ollama on every embed request. Ollama's built-in default is 2048, which truncates long functions — this overrides it to the maximum supported by `nomic-embed-text`. |
+
 The pipeline reads `models.embedding` and `models.chat` from the same repository entry — no duplication of model settings is needed.
 
 ---
