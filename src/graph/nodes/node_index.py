@@ -12,7 +12,7 @@ from src.graph.nodes.planner import planner_node
 from src.graph.nodes.static_validator import static_validator_node
 from src.graph.nodes.semantic_validator import semantic_validator_node
 from src.graph.nodes.support import client
-from src.config_loader import CODER_MODEL, MAX_WORKFLOW_REVISION_CYCLES
+from src.core.config_loader import CODER_MODEL, MAX_WORKFLOW_REVISION_CYCLES
 __all__ = [
     "client",
     "CODER_MODEL",

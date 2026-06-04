@@ -8,7 +8,7 @@ from pathlib import Path
 
 from src.core.ollama_client import OllamaClient
 from src.graph.state import GraphState
-from src.config_loader import get_ollama_base_url, CODER_MODEL, MAX_WORKFLOW_REVISION_CYCLES
+from src.core.config_loader import get_ollama_base_url, CODER_MODEL, MAX_WORKFLOW_REVISION_CYCLES
 
 
 logger = logging.getLogger(__name__)

@@ -16,7 +16,7 @@ import logging
 import re
 import time
 
-from src.config_loader import get_coder_model_config, get_planner_config
+from src.core.config_loader import get_coder_model_config, get_planner_config
 from src.graph.nodes.support import client
 from src.graph.state import GraphState
 from src.observability.context import RunContext

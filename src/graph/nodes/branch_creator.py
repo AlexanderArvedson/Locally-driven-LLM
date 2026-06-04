@@ -10,7 +10,7 @@ from __future__ import annotations
 import logging
 import time
 
-from src.config_loader import get_repository_config
+from src.core.config_loader import get_repository_config
 from src.git.branch_manager import clone_if_missing, create_task_branch
 from src.graph.nodes.support import require_state_value
 from src.graph.state import GraphState
