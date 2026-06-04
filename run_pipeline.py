@@ -60,6 +60,7 @@ async def _run(args: argparse.Namespace) -> int:
         report_path = await generate_report(
             config.neo4j, config.repo_name,
             include_tests=config.include_tests_in_graph,
+            pipeline_config=config,
         )
         print(f"Report written to: {report_path}")
         return 0
@@ -99,6 +100,7 @@ async def _run(args: argparse.Namespace) -> int:
         report_path = await generate_report(
             config.neo4j, config.repo_name,
             include_tests=config.include_tests_in_graph,
+            pipeline_config=config,
         )
         print(f"Report written to: {report_path}")
 

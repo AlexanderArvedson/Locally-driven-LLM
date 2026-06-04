@@ -139,7 +139,12 @@
           "context_overflow_char_threshold": 10000
         },
         "test_patterns": ["tests/", "test_", "_test.py"],
-        "include_tests_in_graph": false
+        "include_tests_in_graph": false,
+        "reporter": {
+          "cluster_threshold": 0.92,
+          "arch_coupling_threshold": 0.60,
+          "test_pollution_threshold": 5
+        }
       }
     }
   ],

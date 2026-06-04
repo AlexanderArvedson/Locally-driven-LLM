@@ -19,6 +19,7 @@ from src.pipeline.contracts import (
     LimitsConfig,
     Neo4jConfig,
     PipelineConfig,
+    ReporterConfig,
     SimilarityConfig,
 )
 
@@ -64,6 +65,7 @@ def load_pipeline_config(config_path: str | Path = "config.json", repo_name: str
     concurrency_block = pipeline_block.get("concurrency", {})
     batch_block = pipeline_block.get("batch_sizes", {})
     limits_block = pipeline_block.get("limits", {})
+    reporter_block = pipeline_block.get("reporter", {})
 
     neo4j_block = raw["neo4j"]
 
@@ -106,4 +108,9 @@ def load_pipeline_config(config_path: str | Path = "config.json", repo_name: str
         ),
         test_patterns=pipeline_block.get("test_patterns", ["tests/", "test_", "_test.py"]),
         include_tests_in_graph=pipeline_block.get("include_tests_in_graph", False),
+        reporter=ReporterConfig(
+            cluster_threshold=reporter_block.get("cluster_threshold", 0.92),
+            arch_coupling_threshold=reporter_block.get("arch_coupling_threshold", 0.60),
+            test_pollution_threshold=reporter_block.get("test_pollution_threshold", 5),
+        ),
     )
