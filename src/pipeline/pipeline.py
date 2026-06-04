@@ -102,6 +102,8 @@ class EmbeddingPipeline:
                     await self._embedder.embed_description_batch(described)
             else:
                 logger.info("Skipping description generation (--no-descriptions)")
+                for r in changed:
+                    r.description_status = "skipped"
 
         # Update lastSeenAt for all records (including unchanged ones).
         now = datetime.now(timezone.utc).isoformat()

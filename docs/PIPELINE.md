@@ -19,8 +19,8 @@ The pipeline runs twelve sequential stages:
 7. **embed_description** — embeds the `summary` field of each generated description. Skipped with `--no-descriptions`.
 8. **upsert_functions** — writes all function nodes to Neo4j via `MERGE` on stable ID. Unchanged functions have their `lastSeenAt` updated; everything else is overwritten.
 9. **soft_delete** — marks any function previously seen in this repo but absent from the current scan as `isDeleted: true`.
-10. **get_all_embeddings** — fetches all live code embeddings back from Neo4j for similarity computation.
-11. **compute_similarity** — builds an N×N cosine similarity matrix using numpy, filters to top-N neighbours per function above the configured threshold, and produces `SimilarityEdge` records.
+10. **get_all_embeddings** — fetches all live functions that have at least one embedding (code or description) from Neo4j for similarity computation. Functions with only a description embedding (e.g. those whose source code exceeded the embedding model's context window) are included.
+11. **compute_similarity** — builds cosine similarity matrices using numpy and produces `SimilarityEdge` records. For pairs where both functions have code embeddings the combined score is `code_weight × codeSimilarity + description_weight × descriptionSimilarity`. For pairs where at least one function lacks a code embedding, the score falls back to description similarity alone so that large orchestration functions are not excluded from the graph.
 12. **upsert_edges** — deletes all existing `SIMILAR_TO` edges for the repo and re-inserts the freshly computed set so stale edges from changed functions do not persist.
 
 ---
@@ -109,13 +109,17 @@ One node per extracted function or method.
 | `sourceCode` | string | Raw function source text (truncated at `pipeline.limits.max_code_chars` characters before embedding; default 22 000). |
 | `sourceHash` | string | SHA-256 of `sourceCode`. Used for incremental skip logic. |
 | `description` | string \| null | JSON string with keys `summary`, `inputs`, `outputs`, `sideEffects`, `errors`, `dependencies`. Null when `--no-descriptions` was used or description generation failed. |
-| `codeEmbedding` | list\<float\> \| null | Embedding vector of source code. Null if embedding failed. |
+| `codeEmbedding` | list\<float\> \| null | Embedding vector of source code. Null if embedding failed (e.g. source exceeded the model's context window after truncation). Functions with a null `codeEmbedding` are still included in similarity computation if `descriptionEmbedding` is present. |
 | `descriptionEmbedding` | list\<float\> \| null | Embedding vector of the description summary. Null when descriptions are skipped or failed. |
 | `createdAt` | string | ISO-8601 timestamp of first insertion. Preserved on re-runs. |
 | `updatedAt` | string | ISO-8601 timestamp of most recent change. |
 | `lastSeenAt` | string | ISO-8601 timestamp of the most recent scan that included this function. Used to detect deletions. |
 | `isDeleted` | boolean | `true` if the function was absent from the most recent scan. |
 | `isTest` | boolean | `true` if the function's file path matches any pattern in `pipeline.test_patterns`. Test functions are stored but excluded from similarity computation and report rankings. |
+| `codeEmbeddingStatus` | string \| null | Result of the code embedding stage: `"ok"`, `"skipped"` (empty source), `"context_overflow"` (large input, likely exceeded model context), `"timeout"`, or `"error"`. `null` for functions that have not been through an embedding run (e.g. legacy nodes). |
+| `codeEmbeddingInputChars` | integer \| null | Length of the raw source code in characters before truncation. Set only on failure. |
+| `codeEmbeddingTruncatedChars` | integer \| null | Length of the source code actually sent to the model after truncation. Set only on failure. |
+| `descriptionStatus` | string \| null | Result of the description generation stage: `"ok"`, `"skipped"` (run with `--no-descriptions`), `"invalid_json"` (model returned non-JSON after retries), `"timeout"`, or `"error"`. `null` for functions that have not been through a description run. |
 
 ### Relationship: `SIMILAR_TO`
 
@@ -125,7 +129,7 @@ Directed edge between two `Function` nodes. Only created when `source.id < targe
 |---|---|---|
 | `codeSimilarity` | float | Cosine similarity between the two `codeEmbedding` vectors. |
 | `descriptionSimilarity` | float | Cosine similarity between the two `descriptionEmbedding` vectors. `0.0` when descriptions are absent. |
-| `combinedSimilarity` | float | Weighted combination: `code_weight × codeSimilarity + description_weight × descriptionSimilarity`. Falls back to `codeSimilarity` when description embeddings are absent. |
+| `combinedSimilarity` | float | Weighted combination: `code_weight × codeSimilarity + description_weight × descriptionSimilarity` when both functions have code embeddings. Falls back to `codeSimilarity` when description embeddings are absent. Falls back to `descriptionSimilarity` alone (unweighted) when at least one function has no code embedding. |
 | `updatedAt` | string | ISO-8601 timestamp of last update. |
 
 ### Indexes

@@ -57,7 +57,7 @@ class DescriptionService:
         self._describe_concurrency = config.concurrency.describe
 
     async def describe(self, record: FunctionRecord) -> None:
-        """Populate ``record.description`` in-place with a JSON string.
+        """Populate ``record.description`` and ``record.description_status`` in-place.
 
         Retries once if the response is not valid JSON. Sets description to
         ``None`` on persistent failure so the pipeline continues.
@@ -70,6 +70,7 @@ class DescriptionService:
         )
         messages = [{"role": "user", "content": prompt}]
 
+        last_exc: Exception | None = None
         for attempt in range(2):
             try:
                 result = await self._client.chat(
@@ -80,16 +81,27 @@ class DescriptionService:
                 cleaned = _strip_fences(result.message)
                 json.loads(cleaned)   # validate — raises if not JSON
                 record.description = cleaned
+                record.description_status = "ok"
                 return
+            except asyncio.TimeoutError as e:
+                last_exc = e
+                break  # no point retrying a timeout
             except (RuntimeError, json.JSONDecodeError) as e:
-                if attempt == 1:
-                    logger.warning(
-                        "Skipping description for {} ({}): {}",
-                        record.qualified_name,
-                        record.file_path,
-                        e,
-                    )
-                    record.description = None
+                last_exc = e
+
+        logger.warning(
+            "Skipping description for {} ({}): {}",
+            record.qualified_name,
+            record.file_path,
+            last_exc,
+        )
+        record.description = None
+        if isinstance(last_exc, asyncio.TimeoutError):
+            record.description_status = "timeout"
+        elif isinstance(last_exc, json.JSONDecodeError):
+            record.description_status = "invalid_json"
+        else:
+            record.description_status = "error"
 
     async def describe_batch(self, records: list[FunctionRecord]) -> None:
         """Generate descriptions for all records in-place, respecting concurrency limit."""

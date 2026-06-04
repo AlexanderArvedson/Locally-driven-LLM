@@ -112,6 +112,85 @@ async def test_embed_batch_respects_concurrency(monkeypatch):
 
 
 @pytest.mark.asyncio
+async def test_embed_code_sets_ok_status(monkeypatch):
+    monkeypatch.setattr(OllamaClient, "embed", lambda self, text, model, **kw: _fake_embed_ok())
+
+    async def _fake_embed_ok():
+        return EmbedResult(embedding=[0.1] * 768)
+
+    monkeypatch.setattr(OllamaClient, "embed", lambda self, text, model, **kw: _fake_embed_ok())
+
+    client = OllamaClient("http://localhost:11434")
+    service = EmbeddingService(client, _make_config())
+    record = _make_record()
+    await service.embed_code(record)
+
+    assert record.code_embedding_status == "ok"
+    assert record.code_embedding_input_chars is None
+
+
+@pytest.mark.asyncio
+async def test_embed_code_skipped_status_on_empty_source(monkeypatch):
+    monkeypatch.setattr(OllamaClient, "embed", lambda self, text, model, **kw: (_ for _ in ()).throw(AssertionError("should not be called")))
+
+    client = OllamaClient("http://localhost:11434")
+    service = EmbeddingService(client, _make_config())
+    record = _make_record(source_code="   ")
+    await service.embed_code(record)
+
+    assert record.code_embedding_status == "skipped"
+
+
+@pytest.mark.asyncio
+async def test_embed_code_context_overflow_status_on_large_input(monkeypatch):
+    async def fail_embed(self, text, model, **kw):
+        raise RuntimeError("Ollama embed request failed: 500")
+
+    monkeypatch.setattr(OllamaClient, "embed", fail_embed)
+
+    client = OllamaClient("http://localhost:11434")
+    service = EmbeddingService(client, _make_config())
+    # Source larger than the _CONTEXT_OVERFLOW_CHARS threshold (10 000)
+    record = _make_record(source_code="x" * 15_000)
+    await service.embed_code(record)
+
+    assert record.code_embedding_status == "context_overflow"
+    assert record.code_embedding_input_chars == 15_000
+    assert record.code_embedding_truncated_chars is not None
+
+
+@pytest.mark.asyncio
+async def test_embed_code_error_status_on_small_input_failure(monkeypatch):
+    async def fail_embed(self, text, model, **kw):
+        raise RuntimeError("Ollama embed request failed: 500")
+
+    monkeypatch.setattr(OllamaClient, "embed", fail_embed)
+
+    client = OllamaClient("http://localhost:11434")
+    service = EmbeddingService(client, _make_config())
+    record = _make_record(source_code="def foo(): pass")
+    await service.embed_code(record)
+
+    assert record.code_embedding_status == "error"
+    assert record.code_embedding_input_chars is not None
+
+
+@pytest.mark.asyncio
+async def test_embed_code_timeout_status(monkeypatch):
+    async def timeout_embed(self, text, model, **kw):
+        raise asyncio.TimeoutError()
+
+    monkeypatch.setattr(OllamaClient, "embed", timeout_embed)
+
+    client = OllamaClient("http://localhost:11434")
+    service = EmbeddingService(client, _make_config())
+    record = _make_record()
+    await service.embed_code(record)
+
+    assert record.code_embedding_status == "timeout"
+
+
+@pytest.mark.asyncio
 async def test_embed_description_extracts_summary(monkeypatch):
     import json
 

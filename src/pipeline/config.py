@@ -102,6 +102,7 @@ def load_pipeline_config(config_path: str | Path = "config.json", repo_name: str
             max_code_chars=limits_block.get("max_code_chars", 22_000),
             max_description_source_chars=limits_block.get("max_description_source_chars", 12_000),
             embedding_num_ctx=limits_block.get("embedding_num_ctx", 8192),
+            context_overflow_char_threshold=limits_block.get("context_overflow_char_threshold", 10_000),
         ),
         test_patterns=pipeline_block.get("test_patterns", ["tests/", "test_", "_test.py"]),
         include_tests_in_graph=pipeline_block.get("include_tests_in_graph", False),
