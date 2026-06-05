@@ -159,6 +159,46 @@ async def test_soft_delete_passes_seen_ids():
 
 
 @pytest.mark.asyncio
+async def test_query_code_neighbors_uses_code_index():
+    from src.pipeline.neo4j_store import _QUERY_CODE_NEIGHBORS
+
+    rows = [{"id": "fn_b", "score": 0.92}, {"id": "fn_c", "score": 0.85}]
+    store, driver = _make_store({_QUERY_CODE_NEIGHBORS.strip(): rows})
+
+    results = await store.query_code_neighbors(
+        source_id="fn_a",
+        embedding=[0.1, 0.2, 0.3],
+        repo="my-repo",
+        top_n=10,
+    )
+
+    assert results == [("fn_b", 0.92), ("fn_c", 0.85)]
+
+    all_queries = [q for s in driver.sessions for q in s.queries]
+    assert any("function_code_embedding_index" in q for q in all_queries)
+
+
+@pytest.mark.asyncio
+async def test_query_desc_neighbors_uses_desc_index():
+    from src.pipeline.neo4j_store import _QUERY_DESC_NEIGHBORS
+
+    rows = [{"id": "fn_d", "score": 0.88}]
+    store, driver = _make_store({_QUERY_DESC_NEIGHBORS.strip(): rows})
+
+    results = await store.query_desc_neighbors(
+        source_id="fn_a",
+        embedding=[0.4, 0.5, 0.6],
+        repo="my-repo",
+        top_n=5,
+    )
+
+    assert results == [("fn_d", 0.88)]
+
+    all_queries = [q for s in driver.sessions for q in s.queries]
+    assert any("function_desc_embedding_index" in q for q in all_queries)
+
+
+@pytest.mark.asyncio
 async def test_upsert_similarity_edges_uses_unwind():
     store, driver = _make_store()
 
