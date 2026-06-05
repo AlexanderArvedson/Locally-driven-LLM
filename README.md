@@ -68,6 +68,8 @@ The report (`pipeline-report-<timestamp>.md`) includes embedding integrity stats
 
 Neo4j and Ollama must be running (`docker compose up -d`). The embedding model (`nomic-embed-text` by default) must be pulled into Ollama before the first run.
 
+The pipeline can also be triggered via Slack using `/pipeline [flags]` — the same flags apply. Set `SLACK_NOTIFY_CHANNEL` in `.env` to receive a completion notification in a channel when the run finishes. See `docs/SLACK_SETUP.md` for setup.
+
 Full documentation: `docs/PIPELINE.md`
 
 Repository Context Contract

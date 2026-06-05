@@ -63,6 +63,21 @@ uv run run_pipeline.py --repo my-other-repo
 | `--report` | Generate a markdown similarity report after the pipeline completes. |
 | `--report-only` | Skip the pipeline entirely and generate a report from the current Neo4j graph. |
 
+### Running via Slack
+
+The same flags are available through the `/pipeline` slash command when the Slack bot is running:
+
+```
+/pipeline
+/pipeline --no-descriptions
+/pipeline --no-descriptions --report
+/pipeline --report-only
+/pipeline --dry-run
+/pipeline --path /app/subdir --no-descriptions
+```
+
+On completion the bot posts a notification to `SLACK_NOTIFY_CHANNEL` if that env var is set. See `docs/SLACK_SETUP.md` for setup instructions.
+
 ---
 
 ## Supported languages
