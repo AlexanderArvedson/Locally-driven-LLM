@@ -105,6 +105,26 @@ WHERE f.isDeleted = false AND (f.isTest = false OR $include_tests)
 RETURN f.id AS id, f.codeEmbedding AS codeEmbedding, f.descriptionEmbedding AS descriptionEmbedding
 """
 
+_QUERY_CODE_NEIGHBORS: LiteralString = """
+CALL db.index.vector.queryNodes('function_code_embedding_index', $top_n, $embedding)
+YIELD node AS b, score
+WHERE b.id <> $source_id
+  AND b.repo = $repo
+  AND b.isDeleted = false
+  AND (b.isTest = false OR $include_tests)
+RETURN b.id AS id, score
+"""
+
+_QUERY_DESC_NEIGHBORS: LiteralString = """
+CALL db.index.vector.queryNodes('function_desc_embedding_index', $top_n, $embedding)
+YIELD node AS b, score
+WHERE b.id <> $source_id
+  AND b.repo = $repo
+  AND b.isDeleted = false
+  AND (b.isTest = false OR $include_tests)
+RETURN b.id AS id, score
+"""
+
 _UPSERT_EDGE: LiteralString = """
 UNWIND $edges AS edge
 MATCH (a:Function {id: edge.sourceId})
@@ -242,6 +262,56 @@ class Neo4jStore:
             result = await session.run(_GET_ALL_EMBEDDINGS, repo=repo, include_tests=include_tests)
             records = await result.data()
         return [(r["id"], r["codeEmbedding"], r["descriptionEmbedding"]) for r in records]
+
+    async def query_code_neighbors(
+        self,
+        source_id: str,
+        embedding: list[float],
+        repo: str,
+        top_n: int,
+        include_tests: bool = False,
+    ) -> list[tuple[str, float]]:
+        """Return top-N code-similar functions using the HNSW vector index.
+
+        Results are ordered by cosine similarity descending (as returned by Neo4j).
+        Only live functions in ``repo`` are returned; ``source_id`` is excluded.
+        """
+        async with self._driver.session(database=self._config.database) as session:
+            result = await session.run(
+                _QUERY_CODE_NEIGHBORS,
+                source_id=source_id,
+                embedding=embedding,
+                repo=repo,
+                top_n=top_n,
+                include_tests=include_tests,
+            )
+            records = await result.data()
+        return [(r["id"], r["score"]) for r in records]
+
+    async def query_desc_neighbors(
+        self,
+        source_id: str,
+        embedding: list[float],
+        repo: str,
+        top_n: int,
+        include_tests: bool = False,
+    ) -> list[tuple[str, float]]:
+        """Return top-N description-similar functions using the HNSW vector index.
+
+        Same contract as :meth:`query_code_neighbors` but queries the description
+        embedding index.
+        """
+        async with self._driver.session(database=self._config.database) as session:
+            result = await session.run(
+                _QUERY_DESC_NEIGHBORS,
+                source_id=source_id,
+                embedding=embedding,
+                repo=repo,
+                top_n=top_n,
+                include_tests=include_tests,
+            )
+            records = await result.data()
+        return [(r["id"], r["score"]) for r in records]
 
     async def delete_similarity_edges(self, repo: str) -> None:
         """Delete all SIMILAR_TO edges originating from functions in this repo.

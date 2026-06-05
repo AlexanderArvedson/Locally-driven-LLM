@@ -21,7 +21,7 @@ The pipeline runs thirteen sequential stages:
 9. **upsert_functions** — writes all function nodes to Neo4j via `MERGE` on stable ID. Unchanged functions have their `lastSeenAt` updated; everything else is overwritten.
 10. **soft_delete** — marks any function previously seen in this repo but absent from the current scan as `isDeleted: true`.
 11. **get_all_embeddings** — fetches all live functions that have at least one embedding (code or description) from Neo4j for similarity computation. Functions with only a description embedding (e.g. those whose source code exceeded the embedding model's context window) are included.
-12. **compute_similarity** — builds cosine similarity matrices using numpy and produces `SimilarityEdge` records. For pairs where both functions have code embeddings the combined score is `code_weight × codeSimilarity + description_weight × descriptionSimilarity`. For pairs where at least one function lacks a code embedding, the score falls back to description similarity alone so that large orchestration functions are not excluded from the graph.
+12. **compute_similarity** — for each function, queries the Neo4j HNSW vector indexes (`function_code_embedding_index` and/or `function_desc_embedding_index`) to find its top-N nearest neighbours. Up to 20 index queries run concurrently. Candidates from both indexes are merged per target function; the combined score is `code_weight × codeSimilarity + description_weight × descriptionSimilarity` when both signals are available, falling back to the single available signal otherwise. This is O(n log n) rather than O(n²) and avoids building an in-memory similarity matrix.
 13. **upsert_edges** — deletes all existing `SIMILAR_TO` edges for the repo and re-inserts the freshly computed set so stale edges from changed functions do not persist.
 
 ---
@@ -225,7 +225,7 @@ src/pipeline/
   extractor.py      — tree-sitter AST traversal, emits FunctionRecord per function
   embedder.py       — EmbeddingService: code and description embedding via OllamaClient
   describer.py      — DescriptionService: LLM JSON description generation via OllamaClient
-  similarity.py     — cosine similarity matrix, top-N filtering, SimilarityEdge list
+  similarity.py     — Neo4j vector-index query per function, top-N neighbour merging, SimilarityEdge list
   neo4j_store.py    — Neo4jStore: async driver, MERGE upserts, UNWIND batching
   pipeline.py       — EmbeddingPipeline: orchestrates all twelve stages
   reporter.py       — post-run markdown report generator

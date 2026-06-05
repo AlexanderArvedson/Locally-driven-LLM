@@ -148,7 +148,10 @@ class EmbeddingPipeline:
             return
 
         logger.info("Computing similarity edges for {} functions...", len(embeddings))
-        edges = compute_similarity_edges(embeddings, config.similarity)
+        edges = await compute_similarity_edges(
+            self._store, embeddings, config.repo_name, config.similarity,
+            include_tests=config.include_tests_in_graph,
+        )
         result.edges_written = len(edges)
         logger.info("Writing {} similarity edges...", result.edges_written)
 
