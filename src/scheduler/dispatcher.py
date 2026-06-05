@@ -74,9 +74,17 @@ class TaskDispatcher:
 
     async def _handle_pipeline(self, task: PipelineTask) -> None:
         from src.pipeline.pipeline import EmbeddingPipeline
+        from src.api.slack_notifier import notify_pipeline_result
 
         pipeline = EmbeddingPipeline(self._config, skip_descriptions=task.no_descriptions)
+        result = None
         try:
-            await pipeline.run()
+            result = await pipeline.run()
+        except Exception as exc:
+            await notify_pipeline_result(False, None, str(exc))
+            raise
         finally:
             await pipeline.close()
+
+        error = result.errors[0] if result.errors else None
+        await notify_pipeline_result(not result.errors, result, error)

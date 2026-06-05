@@ -128,6 +128,22 @@ To trigger a pipeline run:
 
 ---
 
+## Pipeline Completion Notifications
+
+Set `SLACK_NOTIFY_CHANNEL` in `.env` to a channel ID or `#name` (e.g. `#deployments`).
+The bot must be invited to that channel (`/invite @self-hosted LLM`).
+
+On every pipeline run you will receive one of:
+
+```
+✅ Pipeline complete — 142 functions processed in 43s
+❌ Pipeline failed — ConnectionError: Neo4j unreachable
+```
+
+The bot reuses the existing `SLACK_BOT_TOKEN` and requires the `chat:write` scope (already included in the manifest above). Leave `SLACK_NOTIFY_CHANNEL` unset to disable notifications entirely.
+
+---
+
 ## Troubleshooting
 
 | Error | Cause | Fix |
