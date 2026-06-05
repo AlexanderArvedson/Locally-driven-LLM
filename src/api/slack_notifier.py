@@ -1,6 +1,7 @@
 """Fire-and-forget Slack notification for pipeline completion events."""
 
 import datetime
+import json
 import logging
 import os
 from pathlib import Path
@@ -10,6 +11,117 @@ from slack_sdk.web.async_client import AsyncWebClient
 from src.pipeline.contracts import PipelineResult
 
 logger = logging.getLogger(__name__)
+
+
+def _build_report_blocks(data: dict) -> list:
+    """Build a Slack Block Kit block list from a parsed report.json dict."""
+    stats = data.get("stats", {})
+    emb = data.get("embedding", {}).get("code", {})
+    sim = data.get("similarity_distribution", {})
+    clusters = data.get("clusters", [])
+    top_pairs = data.get("top_pairs", [])
+    flags_raw = data.get("flags", {})
+
+    blocks: list = []
+
+    # Header
+    blocks.append({
+        "type": "header",
+        "text": {"type": "plain_text", "text": f"\U0001f4ca {data.get('repo', '?')} — {data.get('timestamp', '?')}"},
+    })
+
+    # Overview: functions / edges / density / intra / inter
+    blocks.append({
+        "type": "section",
+        "text": {
+            "type": "mrkdwn",
+            "text": (
+                f"*Functions* {stats.get('total_functions', '?')} "
+                f"*Edges* {stats.get('edges', '?')} "
+                f"*Density* {stats.get('density', 0):.2f}\n"
+                f"*Intra* {stats.get('intra_edges', '?')} "
+                f"*Inter* {stats.get('inter_edges', '?')}"
+            ),
+        },
+    })
+
+    # Embedding health
+    failed = emb.get("failed_total", emb.get("context_overflow", 0) + emb.get("error", 0))
+    blocks.append({
+        "type": "section",
+        "text": {
+            "type": "mrkdwn",
+            "text": (
+                f"*Code ok* {emb.get('ok', '?')} "
+                f"*Failed* {failed} "
+                f"({emb.get('context_overflow', 0)} overflow · {emb.get('error', 0)} error)"
+            ),
+        },
+    })
+
+    # Similarity bands
+    blocks.append({
+        "type": "section",
+        "text": {
+            "type": "mrkdwn",
+            "text": (
+                f"*Similarity* "
+                f">0.95: {sim.get('gt95', 0)} · "
+                f"0.90–0.95: {sim.get('b90_95', 0)} · "
+                f"0.80–0.90: {sim.get('b80_90', 0)}"
+            ),
+        },
+    })
+
+    # Clusters (omit if empty)
+    if clusters:
+        largest = clusters[0]
+        blocks.append({
+            "type": "section",
+            "text": {
+                "type": "mrkdwn",
+                "text": (
+                    f"*{len(clusters)} duplication clusters*\n"
+                    f"Largest: {largest.get('representative', '?')} — "
+                    f"{largest.get('size', '?')} functions, avg {largest.get('avg_score', 0):.3f}"
+                ),
+            },
+        })
+
+    # Raised flags (omit block if none)
+    raised = []
+    for flag in ("HIGH_DUPLICATION_CLUSTER", "CROSS_FILE_DUPLICATION", "ARCHITECTURE_COUPLING"):
+        val = flags_raw.get(flag)
+        if val:
+            raised.append(flag)
+    test_poll = flags_raw.get("TEST_POLLUTION")
+    if isinstance(test_poll, int) and test_poll > 0:
+        raised.append("TEST_POLLUTION")
+
+    if raised:
+        blocks.append({
+            "type": "section",
+            "text": {
+                "type": "mrkdwn",
+                "text": "\U0001f6a8 " + " · ".join(raised),
+            },
+        })
+
+    # Top pair (omit if empty)
+    if top_pairs:
+        pair = top_pairs[0]
+        blocks.append({
+            "type": "section",
+            "text": {
+                "type": "mrkdwn",
+                "text": (
+                    f"*Top pair:* {pair.get('a_name', '?')} ↔ "
+                    f"{pair.get('b_name', '?')} ({pair.get('score', 0):.4f})"
+                ),
+            },
+        })
+
+    return blocks
 
 
 async def notify_pipeline_result(
@@ -48,8 +160,10 @@ async def notify_report_result(
     report_path: Path | None,
     error: str | None,
 ) -> None:
-    """Post a report completion notice and upload the .md file on success.
+    """Post a Block Kit report summary and upload the .md file on success.
 
+    Reads the adjacent report.json to build a structured Block Kit message.
+    Falls back to a plain text message if report.json is missing or malformed.
     Silently skips when SLACK_BOT_TOKEN or SLACK_NOTIFY_CHANNEL is unset.
     Swallows Slack API errors so a Slack outage never breaks the pipeline.
     """
@@ -59,15 +173,37 @@ async def notify_report_result(
         return
 
     time_str = started_at.strftime("%Y-%m-%d %H:%M:%S")
-    if success:
-        text = f"✅ Report started at {time_str} — finished"
-    else:
-        text = f"❌ Report started at {time_str} — failed: {error or 'unknown error'}"
-
     client = AsyncWebClient(token=token)
     try:
-        await client.chat_postMessage(channel=channel, text=text)
-        if success and report_path is not None and report_path.exists():
+        if not success:
+            await client.chat_postMessage(
+                channel=channel,
+                text=f"❌ Report started at {time_str} — failed: {error or 'unknown error'}",
+            )
+            return
+
+        blocks = None
+        if report_path is not None:
+            json_path = report_path.parent / "report.json"
+            if json_path.exists():
+                try:
+                    blocks = _build_report_blocks(json.loads(json_path.read_text()))
+                except Exception:
+                    logger.warning("Could not parse report.json for Block Kit; falling back to plain text")
+
+        if blocks:
+            await client.chat_postMessage(
+                channel=channel,
+                text=f"✅ Report — {time_str}",
+                blocks=blocks,
+            )
+        else:
+            await client.chat_postMessage(
+                channel=channel,
+                text=f"✅ Report started at {time_str} — finished",
+            )
+
+        if report_path is not None and report_path.exists():
             await client.files_upload_v2(
                 channel=channel,
                 file=str(report_path),
