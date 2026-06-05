@@ -15,6 +15,10 @@ import argparse
 import asyncio
 import sys
 
+from dotenv import load_dotenv
+
+load_dotenv()
+
 from src.core.pipeline_config import load_pipeline_config
 from src.pipeline.pipeline import EmbeddingPipeline
 from src.pipeline.reporter import generate_report
