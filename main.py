@@ -17,6 +17,7 @@ async def _announce_tunnel() -> None:
     url = await get_tunnel_url()
     if url:
         print(f"Slack Request URL: {url}/slack/query", flush=True)
+        print("Paste this URL into: api.slack.com/apps → Slash Commands → /query → Request URL", flush=True)
     else:
         print("ngrok tunnel not detected — verify NGROK_AUTHTOKEN and ngrok container", flush=True)
 
