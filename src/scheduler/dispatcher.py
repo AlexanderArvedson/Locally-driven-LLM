@@ -8,6 +8,7 @@ runs the full embedding pipeline.
 from __future__ import annotations
 
 import httpx
+from loguru import logger
 
 from src.pipeline.contracts import PipelineConfig
 from src.scheduler.task import PipelineTask, QueryTask, Task
@@ -79,6 +80,8 @@ class TaskDispatcher:
         from src.pipeline.pipeline import EmbeddingPipeline
 
         config = replace(self._config, repo_path=task.path) if task.path else self._config
+        logger.info("[dispatcher] pipeline starting — repo_path={} repo_name={} languages={}",
+                    config.repo_path, config.repo_name, config.supported_languages)
 
         if task.report_only:
             import datetime
