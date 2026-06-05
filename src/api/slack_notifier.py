@@ -1,7 +1,9 @@
 """Fire-and-forget Slack notification for pipeline completion events."""
 
+import datetime
 import logging
 import os
+from pathlib import Path
 
 from slack_sdk.web.async_client import AsyncWebClient
 
@@ -25,18 +27,52 @@ async def notify_pipeline_result(
     if not token or not channel:
         return
 
-    if not success:
+    if not success or result is None:
         text = f"❌ Pipeline failed — {error or 'unknown error'}"
-    elif result is not None:
+    else:
         text = (
-            f"✅ Pipeline complete — {result.total_extracted} functions processed "
+            f"Pipeline run complete — {result.total_extracted} functions processed "
             f"in {result.duration_seconds:.0f}s"
         )
-    else:
-        text = "✅ Report generated"
 
     client = AsyncWebClient(token=token)
     try:
         await client.chat_postMessage(channel=channel, text=text)
     except Exception:
         logger.exception("Slack pipeline notification failed")
+
+
+async def notify_report_result(
+    success: bool,
+    started_at: datetime.datetime,
+    report_path: Path | None,
+    error: str | None,
+) -> None:
+    """Post a report completion notice and upload the .md file on success.
+
+    Silently skips when SLACK_BOT_TOKEN or SLACK_NOTIFY_CHANNEL is unset.
+    Swallows Slack API errors so a Slack outage never breaks the pipeline.
+    """
+    token = os.environ.get("SLACK_BOT_TOKEN", "")
+    channel = os.environ.get("SLACK_NOTIFY_CHANNEL", "")
+    if not token or not channel:
+        return
+
+    time_str = started_at.strftime("%Y-%m-%d %H:%M:%S")
+    if success:
+        text = f"✅ Report started at {time_str} — finished"
+    else:
+        text = f"❌ Report started at {time_str} — failed: {error or 'unknown error'}"
+
+    client = AsyncWebClient(token=token)
+    try:
+        await client.chat_postMessage(channel=channel, text=text)
+        if success and report_path is not None and report_path.exists():
+            await client.files_upload_v2(
+                channel=channel,
+                file=str(report_path),
+                filename="report.md",
+                title=f"Report — {time_str}",
+            )
+    except Exception:
+        logger.exception("Slack report notification failed")

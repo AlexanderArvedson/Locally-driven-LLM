@@ -49,7 +49,8 @@ This guide gets the **self-hosted LLM** Slack bot running from scratch.
         "scopes": {
             "bot": [
                 "commands",
-                "chat:write"
+                "chat:write",
+                "files:write"
             ]
         }
     },
@@ -171,11 +172,17 @@ On every pipeline run you will receive one of:
 
 ```
 ✅ Pipeline complete — 142 functions processed in 43s
-✅ Report generated
 ❌ Pipeline failed — ConnectionError: Neo4j unreachable
 ```
 
-The bot reuses the existing `SLACK_BOT_TOKEN` and requires the `chat:write` scope (already included in the manifest above). Leave `SLACK_NOTIFY_CHANNEL` unset to disable notifications entirely.
+When `--report` or `--report-only` is used, a separate report notification is sent with the `report.md` file attached:
+
+```
+✅ Report started at 2026-06-05 14:32:01 — finished
+❌ Report started at 2026-06-05 14:32:01 — failed: <error>
+```
+
+The bot reuses the existing `SLACK_BOT_TOKEN` and requires the `chat:write` and `files:write` scopes (both included in the manifest above). Leave `SLACK_NOTIFY_CHANNEL` unset to disable notifications entirely.
 
 ---
 
@@ -188,3 +195,4 @@ The bot reuses the existing `SLACK_BOT_TOKEN` and requires the `chat:write` scop
 | `/query failed because the app did not respond` | Bot not connected or container not running | Check `docker logs fastapi` for errors |
 | `not_allowed_token_type` | Wrong token type used | Make sure you're using the App-Level Token (`xapp-`) for `SLACK_APP_TOKEN`, not the bot token |
 | `not_in_channel` in fastapi logs | Bot not a member of `SLACK_NOTIFY_CHANNEL` | Open the channel in Slack and run `/invite @self-hosted LLM` |
+| `missing_scope: needed files:write` | App installed before `files:write` scope was added | Add `files:write` to the manifest, then reinstall the app (**OAuth & Permissions → Reinstall App**) |

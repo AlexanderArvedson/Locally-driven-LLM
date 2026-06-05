@@ -81,17 +81,22 @@ class TaskDispatcher:
         config = replace(self._config, repo_path=task.path) if task.path else self._config
 
         if task.report_only:
+            import datetime
+
+            from src.api.slack_notifier import notify_report_result
             from src.pipeline.reporter import generate_report
+
+            started_at = datetime.datetime.now()
             try:
-                await generate_report(
+                report_dir = await generate_report(
                     config.neo4j, config.repo_name,
                     include_tests=config.include_tests_in_graph,
                     pipeline_config=config,
                 )
             except Exception as exc:
-                await notify_pipeline_result(False, None, str(exc))
+                await notify_report_result(False, started_at, None, str(exc))
                 raise
-            await notify_pipeline_result(True, None, None)
+            await notify_report_result(True, started_at, report_dir / "report.md", None)
             return
 
         pipeline = EmbeddingPipeline(config, dry_run=task.dry_run, skip_descriptions=task.no_descriptions)
@@ -104,14 +109,24 @@ class TaskDispatcher:
         finally:
             await pipeline.close()
 
-        if task.report and not task.dry_run:
-            from src.pipeline.reporter import generate_report
-            await generate_report(
-                config.neo4j, config.repo_name,
-                include_tests=config.include_tests_in_graph,
-                pipeline_config=config,
-                loc_filtered=result.loc_filtered,
-            )
-
         error = result.errors[0] if result.errors else None
         await notify_pipeline_result(not result.errors, result, error)
+
+        if task.report and not task.dry_run:
+            import datetime
+
+            from src.api.slack_notifier import notify_report_result
+            from src.pipeline.reporter import generate_report
+
+            started_at = datetime.datetime.now()
+            try:
+                report_dir = await generate_report(
+                    config.neo4j, config.repo_name,
+                    include_tests=config.include_tests_in_graph,
+                    pipeline_config=config,
+                    loc_filtered=result.loc_filtered,
+                )
+            except Exception as exc:
+                await notify_report_result(False, started_at, None, str(exc))
+            else:
+                await notify_report_result(True, started_at, report_dir / "report.md", None)
