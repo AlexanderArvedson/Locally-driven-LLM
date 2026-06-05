@@ -39,6 +39,24 @@ services:
       - neo4j_import:/import
       - neo4j_plugins:/plugins
 
+  fastapi:
+    build:
+      context: .
+      dockerfile: docker/dockerfile
+    container_name: fastapi
+    ports:
+      - "8000:8000"
+    environment:
+      NEO4J_URI: bolt://neo4j:7687
+      OLLAMA_URL: http://ollama:11434
+      SLACK_SIGNING_SECRET: ${SLACK_SIGNING_SECRET}
+    volumes:
+      - ./config.json:/app/config.json:ro
+    depends_on:
+      - ollama
+      - neo4j
+    restart: unless-stopped
+
 volumes:
   ollama_data:
   neo4j_data:

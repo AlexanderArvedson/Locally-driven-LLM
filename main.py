@@ -1,31 +1,32 @@
 from __future__ import annotations
 
 import asyncio
-import signal
+import os
 
-from src.scheduler.executor import WorkflowExecutor
+import uvicorn
+
+from src.api.app import create_app
+from src.core.pipeline_config import load_pipeline_config
+from src.scheduler.dispatcher import TaskDispatcher
 from src.scheduler.loop import ExecutionLoop
 from src.scheduler.queue import TaskQueue
 
 
 async def main() -> None:
-    queue = TaskQueue()
-    executor = WorkflowExecutor()
-    loop = ExecutionLoop(queue=queue, executor=executor)
+    config = load_pipeline_config()
+    signing_secret = os.environ.get("SLACK_SIGNING_SECRET", "")
 
+    queue = TaskQueue()
+    dispatcher = TaskDispatcher(pipeline_config=config)
+    loop = ExecutionLoop(queue=queue, executor=dispatcher)
     await loop.start()
 
-    stop_event = asyncio.Event()
-    event_loop = asyncio.get_running_loop()
-
-    for sig in (signal.SIGINT, signal.SIGTERM):
-        try:
-            event_loop.add_signal_handler(sig, stop_event.set)
-        except NotImplementedError:
-            pass
+    app = create_app(queue=queue, signing_secret=signing_secret, repo_name=config.repo_name)
+    server_config = uvicorn.Config(app, host="0.0.0.0", port=8000, loop="asyncio")
+    server = uvicorn.Server(server_config)
 
     try:
-        await stop_event.wait()
+        await server.serve()
     finally:
         await loop.stop()
 
