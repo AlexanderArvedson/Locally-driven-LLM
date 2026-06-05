@@ -32,6 +32,10 @@ class PipelineTask:
     repo: str
     type: Literal["active"] = "active"
     no_descriptions: bool = False
+    dry_run: bool = False
+    report: bool = False
+    report_only: bool = False
+    path: str | None = None
     created_at: float = field(default_factory=time.monotonic)
 
 

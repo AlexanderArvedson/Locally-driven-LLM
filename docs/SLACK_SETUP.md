@@ -40,6 +40,7 @@ This guide gets the **self-hosted LLM** Slack bot running from scratch.
             {
                 "command": "/pipeline",
                 "description": "Trigger a full embedding pipeline run",
+                "usage_hint": "[--no-descriptions] [--dry-run] [--report] [--report-only] [--path PATH]",
                 "should_escape": false
             }
         ]
@@ -126,6 +127,56 @@ To trigger a pipeline run:
 /pipeline
 ```
 
+The `/pipeline` command accepts the same flags as the CLI:
+
+| Flag | Description |
+|---|---|
+| `--no-descriptions` | Skip LLM description generation — faster, code-embedding similarity only |
+| `--dry-run` | Extract functions but skip all Ollama calls and Neo4j writes |
+| `--report` | Generate a markdown similarity report after the run |
+| `--report-only` | Skip the pipeline and generate a report from the current graph |
+| `--path PATH` | Override the repo path (useful for targeting a subfolder inside the container) |
+
+Examples:
+
+```
+/pipeline --no-descriptions
+/pipeline --no-descriptions --report
+/pipeline --report-only
+/pipeline --dry-run
+```
+
+Invalid flags return an ephemeral error with the usage hint.
+
+---
+
+## Pipeline Completion Notifications
+
+To receive a message when a pipeline run finishes:
+
+1. Set `SLACK_NOTIFY_CHANNEL` in `.env` to a channel ID or `#name` (e.g. `#deployments`):
+   ```
+   SLACK_NOTIFY_CHANNEL=#deployments
+   ```
+2. Invite the bot to that channel — in Slack, open the channel and run:
+   ```
+   /invite @self-hosted LLM
+   ```
+3. Restart the stack so the new env var is picked up:
+   ```bash
+   docker compose up -d --build fastapi
+   ```
+
+On every pipeline run you will receive one of:
+
+```
+✅ Pipeline complete — 142 functions processed in 43s
+✅ Report generated
+❌ Pipeline failed — ConnectionError: Neo4j unreachable
+```
+
+The bot reuses the existing `SLACK_BOT_TOKEN` and requires the `chat:write` scope (already included in the manifest above). Leave `SLACK_NOTIFY_CHANNEL` unset to disable notifications entirely.
+
 ---
 
 ## Troubleshooting
@@ -136,3 +187,4 @@ To trigger a pipeline run:
 | `SLACK_BOT_TOKEN or SLACK_APP_TOKEN not set` | Tokens missing from `.env` | Add both tokens to `.env` and restart |
 | `/query failed because the app did not respond` | Bot not connected or container not running | Check `docker logs fastapi` for errors |
 | `not_allowed_token_type` | Wrong token type used | Make sure you're using the App-Level Token (`xapp-`) for `SLACK_APP_TOKEN`, not the bot token |
+| `not_in_channel` in fastapi logs | Bot not a member of `SLACK_NOTIFY_CHANNEL` | Open the channel in Slack and run `/invite @self-hosted LLM` |
