@@ -25,13 +25,15 @@ async def notify_pipeline_result(
     if not token or not channel:
         return
 
-    if success and result is not None:
+    if not success:
+        text = f"❌ Pipeline failed — {error or 'unknown error'}"
+    elif result is not None:
         text = (
             f"✅ Pipeline complete — {result.total_extracted} functions processed "
             f"in {result.duration_seconds:.0f}s"
         )
     else:
-        text = f"❌ Pipeline failed — {error or 'unknown error'}"
+        text = "✅ Report generated"
 
     client = AsyncWebClient(token=token)
     try:

@@ -73,10 +73,28 @@ class TaskDispatcher:
         print(f"[dispatcher] done")
 
     async def _handle_pipeline(self, task: PipelineTask) -> None:
-        from src.pipeline.pipeline import EmbeddingPipeline
-        from src.api.slack_notifier import notify_pipeline_result
+        from dataclasses import replace
 
-        pipeline = EmbeddingPipeline(self._config, skip_descriptions=task.no_descriptions)
+        from src.api.slack_notifier import notify_pipeline_result
+        from src.pipeline.pipeline import EmbeddingPipeline
+
+        config = replace(self._config, repo_path=task.path) if task.path else self._config
+
+        if task.report_only:
+            from src.pipeline.reporter import generate_report
+            try:
+                await generate_report(
+                    config.neo4j, config.repo_name,
+                    include_tests=config.include_tests_in_graph,
+                    pipeline_config=config,
+                )
+            except Exception as exc:
+                await notify_pipeline_result(False, None, str(exc))
+                raise
+            await notify_pipeline_result(True, None, None)
+            return
+
+        pipeline = EmbeddingPipeline(config, dry_run=task.dry_run, skip_descriptions=task.no_descriptions)
         result = None
         try:
             result = await pipeline.run()
@@ -85,6 +103,15 @@ class TaskDispatcher:
             raise
         finally:
             await pipeline.close()
+
+        if task.report and not task.dry_run:
+            from src.pipeline.reporter import generate_report
+            await generate_report(
+                config.neo4j, config.repo_name,
+                include_tests=config.include_tests_in_graph,
+                pipeline_config=config,
+                loc_filtered=result.loc_filtered,
+            )
 
         error = result.errors[0] if result.errors else None
         await notify_pipeline_result(not result.errors, result, error)
