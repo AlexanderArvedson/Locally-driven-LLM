@@ -13,6 +13,43 @@ from src.pipeline.contracts import PipelineResult
 logger = logging.getLogger(__name__)
 
 
+def _build_pipeline_blocks(result: PipelineResult) -> list:
+    """Build a Slack Block Kit block list from a PipelineResult."""
+    blocks: list = [
+        {
+            "type": "header",
+            "text": {"type": "plain_text", "text": "✅ Pipeline complete"},
+        },
+        {
+            "type": "section",
+            "text": {
+                "type": "mrkdwn",
+                "text": (
+                    f"*New/modified:* {result.changed}\n"
+                    f"*Unchanged:* {result.unchanged}\n"
+                    f"*Deleted:* {result.newly_deleted}\n"
+                    f"*Duration:* {result.duration_seconds:.0f}s"
+                ),
+            },
+        },
+    ]
+
+    exclusions = []
+    if result.loc_filtered:
+        exclusions.append(f"{result.loc_filtered} below LOC threshold")
+
+    if exclusions:
+        blocks.append({
+            "type": "section",
+            "text": {
+                "type": "mrkdwn",
+                "text": "*Excluded:* " + " · ".join(exclusions),
+            },
+        })
+
+    return blocks
+
+
 def _build_report_blocks(data: dict) -> list:
     """Build a Slack Block Kit block list from a parsed report.json dict."""
     stats = data.get("stats", {})
@@ -139,17 +176,20 @@ async def notify_pipeline_result(
     if not token or not channel:
         return
 
-    if not success or result is None:
-        text = f"❌ Pipeline failed — {error or 'unknown error'}"
-    else:
-        text = (
-            f"Pipeline run complete — {result.total_extracted} functions processed "
-            f"in {result.duration_seconds:.0f}s"
-        )
-
     client = AsyncWebClient(token=token)
     try:
-        await client.chat_postMessage(channel=channel, text=text)
+        if not success or result is None:
+            await client.chat_postMessage(
+                channel=channel,
+                text=f"❌ Pipeline failed — {error or 'unknown error'}",
+            )
+        else:
+            blocks = _build_pipeline_blocks(result)
+            await client.chat_postMessage(
+                channel=channel,
+                text=f"✅ Pipeline complete — {result.changed} new/modified in {result.duration_seconds:.0f}s",
+                blocks=blocks,
+            )
     except Exception:
         logger.exception("Slack pipeline notification failed")
 
