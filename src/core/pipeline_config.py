@@ -11,6 +11,7 @@ subsystem — the pipeline is self-contained.
 from __future__ import annotations
 
 import json
+import os
 from pathlib import Path
 from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
@@ -84,7 +85,7 @@ def load_pipeline_config(config_path: str | Path = "config.json", repo_name: str
         supported_languages=pipeline_block.get("supported_languages", ["python"]),
         ignore_paths=pipeline_block.get("ignore_paths", [".venv", "node_modules", "__pycache__", ".git"]),
         embedding_model=embed_model["name"],
-        embedding_url=embed_model.get("url", "http://localhost:11434"),
+        embedding_url=os.environ.get("OLLAMA_URL") or embed_model.get("url", "http://localhost:11434"),
         allow_gpu=embed_model.get("allow_gpu", True),
         chat_model=chat_model["name"],
         describer_model=describer_model["name"],
@@ -95,7 +96,7 @@ def load_pipeline_config(config_path: str | Path = "config.json", repo_name: str
             description_weight=sim_block.get("description_weight", 0.30),
         ),
         neo4j=Neo4jConfig(
-            uri=neo4j_block["uri"],
+            uri=os.environ.get("NEO4J_URI") or neo4j_block["uri"],
             database=neo4j_block.get("database", "neo4j"),
             username=neo4j_block["username"],
             password=neo4j_block["password"],

@@ -51,6 +51,7 @@ The following dependencies are currently declared in `pyproject.toml`.
 ### Base runtime dependencies
 
 - `fastapi>=0.136.1` - API/server support
+- `python-multipart>=0.0.20` - required by FastAPI for parsing `application/x-www-form-urlencoded` and multipart form bodies (Slack slash command payloads)
 - `httpx>=0.28.1` - HTTP client used for API calls and test stubs
 - `langfuse>=4.6.1` - observability and tracing integration
 - `langgraph>=1.2.1` - graph-based workflow orchestration
