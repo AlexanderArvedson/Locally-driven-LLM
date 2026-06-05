@@ -8,6 +8,7 @@ its own runtime settings.
 from __future__ import annotations
 
 import json
+import os
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Final
@@ -370,10 +371,12 @@ def get_semantic_model_config(repo_path: str | None = None) -> ModelConfig:
 
 
 def get_ollama_base_url(repo_path: str | None = None) -> str:
+    if url := os.environ.get("OLLAMA_URL"):
+        return url
     model = get_primary_model(repo_path)
-    if not model.url:
-        raise ValueError("Primary model is missing a URL in config.json")
-    return model.url
+    if model.url:
+        return model.url
+    return "http://localhost:11434"
 
 
 def get_coder_model(repo_path: str | None = None) -> str:

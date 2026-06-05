@@ -26,6 +26,13 @@ from src.pipeline.contracts import (
 )
 
 
+def _require_env(name: str) -> str:
+    value = os.environ.get(name)
+    if not value:
+        raise ValueError(f"Environment variable {name!r} is required but not set. Add it to your .env file.")
+    return value
+
+
 def _validate_timezone(tz: str) -> str:
     try:
         ZoneInfo(tz)
@@ -77,8 +84,6 @@ def load_pipeline_config(config_path: str | Path = "config.json", repo_name: str
     limits_block = pipeline_block.get("limits", {})
     reporter_block = pipeline_block.get("reporter", {})
 
-    neo4j_block = raw["neo4j"]
-
     return PipelineConfig(
         repo_path=repo["local_path"],
         repo_name=repo["name"],
@@ -96,10 +101,10 @@ def load_pipeline_config(config_path: str | Path = "config.json", repo_name: str
             description_weight=sim_block.get("description_weight", 0.30),
         ),
         neo4j=Neo4jConfig(
-            uri=os.environ.get("NEO4J_URI") or neo4j_block["uri"],
-            database=neo4j_block.get("database", "neo4j"),
-            username=neo4j_block["username"],
-            password=neo4j_block["password"],
+            uri=_require_env("NEO4J_URI"),
+            database=os.environ.get("NEO4J_DATABASE", "neo4j"),
+            username=_require_env("NEO4J_USERNAME"),
+            password=_require_env("NEO4J_PASSWORD"),
         ),
         concurrency=ConcurrencyConfig(
             embed_code=concurrency_block.get("embed_code", 4),

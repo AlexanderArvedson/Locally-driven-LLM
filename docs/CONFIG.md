@@ -2,16 +2,42 @@
 
 ## Setup
 
-**Application config** — copy `config.example.json` to `config.json` and fill in the values for your setup. `config.json` is gitignored and never committed.
+Two files are needed, both gitignored and never committed:
 
-**Docker / Ollama server config** — copy `.env.example` to `.env` and adjust the values as needed. `.env` is gitignored and read automatically by Docker Compose for `${VAR}` substitution in `docker-compose.yml`. The two variables it controls are:
+**Infrastructure config (`.env`)** — copy `.env.example` to `.env` and fill in the values for your environment. Holds all secrets, service endpoints, and Docker tuning parameters. Read automatically by Docker Compose for `${VAR}` substitution.
+
+**Application config (`config.json`)** — copy `config.example.json` to `config.json` and fill in repository paths, model names, and pipeline tuning. Contains no secrets or environment-specific URLs.
+
+The rule of thumb: if the value changes between environments (dev laptop vs server vs Docker), it belongs in `.env`. If it describes *what the app does* (model names, thresholds, repo paths), it belongs in `config.json`.
+
+After editing `.env`, apply the changes with `docker compose up --build`.
+
+---
+
+## Environment variables (`.env`)
+
+### Ollama
 
 | Variable | Default | Description |
 |----------|---------|-------------|
+| `OLLAMA_URL` | `http://localhost:11434` | Base URL of the Ollama API. Override when Ollama runs on a different host or port (e.g. `http://ollama:11434` inside Docker). |
 | `OLLAMA_KEEP_ALIVE` | `60m` | How long Ollama keeps a loaded model in VRAM after the last request. Accepts duration strings (`60m`, `24h`), `0` (never unload), or `-1` (unload immediately after each request). |
 | `OLLAMA_NUM_PARALLEL` | `1` | Maximum number of requests the Ollama server handles concurrently. Higher values increase throughput at the cost of additional VRAM per slot. |
 
-After editing `.env`, apply the changes with `docker compose up --build`.
+### Neo4j
+
+| Variable | Description |
+|----------|-------------|
+| `NEO4J_URI` | Bolt connection URI (e.g. `bolt://localhost:7687`). |
+| `NEO4J_USERNAME` | Neo4j username. |
+| `NEO4J_PASSWORD` | Neo4j password. |
+| `NEO4J_DATABASE` | Neo4j database name. Defaults to `neo4j` if unset. |
+
+### Slack
+
+| Variable | Description |
+|----------|-------------|
+| `SLACK_SIGNING_SECRET` | Signing secret from the Slack app configuration. Used to verify incoming slash command requests via HMAC-SHA256. |
 
 ---
 
@@ -134,7 +160,7 @@ Each key under `models` names a role the agent uses an LLM for. All four roles m
 | `name` | string | — | Model identifier as recognised by the provider (e.g. `"llama3"`, `"qwen2.5-coder:7b"`, `"mistral"`). |
 | `provider` | string | — | Provider backend. Use `"ollama"` for locally-run models, or the provider name for hosted APIs (e.g. `"openai"`). |
 | `api_key` | string \| null | `null` | API key for hosted providers. Set to `null` for local models that require no authentication. |
-| `url` | string | — | Base URL of the model's API endpoint. For Ollama the default is `"http://localhost:11434"`. |
+| `url` | string \| null | `null` | Base URL override for this specific model role. Leave `null` to use the `OLLAMA_URL` environment variable (recommended). Only set this field if a particular model role runs on a different Ollama instance than the others. |
 | `temperature` | number \| null | `null` | Sampling temperature passed to the provider. When `null` the parameter is omitted from the request and the model uses its own default. Must be ≥ 0 when non-null. |
 | `max_tokens` | integer \| null | `null` | Maximum tokens the model may generate per request. When `null` the parameter is omitted. Must be > 0 when non-null. For Ollama this maps to `num_predict`. |
 | `num_ctx` | integer \| null | `null` | Per-request context window size passed to Ollama as `num_ctx`. Overrides the model's compiled default for that request. When `null` the parameter is omitted. Must be > 0 when non-null. Has no effect for non-Ollama providers. |
@@ -228,13 +254,6 @@ The pipeline reads `models.embedding` and `models.chat` from the same repository
 
 ---
 
-## `neo4j`
+## Neo4j
 
-Top-level block shared across all repositories. Configures the Neo4j instance used by the embedding pipeline.
-
-| Field | Type | Description |
-|-------|------|-------------|
-| `uri` | string | Bolt connection URI (e.g. `"bolt://localhost:7687"`). |
-| `database` | string | Neo4j database name. Use `"neo4j"` for the default database. |
-| `username` | string | Neo4j username. |
-| `password` | string | Neo4j password. Keep this in `config.json` which is gitignored; never commit it. |
+Neo4j connection settings are read exclusively from environment variables — there is no `neo4j` block in `config.json`. Set `NEO4J_URI`, `NEO4J_USERNAME`, `NEO4J_PASSWORD`, and optionally `NEO4J_DATABASE` in your `.env` file. See the [Environment variables](#environment-variables-env) section above.
