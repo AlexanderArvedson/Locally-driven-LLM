@@ -12,7 +12,7 @@ import pytest
 
 from src.pipeline.query import QueryMatch, QueryResult
 from src.scheduler.dispatcher import TaskDispatcher
-from src.scheduler.slack_task import PipelineTask, QueryTask
+from src.scheduler.task import PipelineTask, QueryTask
 
 
 pytestmark = pytest.mark.asyncio

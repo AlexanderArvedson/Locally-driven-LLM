@@ -8,7 +8,7 @@ import pytest_asyncio
 from src.scheduler.dispatcher import TaskDispatcher
 from src.scheduler.loop import ExecutionLoop
 from src.scheduler.queue import TaskQueue
-from src.scheduler.slack_task import PipelineTask, QueryTask, SlackTask
+from src.scheduler.task import PipelineTask, QueryTask, Task
 
 
 pytestmark = pytest.mark.asyncio
@@ -49,7 +49,7 @@ class RecordingTaskDispatcher(TaskDispatcher):
         self.finished_events[task_id] = event
         return event
 
-    async def execute(self, task: SlackTask) -> None:
+    async def execute(self, task: Task) -> None:
         self.start_log.append(task.id)
         self.currently_running_count += 1
         self.max_currently_running_count = max(
@@ -84,7 +84,7 @@ async def execution_loop(task_queue: TaskQueue, task_dispatcher: RecordingTaskDi
     return ExecutionLoop(queue=task_queue, executor=task_dispatcher)
 
 
-def make_task(task_id: str, task_type: str) -> SlackTask:
+def make_task(task_id: str, task_type: str) -> Task:
     if task_type == "active":
         return PipelineTask(id=task_id, repo="test")
     return QueryTask(id=task_id, query_text="", response_url="", repo="test")
@@ -161,7 +161,7 @@ async def test_concurrent_submissions_do_not_drop_or_duplicate_tasks(
 
     await execution_loop.start()
     try:
-        async def submit_subset(subset: List[SlackTask]) -> None:
+        async def submit_subset(subset: List[Task]) -> None:
             await asyncio.gather(*(task_queue.enqueue(task) for task in subset))
 
         batches = [tasks[index : index + 5] for index in range(0, len(tasks), 5)]

@@ -5,7 +5,11 @@ from dataclasses import dataclass
 
 @dataclass(slots=True)
 class TaskRequest:
-    """External request contract for submitting a task to the workflow.
+    """External request contract for submitting a task to the LangGraph workflow.
+
+    Part of the legacy WorkflowExecutor / LangGraph system. Not currently wired
+    into the active scheduler — re-integration would require routing WorkflowTask
+    through the ExecutionLoop and TaskDispatcher.
 
     Separates the user-facing API from internal GraphState, ensuring there
     is exactly one validated entry point into the workflow.

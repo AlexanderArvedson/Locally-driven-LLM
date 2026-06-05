@@ -4,7 +4,7 @@ import asyncio
 
 from .dispatcher import TaskDispatcher
 from .queue import TaskQueue
-from .slack_task import SlackTask
+from .task import Task
 
 
 
@@ -33,7 +33,7 @@ class ExecutionLoop:
         self._started = True
         self._consumer_task = asyncio.create_task(self._consume())
 
-    async def submit_task(self, task: SlackTask) -> None:
+    async def submit_task(self, task: Task) -> None:
         if not self._started:
             await self.start()
 

@@ -1,6 +1,6 @@
 """Task dispatcher for the Slack-driven scheduler.
 
-Replaces WorkflowExecutor. Routes SlackTask instances by type: QueryTask
+Replaces WorkflowExecutor. Routes Task instances by type: QueryTask
 runs a semantic search and posts results back to response_url; PipelineTask
 runs the full embedding pipeline.
 """
@@ -10,7 +10,7 @@ from __future__ import annotations
 import httpx
 
 from src.pipeline.contracts import PipelineConfig
-from src.scheduler.slack_task import PipelineTask, QueryTask, SlackTask
+from src.scheduler.task import PipelineTask, QueryTask, Task
 
 _TOP_N_DISPLAY = 5
 
@@ -28,7 +28,7 @@ def _format_query_result(query_text: str, matches: list) -> dict:
 
 
 class TaskDispatcher:
-    """Routes SlackTask instances to the appropriate handler.
+    """Routes Task instances to the appropriate handler.
 
     Resources (OllamaClient, Neo4jStore, EmbeddingPipeline) are created and
     closed per-execution to match the lifecycle pattern used by EmbeddingPipeline
@@ -38,7 +38,7 @@ class TaskDispatcher:
     def __init__(self, pipeline_config: PipelineConfig) -> None:
         self._config = pipeline_config
 
-    async def execute(self, task: SlackTask) -> None:
+    async def execute(self, task: Task) -> None:
         if isinstance(task, QueryTask):
             await self._handle_query(task)
         elif isinstance(task, PipelineTask):
