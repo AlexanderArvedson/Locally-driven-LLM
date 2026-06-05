@@ -2,9 +2,9 @@ from __future__ import annotations
 
 import asyncio
 
-from .executor import WorkflowExecutor
+from .dispatcher import TaskDispatcher
 from .queue import TaskQueue
-from .task import Task
+from .slack_task import SlackTask
 
 
 
@@ -18,7 +18,7 @@ class ExecutionLoop:
     - Track background tasks to ensure orderly shutdown.
     """
 
-    def __init__(self, queue: TaskQueue, executor: WorkflowExecutor) -> None:
+    def __init__(self, queue: TaskQueue, executor: TaskDispatcher) -> None:
         self.queue = queue
         self.executor = executor
         self._mutation_lock = asyncio.Lock()
@@ -33,7 +33,7 @@ class ExecutionLoop:
         self._started = True
         self._consumer_task = asyncio.create_task(self._consume())
 
-    async def submit_task(self, task: Task) -> None:
+    async def submit_task(self, task: SlackTask) -> None:
         if not self._started:
             await self.start()
 

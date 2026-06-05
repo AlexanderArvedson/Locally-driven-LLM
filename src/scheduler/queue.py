@@ -2,15 +2,15 @@ from __future__ import annotations
 
 import asyncio
 
-from .task import Task
+from .slack_task import SlackTask
 
 
 class TaskQueue:
     def __init__(self) -> None:
-        self._queue: asyncio.Queue[Task] = asyncio.Queue()
+        self._queue: asyncio.Queue[SlackTask] = asyncio.Queue()
 
-    async def enqueue(self, task: Task) -> None:
+    async def enqueue(self, task: SlackTask) -> None:
         await self._queue.put(task)
 
-    async def dequeue(self) -> Task:
+    async def dequeue(self) -> SlackTask:
         return await self._queue.get()
