@@ -576,13 +576,13 @@
       "norm_label": "pipeline_config.py"
     },
     {
-      "label": "_validate_timezone()",
+      "label": "_require_env()",
       "file_type": "code",
       "source_file": "src/core/pipeline_config.py",
       "source_location": "L29",
-      "id": "core_pipeline_config_validate_timezone",
+      "id": "core_pipeline_config_require_env",
       "community": 62,
-      "norm_label": "_validate_timezone()"
+      "norm_label": "_require_env()"
     },
     {
       "label": "str",
@@ -594,10 +594,19 @@
       "norm_label": "str"
     },
     {
+      "label": "_validate_timezone()",
+      "file_type": "code",
+      "source_file": "src/core/pipeline_config.py",
+      "source_location": "L36",
+      "id": "core_pipeline_config_validate_timezone",
+      "community": 62,
+      "norm_label": "_validate_timezone()"
+    },
+    {
       "label": "load_pipeline_config()",
       "file_type": "code",
       "source_file": "src/core/pipeline_config.py",
-      "source_location": "L37",
+      "source_location": "L44",
       "id": "core_pipeline_config_load_pipeline_config",
       "community": 62,
       "norm_label": "load_pipeline_config()"
@@ -606,7 +615,7 @@
       "label": "Path",
       "file_type": "code",
       "source_file": "src/core/pipeline_config.py",
-      "source_location": "L37",
+      "source_location": "L44",
       "id": "src_core_pipeline_config_py_path",
       "community": 62,
       "norm_label": "path"
@@ -615,7 +624,7 @@
       "label": "PipelineConfig",
       "file_type": "code",
       "source_file": "src/core/pipeline_config.py",
-      "source_location": "L37",
+      "source_location": "L44",
       "id": "src_core_pipeline_config_py_pipelineconfig",
       "community": 62,
       "norm_label": "pipelineconfig"
@@ -633,8 +642,8 @@
       "label": "Load pipeline configuration for a repository.      Args:         config_path: Pa",
       "file_type": "rationale",
       "source_file": "src/core/pipeline_config.py",
-      "source_location": "L38",
-      "id": "core_pipeline_config_rationale_38",
+      "source_location": "L45",
+      "id": "core_pipeline_config_rationale_45",
       "community": 62,
       "norm_label": "load pipeline configuration for a repository.      args:         config_path: pa"
     },
@@ -815,23 +824,23 @@
       "source_file": "src/core/config_loader.py",
       "source_location": "L1",
       "id": "src_core_config_loader_py",
-      "community": 0,
+      "community": 59,
       "norm_label": "config_loader.py"
     },
     {
       "label": "ModelConfig",
       "file_type": "code",
       "source_file": "src/core/config_loader.py",
-      "source_location": "L21",
+      "source_location": "L22",
       "id": "core_config_loader_modelconfig",
-      "community": 0,
+      "community": 56,
       "norm_label": "modelconfig"
     },
     {
       "label": "GraphConfig",
       "file_type": "code",
       "source_file": "src/core/config_loader.py",
-      "source_location": "L52",
+      "source_location": "L53",
       "id": "core_config_loader_graphconfig",
       "community": 9,
       "norm_label": "graphconfig"
@@ -840,52 +849,52 @@
       "label": "RetrievalConfig",
       "file_type": "code",
       "source_file": "src/core/config_loader.py",
-      "source_location": "L68",
+      "source_location": "L69",
       "id": "core_config_loader_retrievalconfig",
-      "community": 0,
+      "community": 60,
       "norm_label": "retrievalconfig"
     },
     {
       "label": "PlannerConfig",
       "file_type": "code",
       "source_file": "src/core/config_loader.py",
-      "source_location": "L87",
+      "source_location": "L88",
       "id": "core_config_loader_plannerconfig",
-      "community": 0,
+      "community": 59,
       "norm_label": "plannerconfig"
     },
     {
       "label": "SystemConfig",
       "file_type": "code",
       "source_file": "src/core/config_loader.py",
-      "source_location": "L99",
+      "source_location": "L100",
       "id": "core_config_loader_systemconfig",
-      "community": 0,
+      "community": 63,
       "norm_label": "systemconfig"
     },
     {
       "label": "RepositoryConfig",
       "file_type": "code",
       "source_file": "src/core/config_loader.py",
-      "source_location": "L111",
+      "source_location": "L112",
       "id": "core_config_loader_repositoryconfig",
-      "community": 0,
+      "community": 57,
       "norm_label": "repositoryconfig"
     },
     {
       "label": "AppConfig",
       "file_type": "code",
       "source_file": "src/core/config_loader.py",
-      "source_location": "L130",
+      "source_location": "L131",
       "id": "core_config_loader_appconfig",
-      "community": 0,
+      "community": 59,
       "norm_label": "appconfig"
     },
     {
       "label": "_raise_invalid_field()",
       "file_type": "code",
       "source_file": "src/core/config_loader.py",
-      "source_location": "L136",
+      "source_location": "L137",
       "id": "core_config_loader_raise_invalid_field",
       "community": 0,
       "norm_label": "_raise_invalid_field()"
@@ -894,7 +903,7 @@
       "label": "Path",
       "file_type": "code",
       "source_file": "src/core/config_loader.py",
-      "source_location": "L136",
+      "source_location": "L137",
       "id": "src_core_config_loader_py_path",
       "community": 0,
       "norm_label": "path"
@@ -903,16 +912,16 @@
       "label": "str",
       "file_type": "code",
       "source_file": "src/core/config_loader.py",
-      "source_location": "L136",
+      "source_location": "L137",
       "id": "src_core_config_loader_py_str",
-      "community": 0,
+      "community": 55,
       "norm_label": "str"
     },
     {
       "label": "_require_str()",
       "file_type": "code",
       "source_file": "src/core/config_loader.py",
-      "source_location": "L140",
+      "source_location": "L141",
       "id": "core_config_loader_require_str",
       "community": 0,
       "norm_label": "_require_str()"
@@ -921,7 +930,7 @@
       "label": "Any",
       "file_type": "code",
       "source_file": "src/core/config_loader.py",
-      "source_location": "L140",
+      "source_location": "L141",
       "id": "src_core_config_loader_py_any",
       "community": 0,
       "norm_label": "any"
@@ -930,7 +939,7 @@
       "label": "_require_int()",
       "file_type": "code",
       "source_file": "src/core/config_loader.py",
-      "source_location": "L147",
+      "source_location": "L148",
       "id": "core_config_loader_require_int",
       "community": 0,
       "norm_label": "_require_int()"
@@ -939,16 +948,16 @@
       "label": "int",
       "file_type": "code",
       "source_file": "src/core/config_loader.py",
-      "source_location": "L147",
+      "source_location": "L148",
       "id": "src_core_config_loader_py_int",
-      "community": 0,
+      "community": 57,
       "norm_label": "int"
     },
     {
       "label": "_load_model_config()",
       "file_type": "code",
       "source_file": "src/core/config_loader.py",
-      "source_location": "L154",
+      "source_location": "L155",
       "id": "core_config_loader_load_model_config",
       "community": 0,
       "norm_label": "_load_model_config()"
@@ -957,7 +966,7 @@
       "label": "_load_graph_config()",
       "file_type": "code",
       "source_file": "src/core/config_loader.py",
-      "source_location": "L204",
+      "source_location": "L205",
       "id": "core_config_loader_load_graph_config",
       "community": 0,
       "norm_label": "_load_graph_config()"
@@ -966,16 +975,16 @@
       "label": "_load_retrieval_config()",
       "file_type": "code",
       "source_file": "src/core/config_loader.py",
-      "source_location": "L221",
+      "source_location": "L222",
       "id": "core_config_loader_load_retrieval_config",
-      "community": 0,
+      "community": 60,
       "norm_label": "_load_retrieval_config()"
     },
     {
       "label": "_load_planner_config()",
       "file_type": "code",
       "source_file": "src/core/config_loader.py",
-      "source_location": "L249",
+      "source_location": "L250",
       "id": "core_config_loader_load_planner_config",
       "community": 0,
       "norm_label": "_load_planner_config()"
@@ -984,16 +993,16 @@
       "label": "_load_system_config()",
       "file_type": "code",
       "source_file": "src/core/config_loader.py",
-      "source_location": "L262",
+      "source_location": "L263",
       "id": "core_config_loader_load_system_config",
-      "community": 0,
+      "community": 63,
       "norm_label": "_load_system_config()"
     },
     {
       "label": "_load_repository_config()",
       "file_type": "code",
       "source_file": "src/core/config_loader.py",
-      "source_location": "L276",
+      "source_location": "L277",
       "id": "core_config_loader_load_repository_config",
       "community": 0,
       "norm_label": "_load_repository_config()"
@@ -1002,124 +1011,124 @@
       "label": "_select_primary_model()",
       "file_type": "code",
       "source_file": "src/core/config_loader.py",
-      "source_location": "L324",
+      "source_location": "L325",
       "id": "core_config_loader_select_primary_model",
-      "community": 0,
+      "community": 55,
       "norm_label": "_select_primary_model()"
     },
     {
       "label": "get_repository_config()",
       "file_type": "code",
       "source_file": "src/core/config_loader.py",
-      "source_location": "L331",
+      "source_location": "L332",
       "id": "core_config_loader_get_repository_config",
-      "community": 0,
+      "community": 57,
       "norm_label": "get_repository_config()"
     },
     {
       "label": "get_primary_model()",
       "file_type": "code",
       "source_file": "src/core/config_loader.py",
-      "source_location": "L350",
+      "source_location": "L351",
       "id": "core_config_loader_get_primary_model",
-      "community": 0,
+      "community": 55,
       "norm_label": "get_primary_model()"
     },
     {
       "label": "get_coder_model_config()",
       "file_type": "code",
       "source_file": "src/core/config_loader.py",
-      "source_location": "L354",
+      "source_location": "L355",
       "id": "core_config_loader_get_coder_model_config",
-      "community": 0,
+      "community": 55,
       "norm_label": "get_coder_model_config()"
     },
     {
       "label": "get_semantic_model_config()",
       "file_type": "code",
       "source_file": "src/core/config_loader.py",
-      "source_location": "L359",
+      "source_location": "L360",
       "id": "core_config_loader_get_semantic_model_config",
-      "community": 0,
+      "community": 55,
       "norm_label": "get_semantic_model_config()"
     },
     {
       "label": "get_ollama_base_url()",
       "file_type": "code",
       "source_file": "src/core/config_loader.py",
-      "source_location": "L372",
+      "source_location": "L373",
       "id": "core_config_loader_get_ollama_base_url",
-      "community": 0,
+      "community": 55,
       "norm_label": "get_ollama_base_url()"
     },
     {
       "label": "get_coder_model()",
       "file_type": "code",
       "source_file": "src/core/config_loader.py",
-      "source_location": "L379",
+      "source_location": "L382",
       "id": "core_config_loader_get_coder_model",
-      "community": 0,
+      "community": 55,
       "norm_label": "get_coder_model()"
     },
     {
       "label": "get_max_workflow_revision_cycles()",
       "file_type": "code",
       "source_file": "src/core/config_loader.py",
-      "source_location": "L383",
+      "source_location": "L386",
       "id": "core_config_loader_get_max_workflow_revision_cycles",
-      "community": 0,
+      "community": 57,
       "norm_label": "get_max_workflow_revision_cycles()"
     },
     {
       "label": "get_retrieval_config()",
       "file_type": "code",
       "source_file": "src/core/config_loader.py",
-      "source_location": "L388",
+      "source_location": "L391",
       "id": "core_config_loader_get_retrieval_config",
-      "community": 0,
+      "community": 60,
       "norm_label": "get_retrieval_config()"
     },
     {
       "label": "get_planner_config()",
       "file_type": "code",
       "source_file": "src/core/config_loader.py",
-      "source_location": "L393",
+      "source_location": "L396",
       "id": "core_config_loader_get_planner_config",
-      "community": 0,
+      "community": 59,
       "norm_label": "get_planner_config()"
     },
     {
       "label": "get_semantic_threshold()",
       "file_type": "code",
       "source_file": "src/core/config_loader.py",
-      "source_location": "L398",
+      "source_location": "L401",
       "id": "core_config_loader_get_semantic_threshold",
-      "community": 0,
+      "community": 57,
       "norm_label": "get_semantic_threshold()"
     },
     {
       "label": "float",
       "file_type": "code",
       "source_file": "src/core/config_loader.py",
-      "source_location": "L398",
+      "source_location": "L401",
       "id": "src_core_config_loader_py_float",
-      "community": 0,
+      "community": 57,
       "norm_label": "float"
     },
     {
       "label": "get_semantic_model()",
       "file_type": "code",
       "source_file": "src/core/config_loader.py",
-      "source_location": "L403",
+      "source_location": "L406",
       "id": "core_config_loader_get_semantic_model",
-      "community": 0,
+      "community": 55,
       "norm_label": "get_semantic_model()"
     },
     {
       "label": "get_graph_config()",
       "file_type": "code",
       "source_file": "src/core/config_loader.py",
-      "source_location": "L412",
+      "source_location": "L415",
       "id": "core_config_loader_get_graph_config",
       "community": 9,
       "norm_label": "get_graph_config()"
@@ -1128,16 +1137,16 @@
       "label": "get_system_context_path()",
       "file_type": "code",
       "source_file": "src/core/config_loader.py",
-      "source_location": "L420",
+      "source_location": "L423",
       "id": "core_config_loader_get_system_context_path",
-      "community": 0,
+      "community": 9,
       "norm_label": "get_system_context_path()"
     },
     {
       "label": "load_config()",
       "file_type": "code",
       "source_file": "src/core/config_loader.py",
-      "source_location": "L432",
+      "source_location": "L435",
       "id": "core_config_loader_load_config",
       "community": 0,
       "norm_label": "load_config()"
@@ -1146,9 +1155,9 @@
       "label": "update_repository_timestamps()",
       "file_type": "code",
       "source_file": "src/core/config_loader.py",
-      "source_location": "L473",
+      "source_location": "L476",
       "id": "core_config_loader_update_repository_timestamps",
-      "community": 0,
+      "community": 73,
       "norm_label": "update_repository_timestamps()"
     },
     {
@@ -1157,24 +1166,24 @@
       "source_file": "src/core/config_loader.py",
       "source_location": "L1",
       "id": "core_config_loader_rationale_1",
-      "community": 0,
+      "community": 59,
       "norm_label": "centralized configuration loader for the project.  configuration is loaded from"
     },
     {
       "label": "Inference settings for a single named model role.      Attributes:         name:",
       "file_type": "rationale",
       "source_file": "src/core/config_loader.py",
-      "source_location": "L22",
-      "id": "core_config_loader_rationale_22",
-      "community": 0,
+      "source_location": "L23",
+      "id": "core_config_loader_rationale_23",
+      "community": 56,
       "norm_label": "inference settings for a single named model role.      attributes:         name:"
     },
     {
       "label": "Graph lifecycle settings for a repository.      Attributes:         mode: Storag",
       "file_type": "rationale",
       "source_file": "src/core/config_loader.py",
-      "source_location": "L53",
-      "id": "core_config_loader_rationale_53",
+      "source_location": "L54",
+      "id": "core_config_loader_rationale_54",
       "community": 9,
       "norm_label": "graph lifecycle settings for a repository.      attributes:         mode: storag"
     },
@@ -1182,35 +1191,35 @@
       "label": "Controls how many files and tokens the retrieval pipeline may assemble.      Att",
       "file_type": "rationale",
       "source_file": "src/core/config_loader.py",
-      "source_location": "L69",
-      "id": "core_config_loader_rationale_69",
-      "community": 0,
+      "source_location": "L70",
+      "id": "core_config_loader_rationale_70",
+      "community": 60,
       "norm_label": "controls how many files and tokens the retrieval pipeline may assemble.      att"
     },
     {
       "label": "Controls how many files the planner node may select for modification.      Attri",
       "file_type": "rationale",
       "source_file": "src/core/config_loader.py",
-      "source_location": "L88",
-      "id": "core_config_loader_rationale_88",
-      "community": 0,
+      "source_location": "L89",
+      "id": "core_config_loader_rationale_89",
+      "community": 59,
       "norm_label": "controls how many files the planner node may select for modification.      attri"
     },
     {
       "label": "Global system-level settings shared across all repositories.      Attributes:",
       "file_type": "rationale",
       "source_file": "src/core/config_loader.py",
-      "source_location": "L100",
-      "id": "core_config_loader_rationale_100",
-      "community": 0,
+      "source_location": "L101",
+      "id": "core_config_loader_rationale_101",
+      "community": 63,
       "norm_label": "global system-level settings shared across all repositories.      attributes:"
     },
     {
       "label": "Parse a single model role entry from config, validating inference fields.",
       "file_type": "rationale",
       "source_file": "src/core/config_loader.py",
-      "source_location": "L155",
-      "id": "core_config_loader_rationale_155",
+      "source_location": "L156",
+      "id": "core_config_loader_rationale_156",
       "community": 0,
       "norm_label": "parse a single model role entry from config, validating inference fields."
     },
@@ -1218,8 +1227,8 @@
       "label": "Parse the ``graph`` sub-object from a repository config entry.      Defaults to",
       "file_type": "rationale",
       "source_file": "src/core/config_loader.py",
-      "source_location": "L205",
-      "id": "core_config_loader_rationale_205",
+      "source_location": "L206",
+      "id": "core_config_loader_rationale_206",
       "community": 0,
       "norm_label": "parse the ``graph`` sub-object from a repository config entry.      defaults to"
     },
@@ -1227,17 +1236,17 @@
       "label": "Parse the ``retrieval`` sub-object from a repository config entry.      All fiel",
       "file_type": "rationale",
       "source_file": "src/core/config_loader.py",
-      "source_location": "L222",
-      "id": "core_config_loader_rationale_222",
-      "community": 0,
+      "source_location": "L223",
+      "id": "core_config_loader_rationale_223",
+      "community": 60,
       "norm_label": "parse the ``retrieval`` sub-object from a repository config entry.      all fiel"
     },
     {
       "label": "Parse the ``planner`` sub-object from a repository config entry.      Defaults t",
       "file_type": "rationale",
       "source_file": "src/core/config_loader.py",
-      "source_location": "L250",
-      "id": "core_config_loader_rationale_250",
+      "source_location": "L251",
+      "id": "core_config_loader_rationale_251",
       "community": 0,
       "norm_label": "parse the ``planner`` sub-object from a repository config entry.      defaults t"
     },
@@ -1245,89 +1254,89 @@
       "label": "Parse the top-level ``system`` block from config.json.      Falls back to ``\"~/.",
       "file_type": "rationale",
       "source_file": "src/core/config_loader.py",
-      "source_location": "L263",
-      "id": "core_config_loader_rationale_263",
-      "community": 0,
+      "source_location": "L264",
+      "id": "core_config_loader_rationale_264",
+      "community": 63,
       "norm_label": "parse the top-level ``system`` block from config.json.      falls back to ``\"~/."
     },
     {
       "label": "Return the configured repository that best matches `repo_path`.      If no repo",
       "file_type": "rationale",
       "source_file": "src/core/config_loader.py",
-      "source_location": "L332",
-      "id": "core_config_loader_rationale_332",
-      "community": 0,
+      "source_location": "L333",
+      "id": "core_config_loader_rationale_333",
+      "community": 57,
       "norm_label": "return the configured repository that best matches `repo_path`.      if no repo"
     },
     {
       "label": "Return the full ModelConfig for the coder role.",
       "file_type": "rationale",
       "source_file": "src/core/config_loader.py",
-      "source_location": "L355",
-      "id": "core_config_loader_rationale_355",
-      "community": 0,
+      "source_location": "L356",
+      "id": "core_config_loader_rationale_356",
+      "community": 55,
       "norm_label": "return the full modelconfig for the coder role."
     },
     {
       "label": "Return the full ModelConfig for the semantic validator role.      Prefers models",
       "file_type": "rationale",
       "source_file": "src/core/config_loader.py",
-      "source_location": "L360",
-      "id": "core_config_loader_rationale_360",
-      "community": 0,
+      "source_location": "L361",
+      "id": "core_config_loader_rationale_361",
+      "community": 55,
       "norm_label": "return the full modelconfig for the semantic validator role.      prefers models"
     },
     {
       "label": "Return the maximum number of workflow revision cycles allowed.",
       "file_type": "rationale",
       "source_file": "src/core/config_loader.py",
-      "source_location": "L384",
-      "id": "core_config_loader_rationale_384",
-      "community": 0,
+      "source_location": "L387",
+      "id": "core_config_loader_rationale_387",
+      "community": 57,
       "norm_label": "return the maximum number of workflow revision cycles allowed."
     },
     {
       "label": "Return retrieval limits and behavior for the repository matching ``repo_path``.",
       "file_type": "rationale",
       "source_file": "src/core/config_loader.py",
-      "source_location": "L389",
-      "id": "core_config_loader_rationale_389",
-      "community": 0,
+      "source_location": "L392",
+      "id": "core_config_loader_rationale_392",
+      "community": 60,
       "norm_label": "return retrieval limits and behavior for the repository matching ``repo_path``."
     },
     {
       "label": "Return planner settings for the repository matching ``repo_path``.",
       "file_type": "rationale",
       "source_file": "src/core/config_loader.py",
-      "source_location": "L394",
-      "id": "core_config_loader_rationale_394",
-      "community": 0,
+      "source_location": "L397",
+      "id": "core_config_loader_rationale_397",
+      "community": 59,
       "norm_label": "return planner settings for the repository matching ``repo_path``."
     },
     {
       "label": "Return the minimum task_alignment_score required for semantic_validator to pass.",
       "file_type": "rationale",
       "source_file": "src/core/config_loader.py",
-      "source_location": "L399",
-      "id": "core_config_loader_rationale_399",
-      "community": 0,
+      "source_location": "L402",
+      "id": "core_config_loader_rationale_402",
+      "community": 57,
       "norm_label": "return the minimum task_alignment_score required for semantic_validator to pass."
     },
     {
       "label": "Return the model name for the semantic validator.      Prefers models[\"semantic_",
       "file_type": "rationale",
       "source_file": "src/core/config_loader.py",
-      "source_location": "L404",
-      "id": "core_config_loader_rationale_404",
-      "community": 0,
+      "source_location": "L407",
+      "id": "core_config_loader_rationale_407",
+      "community": 55,
       "norm_label": "return the model name for the semantic validator.      prefers models[\"semantic_"
     },
     {
       "label": "Return the graph lifecycle config for the repository matching ``repo_path``.",
       "file_type": "rationale",
       "source_file": "src/core/config_loader.py",
-      "source_location": "L413",
-      "id": "core_config_loader_rationale_413",
+      "source_location": "L416",
+      "id": "core_config_loader_rationale_416",
       "community": 9,
       "norm_label": "return the graph lifecycle config for the repository matching ``repo_path``."
     },
@@ -1335,18 +1344,18 @@
       "label": "Return the expanded absolute path for the system-level context store.      Resol",
       "file_type": "rationale",
       "source_file": "src/core/config_loader.py",
-      "source_location": "L421",
-      "id": "core_config_loader_rationale_421",
-      "community": 0,
+      "source_location": "L424",
+      "id": "core_config_loader_rationale_424",
+      "community": 9,
       "norm_label": "return the expanded absolute path for the system-level context store.      resol"
     },
     {
       "label": "Persist ``created_at`` and/or ``updated_at`` for a repository in config.json.",
       "file_type": "rationale",
       "source_file": "src/core/config_loader.py",
-      "source_location": "L480",
-      "id": "core_config_loader_rationale_480",
-      "community": 0,
+      "source_location": "L483",
+      "id": "core_config_loader_rationale_483",
+      "community": 73,
       "norm_label": "persist ``created_at`` and/or ``updated_at`` for a repository in config.json."
     },
     {
@@ -1751,7 +1760,7 @@
       "source_file": "src/scheduler/dispatcher.py",
       "source_location": "L1",
       "id": "src_scheduler_dispatcher_py",
-      "community": 4,
+      "community": 2,
       "norm_label": "dispatcher.py"
     },
     {
@@ -1859,7 +1868,7 @@
       "source_file": "src/scheduler/dispatcher.py",
       "source_location": "L1",
       "id": "scheduler_dispatcher_rationale_1",
-      "community": 4,
+      "community": 2,
       "norm_label": "task dispatcher for the slack-driven scheduler.  replaces workflowexecutor. rout"
     },
     {
@@ -2228,7 +2237,7 @@
       "source_file": "src/scheduler/state_factory.py",
       "source_location": "L7",
       "id": "scheduler_state_factory_graphstatefactory",
-      "community": 48,
+      "community": 71,
       "norm_label": "graphstatefactory"
     },
     {
@@ -2237,7 +2246,7 @@
       "source_file": "src/scheduler/state_factory.py",
       "source_location": "L15",
       "id": "scheduler_state_factory_graphstatefactory_from_task_request",
-      "community": 48,
+      "community": 71,
       "norm_label": ".from_task_request()"
     },
     {
@@ -2246,7 +2255,7 @@
       "source_file": "src/scheduler/state_factory.py",
       "source_location": "L15",
       "id": "taskrequest",
-      "community": 48,
+      "community": 71,
       "norm_label": "taskrequest"
     },
     {
@@ -2255,7 +2264,7 @@
       "source_file": "src/scheduler/state_factory.py",
       "source_location": "L15",
       "id": "src_scheduler_state_factory_py_graphstate",
-      "community": 48,
+      "community": 71,
       "norm_label": "graphstate"
     },
     {
@@ -2264,7 +2273,7 @@
       "source_file": "src/scheduler/state_factory.py",
       "source_location": "L8",
       "id": "scheduler_state_factory_rationale_8",
-      "community": 48,
+      "community": 71,
       "norm_label": "converts an external taskrequest into the internal graphstate.      this is the"
     },
     {
@@ -2273,7 +2282,7 @@
       "source_file": "src/scheduler/state_factory.py",
       "source_location": "L16",
       "id": "scheduler_state_factory_rationale_16",
-      "community": 48,
+      "community": 71,
       "norm_label": "build the initial graphstate from a validated taskrequest."
     },
     {
@@ -2345,7 +2354,7 @@
       "source_file": "src/pipeline/pipeline.py",
       "source_location": "L45",
       "id": "pipeline_pipeline_embeddingpipeline_run",
-      "community": 4,
+      "community": 10,
       "norm_label": ".run()"
     },
     {
@@ -2363,7 +2372,7 @@
       "source_file": "src/pipeline/pipeline.py",
       "source_location": "L60",
       "id": "pipeline_pipeline_embeddingpipeline_run_stages",
-      "community": 4,
+      "community": 10,
       "norm_label": "._run_stages()"
     },
     {
@@ -2390,7 +2399,7 @@
       "source_file": "src/pipeline/pipeline.py",
       "source_location": "L46",
       "id": "pipeline_pipeline_rationale_46",
-      "community": 4,
+      "community": 10,
       "norm_label": "execute all pipeline stages and return a summary."
     },
     {
@@ -3209,7 +3218,7 @@
       "source_file": "src/pipeline/describer.py",
       "source_location": "L41",
       "id": "pipeline_describer_strip_fences",
-      "community": 2,
+      "community": 58,
       "norm_label": "_strip_fences()"
     },
     {
@@ -3263,7 +3272,7 @@
       "source_file": "src/pipeline/describer.py",
       "source_location": "L59",
       "id": "pipeline_describer_descriptionservice_describe",
-      "community": 2,
+      "community": 58,
       "norm_label": ".describe()"
     },
     {
@@ -3272,7 +3281,7 @@
       "source_file": "src/pipeline/describer.py",
       "source_location": "L59",
       "id": "src_pipeline_describer_py_functionrecord",
-      "community": 2,
+      "community": 58,
       "norm_label": "functionrecord"
     },
     {
@@ -3281,7 +3290,7 @@
       "source_file": "src/pipeline/describer.py",
       "source_location": "L106",
       "id": "pipeline_describer_descriptionservice_describe_batch",
-      "community": 2,
+      "community": 58,
       "norm_label": ".describe_batch()"
     },
     {
@@ -3299,7 +3308,7 @@
       "source_file": "src/pipeline/describer.py",
       "source_location": "L42",
       "id": "pipeline_describer_rationale_42",
-      "community": 2,
+      "community": 58,
       "norm_label": "remove triple-backtick code fences that models emit despite instructions."
     },
     {
@@ -3317,7 +3326,7 @@
       "source_file": "src/pipeline/describer.py",
       "source_location": "L60",
       "id": "pipeline_describer_rationale_60",
-      "community": 2,
+      "community": 58,
       "norm_label": "populate ``record.description`` and ``record.description_status`` in-place."
     },
     {
@@ -3326,7 +3335,7 @@
       "source_file": "src/pipeline/describer.py",
       "source_location": "L107",
       "id": "pipeline_describer_rationale_107",
-      "community": 2,
+      "community": 58,
       "norm_label": "generate descriptions for all records in-place, respecting concurrency limit."
     },
     {
@@ -3407,7 +3416,7 @@
       "source_file": "src/pipeline/neo4j_store.py",
       "source_location": "L172",
       "id": "pipeline_neo4j_store_neo4jstore_close",
-      "community": 72,
+      "community": 64,
       "norm_label": ".close()"
     },
     {
@@ -3425,7 +3434,7 @@
       "source_file": "src/pipeline/neo4j_store.py",
       "source_location": "L194",
       "id": "pipeline_neo4j_store_neo4jstore_ensure_vector_indexes",
-      "community": 72,
+      "community": 41,
       "norm_label": "._ensure_vector_indexes()"
     },
     {
@@ -3434,7 +3443,7 @@
       "source_file": "src/pipeline/neo4j_store.py",
       "source_location": "L203",
       "id": "pipeline_neo4j_store_neo4jstore_get_existing_hashes",
-      "community": 75,
+      "community": 41,
       "norm_label": ".get_existing_hashes()"
     },
     {
@@ -3443,7 +3452,7 @@
       "source_file": "src/pipeline/neo4j_store.py",
       "source_location": "L210",
       "id": "pipeline_neo4j_store_neo4jstore_upsert_functions_batch",
-      "community": 72,
+      "community": 41,
       "norm_label": ".upsert_functions_batch()"
     },
     {
@@ -3452,7 +3461,7 @@
       "source_file": "src/pipeline/neo4j_store.py",
       "source_location": "L210",
       "id": "src_pipeline_neo4j_store_py_functionrecord",
-      "community": 72,
+      "community": 41,
       "norm_label": "functionrecord"
     },
     {
@@ -3461,7 +3470,7 @@
       "source_file": "src/pipeline/neo4j_store.py",
       "source_location": "L250",
       "id": "pipeline_neo4j_store_neo4jstore_soft_delete_missing",
-      "community": 75,
+      "community": 70,
       "norm_label": ".soft_delete_missing()"
     },
     {
@@ -3515,7 +3524,7 @@
       "source_file": "src/pipeline/neo4j_store.py",
       "source_location": "L323",
       "id": "pipeline_neo4j_store_neo4jstore_delete_similarity_edges",
-      "community": 75,
+      "community": 66,
       "norm_label": ".delete_similarity_edges()"
     },
     {
@@ -3533,7 +3542,7 @@
       "source_file": "src/pipeline/neo4j_store.py",
       "source_location": "L338",
       "id": "pipeline_neo4j_store_neo4jstore_upsert_similarity_edges_batch",
-      "community": 72,
+      "community": 61,
       "norm_label": ".upsert_similarity_edges_batch()"
     },
     {
@@ -3542,7 +3551,7 @@
       "source_file": "src/pipeline/neo4j_store.py",
       "source_location": "L338",
       "id": "src_pipeline_neo4j_store_py_similarityedge",
-      "community": 72,
+      "community": 61,
       "norm_label": "similarityedge"
     },
     {
@@ -3578,7 +3587,7 @@
       "source_file": "src/pipeline/neo4j_store.py",
       "source_location": "L173",
       "id": "pipeline_neo4j_store_rationale_173",
-      "community": 72,
+      "community": 64,
       "norm_label": "close the driver connection pool."
     },
     {
@@ -3596,7 +3605,7 @@
       "source_file": "src/pipeline/neo4j_store.py",
       "source_location": "L195",
       "id": "pipeline_neo4j_store_rationale_195",
-      "community": 72,
+      "community": 41,
       "norm_label": "create vector indexes once the embedding dimension is known."
     },
     {
@@ -3605,7 +3614,7 @@
       "source_file": "src/pipeline/neo4j_store.py",
       "source_location": "L204",
       "id": "pipeline_neo4j_store_rationale_204",
-      "community": 75,
+      "community": 41,
       "norm_label": "return ``{function_id: source_hash}`` for all live functions in the repo."
     },
     {
@@ -3614,7 +3623,7 @@
       "source_file": "src/pipeline/neo4j_store.py",
       "source_location": "L211",
       "id": "pipeline_neo4j_store_rationale_211",
-      "community": 72,
+      "community": 41,
       "norm_label": "batch-upsert function nodes using unwind for efficiency."
     },
     {
@@ -3623,7 +3632,7 @@
       "source_file": "src/pipeline/neo4j_store.py",
       "source_location": "L251",
       "id": "pipeline_neo4j_store_rationale_251",
-      "community": 75,
+      "community": 70,
       "norm_label": "mark functions not in ``seen_ids`` as deleted. returns count."
     },
     {
@@ -3659,7 +3668,7 @@
       "source_file": "src/pipeline/neo4j_store.py",
       "source_location": "L324",
       "id": "pipeline_neo4j_store_rationale_324",
-      "community": 75,
+      "community": 66,
       "norm_label": "delete all similar_to edges originating from functions in this repo.          ca"
     },
     {
@@ -3677,7 +3686,7 @@
       "source_file": "src/pipeline/neo4j_store.py",
       "source_location": "L339",
       "id": "pipeline_neo4j_store_rationale_339",
-      "community": 72,
+      "community": 61,
       "norm_label": "batch-upsert similar_to relationships using unwind."
     },
     {
@@ -3695,7 +3704,7 @@
       "source_file": "src/pipeline/scanner.py",
       "source_location": "L1",
       "id": "src_pipeline_scanner_py",
-      "community": 41,
+      "community": 67,
       "norm_label": "scanner.py"
     },
     {
@@ -3704,7 +3713,7 @@
       "source_file": "src/pipeline/scanner.py",
       "source_location": "L20",
       "id": "pipeline_scanner_supported_extensions",
-      "community": 41,
+      "community": 67,
       "norm_label": "_supported_extensions()"
     },
     {
@@ -3713,7 +3722,7 @@
       "source_file": "src/pipeline/scanner.py",
       "source_location": "L20",
       "id": "src_pipeline_scanner_py_str",
-      "community": 41,
+      "community": 67,
       "norm_label": "str"
     },
     {
@@ -3722,7 +3731,7 @@
       "source_file": "src/pipeline/scanner.py",
       "source_location": "L27",
       "id": "pipeline_scanner_is_ignored",
-      "community": 41,
+      "community": 67,
       "norm_label": "_is_ignored()"
     },
     {
@@ -3731,7 +3740,7 @@
       "source_file": "src/pipeline/scanner.py",
       "source_location": "L27",
       "id": "src_pipeline_scanner_py_path",
-      "community": 41,
+      "community": 67,
       "norm_label": "path"
     },
     {
@@ -3740,7 +3749,7 @@
       "source_file": "src/pipeline/scanner.py",
       "source_location": "L27",
       "id": "src_pipeline_scanner_py_bool",
-      "community": 41,
+      "community": 67,
       "norm_label": "bool"
     },
     {
@@ -3749,7 +3758,7 @@
       "source_file": "src/pipeline/scanner.py",
       "source_location": "L36",
       "id": "pipeline_scanner_scan_repository",
-      "community": 41,
+      "community": 67,
       "norm_label": "scan_repository()"
     },
     {
@@ -3758,7 +3767,7 @@
       "source_file": "src/pipeline/scanner.py",
       "source_location": "L1",
       "id": "pipeline_scanner_rationale_1",
-      "community": 41,
+      "community": 67,
       "norm_label": "repository file scanner.  walks a source tree and yields paths to source files w"
     },
     {
@@ -3767,7 +3776,7 @@
       "source_file": "src/pipeline/scanner.py",
       "source_location": "L28",
       "id": "pipeline_scanner_rationale_28",
-      "community": 41,
+      "community": 67,
       "norm_label": "return true if any component of the path relative to repo_root is in ignore_name"
     },
     {
@@ -3776,7 +3785,7 @@
       "source_file": "src/pipeline/scanner.py",
       "source_location": "L41",
       "id": "pipeline_scanner_rationale_41",
-      "community": 41,
+      "community": 67,
       "norm_label": "return sorted list of source file paths to process.      args:         repo_path"
     },
     {
@@ -4802,7 +4811,7 @@
       "source_file": "src/retrieval/budgeting/context_budget.py",
       "source_location": "L1",
       "id": "src_retrieval_budgeting_context_budget_py",
-      "community": 0,
+      "community": 56,
       "norm_label": "context_budget.py"
     },
     {
@@ -4811,7 +4820,7 @@
       "source_file": "src/retrieval/budgeting/context_budget.py",
       "source_location": "L25",
       "id": "budgeting_context_budget_budgetallocation",
-      "community": 0,
+      "community": 56,
       "norm_label": "budgetallocation"
     },
     {
@@ -4856,7 +4865,7 @@
       "source_file": "src/retrieval/budgeting/context_budget.py",
       "source_location": "L71",
       "id": "budgeting_context_budget_contextbudget_allocate",
-      "community": 0,
+      "community": 56,
       "norm_label": ".allocate()"
     },
     {
@@ -4865,7 +4874,7 @@
       "source_file": "src/retrieval/budgeting/context_budget.py",
       "source_location": "L71",
       "id": "src_retrieval_budgeting_context_budget_py_str",
-      "community": 0,
+      "community": 56,
       "norm_label": "str"
     },
     {
@@ -4874,7 +4883,7 @@
       "source_file": "src/retrieval/budgeting/context_budget.py",
       "source_location": "L1",
       "id": "budgeting_context_budget_rationale_1",
-      "community": 0,
+      "community": 56,
       "norm_label": "context window budget allocation.  contextbudget enforces per-file character lim"
     },
     {
@@ -4883,7 +4892,7 @@
       "source_file": "src/retrieval/budgeting/context_budget.py",
       "source_location": "L26",
       "id": "budgeting_context_budget_rationale_26",
-      "community": 0,
+      "community": 56,
       "norm_label": "result of a budget allocation pass.      attributes:         selected_files: ord"
     },
     {
@@ -4901,7 +4910,7 @@
       "source_file": "src/retrieval/budgeting/context_budget.py",
       "source_location": "L76",
       "id": "budgeting_context_budget_rationale_76",
-      "community": 0,
+      "community": 56,
       "norm_label": "return the largest prefix of `ranked_files` that fits within all limits."
     },
     {
@@ -7401,6 +7410,204 @@
       "label": "Load pipeline configuration for a repository.      Args:         config_path: Pa",
       "file_type": "rationale",
       "source_file": "src/core/pipeline_config.py",
+      "source_location": "L38",
+      "community": 62,
+      "norm_label": "load pipeline configuration for a repository.      args:         config_path: pa",
+      "id": "core_pipeline_config_rationale_38"
+    },
+    {
+      "label": "Inference settings for a single named model role.      Attributes:         name:",
+      "file_type": "rationale",
+      "source_file": "src/core/config_loader.py",
+      "source_location": "L22",
+      "community": 56,
+      "norm_label": "inference settings for a single named model role.      attributes:         name:",
+      "id": "core_config_loader_rationale_22"
+    },
+    {
+      "label": "Graph lifecycle settings for a repository.      Attributes:         mode: Storag",
+      "file_type": "rationale",
+      "source_file": "src/core/config_loader.py",
+      "source_location": "L53",
+      "community": 9,
+      "norm_label": "graph lifecycle settings for a repository.      attributes:         mode: storag",
+      "id": "core_config_loader_rationale_53"
+    },
+    {
+      "label": "Controls how many files and tokens the retrieval pipeline may assemble.      Att",
+      "file_type": "rationale",
+      "source_file": "src/core/config_loader.py",
+      "source_location": "L69",
+      "community": 60,
+      "norm_label": "controls how many files and tokens the retrieval pipeline may assemble.      att",
+      "id": "core_config_loader_rationale_69"
+    },
+    {
+      "label": "Controls how many files the planner node may select for modification.      Attri",
+      "file_type": "rationale",
+      "source_file": "src/core/config_loader.py",
+      "source_location": "L88",
+      "community": 59,
+      "norm_label": "controls how many files the planner node may select for modification.      attri",
+      "id": "core_config_loader_rationale_88"
+    },
+    {
+      "label": "Global system-level settings shared across all repositories.      Attributes:",
+      "file_type": "rationale",
+      "source_file": "src/core/config_loader.py",
+      "source_location": "L100",
+      "community": 63,
+      "norm_label": "global system-level settings shared across all repositories.      attributes:",
+      "id": "core_config_loader_rationale_100"
+    },
+    {
+      "label": "Parse a single model role entry from config, validating inference fields.",
+      "file_type": "rationale",
+      "source_file": "src/core/config_loader.py",
+      "source_location": "L155",
+      "community": 0,
+      "norm_label": "parse a single model role entry from config, validating inference fields.",
+      "id": "core_config_loader_rationale_155"
+    },
+    {
+      "label": "Parse the ``graph`` sub-object from a repository config entry.      Defaults to",
+      "file_type": "rationale",
+      "source_file": "src/core/config_loader.py",
+      "source_location": "L205",
+      "community": 0,
+      "norm_label": "parse the ``graph`` sub-object from a repository config entry.      defaults to",
+      "id": "core_config_loader_rationale_205"
+    },
+    {
+      "label": "Parse the ``retrieval`` sub-object from a repository config entry.      All fiel",
+      "file_type": "rationale",
+      "source_file": "src/core/config_loader.py",
+      "source_location": "L222",
+      "community": 60,
+      "norm_label": "parse the ``retrieval`` sub-object from a repository config entry.      all fiel",
+      "id": "core_config_loader_rationale_222"
+    },
+    {
+      "label": "Parse the ``planner`` sub-object from a repository config entry.      Defaults t",
+      "file_type": "rationale",
+      "source_file": "src/core/config_loader.py",
+      "source_location": "L250",
+      "community": 0,
+      "norm_label": "parse the ``planner`` sub-object from a repository config entry.      defaults t",
+      "id": "core_config_loader_rationale_250"
+    },
+    {
+      "label": "Parse the top-level ``system`` block from config.json.      Falls back to ``\"~/.",
+      "file_type": "rationale",
+      "source_file": "src/core/config_loader.py",
+      "source_location": "L263",
+      "community": 63,
+      "norm_label": "parse the top-level ``system`` block from config.json.      falls back to ``\"~/.",
+      "id": "core_config_loader_rationale_263"
+    },
+    {
+      "label": "Return the configured repository that best matches `repo_path`.      If no repo",
+      "file_type": "rationale",
+      "source_file": "src/core/config_loader.py",
+      "source_location": "L332",
+      "community": 57,
+      "norm_label": "return the configured repository that best matches `repo_path`.      if no repo",
+      "id": "core_config_loader_rationale_332"
+    },
+    {
+      "label": "Return the full ModelConfig for the coder role.",
+      "file_type": "rationale",
+      "source_file": "src/core/config_loader.py",
+      "source_location": "L355",
+      "community": 55,
+      "norm_label": "return the full modelconfig for the coder role.",
+      "id": "core_config_loader_rationale_355"
+    },
+    {
+      "label": "Return the full ModelConfig for the semantic validator role.      Prefers models",
+      "file_type": "rationale",
+      "source_file": "src/core/config_loader.py",
+      "source_location": "L360",
+      "community": 55,
+      "norm_label": "return the full modelconfig for the semantic validator role.      prefers models",
+      "id": "core_config_loader_rationale_360"
+    },
+    {
+      "label": "Return the maximum number of workflow revision cycles allowed.",
+      "file_type": "rationale",
+      "source_file": "src/core/config_loader.py",
+      "source_location": "L384",
+      "community": 57,
+      "norm_label": "return the maximum number of workflow revision cycles allowed.",
+      "id": "core_config_loader_rationale_384"
+    },
+    {
+      "label": "Return retrieval limits and behavior for the repository matching ``repo_path``.",
+      "file_type": "rationale",
+      "source_file": "src/core/config_loader.py",
+      "source_location": "L389",
+      "community": 60,
+      "norm_label": "return retrieval limits and behavior for the repository matching ``repo_path``.",
+      "id": "core_config_loader_rationale_389"
+    },
+    {
+      "label": "Return planner settings for the repository matching ``repo_path``.",
+      "file_type": "rationale",
+      "source_file": "src/core/config_loader.py",
+      "source_location": "L394",
+      "community": 59,
+      "norm_label": "return planner settings for the repository matching ``repo_path``.",
+      "id": "core_config_loader_rationale_394"
+    },
+    {
+      "label": "Return the minimum task_alignment_score required for semantic_validator to pass.",
+      "file_type": "rationale",
+      "source_file": "src/core/config_loader.py",
+      "source_location": "L399",
+      "community": 57,
+      "norm_label": "return the minimum task_alignment_score required for semantic_validator to pass.",
+      "id": "core_config_loader_rationale_399"
+    },
+    {
+      "label": "Return the model name for the semantic validator.      Prefers models[\"semantic_",
+      "file_type": "rationale",
+      "source_file": "src/core/config_loader.py",
+      "source_location": "L404",
+      "community": 55,
+      "norm_label": "return the model name for the semantic validator.      prefers models[\"semantic_",
+      "id": "core_config_loader_rationale_404"
+    },
+    {
+      "label": "Return the graph lifecycle config for the repository matching ``repo_path``.",
+      "file_type": "rationale",
+      "source_file": "src/core/config_loader.py",
+      "source_location": "L413",
+      "community": 9,
+      "norm_label": "return the graph lifecycle config for the repository matching ``repo_path``.",
+      "id": "core_config_loader_rationale_413"
+    },
+    {
+      "label": "Return the expanded absolute path for the system-level context store.      Resol",
+      "file_type": "rationale",
+      "source_file": "src/core/config_loader.py",
+      "source_location": "L421",
+      "community": 9,
+      "norm_label": "return the expanded absolute path for the system-level context store.      resol",
+      "id": "core_config_loader_rationale_421"
+    },
+    {
+      "label": "Persist ``created_at`` and/or ``updated_at`` for a repository in config.json.",
+      "file_type": "rationale",
+      "source_file": "src/core/config_loader.py",
+      "source_location": "L480",
+      "community": 73,
+      "norm_label": "persist ``created_at`` and/or ``updated_at`` for a repository in config.json.",
+      "id": "core_config_loader_rationale_480"
+    },
+    {
+      "label": "Load pipeline configuration for a repository.      Args:         config_path: Pa",
+      "file_type": "rationale",
+      "source_file": "src/core/pipeline_config.py",
       "source_location": "L37",
       "community": 62,
       "norm_label": "load pipeline configuration for a repository.      args:         config_path: pa",
@@ -7420,7 +7627,7 @@
       "file_type": "code",
       "source_file": "src/scheduler/task.py",
       "source_location": "L13",
-      "community": 31,
+      "community": 48,
       "norm_label": "task",
       "id": "scheduler_task_task"
     },
@@ -7429,7 +7636,7 @@
       "file_type": "rationale",
       "source_file": "src/scheduler/task.py",
       "source_location": "L14",
-      "community": 31,
+      "community": 48,
       "norm_label": "scheduler work unit wrapping a validated taskrequest.",
       "id": "scheduler_task_rationale_14"
     },
@@ -7465,7 +7672,7 @@
       "file_type": "rationale",
       "source_file": "src/pipeline/neo4j_store.py",
       "source_location": "L166",
-      "community": 72,
+      "community": 64,
       "norm_label": "close the driver connection pool.",
       "id": "pipeline_neo4j_store_rationale_166"
     },
@@ -7483,7 +7690,7 @@
       "file_type": "rationale",
       "source_file": "src/pipeline/neo4j_store.py",
       "source_location": "L188",
-      "community": 72,
+      "community": 41,
       "norm_label": "create vector indexes once the embedding dimension is known.",
       "id": "pipeline_neo4j_store_rationale_188"
     },
@@ -7492,7 +7699,7 @@
       "file_type": "rationale",
       "source_file": "src/pipeline/neo4j_store.py",
       "source_location": "L197",
-      "community": 75,
+      "community": 41,
       "norm_label": "return ``{function_id: source_hash}`` for all live functions in the repo.",
       "id": "pipeline_neo4j_store_rationale_197"
     },
@@ -7501,7 +7708,7 @@
       "file_type": "rationale",
       "source_file": "src/pipeline/neo4j_store.py",
       "source_location": "L244",
-      "community": 75,
+      "community": 70,
       "norm_label": "mark functions not in ``seen_ids`` as deleted. returns count.",
       "id": "pipeline_neo4j_store_rationale_244"
     },
@@ -7537,7 +7744,7 @@
       "file_type": "rationale",
       "source_file": "src/pipeline/neo4j_store.py",
       "source_location": "L317",
-      "community": 75,
+      "community": 66,
       "norm_label": "delete all similar_to edges originating from functions in this repo.          ca",
       "id": "pipeline_neo4j_store_rationale_317"
     },
@@ -7546,7 +7753,7 @@
       "file_type": "rationale",
       "source_file": "src/pipeline/neo4j_store.py",
       "source_location": "L326",
-      "community": 72,
+      "community": 61,
       "norm_label": "batch-upsert similar_to relationships using unwind.",
       "id": "pipeline_neo4j_store_rationale_326"
     },
@@ -7636,7 +7843,7 @@
       "file_type": "rationale",
       "source_file": "src/pipeline/neo4j_store.py",
       "source_location": "L144",
-      "community": 72,
+      "community": 64,
       "norm_label": "close the driver connection pool.",
       "id": "pipeline_neo4j_store_rationale_144"
     },
@@ -7645,7 +7852,7 @@
       "file_type": "rationale",
       "source_file": "src/pipeline/neo4j_store.py",
       "source_location": "L175",
-      "community": 75,
+      "community": 41,
       "norm_label": "return ``{function_id: source_hash}`` for all live functions in the repo.",
       "id": "pipeline_neo4j_store_rationale_175"
     },
@@ -7654,7 +7861,7 @@
       "file_type": "rationale",
       "source_file": "src/pipeline/neo4j_store.py",
       "source_location": "L182",
-      "community": 72,
+      "community": 41,
       "norm_label": "batch-upsert function nodes using unwind for efficiency.",
       "id": "pipeline_neo4j_store_rationale_182"
     },
@@ -7663,7 +7870,7 @@
       "file_type": "rationale",
       "source_file": "src/pipeline/neo4j_store.py",
       "source_location": "L222",
-      "community": 75,
+      "community": 70,
       "norm_label": "mark functions not in ``seen_ids`` as deleted. returns count.",
       "id": "pipeline_neo4j_store_rationale_222"
     },
@@ -7681,7 +7888,7 @@
       "file_type": "rationale",
       "source_file": "src/pipeline/neo4j_store.py",
       "source_location": "L245",
-      "community": 75,
+      "community": 66,
       "norm_label": "delete all similar_to edges originating from functions in this repo.          ca",
       "id": "pipeline_neo4j_store_rationale_245"
     },
@@ -7690,7 +7897,7 @@
       "file_type": "rationale",
       "source_file": "src/pipeline/neo4j_store.py",
       "source_location": "L254",
-      "community": 72,
+      "community": 61,
       "norm_label": "batch-upsert similar_to relationships using unwind.",
       "id": "pipeline_neo4j_store_rationale_254"
     },
@@ -7843,7 +8050,7 @@
       "file_type": "rationale",
       "source_file": "src/pipeline/describer.py",
       "source_location": "L95",
-      "community": 2,
+      "community": 58,
       "norm_label": "generate descriptions for all records in-place, respecting concurrency limit.",
       "id": "pipeline_describer_rationale_95"
     },
@@ -7861,7 +8068,7 @@
       "file_type": "rationale",
       "source_file": "src/pipeline/neo4j_store.py",
       "source_location": "L140",
-      "community": 72,
+      "community": 64,
       "norm_label": "close the driver connection pool.",
       "id": "pipeline_neo4j_store_rationale_140"
     },
@@ -7870,7 +8077,7 @@
       "file_type": "rationale",
       "source_file": "src/pipeline/neo4j_store.py",
       "source_location": "L162",
-      "community": 72,
+      "community": 41,
       "norm_label": "create vector indexes once the embedding dimension is known.",
       "id": "pipeline_neo4j_store_rationale_162"
     },
@@ -7879,7 +8086,7 @@
       "file_type": "rationale",
       "source_file": "src/pipeline/neo4j_store.py",
       "source_location": "L171",
-      "community": 75,
+      "community": 41,
       "norm_label": "return ``{function_id: source_hash}`` for all live functions in the repo.",
       "id": "pipeline_neo4j_store_rationale_171"
     },
@@ -7888,7 +8095,7 @@
       "file_type": "rationale",
       "source_file": "src/pipeline/neo4j_store.py",
       "source_location": "L178",
-      "community": 72,
+      "community": 41,
       "norm_label": "batch-upsert function nodes using unwind for efficiency.",
       "id": "pipeline_neo4j_store_rationale_178"
     },
@@ -7897,7 +8104,7 @@
       "file_type": "rationale",
       "source_file": "src/pipeline/neo4j_store.py",
       "source_location": "L214",
-      "community": 75,
+      "community": 70,
       "norm_label": "mark functions not in ``seen_ids`` as deleted. returns count.",
       "id": "pipeline_neo4j_store_rationale_214"
     },
@@ -7906,7 +8113,7 @@
       "file_type": "rationale",
       "source_file": "src/pipeline/neo4j_store.py",
       "source_location": "L225",
-      "community": 75,
+      "community": 66,
       "norm_label": "return ``[(id, code_embedding, description_embedding)]`` for all live functions.",
       "id": "pipeline_neo4j_store_rationale_225"
     },
@@ -7915,7 +8122,7 @@
       "file_type": "rationale",
       "source_file": "src/pipeline/neo4j_store.py",
       "source_location": "L237",
-      "community": 75,
+      "community": 66,
       "norm_label": "delete all similar_to edges originating from functions in this repo.          ca",
       "id": "pipeline_neo4j_store_rationale_237"
     },
@@ -7924,7 +8131,7 @@
       "file_type": "rationale",
       "source_file": "src/pipeline/neo4j_store.py",
       "source_location": "L246",
-      "community": 72,
+      "community": 61,
       "norm_label": "batch-upsert similar_to relationships using unwind.",
       "id": "pipeline_neo4j_store_rationale_246"
     },
@@ -7942,7 +8149,7 @@
       "file_type": "rationale",
       "source_file": "src/pipeline/pipeline.py",
       "source_location": "L42",
-      "community": 4,
+      "community": 10,
       "norm_label": "execute all pipeline stages and return a summary.",
       "id": "pipeline_pipeline_rationale_42"
     },
@@ -8050,7 +8257,7 @@
       "file_type": "rationale",
       "source_file": "src/pipeline/describer.py",
       "source_location": "L47",
-      "community": 2,
+      "community": 58,
       "norm_label": "remove triple-backtick code fences that models emit despite instructions.",
       "id": "pipeline_describer_rationale_47"
     },
@@ -8068,7 +8275,7 @@
       "file_type": "rationale",
       "source_file": "src/pipeline/describer.py",
       "source_location": "L63",
-      "community": 2,
+      "community": 58,
       "norm_label": "populate ``record.description`` in-place with a json string.          retries on",
       "id": "pipeline_describer_rationale_63"
     },
@@ -8077,7 +8284,7 @@
       "file_type": "rationale",
       "source_file": "src/pipeline/describer.py",
       "source_location": "L102",
-      "community": 2,
+      "community": 58,
       "norm_label": "generate descriptions for all records in-place, respecting concurrency limit.",
       "id": "pipeline_describer_rationale_102"
     },
@@ -8095,7 +8302,7 @@
       "file_type": "rationale",
       "source_file": "src/pipeline/neo4j_store.py",
       "source_location": "L131",
-      "community": 72,
+      "community": 64,
       "norm_label": "close the driver connection pool.",
       "id": "pipeline_neo4j_store_rationale_131"
     },
@@ -8113,7 +8320,7 @@
       "file_type": "rationale",
       "source_file": "src/pipeline/neo4j_store.py",
       "source_location": "L153",
-      "community": 72,
+      "community": 41,
       "norm_label": "create vector indexes once the embedding dimension is known.",
       "id": "pipeline_neo4j_store_rationale_153"
     },
@@ -8122,7 +8329,7 @@
       "file_type": "rationale",
       "source_file": "src/pipeline/neo4j_store.py",
       "source_location": "L208",
-      "community": 75,
+      "community": 70,
       "norm_label": "mark functions not in ``seen_ids`` as deleted. returns count.",
       "id": "pipeline_neo4j_store_rationale_208"
     },
@@ -8140,7 +8347,7 @@
       "file_type": "rationale",
       "source_file": "src/pipeline/neo4j_store.py",
       "source_location": "L238",
-      "community": 72,
+      "community": 61,
       "norm_label": "batch-upsert similar_to relationships using unwind.",
       "id": "pipeline_neo4j_store_rationale_238"
     },
@@ -8662,7 +8869,7 @@
       "file_type": "rationale",
       "source_file": "src/retrieval/budgeting/context_budget.py",
       "source_location": "L17",
-      "community": 0,
+      "community": 56,
       "norm_label": "result of a budget allocation pass.",
       "id": "budgeting_context_budget_rationale_17"
     },
@@ -8680,7 +8887,7 @@
       "file_type": "rationale",
       "source_file": "src/retrieval/budgeting/context_budget.py",
       "source_location": "L47",
-      "community": 0,
+      "community": 56,
       "norm_label": "return the largest prefix of `ranked_files` that fits the budget.          tar",
       "id": "budgeting_context_budget_rationale_47"
     },
@@ -9963,6 +10170,16 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/core/pipeline_config.py",
+      "source_location": "L29",
+      "weight": 1.0,
+      "source": "src_core_pipeline_config_py",
+      "target": "core_pipeline_config_require_env",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/core/pipeline_config.py",
       "source_location": "L28",
       "weight": 1.0,
       "confidence_score": 1.0,
@@ -10051,22 +10268,22 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "src/core/pipeline_config.py",
-      "source_location": "L124",
+      "source_location": "L104",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "core_pipeline_config_load_pipeline_config",
-      "target": "core_pipeline_config_validate_timezone"
+      "target": "core_pipeline_config_require_env",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
       "context": "return_type",
       "confidence": "EXTRACTED",
       "source_file": "src/core/pipeline_config.py",
-      "source_location": "L28",
+      "source_location": "L29",
       "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "core_pipeline_config_validate_timezone",
-      "target": "src_core_pipeline_config_py_str"
+      "source": "core_pipeline_config_require_env",
+      "target": "src_core_pipeline_config_py_str",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
@@ -10077,6 +10294,17 @@
       "weight": 1.0,
       "confidence_score": 1.0,
       "source": "core_pipeline_config_load_pipeline_config",
+      "target": "src_core_pipeline_config_py_str"
+    },
+    {
+      "relation": "references",
+      "context": "return_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/core/pipeline_config.py",
+      "source_location": "L28",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "core_pipeline_config_validate_timezone",
       "target": "src_core_pipeline_config_py_str"
     },
     {
@@ -10148,6 +10376,17 @@
       "confidence_score": 0.5,
       "source": "src_core_pipeline_config_py_str",
       "target": "pipeline_contracts_similarityconfig"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/core/pipeline_config.py",
+      "source_location": "L124",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "core_pipeline_config_load_pipeline_config",
+      "target": "core_pipeline_config_validate_timezone"
     },
     {
       "relation": "calls",
@@ -10274,7 +10513,17 @@
       "source_file": "src/core/pipeline_config.py",
       "source_location": "L38",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "core_pipeline_config_rationale_38",
+      "target": "core_pipeline_config_load_pipeline_config"
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/core/pipeline_config.py",
+      "source_location": "L45",
+      "weight": 1.0,
+      "source": "core_pipeline_config_rationale_45",
       "target": "core_pipeline_config_load_pipeline_config",
       "confidence_score": 1.0
     },
@@ -11614,6 +11863,16 @@
       "target": "core_config_loader_modelconfig"
     },
     {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/core/config_loader.py",
+      "source_location": "L23",
+      "weight": 1.0,
+      "source": "core_config_loader_rationale_23",
+      "target": "core_config_loader_modelconfig",
+      "confidence_score": 1.0
+    },
+    {
       "relation": "references",
       "context": "return_type",
       "confidence": "EXTRACTED",
@@ -11696,6 +11955,16 @@
       "confidence_score": 1.0,
       "source": "core_config_loader_rationale_53",
       "target": "core_config_loader_graphconfig"
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/core/config_loader.py",
+      "source_location": "L54",
+      "weight": 1.0,
+      "source": "core_config_loader_rationale_54",
+      "target": "core_config_loader_graphconfig",
+      "confidence_score": 1.0
     },
     {
       "relation": "uses",
@@ -11811,6 +12080,16 @@
       "target": "core_config_loader_retrievalconfig"
     },
     {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/core/config_loader.py",
+      "source_location": "L70",
+      "weight": 1.0,
+      "source": "core_config_loader_rationale_70",
+      "target": "core_config_loader_retrievalconfig",
+      "confidence_score": 1.0
+    },
+    {
       "relation": "references",
       "context": "return_type",
       "confidence": "EXTRACTED",
@@ -11843,6 +12122,16 @@
       "target": "core_config_loader_plannerconfig"
     },
     {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/core/config_loader.py",
+      "source_location": "L89",
+      "weight": 1.0,
+      "source": "core_config_loader_rationale_89",
+      "target": "core_config_loader_plannerconfig",
+      "confidence_score": 1.0
+    },
+    {
       "relation": "references",
       "context": "return_type",
       "confidence": "EXTRACTED",
@@ -11862,6 +12151,16 @@
       "confidence_score": 1.0,
       "source": "core_config_loader_rationale_100",
       "target": "core_config_loader_systemconfig"
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/core/config_loader.py",
+      "source_location": "L101",
+      "weight": 1.0,
+      "source": "core_config_loader_rationale_101",
+      "target": "core_config_loader_systemconfig",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
@@ -12479,6 +12778,16 @@
       "target": "core_config_loader_load_model_config"
     },
     {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/core/config_loader.py",
+      "source_location": "L156",
+      "weight": 1.0,
+      "source": "core_config_loader_rationale_156",
+      "target": "core_config_loader_load_model_config",
+      "confidence_score": 1.0
+    },
+    {
       "relation": "calls",
       "context": "call",
       "confidence": "EXTRACTED",
@@ -12498,6 +12807,16 @@
       "confidence_score": 1.0,
       "source": "core_config_loader_rationale_205",
       "target": "core_config_loader_load_graph_config"
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/core/config_loader.py",
+      "source_location": "L206",
+      "weight": 1.0,
+      "source": "core_config_loader_rationale_206",
+      "target": "core_config_loader_load_graph_config",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -12521,6 +12840,16 @@
       "target": "core_config_loader_load_retrieval_config"
     },
     {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/core/config_loader.py",
+      "source_location": "L223",
+      "weight": 1.0,
+      "source": "core_config_loader_rationale_223",
+      "target": "core_config_loader_load_retrieval_config",
+      "confidence_score": 1.0
+    },
+    {
       "relation": "calls",
       "context": "call",
       "confidence": "EXTRACTED",
@@ -12542,6 +12871,16 @@
       "target": "core_config_loader_load_planner_config"
     },
     {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/core/config_loader.py",
+      "source_location": "L251",
+      "weight": 1.0,
+      "source": "core_config_loader_rationale_251",
+      "target": "core_config_loader_load_planner_config",
+      "confidence_score": 1.0
+    },
+    {
       "relation": "calls",
       "context": "call",
       "confidence": "EXTRACTED",
@@ -12561,6 +12900,16 @@
       "confidence_score": 1.0,
       "source": "core_config_loader_rationale_263",
       "target": "core_config_loader_load_system_config"
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/core/config_loader.py",
+      "source_location": "L264",
+      "weight": 1.0,
+      "source": "core_config_loader_rationale_264",
+      "target": "core_config_loader_load_system_config",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -12694,6 +13043,16 @@
       "target": "core_config_loader_get_repository_config"
     },
     {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/core/config_loader.py",
+      "source_location": "L333",
+      "weight": 1.0,
+      "source": "core_config_loader_rationale_333",
+      "target": "core_config_loader_get_repository_config",
+      "confidence_score": 1.0
+    },
+    {
       "relation": "calls",
       "context": "call",
       "confidence": "EXTRACTED",
@@ -12825,6 +13184,16 @@
       "target": "core_config_loader_get_coder_model_config"
     },
     {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/core/config_loader.py",
+      "source_location": "L356",
+      "weight": 1.0,
+      "source": "core_config_loader_rationale_356",
+      "target": "core_config_loader_get_coder_model_config",
+      "confidence_score": 1.0
+    },
+    {
       "relation": "calls",
       "context": "call",
       "confidence": "EXTRACTED",
@@ -12912,6 +13281,16 @@
       "target": "core_config_loader_get_semantic_model_config"
     },
     {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/core/config_loader.py",
+      "source_location": "L361",
+      "weight": 1.0,
+      "source": "core_config_loader_rationale_361",
+      "target": "core_config_loader_get_semantic_model_config",
+      "confidence_score": 1.0
+    },
+    {
       "relation": "calls",
       "context": "call",
       "confidence": "EXTRACTED",
@@ -12953,6 +13332,16 @@
       "confidence_score": 1.0,
       "source": "core_config_loader_rationale_384",
       "target": "core_config_loader_get_max_workflow_revision_cycles"
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/core/config_loader.py",
+      "source_location": "L387",
+      "weight": 1.0,
+      "source": "core_config_loader_rationale_387",
+      "target": "core_config_loader_get_max_workflow_revision_cycles",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -12998,6 +13387,16 @@
       "target": "core_config_loader_get_retrieval_config"
     },
     {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/core/config_loader.py",
+      "source_location": "L392",
+      "weight": 1.0,
+      "source": "core_config_loader_rationale_392",
+      "target": "core_config_loader_get_retrieval_config",
+      "confidence_score": 1.0
+    },
+    {
       "relation": "calls",
       "context": "call",
       "confidence": "EXTRACTED",
@@ -13028,6 +13427,16 @@
       "confidence_score": 1.0,
       "source": "core_config_loader_rationale_394",
       "target": "core_config_loader_get_planner_config"
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/core/config_loader.py",
+      "source_location": "L397",
+      "weight": 1.0,
+      "source": "core_config_loader_rationale_397",
+      "target": "core_config_loader_get_planner_config",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -13073,6 +13482,16 @@
       "target": "core_config_loader_get_semantic_threshold"
     },
     {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/core/config_loader.py",
+      "source_location": "L402",
+      "weight": 1.0,
+      "source": "core_config_loader_rationale_402",
+      "target": "core_config_loader_get_semantic_threshold",
+      "confidence_score": 1.0
+    },
+    {
       "relation": "calls",
       "context": "call",
       "confidence": "EXTRACTED",
@@ -13108,11 +13527,31 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "src/core/config_loader.py",
+      "source_location": "L407",
+      "weight": 1.0,
+      "source": "core_config_loader_rationale_407",
+      "target": "core_config_loader_get_semantic_model",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/core/config_loader.py",
       "source_location": "L413",
       "weight": 1.0,
       "confidence_score": 1.0,
       "source": "core_config_loader_rationale_413",
       "target": "core_config_loader_get_graph_config"
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/core/config_loader.py",
+      "source_location": "L416",
+      "weight": 1.0,
+      "source": "core_config_loader_rationale_416",
+      "target": "core_config_loader_get_graph_config",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -13147,6 +13586,16 @@
       "target": "core_config_loader_get_system_context_path"
     },
     {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/core/config_loader.py",
+      "source_location": "L424",
+      "weight": 1.0,
+      "source": "core_config_loader_rationale_424",
+      "target": "core_config_loader_get_system_context_path",
+      "confidence_score": 1.0
+    },
+    {
       "relation": "calls",
       "context": "call",
       "confidence": "EXTRACTED",
@@ -13177,6 +13626,16 @@
       "confidence_score": 1.0,
       "source": "core_config_loader_rationale_480",
       "target": "core_config_loader_update_repository_timestamps"
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/core/config_loader.py",
+      "source_location": "L483",
+      "weight": 1.0,
+      "source": "core_config_loader_rationale_483",
+      "target": "core_config_loader_update_repository_timestamps",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -14141,9 +14600,9 @@
       "source_file": "src/api/app.py",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "api_app_rationale_1",
-      "target": "src_api_app_py",
-      "confidence_score": 1.0
+      "target": "src_api_app_py"
     },
     {
       "relation": "contains",
@@ -14151,9 +14610,9 @@
       "source_file": "src/api/app.py",
       "source_location": "L64",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_api_app_py",
-      "target": "api_app_create_app",
-      "confidence_score": 1.0
+      "target": "api_app_create_app"
     },
     {
       "relation": "contains",
@@ -14161,9 +14620,9 @@
       "source_file": "src/api/app.py",
       "source_location": "L23",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_api_app_py",
-      "target": "api_app_make_signature_verifier",
-      "confidence_score": 1.0
+      "target": "api_app_make_signature_verifier"
     },
     {
       "relation": "imports_from",
@@ -14172,9 +14631,9 @@
       "source_file": "src/api/app.py",
       "source_location": "L15",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_api_app_py",
-      "target": "fastapi",
-      "confidence_score": 1.0
+      "target": "fastapi"
     },
     {
       "relation": "imports",
@@ -14183,9 +14642,9 @@
       "source_file": "src/api/app.py",
       "source_location": "L17",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_api_app_py",
-      "target": "scheduler_queue_taskqueue",
-      "confidence_score": 1.0
+      "target": "scheduler_queue_taskqueue"
     },
     {
       "relation": "imports",
@@ -14194,9 +14653,9 @@
       "source_file": "src/api/app.py",
       "source_location": "L18",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_api_app_py",
-      "target": "scheduler_task_pipelinetask",
-      "confidence_score": 1.0
+      "target": "scheduler_task_pipelinetask"
     },
     {
       "relation": "imports",
@@ -14205,9 +14664,9 @@
       "source_file": "src/api/app.py",
       "source_location": "L18",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_api_app_py",
-      "target": "scheduler_task_querytask",
-      "confidence_score": 1.0
+      "target": "scheduler_task_querytask"
     },
     {
       "relation": "calls",
@@ -14216,9 +14675,9 @@
       "source_file": "src/api/app.py",
       "source_location": "L73",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "api_app_create_app",
-      "target": "api_app_make_signature_verifier",
-      "confidence_score": 1.0
+      "target": "api_app_make_signature_verifier"
     },
     {
       "relation": "references",
@@ -14227,9 +14686,9 @@
       "source_file": "src/api/app.py",
       "source_location": "L23",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "api_app_make_signature_verifier",
-      "target": "src_api_app_py_str",
-      "confidence_score": 1.0
+      "target": "src_api_app_py_str"
     },
     {
       "relation": "rationale_for",
@@ -14237,9 +14696,9 @@
       "source_file": "src/api/app.py",
       "source_location": "L24",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "api_app_rationale_24",
-      "target": "api_app_make_signature_verifier",
-      "confidence_score": 1.0
+      "target": "api_app_make_signature_verifier"
     },
     {
       "relation": "references",
@@ -14248,9 +14707,9 @@
       "source_file": "src/api/app.py",
       "source_location": "L64",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "api_app_create_app",
-      "target": "src_api_app_py_str",
-      "confidence_score": 1.0
+      "target": "src_api_app_py_str"
     },
     {
       "relation": "uses",
@@ -14258,9 +14717,9 @@
       "source_file": "src/api/app.py",
       "source_location": "L17",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "src_api_app_py_str",
-      "target": "scheduler_queue_taskqueue",
-      "confidence_score": 0.5
+      "target": "scheduler_queue_taskqueue"
     },
     {
       "relation": "uses",
@@ -14268,9 +14727,9 @@
       "source_file": "src/api/app.py",
       "source_location": "L18",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "src_api_app_py_str",
-      "target": "scheduler_task_pipelinetask",
-      "confidence_score": 0.5
+      "target": "scheduler_task_pipelinetask"
     },
     {
       "relation": "uses",
@@ -14278,9 +14737,9 @@
       "source_file": "src/api/app.py",
       "source_location": "L18",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "src_api_app_py_str",
-      "target": "scheduler_task_querytask",
-      "confidence_score": 0.5
+      "target": "scheduler_task_querytask"
     },
     {
       "relation": "references",
@@ -14289,9 +14748,9 @@
       "source_file": "src/api/app.py",
       "source_location": "L64",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "api_app_create_app",
-      "target": "fastapi",
-      "confidence_score": 1.0
+      "target": "fastapi"
     },
     {
       "relation": "calls",
@@ -14300,9 +14759,9 @@
       "source_file": "src/api/app.py",
       "source_location": "L92",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "api_app_create_app",
-      "target": "scheduler_task_pipelinetask",
-      "confidence_score": 1.0
+      "target": "scheduler_task_pipelinetask"
     },
     {
       "relation": "calls",
@@ -14311,9 +14770,9 @@
       "source_file": "src/api/app.py",
       "source_location": "L79",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "api_app_create_app",
-      "target": "scheduler_task_querytask",
-      "confidence_score": 1.0
+      "target": "scheduler_task_querytask"
     },
     {
       "relation": "references",
@@ -14322,9 +14781,9 @@
       "source_file": "src/api/app.py",
       "source_location": "L64",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "api_app_create_app",
-      "target": "src_api_app_py_taskqueue",
-      "confidence_score": 1.0
+      "target": "src_api_app_py_taskqueue"
     },
     {
       "relation": "rationale_for",
@@ -14332,9 +14791,9 @@
       "source_file": "src/api/app.py",
       "source_location": "L65",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "api_app_rationale_65",
-      "target": "api_app_create_app",
-      "confidence_score": 1.0
+      "target": "api_app_create_app"
     },
     {
       "relation": "uses",
@@ -14342,9 +14801,9 @@
       "source_file": "src/api/app.py",
       "source_location": "L17",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "src_api_app_py_taskqueue",
-      "target": "scheduler_queue_taskqueue",
-      "confidence_score": 0.5
+      "target": "scheduler_queue_taskqueue"
     },
     {
       "relation": "uses",
@@ -14352,9 +14811,9 @@
       "source_file": "src/api/app.py",
       "source_location": "L18",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "src_api_app_py_taskqueue",
-      "target": "scheduler_task_pipelinetask",
-      "confidence_score": 0.5
+      "target": "scheduler_task_pipelinetask"
     },
     {
       "relation": "uses",
@@ -14362,9 +14821,9 @@
       "source_file": "src/api/app.py",
       "source_location": "L18",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "src_api_app_py_taskqueue",
-      "target": "scheduler_task_querytask",
-      "confidence_score": 0.5
+      "target": "scheduler_task_querytask"
     },
     {
       "relation": "uses",
@@ -14372,9 +14831,9 @@
       "source_file": "src/api/app.py",
       "source_location": "L17",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "fastapi",
-      "target": "scheduler_queue_taskqueue",
-      "confidence_score": 0.5
+      "target": "scheduler_queue_taskqueue"
     },
     {
       "relation": "uses",
@@ -14382,9 +14841,9 @@
       "source_file": "src/api/app.py",
       "source_location": "L18",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "fastapi",
-      "target": "scheduler_task_pipelinetask",
-      "confidence_score": 0.5
+      "target": "scheduler_task_pipelinetask"
     },
     {
       "relation": "uses",
@@ -14392,9 +14851,9 @@
       "source_file": "src/api/app.py",
       "source_location": "L18",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "fastapi",
-      "target": "scheduler_task_querytask",
-      "confidence_score": 0.5
+      "target": "scheduler_task_querytask"
     },
     {
       "relation": "rationale_for",
@@ -14722,9 +15181,9 @@
       "source_file": "src/scheduler/loop.py",
       "source_location": "L5",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "src_scheduler_loop_py_taskqueue",
-      "target": "scheduler_dispatcher_taskdispatcher",
-      "confidence_score": 0.5
+      "target": "scheduler_dispatcher_taskdispatcher"
     },
     {
       "relation": "uses",
@@ -15855,9 +16314,9 @@
       "source_file": "src/scheduler/loop.py",
       "source_location": "L6",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "src_scheduler_loop_py_taskqueue",
-      "target": "scheduler_queue_taskqueue",
-      "confidence_score": 0.5
+      "target": "scheduler_queue_taskqueue"
     },
     {
       "relation": "uses",
@@ -16081,9 +16540,9 @@
       "source_file": "src/scheduler/loop.py",
       "source_location": "L21",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scheduler_loop_executionloop_init",
-      "target": "src_scheduler_loop_py_taskqueue",
-      "confidence_score": 1.0
+      "target": "src_scheduler_loop_py_taskqueue"
     },
     {
       "relation": "references",
@@ -31953,5 +32412,5 @@
       "source_file": "docs/CONTEXT_CONTRACT.md"
     }
   ],
-  "built_at_commit": "d3b2c62f2860e7b43044b80db508966a5d86358c"
+  "built_at_commit": "845c86aa0711948365539105adaeaf25f6f0dd4d"
 }
