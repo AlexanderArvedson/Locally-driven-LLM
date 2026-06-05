@@ -518,7 +518,7 @@
       "source_file": "src/tools/patches.py",
       "source_location": "L31",
       "id": "tools_patches_generate_unified",
-      "community": 47,
+      "community": 4,
       "norm_label": "generate_unified()"
     },
     {
@@ -554,7 +554,7 @@
       "source_file": "src/tools/patches.py",
       "source_location": "L32",
       "id": "tools_patches_rationale_32",
-      "community": 47,
+      "community": 4,
       "norm_label": "return a unified diff string describing changes from original -> modified."
     },
     {
@@ -698,7 +698,7 @@
       "source_file": "src/core/ollama_client.py",
       "source_location": "L42",
       "id": "core_ollama_client_ollamaclient",
-      "community": 10,
+      "community": 2,
       "norm_label": "ollamaclient"
     },
     {
@@ -2201,7 +2201,7 @@
       "source_file": "src/pipeline/extractor.py",
       "source_location": "L117",
       "id": "src_pipeline_extractor_py_int",
-      "community": 67,
+      "community": 66,
       "norm_label": "int"
     },
     {
@@ -2228,7 +2228,7 @@
       "source_file": "src/pipeline/extractor.py",
       "source_location": "L130",
       "id": "src_pipeline_extractor_py_bool",
-      "community": 67,
+      "community": 66,
       "norm_label": "bool"
     },
     {
@@ -2376,12 +2376,129 @@
       "norm_label": "return one functionrecord per function/method found in the repository."
     },
     {
+      "label": "query.py",
+      "file_type": "code",
+      "source_file": "src/pipeline/query.py",
+      "source_location": "L1",
+      "id": "src_pipeline_query_py",
+      "community": 2,
+      "norm_label": "query.py"
+    },
+    {
+      "label": "QueryMatch",
+      "file_type": "code",
+      "source_file": "src/pipeline/query.py",
+      "source_location": "L19",
+      "id": "pipeline_query_querymatch",
+      "community": 2,
+      "norm_label": "querymatch"
+    },
+    {
+      "label": "QueryResult",
+      "file_type": "code",
+      "source_file": "src/pipeline/query.py",
+      "source_location": "L30",
+      "id": "pipeline_query_queryresult",
+      "community": 2,
+      "norm_label": "queryresult"
+    },
+    {
+      "label": "search()",
+      "file_type": "code",
+      "source_file": "src/pipeline/query.py",
+      "source_location": "L38",
+      "id": "pipeline_query_search",
+      "community": 2,
+      "norm_label": "search()"
+    },
+    {
+      "label": "Neo4jStore",
+      "file_type": "code",
+      "source_file": "src/pipeline/query.py",
+      "source_location": "L38",
+      "id": "src_pipeline_query_py_neo4jstore",
+      "community": 2,
+      "norm_label": "neo4jstore"
+    },
+    {
+      "label": "OllamaClient",
+      "file_type": "code",
+      "source_file": "src/pipeline/query.py",
+      "source_location": "L38",
+      "id": "src_pipeline_query_py_ollamaclient",
+      "community": 2,
+      "norm_label": "ollamaclient"
+    },
+    {
+      "label": "str",
+      "file_type": "code",
+      "source_file": "src/pipeline/query.py",
+      "source_location": "L38",
+      "id": "src_pipeline_query_py_str",
+      "community": 2,
+      "norm_label": "str"
+    },
+    {
+      "label": "PipelineConfig",
+      "file_type": "code",
+      "source_file": "src/pipeline/query.py",
+      "source_location": "L38",
+      "id": "src_pipeline_query_py_pipelineconfig",
+      "community": 2,
+      "norm_label": "pipelineconfig"
+    },
+    {
+      "label": "int",
+      "file_type": "code",
+      "source_file": "src/pipeline/query.py",
+      "source_location": "L38",
+      "id": "src_pipeline_query_py_int",
+      "community": 2,
+      "norm_label": "int"
+    },
+    {
+      "label": "Semantic search engine for functions stored in Neo4j.  Embeds a free-text query",
+      "file_type": "rationale",
+      "source_file": "src/pipeline/query.py",
+      "source_location": "L1",
+      "id": "pipeline_query_rationale_1",
+      "community": 2,
+      "norm_label": "semantic search engine for functions stored in neo4j.  embeds a free-text query"
+    },
+    {
+      "label": "A single function returned by a semantic search.",
+      "file_type": "rationale",
+      "source_file": "src/pipeline/query.py",
+      "source_location": "L20",
+      "id": "pipeline_query_rationale_20",
+      "community": 2,
+      "norm_label": "a single function returned by a semantic search."
+    },
+    {
+      "label": "Aggregated result from a semantic search over the Neo4j vector indexes.",
+      "file_type": "rationale",
+      "source_file": "src/pipeline/query.py",
+      "source_location": "L31",
+      "id": "pipeline_query_rationale_31",
+      "community": 2,
+      "norm_label": "aggregated result from a semantic search over the neo4j vector indexes."
+    },
+    {
+      "label": "Embed query_text and return the top-N most similar functions from Neo4j.      Qu",
+      "file_type": "rationale",
+      "source_file": "src/pipeline/query.py",
+      "source_location": "L46",
+      "id": "pipeline_query_rationale_46",
+      "community": 2,
+      "norm_label": "embed query_text and return the top-n most similar functions from neo4j.      qu"
+    },
+    {
       "label": "embedder.py",
       "file_type": "code",
       "source_file": "src/pipeline/embedder.py",
       "source_location": "L1",
       "id": "src_pipeline_embedder_py",
-      "community": 66,
+      "community": 2,
       "norm_label": "embedder.py"
     },
     {
@@ -2399,7 +2516,7 @@
       "source_file": "src/pipeline/embedder.py",
       "source_location": "L21",
       "id": "pipeline_embedder_embeddingservice_init",
-      "community": 66,
+      "community": 2,
       "norm_label": ".__init__()"
     },
     {
@@ -2408,7 +2525,7 @@
       "source_file": "src/pipeline/embedder.py",
       "source_location": "L21",
       "id": "src_pipeline_embedder_py_ollamaclient",
-      "community": 66,
+      "community": 2,
       "norm_label": "ollamaclient"
     },
     {
@@ -2417,7 +2534,7 @@
       "source_file": "src/pipeline/embedder.py",
       "source_location": "L21",
       "id": "src_pipeline_embedder_py_pipelineconfig",
-      "community": 66,
+      "community": 2,
       "norm_label": "pipelineconfig"
     },
     {
@@ -2471,7 +2588,7 @@
       "source_file": "src/pipeline/embedder.py",
       "source_location": "L1",
       "id": "pipeline_embedder_rationale_1",
-      "community": 66,
+      "community": 2,
       "norm_label": "embedding service for code and description vectors.  wraps ``ollamaclient.embed("
     },
     {
@@ -2714,7 +2831,7 @@
       "source_file": "src/pipeline/contracts.py",
       "source_location": "L113",
       "id": "pipeline_contracts_pipelineconfig",
-      "community": 66,
+      "community": 2,
       "norm_label": "pipelineconfig"
     },
     {
@@ -2723,7 +2840,7 @@
       "source_file": "src/pipeline/contracts.py",
       "source_location": "L134",
       "id": "pipeline_contracts_pipelineresult",
-      "community": 29,
+      "community": 10,
       "norm_label": "pipelineresult"
     },
     {
@@ -2786,7 +2903,7 @@
       "source_file": "src/pipeline/contracts.py",
       "source_location": "L135",
       "id": "pipeline_contracts_rationale_135",
-      "community": 29,
+      "community": 10,
       "norm_label": "summary of a completed pipeline run."
     },
     {
@@ -2795,7 +2912,7 @@
       "source_file": "src/pipeline/describer.py",
       "source_location": "L1",
       "id": "src_pipeline_describer_py",
-      "community": 66,
+      "community": 70,
       "norm_label": "describer.py"
     },
     {
@@ -2885,7 +3002,7 @@
       "source_file": "src/pipeline/describer.py",
       "source_location": "L1",
       "id": "pipeline_describer_rationale_1",
-      "community": 66,
+      "community": 70,
       "norm_label": "description service for llm-generated function summaries.  wraps ``ollamaclient."
     },
     {
@@ -2930,7 +3047,7 @@
       "source_file": "src/pipeline/neo4j_store.py",
       "source_location": "L1",
       "id": "src_pipeline_neo4j_store_py",
-      "community": 72,
+      "community": 74,
       "norm_label": "neo4j_store.py"
     },
     {
@@ -2939,7 +3056,7 @@
       "source_file": "src/pipeline/neo4j_store.py",
       "source_location": "L20",
       "id": "pipeline_neo4j_store_ddl",
-      "community": 72,
+      "community": 74,
       "norm_label": "_ddl()"
     },
     {
@@ -2957,7 +3074,7 @@
       "source_file": "src/pipeline/neo4j_store.py",
       "source_location": "L20",
       "id": "src_pipeline_neo4j_store_py_int",
-      "community": 72,
+      "community": 74,
       "norm_label": "int"
     },
     {
@@ -2966,50 +3083,50 @@
       "source_file": "src/pipeline/neo4j_store.py",
       "source_location": "L20",
       "id": "literalstring",
-      "community": 72,
+      "community": 74,
       "norm_label": "literalstring"
     },
     {
       "label": "Neo4jStore",
       "file_type": "code",
       "source_file": "src/pipeline/neo4j_store.py",
-      "source_location": "L147",
+      "source_location": "L154",
       "id": "pipeline_neo4j_store_neo4jstore",
-      "community": 74,
+      "community": 54,
       "norm_label": "neo4jstore"
     },
     {
       "label": ".__init__()",
       "file_type": "code",
       "source_file": "src/pipeline/neo4j_store.py",
-      "source_location": "L150",
+      "source_location": "L157",
       "id": "pipeline_neo4j_store_neo4jstore_init",
-      "community": 72,
+      "community": 74,
       "norm_label": ".__init__()"
     },
     {
       "label": "Neo4jConfig",
       "file_type": "code",
       "source_file": "src/pipeline/neo4j_store.py",
-      "source_location": "L150",
+      "source_location": "L157",
       "id": "src_pipeline_neo4j_store_py_neo4jconfig",
-      "community": 72,
+      "community": 74,
       "norm_label": "neo4jconfig"
     },
     {
       "label": ".close()",
       "file_type": "code",
       "source_file": "src/pipeline/neo4j_store.py",
-      "source_location": "L165",
+      "source_location": "L172",
       "id": "pipeline_neo4j_store_neo4jstore_close",
-      "community": 74,
+      "community": 72,
       "norm_label": ".close()"
     },
     {
       "label": ".ensure_schema()",
       "file_type": "code",
       "source_file": "src/pipeline/neo4j_store.py",
-      "source_location": "L169",
+      "source_location": "L176",
       "id": "pipeline_neo4j_store_neo4jstore_ensure_schema",
       "community": 74,
       "norm_label": ".ensure_schema()"
@@ -3018,7 +3135,7 @@
       "label": "._ensure_vector_indexes()",
       "file_type": "code",
       "source_file": "src/pipeline/neo4j_store.py",
-      "source_location": "L187",
+      "source_location": "L194",
       "id": "pipeline_neo4j_store_neo4jstore_ensure_vector_indexes",
       "community": 72,
       "norm_label": "._ensure_vector_indexes()"
@@ -3027,16 +3144,16 @@
       "label": ".get_existing_hashes()",
       "file_type": "code",
       "source_file": "src/pipeline/neo4j_store.py",
-      "source_location": "L196",
+      "source_location": "L203",
       "id": "pipeline_neo4j_store_neo4jstore_get_existing_hashes",
-      "community": 36,
+      "community": 72,
       "norm_label": ".get_existing_hashes()"
     },
     {
       "label": ".upsert_functions_batch()",
       "file_type": "code",
       "source_file": "src/pipeline/neo4j_store.py",
-      "source_location": "L203",
+      "source_location": "L210",
       "id": "pipeline_neo4j_store_neo4jstore_upsert_functions_batch",
       "community": 72,
       "norm_label": ".upsert_functions_batch()"
@@ -3045,7 +3162,7 @@
       "label": "FunctionRecord",
       "file_type": "code",
       "source_file": "src/pipeline/neo4j_store.py",
-      "source_location": "L203",
+      "source_location": "L210",
       "id": "src_pipeline_neo4j_store_py_functionrecord",
       "community": 72,
       "norm_label": "functionrecord"
@@ -3054,16 +3171,16 @@
       "label": ".soft_delete_missing()",
       "file_type": "code",
       "source_file": "src/pipeline/neo4j_store.py",
-      "source_location": "L243",
+      "source_location": "L250",
       "id": "pipeline_neo4j_store_neo4jstore_soft_delete_missing",
-      "community": 75,
+      "community": 27,
       "norm_label": ".soft_delete_missing()"
     },
     {
       "label": ".get_all_embeddings()",
       "file_type": "code",
       "source_file": "src/pipeline/neo4j_store.py",
-      "source_location": "L250",
+      "source_location": "L257",
       "id": "pipeline_neo4j_store_neo4jstore_get_all_embeddings",
       "community": 75,
       "norm_label": ".get_all_embeddings()"
@@ -3072,7 +3189,7 @@
       "label": "bool",
       "file_type": "code",
       "source_file": "src/pipeline/neo4j_store.py",
-      "source_location": "L250",
+      "source_location": "L257",
       "id": "src_pipeline_neo4j_store_py_bool",
       "community": 75,
       "norm_label": "bool"
@@ -3081,7 +3198,7 @@
       "label": "float",
       "file_type": "code",
       "source_file": "src/pipeline/neo4j_store.py",
-      "source_location": "L250",
+      "source_location": "L257",
       "id": "src_pipeline_neo4j_store_py_float",
       "community": 75,
       "norm_label": "float"
@@ -3090,7 +3207,7 @@
       "label": ".query_code_neighbors()",
       "file_type": "code",
       "source_file": "src/pipeline/neo4j_store.py",
-      "source_location": "L266",
+      "source_location": "L273",
       "id": "pipeline_neo4j_store_neo4jstore_query_code_neighbors",
       "community": 75,
       "norm_label": ".query_code_neighbors()"
@@ -3099,7 +3216,7 @@
       "label": ".query_desc_neighbors()",
       "file_type": "code",
       "source_file": "src/pipeline/neo4j_store.py",
-      "source_location": "L291",
+      "source_location": "L298",
       "id": "pipeline_neo4j_store_neo4jstore_query_desc_neighbors",
       "community": 75,
       "norm_label": ".query_desc_neighbors()"
@@ -3108,27 +3225,36 @@
       "label": ".delete_similarity_edges()",
       "file_type": "code",
       "source_file": "src/pipeline/neo4j_store.py",
-      "source_location": "L316",
+      "source_location": "L323",
       "id": "pipeline_neo4j_store_neo4jstore_delete_similarity_edges",
       "community": 75,
       "norm_label": ".delete_similarity_edges()"
     },
     {
+      "label": ".get_functions_by_ids()",
+      "file_type": "code",
+      "source_file": "src/pipeline/neo4j_store.py",
+      "source_location": "L332",
+      "id": "pipeline_neo4j_store_neo4jstore_get_functions_by_ids",
+      "community": 75,
+      "norm_label": ".get_functions_by_ids()"
+    },
+    {
       "label": ".upsert_similarity_edges_batch()",
       "file_type": "code",
       "source_file": "src/pipeline/neo4j_store.py",
-      "source_location": "L325",
+      "source_location": "L338",
       "id": "pipeline_neo4j_store_neo4jstore_upsert_similarity_edges_batch",
-      "community": 72,
+      "community": 12,
       "norm_label": ".upsert_similarity_edges_batch()"
     },
     {
       "label": "SimilarityEdge",
       "file_type": "code",
       "source_file": "src/pipeline/neo4j_store.py",
-      "source_location": "L325",
+      "source_location": "L338",
       "id": "src_pipeline_neo4j_store_py_similarityedge",
-      "community": 72,
+      "community": 12,
       "norm_label": "similarityedge"
     },
     {
@@ -3137,7 +3263,7 @@
       "source_file": "src/pipeline/neo4j_store.py",
       "source_location": "L1",
       "id": "pipeline_neo4j_store_rationale_1",
-      "community": 72,
+      "community": 74,
       "norm_label": "neo4j data store for function nodes and similar_to relationships.  uses the offi"
     },
     {
@@ -3146,33 +3272,33 @@
       "source_file": "src/pipeline/neo4j_store.py",
       "source_location": "L21",
       "id": "pipeline_neo4j_store_rationale_21",
-      "community": 72,
+      "community": 74,
       "norm_label": "format a ddl template with integer-only substitutions and assert literalstring."
     },
     {
       "label": "Async Neo4j driver wrapper for Function nodes and SIMILAR_TO edges.",
       "file_type": "rationale",
       "source_file": "src/pipeline/neo4j_store.py",
-      "source_location": "L148",
-      "id": "pipeline_neo4j_store_rationale_148",
-      "community": 74,
+      "source_location": "L155",
+      "id": "pipeline_neo4j_store_rationale_155",
+      "community": 54,
       "norm_label": "async neo4j driver wrapper for function nodes and similar_to edges."
     },
     {
       "label": "Close the driver connection pool.",
       "file_type": "rationale",
       "source_file": "src/pipeline/neo4j_store.py",
-      "source_location": "L166",
-      "id": "pipeline_neo4j_store_rationale_166",
-      "community": 74,
+      "source_location": "L173",
+      "id": "pipeline_neo4j_store_rationale_173",
+      "community": 72,
       "norm_label": "close the driver connection pool."
     },
     {
       "label": "Idempotently create constraints and indexes.          Args:             vector_d",
       "file_type": "rationale",
       "source_file": "src/pipeline/neo4j_store.py",
-      "source_location": "L170",
-      "id": "pipeline_neo4j_store_rationale_170",
+      "source_location": "L177",
+      "id": "pipeline_neo4j_store_rationale_177",
       "community": 74,
       "norm_label": "idempotently create constraints and indexes.          args:             vector_d"
     },
@@ -3180,8 +3306,8 @@
       "label": "Create vector indexes once the embedding dimension is known.",
       "file_type": "rationale",
       "source_file": "src/pipeline/neo4j_store.py",
-      "source_location": "L188",
-      "id": "pipeline_neo4j_store_rationale_188",
+      "source_location": "L195",
+      "id": "pipeline_neo4j_store_rationale_195",
       "community": 72,
       "norm_label": "create vector indexes once the embedding dimension is known."
     },
@@ -3189,17 +3315,17 @@
       "label": "Return ``{function_id: source_hash}`` for all live functions in the repo.",
       "file_type": "rationale",
       "source_file": "src/pipeline/neo4j_store.py",
-      "source_location": "L197",
-      "id": "pipeline_neo4j_store_rationale_197",
-      "community": 36,
+      "source_location": "L204",
+      "id": "pipeline_neo4j_store_rationale_204",
+      "community": 72,
       "norm_label": "return ``{function_id: source_hash}`` for all live functions in the repo."
     },
     {
       "label": "Batch-upsert Function nodes using UNWIND for efficiency.",
       "file_type": "rationale",
       "source_file": "src/pipeline/neo4j_store.py",
-      "source_location": "L204",
-      "id": "pipeline_neo4j_store_rationale_204",
+      "source_location": "L211",
+      "id": "pipeline_neo4j_store_rationale_211",
       "community": 72,
       "norm_label": "batch-upsert function nodes using unwind for efficiency."
     },
@@ -3207,17 +3333,17 @@
       "label": "Mark functions not in ``seen_ids`` as deleted. Returns count.",
       "file_type": "rationale",
       "source_file": "src/pipeline/neo4j_store.py",
-      "source_location": "L244",
-      "id": "pipeline_neo4j_store_rationale_244",
-      "community": 75,
+      "source_location": "L251",
+      "id": "pipeline_neo4j_store_rationale_251",
+      "community": 27,
       "norm_label": "mark functions not in ``seen_ids`` as deleted. returns count."
     },
     {
       "label": "Return ``[(id, code_embedding, description_embedding)]`` for all live functions.",
       "file_type": "rationale",
       "source_file": "src/pipeline/neo4j_store.py",
-      "source_location": "L255",
-      "id": "pipeline_neo4j_store_rationale_255",
+      "source_location": "L262",
+      "id": "pipeline_neo4j_store_rationale_262",
       "community": 75,
       "norm_label": "return ``[(id, code_embedding, description_embedding)]`` for all live functions."
     },
@@ -3225,8 +3351,8 @@
       "label": "Return top-N code-similar functions using the HNSW vector index.          Result",
       "file_type": "rationale",
       "source_file": "src/pipeline/neo4j_store.py",
-      "source_location": "L274",
-      "id": "pipeline_neo4j_store_rationale_274",
+      "source_location": "L281",
+      "id": "pipeline_neo4j_store_rationale_281",
       "community": 75,
       "norm_label": "return top-n code-similar functions using the hnsw vector index.          result"
     },
@@ -3234,8 +3360,8 @@
       "label": "Return top-N description-similar functions using the HNSW vector index.",
       "file_type": "rationale",
       "source_file": "src/pipeline/neo4j_store.py",
-      "source_location": "L299",
-      "id": "pipeline_neo4j_store_rationale_299",
+      "source_location": "L306",
+      "id": "pipeline_neo4j_store_rationale_306",
       "community": 75,
       "norm_label": "return top-n description-similar functions using the hnsw vector index."
     },
@@ -3243,18 +3369,27 @@
       "label": "Delete all SIMILAR_TO edges originating from functions in this repo.          Ca",
       "file_type": "rationale",
       "source_file": "src/pipeline/neo4j_store.py",
-      "source_location": "L317",
-      "id": "pipeline_neo4j_store_rationale_317",
+      "source_location": "L324",
+      "id": "pipeline_neo4j_store_rationale_324",
       "community": 75,
       "norm_label": "delete all similar_to edges originating from functions in this repo.          ca"
+    },
+    {
+      "label": "Return qualifiedName, filePath, and description for each requested function id.",
+      "file_type": "rationale",
+      "source_file": "src/pipeline/neo4j_store.py",
+      "source_location": "L333",
+      "id": "pipeline_neo4j_store_rationale_333",
+      "community": 75,
+      "norm_label": "return qualifiedname, filepath, and description for each requested function id."
     },
     {
       "label": "Batch-upsert SIMILAR_TO relationships using UNWIND.",
       "file_type": "rationale",
       "source_file": "src/pipeline/neo4j_store.py",
-      "source_location": "L326",
-      "id": "pipeline_neo4j_store_rationale_326",
-      "community": 72,
+      "source_location": "L339",
+      "id": "pipeline_neo4j_store_rationale_339",
+      "community": 12,
       "norm_label": "batch-upsert similar_to relationships using unwind."
     },
     {
@@ -3821,7 +3956,7 @@
       "source_file": "src/retrieval/assembly/context_assembler.py",
       "source_location": "L36",
       "id": "assembly_context_assembler_contextassembler",
-      "community": 2,
+      "community": 3,
       "norm_label": "contextassembler"
     },
     {
@@ -3866,7 +4001,7 @@
       "source_file": "src/retrieval/assembly/context_assembler.py",
       "source_location": "L37",
       "id": "assembly_context_assembler_rationale_37",
-      "community": 2,
+      "community": 3,
       "norm_label": "deterministic, capped context assembler that consumes a snapshot.      returns a"
     },
     {
@@ -4154,7 +4289,7 @@
       "source_file": "src/retrieval/ranking/graph_ranker.py",
       "source_location": "L1",
       "id": "src_retrieval_ranking_graph_ranker_py",
-      "community": 12,
+      "community": 6,
       "norm_label": "graph_ranker.py"
     },
     {
@@ -4163,7 +4298,7 @@
       "source_file": "src/retrieval/ranking/graph_ranker.py",
       "source_location": "L17",
       "id": "ranking_graph_ranker_graphranker",
-      "community": 2,
+      "community": 6,
       "norm_label": "graphranker"
     },
     {
@@ -4172,7 +4307,7 @@
       "source_file": "src/retrieval/ranking/graph_ranker.py",
       "source_location": "L24",
       "id": "ranking_graph_ranker_graphranker_rank_candidates",
-      "community": 12,
+      "community": 6,
       "norm_label": ".rank_candidates()"
     },
     {
@@ -4181,7 +4316,7 @@
       "source_file": "src/retrieval/ranking/graph_ranker.py",
       "source_location": "L24",
       "id": "src_retrieval_ranking_graph_ranker_py_str",
-      "community": 12,
+      "community": 6,
       "norm_label": "str"
     },
     {
@@ -4190,7 +4325,7 @@
       "source_file": "src/retrieval/ranking/graph_ranker.py",
       "source_location": "L24",
       "id": "graphquery",
-      "community": 12,
+      "community": 6,
       "norm_label": "graphquery"
     },
     {
@@ -4199,7 +4334,7 @@
       "source_file": "src/retrieval/ranking/graph_ranker.py",
       "source_location": "L24",
       "id": "src_retrieval_ranking_graph_ranker_py_int",
-      "community": 12,
+      "community": 6,
       "norm_label": "int"
     },
     {
@@ -4208,7 +4343,7 @@
       "source_file": "src/retrieval/ranking/graph_ranker.py",
       "source_location": "L1",
       "id": "ranking_graph_ranker_rationale_1",
-      "community": 12,
+      "community": 6,
       "norm_label": "graph-aware file ranker.  graphranker uses a graphquery instance to rank file ca"
     },
     {
@@ -4217,7 +4352,7 @@
       "source_file": "src/retrieval/ranking/graph_ranker.py",
       "source_location": "L18",
       "id": "ranking_graph_ranker_rationale_18",
-      "community": 2,
+      "community": 6,
       "norm_label": "ranks file candidates using the knowledge graph as a retrieval index.      the g"
     },
     {
@@ -4226,7 +4361,7 @@
       "source_file": "src/retrieval/ranking/graph_ranker.py",
       "source_location": "L32",
       "id": "ranking_graph_ranker_rationale_32",
-      "community": 12,
+      "community": 6,
       "norm_label": "return an ordered list of file paths relevant to `task`.          pipeline:"
     },
     {
@@ -4253,7 +4388,7 @@
       "source_file": "src/retrieval/ranking/heuristic_ranker.py",
       "source_location": "L20",
       "id": "ranking_heuristic_ranker_rankerprotocol_rank_candidates",
-      "community": 4,
+      "community": 3,
       "norm_label": ".rank_candidates()"
     },
     {
@@ -4262,7 +4397,7 @@
       "source_file": "src/retrieval/ranking/heuristic_ranker.py",
       "source_location": "L20",
       "id": "src_retrieval_ranking_heuristic_ranker_py_str",
-      "community": 4,
+      "community": 3,
       "norm_label": "str"
     },
     {
@@ -4271,7 +4406,7 @@
       "source_file": "src/retrieval/ranking/heuristic_ranker.py",
       "source_location": "L20",
       "id": "src_retrieval_ranking_heuristic_ranker_py_repositorysnapshot",
-      "community": 4,
+      "community": 3,
       "norm_label": "repositorysnapshot"
     },
     {
@@ -4280,7 +4415,7 @@
       "source_file": "src/retrieval/ranking/heuristic_ranker.py",
       "source_location": "L20",
       "id": "src_retrieval_ranking_heuristic_ranker_py_int",
-      "community": 4,
+      "community": 3,
       "norm_label": "int"
     },
     {
@@ -4289,7 +4424,7 @@
       "source_file": "src/retrieval/ranking/heuristic_ranker.py",
       "source_location": "L31",
       "id": "ranking_heuristic_ranker_heuristicranker",
-      "community": 4,
+      "community": 3,
       "norm_label": "heuristicranker"
     },
     {
@@ -4298,7 +4433,7 @@
       "source_file": "src/retrieval/ranking/heuristic_ranker.py",
       "source_location": "L45",
       "id": "ranking_heuristic_ranker_heuristicranker_rank_candidates",
-      "community": 4,
+      "community": 3,
       "norm_label": ".rank_candidates()"
     },
     {
@@ -4307,7 +4442,7 @@
       "source_file": "src/retrieval/ranking/heuristic_ranker.py",
       "source_location": "L105",
       "id": "ranking_heuristic_ranker_heuristicranker_is_test_path",
-      "community": 4,
+      "community": 3,
       "norm_label": "._is_test_path()"
     },
     {
@@ -4316,7 +4451,7 @@
       "source_file": "src/retrieval/ranking/heuristic_ranker.py",
       "source_location": "L105",
       "id": "src_retrieval_ranking_heuristic_ranker_py_bool",
-      "community": 4,
+      "community": 3,
       "norm_label": "bool"
     },
     {
@@ -4325,7 +4460,7 @@
       "source_file": "src/retrieval/ranking/heuristic_ranker.py",
       "source_location": "L111",
       "id": "ranking_heuristic_ranker_heuristicranker_task_terms",
-      "community": 4,
+      "community": 3,
       "norm_label": "._task_terms()"
     },
     {
@@ -4334,7 +4469,7 @@
       "source_file": "src/retrieval/ranking/heuristic_ranker.py",
       "source_location": "L116",
       "id": "ranking_heuristic_ranker_heuristicranker_task_term_hits",
-      "community": 4,
+      "community": 3,
       "norm_label": "._task_term_hits()"
     },
     {
@@ -4361,7 +4496,7 @@
       "source_file": "src/retrieval/ranking/heuristic_ranker.py",
       "source_location": "L27",
       "id": "ranking_heuristic_ranker_rationale_27",
-      "community": 4,
+      "community": 3,
       "norm_label": "return a deterministic, ordered list of file paths."
     },
     {
@@ -4370,7 +4505,7 @@
       "source_file": "src/retrieval/ranking/heuristic_ranker.py",
       "source_location": "L32",
       "id": "ranking_heuristic_ranker_rationale_32",
-      "community": 4,
+      "community": 3,
       "norm_label": "deterministic, heuristic-based file ranker.      ordering rules (score-based, de"
     },
     {
@@ -4397,7 +4532,7 @@
       "source_file": "src/retrieval/budgeting/context_budget.py",
       "source_location": "L47",
       "id": "budgeting_context_budget_contextbudget",
-      "community": 2,
+      "community": 6,
       "norm_label": "contextbudget"
     },
     {
@@ -4406,7 +4541,7 @@
       "source_file": "src/retrieval/budgeting/context_budget.py",
       "source_location": "L55",
       "id": "budgeting_context_budget_contextbudget_init",
-      "community": 2,
+      "community": 6,
       "norm_label": ".__init__()"
     },
     {
@@ -4415,7 +4550,7 @@
       "source_file": "src/retrieval/budgeting/context_budget.py",
       "source_location": "L55",
       "id": "src_retrieval_budgeting_context_budget_py_int",
-      "community": 2,
+      "community": 6,
       "norm_label": "int"
     },
     {
@@ -4424,7 +4559,7 @@
       "source_file": "src/retrieval/budgeting/context_budget.py",
       "source_location": "L55",
       "id": "tokencounter",
-      "community": 2,
+      "community": 6,
       "norm_label": "tokencounter"
     },
     {
@@ -4469,7 +4604,7 @@
       "source_file": "src/retrieval/budgeting/context_budget.py",
       "source_location": "L48",
       "id": "budgeting_context_budget_rationale_48",
-      "community": 2,
+      "community": 6,
       "norm_label": "allocates ranked files against char-per-file, file-count, and token limits."
     },
     {
@@ -5045,7 +5180,7 @@
       "source_file": "src/retrieval/graph/graph_query.py",
       "source_location": "L1",
       "id": "src_retrieval_graph_graph_query_py",
-      "community": 12,
+      "community": 6,
       "norm_label": "graph_query.py"
     },
     {
@@ -5054,7 +5189,7 @@
       "source_file": "src/retrieval/graph/graph_query.py",
       "source_location": "L22",
       "id": "graph_graph_query_graphquery",
-      "community": 12,
+      "community": 6,
       "norm_label": "graphquery"
     },
     {
@@ -5162,7 +5297,7 @@
       "source_file": "src/retrieval/graph/graph_query.py",
       "source_location": "L1",
       "id": "graph_graph_query_rationale_1",
-      "community": 12,
+      "community": 6,
       "norm_label": "graph query utilities for the retrieval pipeline.  graphquery loads graph.json o"
     },
     {
@@ -5171,7 +5306,7 @@
       "source_file": "src/retrieval/graph/graph_query.py",
       "source_location": "L23",
       "id": "graph_graph_query_rationale_23",
-      "community": 12,
+      "community": 6,
       "norm_label": "loads graph.json once and exposes keyword + dependency queries.      constructed"
     },
     {
@@ -5252,7 +5387,7 @@
       "source_file": "src/retrieval/contracts/context_contract.py",
       "source_location": "L1",
       "id": "src_retrieval_contracts_context_contract_py",
-      "community": 3,
+      "community": 57,
       "norm_label": "context_contract.py"
     },
     {
@@ -5261,7 +5396,7 @@
       "source_file": "src/retrieval/contracts/context_contract.py",
       "source_location": "L28",
       "id": "contracts_context_contract_dependencysummaryitem",
-      "community": 3,
+      "community": 57,
       "norm_label": "dependencysummaryitem"
     },
     {
@@ -5270,7 +5405,7 @@
       "source_file": "",
       "source_location": "",
       "id": "typeddict",
-      "community": 3,
+      "community": 30,
       "norm_label": "typeddict"
     },
     {
@@ -5279,7 +5414,7 @@
       "source_file": "src/retrieval/contracts/context_contract.py",
       "source_location": "L34",
       "id": "contracts_context_contract_repositorycontextpayload",
-      "community": 3,
+      "community": 30,
       "norm_label": "repositorycontextpayload"
     },
     {
@@ -5288,7 +5423,7 @@
       "source_file": "src/retrieval/contracts/context_contract.py",
       "source_location": "L44",
       "id": "contracts_context_contract_normalize_path",
-      "community": 3,
+      "community": 57,
       "norm_label": "_normalize_path()"
     },
     {
@@ -5297,7 +5432,7 @@
       "source_file": "src/retrieval/contracts/context_contract.py",
       "source_location": "L44",
       "id": "src_retrieval_contracts_context_contract_py_str",
-      "community": 3,
+      "community": 57,
       "norm_label": "str"
     },
     {
@@ -5306,7 +5441,7 @@
       "source_file": "src/retrieval/contracts/context_contract.py",
       "source_location": "L53",
       "id": "contracts_context_contract_dedupe_preserve_order",
-      "community": 3,
+      "community": 57,
       "norm_label": "_dedupe_preserve_order()"
     },
     {
@@ -5315,7 +5450,7 @@
       "source_file": "src/retrieval/contracts/context_contract.py",
       "source_location": "L63",
       "id": "contracts_context_contract_target_first",
-      "community": 3,
+      "community": 57,
       "norm_label": "_target_first()"
     },
     {
@@ -5324,7 +5459,7 @@
       "source_file": "src/retrieval/contracts/context_contract.py",
       "source_location": "L70",
       "id": "contracts_context_contract_build_repository_context_payload",
-      "community": 3,
+      "community": 57,
       "norm_label": "build_repository_context_payload()"
     },
     {
@@ -5333,7 +5468,7 @@
       "source_file": "src/retrieval/contracts/context_contract.py",
       "source_location": "L70",
       "id": "src_retrieval_contracts_context_contract_py_contextpackage",
-      "community": 3,
+      "community": 57,
       "norm_label": "contextpackage"
     },
     {
@@ -5342,7 +5477,7 @@
       "source_file": "src/retrieval/contracts/context_contract.py",
       "source_location": "L116",
       "id": "contracts_context_contract_validate_repository_context_payload",
-      "community": 3,
+      "community": 57,
       "norm_label": "validate_repository_context_payload()"
     },
     {
@@ -5351,7 +5486,7 @@
       "source_file": "src/retrieval/contracts/context_contract.py",
       "source_location": "L116",
       "id": "src_retrieval_contracts_context_contract_py_any",
-      "community": 3,
+      "community": 57,
       "norm_label": "any"
     },
     {
@@ -5360,7 +5495,7 @@
       "source_file": "src/retrieval/contracts/context_contract.py",
       "source_location": "L116",
       "id": "src_retrieval_contracts_context_contract_py_bool",
-      "community": 3,
+      "community": 57,
       "norm_label": "bool"
     },
     {
@@ -5369,7 +5504,7 @@
       "source_file": "src/retrieval/contracts/context_contract.py",
       "source_location": "L139",
       "id": "contracts_context_contract_format_repository_context_for_prompt",
-      "community": 3,
+      "community": 57,
       "norm_label": "format_repository_context_for_prompt()"
     },
     {
@@ -5378,7 +5513,7 @@
       "source_file": "src/retrieval/contracts/context_contract.py",
       "source_location": "L1",
       "id": "contracts_context_contract_rationale_1",
-      "community": 3,
+      "community": 57,
       "norm_label": "versioned contract for retrieval -> coder repository context payloads.  this mod"
     },
     {
@@ -5387,7 +5522,7 @@
       "source_file": "src/retrieval/contracts/context_contract.py",
       "source_location": "L76",
       "id": "contracts_context_contract_rationale_76",
-      "community": 3,
+      "community": 57,
       "norm_label": "build a versioned, deterministic context payload from contextpackage."
     },
     {
@@ -5396,7 +5531,7 @@
       "source_file": "src/retrieval/contracts/context_contract.py",
       "source_location": "L117",
       "id": "contracts_context_contract_rationale_117",
-      "community": 3,
+      "community": 57,
       "norm_label": "validate structural invariants for a repository context payload."
     },
     {
@@ -5405,7 +5540,7 @@
       "source_file": "src/retrieval/contracts/context_contract.py",
       "source_location": "L140",
       "id": "contracts_context_contract_rationale_140",
-      "community": 3,
+      "community": 57,
       "norm_label": "render repository context in a fixed, deterministic prompt section."
     },
     {
@@ -5558,7 +5693,7 @@
       "source_file": "src/retrieval/contracts/retrieval_contract.py",
       "source_location": "L1",
       "id": "src_retrieval_contracts_retrieval_contract_py",
-      "community": 9,
+      "community": 29,
       "norm_label": "retrieval_contract.py"
     },
     {
@@ -5567,7 +5702,7 @@
       "source_file": "src/retrieval/contracts/retrieval_contract.py",
       "source_location": "L7",
       "id": "contracts_retrieval_contract_retrievalrequest",
-      "community": 9,
+      "community": 29,
       "norm_label": "retrievalrequest"
     },
     {
@@ -5576,7 +5711,7 @@
       "source_file": "src/retrieval/contracts/retrieval_contract.py",
       "source_location": "L21",
       "id": "contracts_retrieval_contract_retrievalresult",
-      "community": 9,
+      "community": 30,
       "norm_label": "retrievalresult"
     },
     {
@@ -5585,7 +5720,7 @@
       "source_file": "src/retrieval/contracts/retrieval_contract.py",
       "source_location": "L8",
       "id": "contracts_retrieval_contract_rationale_8",
-      "community": 9,
+      "community": 29,
       "norm_label": "input contract passed from the scheduler layer to the retrieval pipeline."
     },
     {
@@ -5594,7 +5729,7 @@
       "source_file": "src/retrieval/contracts/retrieval_contract.py",
       "source_location": "L22",
       "id": "contracts_retrieval_contract_rationale_22",
-      "community": 9,
+      "community": 30,
       "norm_label": "output contract from the retrieval pipeline, stored in graphstate.      downstre"
     },
     {
@@ -5603,7 +5738,7 @@
       "source_file": "src/graph/state.py",
       "source_location": "L1",
       "id": "src_graph_state_py",
-      "community": 9,
+      "community": 30,
       "norm_label": "state.py"
     },
     {
@@ -5612,7 +5747,7 @@
       "source_file": "src/graph/state.py",
       "source_location": "L8",
       "id": "graph_state_graphstate",
-      "community": 19,
+      "community": 30,
       "norm_label": "graphstate"
     },
     {
@@ -5621,7 +5756,7 @@
       "source_file": "src/graph/state.py",
       "source_location": "L9",
       "id": "graph_state_rationale_9",
-      "community": 19,
+      "community": 30,
       "norm_label": "shared state passed between langgraph nodes.      this state represents a single"
     },
     {
@@ -5711,7 +5846,7 @@
       "source_file": "src/graph/workflow.py",
       "source_location": "L61",
       "id": "src_graph_workflow_py_runcontext",
-      "community": 19,
+      "community": 33,
       "norm_label": "runcontext"
     },
     {
@@ -5774,7 +5909,7 @@
       "source_file": "src/graph/nodes/branch_creator.py",
       "source_location": "L23",
       "id": "nodes_branch_creator_branch_creator_node",
-      "community": 41,
+      "community": 28,
       "norm_label": "branch_creator_node()"
     },
     {
@@ -5783,7 +5918,7 @@
       "source_file": "src/graph/nodes/branch_creator.py",
       "source_location": "L23",
       "id": "src_graph_nodes_branch_creator_py_graphstate",
-      "community": 41,
+      "community": 28,
       "norm_label": "graphstate"
     },
     {
@@ -5792,7 +5927,7 @@
       "source_file": "src/graph/nodes/branch_creator.py",
       "source_location": "L23",
       "id": "src_graph_nodes_branch_creator_py_runcontext",
-      "community": 41,
+      "community": 28,
       "norm_label": "runcontext"
     },
     {
@@ -5810,7 +5945,7 @@
       "source_file": "src/graph/nodes/branch_creator.py",
       "source_location": "L24",
       "id": "nodes_branch_creator_rationale_24",
-      "community": 41,
+      "community": 28,
       "norm_label": "create a task branch in the target repository.      reads ``repo_path`` and ``ta"
     },
     {
@@ -5819,7 +5954,7 @@
       "source_file": "src/graph/nodes/diff_generator.py",
       "source_location": "L1",
       "id": "src_graph_nodes_diff_generator_py",
-      "community": 28,
+      "community": 4,
       "norm_label": "diff_generator.py"
     },
     {
@@ -5828,7 +5963,7 @@
       "source_file": "src/graph/nodes/diff_generator.py",
       "source_location": "L14",
       "id": "nodes_diff_generator_diff_generator_node",
-      "community": 28,
+      "community": 4,
       "norm_label": "diff_generator_node()"
     },
     {
@@ -5837,7 +5972,7 @@
       "source_file": "src/graph/nodes/diff_generator.py",
       "source_location": "L14",
       "id": "src_graph_nodes_diff_generator_py_graphstate",
-      "community": 28,
+      "community": 4,
       "norm_label": "graphstate"
     },
     {
@@ -5846,7 +5981,7 @@
       "source_file": "src/graph/nodes/diff_generator.py",
       "source_location": "L14",
       "id": "src_graph_nodes_diff_generator_py_runcontext",
-      "community": 28,
+      "community": 4,
       "norm_label": "runcontext"
     },
     {
@@ -5855,7 +5990,7 @@
       "source_file": "src/graph/nodes/diff_generator.py",
       "source_location": "L15",
       "id": "nodes_diff_generator_rationale_15",
-      "community": 28,
+      "community": 4,
       "norm_label": "compute a unified diff between the original and generated code.      expected st"
     },
     {
@@ -6323,7 +6458,7 @@
       "source_file": "src/graph/nodes/support.py",
       "source_location": "L59",
       "id": "nodes_support_select_target_file_from_repo_path",
-      "community": 19,
+      "community": 26,
       "norm_label": "select_target_file_from_repo_path()"
     },
     {
@@ -6368,7 +6503,7 @@
       "source_file": "src/graph/nodes/support.py",
       "source_location": "L60",
       "id": "nodes_support_rationale_60",
-      "community": 19,
+      "community": 26,
       "norm_label": "pick the first python file in a repo root deterministically."
     },
     {
@@ -6512,7 +6647,7 @@
       "source_file": "src/graph/nodes/coder.py",
       "source_location": "L154",
       "id": "nodes_coder_coder_node",
-      "community": 57,
+      "community": 26,
       "norm_label": "coder_node()"
     },
     {
@@ -6521,7 +6656,7 @@
       "source_file": "src/graph/nodes/coder.py",
       "source_location": "L154",
       "id": "src_graph_nodes_coder_py_graphstate",
-      "community": 57,
+      "community": 26,
       "norm_label": "graphstate"
     },
     {
@@ -6530,7 +6665,7 @@
       "source_file": "src/graph/nodes/coder.py",
       "source_location": "L154",
       "id": "src_graph_nodes_coder_py_runcontext",
-      "community": 57,
+      "community": 26,
       "norm_label": "runcontext"
     },
     {
@@ -6701,7 +6836,7 @@
       "source_file": "src/graph/nodes/file_reader.py",
       "source_location": "L1",
       "id": "src_graph_nodes_file_reader_py",
-      "community": 28,
+      "community": 26,
       "norm_label": "file_reader.py"
     },
     {
@@ -6800,7 +6935,7 @@
       "source_file": "src/graph/nodes/git_committer.py",
       "source_location": "L23",
       "id": "nodes_git_committer_git_committer_node",
-      "community": 41,
+      "community": 28,
       "norm_label": "git_committer_node()"
     },
     {
@@ -6809,7 +6944,7 @@
       "source_file": "src/graph/nodes/git_committer.py",
       "source_location": "L23",
       "id": "src_graph_nodes_git_committer_py_graphstate",
-      "community": 41,
+      "community": 28,
       "norm_label": "graphstate"
     },
     {
@@ -6818,7 +6953,7 @@
       "source_file": "src/graph/nodes/git_committer.py",
       "source_location": "L23",
       "id": "src_graph_nodes_git_committer_py_runcontext",
-      "community": 41,
+      "community": 28,
       "norm_label": "runcontext"
     },
     {
@@ -6836,7 +6971,7 @@
       "source_file": "src/graph/nodes/git_committer.py",
       "source_location": "L24",
       "id": "nodes_git_committer_rationale_24",
-      "community": 41,
+      "community": 28,
       "norm_label": "stage and commit the modified target file.      expected state keys:     - ``rep"
     },
     {
@@ -6845,7 +6980,7 @@
       "source_file": "src/graph/nodes/node_index.py",
       "source_location": "L1",
       "id": "src_graph_nodes_node_index_py",
-      "community": 41,
+      "community": 26,
       "norm_label": "node_index.py"
     },
     {
@@ -6854,7 +6989,7 @@
       "source_file": "src/graph/nodes/node_index.py",
       "source_location": "L1",
       "id": "nodes_node_index_rationale_1",
-      "community": 41,
+      "community": 26,
       "norm_label": "aggregate export surface for graph nodes."
     },
     {
@@ -6863,7 +6998,7 @@
       "source_file": "src/graph/nodes/retrieval_node.py",
       "source_location": "L1",
       "id": "src_graph_nodes_retrieval_node_py",
-      "community": 2,
+      "community": 6,
       "norm_label": "retrieval_node.py"
     },
     {
@@ -6872,7 +7007,7 @@
       "source_file": "src/graph/nodes/retrieval_node.py",
       "source_location": "L41",
       "id": "nodes_retrieval_node_retrieval_node",
-      "community": 2,
+      "community": 6,
       "norm_label": "retrieval_node()"
     },
     {
@@ -6881,7 +7016,7 @@
       "source_file": "src/graph/nodes/retrieval_node.py",
       "source_location": "L41",
       "id": "src_graph_nodes_retrieval_node_py_graphstate",
-      "community": 2,
+      "community": 6,
       "norm_label": "graphstate"
     },
     {
@@ -6890,7 +7025,7 @@
       "source_file": "src/graph/nodes/retrieval_node.py",
       "source_location": "L41",
       "id": "src_graph_nodes_retrieval_node_py_runcontext",
-      "community": 2,
+      "community": 6,
       "norm_label": "runcontext"
     },
     {
@@ -6899,7 +7034,7 @@
       "source_file": "src/graph/nodes/retrieval_node.py",
       "source_location": "L170",
       "id": "nodes_retrieval_node_heuristic_rank",
-      "community": 42,
+      "community": 6,
       "norm_label": "_heuristic_rank()"
     },
     {
@@ -6908,7 +7043,7 @@
       "source_file": "src/graph/nodes/retrieval_node.py",
       "source_location": "L170",
       "id": "src_graph_nodes_retrieval_node_py_str",
-      "community": 27,
+      "community": 6,
       "norm_label": "str"
     },
     {
@@ -6917,7 +7052,7 @@
       "source_file": "src/graph/nodes/retrieval_node.py",
       "source_location": "L175",
       "id": "nodes_retrieval_node_read_related_files",
-      "community": 27,
+      "community": 6,
       "norm_label": "_read_related_files()"
     },
     {
@@ -6926,7 +7061,7 @@
       "source_file": "src/graph/nodes/retrieval_node.py",
       "source_location": "L193",
       "id": "nodes_retrieval_node_to_relative_ids",
-      "community": 27,
+      "community": 6,
       "norm_label": "_to_relative_ids()"
     },
     {
@@ -6935,7 +7070,7 @@
       "source_file": "src/graph/nodes/retrieval_node.py",
       "source_location": "L1",
       "id": "nodes_retrieval_node_rationale_1",
-      "community": 2,
+      "community": 6,
       "norm_label": "retrieval node \u2014 orchestrates the graph-backed retrieval pipeline.  pipeline sta"
     },
     {
@@ -6944,7 +7079,7 @@
       "source_file": "src/graph/nodes/retrieval_node.py",
       "source_location": "L42",
       "id": "nodes_retrieval_node_rationale_42",
-      "community": 2,
+      "community": 6,
       "norm_label": "build repository context for the current task and target file.      retrieval st"
     },
     {
@@ -6953,7 +7088,7 @@
       "source_file": "src/graph/nodes/retrieval_node.py",
       "source_location": "L171",
       "id": "nodes_retrieval_node_rationale_171",
-      "community": 42,
+      "community": 6,
       "norm_label": "fallback ranking when graph is unavailable."
     },
     {
@@ -6962,7 +7097,7 @@
       "source_file": "src/graph/nodes/retrieval_node.py",
       "source_location": "L176",
       "id": "nodes_retrieval_node_rationale_176",
-      "community": 27,
+      "community": 6,
       "norm_label": "read bounded file contents for the coder prompt, excluding target file."
     },
     {
@@ -6971,8 +7106,107 @@
       "source_file": "src/graph/nodes/retrieval_node.py",
       "source_location": "L194",
       "id": "nodes_retrieval_node_rationale_194",
-      "community": 27,
+      "community": 6,
       "norm_label": "convert absolute paths to repo-relative strings when possible."
+    },
+    {
+      "label": "Async Neo4j driver wrapper for Function nodes and SIMILAR_TO edges.",
+      "file_type": "rationale",
+      "source_file": "src/pipeline/neo4j_store.py",
+      "source_location": "L148",
+      "community": 74,
+      "norm_label": "async neo4j driver wrapper for function nodes and similar_to edges.",
+      "id": "pipeline_neo4j_store_rationale_148"
+    },
+    {
+      "label": "Close the driver connection pool.",
+      "file_type": "rationale",
+      "source_file": "src/pipeline/neo4j_store.py",
+      "source_location": "L166",
+      "community": 72,
+      "norm_label": "close the driver connection pool.",
+      "id": "pipeline_neo4j_store_rationale_166"
+    },
+    {
+      "label": "Idempotently create constraints and indexes.          Args:             vector_d",
+      "file_type": "rationale",
+      "source_file": "src/pipeline/neo4j_store.py",
+      "source_location": "L170",
+      "community": 74,
+      "norm_label": "idempotently create constraints and indexes.          args:             vector_d",
+      "id": "pipeline_neo4j_store_rationale_170"
+    },
+    {
+      "label": "Create vector indexes once the embedding dimension is known.",
+      "file_type": "rationale",
+      "source_file": "src/pipeline/neo4j_store.py",
+      "source_location": "L188",
+      "community": 72,
+      "norm_label": "create vector indexes once the embedding dimension is known.",
+      "id": "pipeline_neo4j_store_rationale_188"
+    },
+    {
+      "label": "Return ``{function_id: source_hash}`` for all live functions in the repo.",
+      "file_type": "rationale",
+      "source_file": "src/pipeline/neo4j_store.py",
+      "source_location": "L197",
+      "community": 72,
+      "norm_label": "return ``{function_id: source_hash}`` for all live functions in the repo.",
+      "id": "pipeline_neo4j_store_rationale_197"
+    },
+    {
+      "label": "Mark functions not in ``seen_ids`` as deleted. Returns count.",
+      "file_type": "rationale",
+      "source_file": "src/pipeline/neo4j_store.py",
+      "source_location": "L244",
+      "community": 27,
+      "norm_label": "mark functions not in ``seen_ids`` as deleted. returns count.",
+      "id": "pipeline_neo4j_store_rationale_244"
+    },
+    {
+      "label": "Return ``[(id, code_embedding, description_embedding)]`` for all live functions.",
+      "file_type": "rationale",
+      "source_file": "src/pipeline/neo4j_store.py",
+      "source_location": "L255",
+      "community": 75,
+      "norm_label": "return ``[(id, code_embedding, description_embedding)]`` for all live functions.",
+      "id": "pipeline_neo4j_store_rationale_255"
+    },
+    {
+      "label": "Return top-N code-similar functions using the HNSW vector index.          Result",
+      "file_type": "rationale",
+      "source_file": "src/pipeline/neo4j_store.py",
+      "source_location": "L274",
+      "community": 75,
+      "norm_label": "return top-n code-similar functions using the hnsw vector index.          result",
+      "id": "pipeline_neo4j_store_rationale_274"
+    },
+    {
+      "label": "Return top-N description-similar functions using the HNSW vector index.",
+      "file_type": "rationale",
+      "source_file": "src/pipeline/neo4j_store.py",
+      "source_location": "L299",
+      "community": 75,
+      "norm_label": "return top-n description-similar functions using the hnsw vector index.",
+      "id": "pipeline_neo4j_store_rationale_299"
+    },
+    {
+      "label": "Delete all SIMILAR_TO edges originating from functions in this repo.          Ca",
+      "file_type": "rationale",
+      "source_file": "src/pipeline/neo4j_store.py",
+      "source_location": "L317",
+      "community": 75,
+      "norm_label": "delete all similar_to edges originating from functions in this repo.          ca",
+      "id": "pipeline_neo4j_store_rationale_317"
+    },
+    {
+      "label": "Batch-upsert SIMILAR_TO relationships using UNWIND.",
+      "file_type": "rationale",
+      "source_file": "src/pipeline/neo4j_store.py",
+      "source_location": "L326",
+      "community": 12,
+      "norm_label": "batch-upsert similar_to relationships using unwind.",
+      "id": "pipeline_neo4j_store_rationale_326"
     },
     {
       "label": "_normalise()",
@@ -7042,7 +7276,7 @@
       "file_type": "rationale",
       "source_file": "src/pipeline/contracts.py",
       "source_location": "L134",
-      "community": 29,
+      "community": 10,
       "norm_label": "summary of a completed pipeline run.",
       "id": "pipeline_contracts_rationale_134"
     },
@@ -7051,7 +7285,7 @@
       "file_type": "rationale",
       "source_file": "src/pipeline/neo4j_store.py",
       "source_location": "L126",
-      "community": 74,
+      "community": 54,
       "norm_label": "async neo4j driver wrapper for function nodes and similar_to edges.",
       "id": "pipeline_neo4j_store_rationale_126"
     },
@@ -7060,7 +7294,7 @@
       "file_type": "rationale",
       "source_file": "src/pipeline/neo4j_store.py",
       "source_location": "L144",
-      "community": 74,
+      "community": 72,
       "norm_label": "close the driver connection pool.",
       "id": "pipeline_neo4j_store_rationale_144"
     },
@@ -7069,7 +7303,7 @@
       "file_type": "rationale",
       "source_file": "src/pipeline/neo4j_store.py",
       "source_location": "L175",
-      "community": 36,
+      "community": 72,
       "norm_label": "return ``{function_id: source_hash}`` for all live functions in the repo.",
       "id": "pipeline_neo4j_store_rationale_175"
     },
@@ -7087,7 +7321,7 @@
       "file_type": "rationale",
       "source_file": "src/pipeline/neo4j_store.py",
       "source_location": "L222",
-      "community": 75,
+      "community": 27,
       "norm_label": "mark functions not in ``seen_ids`` as deleted. returns count.",
       "id": "pipeline_neo4j_store_rationale_222"
     },
@@ -7114,7 +7348,7 @@
       "file_type": "rationale",
       "source_file": "src/pipeline/neo4j_store.py",
       "source_location": "L254",
-      "community": 72,
+      "community": 12,
       "norm_label": "batch-upsert similar_to relationships using unwind.",
       "id": "pipeline_neo4j_store_rationale_254"
     },
@@ -7132,7 +7366,7 @@
       "file_type": "rationale",
       "source_file": "src/pipeline/contracts.py",
       "source_location": "L133",
-      "community": 29,
+      "community": 10,
       "norm_label": "summary of a completed pipeline run.",
       "id": "pipeline_contracts_rationale_133"
     },
@@ -7168,7 +7402,7 @@
       "file_type": "rationale",
       "source_file": "src/pipeline/contracts.py",
       "source_location": "L132",
-      "community": 29,
+      "community": 10,
       "norm_label": "summary of a completed pipeline run.",
       "id": "pipeline_contracts_rationale_132"
     },
@@ -7258,7 +7492,7 @@
       "file_type": "rationale",
       "source_file": "src/pipeline/contracts.py",
       "source_location": "L115",
-      "community": 29,
+      "community": 10,
       "norm_label": "summary of a completed pipeline run.",
       "id": "pipeline_contracts_rationale_115"
     },
@@ -7276,7 +7510,7 @@
       "file_type": "rationale",
       "source_file": "src/pipeline/neo4j_store.py",
       "source_location": "L122",
-      "community": 74,
+      "community": 54,
       "norm_label": "async neo4j driver wrapper for function nodes and similar_to edges.",
       "id": "pipeline_neo4j_store_rationale_122"
     },
@@ -7285,7 +7519,7 @@
       "file_type": "rationale",
       "source_file": "src/pipeline/neo4j_store.py",
       "source_location": "L140",
-      "community": 74,
+      "community": 72,
       "norm_label": "close the driver connection pool.",
       "id": "pipeline_neo4j_store_rationale_140"
     },
@@ -7294,7 +7528,7 @@
       "file_type": "rationale",
       "source_file": "src/pipeline/neo4j_store.py",
       "source_location": "L162",
-      "community": 36,
+      "community": 72,
       "norm_label": "create vector indexes once the embedding dimension is known.",
       "id": "pipeline_neo4j_store_rationale_162"
     },
@@ -7303,7 +7537,7 @@
       "file_type": "rationale",
       "source_file": "src/pipeline/neo4j_store.py",
       "source_location": "L171",
-      "community": 36,
+      "community": 72,
       "norm_label": "return ``{function_id: source_hash}`` for all live functions in the repo.",
       "id": "pipeline_neo4j_store_rationale_171"
     },
@@ -7321,7 +7555,7 @@
       "file_type": "rationale",
       "source_file": "src/pipeline/neo4j_store.py",
       "source_location": "L214",
-      "community": 75,
+      "community": 27,
       "norm_label": "mark functions not in ``seen_ids`` as deleted. returns count.",
       "id": "pipeline_neo4j_store_rationale_214"
     },
@@ -7348,7 +7582,7 @@
       "file_type": "rationale",
       "source_file": "src/pipeline/neo4j_store.py",
       "source_location": "L246",
-      "community": 72,
+      "community": 12,
       "norm_label": "batch-upsert similar_to relationships using unwind.",
       "id": "pipeline_neo4j_store_rationale_246"
     },
@@ -7456,7 +7690,7 @@
       "file_type": "rationale",
       "source_file": "src/pipeline/contracts.py",
       "source_location": "L85",
-      "community": 29,
+      "community": 10,
       "norm_label": "summary of a completed pipeline run.",
       "id": "pipeline_contracts_rationale_85"
     },
@@ -7510,7 +7744,7 @@
       "file_type": "rationale",
       "source_file": "src/pipeline/neo4j_store.py",
       "source_location": "L120",
-      "community": 74,
+      "community": 54,
       "norm_label": "async neo4j driver wrapper for function nodes and similar_to edges.",
       "id": "pipeline_neo4j_store_rationale_120"
     },
@@ -7519,7 +7753,7 @@
       "file_type": "rationale",
       "source_file": "src/pipeline/neo4j_store.py",
       "source_location": "L131",
-      "community": 74,
+      "community": 72,
       "norm_label": "close the driver connection pool.",
       "id": "pipeline_neo4j_store_rationale_131"
     },
@@ -7542,20 +7776,11 @@
       "id": "pipeline_neo4j_store_rationale_153"
     },
     {
-      "label": "Batch-upsert Function nodes using UNWIND for efficiency.",
-      "file_type": "rationale",
-      "source_file": "src/pipeline/neo4j_store.py",
-      "source_location": "L173",
-      "community": 72,
-      "norm_label": "batch-upsert function nodes using unwind for efficiency.",
-      "id": "pipeline_neo4j_store_rationale_173"
-    },
-    {
       "label": "Mark functions not in ``seen_ids`` as deleted. Returns count.",
       "file_type": "rationale",
       "source_file": "src/pipeline/neo4j_store.py",
       "source_location": "L208",
-      "community": 75,
+      "community": 27,
       "norm_label": "mark functions not in ``seen_ids`` as deleted. returns count.",
       "id": "pipeline_neo4j_store_rationale_208"
     },
@@ -7573,7 +7798,7 @@
       "file_type": "rationale",
       "source_file": "src/pipeline/neo4j_store.py",
       "source_location": "L238",
-      "community": 72,
+      "community": 12,
       "norm_label": "batch-upsert similar_to relationships using unwind.",
       "id": "pipeline_neo4j_store_rationale_238"
     },
@@ -7708,7 +7933,7 @@
       "file_type": "rationale",
       "source_file": "src/graph/nodes/support.py",
       "source_location": "L59",
-      "community": 19,
+      "community": 26,
       "norm_label": "pick the first python file in a repo root deterministically.",
       "id": "nodes_support_rationale_59"
     },
@@ -7816,7 +8041,7 @@
       "file_type": "rationale",
       "source_file": "src/tools/patches.py",
       "source_location": "L30",
-      "community": 47,
+      "community": 4,
       "norm_label": "return a unified diff string describing changes from original -> modified.",
       "id": "tools_patches_rationale_30"
     },
@@ -8005,7 +8230,7 @@
       "file_type": "rationale",
       "source_file": "src/graph/nodes/git_committer.py",
       "source_location": "L22",
-      "community": 41,
+      "community": 28,
       "norm_label": "stage and commit the modified target file.      expected state keys:     - ``",
       "id": "nodes_git_committer_rationale_22"
     },
@@ -8014,7 +8239,7 @@
       "file_type": "rationale",
       "source_file": "src/graph/state.py",
       "source_location": "L7",
-      "community": 19,
+      "community": 30,
       "norm_label": "shared state passed between langgraph nodes.      this state represents a sing",
       "id": "graph_state_rationale_7"
     },
@@ -8059,7 +8284,7 @@
       "file_type": "rationale",
       "source_file": "src/graph/nodes/retrieval_node.py",
       "source_location": "L37",
-      "community": 2,
+      "community": 6,
       "norm_label": "build repository context for the current task and target file.      retrieval",
       "id": "nodes_retrieval_node_rationale_37"
     },
@@ -8068,7 +8293,7 @@
       "file_type": "rationale",
       "source_file": "src/graph/nodes/retrieval_node.py",
       "source_location": "L137",
-      "community": 42,
+      "community": 6,
       "norm_label": "fallback ranking when graph is unavailable.",
       "id": "nodes_retrieval_node_rationale_137"
     },
@@ -8077,7 +8302,7 @@
       "file_type": "rationale",
       "source_file": "src/graph/nodes/retrieval_node.py",
       "source_location": "L142",
-      "community": 27,
+      "community": 6,
       "norm_label": "read bounded file contents for the coder prompt, excluding target file.",
       "id": "nodes_retrieval_node_rationale_142"
     },
@@ -8086,7 +8311,7 @@
       "file_type": "rationale",
       "source_file": "src/graph/nodes/retrieval_node.py",
       "source_location": "L160",
-      "community": 27,
+      "community": 6,
       "norm_label": "convert absolute paths to repo-relative strings when possible.",
       "id": "nodes_retrieval_node_rationale_160"
     },
@@ -8104,7 +8329,7 @@
       "file_type": "rationale",
       "source_file": "src/retrieval/budgeting/context_budget.py",
       "source_location": "L25",
-      "community": 2,
+      "community": 6,
       "norm_label": "allocates ranked files against char and file-count limits.      limits are adv",
       "id": "budgeting_context_budget_rationale_25"
     },
@@ -8122,7 +8347,7 @@
       "file_type": "rationale",
       "source_file": "src/graph/nodes/retrieval_node.py",
       "source_location": "L138",
-      "community": 42,
+      "community": 6,
       "norm_label": "fallback ranking when graph is unavailable.",
       "id": "nodes_retrieval_node_rationale_138"
     },
@@ -8131,7 +8356,7 @@
       "file_type": "rationale",
       "source_file": "src/graph/nodes/retrieval_node.py",
       "source_location": "L143",
-      "community": 27,
+      "community": 6,
       "norm_label": "read bounded file contents for the coder prompt, excluding target file.",
       "id": "nodes_retrieval_node_rationale_143"
     },
@@ -8140,7 +8365,7 @@
       "file_type": "rationale",
       "source_file": "src/graph/nodes/retrieval_node.py",
       "source_location": "L161",
-      "community": 27,
+      "community": 6,
       "norm_label": "convert absolute paths to repo-relative strings when possible.",
       "id": "nodes_retrieval_node_rationale_161"
     },
@@ -8212,7 +8437,7 @@
       "file_type": "rationale",
       "source_file": "src/graph/state.py",
       "source_location": "L8",
-      "community": 19,
+      "community": 30,
       "norm_label": "shared state passed between langgraph nodes.      this state represents a sing",
       "id": "graph_state_rationale_8"
     },
@@ -8387,7 +8612,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 57,
+      "community": 26,
       "norm_label": "ollamaclient.chat",
       "id": "core_ollama_client_chat"
     },
@@ -8426,7 +8651,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 57,
+      "community": 26,
       "norm_label": "graphstate: generated_code field",
       "id": "concept_state_field_generated_code"
     },
@@ -8439,7 +8664,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 57,
+      "community": 26,
       "norm_label": "graphstate: repository_context field",
       "id": "concept_state_field_repository_context"
     },
@@ -10084,6 +10309,26 @@
     {
       "relation": "uses",
       "confidence": "INFERRED",
+      "source_file": "src/pipeline/query.py",
+      "source_location": "L13",
+      "weight": 0.8,
+      "source": "pipeline_query_querymatch",
+      "target": "core_ollama_client_ollamaclient",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "src/pipeline/query.py",
+      "source_location": "L13",
+      "weight": 0.8,
+      "source": "pipeline_query_queryresult",
+      "target": "core_ollama_client_ollamaclient",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
       "source_file": "src/pipeline/pipeline.py",
       "source_location": "L15",
       "weight": 0.8,
@@ -10274,6 +10519,67 @@
       "confidence_score": 0.5,
       "source": "src_pipeline_pipeline_py_pipelineconfig",
       "target": "core_ollama_client_ollamaclient"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pipeline/query.py",
+      "source_location": "L13",
+      "weight": 1.0,
+      "source": "src_pipeline_query_py",
+      "target": "core_ollama_client_ollamaclient",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "src/pipeline/query.py",
+      "source_location": "L13",
+      "weight": 0.8,
+      "source": "src_pipeline_query_py_int",
+      "target": "core_ollama_client_ollamaclient",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "src/pipeline/query.py",
+      "source_location": "L13",
+      "weight": 0.8,
+      "source": "src_pipeline_query_py_neo4jstore",
+      "target": "core_ollama_client_ollamaclient",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "src/pipeline/query.py",
+      "source_location": "L13",
+      "weight": 0.8,
+      "source": "src_pipeline_query_py_ollamaclient",
+      "target": "core_ollama_client_ollamaclient",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "src/pipeline/query.py",
+      "source_location": "L13",
+      "weight": 0.8,
+      "source": "src_pipeline_query_py_pipelineconfig",
+      "target": "core_ollama_client_ollamaclient",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "src/pipeline/query.py",
+      "source_location": "L13",
+      "weight": 0.8,
+      "source": "src_pipeline_query_py_str",
+      "target": "core_ollama_client_ollamaclient",
+      "confidence_score": 0.5
     },
     {
       "relation": "references",
@@ -15909,6 +16215,315 @@
     {
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
+      "source_file": "src/pipeline/query.py",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "pipeline_query_rationale_1",
+      "target": "src_pipeline_query_py",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pipeline/query.py",
+      "source_location": "L14",
+      "weight": 1.0,
+      "source": "src_pipeline_query_py",
+      "target": "pipeline_contracts_pipelineconfig",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pipeline/query.py",
+      "source_location": "L15",
+      "weight": 1.0,
+      "source": "src_pipeline_query_py",
+      "target": "pipeline_neo4j_store_neo4jstore",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pipeline/query.py",
+      "source_location": "L19",
+      "weight": 1.0,
+      "source": "src_pipeline_query_py",
+      "target": "pipeline_query_querymatch",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pipeline/query.py",
+      "source_location": "L30",
+      "weight": 1.0,
+      "source": "src_pipeline_query_py",
+      "target": "pipeline_query_queryresult",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pipeline/query.py",
+      "source_location": "L38",
+      "weight": 1.0,
+      "source": "src_pipeline_query_py",
+      "target": "pipeline_query_search",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "src/pipeline/query.py",
+      "source_location": "L14",
+      "weight": 0.8,
+      "source": "pipeline_query_querymatch",
+      "target": "pipeline_contracts_pipelineconfig",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "src/pipeline/query.py",
+      "source_location": "L15",
+      "weight": 0.8,
+      "source": "pipeline_query_querymatch",
+      "target": "pipeline_neo4j_store_neo4jstore",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pipeline/query.py",
+      "source_location": "L20",
+      "weight": 1.0,
+      "source": "pipeline_query_rationale_20",
+      "target": "pipeline_query_querymatch",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pipeline/query.py",
+      "source_location": "L100",
+      "weight": 1.0,
+      "source": "pipeline_query_search",
+      "target": "pipeline_query_querymatch",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "src/pipeline/query.py",
+      "source_location": "L14",
+      "weight": 0.8,
+      "source": "pipeline_query_queryresult",
+      "target": "pipeline_contracts_pipelineconfig",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "src/pipeline/query.py",
+      "source_location": "L15",
+      "weight": 0.8,
+      "source": "pipeline_query_queryresult",
+      "target": "pipeline_neo4j_store_neo4jstore",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pipeline/query.py",
+      "source_location": "L31",
+      "weight": 1.0,
+      "source": "pipeline_query_rationale_31",
+      "target": "pipeline_query_queryresult",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "return_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pipeline/query.py",
+      "source_location": "L38",
+      "weight": 1.0,
+      "source": "pipeline_query_search",
+      "target": "pipeline_query_queryresult",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pipeline/query.py",
+      "source_location": "L46",
+      "weight": 1.0,
+      "source": "pipeline_query_rationale_46",
+      "target": "pipeline_query_search",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pipeline/query.py",
+      "source_location": "L38",
+      "weight": 1.0,
+      "source": "pipeline_query_search",
+      "target": "src_pipeline_query_py_int",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pipeline/query.py",
+      "source_location": "L38",
+      "weight": 1.0,
+      "source": "pipeline_query_search",
+      "target": "src_pipeline_query_py_neo4jstore",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pipeline/query.py",
+      "source_location": "L38",
+      "weight": 1.0,
+      "source": "pipeline_query_search",
+      "target": "src_pipeline_query_py_ollamaclient",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pipeline/query.py",
+      "source_location": "L38",
+      "weight": 1.0,
+      "source": "pipeline_query_search",
+      "target": "src_pipeline_query_py_pipelineconfig",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pipeline/query.py",
+      "source_location": "L38",
+      "weight": 1.0,
+      "source": "pipeline_query_search",
+      "target": "src_pipeline_query_py_str",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "src/pipeline/query.py",
+      "source_location": "L14",
+      "weight": 0.8,
+      "source": "src_pipeline_query_py_neo4jstore",
+      "target": "pipeline_contracts_pipelineconfig",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "src/pipeline/query.py",
+      "source_location": "L15",
+      "weight": 0.8,
+      "source": "src_pipeline_query_py_neo4jstore",
+      "target": "pipeline_neo4j_store_neo4jstore",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "src/pipeline/query.py",
+      "source_location": "L14",
+      "weight": 0.8,
+      "source": "src_pipeline_query_py_ollamaclient",
+      "target": "pipeline_contracts_pipelineconfig",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "src/pipeline/query.py",
+      "source_location": "L15",
+      "weight": 0.8,
+      "source": "src_pipeline_query_py_ollamaclient",
+      "target": "pipeline_neo4j_store_neo4jstore",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "src/pipeline/query.py",
+      "source_location": "L14",
+      "weight": 0.8,
+      "source": "src_pipeline_query_py_str",
+      "target": "pipeline_contracts_pipelineconfig",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "src/pipeline/query.py",
+      "source_location": "L15",
+      "weight": 0.8,
+      "source": "src_pipeline_query_py_str",
+      "target": "pipeline_neo4j_store_neo4jstore",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "src/pipeline/query.py",
+      "source_location": "L14",
+      "weight": 0.8,
+      "source": "src_pipeline_query_py_pipelineconfig",
+      "target": "pipeline_contracts_pipelineconfig",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "src/pipeline/query.py",
+      "source_location": "L15",
+      "weight": 0.8,
+      "source": "src_pipeline_query_py_pipelineconfig",
+      "target": "pipeline_neo4j_store_neo4jstore",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "src/pipeline/query.py",
+      "source_location": "L14",
+      "weight": 0.8,
+      "source": "src_pipeline_query_py_int",
+      "target": "pipeline_contracts_pipelineconfig",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "src/pipeline/query.py",
+      "source_location": "L15",
+      "weight": 0.8,
+      "source": "src_pipeline_query_py_int",
+      "target": "pipeline_neo4j_store_neo4jstore",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
       "source_file": "src/pipeline/embedder.py",
       "source_location": "L1",
       "weight": 1.0,
@@ -16325,9 +16940,9 @@
       "source_file": "src/pipeline/similarity.py",
       "source_location": "L20",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_pipeline_similarity_py",
-      "target": "pipeline_neo4j_store_neo4jstore",
-      "confidence_score": 1.0
+      "target": "pipeline_neo4j_store_neo4jstore"
     },
     {
       "relation": "contains",
@@ -16389,9 +17004,9 @@
       "source_file": "src/pipeline/similarity.py",
       "source_location": "L25",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "pipeline_similarity_compute_similarity_edges",
-      "target": "src_pipeline_similarity_py_bool",
-      "confidence_score": 1.0
+      "target": "src_pipeline_similarity_py_bool"
     },
     {
       "relation": "references",
@@ -16411,9 +17026,9 @@
       "source_file": "src/pipeline/similarity.py",
       "source_location": "L25",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "pipeline_similarity_compute_similarity_edges",
-      "target": "src_pipeline_similarity_py_neo4jstore",
-      "confidence_score": 1.0
+      "target": "src_pipeline_similarity_py_neo4jstore"
     },
     {
       "relation": "references",
@@ -16463,9 +17078,9 @@
       "source_file": "src/pipeline/similarity.py",
       "source_location": "L32",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "pipeline_similarity_rationale_32",
-      "target": "pipeline_similarity_compute_similarity_edges",
-      "confidence_score": 1.0
+      "target": "pipeline_similarity_compute_similarity_edges"
     },
     {
       "relation": "uses",
@@ -16473,9 +17088,9 @@
       "source_file": "src/pipeline/similarity.py",
       "source_location": "L17",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "src_pipeline_similarity_py_neo4jstore",
-      "target": "pipeline_contracts_similarityconfig",
-      "confidence_score": 0.5
+      "target": "pipeline_contracts_similarityconfig"
     },
     {
       "relation": "uses",
@@ -16483,9 +17098,9 @@
       "source_file": "src/pipeline/similarity.py",
       "source_location": "L17",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "src_pipeline_similarity_py_neo4jstore",
-      "target": "pipeline_contracts_similarityedge",
-      "confidence_score": 0.5
+      "target": "pipeline_contracts_similarityedge"
     },
     {
       "relation": "uses",
@@ -16493,9 +17108,9 @@
       "source_file": "src/pipeline/similarity.py",
       "source_location": "L20",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "src_pipeline_similarity_py_neo4jstore",
-      "target": "pipeline_neo4j_store_neo4jstore",
-      "confidence_score": 0.5
+      "target": "pipeline_neo4j_store_neo4jstore"
     },
     {
       "relation": "uses",
@@ -16523,9 +17138,9 @@
       "source_file": "src/pipeline/similarity.py",
       "source_location": "L20",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "src_pipeline_similarity_py_str",
-      "target": "pipeline_neo4j_store_neo4jstore",
-      "confidence_score": 0.5
+      "target": "pipeline_neo4j_store_neo4jstore"
     },
     {
       "relation": "uses",
@@ -16553,9 +17168,9 @@
       "source_file": "src/pipeline/similarity.py",
       "source_location": "L20",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "src_pipeline_similarity_py_float",
-      "target": "pipeline_neo4j_store_neo4jstore",
-      "confidence_score": 0.5
+      "target": "pipeline_neo4j_store_neo4jstore"
     },
     {
       "relation": "uses",
@@ -16583,9 +17198,9 @@
       "source_file": "src/pipeline/similarity.py",
       "source_location": "L20",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "similarityconfig",
-      "target": "pipeline_neo4j_store_neo4jstore",
-      "confidence_score": 0.5
+      "target": "pipeline_neo4j_store_neo4jstore"
     },
     {
       "relation": "uses",
@@ -16593,9 +17208,9 @@
       "source_file": "src/pipeline/similarity.py",
       "source_location": "L17",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "src_pipeline_similarity_py_bool",
-      "target": "pipeline_contracts_similarityconfig",
-      "confidence_score": 0.5
+      "target": "pipeline_contracts_similarityconfig"
     },
     {
       "relation": "uses",
@@ -16603,9 +17218,9 @@
       "source_file": "src/pipeline/similarity.py",
       "source_location": "L17",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "src_pipeline_similarity_py_bool",
-      "target": "pipeline_contracts_similarityedge",
-      "confidence_score": 0.5
+      "target": "pipeline_contracts_similarityedge"
     },
     {
       "relation": "uses",
@@ -16613,9 +17228,9 @@
       "source_file": "src/pipeline/similarity.py",
       "source_location": "L20",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "src_pipeline_similarity_py_bool",
-      "target": "pipeline_neo4j_store_neo4jstore",
-      "confidence_score": 0.5
+      "target": "pipeline_neo4j_store_neo4jstore"
     },
     {
       "relation": "uses",
@@ -16643,9 +17258,9 @@
       "source_file": "src/pipeline/similarity.py",
       "source_location": "L20",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "src_pipeline_similarity_py_similarityedge",
-      "target": "pipeline_neo4j_store_neo4jstore",
-      "confidence_score": 0.5
+      "target": "pipeline_neo4j_store_neo4jstore"
     },
     {
       "relation": "rationale_for",
@@ -17269,9 +17884,9 @@
       "source_file": "src/pipeline/reporter.py",
       "source_location": "L18",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "src_pipeline_reporter_py_neo4jstore",
-      "target": "pipeline_contracts_neo4jconfig",
-      "confidence_score": 0.5
+      "target": "pipeline_contracts_neo4jconfig"
     },
     {
       "relation": "uses",
@@ -17339,9 +17954,9 @@
       "source_file": "src/pipeline/contracts.py",
       "source_location": "L81",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "pipeline_contracts_rationale_81",
-      "target": "pipeline_contracts_concurrencyconfig",
-      "confidence_score": 1.0
+      "target": "pipeline_contracts_concurrencyconfig"
     },
     {
       "relation": "rationale_for",
@@ -17369,9 +17984,9 @@
       "source_file": "src/pipeline/contracts.py",
       "source_location": "L89",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "pipeline_contracts_rationale_89",
-      "target": "pipeline_contracts_batchsizeconfig",
-      "confidence_score": 1.0
+      "target": "pipeline_contracts_batchsizeconfig"
     },
     {
       "relation": "uses",
@@ -17441,9 +18056,9 @@
       "source_file": "src/pipeline/reporter.py",
       "source_location": "L18",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "src_pipeline_reporter_py_neo4jstore",
-      "target": "pipeline_contracts_reporterconfig",
-      "confidence_score": 0.5
+      "target": "pipeline_contracts_reporterconfig"
     },
     {
       "relation": "uses",
@@ -17501,9 +18116,9 @@
       "source_file": "src/pipeline/contracts.py",
       "source_location": "L104",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "pipeline_contracts_rationale_104",
-      "target": "pipeline_contracts_limitsconfig",
-      "confidence_score": 1.0
+      "target": "pipeline_contracts_limitsconfig"
     },
     {
       "relation": "rationale_for",
@@ -17653,9 +18268,9 @@
       "source_file": "src/pipeline/reporter.py",
       "source_location": "L18",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "src_pipeline_reporter_py_neo4jstore",
-      "target": "pipeline_contracts_pipelineconfig",
-      "confidence_score": 0.5
+      "target": "pipeline_contracts_pipelineconfig"
     },
     {
       "relation": "uses",
@@ -17733,9 +18348,9 @@
       "source_file": "src/pipeline/contracts.py",
       "source_location": "L135",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "pipeline_contracts_rationale_135",
-      "target": "pipeline_contracts_pipelineresult",
-      "confidence_score": 1.0
+      "target": "pipeline_contracts_pipelineresult"
     },
     {
       "relation": "rationale_for",
@@ -18107,9 +18722,9 @@
       "context": "generic_arg",
       "confidence": "EXTRACTED",
       "source_file": "src/pipeline/neo4j_store.py",
-      "source_location": "L266",
+      "source_location": "L332",
       "weight": 1.0,
-      "source": "pipeline_neo4j_store_neo4jstore_query_code_neighbors",
+      "source": "pipeline_neo4j_store_neo4jstore_get_functions_by_ids",
       "target": "src_pipeline_neo4j_store_py_str",
       "confidence_score": 1.0
     },
@@ -18118,11 +18733,22 @@
       "context": "generic_arg",
       "confidence": "EXTRACTED",
       "source_file": "src/pipeline/neo4j_store.py",
+      "source_location": "L266",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "pipeline_neo4j_store_neo4jstore_query_code_neighbors",
+      "target": "src_pipeline_neo4j_store_py_str"
+    },
+    {
+      "relation": "references",
+      "context": "generic_arg",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pipeline/neo4j_store.py",
       "source_location": "L291",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "pipeline_neo4j_store_neo4jstore_query_desc_neighbors",
-      "target": "src_pipeline_neo4j_store_py_str",
-      "confidence_score": 1.0
+      "target": "src_pipeline_neo4j_store_py_str"
     },
     {
       "relation": "references",
@@ -18175,9 +18801,9 @@
       "source_file": "src/pipeline/neo4j_store.py",
       "source_location": "L266",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "pipeline_neo4j_store_neo4jstore_query_code_neighbors",
-      "target": "src_pipeline_neo4j_store_py_int",
-      "confidence_score": 1.0
+      "target": "src_pipeline_neo4j_store_py_int"
     },
     {
       "relation": "references",
@@ -18186,9 +18812,9 @@
       "source_file": "src/pipeline/neo4j_store.py",
       "source_location": "L291",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "pipeline_neo4j_store_neo4jstore_query_desc_neighbors",
-      "target": "src_pipeline_neo4j_store_py_int",
-      "confidence_score": 1.0
+      "target": "src_pipeline_neo4j_store_py_int"
     },
     {
       "relation": "references",
@@ -18297,6 +18923,16 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "src/pipeline/neo4j_store.py",
+      "source_location": "L332",
+      "weight": 1.0,
+      "source": "pipeline_neo4j_store_neo4jstore",
+      "target": "pipeline_neo4j_store_neo4jstore_get_functions_by_ids",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pipeline/neo4j_store.py",
       "source_location": "L122",
       "weight": 1.0,
       "confidence_score": 1.0,
@@ -18309,9 +18945,9 @@
       "source_file": "src/pipeline/neo4j_store.py",
       "source_location": "L266",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "pipeline_neo4j_store_neo4jstore",
-      "target": "pipeline_neo4j_store_neo4jstore_query_code_neighbors",
-      "confidence_score": 1.0
+      "target": "pipeline_neo4j_store_neo4jstore_query_code_neighbors"
     },
     {
       "relation": "method",
@@ -18319,9 +18955,9 @@
       "source_file": "src/pipeline/neo4j_store.py",
       "source_location": "L291",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "pipeline_neo4j_store_neo4jstore",
-      "target": "pipeline_neo4j_store_neo4jstore_query_desc_neighbors",
-      "confidence_score": 1.0
+      "target": "pipeline_neo4j_store_neo4jstore_query_desc_neighbors"
     },
     {
       "relation": "method",
@@ -18389,7 +19025,17 @@
       "source_file": "src/pipeline/neo4j_store.py",
       "source_location": "L148",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "pipeline_neo4j_store_rationale_148",
+      "target": "pipeline_neo4j_store_neo4jstore"
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pipeline/neo4j_store.py",
+      "source_location": "L155",
+      "weight": 1.0,
+      "source": "pipeline_neo4j_store_rationale_155",
       "target": "pipeline_neo4j_store_neo4jstore",
       "confidence_score": 1.0
     },
@@ -18451,9 +19097,9 @@
       "source_file": "src/pipeline/reporter.py",
       "source_location": "L19",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "src_pipeline_reporter_py_neo4jstore",
-      "target": "pipeline_neo4j_store_neo4jstore",
-      "confidence_score": 0.5
+      "target": "pipeline_neo4j_store_neo4jstore"
     },
     {
       "relation": "uses",
@@ -18532,7 +19178,17 @@
       "source_file": "src/pipeline/neo4j_store.py",
       "source_location": "L166",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "pipeline_neo4j_store_rationale_166",
+      "target": "pipeline_neo4j_store_neo4jstore_close"
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pipeline/neo4j_store.py",
+      "source_location": "L173",
+      "weight": 1.0,
+      "source": "pipeline_neo4j_store_rationale_173",
       "target": "pipeline_neo4j_store_neo4jstore_close",
       "confidence_score": 1.0
     },
@@ -18572,7 +19228,17 @@
       "source_file": "src/pipeline/neo4j_store.py",
       "source_location": "L170",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "pipeline_neo4j_store_rationale_170",
+      "target": "pipeline_neo4j_store_neo4jstore_ensure_schema"
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pipeline/neo4j_store.py",
+      "source_location": "L177",
+      "weight": 1.0,
+      "source": "pipeline_neo4j_store_rationale_177",
       "target": "pipeline_neo4j_store_neo4jstore_ensure_schema",
       "confidence_score": 1.0
     },
@@ -18623,7 +19289,17 @@
       "source_file": "src/pipeline/neo4j_store.py",
       "source_location": "L188",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "pipeline_neo4j_store_rationale_188",
+      "target": "pipeline_neo4j_store_neo4jstore_ensure_vector_indexes"
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pipeline/neo4j_store.py",
+      "source_location": "L195",
+      "weight": 1.0,
+      "source": "pipeline_neo4j_store_rationale_195",
       "target": "pipeline_neo4j_store_neo4jstore_ensure_vector_indexes",
       "confidence_score": 1.0
     },
@@ -18663,7 +19339,17 @@
       "source_file": "src/pipeline/neo4j_store.py",
       "source_location": "L197",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "pipeline_neo4j_store_rationale_197",
+      "target": "pipeline_neo4j_store_neo4jstore_get_existing_hashes"
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pipeline/neo4j_store.py",
+      "source_location": "L204",
+      "weight": 1.0,
+      "source": "pipeline_neo4j_store_rationale_204",
       "target": "pipeline_neo4j_store_neo4jstore_get_existing_hashes",
       "confidence_score": 1.0
     },
@@ -18714,7 +19400,17 @@
       "source_file": "src/pipeline/neo4j_store.py",
       "source_location": "L204",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "pipeline_neo4j_store_rationale_204",
+      "target": "pipeline_neo4j_store_neo4jstore_upsert_functions_batch"
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pipeline/neo4j_store.py",
+      "source_location": "L211",
+      "weight": 1.0,
+      "source": "pipeline_neo4j_store_rationale_211",
       "target": "pipeline_neo4j_store_neo4jstore_upsert_functions_batch",
       "confidence_score": 1.0
     },
@@ -18754,7 +19450,17 @@
       "source_file": "src/pipeline/neo4j_store.py",
       "source_location": "L244",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "pipeline_neo4j_store_rationale_244",
+      "target": "pipeline_neo4j_store_neo4jstore_soft_delete_missing"
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pipeline/neo4j_store.py",
+      "source_location": "L251",
+      "weight": 1.0,
+      "source": "pipeline_neo4j_store_rationale_251",
       "target": "pipeline_neo4j_store_neo4jstore_soft_delete_missing",
       "confidence_score": 1.0
     },
@@ -18816,7 +19522,17 @@
       "source_file": "src/pipeline/neo4j_store.py",
       "source_location": "L255",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "pipeline_neo4j_store_rationale_255",
+      "target": "pipeline_neo4j_store_neo4jstore_get_all_embeddings"
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pipeline/neo4j_store.py",
+      "source_location": "L262",
+      "weight": 1.0,
+      "source": "pipeline_neo4j_store_rationale_262",
       "target": "pipeline_neo4j_store_neo4jstore_get_all_embeddings",
       "confidence_score": 1.0
     },
@@ -18827,9 +19543,9 @@
       "source_file": "src/pipeline/neo4j_store.py",
       "source_location": "L266",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "pipeline_neo4j_store_neo4jstore_query_code_neighbors",
-      "target": "src_pipeline_neo4j_store_py_bool",
-      "confidence_score": 1.0
+      "target": "src_pipeline_neo4j_store_py_bool"
     },
     {
       "relation": "references",
@@ -18838,9 +19554,9 @@
       "source_file": "src/pipeline/neo4j_store.py",
       "source_location": "L291",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "pipeline_neo4j_store_neo4jstore_query_desc_neighbors",
-      "target": "src_pipeline_neo4j_store_py_bool",
-      "confidence_score": 1.0
+      "target": "src_pipeline_neo4j_store_py_bool"
     },
     {
       "relation": "references",
@@ -18849,9 +19565,9 @@
       "source_file": "src/pipeline/neo4j_store.py",
       "source_location": "L266",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "pipeline_neo4j_store_neo4jstore_query_code_neighbors",
-      "target": "src_pipeline_neo4j_store_py_float",
-      "confidence_score": 1.0
+      "target": "src_pipeline_neo4j_store_py_float"
     },
     {
       "relation": "references",
@@ -18860,9 +19576,9 @@
       "source_file": "src/pipeline/neo4j_store.py",
       "source_location": "L291",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "pipeline_neo4j_store_neo4jstore_query_desc_neighbors",
-      "target": "src_pipeline_neo4j_store_py_float",
-      "confidence_score": 1.0
+      "target": "src_pipeline_neo4j_store_py_float"
     },
     {
       "relation": "rationale_for",
@@ -18870,7 +19586,17 @@
       "source_file": "src/pipeline/neo4j_store.py",
       "source_location": "L274",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "pipeline_neo4j_store_rationale_274",
+      "target": "pipeline_neo4j_store_neo4jstore_query_code_neighbors"
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pipeline/neo4j_store.py",
+      "source_location": "L281",
+      "weight": 1.0,
+      "source": "pipeline_neo4j_store_rationale_281",
       "target": "pipeline_neo4j_store_neo4jstore_query_code_neighbors",
       "confidence_score": 1.0
     },
@@ -18880,7 +19606,17 @@
       "source_file": "src/pipeline/neo4j_store.py",
       "source_location": "L299",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "pipeline_neo4j_store_rationale_299",
+      "target": "pipeline_neo4j_store_neo4jstore_query_desc_neighbors"
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pipeline/neo4j_store.py",
+      "source_location": "L306",
+      "weight": 1.0,
+      "source": "pipeline_neo4j_store_rationale_306",
       "target": "pipeline_neo4j_store_neo4jstore_query_desc_neighbors",
       "confidence_score": 1.0
     },
@@ -18920,8 +19656,28 @@
       "source_file": "src/pipeline/neo4j_store.py",
       "source_location": "L317",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "pipeline_neo4j_store_rationale_317",
+      "target": "pipeline_neo4j_store_neo4jstore_delete_similarity_edges"
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pipeline/neo4j_store.py",
+      "source_location": "L324",
+      "weight": 1.0,
+      "source": "pipeline_neo4j_store_rationale_324",
       "target": "pipeline_neo4j_store_neo4jstore_delete_similarity_edges",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pipeline/neo4j_store.py",
+      "source_location": "L333",
+      "weight": 1.0,
+      "source": "pipeline_neo4j_store_rationale_333",
+      "target": "pipeline_neo4j_store_neo4jstore_get_functions_by_ids",
       "confidence_score": 1.0
     },
     {
@@ -18971,7 +19727,17 @@
       "source_file": "src/pipeline/neo4j_store.py",
       "source_location": "L326",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "pipeline_neo4j_store_rationale_326",
+      "target": "pipeline_neo4j_store_neo4jstore_upsert_similarity_edges_batch"
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pipeline/neo4j_store.py",
+      "source_location": "L339",
+      "weight": 1.0,
+      "source": "pipeline_neo4j_store_rationale_339",
       "target": "pipeline_neo4j_store_neo4jstore_upsert_similarity_edges_batch",
       "confidence_score": 1.0
     },
@@ -19256,9 +20022,9 @@
       "source_file": "src/pipeline/reporter.py",
       "source_location": "L266",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "pipeline_reporter_generate_report",
-      "target": "src_pipeline_reporter_py_neo4jstore",
-      "confidence_score": 1.0
+      "target": "src_pipeline_reporter_py_neo4jstore"
     },
     {
       "relation": "references",
@@ -19405,9 +20171,9 @@
       "source_file": "src/pipeline/reporter.py",
       "source_location": "L277",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "pipeline_reporter_build_report",
-      "target": "src_pipeline_reporter_py_neo4jstore",
-      "confidence_score": 1.0
+      "target": "src_pipeline_reporter_py_neo4jstore"
     },
     {
       "relation": "rationale_for",
@@ -29638,5 +30404,5 @@
       "source_file": "docs/CONTEXT_CONTRACT.md"
     }
   ],
-  "built_at_commit": "41eb078b57ad771ddd925984436552ae758db6ed"
+  "built_at_commit": "1a2ee98fea1e88c7378728e11b26d0532c241546"
 }

@@ -125,6 +125,13 @@ WHERE b.id <> $source_id
 RETURN b.id AS id, score
 """
 
+_GET_FUNCTIONS_BY_IDS: LiteralString = """
+MATCH (f:Function)
+WHERE f.id IN $ids
+RETURN f.id AS id, f.qualifiedName AS qualifiedName,
+       f.filePath AS filePath, f.description AS description
+"""
+
 _UPSERT_EDGE: LiteralString = """
 UNWIND $edges AS edge
 MATCH (a:Function {id: edge.sourceId})
@@ -321,6 +328,12 @@ class Neo4jStore:
         """
         async with self._driver.session(database=self._config.database) as session:
             await session.run(_DELETE_SIMILARITY_EDGES, repo=repo)
+
+    async def get_functions_by_ids(self, ids: list[str]) -> list[dict]:
+        """Return qualifiedName, filePath, and description for each requested function id."""
+        async with self._driver.session(database=self._config.database) as session:
+            result = await session.run(_GET_FUNCTIONS_BY_IDS, ids=ids)
+            return await result.data()
 
     async def upsert_similarity_edges_batch(self, edges: list[SimilarityEdge]) -> None:
         """Batch-upsert SIMILAR_TO relationships using UNWIND."""
