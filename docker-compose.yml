@@ -52,7 +52,8 @@ services:
       NEO4J_PASSWORD: ${NEO4J_PASSWORD}
       NEO4J_DATABASE: ${NEO4J_DATABASE:-neo4j}
       OLLAMA_URL: http://ollama:11434
-      SLACK_SIGNING_SECRET: ${SLACK_SIGNING_SECRET}
+      SLACK_BOT_TOKEN: ${SLACK_BOT_TOKEN}
+      SLACK_APP_TOKEN: ${SLACK_APP_TOKEN}
       PYTHONUNBUFFERED: "1"
     volumes:
       - ./config.json:/app/config.json:ro
@@ -60,18 +61,11 @@ services:
       - ollama
       - neo4j
     restart: unless-stopped
-
-  ngrok:
-    image: ngrok/ngrok:latest
-    container_name: ngrok
-    command: http fastapi:8000
-    environment:
-      NGROK_AUTHTOKEN: ${NGROK_AUTHTOKEN}
-    ports:
-      - "4040:4040"   # ngrok inspection UI
-    depends_on:
-      - fastapi
-    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
 
 volumes:
   ollama_data:
