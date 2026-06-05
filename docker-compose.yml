@@ -54,6 +54,7 @@ services:
       OLLAMA_URL: http://ollama:11434
       SLACK_BOT_TOKEN: ${SLACK_BOT_TOKEN}
       SLACK_APP_TOKEN: ${SLACK_APP_TOKEN}
+      SLACK_NOTIFY_CHANNEL: ${SLACK_NOTIFY_CHANNEL:-}
       PYTHONUNBUFFERED: "1"
     volumes:
       - ./config.json:/app/config.json:ro
