@@ -1,11 +1,12 @@
-"""Unit tests for _build_report_blocks in slack_notifier.
+"""Unit tests for Block Kit builders in slack_notifier.
 
-_build_report_blocks is a pure function — no mocks needed.
+Both _build_pipeline_blocks and _build_report_blocks are pure — no mocks needed.
 """
 
 import pytest
 
-from src.api.slack_notifier import _build_report_blocks
+from src.api.slack_notifier import _build_pipeline_blocks, _build_report_blocks
+from src.pipeline.contracts import PipelineResult
 
 
 # ---------------------------------------------------------------------------
@@ -185,3 +186,55 @@ def test_build_report_blocks_no_top_pairs_omits_block(full_data):
     full_data["top_pairs"] = []
     text = _all_text(_build_report_blocks(full_data))
     assert "Top pair" not in text
+
+
+# ===========================================================================
+# _build_pipeline_blocks
+# ===========================================================================
+
+
+@pytest.fixture()
+def pipeline_result() -> PipelineResult:
+    return PipelineResult(
+        total_extracted=562,
+        loc_filtered=116,
+        changed=5,
+        unchanged=441,
+        newly_deleted=2,
+        duration_seconds=1.3,
+    )
+
+
+def test_build_pipeline_blocks_header(pipeline_result):
+    blocks = _build_pipeline_blocks(pipeline_result)
+    assert blocks[0]["type"] == "header"
+    assert "Pipeline complete" in blocks[0]["text"]["text"]
+
+
+def test_build_pipeline_blocks_changed_label(pipeline_result):
+    text = _all_text(_build_pipeline_blocks(pipeline_result))
+    assert "New/modified" in text
+    assert "5" in text
+
+
+def test_build_pipeline_blocks_unchanged_and_deleted(pipeline_result):
+    text = _all_text(_build_pipeline_blocks(pipeline_result))
+    assert "441" in text  # unchanged
+    assert "2" in text    # deleted
+
+
+def test_build_pipeline_blocks_duration(pipeline_result):
+    text = _all_text(_build_pipeline_blocks(pipeline_result))
+    assert "1s" in text or "Duration" in text
+
+
+def test_build_pipeline_blocks_excluded_loc(pipeline_result):
+    text = _all_text(_build_pipeline_blocks(pipeline_result))
+    assert "116" in text
+    assert "LOC threshold" in text
+
+
+def test_build_pipeline_blocks_no_exclusions_omits_block(pipeline_result):
+    pipeline_result.loc_filtered = 0
+    text = _all_text(_build_pipeline_blocks(pipeline_result))
+    assert "Excluded" not in text
