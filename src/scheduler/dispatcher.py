@@ -56,16 +56,21 @@ class TaskDispatcher:
             edge_batch_size=self._config.batch_sizes.edge_upsert,
         )
         try:
+            print(f"[dispatcher] searching: {task.query_text!r}")
             result = await search(store, client, task.query_text, task.repo, self._config, task.top_n)
+            print(f"[dispatcher] got {len(result.matches)} matches")
             payload = _format_query_result(task.query_text, result.matches)
         except Exception as exc:
+            print(f"[dispatcher] search failed: {exc}")
             payload = {"text": f"Search failed: {exc}"}
         finally:
             await client.close()
             await store.close()
 
+        print(f"[dispatcher] posting to response_url")
         async with httpx.AsyncClient() as http:
             await http.post(task.response_url, json=payload)
+        print(f"[dispatcher] done")
 
     async def _handle_pipeline(self, task: PipelineTask) -> None:
         from src.pipeline.pipeline import EmbeddingPipeline
