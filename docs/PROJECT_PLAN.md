@@ -483,7 +483,7 @@ Phase 3 is complete when:
 
 ## Stage
 
-Phase 1 — File Mutation MVP: Completed. Phase 2 — Repository Awareness: initial implementation completed and integrated. Phase 3 — Execution & Scheduling Layer: core scheduler + workflow boundary refactor completed. Slack Integration Phase 1 (query engine) + Phase 2 (event loop refactor): completed.
+Phase 1 — File Mutation MVP: Completed. Phase 2 — Repository Awareness: initial implementation completed and integrated. Phase 3 — Execution & Scheduling Layer: core scheduler + workflow boundary refactor completed. Slack Integration Phases 1–3 (query engine, event loop refactor, FastAPI layer): completed.
 
 ## Working capabilities
 
@@ -499,10 +499,11 @@ Phase 1 — File Mutation MVP: Completed. Phase 2 — Repository Awareness: init
 - [x] Embedding pipeline — function extraction, Neo4j HNSW vector indexes, similarity graph
 - [x] Semantic search (`QueryTask`) — embed query text, retrieve top-N matching functions from Neo4j
 - [x] `TaskDispatcher` — routes `QueryTask` (passive) and `PipelineTask` (active) through the execution loop
+- [x] FastAPI layer — `POST /slack/query` and `POST /slack/pipeline` with HMAC-SHA256 signature verification; runs alongside the execution loop via uvicorn; deployed as a Docker service
 
 ## Current focus
 
-Slack Integration Phase 3 — FastAPI layer: receive Slack slash commands, verify signatures, enqueue tasks asynchronously. See `docs/SLACK_INTEGRATION.md`.
+Slack Integration Phase 4 — ngrok tunnel + wiring: expose the local FastAPI server to the internet and connect all pieces in `main.py`. See `docs/SLACK_INTEGRATION.md`.
 
 ---
 
