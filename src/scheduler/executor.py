@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from datetime import datetime, timezone
 
-from .task import Task
+from .workflow_task import WorkflowTask
 
 
 class WorkflowExecutor:
@@ -18,7 +18,7 @@ class WorkflowExecutor:
         self._graph_factory = graph_factory
         self._run_context_factory = run_context_factory
 
-    async def execute(self, task: Task):
+    async def execute(self, task: WorkflowTask):
         from src.graph.workflow import make_graph
         from src.scheduler.state_factory import GraphStateFactory
         from src.observability.context import RunContext
