@@ -113,7 +113,7 @@ class TaskDispatcher:
         config = replace(self._config, repo_name=task.repo)
         started_at = datetime.datetime.now()
         try:
-            report_dir = await generate_report(
+            report_path = await generate_report(
                 config.neo4j, config.repo_name,
                 include_tests=config.include_tests_in_graph,
                 pipeline_config=config,
@@ -122,4 +122,4 @@ class TaskDispatcher:
         except Exception as exc:
             await notify_report_result(False, started_at, None, str(exc))
             raise
-        await notify_report_result(True, started_at, report_dir / "report.md", None)
+        await notify_report_result(True, started_at, report_path, None)

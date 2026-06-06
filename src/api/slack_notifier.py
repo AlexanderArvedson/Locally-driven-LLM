@@ -222,7 +222,7 @@ async def notify_report_result(
 
         blocks = None
         if report_path is not None:
-            json_path = report_path.parent / "report.json"
+            json_path = report_path.with_suffix(".json")
             if json_path.exists():
                 try:
                     blocks = _build_report_blocks(json.loads(json_path.read_text()))
@@ -245,7 +245,7 @@ async def notify_report_result(
             await client.files_upload_v2(
                 channel=channel,
                 file=str(report_path),
-                filename="report.md",
+                filename=report_path.name,
                 title=f"Report — {time_str}",
             )
     except Exception:

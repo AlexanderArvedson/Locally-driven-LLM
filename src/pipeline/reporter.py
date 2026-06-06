@@ -252,11 +252,11 @@ async def generate_report(
             and model name is shown as "N/A".
 
     Returns:
-        Path to the report directory.
+        Path to the generated report.md file.
     """
     reporter_cfg = pipeline_config.reporter if pipeline_config else ReporterConfig()
+    ts = datetime.now(ZoneInfo(reporter_cfg.timezone)).strftime("%Y%m%d-%H%M%S")
     if output_dir is None:
-        ts = datetime.now(ZoneInfo(reporter_cfg.timezone)).strftime("%Y%m%d-%H%M%S")
         output_dir = Path("run_reports") / ts
     output_dir = Path(output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
@@ -267,9 +267,10 @@ async def generate_report(
     finally:
         await store.close()
 
-    (output_dir / "report.md").write_text("\n".join(lines), encoding="utf-8")
-    (output_dir / "report.json").write_text(json.dumps(export, indent=2), encoding="utf-8")
-    return output_dir
+    md_path = output_dir / f"report_{ts}.md"
+    md_path.write_text("\n".join(lines), encoding="utf-8")
+    (output_dir / f"report_{ts}.json").write_text(json.dumps(export, indent=2), encoding="utf-8")
+    return md_path
 
 
 async def _build_report(
