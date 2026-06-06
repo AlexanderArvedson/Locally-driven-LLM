@@ -56,6 +56,7 @@ def _build_report_blocks(data: dict) -> list:
     clusters = data.get("clusters", [])
     top_pairs = data.get("top_pairs", [])
     flags_raw = data.get("flags", {})
+    delta = data.get("delta")
 
     blocks: list = []
 
@@ -108,6 +109,24 @@ def _build_report_blocks(data: dict) -> list:
         },
     })
 
+    # Delta since previous run (omit if no previous report)
+    if delta and delta.get("previous_timestamp"):
+        def _fmt(n: int) -> str:
+            return f"+{n}" if n >= 0 else str(n)
+
+        blocks.append({
+            "type": "section",
+            "text": {
+                "type": "mrkdwn",
+                "text": (
+                    f"*Δ vs* {delta['previous_timestamp']}  "
+                    f"Functions {_fmt(delta.get('functions', 0))} · "
+                    f"Edges {_fmt(delta.get('edges', 0))} · "
+                    f"Clusters {_fmt(delta.get('clusters', 0))}"
+                ),
+            },
+        })
+
     # Clusters (omit if empty)
     if clusters:
         largest = clusters[0]
@@ -132,6 +151,12 @@ def _build_report_blocks(data: dict) -> list:
     test_poll = flags_raw.get("TEST_POLLUTION")
     if isinstance(test_poll, int) and test_poll > 0:
         raised.append("TEST_POLLUTION")
+    god_files = flags_raw.get("GOD_FILE")
+    if god_files:
+        raised.append(f"GOD_FILE ({len(god_files)} files)")
+    low_coh = flags_raw.get("LOW_COHESION")
+    if low_coh:
+        raised.append(f"LOW_COHESION ({len(low_coh)} files)")
 
     if raised:
         blocks.append({
