@@ -2,15 +2,13 @@
 
 import datetime
 import json
-import logging
 import os
 from pathlib import Path
 
+from loguru import logger
 from slack_sdk.web.async_client import AsyncWebClient
 
 from src.pipeline.contracts import PipelineResult
-
-logger = logging.getLogger(__name__)
 
 
 def _build_pipeline_blocks(result: PipelineResult) -> list:

@@ -57,21 +57,21 @@ class TaskDispatcher:
             edge_batch_size=self._config.batch_sizes.edge_upsert,
         )
         try:
-            print(f"[dispatcher] searching: {task.query_text!r}")
+            logger.info("[dispatcher] searching: {!r}", task.query_text)
             result = await search(store, client, task.query_text, task.repo, self._config, task.top_n)
-            print(f"[dispatcher] got {len(result.matches)} matches")
+            logger.info("[dispatcher] got {} matches", len(result.matches))
             payload = _format_query_result(task.query_text, result.matches)
         except Exception as exc:
-            print(f"[dispatcher] search failed: {exc}")
+            logger.exception("[dispatcher] search failed: {}", exc)
             payload = {"text": f"Search failed: {exc}"}
         finally:
             await client.close()
             await store.close()
 
-        print(f"[dispatcher] posting to response_url")
+        logger.info("[dispatcher] posting to response_url")
         async with httpx.AsyncClient() as http:
             await http.post(task.response_url, json=payload)
-        print(f"[dispatcher] done")
+        logger.info("[dispatcher] done")
 
     async def _handle_pipeline(self, task: PipelineTask) -> None:
         from dataclasses import replace
@@ -79,7 +79,9 @@ class TaskDispatcher:
         from src.api.slack_notifier import notify_pipeline_result
         from src.pipeline.pipeline import EmbeddingPipeline
 
-        config = replace(self._config, repo_path=task.path) if task.path else self._config
+        config = replace(self._config, repo_name=task.repo)
+        if task.path:
+            config = replace(config, repo_path=task.path)
         logger.info("[dispatcher] pipeline starting — repo_path={} repo_name={} languages={}",
                     config.repo_path, config.repo_name, config.supported_languages)
 
@@ -103,12 +105,8 @@ class TaskDispatcher:
             return
 
         pipeline = EmbeddingPipeline(config, dry_run=task.dry_run, skip_descriptions=task.no_descriptions)
-        result = None
         try:
             result = await pipeline.run()
-        except Exception as exc:
-            await notify_pipeline_result(False, None, str(exc))
-            raise
         finally:
             await pipeline.close()
 

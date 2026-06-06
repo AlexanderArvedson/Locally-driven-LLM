@@ -10,6 +10,15 @@ from unittest.mock import AsyncMock, MagicMock, patch
 
 import pytest
 
+from src.pipeline.contracts import (
+    BatchSizeConfig,
+    ConcurrencyConfig,
+    LimitsConfig,
+    Neo4jConfig,
+    PipelineConfig,
+    ReporterConfig,
+    SimilarityConfig,
+)
 from src.pipeline.query import QueryMatch, QueryResult
 from src.scheduler.dispatcher import TaskDispatcher
 from src.scheduler.task import PipelineTask, QueryTask
@@ -18,10 +27,24 @@ from src.scheduler.task import PipelineTask, QueryTask
 pytestmark = pytest.mark.asyncio
 
 
-def _make_pipeline_config() -> MagicMock:
-    cfg = MagicMock()
-    cfg.embedding_url = "http://localhost:11434"
-    return cfg
+def _make_pipeline_config() -> PipelineConfig:
+    return PipelineConfig(
+        repo_path="/tmp/repo",
+        repo_name="myrepo",
+        supported_languages=["python"],
+        ignore_paths=[],
+        embedding_model="nomic-embed-text",
+        embedding_url="http://localhost:11434",
+        allow_gpu=False,
+        chat_model="llama3",
+        describer_model="llama3",
+        similarity=SimilarityConfig(),
+        neo4j=Neo4jConfig(uri="bolt://localhost:7687", database="neo4j", username="neo4j", password="test"),
+        concurrency=ConcurrencyConfig(),
+        batch_sizes=BatchSizeConfig(),
+        limits=LimitsConfig(),
+        reporter=ReporterConfig(),
+    )
 
 
 def _make_query_match(name: str, score: float, path: str) -> QueryMatch:
