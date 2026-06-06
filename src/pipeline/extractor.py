@@ -26,8 +26,10 @@ from src.pipeline.scanner import scan_repository
 
 _PY_LANGUAGE = Language(tspython.language())
 
-# TypeScript grammar — imported lazily so the package is only required when
+# TypeScript grammars — imported lazily so the package is only required when
 # TypeScript files are actually present.
+# .ts/.js  → language_typescript()  (no JSX)
+# .tsx/.jsx → language_tsx()         (includes JSX node types)
 def _get_ts_language() -> Language:
     try:
         import tree_sitter_typescript as tsts
@@ -35,6 +37,17 @@ def _get_ts_language() -> Language:
     except ImportError as e:
         raise ImportError(
             "tree-sitter-typescript is required for TypeScript extraction. "
+            "Install it with: pip install tree-sitter-typescript"
+        ) from e
+
+
+def _get_tsx_language() -> Language:
+    try:
+        import tree_sitter_typescript as tsts
+        return Language(tsts.language_tsx())
+    except ImportError as e:
+        raise ImportError(
+            "tree-sitter-typescript is required for TSX extraction. "
             "Install it with: pip install tree-sitter-typescript"
         ) from e
 
@@ -54,7 +67,7 @@ _PY_FUNC_TYPES = frozenset({"function_definition", "async_function_definition"})
 # TypeScript/JavaScript node types that define a function or method.
 _TS_FUNC_TYPES = frozenset({
     "function_declaration",
-    "function",
+    "function_expression",   # anonymous / named function expressions: const f = function() {}
     "method_definition",
     "arrow_function",
     "generator_function_declaration",
@@ -67,6 +80,18 @@ _FUNC_TYPES_BY_LANG: dict[str, frozenset[str]] = {
     "javascript": _TS_FUNC_TYPES,
 }
 
+# Node types that carry a name token across all supported languages.
+# - identifier              plain names in Python, JS/TS function declarations
+# - property_identifier     TS/JS method names, object keys
+# - type_identifier         TS class / type names
+# - private_property_identifier  TS private class members (#foo)
+_NAME_NODE_TYPES = frozenset({
+    "identifier",
+    "property_identifier",
+    "type_identifier",
+    "private_property_identifier",
+})
+
 
 # ---------------------------------------------------------------------------
 # AST traversal helpers
@@ -75,17 +100,24 @@ _FUNC_TYPES_BY_LANG: dict[str, frozenset[str]] = {
 def _find_functions(node: Node, func_types: frozenset[str]) -> list[Node]:
     """Recursively collect all function/method nodes in the subtree."""
     results: list[Node] = []
-    if node.type in func_types:
+    # is_named distinguishes real function nodes from same-string keyword tokens
+    # (e.g. the bare "function" keyword inside function_declaration is is_named=False)
+    if node.type in func_types and node.is_named:
         results.append(node)
     for child in node.children:
         results.extend(_find_functions(child, func_types))
     return results
 
 
-def _get_identifier(node: Node) -> str | None:
-    """Return the text of the first ``identifier`` child of a node."""
+def _get_name_token(node: Node) -> str | None:
+    """Return the text of the first name-bearing child of *node*.
+
+    Covers Python identifiers, TypeScript/JS method names
+    (property_identifier), TypeScript class/type names (type_identifier), and
+    TypeScript private class members (private_property_identifier).
+    """
     for child in node.children:
-        if child.type == "identifier":
+        if child.type in _NAME_NODE_TYPES:
             return child.text.decode("utf-8") if child.text else None
     return None
 
@@ -95,22 +127,89 @@ def _get_class_name(node: Node) -> str | None:
     parent = node.parent
     while parent is not None:
         if parent.type in ("class_definition", "class_declaration"):
-            return _get_identifier(parent)
+            return _get_name_token(parent)
         parent = parent.parent
     return None
 
 
-def _get_property_name(node: Node) -> str | None:
-    """For TS property assignments (``foo = () => ...``), return the property name."""
+def _resolve_name_from_context(node: Node) -> str | None:
+    """Infer a function name from the surrounding AST context.
+
+    Called when the function node itself carries no name token (arrow
+    functions, anonymous function expressions, etc.). Handles common patterns
+    across Python, TypeScript, and JavaScript:
+
+      Variable declarations    const foo = () => ...
+      Class field assignments  class C { foo = () => ... }
+      Object literal pairs     { foo: () => ... }
+      Assignment expressions   foo = () => ...  /  obj.method = () => ...
+      JSX attribute values     <Comp onClick={() => ...} />
+      Call-expression args     useEffect(() => ..., [])
+      Export default           export default () => ...
+    """
     parent = node.parent
     if parent is None:
         return None
-    # arrow_function assigned to a variable: variable_declarator → identifier
+
+    # const/let/var foo = () => ...
     if parent.type == "variable_declarator":
-        return _get_identifier(parent)
-    # class property: public_field_definition or property_signature
-    if parent.type in ("public_field_definition", "property_identifier"):
-        return _get_identifier(parent)
+        return _get_name_token(parent)
+
+    # class C { foo = () => ... }
+    if parent.type == "public_field_definition":
+        return _get_name_token(parent)
+
+    # foo = () => ...  or  obj.method = () => ...
+    if parent.type == "assignment_expression":
+        left = parent.child_by_field_name("left")
+        if left is not None and left.text:
+            raw = left.text.decode("utf-8")
+            # Take the last segment of a member expression (obj.foo → foo)
+            return raw.rsplit(".", 1)[-1]
+
+    # { key: () => ... }  —  object literal pair
+    if parent.type == "pair":
+        key = parent.child_by_field_name("key")
+        if key is not None and key.text and key.type != "computed_property_name":
+            return key.text.decode("utf-8").strip("\"'`")
+
+    # <Component onClick={() => ...} />
+    if parent.type == "jsx_expression":
+        gp = parent.parent
+        if gp is not None and gp.type == "jsx_attribute":
+            attr = next(
+                (c for c in gp.children if c.type in _NAME_NODE_TYPES),
+                None,
+            )
+            if attr is not None and attr.text:
+                return attr.text.decode("utf-8")
+
+    # useEffect(() => ..., [])  /  arr.map(item => ...)
+    if parent.type == "arguments":
+        gp = parent.parent
+        if gp is not None and gp.type == "call_expression":
+            callee = gp.child_by_field_name("function")
+            if callee is None and gp.children:
+                callee = gp.children[0]
+            if callee is not None and callee.text:
+                callee_name = callee.text.decode("utf-8").rsplit(".", 1)[-1]
+                # Determine which argument position this node occupies
+                fn_args = [
+                    c for c in parent.children
+                    if c.type not in {",", "(", ")", "comment", "whitespace"}
+                ]
+                idx = next(
+                    (i for i, c in enumerate(fn_args) if c.start_byte == node.start_byte),
+                    0,
+                )
+                # Single-arg callbacks get just the callee name (useEffect),
+                # multi-arg calls get a positional suffix (map$0)
+                return callee_name if len(fn_args) == 1 else f"{callee_name}${idx}"
+
+    # export default function() {}  /  export default () => {}
+    if parent.type in ("export_statement", "export_default_declaration"):
+        return "default"
+
     return None
 
 
@@ -156,11 +255,10 @@ def _extract_from_file(
     records: list[FunctionRecord] = []
 
     for fn_node in _find_functions(tree.root_node, func_types):
-        # Determine function name
-        function_name = _get_identifier(fn_node)
+        # Try direct name token first, then fall back to context resolution
+        function_name = _get_name_token(fn_node)
         if function_name is None:
-            # Anonymous arrow function: try parent context
-            function_name = _get_property_name(fn_node) or "<anonymous>"
+            function_name = _resolve_name_from_context(fn_node) or "<anonymous>"
 
         class_name = _get_class_name(fn_node)
         qualified_name = f"{class_name}.{function_name}" if class_name else function_name
@@ -221,10 +319,14 @@ class FunctionExtractor:
                 parsers[".py"] = (p, _PY_FUNC_TYPES)
             elif lang in ("typescript", "javascript"):
                 ts_lang = _get_ts_language()
-                p = Parser(ts_lang)
+                tsx_lang = _get_tsx_language()
                 func_types = _FUNC_TYPES_BY_LANG[lang]
-                for ext in (".ts", ".tsx", ".js", ".jsx"):
-                    parsers[ext] = (p, func_types)
+                # .ts/.js use the TypeScript grammar; .tsx/.jsx need the TSX
+                # grammar which adds JSX node types (jsx_element, jsx_attribute…)
+                for ext in (".ts", ".js"):
+                    parsers[ext] = (Parser(ts_lang), func_types)
+                for ext in (".tsx", ".jsx"):
+                    parsers[ext] = (Parser(tsx_lang), func_types)
 
         records: list[FunctionRecord] = []
         for file_path in files:
