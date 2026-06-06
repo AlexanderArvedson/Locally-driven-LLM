@@ -52,13 +52,16 @@ A standalone subsystem that scans a repository, extracts every function and meth
 
 ```bash
 # Full run — embeddings, descriptions, similarity graph, and report
-uv run run_pipeline.py --report
+uv run run_pipeline.py
 
 # Code-embedding only (no LLM descriptions, much faster)
-uv run run_pipeline.py --no-descriptions --report
+uv run run_pipeline.py --no-descriptions
 
 # Target a subfolder for quick testing
 uv run run_pipeline.py --path /path/to/repo/subdir --no-descriptions
+
+# Skip report generation
+uv run run_pipeline.py --no-report
 
 # Generate a report from the current graph without re-running the pipeline
 uv run run_pipeline.py --report-only
@@ -68,7 +71,7 @@ The report (`pipeline-report-<timestamp>.md`) includes embedding integrity stats
 
 Neo4j and Ollama must be running (`docker compose up -d`). The embedding model (`nomic-embed-text` by default) must be pulled into Ollama before the first run.
 
-The pipeline can also be triggered via Slack using `/pipeline [flags]` — the same flags apply. Set `SLACK_NOTIFY_CHANNEL` in `.env` to receive a completion notification in a channel when the run finishes. See `docs/SLACK_SETUP.md` for setup.
+The pipeline can also be triggered via Slack using `/pipeline [flags]`. A separate `/report` command generates a report from the current graph without re-running the pipeline. Set `SLACK_NOTIFY_CHANNEL` in `.env` to receive completion notifications. See `docs/SLACK_SETUP.md` for setup.
 
 Full documentation: `docs/PIPELINE.md`
 

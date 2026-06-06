@@ -7,6 +7,8 @@ Options:
     --config PATH     Path to config.json (default: ./config.json)
     --repo NAME       Repository name to process (default: first in list)
     --dry-run         Extract and embed but skip all Neo4j writes
+    --no-report       Skip report generation after the pipeline completes
+    --report-only     Skip the pipeline and only generate a report
 """
 
 from __future__ import annotations
@@ -40,9 +42,10 @@ def _parse_args() -> argparse.Namespace:
         help="Skip LLM description generation and description embeddings",
     )
     parser.add_argument(
-        "--report",
+        "--no-report",
         action="store_true",
-        help="Generate a markdown similarity report after the pipeline completes",
+        dest="no_report",
+        help="Skip report generation after the pipeline completes",
     )
     parser.add_argument(
         "--report-only",
@@ -101,7 +104,7 @@ async def _run(args: argparse.Namespace) -> int:
         for err in result.errors:
             print(f"    - {err}")
 
-    if (args.report or args.report_only) and not args.dry_run:
+    if not args.no_report and not args.dry_run:
         print()
         report_dir = await generate_report(
             config.neo4j, config.repo_name,

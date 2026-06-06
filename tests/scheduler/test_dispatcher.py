@@ -16,12 +16,13 @@ from src.pipeline.contracts import (
     LimitsConfig,
     Neo4jConfig,
     PipelineConfig,
+    PipelineResult,
     ReporterConfig,
     SimilarityConfig,
 )
 from src.pipeline.query import QueryMatch, QueryResult
 from src.scheduler.dispatcher import TaskDispatcher
-from src.scheduler.task import PipelineTask, QueryTask
+from src.scheduler.task import PipelineTask, QueryTask, ReportTask
 
 
 pytestmark = pytest.mark.asyncio
@@ -177,10 +178,14 @@ async def test_handle_pipeline_runs_pipeline_and_closes_it():
     dispatcher = TaskDispatcher(pipeline_config=_make_pipeline_config())
 
     mock_pipeline = AsyncMock()
-    mock_pipeline.run = AsyncMock(return_value=MagicMock())
+    mock_pipeline.run = AsyncMock(return_value=PipelineResult())
     mock_pipeline.close = AsyncMock()
 
-    with patch("src.pipeline.pipeline.EmbeddingPipeline", return_value=mock_pipeline):
+    with (
+        patch("src.pipeline.pipeline.EmbeddingPipeline", return_value=mock_pipeline),
+        patch("src.api.slack_notifier.notify_pipeline_result", AsyncMock()),
+        patch.object(dispatcher, "_handle_report", AsyncMock()),
+    ):
         task = PipelineTask(id="p1", repo="myrepo")
         await dispatcher.execute(task)
 
@@ -207,12 +212,113 @@ async def test_handle_pipeline_passes_no_descriptions_flag():
     dispatcher = TaskDispatcher(pipeline_config=_make_pipeline_config())
 
     mock_pipeline = AsyncMock()
-    mock_pipeline.run = AsyncMock(return_value=MagicMock())
+    mock_pipeline.run = AsyncMock(return_value=PipelineResult())
     mock_pipeline.close = AsyncMock()
 
-    with patch("src.pipeline.pipeline.EmbeddingPipeline", return_value=mock_pipeline) as mock_cls:
+    with (
+        patch("src.pipeline.pipeline.EmbeddingPipeline", return_value=mock_pipeline) as mock_cls,
+        patch("src.api.slack_notifier.notify_pipeline_result", AsyncMock()),
+        patch.object(dispatcher, "_handle_report", AsyncMock()),
+    ):
         task = PipelineTask(id="p3", repo="myrepo", no_descriptions=True)
         await dispatcher.execute(task)
 
     _, kwargs = mock_cls.call_args
     assert kwargs.get("skip_descriptions") is True
+
+
+async def test_handle_pipeline_chains_report_by_default():
+    dispatcher = TaskDispatcher(pipeline_config=_make_pipeline_config())
+
+    mock_pipeline = AsyncMock()
+    mock_pipeline.run = AsyncMock(return_value=PipelineResult(loc_filtered=3))
+    mock_pipeline.close = AsyncMock()
+    mock_handle_report = AsyncMock()
+
+    with (
+        patch("src.pipeline.pipeline.EmbeddingPipeline", return_value=mock_pipeline),
+        patch("src.api.slack_notifier.notify_pipeline_result", AsyncMock()),
+        patch.object(dispatcher, "_handle_report", mock_handle_report),
+    ):
+        task = PipelineTask(id="p4", repo="myrepo")
+        await dispatcher.execute(task)
+
+    mock_handle_report.assert_called_once()
+    report_task = mock_handle_report.call_args.args[0]
+    assert isinstance(report_task, ReportTask)
+    assert report_task.repo == "myrepo"
+    assert report_task.loc_filtered == 3
+
+
+async def test_handle_pipeline_skips_report_with_no_report_flag():
+    dispatcher = TaskDispatcher(pipeline_config=_make_pipeline_config())
+
+    mock_pipeline = AsyncMock()
+    mock_pipeline.run = AsyncMock(return_value=PipelineResult())
+    mock_pipeline.close = AsyncMock()
+    mock_handle_report = AsyncMock()
+
+    with (
+        patch("src.pipeline.pipeline.EmbeddingPipeline", return_value=mock_pipeline),
+        patch("src.api.slack_notifier.notify_pipeline_result", AsyncMock()),
+        patch.object(dispatcher, "_handle_report", mock_handle_report),
+    ):
+        task = PipelineTask(id="p5", repo="myrepo", no_report=True)
+        await dispatcher.execute(task)
+
+    mock_handle_report.assert_not_called()
+
+
+async def test_handle_pipeline_skips_report_on_dry_run():
+    dispatcher = TaskDispatcher(pipeline_config=_make_pipeline_config())
+
+    mock_pipeline = AsyncMock()
+    mock_pipeline.run = AsyncMock(return_value=PipelineResult())
+    mock_pipeline.close = AsyncMock()
+    mock_handle_report = AsyncMock()
+
+    with (
+        patch("src.pipeline.pipeline.EmbeddingPipeline", return_value=mock_pipeline),
+        patch("src.api.slack_notifier.notify_pipeline_result", AsyncMock()),
+        patch.object(dispatcher, "_handle_report", mock_handle_report),
+    ):
+        task = PipelineTask(id="p6", repo="myrepo", dry_run=True)
+        await dispatcher.execute(task)
+
+    mock_handle_report.assert_not_called()
+
+
+# ---------------------------------------------------------------------------
+# _handle_report tests
+# ---------------------------------------------------------------------------
+
+
+async def test_execute_dispatches_report_task():
+    dispatcher = TaskDispatcher(pipeline_config=_make_pipeline_config())
+    mock_handle_report = AsyncMock()
+
+    with patch.object(dispatcher, "_handle_report", mock_handle_report):
+        task = ReportTask(id="r1", repo="myrepo")
+        await dispatcher.execute(task)
+
+    mock_handle_report.assert_called_once_with(task)
+
+
+async def test_handle_report_calls_generate_report_and_notifies():
+    dispatcher = TaskDispatcher(pipeline_config=_make_pipeline_config())
+
+    from pathlib import Path
+    mock_report_dir = MagicMock()
+    mock_report_dir.__truediv__ = lambda self, other: Path("/tmp/report.md")
+
+    with (
+        patch("src.pipeline.reporter.generate_report", AsyncMock(return_value=mock_report_dir)),
+        patch("src.api.slack_notifier.notify_report_result", AsyncMock()) as mock_notify,
+    ):
+        task = ReportTask(id="r2", repo="myrepo", loc_filtered=5)
+        await dispatcher.execute(task)
+
+    mock_notify.assert_called_once()
+    success, started_at, report_path, error = mock_notify.call_args.args
+    assert success is True
+    assert error is None

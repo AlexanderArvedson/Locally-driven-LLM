@@ -16,10 +16,10 @@ from slack_bolt.async_app import AsyncApp
 from slack_bolt.adapter.socket_mode.async_handler import AsyncSocketModeHandler
 
 from src.scheduler.queue import TaskQueue
-from src.scheduler.task import PipelineTask, QueryTask
+from src.scheduler.task import PipelineTask, QueryTask, ReportTask
 
 _PIPELINE_USAGE = (
-    "Usage: `/pipeline [--no-descriptions] [--dry-run] [--report] [--report-only] [--path PATH]`"
+    "Usage: `/pipeline [--no-descriptions] [--dry-run] [--no-report] [--path PATH]`"
 )
 
 
@@ -28,8 +28,7 @@ def _parse_pipeline_args(text: str) -> argparse.Namespace | str:
     parser = argparse.ArgumentParser(prog="/pipeline", add_help=False, exit_on_error=False)
     parser.add_argument("--no-descriptions", action="store_true", dest="no_descriptions")
     parser.add_argument("--dry-run", action="store_true", dest="dry_run")
-    parser.add_argument("--report", action="store_true")
-    parser.add_argument("--report-only", action="store_true", dest="report_only")
+    parser.add_argument("--no-report", action="store_true", dest="no_report")
     parser.add_argument("--path", default=None)
     try:
         return parser.parse_args(shlex.split(text) if text else [])
@@ -84,12 +83,22 @@ async def start_socket_mode(queue: TaskQueue, repo_name: str) -> AsyncSocketMode
                 repo=repo_name,
                 no_descriptions=args.no_descriptions,
                 dry_run=args.dry_run,
-                report=args.report,
-                report_only=args.report_only,
+                no_report=args.no_report,
                 path=args.path,
             )
         )
         await respond({"response_type": "ephemeral", "text": "Pipeline run queued."})
+
+    @app.command("/report")
+    async def handle_report(ack, respond) -> None:
+        await ack()
+        await queue.enqueue(
+            ReportTask(
+                id=str(uuid.uuid4()),
+                repo=repo_name,
+            )
+        )
+        await respond({"response_type": "ephemeral", "text": "Report generation queued."})
 
     handler = AsyncSocketModeHandler(app, app_token)
     await handler.start_async()
