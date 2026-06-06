@@ -195,7 +195,7 @@ On failure:
 ❌ Pipeline failed — ConnectionError: Neo4j unreachable
 ```
 
-After every pipeline run (unless `--no-report` or `--dry-run` is set), a separate Block Kit report summary is posted, followed by the `report.md` file as an attachment. The same report message is also sent when `/report` is used standalone:
+After every pipeline run (unless `--no-report` or `--dry-run` is set), a separate Block Kit report summary is posted, followed by the timestamped `report_<timestamp>.md` file as an attachment. The same report message is also sent when `/report` is used standalone:
 
 ```
 📊 monorepo — 2026-06-05 14:32 CEST

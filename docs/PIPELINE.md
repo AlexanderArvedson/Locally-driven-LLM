@@ -168,10 +168,12 @@ The following are created automatically on first run by `ensure_schema`:
 
 By default, a report is generated automatically after every pipeline run (unless `--no-report` or `--dry-run` is passed). `--report-only` skips the pipeline and generates a report from the current Neo4j graph. Both paths create a timestamped directory under `run_reports/` containing two files:
 
-- `report.md` — the full human-readable markdown report
-- `report.json` — machine-readable export of all stats, clusters, failures, and flags
+- `report_<timestamp>.md` — the full human-readable markdown report
+- `report_<timestamp>.json` — machine-readable export of all stats, clusters, failures, and flags
 
-`run_reports/` is gitignored. Each run gets its own directory (`run_reports/<timestamp>/`) so previous reports are never overwritten.
+For example: `run_reports/20260606-142530/report_20260606-142530.md`
+
+`run_reports/` is gitignored. Each run gets its own directory and both files carry the same timestamp in their names, so reports sort correctly and remain unambiguous when multiple are open at once.
 
 The report is fully deterministic — no LLM reasoning is involved. It contains ten sections in order:
 
