@@ -39,8 +39,14 @@ This guide gets the **self-hosted LLM** Slack bot running from scratch.
             },
             {
                 "command": "/pipeline",
-                "description": "Trigger a full embedding pipeline run",
-                "usage_hint": "[--no-descriptions] [--dry-run] [--report] [--report-only] [--path PATH]",
+                "description": "Trigger a full embedding pipeline run (report included by default)",
+                "usage_hint": "[--no-descriptions] [--dry-run] [--no-report] [--path PATH]",
+                "should_escape": false
+            },
+            {
+                "command": "/report",
+                "description": "Generate a similarity report from the current graph without re-running the pipeline",
+                "usage_hint": "(no arguments)",
                 "should_escape": false
             }
         ]
@@ -128,23 +134,25 @@ To trigger a pipeline run:
 /pipeline
 ```
 
-The `/pipeline` command accepts the same flags as the CLI:
+The `/pipeline` command runs the full pipeline and generates a report on completion. A separate `/report` command generates a report from the current graph without re-running the pipeline.
+
+`/pipeline` flags:
 
 | Flag | Description |
 |---|---|
 | `--no-descriptions` | Skip LLM description generation — faster, code-embedding similarity only |
-| `--dry-run` | Extract functions but skip all Ollama calls and Neo4j writes |
-| `--report` | Generate a markdown similarity report after the run |
-| `--report-only` | Skip the pipeline and generate a report from the current graph |
+| `--dry-run` | Extract functions but skip all Ollama calls, Neo4j writes, and report generation |
+| `--no-report` | Skip report generation after the pipeline completes |
 | `--path PATH` | Override the repo path (useful for targeting a subfolder inside the container) |
 
 Examples:
 
 ```
+/pipeline
 /pipeline --no-descriptions
-/pipeline --no-descriptions --report
-/pipeline --report-only
+/pipeline --no-report
 /pipeline --dry-run
+/report
 ```
 
 Invalid flags return an ephemeral error with the usage hint.
@@ -187,7 +195,7 @@ On failure:
 ❌ Pipeline failed — ConnectionError: Neo4j unreachable
 ```
 
-When `--report` or `--report-only` is used, a separate Block Kit report summary is posted after the pipeline notification, followed by the `report.md` file as an attachment:
+After every pipeline run (unless `--no-report` or `--dry-run` is set), a separate Block Kit report summary is posted, followed by the `report.md` file as an attachment. The same report message is also sent when `/report` is used standalone:
 
 ```
 📊 monorepo — 2026-06-05 14:32 CEST

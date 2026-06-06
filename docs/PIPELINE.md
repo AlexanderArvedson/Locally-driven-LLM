@@ -29,7 +29,7 @@ The pipeline runs thirteen sequential stages:
 ## Running the pipeline
 
 ```bash
-# Full run (embedding + descriptions + similarity graph)
+# Full run — embeddings, descriptions, similarity graph, and report
 uv run run_pipeline.py
 
 # Skip LLM descriptions — much faster, code-embedding similarity only
@@ -38,14 +38,14 @@ uv run run_pipeline.py --no-descriptions
 # Target a specific subfolder instead of the whole repo
 uv run run_pipeline.py --path /path/to/monorepo/apps/backend --no-descriptions
 
-# Validate extraction counts without touching Neo4j or Ollama
+# Validate extraction counts without touching Neo4j or Ollama (no report)
 uv run run_pipeline.py --dry-run
 
-# Generate a markdown report from the current Neo4j graph without re-running
-uv run run_pipeline.py --report-only
+# Skip the report after the pipeline
+uv run run_pipeline.py --no-descriptions --no-report
 
-# Run the pipeline and generate a report at the end
-uv run run_pipeline.py --no-descriptions --report
+# Generate a report from the current Neo4j graph without re-running the pipeline
+uv run run_pipeline.py --report-only
 
 # Use a specific repository entry from config.json
 uv run run_pipeline.py --repo my-other-repo
@@ -58,22 +58,22 @@ uv run run_pipeline.py --repo my-other-repo
 | `--config PATH` | Path to `config.json`. Defaults to `./config.json`. |
 | `--repo NAME` | Repository name to use from `config.json`. Defaults to the first entry. |
 | `--path PATH` | Override `repo_path` from config. Useful for targeting a subfolder. |
-| `--dry-run` | Extract functions and query Neo4j for hashes, but skip all Ollama calls and Neo4j writes. |
+| `--dry-run` | Extract functions and query Neo4j for hashes, but skip all Ollama calls, Neo4j writes, and report generation. |
 | `--no-descriptions` | Skip LLM description generation and description embeddings. Recommended for first runs on large repositories. |
-| `--report` | Generate a markdown similarity report after the pipeline completes. |
+| `--no-report` | Skip report generation after the pipeline completes. |
 | `--report-only` | Skip the pipeline entirely and generate a report from the current Neo4j graph. |
 
 ### Running via Slack
 
-The same flags are available through the `/pipeline` slash command when the Slack bot is running:
+The `/pipeline` slash command triggers a pipeline run and posts a Block Kit report to `SLACK_NOTIFY_CHANNEL` on completion. A separate `/report` command generates a report from the current graph without re-running the pipeline.
 
 ```
 /pipeline
 /pipeline --no-descriptions
-/pipeline --no-descriptions --report
-/pipeline --report-only
+/pipeline --no-report
 /pipeline --dry-run
 /pipeline --path /home/alice/projects/myrepo/apps/backend --no-descriptions
+/report
 ```
 
 On completion the bot posts a Block Kit notification to `SLACK_NOTIFY_CHANNEL` if that env var is set. See `docs/SLACK_SETUP.md` for setup instructions.
@@ -166,7 +166,7 @@ The following are created automatically on first run by `ensure_schema`:
 
 ## Report generation
 
-`--report` and `--report-only` create a timestamped directory under `run_reports/` containing two files:
+By default, a report is generated automatically after every pipeline run (unless `--no-report` or `--dry-run` is passed). `--report-only` skips the pipeline and generates a report from the current Neo4j graph. Both paths create a timestamped directory under `run_reports/` containing two files:
 
 - `report.md` — the full human-readable markdown report
 - `report.json` — machine-readable export of all stats, clusters, failures, and flags
