@@ -256,6 +256,11 @@ Controls the thresholds used when generating the post-run markdown report. All f
 | `sim_dist_bin_high` | float | `0.95` | Upper bin boundary for the Similarity Distribution histogram. Edges above this value fall in the top bucket. |
 | `sim_dist_bin_mid` | float | `0.90` | Middle bin boundary. Edges between `sim_dist_bin_mid` and `sim_dist_bin_high` form the second bucket. |
 | `sim_dist_bin_low` | float | `0.80` | Lower bin boundary. Edges between `sim_dist_bin_low` and `sim_dist_bin_mid` form the third bucket; edges at or below this value form the bottom bucket. |
+| `cohesion_low_threshold` | float | `0.30` | Average pairwise embedding similarity below which a file or class is flagged `LOW_COHESION`. Lower values tolerate more semantic diversity within a file before flagging. |
+| `cohesion_min_functions` | integer | `2` | Minimum number of functions (with at least one embedding) required before cohesion is computed for a file or class. Groups below this size are skipped. |
+| `max_cohesion_files_listed` | integer | `20` | Maximum rows shown in the File Cohesion Scores and Class Cohesion Scores report tables. |
+| `max_isolated_listed` | integer | `50` | Maximum number of isolated functions (no similarity edges) shown in the Isolated Functions subsection of Graph Overview. |
+| `god_file_threshold` | integer | `20` | Files containing more functions than this value are flagged `GOD_FILE`. Adjust upward for large utility modules that intentionally centralise many small helpers. |
 
 #### `pipeline.limits`
 

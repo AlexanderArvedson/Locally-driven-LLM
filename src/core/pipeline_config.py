@@ -138,5 +138,10 @@ def load_pipeline_config(config_path: str | Path = "config.json", repo_name: str
             sim_dist_bin_high=reporter_block.get("sim_dist_bin_high", 0.95),
             sim_dist_bin_mid=reporter_block.get("sim_dist_bin_mid", 0.90),
             sim_dist_bin_low=reporter_block.get("sim_dist_bin_low", 0.80),
+            cohesion_low_threshold=reporter_block.get("cohesion_low_threshold", 0.30),
+            cohesion_min_functions=reporter_block.get("cohesion_min_functions", 2),
+            max_cohesion_files_listed=reporter_block.get("max_cohesion_files_listed", 20),
+            max_isolated_listed=reporter_block.get("max_isolated_listed", 50),
+            god_file_threshold=reporter_block.get("god_file_threshold", 20),
         ),
     )
