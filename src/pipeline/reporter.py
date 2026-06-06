@@ -420,7 +420,6 @@ async def generate_report(
         prev_report = _find_previous_report(run_reports_root)
 
     output_dir = Path(output_dir)
-    output_dir.mkdir(parents=True, exist_ok=True)
 
     store = Neo4jStore(neo4j_config)
     try:
@@ -430,6 +429,8 @@ async def generate_report(
     finally:
         await store.close()
 
+    # Only create the directory once we have content to write.
+    output_dir.mkdir(parents=True, exist_ok=True)
     md_path = output_dir / f"report_{ts}.md"
     md_path.write_text("\n".join(lines), encoding="utf-8")
     (output_dir / f"report_{ts}.json").write_text(json.dumps(export, indent=2), encoding="utf-8")
@@ -477,8 +478,17 @@ async def _build_report(
     cluster_edges  = await run(_Q_CLUSTER_EDGES,           threshold=reporter_cfg.cluster_threshold, include_tests=include_tests)
     test_pollution = await run(_Q_TEST_POLLUTION) if include_tests else [{"cross_edges": 0}]
     isolated_fns   = await run(_Q_ISOLATED_FUNCTIONS,      limit=reporter_cfg.max_isolated_listed, include_tests=include_tests)
-    file_embed_rows= await run(_Q_FILE_EMBEDDINGS,         include_tests=include_tests)
     files_by_count = await run(_Q_FILES_BY_FUNCTION_COUNT, limit=top_n, include_tests=include_tests)
+
+    # Fetch raw embeddings for cohesion computation. This query returns all
+    # embedding vectors and can be large — fall back to empty on failure so a
+    # Neo4j timeout or memory pressure here does not abort the whole report.
+    try:
+        file_embed_rows = await run(_Q_FILE_EMBEDDINGS, include_tests=include_tests)
+    except Exception as exc:
+        from loguru import logger
+        logger.warning("[reporter] cohesion query failed ({}), skipping cohesion sections", exc)
+        file_embed_rows = []
 
     # Scalar extraction
     total       = stats[0]["total"] if stats else 0
