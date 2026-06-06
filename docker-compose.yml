@@ -58,6 +58,7 @@ services:
       PYTHONUNBUFFERED: "1"
     volumes:
       - ./config.json:/app/config.json:ro
+      - ${REPOS_ROOT}:${REPOS_ROOT}:ro
     depends_on:
       - ollama
       - neo4j

@@ -168,18 +168,38 @@ To receive a message when a pipeline run finishes:
    docker compose up -d --build fastapi
    ```
 
-On every pipeline run you will receive one of:
+On every pipeline run you will receive a Block Kit message:
 
 ```
-✅ Pipeline complete — 142 functions processed in 43s
+✅ Pipeline complete
+
+New/modified: 5
+Unchanged: 441
+Deleted: 2
+Duration: 43s
+
+Excluded: 116 below LOC threshold   ← only shown when loc_filtered > 0
+```
+
+On failure:
+
+```
 ❌ Pipeline failed — ConnectionError: Neo4j unreachable
 ```
 
-When `--report` or `--report-only` is used, a separate report notification is sent with the `report.md` file attached:
+When `--report` or `--report-only` is used, a separate Block Kit report summary is posted after the pipeline notification, followed by the `report.md` file as an attachment:
 
 ```
-✅ Report started at 2026-06-05 14:32:01 — finished
-❌ Report started at 2026-06-05 14:32:01 — failed: <error>
+📊 monorepo — 2026-06-05 14:32 CEST
+
+Functions 321   Edges 200   Density 0.62
+Intra 97   Inter 103
+Code ok 312   Failed 9   (8 overflow · 1 error)
+Similarity >0.95: 12 · 0.90–0.95: 23 · 0.80–0.90: 165
+8 duplication clusters
+Largest: GamepadDriver.last_emitted — 5 functions, avg 0.963
+🚨 HIGH_DUPLICATION_CLUSTER · CROSS_FILE_DUPLICATION · ARCHITECTURE_COUPLING
+Top pair: KeyboardDriver.last_emitted ↔ WindowsGamepadDriver.last_emitted (1.0000)
 ```
 
 The bot reuses the existing `SLACK_BOT_TOKEN` and requires the `chat:write` and `files:write` scopes (both included in the manifest above). Leave `SLACK_NOTIFY_CHANNEL` unset to disable notifications entirely.
