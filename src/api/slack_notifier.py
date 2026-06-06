@@ -56,6 +56,7 @@ def _build_report_blocks(data: dict) -> list:
     clusters = data.get("clusters", [])
     top_pairs = data.get("top_pairs", [])
     flags_raw = data.get("flags", {})
+    delta = data.get("delta")
 
     blocks: list = []
 
@@ -65,17 +66,16 @@ def _build_report_blocks(data: dict) -> list:
         "text": {"type": "plain_text", "text": f"\U0001f4ca {data.get('repo', '?')} — {data.get('timestamp', '?')}"},
     })
 
-    # Overview: functions / edges / density / intra / inter
+    # Graph overview — one value per line
     blocks.append({
         "type": "section",
         "text": {
             "type": "mrkdwn",
             "text": (
-                f"*Functions* {stats.get('total_functions', '?')} "
-                f"*Edges* {stats.get('edges', '?')} "
-                f"*Density* {stats.get('density', 0):.2f}\n"
-                f"*Intra* {stats.get('intra_edges', '?')} "
-                f"*Inter* {stats.get('inter_edges', '?')}"
+                f"*Graph*\n"
+                f"Functions: {stats.get('total_functions', '?')}\n"
+                f"Edges: {stats.get('edges', '?')}   Density: {stats.get('density', 0):.2f}\n"
+                f"Intra: {stats.get('intra_edges', '?')}   Inter: {stats.get('inter_edges', '?')}   Isolated: {stats.get('isolated_functions', 0)}"
             ),
         },
     })
@@ -87,9 +87,9 @@ def _build_report_blocks(data: dict) -> list:
         "text": {
             "type": "mrkdwn",
             "text": (
-                f"*Code ok* {emb.get('ok', '?')} "
-                f"*Failed* {failed} "
-                f"({emb.get('context_overflow', 0)} overflow · {emb.get('error', 0)} error)"
+                f"*Embedding*\n"
+                f"OK: {emb.get('ok', '?')}\n"
+                f"Failed: {failed}   ({emb.get('context_overflow', 0)} overflow · {emb.get('error', 0)} error)"
             ),
         },
     })
@@ -100,15 +100,33 @@ def _build_report_blocks(data: dict) -> list:
         "text": {
             "type": "mrkdwn",
             "text": (
-                f"*Similarity* "
-                f">0.95: {sim.get('gt95', 0)} · "
-                f"0.90–0.95: {sim.get('b90_95', 0)} · "
+                f"*Similarity*\n"
+                f">0.95: {sim.get('gt95', 0)}\n"
+                f"0.90–0.95: {sim.get('b90_95', 0)}\n"
                 f"0.80–0.90: {sim.get('b80_90', 0)}"
             ),
         },
     })
 
-    # Clusters (omit if empty)
+    # Delta since previous run (omit if no previous report)
+    if delta and delta.get("previous_timestamp"):
+        def _fmt(n: int) -> str:
+            return f"+{n}" if n >= 0 else str(n)
+
+        blocks.append({
+            "type": "section",
+            "text": {
+                "type": "mrkdwn",
+                "text": (
+                    f"*Δ vs {delta['previous_timestamp']}*\n"
+                    f"Functions: {_fmt(delta.get('functions', 0))}\n"
+                    f"Edges: {_fmt(delta.get('edges', 0))}\n"
+                    f"Clusters: {_fmt(delta.get('clusters', 0))}"
+                ),
+            },
+        })
+
+    # Duplication clusters (omit if empty)
     if clusters:
         largest = clusters[0]
         blocks.append({
@@ -116,14 +134,14 @@ def _build_report_blocks(data: dict) -> list:
             "text": {
                 "type": "mrkdwn",
                 "text": (
-                    f"*{len(clusters)} duplication clusters*\n"
-                    f"Largest: {largest.get('representative', '?')} — "
-                    f"{largest.get('size', '?')} functions, avg {largest.get('avg_score', 0):.3f}"
+                    f"*Duplication clusters: {len(clusters)}*\n"
+                    f"Largest: {largest.get('representative', '?')}\n"
+                    f"{largest.get('size', '?')} functions, avg score {largest.get('avg_score', 0):.3f}"
                 ),
             },
         })
 
-    # Raised flags (omit block if none)
+    # Raised flags — one flag per line (omit block if none)
     raised = []
     for flag in ("HIGH_DUPLICATION_CLUSTER", "CROSS_FILE_DUPLICATION", "ARCHITECTURE_COUPLING"):
         val = flags_raw.get(flag)
@@ -132,13 +150,19 @@ def _build_report_blocks(data: dict) -> list:
     test_poll = flags_raw.get("TEST_POLLUTION")
     if isinstance(test_poll, int) and test_poll > 0:
         raised.append("TEST_POLLUTION")
+    god_files = flags_raw.get("GOD_FILE")
+    if god_files:
+        raised.append(f"GOD_FILE ({len(god_files)} files)")
+    low_coh = flags_raw.get("LOW_COHESION")
+    if low_coh:
+        raised.append(f"LOW_COHESION ({len(low_coh)} files)")
 
     if raised:
         blocks.append({
             "type": "section",
             "text": {
                 "type": "mrkdwn",
-                "text": "\U0001f6a8 " + " · ".join(raised),
+                "text": "*Flags*\n\U0001f6a8 " + "\n\U0001f6a8 ".join(raised),
             },
         })
 
@@ -150,8 +174,9 @@ def _build_report_blocks(data: dict) -> list:
             "text": {
                 "type": "mrkdwn",
                 "text": (
-                    f"*Top pair:* {pair.get('a_name', '?')} ↔ "
-                    f"{pair.get('b_name', '?')} ({pair.get('score', 0):.4f})"
+                    f"*Top pair*\n"
+                    f"{pair.get('a_name', '?')} ↔ {pair.get('b_name', '?')}\n"
+                    f"Score: {pair.get('score', 0):.4f}"
                 ),
             },
         })
