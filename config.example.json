@@ -139,7 +139,16 @@
           "cluster_threshold": 0.92,
           "arch_coupling_threshold": 0.60,
           "test_pollution_threshold": 5,
-          "timezone": "UTC"
+          "timezone": "UTC",
+          "top_n": 20,
+          "max_embedding_failures": 200,
+          "high_dup_min_cluster_size": 3,
+          "high_dup_min_score": 0.95,
+          "min_coupling_edges": 5,
+          "max_coupling_files_listed": 5,
+          "sim_dist_bin_high": 0.95,
+          "sim_dist_bin_mid": 0.90,
+          "sim_dist_bin_low": 0.80
         }
       }
     }

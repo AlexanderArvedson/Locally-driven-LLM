@@ -180,7 +180,7 @@ The report is fully deterministic — no LLM reasoning is involved. It contains 
 | 1 | **Metadata** | Repo name, timestamp, Neo4j database, pipeline version, embedding model |
 | 2 | **Embedding Integrity** | Per-status counts for code embedding and description stages; table of failed functions with stage and error type |
 | 3 | **Graph Overview** | Function count, edge count, edge density, isolated ratio, intra-file vs inter-file edge split, language breakdown; LOC-filtered function count (when pipeline ran with a non-zero threshold) |
-| 4 | **Similarity Distribution** | Edge counts bucketed by `combinedSimilarity`: > 0.95 / 0.90–0.95 / 0.80–0.90 / ≤ 0.80 |
+| 4 | **Similarity Distribution** | Edge counts bucketed into four ranges defined by `sim_dist_bin_high`, `sim_dist_bin_mid`, and `sim_dist_bin_low` (defaults: 0.95 / 0.90 / 0.80) |
 | 5 | **Top N Most Similar Pairs** | Near-duplicate or shared-logic candidates, sorted by score |
 | 6 | **Top N Most Connected Functions** | Functions with the highest edge degree — likely utility or pattern code |
 | 7 | **Top N Files by Edge Count** | Per-file edge count with inter-file ratio column |
@@ -195,9 +195,18 @@ All report thresholds are configured under `pipeline.reporter` in `config.json`.
 | Config key | Default | Description |
 |---|---|---|
 | `cluster_threshold` | `0.92` | Minimum `combinedSimilarity` for an edge to be included in cluster computation |
-| `arch_coupling_threshold` | `0.60` | Inter-file edge ratio above which `ARCHITECTURE_COUPLING` is raised (requires ≥ 5 total edges) |
+| `arch_coupling_threshold` | `0.60` | Inter-file edge ratio above which `ARCHITECTURE_COUPLING` is raised |
 | `test_pollution_threshold` | `5` | Minimum cross-boundary edges (test ↔ production) to raise `TEST_POLLUTION` |
-| `timezone` | `"UTC"` | IANA timezone for all report timestamps — set to your local zone (e.g. `"Europe/Stockholm"`) so the `Generated` header and report folder name match your clock |
+| `timezone` | `"UTC"` | IANA timezone for all report timestamps — set to your local zone (e.g. `"Europe/Stockholm"`) |
+| `top_n` | `20` | Items shown in each ranked section (Similar Pairs, Connected Functions, Files by Edge Count) |
+| `max_embedding_failures` | `200` | Maximum rows in the Embedding Failure Table |
+| `high_dup_min_cluster_size` | `3` | Minimum cluster size to raise `HIGH_DUPLICATION_CLUSTER` |
+| `high_dup_min_score` | `0.95` | Minimum cluster `max_score` to raise `HIGH_DUPLICATION_CLUSTER` |
+| `min_coupling_edges` | `5` | Minimum total edges a file must have before `arch_coupling_threshold` is evaluated |
+| `max_coupling_files_listed` | `5` | Maximum file paths shown in the `ARCHITECTURE_COUPLING` flag message |
+| `sim_dist_bin_high` | `0.95` | Upper boundary of the top similarity bucket |
+| `sim_dist_bin_mid` | `0.90` | Middle boundary of the similarity histogram |
+| `sim_dist_bin_low` | `0.80` | Lower boundary — edges at or below this fall in the bottom bucket |
 
 ---
 

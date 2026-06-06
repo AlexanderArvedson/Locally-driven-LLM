@@ -244,9 +244,18 @@ Controls the thresholds used when generating the post-run markdown report. All f
 | Field | Type | Default | Description |
 |---|---|---|---|
 | `cluster_threshold` | float | `0.92` | Minimum `combinedSimilarity` for a `SIMILAR_TO` edge to be included when computing duplication clusters. Raise to tighten cluster membership; lower to surface weaker groupings. |
-| `arch_coupling_threshold` | float | `0.60` | Inter-file edge ratio above which a file is flagged with `ARCHITECTURE_COUPLING`. Only applied to files with at least 5 total edges. |
+| `arch_coupling_threshold` | float | `0.60` | Inter-file edge ratio above which a file is flagged with `ARCHITECTURE_COUPLING`. Only applied to files with at least `min_coupling_edges` total edges. |
 | `test_pollution_threshold` | integer | `5` | Minimum number of edges between test and production functions required to raise the `TEST_POLLUTION` flag. Only evaluated when `include_tests_in_graph` is `true`. |
 | `timezone` | string | `"UTC"` | IANA timezone used for all timestamps in the generated report (e.g. `"Europe/Stockholm"`, `"America/New_York"`). Affects both the `Generated` header and the report directory name. |
+| `top_n` | integer | `20` | How many items to show in each ranked section of the report (Top Similar Pairs, Most Connected Functions, Files by Edge Count). |
+| `max_embedding_failures` | integer | `200` | Maximum number of failed functions shown in the Embedding Failure Table. Functions are listed in file-path order; the rest are silently omitted. |
+| `high_dup_min_cluster_size` | integer | `3` | Minimum cluster size to raise the `HIGH_DUPLICATION_CLUSTER` flag. |
+| `high_dup_min_score` | float | `0.95` | Minimum `max_score` a cluster must have (alongside meeting `high_dup_min_cluster_size`) to raise the `HIGH_DUPLICATION_CLUSTER` flag. |
+| `min_coupling_edges` | integer | `5` | Minimum total edge count a file must have before `arch_coupling_threshold` is evaluated. Files with fewer edges are never flagged for `ARCHITECTURE_COUPLING`. |
+| `max_coupling_files_listed` | integer | `5` | Maximum number of file paths shown in the `ARCHITECTURE_COUPLING` flag message. |
+| `sim_dist_bin_high` | float | `0.95` | Upper bin boundary for the Similarity Distribution histogram. Edges above this value fall in the top bucket. |
+| `sim_dist_bin_mid` | float | `0.90` | Middle bin boundary. Edges between `sim_dist_bin_mid` and `sim_dist_bin_high` form the second bucket. |
+| `sim_dist_bin_low` | float | `0.80` | Lower bin boundary. Edges between `sim_dist_bin_low` and `sim_dist_bin_mid` form the third bucket; edges at or below this value form the bottom bucket. |
 
 #### `pipeline.limits`
 

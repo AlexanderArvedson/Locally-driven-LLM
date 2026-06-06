@@ -97,6 +97,15 @@ class ReporterConfig:
     arch_coupling_threshold: float = 0.60
     test_pollution_threshold: int = 5
     timezone: str = "UTC"
+    top_n: int = 20
+    max_embedding_failures: int = 200
+    high_dup_min_cluster_size: int = 3
+    high_dup_min_score: float = 0.95
+    min_coupling_edges: int = 5
+    max_coupling_files_listed: int = 5
+    sim_dist_bin_high: float = 0.95
+    sim_dist_bin_mid: float = 0.90
+    sim_dist_bin_low: float = 0.80
 
 
 @dataclass(frozen=True)
