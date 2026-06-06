@@ -11,11 +11,11 @@ _NEO4J = Neo4jConfig(uri="bolt://localhost:7687", database="neo4j", username="ne
 _SIM = SimilarityConfig()
 
 
-def _make_config(repo_path: str) -> PipelineConfig:
+def _make_config(repo_path: str, languages: list[str] | None = None) -> PipelineConfig:
     return PipelineConfig(
         repo_path=repo_path,
         repo_name="test-repo",
-        supported_languages=["python"],
+        supported_languages=languages or ["python"],
         ignore_paths=[".venv", "__pycache__"],
         embedding_model="nomic-embed-text",
         embedding_url="http://localhost:11434",
@@ -26,6 +26,18 @@ def _make_config(repo_path: str) -> PipelineConfig:
         neo4j=_NEO4J,
     )
 
+
+def _extract_ts(src: str, ext: str = ".ts") -> list:
+    """Write *src* to a temp file with the given extension and extract records."""
+    with tempfile.TemporaryDirectory() as tmp:
+        (Path(tmp) / f"code{ext}").write_text(src)
+        extractor = FunctionExtractor(_make_config(tmp, languages=["typescript"]))
+        return extractor.extract_all()
+
+
+# ---------------------------------------------------------------------------
+# Helpers
+# ---------------------------------------------------------------------------
 
 def test_record_id_is_stable():
     id1 = _record_id("repo", "src/foo.py", "Bar.baz", 10)
@@ -43,6 +55,10 @@ def test_source_hash():
     expected = hashlib.sha256(code.encode("utf-8")).hexdigest()
     assert _source_hash(code) == expected
 
+
+# ---------------------------------------------------------------------------
+# Python extraction
+# ---------------------------------------------------------------------------
 
 def test_extracts_top_level_function():
     src = "def greet(name):\n    return f'hello {name}'\n"
@@ -110,3 +126,124 @@ def test_skips_unparseable_file():
         # Should not raise; just returns whatever tree-sitter can parse.
         records = extractor.extract_all()
         assert isinstance(records, list)
+
+
+# ---------------------------------------------------------------------------
+# TypeScript — named forms (resolved via _get_name_token)
+# ---------------------------------------------------------------------------
+
+def test_ts_named_function_declaration():
+    records = _extract_ts("function greet(name: string): string {\n  return `hello ${name}`;\n}\n")
+    assert len(records) == 1
+    assert records[0].function_name == "greet"
+    assert records[0].class_name is None
+
+
+def test_ts_class_method_uses_property_identifier():
+    # method_definition names are property_identifier, not identifier — previously broken
+    src = "class Greeter {\n  hello(): string {\n    return 'hi';\n  }\n}\n"
+    records = _extract_ts(src)
+    assert len(records) == 1
+    assert records[0].function_name == "hello"
+    assert records[0].class_name == "Greeter"
+    assert records[0].qualified_name == "Greeter.hello"
+
+
+def test_ts_class_name_resolved_via_type_identifier():
+    # class_declaration uses type_identifier, not identifier — previously broken
+    src = "class MyService {\n  run(): void {\n    return;\n  }\n}\n"
+    records = _extract_ts(src)
+    assert records[0].class_name == "MyService"
+
+
+def test_ts_private_class_method():
+    src = "class Foo {\n  #init(): void {\n    return;\n  }\n}\n"
+    records = _extract_ts(src)
+    assert len(records) == 1
+    assert records[0].function_name == "#init"
+    assert records[0].class_name == "Foo"
+
+
+# ---------------------------------------------------------------------------
+# TypeScript — anonymous forms (resolved via _resolve_name_from_context)
+# ---------------------------------------------------------------------------
+
+def test_ts_arrow_in_variable_declarator():
+    records = _extract_ts("const greet = (name: string) => `hello ${name}`;\n")
+    assert len(records) == 1
+    assert records[0].function_name == "greet"
+
+
+def test_ts_class_field_arrow():
+    src = "class Foo {\n  bar = () => {\n    return 42;\n  };\n}\n"
+    records = _extract_ts(src)
+    arrows = [r for r in records if r.function_name == "bar"]
+    assert len(arrows) == 1
+    assert arrows[0].class_name == "Foo"
+
+
+def test_ts_object_literal_pair():
+    src = "const obj = {\n  onClick: () => {\n    console.log('click');\n  },\n};\n"
+    records = _extract_ts(src)
+    assert any(r.function_name == "onClick" for r in records)
+
+
+def test_ts_assignment_expression():
+    src = "let handler: () => void;\nhandler = () => {\n  return;\n};\n"
+    records = _extract_ts(src)
+    assert any(r.function_name == "handler" for r in records)
+
+
+def test_ts_member_assignment_expression():
+    src = "const obj: any = {};\nobj.method = () => {\n  return;\n};\n"
+    records = _extract_ts(src)
+    # Rightmost segment of obj.method should be used
+    assert any(r.function_name == "method" for r in records)
+
+
+def test_ts_jsx_attribute_callback():
+    src = (
+        "const El = () => (\n"
+        "  <button onClick={() => { console.log('x'); }}>click</button>\n"
+        ");\n"
+    )
+    records = _extract_ts(src, ext=".tsx")
+    names = {r.function_name for r in records}
+    assert "onClick" in names
+
+
+def test_ts_call_expression_single_arg():
+    # Single-callback call: useEffect — gets the callee name
+    src = "useEffect(() => {\n  return;\n}, []);\n"
+    records = _extract_ts(src)
+    assert any(r.function_name == "useEffect" for r in records)
+
+
+def test_ts_call_expression_multi_arg():
+    # Multi-callback call: map with index — gets positional suffix
+    src = "const result = items.map((item) => item.x);\n"
+    records = _extract_ts(src)
+    assert any(r.function_name == "map$0" for r in records)
+
+
+def test_ts_export_default_anonymous():
+    src = "export default function() {\n  return 42;\n}\n"
+    records = _extract_ts(src)
+    assert len(records) == 1
+    assert records[0].function_name == "default"
+
+
+def test_ts_export_default_arrow():
+    src = "export default () => {\n  return 42;\n};\n"
+    records = _extract_ts(src)
+    assert len(records) == 1
+    assert records[0].function_name == "default"
+
+
+def test_ts_truly_anonymous_falls_back():
+    # Arrow returned from another function — no context to infer a name
+    src = "function makeHandler() {\n  return () => {\n    return 1;\n  };\n}\n"
+    records = _extract_ts(src)
+    names = {r.function_name for r in records}
+    assert "makeHandler" in names
+    assert "<anonymous>" in names
