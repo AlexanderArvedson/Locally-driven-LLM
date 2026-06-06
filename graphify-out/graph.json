@@ -950,7 +950,7 @@
       "source_file": "src/core/config_loader.py",
       "source_location": "L148",
       "id": "src_core_config_loader_py_int",
-      "community": 68,
+      "community": 52,
       "norm_label": "int"
     },
     {
@@ -1076,7 +1076,7 @@
       "source_file": "src/core/config_loader.py",
       "source_location": "L386",
       "id": "core_config_loader_get_max_workflow_revision_cycles",
-      "community": 68,
+      "community": 52,
       "norm_label": "get_max_workflow_revision_cycles()"
     },
     {
@@ -1292,7 +1292,7 @@
       "source_file": "src/core/config_loader.py",
       "source_location": "L387",
       "id": "core_config_loader_rationale_387",
-      "community": 68,
+      "community": 52,
       "norm_label": "return the maximum number of workflow revision cycles allowed."
     },
     {
@@ -4098,7 +4098,7 @@
       "label": "_build_report()",
       "file_type": "code",
       "source_file": "src/pipeline/reporter.py",
-      "source_location": "L275",
+      "source_location": "L276",
       "id": "pipeline_reporter_build_report",
       "community": 48,
       "norm_label": "_build_report()"
@@ -4107,7 +4107,7 @@
       "label": "Neo4jStore",
       "file_type": "code",
       "source_file": "src/pipeline/reporter.py",
-      "source_location": "L275",
+      "source_location": "L276",
       "id": "src_pipeline_reporter_py_neo4jstore",
       "community": 48,
       "norm_label": "neo4jstore"
@@ -7942,7 +7942,7 @@
       "file_type": "rationale",
       "source_file": "src/core/config_loader.py",
       "source_location": "L384",
-      "community": 68,
+      "community": 52,
       "norm_label": "return the maximum number of workflow revision cycles allowed.",
       "id": "core_config_loader_rationale_384"
     },
@@ -21495,9 +21495,9 @@
       "source_file": "src/pipeline/reporter.py",
       "source_location": "L257",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "pipeline_reporter_generate_report",
-      "target": "pipeline_contracts_reporterconfig",
-      "confidence_score": 1.0
+      "target": "pipeline_contracts_reporterconfig"
     },
     {
       "relation": "imports",
@@ -21616,9 +21616,9 @@
       "source_file": "src/pipeline/contracts.py",
       "source_location": "L113",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "pipeline_contracts_rationale_113",
-      "target": "pipeline_contracts_limitsconfig",
-      "confidence_score": 1.0
+      "target": "pipeline_contracts_limitsconfig"
     },
     {
       "relation": "rationale_for",
@@ -21868,9 +21868,9 @@
       "source_file": "src/pipeline/contracts.py",
       "source_location": "L144",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "pipeline_contracts_rationale_144",
-      "target": "pipeline_contracts_pipelineresult",
-      "confidence_score": 1.0
+      "target": "pipeline_contracts_pipelineresult"
     },
     {
       "relation": "rationale_for",
@@ -34045,5 +34045,5 @@
       "source_file": "docs/CONTEXT_CONTRACT.md"
     }
   ],
-  "built_at_commit": "9b7d9ab5b24f1f7a961118e159c61aba1a91eb77"
+  "built_at_commit": "2989051ea4f4b06eb4c4fd0862a1df883f949762"
 }
