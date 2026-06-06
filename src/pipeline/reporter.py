@@ -103,7 +103,7 @@ RETURN f.qualifiedName AS name, f.filePath AS file,
        f.codeEmbeddingStatus AS code_status,
        f.descriptionStatus AS desc_status
 ORDER BY f.filePath
-LIMIT 200
+LIMIT $limit
 """
 
 _Q_INTRA_INTER_EDGES: LiteralString = """
@@ -118,10 +118,10 @@ _Q_SIMILARITY_DISTRIBUTION: LiteralString = """
 MATCH (a:Function {repo: $repo})-[r:SIMILAR_TO]->(b:Function {repo: $repo})
 WHERE a.isTest = false OR $include_tests
 RETURN
-  sum(CASE WHEN r.combinedSimilarity > 0.95 THEN 1 ELSE 0 END) AS gt95,
-  sum(CASE WHEN r.combinedSimilarity > 0.90 AND r.combinedSimilarity <= 0.95 THEN 1 ELSE 0 END) AS b90_95,
-  sum(CASE WHEN r.combinedSimilarity > 0.80 AND r.combinedSimilarity <= 0.90 THEN 1 ELSE 0 END) AS b80_90,
-  sum(CASE WHEN r.combinedSimilarity <= 0.80 THEN 1 ELSE 0 END) AS lt80
+  sum(CASE WHEN r.combinedSimilarity > $bin_high THEN 1 ELSE 0 END) AS gt_high,
+  sum(CASE WHEN r.combinedSimilarity > $bin_mid AND r.combinedSimilarity <= $bin_high THEN 1 ELSE 0 END) AS b_mid_high,
+  sum(CASE WHEN r.combinedSimilarity > $bin_low AND r.combinedSimilarity <= $bin_mid THEN 1 ELSE 0 END) AS b_low_mid,
+  sum(CASE WHEN r.combinedSimilarity <= $bin_low THEN 1 ELSE 0 END) AS lt_low
 """
 
 _Q_PER_FILE_INTER: LiteralString = """
@@ -234,7 +234,6 @@ async def generate_report(
     neo4j_config: Neo4jConfig,
     repo_name: str,
     output_dir: str | Path | None = None,
-    top_n: int = 20,
     include_tests: bool = False,
     pipeline_config: PipelineConfig | None = None,
     loc_filtered: int | None = None,
@@ -247,7 +246,6 @@ async def generate_report(
         output_dir: Directory to write the two report files into. Defaults to
             ``run_reports/<timestamp>/`` relative to the current working directory.
             Created automatically if it does not exist.
-        top_n: How many items to show in each ranked section.
         include_tests: Whether to include test functions in graph stats.
         pipeline_config: Full pipeline config for metadata and reporter
             thresholds. When None, defaults from ReporterConfig are used
@@ -256,16 +254,16 @@ async def generate_report(
     Returns:
         Path to the report directory.
     """
+    reporter_cfg = pipeline_config.reporter if pipeline_config else ReporterConfig()
     if output_dir is None:
-        tz_str = pipeline_config.reporter.timezone if pipeline_config else "UTC"
-        ts = datetime.now(ZoneInfo(tz_str)).strftime("%Y%m%d-%H%M%S")
+        ts = datetime.now(ZoneInfo(reporter_cfg.timezone)).strftime("%Y%m%d-%H%M%S")
         output_dir = Path("run_reports") / ts
     output_dir = Path(output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
 
     store = Neo4jStore(neo4j_config)
     try:
-        lines, export = await _build_report(store, repo_name, top_n, include_tests, pipeline_config, loc_filtered)
+        lines, export = await _build_report(store, repo_name, include_tests, pipeline_config, loc_filtered)
     finally:
         await store.close()
 
@@ -277,7 +275,6 @@ async def generate_report(
 async def _build_report(
     store: Neo4jStore,
     repo: str,
-    top_n: int,
     include_tests: bool,
     pipeline_config: PipelineConfig | None,
     loc_filtered: int | None = None,
@@ -286,6 +283,7 @@ async def _build_report(
     driver = store._driver
 
     reporter_cfg = pipeline_config.reporter if pipeline_config else ReporterConfig()
+    top_n = reporter_cfg.top_n
 
     async def run(query: LiteralString, **params):
         async with driver.session(database=db) as session:
@@ -301,9 +299,13 @@ async def _build_report(
     languages      = await run(_Q_LANGUAGE_BREAKDOWN,      include_tests=include_tests)
     embed_cov      = await run(_Q_EMBEDDING_COVERAGE,      include_tests=include_tests)
     desc_cov       = await run(_Q_DESCRIPTION_COVERAGE,    include_tests=include_tests)
-    embed_failures = await run(_Q_EMBEDDING_FAILURES,      include_tests=include_tests)
+    embed_failures = await run(_Q_EMBEDDING_FAILURES,      limit=reporter_cfg.max_embedding_failures, include_tests=include_tests)
     intra_inter    = await run(_Q_INTRA_INTER_EDGES,       include_tests=include_tests)
-    sim_dist       = await run(_Q_SIMILARITY_DISTRIBUTION, include_tests=include_tests)
+    sim_dist       = await run(_Q_SIMILARITY_DISTRIBUTION,
+                               bin_high=reporter_cfg.sim_dist_bin_high,
+                               bin_mid=reporter_cfg.sim_dist_bin_mid,
+                               bin_low=reporter_cfg.sim_dist_bin_low,
+                               include_tests=include_tests)
     per_file       = await run(_Q_PER_FILE_INTER,          limit=top_n, include_tests=include_tests)
     cluster_edges  = await run(_Q_CLUSTER_EDGES,           threshold=reporter_cfg.cluster_threshold, include_tests=include_tests)
     test_pollution = await run(_Q_TEST_POLLUTION) if include_tests else [{"cross_edges": 0}]
@@ -320,10 +322,10 @@ async def _build_report(
     density      = round(edges / total, 4) if total > 0 else 0.0
     isolated_pct = round(100 * isolated / total, 1) if total > 0 else 0.0
 
-    gt95   = sim_dist[0]["gt95"]   if sim_dist else 0
-    b90_95 = sim_dist[0]["b90_95"] if sim_dist else 0
-    b80_90 = sim_dist[0]["b80_90"] if sim_dist else 0
-    lt80   = sim_dist[0]["lt80"]   if sim_dist else 0
+    gt_high   = sim_dist[0]["gt_high"]   if sim_dist else 0
+    b_mid_high = sim_dist[0]["b_mid_high"] if sim_dist else 0
+    b_low_mid  = sim_dist[0]["b_low_mid"]  if sim_dist else 0
+    lt_low     = sim_dist[0]["lt_low"]     if sim_dist else 0
 
     # Embedding status bucketing
     embed_by_status: dict[str, int] = defaultdict(int)
@@ -484,6 +486,9 @@ async def _build_report(
     # -----------------------------------------------------------------------
     # Section 4 — Similarity Distribution
     # -----------------------------------------------------------------------
+    bh = reporter_cfg.sim_dist_bin_high
+    bm = reporter_cfg.sim_dist_bin_mid
+    bl = reporter_cfg.sim_dist_bin_low
     lines += [
         "## Similarity Distribution",
         "",
@@ -491,10 +496,10 @@ async def _build_report(
         "|---|---|---|",
     ]
     for label, count in [
-        ("> 0.95", gt95),
-        ("0.90–0.95", b90_95),
-        ("0.80–0.90", b80_90),
-        ("≤ 0.80", lt80),
+        (f"> {bh}", gt_high),
+        (f"{bm}–{bh}", b_mid_high),
+        (f"{bl}–{bm}", b_low_mid),
+        (f"≤ {bl}", lt_low),
     ]:
         pct = f"{100 * count / edges:.1f}" if edges > 0 else "0.0"
         lines.append(f"| {label} | {count} | {pct}% |")
@@ -579,24 +584,27 @@ async def _build_report(
     # -----------------------------------------------------------------------
     # Section 9 — Heuristic Flags
     # -----------------------------------------------------------------------
-    high_dup    = [c for c in clusters if c["size"] >= 3 and c["max_score"] > 0.95]
+    high_dup    = [c for c in clusters if c["size"] >= reporter_cfg.high_dup_min_cluster_size and c["max_score"] > reporter_cfg.high_dup_min_score]
     cross_file  = [c for c in clusters if len(c["files_involved"]) >= 2]
     coupled_files = [
         row["path"]
         for row in per_file
-        if row["edge_count"] >= 5
+        if row["edge_count"] >= reporter_cfg.min_coupling_edges
         and (row["inter_edges"] or 0) / row["edge_count"] > reporter_cfg.arch_coupling_threshold
     ]
 
     flags: list[str] = []
     if high_dup:
         ids = ", ".join(str(c["id"]) for c in high_dup)
-        flags.append(f"- **HIGH\\_DUPLICATION\\_CLUSTER**: clusters {ids} (size ≥ 3, max score > 0.95)")
+        flags.append(
+            f"- **HIGH\\_DUPLICATION\\_CLUSTER**: clusters {ids}"
+            f" (size ≥ {reporter_cfg.high_dup_min_cluster_size}, max score > {reporter_cfg.high_dup_min_score})"
+        )
     if cross_file:
         ids = ", ".join(str(c["id"]) for c in cross_file)
         flags.append(f"- **CROSS\\_FILE\\_DUPLICATION**: clusters {ids} span multiple files")
     if coupled_files:
-        file_list = ", ".join(f"`{f}`" for f in coupled_files[:5])
+        file_list = ", ".join(f"`{f}`" for f in coupled_files[:reporter_cfg.max_coupling_files_listed])
         flags.append(f"- **ARCHITECTURE\\_COUPLING**: high inter-file edge ratio in {file_list}")
     if include_tests and cross_edges >= reporter_cfg.test_pollution_threshold:
         flags.append(
@@ -642,10 +650,10 @@ async def _build_report(
             },
         },
         "similarity_distribution": {
-            "gt95": gt95,
-            "b90_95": b90_95,
-            "b80_90": b80_90,
-            "lt80": lt80,
+            f"gt_{bh}": gt_high,
+            f"b_{bm}_{bh}": b_mid_high,
+            f"b_{bl}_{bm}": b_low_mid,
+            f"lt_{bl}": lt_low,
         },
         "clusters": [
             {
