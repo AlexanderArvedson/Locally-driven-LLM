@@ -518,7 +518,7 @@
       "source_file": "src/tools/patches.py",
       "source_location": "L31",
       "id": "tools_patches_generate_unified",
-      "community": 61,
+      "community": 47,
       "norm_label": "generate_unified()"
     },
     {
@@ -554,7 +554,7 @@
       "source_file": "src/tools/patches.py",
       "source_location": "L32",
       "id": "tools_patches_rationale_32",
-      "community": 61,
+      "community": 47,
       "norm_label": "return a unified diff string describing changes from original -> modified."
     },
     {
@@ -824,7 +824,7 @@
       "source_file": "src/core/config_loader.py",
       "source_location": "L1",
       "id": "src_core_config_loader_py",
-      "community": 60,
+      "community": 59,
       "norm_label": "config_loader.py"
     },
     {
@@ -887,7 +887,7 @@
       "source_file": "src/core/config_loader.py",
       "source_location": "L131",
       "id": "core_config_loader_appconfig",
-      "community": 60,
+      "community": 59,
       "norm_label": "appconfig"
     },
     {
@@ -950,7 +950,7 @@
       "source_file": "src/core/config_loader.py",
       "source_location": "L148",
       "id": "src_core_config_loader_py_int",
-      "community": 52,
+      "community": 68,
       "norm_label": "int"
     },
     {
@@ -1076,7 +1076,7 @@
       "source_file": "src/core/config_loader.py",
       "source_location": "L386",
       "id": "core_config_loader_get_max_workflow_revision_cycles",
-      "community": 52,
+      "community": 68,
       "norm_label": "get_max_workflow_revision_cycles()"
     },
     {
@@ -1085,7 +1085,7 @@
       "source_file": "src/core/config_loader.py",
       "source_location": "L391",
       "id": "core_config_loader_get_retrieval_config",
-      "community": 12,
+      "community": 66,
       "norm_label": "get_retrieval_config()"
     },
     {
@@ -1157,7 +1157,7 @@
       "source_file": "src/core/config_loader.py",
       "source_location": "L476",
       "id": "core_config_loader_update_repository_timestamps",
-      "community": 68,
+      "community": 59,
       "norm_label": "update_repository_timestamps()"
     },
     {
@@ -1166,7 +1166,7 @@
       "source_file": "src/core/config_loader.py",
       "source_location": "L1",
       "id": "core_config_loader_rationale_1",
-      "community": 60,
+      "community": 59,
       "norm_label": "centralized configuration loader for the project.  configuration is loaded from"
     },
     {
@@ -1292,7 +1292,7 @@
       "source_file": "src/core/config_loader.py",
       "source_location": "L387",
       "id": "core_config_loader_rationale_387",
-      "community": 52,
+      "community": 68,
       "norm_label": "return the maximum number of workflow revision cycles allowed."
     },
     {
@@ -1301,7 +1301,7 @@
       "source_file": "src/core/config_loader.py",
       "source_location": "L392",
       "id": "core_config_loader_rationale_392",
-      "community": 12,
+      "community": 66,
       "norm_label": "return retrieval limits and behavior for the repository matching ``repo_path``."
     },
     {
@@ -1355,7 +1355,7 @@
       "source_file": "src/core/config_loader.py",
       "source_location": "L483",
       "id": "core_config_loader_rationale_483",
-      "community": 68,
+      "community": 59,
       "norm_label": "persist ``created_at`` and/or ``updated_at`` for a repository in config.json."
     },
     {
@@ -1704,7 +1704,7 @@
       "label": "start_socket_mode()",
       "file_type": "code",
       "source_file": "src/api/slack_socket.py",
-      "source_location": "L40",
+      "source_location": "L39",
       "id": "api_slack_socket_start_socket_mode",
       "community": 4,
       "norm_label": "start_socket_mode()"
@@ -1713,7 +1713,7 @@
       "label": "TaskQueue",
       "file_type": "code",
       "source_file": "src/api/slack_socket.py",
-      "source_location": "L40",
+      "source_location": "L39",
       "id": "src_api_slack_socket_py_taskqueue",
       "community": 4,
       "norm_label": "taskqueue"
@@ -1722,7 +1722,7 @@
       "label": "AsyncSocketModeHandler",
       "file_type": "code",
       "source_file": "src/api/slack_socket.py",
-      "source_location": "L40",
+      "source_location": "L39",
       "id": "asyncsocketmodehandler",
       "community": 4,
       "norm_label": "asyncsocketmodehandler"
@@ -1749,8 +1749,8 @@
       "label": "Connect to Slack via Socket Mode and register slash command handlers.      Retur",
       "file_type": "rationale",
       "source_file": "src/api/slack_socket.py",
-      "source_location": "L41",
-      "id": "api_slack_socket_rationale_41",
+      "source_location": "L40",
+      "id": "api_slack_socket_rationale_40",
       "community": 4,
       "norm_label": "connect to slack via socket mode and register slash command handlers.      retur"
     },
@@ -1832,7 +1832,7 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L195",
       "id": "datetime",
-      "community": 28,
+      "community": 36,
       "norm_label": "datetime"
     },
     {
@@ -1895,7 +1895,7 @@
       "source_file": "src/api/app.py",
       "source_location": "L1",
       "id": "src_api_app_py",
-      "community": 4,
+      "community": 50,
       "norm_label": "app.py"
     },
     {
@@ -1904,7 +1904,7 @@
       "source_file": "src/api/app.py",
       "source_location": "L12",
       "id": "api_app_create_app",
-      "community": 4,
+      "community": 50,
       "norm_label": "create_app()"
     },
     {
@@ -1913,7 +1913,7 @@
       "source_file": "src/api/app.py",
       "source_location": "L12",
       "id": "fastapi",
-      "community": 4,
+      "community": 50,
       "norm_label": "fastapi"
     },
     {
@@ -1922,7 +1922,7 @@
       "source_file": "src/api/app.py",
       "source_location": "L1",
       "id": "api_app_rationale_1",
-      "community": 4,
+      "community": 50,
       "norm_label": "fastapi application.  provides a health check endpoint. slack slash commands are"
     },
     {
@@ -1931,7 +1931,7 @@
       "source_file": "src/api/app.py",
       "source_location": "L13",
       "id": "api_app_rationale_13",
-      "community": 4,
+      "community": 50,
       "norm_label": "create and return the fastapi application."
     },
     {
@@ -1949,14 +1949,14 @@
       "source_file": "src/scheduler/dispatcher.py",
       "source_location": "L1",
       "id": "src_scheduler_dispatcher_py",
-      "community": 2,
+      "community": 4,
       "norm_label": "dispatcher.py"
     },
     {
       "label": "_format_query_result()",
       "file_type": "code",
       "source_file": "src/scheduler/dispatcher.py",
-      "source_location": "L19",
+      "source_location": "L22",
       "id": "scheduler_dispatcher_format_query_result",
       "community": 49,
       "norm_label": "_format_query_result()"
@@ -1965,43 +1965,43 @@
       "label": "str",
       "file_type": "code",
       "source_file": "src/scheduler/dispatcher.py",
-      "source_location": "L19",
+      "source_location": "L22",
       "id": "src_scheduler_dispatcher_py_str",
-      "community": 49,
+      "community": 4,
       "norm_label": "str"
     },
     {
       "label": "TaskDispatcher",
       "file_type": "code",
       "source_file": "src/scheduler/dispatcher.py",
-      "source_location": "L31",
+      "source_location": "L34",
       "id": "scheduler_dispatcher_taskdispatcher",
-      "community": 44,
+      "community": 49,
       "norm_label": "taskdispatcher"
     },
     {
       "label": ".__init__()",
       "file_type": "code",
       "source_file": "src/scheduler/dispatcher.py",
-      "source_location": "L39",
+      "source_location": "L42",
       "id": "scheduler_dispatcher_taskdispatcher_init",
-      "community": 44,
+      "community": 49,
       "norm_label": ".__init__()"
     },
     {
       "label": "PipelineConfig",
       "file_type": "code",
       "source_file": "src/scheduler/dispatcher.py",
-      "source_location": "L39",
+      "source_location": "L42",
       "id": "src_scheduler_dispatcher_py_pipelineconfig",
-      "community": 2,
+      "community": 4,
       "norm_label": "pipelineconfig"
     },
     {
       "label": ".execute()",
       "file_type": "code",
       "source_file": "src/scheduler/dispatcher.py",
-      "source_location": "L42",
+      "source_location": "L45",
       "id": "scheduler_dispatcher_taskdispatcher_execute",
       "community": 49,
       "norm_label": ".execute()"
@@ -2010,16 +2010,16 @@
       "label": "Task",
       "file_type": "code",
       "source_file": "src/scheduler/dispatcher.py",
-      "source_location": "L42",
+      "source_location": "L45",
       "id": "src_scheduler_dispatcher_py_task",
-      "community": 49,
+      "community": 4,
       "norm_label": "task"
     },
     {
       "label": "._handle_query()",
       "file_type": "code",
       "source_file": "src/scheduler/dispatcher.py",
-      "source_location": "L48",
+      "source_location": "L53",
       "id": "scheduler_dispatcher_taskdispatcher_handle_query",
       "community": 49,
       "norm_label": "._handle_query()"
@@ -2028,28 +2028,46 @@
       "label": "QueryTask",
       "file_type": "code",
       "source_file": "src/scheduler/dispatcher.py",
-      "source_location": "L48",
+      "source_location": "L53",
       "id": "querytask",
-      "community": 49,
+      "community": 4,
       "norm_label": "querytask"
     },
     {
       "label": "._handle_pipeline()",
       "file_type": "code",
       "source_file": "src/scheduler/dispatcher.py",
-      "source_location": "L76",
+      "source_location": "L81",
       "id": "scheduler_dispatcher_taskdispatcher_handle_pipeline",
-      "community": 10,
+      "community": 49,
       "norm_label": "._handle_pipeline()"
     },
     {
       "label": "PipelineTask",
       "file_type": "code",
       "source_file": "src/scheduler/dispatcher.py",
-      "source_location": "L76",
+      "source_location": "L81",
       "id": "pipelinetask",
-      "community": 10,
+      "community": 4,
       "norm_label": "pipelinetask"
+    },
+    {
+      "label": "._handle_report()",
+      "file_type": "code",
+      "source_file": "src/scheduler/dispatcher.py",
+      "source_location": "L107",
+      "id": "scheduler_dispatcher_taskdispatcher_handle_report",
+      "community": 49,
+      "norm_label": "._handle_report()"
+    },
+    {
+      "label": "ReportTask",
+      "file_type": "code",
+      "source_file": "src/scheduler/dispatcher.py",
+      "source_location": "L107",
+      "id": "reporttask",
+      "community": 4,
+      "norm_label": "reporttask"
     },
     {
       "label": "Task dispatcher for the Slack-driven scheduler.  Replaces WorkflowExecutor. Rout",
@@ -2057,15 +2075,15 @@
       "source_file": "src/scheduler/dispatcher.py",
       "source_location": "L1",
       "id": "scheduler_dispatcher_rationale_1",
-      "community": 2,
+      "community": 4,
       "norm_label": "task dispatcher for the slack-driven scheduler.  replaces workflowexecutor. rout"
     },
     {
       "label": "Build a Slack mrkdwn text payload for a list of QueryMatch results.",
       "file_type": "rationale",
       "source_file": "src/scheduler/dispatcher.py",
-      "source_location": "L20",
-      "id": "scheduler_dispatcher_rationale_20",
+      "source_location": "L23",
+      "id": "scheduler_dispatcher_rationale_23",
       "community": 49,
       "norm_label": "build a slack mrkdwn text payload for a list of querymatch results."
     },
@@ -2073,9 +2091,9 @@
       "label": "Routes Task instances to the appropriate handler.      Resources (OllamaClient,",
       "file_type": "rationale",
       "source_file": "src/scheduler/dispatcher.py",
-      "source_location": "L32",
-      "id": "scheduler_dispatcher_rationale_32",
-      "community": 44,
+      "source_location": "L35",
+      "id": "scheduler_dispatcher_rationale_35",
+      "community": 49,
       "norm_label": "routes task instances to the appropriate handler.      resources (ollamaclient,"
     },
     {
@@ -2084,7 +2102,7 @@
       "source_file": "src/scheduler/task.py",
       "source_location": "L1",
       "id": "src_scheduler_task_py",
-      "community": 50,
+      "community": 54,
       "norm_label": "task.py"
     },
     {
@@ -2106,12 +2124,21 @@
       "norm_label": "pipelinetask"
     },
     {
+      "label": "ReportTask",
+      "file_type": "code",
+      "source_file": "src/scheduler/task.py",
+      "source_location": "L42",
+      "id": "scheduler_task_reporttask",
+      "community": 4,
+      "norm_label": "reporttask"
+    },
+    {
       "label": "Task types for the scheduler.  Two concrete work units and their union \u2014 the typ",
       "file_type": "rationale",
       "source_file": "src/scheduler/task.py",
       "source_location": "L1",
       "id": "scheduler_task_rationale_1",
-      "community": 50,
+      "community": 54,
       "norm_label": "task types for the scheduler.  two concrete work units and their union \u2014 the typ"
     },
     {
@@ -2131,6 +2158,15 @@
       "id": "scheduler_task_rationale_29",
       "community": 4,
       "norm_label": "a full embedding-pipeline run \u2014 active (serialised behind the mutation lock)."
+    },
+    {
+      "label": "A report-generation run \u2014 active (serialised behind the mutation lock).",
+      "file_type": "rationale",
+      "source_file": "src/scheduler/task.py",
+      "source_location": "L43",
+      "id": "scheduler_task_rationale_43",
+      "community": 4,
+      "norm_label": "a report-generation run \u2014 active (serialised behind the mutation lock)."
     },
     {
       "label": "task_request.py",
@@ -2165,7 +2201,7 @@
       "source_file": "src/scheduler/executor.py",
       "source_location": "L1",
       "id": "src_scheduler_executor_py",
-      "community": 50,
+      "community": 54,
       "norm_label": "executor.py"
     },
     {
@@ -2174,7 +2210,7 @@
       "source_file": "src/scheduler/executor.py",
       "source_location": "L8",
       "id": "scheduler_executor_workflowexecutor",
-      "community": 50,
+      "community": 54,
       "norm_label": "workflowexecutor"
     },
     {
@@ -2183,7 +2219,7 @@
       "source_file": "src/scheduler/executor.py",
       "source_location": "L17",
       "id": "scheduler_executor_workflowexecutor_init",
-      "community": 50,
+      "community": 54,
       "norm_label": ".__init__()"
     },
     {
@@ -2192,7 +2228,7 @@
       "source_file": "src/scheduler/executor.py",
       "source_location": "L21",
       "id": "scheduler_executor_workflowexecutor_execute",
-      "community": 31,
+      "community": 54,
       "norm_label": ".execute()"
     },
     {
@@ -2210,7 +2246,7 @@
       "source_file": "src/scheduler/executor.py",
       "source_location": "L9",
       "id": "scheduler_executor_rationale_9",
-      "community": 50,
+      "community": 54,
       "norm_label": "executor that runs a workflow graph for a given `task`.      the executor accept"
     },
     {
@@ -2219,7 +2255,7 @@
       "source_file": "src/scheduler/queue.py",
       "source_location": "L1",
       "id": "src_scheduler_queue_py",
-      "community": 50,
+      "community": 54,
       "norm_label": "queue.py"
     },
     {
@@ -2228,7 +2264,7 @@
       "source_file": "src/scheduler/queue.py",
       "source_location": "L8",
       "id": "scheduler_queue_taskqueue",
-      "community": 44,
+      "community": 45,
       "norm_label": "taskqueue"
     },
     {
@@ -2237,7 +2273,7 @@
       "source_file": "src/scheduler/queue.py",
       "source_location": "L9",
       "id": "scheduler_queue_taskqueue_init",
-      "community": 44,
+      "community": 45,
       "norm_label": ".__init__()"
     },
     {
@@ -2273,7 +2309,7 @@
       "source_file": "src/scheduler/loop.py",
       "source_location": "L1",
       "id": "src_scheduler_loop_py",
-      "community": 50,
+      "community": 54,
       "norm_label": "loop.py"
     },
     {
@@ -2291,7 +2327,7 @@
       "source_file": "src/scheduler/loop.py",
       "source_location": "L21",
       "id": "scheduler_loop_executionloop_init",
-      "community": 44,
+      "community": 45,
       "norm_label": ".__init__()"
     },
     {
@@ -2300,7 +2336,7 @@
       "source_file": "src/scheduler/loop.py",
       "source_location": "L21",
       "id": "src_scheduler_loop_py_taskqueue",
-      "community": 44,
+      "community": 45,
       "norm_label": "taskqueue"
     },
     {
@@ -2309,7 +2345,7 @@
       "source_file": "src/scheduler/loop.py",
       "source_location": "L21",
       "id": "taskdispatcher",
-      "community": 44,
+      "community": 45,
       "norm_label": "taskdispatcher"
     },
     {
@@ -2336,7 +2372,7 @@
       "source_file": "src/scheduler/loop.py",
       "source_location": "L36",
       "id": "src_scheduler_loop_py_task",
-      "community": 44,
+      "community": 45,
       "norm_label": "task"
     },
     {
@@ -2480,7 +2516,7 @@
       "source_file": "src/scheduler/__init__.py",
       "source_location": "L1",
       "id": "src_scheduler_init_py",
-      "community": 50,
+      "community": 54,
       "norm_label": "__init__.py"
     },
     {
@@ -2498,7 +2534,7 @@
       "source_file": "src/pipeline/pipeline.py",
       "source_location": "L24",
       "id": "pipeline_pipeline_embeddingpipeline",
-      "community": 10,
+      "community": 4,
       "norm_label": "embeddingpipeline"
     },
     {
@@ -2534,7 +2570,7 @@
       "source_file": "src/pipeline/pipeline.py",
       "source_location": "L41",
       "id": "pipeline_pipeline_embeddingpipeline_close",
-      "community": 10,
+      "community": 4,
       "norm_label": ".close()"
     },
     {
@@ -2579,7 +2615,7 @@
       "source_file": "src/pipeline/pipeline.py",
       "source_location": "L25",
       "id": "pipeline_pipeline_rationale_25",
-      "community": 10,
+      "community": 4,
       "norm_label": "orchestrates all pipeline stages for a single repository."
     },
     {
@@ -2606,7 +2642,7 @@
       "source_file": "src/pipeline/extractor.py",
       "source_location": "L31",
       "id": "pipeline_extractor_get_ts_language",
-      "community": 67,
+      "community": 2,
       "norm_label": "_get_ts_language()"
     },
     {
@@ -2741,7 +2777,7 @@
       "source_file": "src/pipeline/extractor.py",
       "source_location": "L135",
       "id": "src_pipeline_extractor_py_parser",
-      "community": 67,
+      "community": 2,
       "norm_label": "parser"
     },
     {
@@ -2750,7 +2786,7 @@
       "source_file": "src/pipeline/extractor.py",
       "source_location": "L135",
       "id": "src_pipeline_extractor_py_functionrecord",
-      "community": 67,
+      "community": 2,
       "norm_label": "functionrecord"
     },
     {
@@ -2786,7 +2822,7 @@
       "source_file": "src/pipeline/extractor.py",
       "source_location": "L206",
       "id": "pipeline_extractor_functionextractor_extract_all",
-      "community": 67,
+      "community": 2,
       "norm_label": ".extract_all()"
     },
     {
@@ -2858,7 +2894,7 @@
       "source_file": "src/pipeline/extractor.py",
       "source_location": "L207",
       "id": "pipeline_extractor_rationale_207",
-      "community": 67,
+      "community": 2,
       "norm_label": "return one functionrecord per function/method found in the repository."
     },
     {
@@ -3029,7 +3065,7 @@
       "source_file": "src/pipeline/embedder.py",
       "source_location": "L31",
       "id": "pipeline_embedder_embeddingservice_embed_code",
-      "community": 69,
+      "community": 10,
       "norm_label": ".embed_code()"
     },
     {
@@ -3038,7 +3074,7 @@
       "source_file": "src/pipeline/embedder.py",
       "source_location": "L31",
       "id": "src_pipeline_embedder_py_functionrecord",
-      "community": 69,
+      "community": 2,
       "norm_label": "functionrecord"
     },
     {
@@ -3047,7 +3083,7 @@
       "source_file": "src/pipeline/embedder.py",
       "source_location": "L83",
       "id": "pipeline_embedder_embeddingservice_embed_description",
-      "community": 69,
+      "community": 10,
       "norm_label": ".embed_description()"
     },
     {
@@ -3056,7 +3092,7 @@
       "source_file": "src/pipeline/embedder.py",
       "source_location": "L117",
       "id": "pipeline_embedder_embeddingservice_embed_code_batch",
-      "community": 69,
+      "community": 10,
       "norm_label": ".embed_code_batch()"
     },
     {
@@ -3065,7 +3101,7 @@
       "source_file": "src/pipeline/embedder.py",
       "source_location": "L127",
       "id": "pipeline_embedder_embeddingservice_embed_description_batch",
-      "community": 69,
+      "community": 10,
       "norm_label": ".embed_description_batch()"
     },
     {
@@ -3092,7 +3128,7 @@
       "source_file": "src/pipeline/embedder.py",
       "source_location": "L32",
       "id": "pipeline_embedder_rationale_32",
-      "community": 69,
+      "community": 10,
       "norm_label": "populate ``record.code_embedding`` and ``record.code_embedding_status`` in-place"
     },
     {
@@ -3101,7 +3137,7 @@
       "source_file": "src/pipeline/embedder.py",
       "source_location": "L84",
       "id": "pipeline_embedder_rationale_84",
-      "community": 69,
+      "community": 10,
       "norm_label": "populate ``record.description_embedding`` in-place.          extracts the ``summ"
     },
     {
@@ -3110,7 +3146,7 @@
       "source_file": "src/pipeline/embedder.py",
       "source_location": "L118",
       "id": "pipeline_embedder_rationale_118",
-      "community": 69,
+      "community": 10,
       "norm_label": "embed source code for all records in-place, respecting concurrency limit."
     },
     {
@@ -3119,7 +3155,7 @@
       "source_file": "src/pipeline/embedder.py",
       "source_location": "L128",
       "id": "pipeline_embedder_rationale_128",
-      "community": 69,
+      "community": 10,
       "norm_label": "embed descriptions for all records in-place, respecting concurrency limit."
     },
     {
@@ -3128,7 +3164,7 @@
       "source_file": "src/pipeline/similarity.py",
       "source_location": "L1",
       "id": "src_pipeline_similarity_py",
-      "community": 62,
+      "community": 44,
       "norm_label": "similarity.py"
     },
     {
@@ -3137,7 +3173,7 @@
       "source_file": "src/pipeline/similarity.py",
       "source_location": "L25",
       "id": "pipeline_similarity_compute_similarity_edges",
-      "community": 62,
+      "community": 44,
       "norm_label": "compute_similarity_edges()"
     },
     {
@@ -3146,7 +3182,7 @@
       "source_file": "src/pipeline/similarity.py",
       "source_location": "L25",
       "id": "src_pipeline_similarity_py_neo4jstore",
-      "community": 62,
+      "community": 44,
       "norm_label": "neo4jstore"
     },
     {
@@ -3155,7 +3191,7 @@
       "source_file": "src/pipeline/similarity.py",
       "source_location": "L25",
       "id": "src_pipeline_similarity_py_str",
-      "community": 62,
+      "community": 44,
       "norm_label": "str"
     },
     {
@@ -3164,7 +3200,7 @@
       "source_file": "src/pipeline/similarity.py",
       "source_location": "L25",
       "id": "src_pipeline_similarity_py_float",
-      "community": 62,
+      "community": 44,
       "norm_label": "float"
     },
     {
@@ -3173,7 +3209,7 @@
       "source_file": "src/pipeline/similarity.py",
       "source_location": "L25",
       "id": "similarityconfig",
-      "community": 62,
+      "community": 44,
       "norm_label": "similarityconfig"
     },
     {
@@ -3182,7 +3218,7 @@
       "source_file": "src/pipeline/similarity.py",
       "source_location": "L25",
       "id": "src_pipeline_similarity_py_bool",
-      "community": 62,
+      "community": 44,
       "norm_label": "bool"
     },
     {
@@ -3191,7 +3227,7 @@
       "source_file": "src/pipeline/similarity.py",
       "source_location": "L25",
       "id": "src_pipeline_similarity_py_similarityedge",
-      "community": 62,
+      "community": 44,
       "norm_label": "similarityedge"
     },
     {
@@ -3200,7 +3236,7 @@
       "source_file": "src/pipeline/similarity.py",
       "source_location": "L1",
       "id": "pipeline_similarity_rationale_1",
-      "community": 62,
+      "community": 44,
       "norm_label": "cosine similarity graph builder using neo4j hnsw vector indexes.  for each funct"
     },
     {
@@ -3209,7 +3245,7 @@
       "source_file": "src/pipeline/similarity.py",
       "source_location": "L32",
       "id": "pipeline_similarity_rationale_32",
-      "community": 62,
+      "community": 44,
       "norm_label": "compute similar_to edges by querying neo4j vector indexes.      args:         st"
     },
     {
@@ -3254,7 +3290,7 @@
       "source_file": "src/pipeline/contracts.py",
       "source_location": "L51",
       "id": "pipeline_contracts_similarityedge",
-      "community": 62,
+      "community": 44,
       "norm_label": "similarityedge"
     },
     {
@@ -3272,7 +3308,7 @@
       "source_file": "src/pipeline/contracts.py",
       "source_location": "L72",
       "id": "pipeline_contracts_similarityconfig",
-      "community": 62,
+      "community": 44,
       "norm_label": "similarityconfig"
     },
     {
@@ -3353,7 +3389,7 @@
       "source_file": "src/pipeline/contracts.py",
       "source_location": "L52",
       "id": "pipeline_contracts_rationale_52",
-      "community": 62,
+      "community": 44,
       "norm_label": "a similar_to relationship between two function nodes."
     },
     {
@@ -3407,7 +3443,7 @@
       "source_file": "src/pipeline/describer.py",
       "source_location": "L41",
       "id": "pipeline_describer_strip_fences",
-      "community": 2,
+      "community": 63,
       "norm_label": "_strip_fences()"
     },
     {
@@ -3461,7 +3497,7 @@
       "source_file": "src/pipeline/describer.py",
       "source_location": "L59",
       "id": "pipeline_describer_descriptionservice_describe",
-      "community": 58,
+      "community": 63,
       "norm_label": ".describe()"
     },
     {
@@ -3470,7 +3506,7 @@
       "source_file": "src/pipeline/describer.py",
       "source_location": "L59",
       "id": "src_pipeline_describer_py_functionrecord",
-      "community": 58,
+      "community": 2,
       "norm_label": "functionrecord"
     },
     {
@@ -3497,7 +3533,7 @@
       "source_file": "src/pipeline/describer.py",
       "source_location": "L42",
       "id": "pipeline_describer_rationale_42",
-      "community": 2,
+      "community": 63,
       "norm_label": "remove triple-backtick code fences that models emit despite instructions."
     },
     {
@@ -3515,7 +3551,7 @@
       "source_file": "src/pipeline/describer.py",
       "source_location": "L60",
       "id": "pipeline_describer_rationale_60",
-      "community": 58,
+      "community": 63,
       "norm_label": "populate ``record.description`` and ``record.description_status`` in-place."
     },
     {
@@ -3533,7 +3569,7 @@
       "source_file": "src/pipeline/neo4j_store.py",
       "source_location": "L1",
       "id": "src_pipeline_neo4j_store_py",
-      "community": 46,
+      "community": 48,
       "norm_label": "neo4j_store.py"
     },
     {
@@ -3542,7 +3578,7 @@
       "source_file": "src/pipeline/neo4j_store.py",
       "source_location": "L20",
       "id": "pipeline_neo4j_store_ddl",
-      "community": 46,
+      "community": 41,
       "norm_label": "_ddl()"
     },
     {
@@ -3560,7 +3596,7 @@
       "source_file": "src/pipeline/neo4j_store.py",
       "source_location": "L20",
       "id": "src_pipeline_neo4j_store_py_int",
-      "community": 46,
+      "community": 41,
       "norm_label": "int"
     },
     {
@@ -3569,7 +3605,7 @@
       "source_file": "src/pipeline/neo4j_store.py",
       "source_location": "L20",
       "id": "literalstring",
-      "community": 46,
+      "community": 41,
       "norm_label": "literalstring"
     },
     {
@@ -3587,7 +3623,7 @@
       "source_file": "src/pipeline/neo4j_store.py",
       "source_location": "L157",
       "id": "pipeline_neo4j_store_neo4jstore_init",
-      "community": 46,
+      "community": 41,
       "norm_label": ".__init__()"
     },
     {
@@ -3596,7 +3632,7 @@
       "source_file": "src/pipeline/neo4j_store.py",
       "source_location": "L157",
       "id": "src_pipeline_neo4j_store_py_neo4jconfig",
-      "community": 46,
+      "community": 41,
       "norm_label": "neo4jconfig"
     },
     {
@@ -3614,7 +3650,7 @@
       "source_file": "src/pipeline/neo4j_store.py",
       "source_location": "L176",
       "id": "pipeline_neo4j_store_neo4jstore_ensure_schema",
-      "community": 46,
+      "community": 41,
       "norm_label": ".ensure_schema()"
     },
     {
@@ -3659,7 +3695,7 @@
       "source_file": "src/pipeline/neo4j_store.py",
       "source_location": "L250",
       "id": "pipeline_neo4j_store_neo4jstore_soft_delete_missing",
-      "community": 46,
+      "community": 75,
       "norm_label": ".soft_delete_missing()"
     },
     {
@@ -3749,7 +3785,7 @@
       "source_file": "src/pipeline/neo4j_store.py",
       "source_location": "L1",
       "id": "pipeline_neo4j_store_rationale_1",
-      "community": 46,
+      "community": 48,
       "norm_label": "neo4j data store for function nodes and similar_to relationships.  uses the offi"
     },
     {
@@ -3758,7 +3794,7 @@
       "source_file": "src/pipeline/neo4j_store.py",
       "source_location": "L21",
       "id": "pipeline_neo4j_store_rationale_21",
-      "community": 46,
+      "community": 41,
       "norm_label": "format a ddl template with integer-only substitutions and assert literalstring."
     },
     {
@@ -3785,7 +3821,7 @@
       "source_file": "src/pipeline/neo4j_store.py",
       "source_location": "L177",
       "id": "pipeline_neo4j_store_rationale_177",
-      "community": 46,
+      "community": 41,
       "norm_label": "idempotently create constraints and indexes.          args:             vector_d"
     },
     {
@@ -3821,7 +3857,7 @@
       "source_file": "src/pipeline/neo4j_store.py",
       "source_location": "L251",
       "id": "pipeline_neo4j_store_rationale_251",
-      "community": 46,
+      "community": 75,
       "norm_label": "mark functions not in ``seen_ids`` as deleted. returns count."
     },
     {
@@ -4109,7 +4145,7 @@
       "source_file": "src/observability/context.py",
       "source_location": "L1",
       "id": "src_observability_context_py",
-      "community": 40,
+      "community": 36,
       "norm_label": "context.py"
     },
     {
@@ -4118,7 +4154,7 @@
       "source_file": "src/observability/context.py",
       "source_location": "L17",
       "id": "observability_context_runcontext",
-      "community": 40,
+      "community": 36,
       "norm_label": "runcontext"
     },
     {
@@ -4127,7 +4163,7 @@
       "source_file": "src/observability/context.py",
       "source_location": "L32",
       "id": "observability_context_runcontext_new",
-      "community": 31,
+      "community": 69,
       "norm_label": ".new()"
     },
     {
@@ -4136,7 +4172,7 @@
       "source_file": "src/observability/context.py",
       "source_location": "L1",
       "id": "observability_context_rationale_1",
-      "community": 40,
+      "community": 36,
       "norm_label": "runcontext helper for observability.  this module provides a minimal `runcontext"
     },
     {
@@ -4145,7 +4181,7 @@
       "source_file": "src/observability/context.py",
       "source_location": "L18",
       "id": "observability_context_rationale_18",
-      "community": 40,
+      "community": 36,
       "norm_label": "per-run observability context.      attributes:         run_id: a uuid4 string u"
     },
     {
@@ -4154,7 +4190,7 @@
       "source_file": "src/observability/context.py",
       "source_location": "L33",
       "id": "observability_context_rationale_33",
-      "community": 31,
+      "community": 69,
       "norm_label": "create a fresh runcontext with a new uuid4 run_id and current timestamp."
     },
     {
@@ -4370,7 +4406,7 @@
       "source_file": "src/retrieval/assembly/context_assembler.py",
       "source_location": "L1",
       "id": "src_retrieval_assembly_context_assembler_py",
-      "community": 55,
+      "community": 3,
       "norm_label": "context_assembler.py"
     },
     {
@@ -4379,7 +4415,7 @@
       "source_file": "src/retrieval/assembly/context_assembler.py",
       "source_location": "L15",
       "id": "assembly_context_assembler_contextassemblerprotocol",
-      "community": 55,
+      "community": 3,
       "norm_label": "contextassemblerprotocol"
     },
     {
@@ -4388,7 +4424,7 @@
       "source_file": "",
       "source_location": "",
       "id": "protocol",
-      "community": 55,
+      "community": 42,
       "norm_label": "protocol"
     },
     {
@@ -4460,7 +4496,7 @@
       "source_file": "src/retrieval/assembly/context_assembler.py",
       "source_location": "L1",
       "id": "assembly_context_assembler_rationale_1",
-      "community": 55,
+      "community": 3,
       "norm_label": "context assembler \u2014 builds bounded contextpackage from ranked files.  contextass"
     },
     {
@@ -4469,7 +4505,7 @@
       "source_file": "src/retrieval/assembly/context_assembler.py",
       "source_location": "L16",
       "id": "assembly_context_assembler_rationale_16",
-      "community": 55,
+      "community": 3,
       "norm_label": "interface for bounded context assembly."
     },
     {
@@ -4775,7 +4811,7 @@
       "source_file": "src/retrieval/ranking/graph_ranker.py",
       "source_location": "L1",
       "id": "src_retrieval_ranking_graph_ranker_py",
-      "community": 12,
+      "community": 6,
       "norm_label": "graph_ranker.py"
     },
     {
@@ -4793,7 +4829,7 @@
       "source_file": "src/retrieval/ranking/graph_ranker.py",
       "source_location": "L24",
       "id": "ranking_graph_ranker_graphranker_rank_candidates",
-      "community": 12,
+      "community": 6,
       "norm_label": ".rank_candidates()"
     },
     {
@@ -4802,7 +4838,7 @@
       "source_file": "src/retrieval/ranking/graph_ranker.py",
       "source_location": "L24",
       "id": "src_retrieval_ranking_graph_ranker_py_str",
-      "community": 12,
+      "community": 6,
       "norm_label": "str"
     },
     {
@@ -4811,7 +4847,7 @@
       "source_file": "src/retrieval/ranking/graph_ranker.py",
       "source_location": "L24",
       "id": "graphquery",
-      "community": 12,
+      "community": 6,
       "norm_label": "graphquery"
     },
     {
@@ -4820,7 +4856,7 @@
       "source_file": "src/retrieval/ranking/graph_ranker.py",
       "source_location": "L24",
       "id": "src_retrieval_ranking_graph_ranker_py_int",
-      "community": 12,
+      "community": 6,
       "norm_label": "int"
     },
     {
@@ -4829,7 +4865,7 @@
       "source_file": "src/retrieval/ranking/graph_ranker.py",
       "source_location": "L1",
       "id": "ranking_graph_ranker_rationale_1",
-      "community": 12,
+      "community": 6,
       "norm_label": "graph-aware file ranker.  graphranker uses a graphquery instance to rank file ca"
     },
     {
@@ -4847,7 +4883,7 @@
       "source_file": "src/retrieval/ranking/graph_ranker.py",
       "source_location": "L32",
       "id": "ranking_graph_ranker_rationale_32",
-      "community": 12,
+      "community": 6,
       "norm_label": "return an ordered list of file paths relevant to `task`.          pipeline:"
     },
     {
@@ -5666,7 +5702,7 @@
       "source_file": "src/retrieval/graph/graph_query.py",
       "source_location": "L1",
       "id": "src_retrieval_graph_graph_query_py",
-      "community": 12,
+      "community": 6,
       "norm_label": "graph_query.py"
     },
     {
@@ -5675,7 +5711,7 @@
       "source_file": "src/retrieval/graph/graph_query.py",
       "source_location": "L22",
       "id": "graph_graph_query_graphquery",
-      "community": 12,
+      "community": 6,
       "norm_label": "graphquery"
     },
     {
@@ -5783,7 +5819,7 @@
       "source_file": "src/retrieval/graph/graph_query.py",
       "source_location": "L1",
       "id": "graph_graph_query_rationale_1",
-      "community": 12,
+      "community": 6,
       "norm_label": "graph query utilities for the retrieval pipeline.  graphquery loads graph.json o"
     },
     {
@@ -5792,7 +5828,7 @@
       "source_file": "src/retrieval/graph/graph_query.py",
       "source_location": "L23",
       "id": "graph_graph_query_rationale_23",
-      "community": 12,
+      "community": 6,
       "norm_label": "loads graph.json once and exposes keyword + dependency queries.      constructed"
     },
     {
@@ -6233,7 +6269,7 @@
       "source_file": "src/graph/state.py",
       "source_location": "L8",
       "id": "graph_state_graphstate",
-      "community": 30,
+      "community": 40,
       "norm_label": "graphstate"
     },
     {
@@ -6242,7 +6278,7 @@
       "source_file": "src/graph/state.py",
       "source_location": "L9",
       "id": "graph_state_rationale_9",
-      "community": 30,
+      "community": 40,
       "norm_label": "shared state passed between langgraph nodes.      this state represents a single"
     },
     {
@@ -6332,7 +6368,7 @@
       "source_file": "src/graph/workflow.py",
       "source_location": "L61",
       "id": "src_graph_workflow_py_runcontext",
-      "community": 33,
+      "community": 40,
       "norm_label": "runcontext"
     },
     {
@@ -6386,7 +6422,7 @@
       "source_file": "src/graph/nodes/branch_creator.py",
       "source_location": "L1",
       "id": "src_graph_nodes_branch_creator_py",
-      "community": 28,
+      "community": 61,
       "norm_label": "branch_creator.py"
     },
     {
@@ -6395,7 +6431,7 @@
       "source_file": "src/graph/nodes/branch_creator.py",
       "source_location": "L23",
       "id": "nodes_branch_creator_branch_creator_node",
-      "community": 28,
+      "community": 61,
       "norm_label": "branch_creator_node()"
     },
     {
@@ -6404,7 +6440,7 @@
       "source_file": "src/graph/nodes/branch_creator.py",
       "source_location": "L23",
       "id": "src_graph_nodes_branch_creator_py_graphstate",
-      "community": 30,
+      "community": 61,
       "norm_label": "graphstate"
     },
     {
@@ -6413,7 +6449,7 @@
       "source_file": "src/graph/nodes/branch_creator.py",
       "source_location": "L23",
       "id": "src_graph_nodes_branch_creator_py_runcontext",
-      "community": 30,
+      "community": 61,
       "norm_label": "runcontext"
     },
     {
@@ -6422,7 +6458,7 @@
       "source_file": "src/graph/nodes/branch_creator.py",
       "source_location": "L1",
       "id": "nodes_branch_creator_rationale_1",
-      "community": 28,
+      "community": 61,
       "norm_label": "branch creator node.  creates (or checks out) a task branch in the target reposi"
     },
     {
@@ -6431,7 +6467,7 @@
       "source_file": "src/graph/nodes/branch_creator.py",
       "source_location": "L24",
       "id": "nodes_branch_creator_rationale_24",
-      "community": 28,
+      "community": 61,
       "norm_label": "create a task branch in the target repository.      reads ``repo_path`` and ``ta"
     },
     {
@@ -6440,7 +6476,7 @@
       "source_file": "src/graph/nodes/diff_generator.py",
       "source_location": "L1",
       "id": "src_graph_nodes_diff_generator_py",
-      "community": 61,
+      "community": 36,
       "norm_label": "diff_generator.py"
     },
     {
@@ -6449,7 +6485,7 @@
       "source_file": "src/graph/nodes/diff_generator.py",
       "source_location": "L14",
       "id": "nodes_diff_generator_diff_generator_node",
-      "community": 61,
+      "community": 36,
       "norm_label": "diff_generator_node()"
     },
     {
@@ -6458,7 +6494,7 @@
       "source_file": "src/graph/nodes/diff_generator.py",
       "source_location": "L14",
       "id": "src_graph_nodes_diff_generator_py_graphstate",
-      "community": 61,
+      "community": 36,
       "norm_label": "graphstate"
     },
     {
@@ -6467,7 +6503,7 @@
       "source_file": "src/graph/nodes/diff_generator.py",
       "source_location": "L14",
       "id": "src_graph_nodes_diff_generator_py_runcontext",
-      "community": 61,
+      "community": 36,
       "norm_label": "runcontext"
     },
     {
@@ -6476,7 +6512,7 @@
       "source_file": "src/graph/nodes/diff_generator.py",
       "source_location": "L15",
       "id": "nodes_diff_generator_rationale_15",
-      "community": 61,
+      "community": 36,
       "norm_label": "compute a unified diff between the original and generated code.      expected st"
     },
     {
@@ -6836,7 +6872,7 @@
       "source_file": "src/graph/nodes/file_writer.py",
       "source_location": "L1",
       "id": "src_graph_nodes_file_writer_py",
-      "community": 28,
+      "community": 36,
       "norm_label": "file_writer.py"
     },
     {
@@ -6881,7 +6917,7 @@
       "source_file": "src/graph/nodes/support.py",
       "source_location": "L1",
       "id": "src_graph_nodes_support_py",
-      "community": 19,
+      "community": 26,
       "norm_label": "support.py"
     },
     {
@@ -6890,7 +6926,7 @@
       "source_file": "src/graph/nodes/support.py",
       "source_location": "L23",
       "id": "nodes_support_require_state_value",
-      "community": 19,
+      "community": 26,
       "norm_label": "require_state_value()"
     },
     {
@@ -6899,7 +6935,7 @@
       "source_file": "src/graph/nodes/support.py",
       "source_location": "L23",
       "id": "src_graph_nodes_support_py_graphstate",
-      "community": 19,
+      "community": 26,
       "norm_label": "graphstate"
     },
     {
@@ -6908,7 +6944,7 @@
       "source_file": "src/graph/nodes/support.py",
       "source_location": "L23",
       "id": "src_graph_nodes_support_py_str",
-      "community": 19,
+      "community": 26,
       "norm_label": "str"
     },
     {
@@ -6917,7 +6953,7 @@
       "source_file": "src/graph/nodes/support.py",
       "source_location": "L31",
       "id": "nodes_support_strip_code_fences",
-      "community": 19,
+      "community": 36,
       "norm_label": "strip_code_fences()"
     },
     {
@@ -6944,7 +6980,7 @@
       "source_file": "src/graph/nodes/support.py",
       "source_location": "L59",
       "id": "nodes_support_select_target_file_from_repo_path",
-      "community": 19,
+      "community": 26,
       "norm_label": "select_target_file_from_repo_path()"
     },
     {
@@ -6953,7 +6989,7 @@
       "source_file": "src/graph/nodes/support.py",
       "source_location": "L1",
       "id": "nodes_support_rationale_1",
-      "community": 19,
+      "community": 26,
       "norm_label": "shared helpers for graph node implementations."
     },
     {
@@ -6962,7 +6998,7 @@
       "source_file": "src/graph/nodes/support.py",
       "source_location": "L24",
       "id": "nodes_support_rationale_24",
-      "community": 19,
+      "community": 26,
       "norm_label": "return a required value from `state` or raise valueerror."
     },
     {
@@ -6971,7 +7007,7 @@
       "source_file": "src/graph/nodes/support.py",
       "source_location": "L32",
       "id": "nodes_support_rationale_32",
-      "community": 19,
+      "community": 36,
       "norm_label": "remove a single pair of surrounding markdown code fences."
     },
     {
@@ -6989,7 +7025,7 @@
       "source_file": "src/graph/nodes/support.py",
       "source_location": "L60",
       "id": "nodes_support_rationale_60",
-      "community": 19,
+      "community": 26,
       "norm_label": "pick the first python file in a repo root deterministically."
     },
     {
@@ -7421,7 +7457,7 @@
       "source_file": "src/graph/nodes/git_committer.py",
       "source_location": "L23",
       "id": "nodes_git_committer_git_committer_node",
-      "community": 36,
+      "community": 28,
       "norm_label": "git_committer_node()"
     },
     {
@@ -7430,7 +7466,7 @@
       "source_file": "src/graph/nodes/git_committer.py",
       "source_location": "L23",
       "id": "src_graph_nodes_git_committer_py_graphstate",
-      "community": 36,
+      "community": 28,
       "norm_label": "graphstate"
     },
     {
@@ -7439,7 +7475,7 @@
       "source_file": "src/graph/nodes/git_committer.py",
       "source_location": "L23",
       "id": "src_graph_nodes_git_committer_py_runcontext",
-      "community": 36,
+      "community": 28,
       "norm_label": "runcontext"
     },
     {
@@ -7457,7 +7493,7 @@
       "source_file": "src/graph/nodes/git_committer.py",
       "source_location": "L24",
       "id": "nodes_git_committer_rationale_24",
-      "community": 36,
+      "community": 28,
       "norm_label": "stage and commit the modified target file.      expected state keys:     - ``rep"
     },
     {
@@ -7466,7 +7502,7 @@
       "source_file": "src/graph/nodes/node_index.py",
       "source_location": "L1",
       "id": "src_graph_nodes_node_index_py",
-      "community": 36,
+      "community": 61,
       "norm_label": "node_index.py"
     },
     {
@@ -7475,7 +7511,7 @@
       "source_file": "src/graph/nodes/node_index.py",
       "source_location": "L1",
       "id": "nodes_node_index_rationale_1",
-      "community": 36,
+      "community": 61,
       "norm_label": "aggregate export surface for graph nodes."
     },
     {
@@ -7547,7 +7583,7 @@
       "source_file": "src/graph/nodes/retrieval_node.py",
       "source_location": "L193",
       "id": "nodes_retrieval_node_to_relative_ids",
-      "community": 63,
+      "community": 12,
       "norm_label": "_to_relative_ids()"
     },
     {
@@ -7592,8 +7628,35 @@
       "source_file": "src/graph/nodes/retrieval_node.py",
       "source_location": "L194",
       "id": "nodes_retrieval_node_rationale_194",
-      "community": 63,
+      "community": 12,
       "norm_label": "convert absolute paths to repo-relative strings when possible."
+    },
+    {
+      "label": "Connect to Slack via Socket Mode and register slash command handlers.      Retur",
+      "file_type": "rationale",
+      "source_file": "src/api/slack_socket.py",
+      "source_location": "L41",
+      "community": 4,
+      "norm_label": "connect to slack via socket mode and register slash command handlers.      retur",
+      "id": "api_slack_socket_rationale_41"
+    },
+    {
+      "label": "Build a Slack mrkdwn text payload for a list of QueryMatch results.",
+      "file_type": "rationale",
+      "source_file": "src/scheduler/dispatcher.py",
+      "source_location": "L20",
+      "community": 49,
+      "norm_label": "build a slack mrkdwn text payload for a list of querymatch results.",
+      "id": "scheduler_dispatcher_rationale_20"
+    },
+    {
+      "label": "Routes Task instances to the appropriate handler.      Resources (OllamaClient,",
+      "file_type": "rationale",
+      "source_file": "src/scheduler/dispatcher.py",
+      "source_location": "L32",
+      "community": 49,
+      "norm_label": "routes task instances to the appropriate handler.      resources (ollamaclient,",
+      "id": "scheduler_dispatcher_rationale_32"
     },
     {
       "label": "Build a Slack Block Kit block list from a PipelineResult.",
@@ -7654,7 +7717,7 @@
       "file_type": "rationale",
       "source_file": "src/scheduler/dispatcher.py",
       "source_location": "L31",
-      "community": 44,
+      "community": 49,
       "norm_label": "routes task instances to the appropriate handler.      resources (ollamaclient,",
       "id": "scheduler_dispatcher_rationale_31"
     },
@@ -7681,7 +7744,7 @@
       "file_type": "code",
       "source_file": "src/api/app.py",
       "source_location": "L23",
-      "community": 4,
+      "community": 50,
       "norm_label": "_make_signature_verifier()",
       "id": "api_app_make_signature_verifier"
     },
@@ -7690,7 +7753,7 @@
       "file_type": "code",
       "source_file": "src/api/app.py",
       "source_location": "L23",
-      "community": 4,
+      "community": 50,
       "norm_label": "str",
       "id": "src_api_app_py_str"
     },
@@ -7699,7 +7762,7 @@
       "file_type": "code",
       "source_file": "src/api/app.py",
       "source_location": "L64",
-      "community": 4,
+      "community": 50,
       "norm_label": "taskqueue",
       "id": "src_api_app_py_taskqueue"
     },
@@ -7708,7 +7771,7 @@
       "file_type": "rationale",
       "source_file": "src/api/app.py",
       "source_location": "L24",
-      "community": 4,
+      "community": 50,
       "norm_label": "return a fastapi dependency that validates x-slack-signature on every request.",
       "id": "api_app_rationale_24"
     },
@@ -7717,7 +7780,7 @@
       "file_type": "rationale",
       "source_file": "src/api/app.py",
       "source_location": "L65",
-      "community": 4,
+      "community": 50,
       "norm_label": "create and return the fastapi application.      args:         queue: the shared",
       "id": "api_app_rationale_65"
     },
@@ -7852,7 +7915,7 @@
       "file_type": "rationale",
       "source_file": "src/core/config_loader.py",
       "source_location": "L384",
-      "community": 52,
+      "community": 68,
       "norm_label": "return the maximum number of workflow revision cycles allowed.",
       "id": "core_config_loader_rationale_384"
     },
@@ -7861,7 +7924,7 @@
       "file_type": "rationale",
       "source_file": "src/core/config_loader.py",
       "source_location": "L389",
-      "community": 12,
+      "community": 66,
       "norm_label": "return retrieval limits and behavior for the repository matching ``repo_path``.",
       "id": "core_config_loader_rationale_389"
     },
@@ -7915,7 +7978,7 @@
       "file_type": "rationale",
       "source_file": "src/core/config_loader.py",
       "source_location": "L480",
-      "community": 68,
+      "community": 59,
       "norm_label": "persist ``created_at`` and/or ``updated_at`` for a repository in config.json.",
       "id": "core_config_loader_rationale_480"
     },
@@ -7933,7 +7996,7 @@
       "file_type": "code",
       "source_file": "src/scheduler/loop.py",
       "source_location": "L21",
-      "community": 44,
+      "community": 45,
       "norm_label": "taskqueue",
       "id": "taskqueue"
     },
@@ -7942,7 +8005,7 @@
       "file_type": "code",
       "source_file": "src/scheduler/task.py",
       "source_location": "L13",
-      "community": 50,
+      "community": 54,
       "norm_label": "task",
       "id": "scheduler_task_task"
     },
@@ -7951,7 +8014,7 @@
       "file_type": "rationale",
       "source_file": "src/scheduler/task.py",
       "source_location": "L14",
-      "community": 50,
+      "community": 54,
       "norm_label": "scheduler work unit wrapping a validated taskrequest.",
       "id": "scheduler_task_rationale_14"
     },
@@ -7960,7 +8023,7 @@
       "file_type": "code",
       "source_file": "src/scheduler/executor.py",
       "source_location": "L21",
-      "community": 31,
+      "community": 54,
       "norm_label": "task",
       "id": "src_scheduler_executor_py_task"
     },
@@ -7969,7 +8032,7 @@
       "file_type": "code",
       "source_file": "src/scheduler/loop.py",
       "source_location": "L21",
-      "community": 44,
+      "community": 45,
       "norm_label": "workflowexecutor",
       "id": "workflowexecutor"
     },
@@ -7978,7 +8041,7 @@
       "file_type": "rationale",
       "source_file": "src/pipeline/neo4j_store.py",
       "source_location": "L148",
-      "community": 46,
+      "community": 41,
       "norm_label": "async neo4j driver wrapper for function nodes and similar_to edges.",
       "id": "pipeline_neo4j_store_rationale_148"
     },
@@ -7996,7 +8059,7 @@
       "file_type": "rationale",
       "source_file": "src/pipeline/neo4j_store.py",
       "source_location": "L170",
-      "community": 46,
+      "community": 41,
       "norm_label": "idempotently create constraints and indexes.          args:             vector_d",
       "id": "pipeline_neo4j_store_rationale_170"
     },
@@ -8023,7 +8086,7 @@
       "file_type": "rationale",
       "source_file": "src/pipeline/neo4j_store.py",
       "source_location": "L244",
-      "community": 46,
+      "community": 75,
       "norm_label": "mark functions not in ``seen_ids`` as deleted. returns count.",
       "id": "pipeline_neo4j_store_rationale_244"
     },
@@ -8077,7 +8140,7 @@
       "file_type": "code",
       "source_file": "src/pipeline/similarity.py",
       "source_location": "L18",
-      "community": 62,
+      "community": 44,
       "norm_label": "_normalise()",
       "id": "pipeline_similarity_normalise"
     },
@@ -8086,7 +8149,7 @@
       "file_type": "code",
       "source_file": "src/pipeline/similarity.py",
       "source_location": "L18",
-      "community": 62,
+      "community": 44,
       "norm_label": "ndarray",
       "id": "ndarray"
     },
@@ -8095,7 +8158,7 @@
       "file_type": "rationale",
       "source_file": "src/pipeline/similarity.py",
       "source_location": "L19",
-      "community": 62,
+      "community": 44,
       "norm_label": "l2-normalise each row. rows with zero norm are left as-is.",
       "id": "pipeline_similarity_rationale_19"
     },
@@ -8104,7 +8167,7 @@
       "file_type": "rationale",
       "source_file": "src/pipeline/similarity.py",
       "source_location": "L29",
-      "community": 62,
+      "community": 44,
       "norm_label": "compute similar_to edges for all functions above the similarity threshold.",
       "id": "pipeline_similarity_rationale_29"
     },
@@ -8185,7 +8248,7 @@
       "file_type": "rationale",
       "source_file": "src/pipeline/neo4j_store.py",
       "source_location": "L222",
-      "community": 46,
+      "community": 75,
       "norm_label": "mark functions not in ``seen_ids`` as deleted. returns count.",
       "id": "pipeline_neo4j_store_rationale_222"
     },
@@ -8293,7 +8356,7 @@
       "file_type": "rationale",
       "source_file": "src/pipeline/embedder.py",
       "source_location": "L31",
-      "community": 69,
+      "community": 10,
       "norm_label": "populate ``record.code_embedding`` in-place.          logs and skips on failure",
       "id": "pipeline_embedder_rationale_31"
     },
@@ -8302,7 +8365,7 @@
       "file_type": "rationale",
       "source_file": "src/pipeline/embedder.py",
       "source_location": "L56",
-      "community": 69,
+      "community": 10,
       "norm_label": "populate ``record.description_embedding`` in-place.          extracts the ``summ",
       "id": "pipeline_embedder_rationale_56"
     },
@@ -8311,7 +8374,7 @@
       "file_type": "rationale",
       "source_file": "src/pipeline/embedder.py",
       "source_location": "L90",
-      "community": 69,
+      "community": 10,
       "norm_label": "embed source code for all records in-place, respecting concurrency limit.",
       "id": "pipeline_embedder_rationale_90"
     },
@@ -8320,7 +8383,7 @@
       "file_type": "rationale",
       "source_file": "src/pipeline/embedder.py",
       "source_location": "L100",
-      "community": 69,
+      "community": 10,
       "norm_label": "embed descriptions for all records in-place, respecting concurrency limit.",
       "id": "pipeline_embedder_rationale_100"
     },
@@ -8329,7 +8392,7 @@
       "file_type": "rationale",
       "source_file": "src/pipeline/contracts.py",
       "source_location": "L44",
-      "community": 62,
+      "community": 44,
       "norm_label": "a similar_to relationship between two function nodes.",
       "id": "pipeline_contracts_rationale_44"
     },
@@ -8419,7 +8482,7 @@
       "file_type": "rationale",
       "source_file": "src/pipeline/neo4j_store.py",
       "source_location": "L214",
-      "community": 46,
+      "community": 75,
       "norm_label": "mark functions not in ``seen_ids`` as deleted. returns count.",
       "id": "pipeline_neo4j_store_rationale_214"
     },
@@ -8482,7 +8545,7 @@
       "file_type": "rationale",
       "source_file": "src/pipeline/extractor.py",
       "source_location": "L199",
-      "community": 67,
+      "community": 2,
       "norm_label": "return one functionrecord per function/method found in the repository.",
       "id": "pipeline_extractor_rationale_199"
     },
@@ -8491,7 +8554,7 @@
       "file_type": "code",
       "source_file": "src/pipeline/embedder.py",
       "source_location": "L89",
-      "community": 69,
+      "community": 2,
       "norm_label": "int",
       "id": "src_pipeline_embedder_py_int"
     },
@@ -8509,7 +8572,7 @@
       "file_type": "rationale",
       "source_file": "src/pipeline/embedder.py",
       "source_location": "L94",
-      "community": 69,
+      "community": 10,
       "norm_label": "embed source code for all records in-place, respecting concurrency limit.",
       "id": "pipeline_embedder_rationale_94"
     },
@@ -8518,7 +8581,7 @@
       "file_type": "rationale",
       "source_file": "src/pipeline/embedder.py",
       "source_location": "L108",
-      "community": 69,
+      "community": 10,
       "norm_label": "embed descriptions for all records in-place, respecting concurrency limit.",
       "id": "pipeline_embedder_rationale_108"
     },
@@ -8527,7 +8590,7 @@
       "file_type": "rationale",
       "source_file": "src/pipeline/similarity.py",
       "source_location": "L16",
-      "community": 62,
+      "community": 44,
       "norm_label": "l2-normalise each row. rows with zero norm are left as-is.",
       "id": "pipeline_similarity_rationale_16"
     },
@@ -8536,7 +8599,7 @@
       "file_type": "rationale",
       "source_file": "src/pipeline/similarity.py",
       "source_location": "L26",
-      "community": 62,
+      "community": 44,
       "norm_label": "compute similar_to edges for all functions above the similarity threshold.",
       "id": "pipeline_similarity_rationale_26"
     },
@@ -8545,7 +8608,7 @@
       "file_type": "rationale",
       "source_file": "src/pipeline/contracts.py",
       "source_location": "L43",
-      "community": 62,
+      "community": 44,
       "norm_label": "a similar_to relationship between two function nodes.",
       "id": "pipeline_contracts_rationale_43"
     },
@@ -8563,7 +8626,7 @@
       "file_type": "code",
       "source_file": "src/pipeline/describer.py",
       "source_location": "L97",
-      "community": 58,
+      "community": 2,
       "norm_label": "int",
       "id": "src_pipeline_describer_py_int"
     },
@@ -8572,7 +8635,7 @@
       "file_type": "rationale",
       "source_file": "src/pipeline/describer.py",
       "source_location": "L47",
-      "community": 2,
+      "community": 63,
       "norm_label": "remove triple-backtick code fences that models emit despite instructions.",
       "id": "pipeline_describer_rationale_47"
     },
@@ -8590,7 +8653,7 @@
       "file_type": "rationale",
       "source_file": "src/pipeline/describer.py",
       "source_location": "L63",
-      "community": 58,
+      "community": 63,
       "norm_label": "populate ``record.description`` in-place with a json string.          retries on",
       "id": "pipeline_describer_rationale_63"
     },
@@ -8626,7 +8689,7 @@
       "file_type": "rationale",
       "source_file": "src/pipeline/neo4j_store.py",
       "source_location": "L135",
-      "community": 46,
+      "community": 41,
       "norm_label": "idempotently create constraints and indexes.          args:             vector_d",
       "id": "pipeline_neo4j_store_rationale_135"
     },
@@ -8644,7 +8707,7 @@
       "file_type": "rationale",
       "source_file": "src/pipeline/neo4j_store.py",
       "source_location": "L208",
-      "community": 46,
+      "community": 75,
       "norm_label": "mark functions not in ``seen_ids`` as deleted. returns count.",
       "id": "pipeline_neo4j_store_rationale_208"
     },
@@ -8797,7 +8860,7 @@
       "file_type": "rationale",
       "source_file": "src/graph/nodes/support.py",
       "source_location": "L59",
-      "community": 19,
+      "community": 26,
       "norm_label": "pick the first python file in a repo root deterministically.",
       "id": "nodes_support_rationale_59"
     },
@@ -8905,7 +8968,7 @@
       "file_type": "rationale",
       "source_file": "src/tools/patches.py",
       "source_location": "L30",
-      "community": 61,
+      "community": 47,
       "norm_label": "return a unified diff string describing changes from original -> modified.",
       "id": "tools_patches_rationale_30"
     },
@@ -9094,7 +9157,7 @@
       "file_type": "rationale",
       "source_file": "src/graph/nodes/git_committer.py",
       "source_location": "L22",
-      "community": 36,
+      "community": 28,
       "norm_label": "stage and commit the modified target file.      expected state keys:     - ``",
       "id": "nodes_git_committer_rationale_22"
     },
@@ -9103,7 +9166,7 @@
       "file_type": "rationale",
       "source_file": "src/graph/state.py",
       "source_location": "L7",
-      "community": 30,
+      "community": 40,
       "norm_label": "shared state passed between langgraph nodes.      this state represents a sing",
       "id": "graph_state_rationale_7"
     },
@@ -9112,7 +9175,7 @@
       "file_type": "rationale",
       "source_file": "src/scheduler/executor.py",
       "source_location": "L10",
-      "community": 50,
+      "community": 54,
       "norm_label": "executor that runs a workflow graph for a given `task`.      the executor acce",
       "id": "scheduler_executor_rationale_10"
     },
@@ -9175,7 +9238,7 @@
       "file_type": "rationale",
       "source_file": "src/graph/nodes/retrieval_node.py",
       "source_location": "L160",
-      "community": 63,
+      "community": 12,
       "norm_label": "convert absolute paths to repo-relative strings when possible.",
       "id": "nodes_retrieval_node_rationale_160"
     },
@@ -9229,7 +9292,7 @@
       "file_type": "rationale",
       "source_file": "src/graph/nodes/retrieval_node.py",
       "source_location": "L161",
-      "community": 63,
+      "community": 12,
       "norm_label": "convert absolute paths to repo-relative strings when possible.",
       "id": "nodes_retrieval_node_rationale_161"
     },
@@ -9238,7 +9301,7 @@
       "file_type": "rationale",
       "source_file": "src/observability/context.py",
       "source_location": "L14",
-      "community": 40,
+      "community": 36,
       "norm_label": "minimal per-run observability context.      attributes:         run_id: a uui",
       "id": "observability_context_rationale_14"
     },
@@ -9247,7 +9310,7 @@
       "file_type": "rationale",
       "source_file": "src/observability/context.py",
       "source_location": "L23",
-      "community": 31,
+      "community": 69,
       "norm_label": "create a fresh runcontext with a new uuid4 run_id.",
       "id": "observability_context_rationale_23"
     },
@@ -9301,7 +9364,7 @@
       "file_type": "rationale",
       "source_file": "src/graph/state.py",
       "source_location": "L8",
-      "community": 30,
+      "community": 40,
       "norm_label": "shared state passed between langgraph nodes.      this state represents a sing",
       "id": "graph_state_rationale_8"
     },
@@ -9463,7 +9526,7 @@
       "file_type": "code",
       "source_file": "src/observability/context.py",
       "source_location": "L22",
-      "community": 40,
+      "community": 36,
       "norm_label": "new()",
       "id": "observability_context_new"
     },
@@ -9502,7 +9565,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 26,
+      "community": 29,
       "norm_label": "graphstate: original_code field",
       "id": "concept_state_field_original_code"
     },
@@ -9645,7 +9708,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 45,
+      "community": 55,
       "norm_label": "mutation exclusivity - one active workflow at a time",
       "id": "docs_project_plan_mutation_exclusivity"
     },
@@ -9658,7 +9721,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 44,
+      "community": 45,
       "norm_label": "fifo task queue - in-memory deterministic ordering",
       "id": "docs_project_plan_fifo_queue"
     },
@@ -9671,7 +9734,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 45,
+      "community": 55,
       "norm_label": "bounded autonomy design principle",
       "id": "docs_project_plan_bounded_autonomy"
     },
@@ -9697,7 +9760,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 45,
+      "community": 55,
       "norm_label": "phase 2 - repository awareness",
       "id": "docs_project_plan_phase2_repo_awareness"
     },
@@ -9710,7 +9773,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 45,
+      "community": 55,
       "norm_label": "phase 3 - async execution coordinator",
       "id": "docs_project_plan_phase3_async_execution"
     },
@@ -9749,7 +9812,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 50,
+      "community": 54,
       "norm_label": "workflowexecutor as single orchestration boundary",
       "id": "docs_project_plan_workflow_executor_boundary"
     },
@@ -9762,7 +9825,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 45,
+      "community": 55,
       "norm_label": "context contract version (context_version=1)",
       "id": "docs_context_contract_context_version"
     },
@@ -9775,7 +9838,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 45,
+      "community": 55,
       "norm_label": "context contract payload shape",
       "id": "docs_context_contract_payload_shape"
     },
@@ -9788,7 +9851,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 45,
+      "community": 55,
       "norm_label": "context contract determinism rules",
       "id": "docs_context_contract_determinism_rules"
     },
@@ -9801,7 +9864,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 45,
+      "community": 55,
       "norm_label": "context contract prompt rendering ([repository context] block)",
       "id": "docs_context_contract_prompt_rendering"
     },
@@ -11271,6 +11334,16 @@
       "confidence_score": 0.5,
       "source": "querytask",
       "target": "core_ollama_client_ollamaclient"
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "src/scheduler/dispatcher.py",
+      "source_location": "L54",
+      "weight": 0.8,
+      "source": "reporttask",
+      "target": "core_ollama_client_ollamaclient",
+      "confidence_score": 0.5
     },
     {
       "relation": "uses",
@@ -14983,6 +15056,17 @@
       "target": "scheduler_task_querytask"
     },
     {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/api/slack_socket.py",
+      "source_location": "L19",
+      "weight": 1.0,
+      "source": "src_api_slack_socket_py",
+      "target": "scheduler_task_reporttask",
+      "confidence_score": 1.0
+    },
+    {
       "relation": "references",
       "context": "return_type",
       "confidence": "EXTRACTED",
@@ -15059,6 +15143,16 @@
       "relation": "uses",
       "confidence": "INFERRED",
       "source_file": "src/api/slack_socket.py",
+      "source_location": "L19",
+      "weight": 0.8,
+      "source": "src_api_slack_socket_py_str",
+      "target": "scheduler_task_reporttask",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "src/api/slack_socket.py",
       "source_location": "L18",
       "weight": 0.8,
       "confidence_score": 0.5,
@@ -15086,6 +15180,16 @@
       "target": "scheduler_task_querytask"
     },
     {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "src/api/slack_socket.py",
+      "source_location": "L19",
+      "weight": 0.8,
+      "source": "namespace",
+      "target": "scheduler_task_reporttask",
+      "confidence_score": 0.5
+    },
+    {
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "src/api/slack_socket.py",
@@ -15094,6 +15198,16 @@
       "confidence_score": 1.0,
       "source": "api_slack_socket_rationale_21",
       "target": "api_slack_socket_start_socket_mode"
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/api/slack_socket.py",
+      "source_location": "L40",
+      "weight": 1.0,
+      "source": "api_slack_socket_rationale_40",
+      "target": "api_slack_socket_start_socket_mode",
+      "confidence_score": 1.0
     },
     {
       "relation": "rationale_for",
@@ -15137,6 +15251,17 @@
       "confidence_score": 1.0,
       "source": "api_slack_socket_start_socket_mode",
       "target": "scheduler_task_querytask"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/api/slack_socket.py",
+      "source_location": "L96",
+      "weight": 1.0,
+      "source": "api_slack_socket_start_socket_mode",
+      "target": "scheduler_task_reporttask",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
@@ -15183,6 +15308,16 @@
       "relation": "uses",
       "confidence": "INFERRED",
       "source_file": "src/api/slack_socket.py",
+      "source_location": "L19",
+      "weight": 0.8,
+      "source": "src_api_slack_socket_py_taskqueue",
+      "target": "scheduler_task_reporttask",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "src/api/slack_socket.py",
       "source_location": "L16",
       "weight": 0.8,
       "confidence_score": 0.5,
@@ -15208,6 +15343,16 @@
       "confidence_score": 0.5,
       "source": "asyncsocketmodehandler",
       "target": "scheduler_task_querytask"
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "src/api/slack_socket.py",
+      "source_location": "L19",
+      "weight": 0.8,
+      "source": "asyncsocketmodehandler",
+      "target": "scheduler_task_reporttask",
+      "confidence_score": 0.5
     },
     {
       "relation": "rationale_for",
@@ -15309,9 +15454,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L15",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "api_slack_notifier_rationale_15",
-      "target": "api_slack_notifier_build_pipeline_blocks",
-      "confidence_score": 1.0
+      "target": "api_slack_notifier_build_pipeline_blocks"
     },
     {
       "relation": "rationale_for",
@@ -15361,9 +15506,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L52",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "api_slack_notifier_rationale_52",
-      "target": "api_slack_notifier_build_report_blocks",
-      "confidence_score": 1.0
+      "target": "api_slack_notifier_build_report_blocks"
     },
     {
       "relation": "rationale_for",
@@ -15403,9 +15548,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L167",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "api_slack_notifier_rationale_167",
-      "target": "api_slack_notifier_notify_pipeline_result",
-      "confidence_score": 1.0
+      "target": "api_slack_notifier_notify_pipeline_result"
     },
     {
       "relation": "rationale_for",
@@ -15519,9 +15664,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L201",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "api_slack_notifier_rationale_201",
-      "target": "api_slack_notifier_notify_report_result",
-      "confidence_score": 1.0
+      "target": "api_slack_notifier_notify_report_result"
     },
     {
       "relation": "rationale_for",
@@ -15542,6 +15687,17 @@
       "source_location": "L100",
       "weight": 1.0,
       "source": "scheduler_dispatcher_taskdispatcher_handle_pipeline",
+      "target": "api_slack_notifier_notify_report_result"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/scheduler/dispatcher.py",
+      "source_location": "L123",
+      "weight": 1.0,
+      "source": "scheduler_dispatcher_taskdispatcher_handle_report",
       "target": "api_slack_notifier_notify_report_result"
     },
     {
@@ -15950,6 +16106,17 @@
       "target": "scheduler_task_querytask"
     },
     {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/scheduler/dispatcher.py",
+      "source_location": "L17",
+      "weight": 1.0,
+      "source": "src_scheduler_dispatcher_py",
+      "target": "scheduler_task_reporttask",
+      "confidence_score": 1.0
+    },
+    {
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
@@ -15990,6 +16157,16 @@
       "confidence_score": 1.0,
       "source": "scheduler_dispatcher_rationale_20",
       "target": "scheduler_dispatcher_format_query_result"
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/scheduler/dispatcher.py",
+      "source_location": "L23",
+      "weight": 1.0,
+      "source": "scheduler_dispatcher_rationale_23",
+      "target": "scheduler_dispatcher_format_query_result",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -16053,6 +16230,16 @@
       "target": "scheduler_task_querytask"
     },
     {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "src/scheduler/dispatcher.py",
+      "source_location": "L17",
+      "weight": 0.8,
+      "source": "src_scheduler_dispatcher_py_str",
+      "target": "scheduler_task_reporttask",
+      "confidence_score": 0.5
+    },
+    {
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "src/scheduler/dispatcher.py",
@@ -16071,6 +16258,16 @@
       "confidence_score": 1.0,
       "source": "scheduler_dispatcher_rationale_32",
       "target": "scheduler_dispatcher_taskdispatcher"
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/scheduler/dispatcher.py",
+      "source_location": "L35",
+      "weight": 1.0,
+      "source": "scheduler_dispatcher_rationale_35",
+      "target": "scheduler_dispatcher_taskdispatcher",
+      "confidence_score": 1.0
     },
     {
       "relation": "uses",
@@ -16136,6 +16333,16 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "src/scheduler/dispatcher.py",
+      "source_location": "L107",
+      "weight": 1.0,
+      "source": "scheduler_dispatcher_taskdispatcher",
+      "target": "scheduler_dispatcher_taskdispatcher_handle_report",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "src/scheduler/dispatcher.py",
       "source_location": "L38",
       "weight": 1.0,
       "confidence_score": 1.0,
@@ -16161,6 +16368,16 @@
       "confidence_score": 0.5,
       "source": "scheduler_dispatcher_taskdispatcher",
       "target": "scheduler_task_querytask"
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "src/scheduler/dispatcher.py",
+      "source_location": "L17",
+      "weight": 0.8,
+      "source": "scheduler_dispatcher_taskdispatcher",
+      "target": "scheduler_task_reporttask",
+      "confidence_score": 0.5
     },
     {
       "relation": "uses",
@@ -16285,6 +16502,16 @@
       "target": "scheduler_task_querytask"
     },
     {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "src/scheduler/dispatcher.py",
+      "source_location": "L17",
+      "weight": 0.8,
+      "source": "src_scheduler_dispatcher_py_pipelineconfig",
+      "target": "scheduler_task_reporttask",
+      "confidence_score": 0.5
+    },
+    {
       "relation": "calls",
       "context": "call",
       "confidence": "EXTRACTED",
@@ -16305,6 +16532,17 @@
       "confidence_score": 1.0,
       "source": "scheduler_dispatcher_taskdispatcher_execute",
       "target": "scheduler_dispatcher_taskdispatcher_handle_query"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/scheduler/dispatcher.py",
+      "source_location": "L51",
+      "weight": 1.0,
+      "source": "scheduler_dispatcher_taskdispatcher_execute",
+      "target": "scheduler_dispatcher_taskdispatcher_handle_report",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
@@ -16366,6 +16604,16 @@
       "confidence_score": 0.5,
       "source": "src_scheduler_dispatcher_py_task",
       "target": "scheduler_task_querytask"
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "src/scheduler/dispatcher.py",
+      "source_location": "L17",
+      "weight": 0.8,
+      "source": "src_scheduler_dispatcher_py_task",
+      "target": "scheduler_task_reporttask",
+      "confidence_score": 0.5
     },
     {
       "relation": "calls",
@@ -16440,6 +16688,16 @@
       "target": "scheduler_task_querytask"
     },
     {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "src/scheduler/dispatcher.py",
+      "source_location": "L17",
+      "weight": 0.8,
+      "source": "querytask",
+      "target": "scheduler_task_reporttask",
+      "confidence_score": 0.5
+    },
+    {
       "relation": "calls",
       "context": "call",
       "confidence": "EXTRACTED",
@@ -16471,6 +16729,28 @@
       "confidence_score": 1.0,
       "source": "scheduler_dispatcher_taskdispatcher_handle_pipeline",
       "target": "pipelinetask"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/scheduler/dispatcher.py",
+      "source_location": "L101",
+      "weight": 1.0,
+      "source": "scheduler_dispatcher_taskdispatcher_handle_pipeline",
+      "target": "reporttask",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/scheduler/dispatcher.py",
+      "source_location": "L101",
+      "weight": 1.0,
+      "source": "scheduler_dispatcher_taskdispatcher_handle_pipeline",
+      "target": "scheduler_dispatcher_taskdispatcher_handle_report",
+      "confidence_score": 1.0
     },
     {
       "relation": "uses",
@@ -16521,6 +16801,98 @@
       "confidence_score": 0.5,
       "source": "pipelinetask",
       "target": "scheduler_task_querytask"
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "src/scheduler/dispatcher.py",
+      "source_location": "L17",
+      "weight": 0.8,
+      "source": "pipelinetask",
+      "target": "scheduler_task_reporttask",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/scheduler/dispatcher.py",
+      "source_location": "L116",
+      "weight": 1.0,
+      "source": "scheduler_dispatcher_taskdispatcher_handle_report",
+      "target": "pipeline_reporter_generate_report"
+    },
+    {
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/scheduler/dispatcher.py",
+      "source_location": "L107",
+      "weight": 1.0,
+      "source": "scheduler_dispatcher_taskdispatcher_handle_report",
+      "target": "reporttask",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "src/scheduler/dispatcher.py",
+      "source_location": "L16",
+      "weight": 0.8,
+      "source": "reporttask",
+      "target": "pipeline_contracts_pipelineconfig",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "src/scheduler/dispatcher.py",
+      "source_location": "L55",
+      "weight": 0.8,
+      "source": "reporttask",
+      "target": "pipeline_neo4j_store_neo4jstore",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "src/scheduler/dispatcher.py",
+      "source_location": "L83",
+      "weight": 0.8,
+      "source": "reporttask",
+      "target": "pipeline_pipeline_embeddingpipeline",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "src/scheduler/dispatcher.py",
+      "source_location": "L17",
+      "weight": 0.8,
+      "source": "reporttask",
+      "target": "scheduler_task_pipelinetask",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "src/scheduler/dispatcher.py",
+      "source_location": "L17",
+      "weight": 0.8,
+      "source": "reporttask",
+      "target": "scheduler_task_querytask",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "src/scheduler/dispatcher.py",
+      "source_location": "L17",
+      "weight": 0.8,
+      "source": "reporttask",
+      "target": "scheduler_task_reporttask",
+      "confidence_score": 0.5
     },
     {
       "relation": "rationale_for",
@@ -16595,6 +16967,16 @@
       "confidence_score": 1.0,
       "source": "src_scheduler_task_py",
       "target": "scheduler_task_querytask"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/scheduler/task.py",
+      "source_location": "L42",
+      "weight": 1.0,
+      "source": "src_scheduler_task_py",
+      "target": "scheduler_task_reporttask",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports",
@@ -16687,6 +17069,16 @@
       "confidence_score": 0.5,
       "source": "src_api_app_py_taskqueue",
       "target": "scheduler_task_pipelinetask"
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/scheduler/task.py",
+      "source_location": "L43",
+      "weight": 1.0,
+      "source": "scheduler_task_rationale_43",
+      "target": "scheduler_task_reporttask",
+      "confidence_score": 1.0
     },
     {
       "relation": "re_exports",
@@ -33604,5 +33996,5 @@
       "source_file": "docs/CONTEXT_CONTRACT.md"
     }
   ],
-  "built_at_commit": "d473a8c48957d6b30685a3181f94f9dbed1e378c"
+  "built_at_commit": "07103e779cdd3bf94ebc4bdfe89a968debcc7e12"
 }
