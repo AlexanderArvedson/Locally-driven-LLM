@@ -1,14 +1,15 @@
 """Post-run report generator.
 
 Queries Neo4j after a pipeline run and writes a structured markdown report:
-embedding integrity, graph health, similarity distribution, duplication
-clusters, heuristic flags, per-file coupling, and a machine-readable JSON
-footer. All logic is deterministic — no LLM usage.
+embedding integrity, run delta, graph health, similarity distribution, duplication
+clusters, heuristic flags, per-file coupling, cohesion scores, and a
+machine-readable JSON footer. All logic is deterministic — no LLM usage.
 """
 
 from __future__ import annotations
 
 import json
+import math
 from collections import defaultdict, deque
 from datetime import datetime, timezone
 from pathlib import Path
@@ -60,15 +61,17 @@ ORDER BY score DESC
 LIMIT $limit
 """
 
+# Updated: intra/inter breakdown replaces simple connection count.
 _Q_MOST_CONNECTED: LiteralString = """
-MATCH (f:Function {repo: $repo})-[r:SIMILAR_TO]-()
+MATCH (f:Function {repo: $repo})-[r:SIMILAR_TO]-(b:Function)
 WHERE f.isTest = false OR $include_tests
-RETURN
-  f.qualifiedName AS name,
-  f.filePath      AS file,
-  count(r)        AS connections
+WITH f.qualifiedName AS name, f.filePath AS file,
+     count(r) AS connections,
+     sum(CASE WHEN b.filePath = f.filePath THEN 1 ELSE 0 END) AS intra,
+     sum(CASE WHEN b.filePath <> f.filePath THEN 1 ELSE 0 END) AS inter
 ORDER BY connections DESC
 LIMIT $limit
+RETURN name, file, connections, intra, inter
 """
 
 _Q_LANGUAGE_BREAKDOWN: LiteralString = """
@@ -152,6 +155,36 @@ WHERE a.isTest = true AND b.isTest = false
 RETURN count(r) AS cross_edges
 """
 
+_Q_ISOLATED_FUNCTIONS: LiteralString = """
+MATCH (f:Function {repo: $repo, isDeleted: false})
+WHERE (f.isTest = false OR $include_tests)
+  AND NOT (f)-[:SIMILAR_TO]-()
+RETURN f.qualifiedName AS name, f.filePath AS file,
+       f.codeEmbeddingStatus AS code_status,
+       f.descriptionStatus AS desc_status
+ORDER BY f.filePath, f.qualifiedName
+LIMIT $limit
+"""
+
+_Q_FILE_EMBEDDINGS: LiteralString = """
+MATCH (f:Function {repo: $repo, isDeleted: false})
+WHERE (f.isTest = false OR $include_tests)
+  AND (f.codeEmbedding IS NOT NULL OR f.descriptionEmbedding IS NOT NULL)
+RETURN f.filePath AS filePath, f.className AS className,
+       f.qualifiedName AS qualifiedName,
+       f.codeEmbedding AS codeEmbedding,
+       f.descriptionEmbedding AS descriptionEmbedding
+ORDER BY f.filePath
+"""
+
+_Q_FILES_BY_FUNCTION_COUNT: LiteralString = """
+MATCH (f:Function {repo: $repo, isDeleted: false})
+WHERE f.isTest = false OR $include_tests
+RETURN f.filePath AS path, count(f) AS fn_count
+ORDER BY fn_count DESC
+LIMIT $limit
+"""
+
 # ---------------------------------------------------------------------------
 # Clustering (Python-side BFS over edges retrieved from Neo4j)
 # ---------------------------------------------------------------------------
@@ -227,6 +260,128 @@ def _compute_clusters(edges: list[dict]) -> list[dict]:
 
 
 # ---------------------------------------------------------------------------
+# Cohesion helpers
+# ---------------------------------------------------------------------------
+
+def _cosine(a: list[float], b: list[float]) -> float:
+    """Cosine similarity between two embedding vectors."""
+    dot = sum(x * y for x, y in zip(a, b))
+    na = math.sqrt(sum(x * x for x in a))
+    nb = math.sqrt(sum(x * x for x in b))
+    return dot / (na * nb) if na and nb else 0.0
+
+
+def _combined_sim(
+    ce_a: list[float] | None,
+    de_a: list[float] | None,
+    ce_b: list[float] | None,
+    de_b: list[float] | None,
+    code_w: float,
+    desc_w: float,
+) -> float | None:
+    """Combined similarity matching the weighting used by similarity.py."""
+    cs = _cosine(ce_a, ce_b) if ce_a and ce_b else None
+    ds = _cosine(de_a, de_b) if de_a and de_b else None
+    if cs is not None and ds is not None:
+        return code_w * cs + desc_w * ds
+    return cs if cs is not None else ds
+
+
+def _compute_cohesion_scores(
+    rows: list[dict],
+    group_key: str,
+    code_w: float,
+    desc_w: float,
+    min_functions: int,
+) -> list[dict]:
+    """Compute average pairwise similarity for each group (file or class).
+
+    Args:
+        rows: Query result rows, each with group_key, qualifiedName,
+              codeEmbedding, descriptionEmbedding.
+        group_key: Field to group by — ``"filePath"`` or ``"className"``.
+        code_w: Weight for code embedding similarity.
+        desc_w: Weight for description embedding similarity.
+        min_functions: Minimum embeddable functions to include a group.
+
+    Returns:
+        List of dicts with group, fn_count, cohesion_score, outlier sorted
+        ascending by cohesion_score (lowest cohesion first).
+    """
+    groups: dict[str, list[dict]] = defaultdict(list)
+    for row in rows:
+        key = row.get(group_key)
+        if key is None:
+            continue
+        groups[key].append(row)
+
+    results: list[dict] = []
+    for group, members in groups.items():
+        if len(members) < min_functions:
+            continue
+
+        # Track average similarity each member has to the rest (for outlier).
+        member_avg: dict[str, list[float]] = {m["qualifiedName"]: [] for m in members}
+        all_scores: list[float] = []
+
+        for i in range(len(members)):
+            for j in range(i + 1, len(members)):
+                a, b = members[i], members[j]
+                score = _combined_sim(
+                    a.get("codeEmbedding"),
+                    a.get("descriptionEmbedding"),
+                    b.get("codeEmbedding"),
+                    b.get("descriptionEmbedding"),
+                    code_w,
+                    desc_w,
+                )
+                if score is None:
+                    continue
+                all_scores.append(score)
+                member_avg[a["qualifiedName"]].append(score)
+                member_avg[b["qualifiedName"]].append(score)
+
+        if not all_scores:
+            continue
+
+        cohesion = sum(all_scores) / len(all_scores)
+
+        # Outlier = function with lowest average similarity to its groupmates.
+        outlier = min(
+            (n for n, scores in member_avg.items() if scores),
+            key=lambda n: sum(member_avg[n]) / len(member_avg[n]),
+            default=None,
+        )
+
+        results.append({
+            "group": group,
+            "fn_count": len(members),
+            "cohesion_score": round(cohesion, 4),
+            "outlier": outlier,
+        })
+
+    results.sort(key=lambda r: r["cohesion_score"])
+    return results
+
+
+# ---------------------------------------------------------------------------
+# Run delta helper
+# ---------------------------------------------------------------------------
+
+def _find_previous_report(run_reports_root: Path) -> dict | None:
+    """Return the parsed JSON of the most recent prior report, or None."""
+    if not run_reports_root.exists():
+        return None
+    candidates = sorted(run_reports_root.glob("*/report_*.json"), key=lambda p: p.name, reverse=True)
+    for candidate in candidates:
+        try:
+            return json.loads(candidate.read_text(encoding="utf-8"))
+        except Exception:
+            continue
+    return None
+
+
+# ---------------------------------------------------------------------------
 # Report builder
 # ---------------------------------------------------------------------------
 
@@ -256,14 +411,22 @@ async def generate_report(
     """
     reporter_cfg = pipeline_config.reporter if pipeline_config else ReporterConfig()
     ts = datetime.now(ZoneInfo(reporter_cfg.timezone)).strftime("%Y%m%d-%H%M%S")
+
+    run_reports_root = Path("run_reports")
+    prev_report: dict | None = None
+
     if output_dir is None:
-        output_dir = Path("run_reports") / ts
+        output_dir = run_reports_root / ts
+        prev_report = _find_previous_report(run_reports_root)
+
     output_dir = Path(output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
 
     store = Neo4jStore(neo4j_config)
     try:
-        lines, export = await _build_report(store, repo_name, include_tests, pipeline_config, loc_filtered)
+        lines, export = await _build_report(
+            store, repo_name, include_tests, pipeline_config, loc_filtered, prev_report
+        )
     finally:
         await store.close()
 
@@ -279,12 +442,15 @@ async def _build_report(
     include_tests: bool,
     pipeline_config: PipelineConfig | None,
     loc_filtered: int | None = None,
+    prev_report: dict | None = None,
 ) -> tuple[list[str], dict]:
     db = store._config.database
     driver = store._driver
 
     reporter_cfg = pipeline_config.reporter if pipeline_config else ReporterConfig()
     top_n = reporter_cfg.top_n
+    code_w = pipeline_config.similarity.code_weight if pipeline_config else 0.70
+    desc_w = pipeline_config.similarity.description_weight if pipeline_config else 0.30
 
     async def run(query: LiteralString, **params):
         async with driver.session(database=db) as session:
@@ -310,6 +476,9 @@ async def _build_report(
     per_file       = await run(_Q_PER_FILE_INTER,          limit=top_n, include_tests=include_tests)
     cluster_edges  = await run(_Q_CLUSTER_EDGES,           threshold=reporter_cfg.cluster_threshold, include_tests=include_tests)
     test_pollution = await run(_Q_TEST_POLLUTION) if include_tests else [{"cross_edges": 0}]
+    isolated_fns   = await run(_Q_ISOLATED_FUNCTIONS,      limit=reporter_cfg.max_isolated_listed, include_tests=include_tests)
+    file_embed_rows= await run(_Q_FILE_EMBEDDINGS,         include_tests=include_tests)
+    files_by_count = await run(_Q_FILES_BY_FUNCTION_COUNT, limit=top_n, include_tests=include_tests)
 
     # Scalar extraction
     total       = stats[0]["total"] if stats else 0
@@ -323,7 +492,7 @@ async def _build_report(
     density      = round(edges / total, 4) if total > 0 else 0.0
     isolated_pct = round(100 * isolated / total, 1) if total > 0 else 0.0
 
-    gt_high   = sim_dist[0]["gt_high"]   if sim_dist else 0
+    gt_high    = sim_dist[0]["gt_high"]    if sim_dist else 0
     b_mid_high = sim_dist[0]["b_mid_high"] if sim_dist else 0
     b_low_mid  = sim_dist[0]["b_low_mid"]  if sim_dist else 0
     lt_low     = sim_dist[0]["lt_low"]     if sim_dist else 0
@@ -352,6 +521,14 @@ async def _build_report(
     desc_skipped = desc_by_status.get("skipped", 0)
 
     clusters = _compute_clusters(cluster_edges)
+
+    # Cohesion scores (file and class level)
+    file_cohesion = _compute_cohesion_scores(
+        file_embed_rows, "filePath", code_w, desc_w, reporter_cfg.cohesion_min_functions
+    )
+    class_cohesion = _compute_cohesion_scores(
+        file_embed_rows, "className", code_w, desc_w, reporter_cfg.cohesion_min_functions
+    )
 
     tz = ZoneInfo(reporter_cfg.timezone)
     now_dt = datetime.now(tz)
@@ -388,7 +565,49 @@ async def _build_report(
     ]
 
     # -----------------------------------------------------------------------
-    # Section 2 — Embedding Integrity
+    # Section 2 — Delta Since Previous Run
+    # -----------------------------------------------------------------------
+    lines += ["## Delta Since Previous Run", ""]
+
+    delta_export: dict | None = None
+    if prev_report:
+        prev_ts   = prev_report.get("timestamp", "unknown")
+        prev_stats = prev_report.get("stats", {})
+        prev_total = prev_stats.get("total_functions", 0)
+        prev_edges = prev_stats.get("edges", 0)
+        prev_iso   = prev_stats.get("isolated", 0)
+        prev_clust = len(prev_report.get("clusters", []))
+        curr_clust = len(clusters)
+
+        def _delta(curr: int, prev: int) -> str:
+            diff = curr - prev
+            return f"+{diff}" if diff > 0 else str(diff)
+
+        lines += [
+            f"_Compared against: {prev_ts}_",
+            "",
+            "| Metric | Previous | Current | Δ |",
+            "|---|---|---|---|",
+            f"| Functions | {prev_total} | {total} | {_delta(total, prev_total)} |",
+            f"| Edges | {prev_edges} | {edges} | {_delta(edges, prev_edges)} |",
+            f"| Isolated functions | {prev_iso} | {isolated} | {_delta(isolated, prev_iso)} |",
+            f"| Duplication clusters | {prev_clust} | {curr_clust} | {_delta(curr_clust, prev_clust)} |",
+            "",
+        ]
+        delta_export = {
+            "previous_timestamp": prev_ts,
+            "functions": total - prev_total,
+            "edges": edges - prev_edges,
+            "isolated": isolated - prev_iso,
+            "clusters": curr_clust - prev_clust,
+        }
+    else:
+        lines += ["_No previous run found — delta will appear after the second run._", ""]
+
+    lines += ["---", ""]
+
+    # -----------------------------------------------------------------------
+    # Section 3 — Embedding Integrity
     # -----------------------------------------------------------------------
     lines += [
         "## Embedding Integrity",
@@ -450,7 +669,7 @@ async def _build_report(
     lines += ["---", ""]
 
     # -----------------------------------------------------------------------
-    # Section 3 — Graph Overview
+    # Section 4 — Graph Overview
     # -----------------------------------------------------------------------
     lines += [
         "## Graph Overview",
@@ -482,10 +701,36 @@ async def _build_report(
             lines.append(f"| {row['language']} | {row['count']} |")
         lines.append("")
 
+    # Isolated function list
+    lines += [
+        "### Isolated Functions",
+        "",
+        "Functions with no similarity edges — either uniquely specialized, "
+        "embedding failed, or dead code candidates.",
+        "",
+    ]
+    if isolated_fns:
+        lines += [
+            "| Function | File | Embed Status |",
+            "|---|---|---|",
+        ]
+        for row in isolated_fns:
+            cs = row.get("code_status") or "ok"
+            ds = row.get("desc_status") or "ok"
+            status = cs if cs != "ok" else (ds if ds != "ok" else "ok")
+            lines.append(f"| `{row['name']}` | {row['file']} | {status} |")
+        if isolated > reporter_cfg.max_isolated_listed:
+            lines.append(
+                f"\n_Showing {reporter_cfg.max_isolated_listed} of {isolated} isolated functions._"
+            )
+        lines.append("")
+    else:
+        lines += ["_No isolated functions._", ""]
+
     lines += ["---", ""]
 
     # -----------------------------------------------------------------------
-    # Section 4 — Similarity Distribution
+    # Section 5 — Similarity Distribution
     # -----------------------------------------------------------------------
     bh = reporter_cfg.sim_dist_bin_high
     bm = reporter_cfg.sim_dist_bin_mid
@@ -507,7 +752,7 @@ async def _build_report(
     lines += ["", "---", ""]
 
     # -----------------------------------------------------------------------
-    # Section 5 — Top Similar Pairs (unchanged)
+    # Section 6 — Top Similar Pairs
     # -----------------------------------------------------------------------
     lines += [
         f"## Top {top_n} Most Similar Pairs",
@@ -526,22 +771,26 @@ async def _build_report(
     lines += ["", "---", ""]
 
     # -----------------------------------------------------------------------
-    # Section 6 — Most Connected Functions (unchanged)
+    # Section 7 — Most Connected Functions (with intra/inter breakdown)
     # -----------------------------------------------------------------------
     lines += [
         f"## Top {top_n} Most Connected Functions",
         "",
-        "Functions with the most similarity edges — likely utility or pattern code reused across the codebase.",
+        "High intra-file count → local utility. High inter-file count → "
+        "cross-codebase pattern or widespread duplication.",
         "",
-        "| Connections | Function | File |",
-        "|---|---|---|",
+        "| Connections | Intra-file | Inter-file | Function | File |",
+        "|---|---|---|---|---|",
     ]
     for row in connected:
-        lines.append(f"| {row['connections']} | `{row['name']}` | {row['file']} |")
+        lines.append(
+            f"| {row['connections']} | {row.get('intra', 0)} | {row.get('inter', 0)}"
+            f" | `{row['name']}` | {row['file']} |"
+        )
     lines += ["", "---", ""]
 
     # -----------------------------------------------------------------------
-    # Section 7 — Files by Edge Count (enhanced with inter-file ratio)
+    # Section 8 — Files by Edge Count
     # -----------------------------------------------------------------------
     lines += [
         f"## Top {top_n} Files by Edge Count",
@@ -559,7 +808,66 @@ async def _build_report(
     lines += ["", "---", ""]
 
     # -----------------------------------------------------------------------
-    # Section 8 — Duplication Clusters
+    # Section 9 — Files by Function Count
+    # -----------------------------------------------------------------------
+    lines += [
+        f"## Top {top_n} Files by Function Count",
+        "",
+        f"Files above {reporter_cfg.god_file_threshold} functions are flagged as GOD\\_FILE.",
+        "",
+        "| Functions | File |",
+        "|---|---|",
+    ]
+    for row in files_by_count:
+        marker = " ⚑" if row["fn_count"] > reporter_cfg.god_file_threshold else ""
+        lines.append(f"| {row['fn_count']}{marker} | {row['path']} |")
+    lines += ["", "---", ""]
+
+    # -----------------------------------------------------------------------
+    # Section 10 — File Cohesion Scores
+    # -----------------------------------------------------------------------
+    lines += [
+        "## File Cohesion Scores",
+        "",
+        "Score = average pairwise embedding similarity of functions within each file. "
+        "Low score → semantically unrelated functions → potential SOC violation. "
+        "Sorted ascending (most fragmented first).",
+        "",
+    ]
+    display_file_cohesion = file_cohesion[:reporter_cfg.max_cohesion_files_listed]
+    if display_file_cohesion:
+        lines += [
+            "| Cohesion Score | Functions | Outlier | File |",
+            "|---|---|---|---|",
+        ]
+        for c in display_file_cohesion:
+            outlier = f"`{c['outlier']}`" if c["outlier"] else "—"
+            lines.append(f"| {c['cohesion_score']:.3f} | {c['fn_count']} | {outlier} | {c['group']} |")
+        lines.append("")
+    else:
+        lines += ["_No files with enough embeddable functions to compute cohesion._", ""]
+    lines += ["---", ""]
+
+    # -----------------------------------------------------------------------
+    # Section 11 — Class Cohesion Scores (omitted if no classes)
+    # -----------------------------------------------------------------------
+    if class_cohesion:
+        lines += [
+            "## Class Cohesion Scores",
+            "",
+            "Score = average pairwise embedding similarity of methods within each class. "
+            "Sorted ascending (most fragmented first).",
+            "",
+            "| Cohesion Score | Methods | Outlier | Class |",
+            "|---|---|---|---|",
+        ]
+        for c in class_cohesion[:reporter_cfg.max_cohesion_files_listed]:
+            outlier = f"`{c['outlier']}`" if c["outlier"] else "—"
+            lines.append(f"| {c['cohesion_score']:.3f} | {c['fn_count']} | {outlier} | {c['group']} |")
+        lines += ["", "---", ""]
+
+    # -----------------------------------------------------------------------
+    # Section 12 — Duplication Clusters
     # -----------------------------------------------------------------------
     lines += [
         "## Duplication Clusters",
@@ -583,7 +891,7 @@ async def _build_report(
     lines += ["", "---", ""]
 
     # -----------------------------------------------------------------------
-    # Section 9 — Heuristic Flags
+    # Section 13 — Heuristic Flags
     # -----------------------------------------------------------------------
     high_dup    = [c for c in clusters if c["size"] >= reporter_cfg.high_dup_min_cluster_size and c["max_score"] > reporter_cfg.high_dup_min_score]
     cross_file  = [c for c in clusters if len(c["files_involved"]) >= 2]
@@ -593,6 +901,12 @@ async def _build_report(
         if row["edge_count"] >= reporter_cfg.min_coupling_edges
         and (row["inter_edges"] or 0) / row["edge_count"] > reporter_cfg.arch_coupling_threshold
     ]
+    low_cohesion_files = [
+        c["group"] for c in file_cohesion
+        if c["cohesion_score"] < reporter_cfg.cohesion_low_threshold
+        and c["fn_count"] >= reporter_cfg.cohesion_min_functions
+    ]
+    god_files = [row["path"] for row in files_by_count if row["fn_count"] > reporter_cfg.god_file_threshold]
 
     flags: list[str] = []
     if high_dup:
@@ -611,6 +925,17 @@ async def _build_report(
         flags.append(
             f"- **TEST\\_POLLUTION**: {cross_edges} edges between test and production functions"
         )
+    if low_cohesion_files:
+        file_list = ", ".join(f"`{f}`" for f in low_cohesion_files[:reporter_cfg.max_coupling_files_listed])
+        flags.append(
+            f"- **LOW\\_COHESION**: semantically fragmented files — {file_list}"
+            f" (score < {reporter_cfg.cohesion_low_threshold})"
+        )
+    if god_files:
+        file_list = ", ".join(f"`{f}`" for f in god_files[:reporter_cfg.max_coupling_files_listed])
+        flags.append(
+            f"- **GOD\\_FILE**: files exceeding {reporter_cfg.god_file_threshold} functions — {file_list}"
+        )
 
     lines += ["## Heuristic Flags", ""]
     lines += flags if flags else ["_No flags raised._"]
@@ -621,6 +946,7 @@ async def _build_report(
         "timestamp": now,
         "pipeline_version": PIPELINE_VERSION,
         "embedding_model": embed_model,
+        "delta": delta_export,
         "stats": {
             "total_functions": total,
             "test_functions": test_funcs,
@@ -656,6 +982,38 @@ async def _build_report(
             f"b_{bl}_{bm}": b_low_mid,
             f"lt_{bl}": lt_low,
         },
+        "isolated_functions": [
+            {
+                "name": row["name"],
+                "file": row["file"],
+                "embed_status": (row.get("code_status") or "ok")
+                    if (row.get("code_status") or "ok") != "ok"
+                    else (row.get("desc_status") or "ok"),
+            }
+            for row in isolated_fns
+        ],
+        "files_by_function_count": [
+            {"path": row["path"], "fn_count": row["fn_count"]}
+            for row in files_by_count
+        ],
+        "file_cohesion": [
+            {
+                "file": c["group"],
+                "fn_count": c["fn_count"],
+                "cohesion_score": c["cohesion_score"],
+                "outlier": c["outlier"],
+            }
+            for c in file_cohesion
+        ],
+        "class_cohesion": [
+            {
+                "class": c["group"],
+                "fn_count": c["fn_count"],
+                "cohesion_score": c["cohesion_score"],
+                "outlier": c["outlier"],
+            }
+            for c in class_cohesion
+        ],
         "clusters": [
             {
                 "id": c["id"],
@@ -691,6 +1049,8 @@ async def _build_report(
             "CROSS_FILE_DUPLICATION": [c["id"] for c in cross_file],
             "ARCHITECTURE_COUPLING": coupled_files,
             "TEST_POLLUTION": cross_edges if include_tests else None,
+            "LOW_COHESION": low_cohesion_files,
+            "GOD_FILE": god_files,
         },
     }
 

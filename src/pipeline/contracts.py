@@ -106,6 +106,11 @@ class ReporterConfig:
     sim_dist_bin_high: float = 0.95
     sim_dist_bin_mid: float = 0.90
     sim_dist_bin_low: float = 0.80
+    cohesion_low_threshold: float = 0.30
+    cohesion_min_functions: int = 2
+    max_cohesion_files_listed: int = 20
+    max_isolated_listed: int = 50
+    god_file_threshold: int = 20
 
 
 @dataclass(frozen=True)
