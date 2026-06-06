@@ -5,12 +5,12 @@
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 1060 nodes · 2287 edges · 75 communities (61 shown, 14 thin omitted)
+- 1060 nodes · 2287 edges · 74 communities (60 shown, 14 thin omitted)
 - Extraction: 76% EXTRACTED · 24% INFERRED · 0% AMBIGUOUS · INFERRED: 539 edges (avg confidence: 0.52)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `9b7d9ab5`
+- Built from commit: `2989051e`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -79,7 +79,6 @@
 - [[_COMMUNITY_Community 64|Community 64]]
 - [[_COMMUNITY_Community 66|Community 66]]
 - [[_COMMUNITY_Community 67|Community 67]]
-- [[_COMMUNITY_Community 68|Community 68]]
 - [[_COMMUNITY_Community 69|Community 69]]
 - [[_COMMUNITY_Community 70|Community 70]]
 - [[_COMMUNITY_Community 71|Community 71]]
@@ -131,7 +130,7 @@
 - **Project Development Phases (Phase 1-5)** — docs_project_plan_phase1_file_mutation_mvp, docs_project_plan_phase2_repo_awareness, docs_project_plan_phase3_async_execution, docs_project_plan_phase4_passive_analysis, docs_project_plan_phase5_advanced_maintenance [EXTRACTED 1.00]
 - **Context Contract Components (version, payload, determinism, prompt rendering)** — docs_context_contract_context_version, docs_context_contract_payload_shape, docs_context_contract_determinism_rules, docs_context_contract_prompt_rendering [EXTRACTED 1.00]
 
-## Communities (75 total, 14 thin omitted)
+## Communities (74 total, 14 thin omitted)
 
 ### Community 0 - "Graph State Data Flow"
 Cohesion: 0.23
@@ -278,8 +277,8 @@ Cohesion: 0.40
 Nodes (5): Active Mode - User-triggered Code Modification, Passive Mode - Continuous Repository Analysis, Phase 1 - File Mutation MVP, Phase 4 - Passive Analysis System, TaskType (passive|active)
 
 ### Community 52 - "Community 52"
-Cohesion: 0.18
-Nodes (11): get_graph_config(), get_repository_config(), get_semantic_threshold(), Return the configured repository that best matches `repo_path`.      If no repo, Return the configured repository that best matches `repo_path`.      If no repo, Return the minimum task_alignment_score required for semantic_validator to pass., Return the minimum task_alignment_score required for semantic_validator to pass., Return the graph lifecycle config for the repository matching ``repo_path``. (+3 more)
+Cohesion: 0.13
+Nodes (15): get_graph_config(), get_max_workflow_revision_cycles(), get_repository_config(), get_semantic_threshold(), Return the configured repository that best matches `repo_path`.      If no repo, Return the configured repository that best matches `repo_path`.      If no repo, Return the maximum number of workflow revision cycles allowed., Return the maximum number of workflow revision cycles allowed. (+7 more)
 
 ### Community 54 - "Community 54"
 Cohesion: 0.28
@@ -332,10 +331,6 @@ Nodes (6): get_retrieval_config(), Return retrieval limits and behavior for the 
 ### Community 67 - "Community 67"
 Cohesion: 0.13
 Nodes (28): Language, FunctionRecord, One extracted function or method from a source file., _extract_from_file(), _find_functions(), _get_class_name(), _get_identifier(), _get_property_name() (+20 more)
-
-### Community 68 - "Community 68"
-Cohesion: 0.50
-Nodes (4): get_max_workflow_revision_cycles(), Return the maximum number of workflow revision cycles allowed., Return the maximum number of workflow revision cycles allowed., int
 
 ### Community 69 - "Community 69"
 Cohesion: 0.18
