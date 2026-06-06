@@ -213,17 +213,17 @@ def test_ts_jsx_attribute_callback():
 
 
 def test_ts_call_expression_single_arg():
-    # Single-callback call: useEffect — gets the callee name
-    src = "useEffect(() => {\n  return;\n}, []);\n"
+    # One callback arg: forEach(fn) → callee name with no suffix
+    src = "items.forEach((item) => { console.log(item); });\n"
     records = _extract_ts(src)
-    assert any(r.function_name == "useEffect" for r in records)
+    assert any(r.function_name == "forEach" for r in records)
 
 
 def test_ts_call_expression_multi_arg():
-    # Multi-callback call: map with index — gets positional suffix
-    src = "const result = items.map((item) => item.x);\n"
+    # Multiple args: useEffect(fn, []) → callee name with positional suffix
+    src = "useEffect(() => {\n  return;\n}, []);\n"
     records = _extract_ts(src)
-    assert any(r.function_name == "map$0" for r in records)
+    assert any(r.function_name == "useEffect$0" for r in records)
 
 
 def test_ts_export_default_anonymous():
