@@ -33,10 +33,20 @@ class PipelineTask:
     type: Literal["active"] = "active"
     no_descriptions: bool = False
     dry_run: bool = False
-    report: bool = False
-    report_only: bool = False
+    no_report: bool = False
     path: str | None = None
     created_at: float = field(default_factory=time.monotonic)
 
 
-Task = QueryTask | PipelineTask
+@dataclass(slots=True)
+class ReportTask:
+    """A report-generation run — active (serialised behind the mutation lock)."""
+
+    id: str
+    repo: str
+    loc_filtered: int = 0
+    type: Literal["active"] = "active"
+    created_at: float = field(default_factory=time.monotonic)
+
+
+Task = QueryTask | PipelineTask | ReportTask

@@ -7,11 +7,14 @@ runs the full embedding pipeline.
 
 from __future__ import annotations
 
+import uuid
+from dataclasses import replace
+
 import httpx
 from loguru import logger
 
 from src.pipeline.contracts import PipelineConfig
-from src.scheduler.task import PipelineTask, QueryTask, Task
+from src.scheduler.task import PipelineTask, QueryTask, ReportTask, Task
 
 _TOP_N_DISPLAY = 5
 
@@ -44,6 +47,8 @@ class TaskDispatcher:
             await self._handle_query(task)
         elif isinstance(task, PipelineTask):
             await self._handle_pipeline(task)
+        elif isinstance(task, ReportTask):
+            await self._handle_report(task)
 
     async def _handle_query(self, task: QueryTask) -> None:
         from src.core.ollama_client import OllamaClient
@@ -74,8 +79,6 @@ class TaskDispatcher:
         logger.info("[dispatcher] done")
 
     async def _handle_pipeline(self, task: PipelineTask) -> None:
-        from dataclasses import replace
-
         from src.api.slack_notifier import notify_pipeline_result
         from src.pipeline.pipeline import EmbeddingPipeline
 
@@ -84,25 +87,6 @@ class TaskDispatcher:
             config = replace(config, repo_path=task.path)
         logger.info("[dispatcher] pipeline starting — repo_path={} repo_name={} languages={}",
                     config.repo_path, config.repo_name, config.supported_languages)
-
-        if task.report_only:
-            import datetime
-
-            from src.api.slack_notifier import notify_report_result
-            from src.pipeline.reporter import generate_report
-
-            started_at = datetime.datetime.now()
-            try:
-                report_dir = await generate_report(
-                    config.neo4j, config.repo_name,
-                    include_tests=config.include_tests_in_graph,
-                    pipeline_config=config,
-                )
-            except Exception as exc:
-                await notify_report_result(False, started_at, None, str(exc))
-                raise
-            await notify_report_result(True, started_at, report_dir / "report.md", None)
-            return
 
         pipeline = EmbeddingPipeline(config, dry_run=task.dry_run, skip_descriptions=task.no_descriptions)
         try:
@@ -113,21 +97,29 @@ class TaskDispatcher:
         error = result.errors[0] if result.errors else None
         await notify_pipeline_result(not result.errors, result, error)
 
-        if task.report and not task.dry_run:
-            import datetime
+        if not task.no_report and not task.dry_run:
+            await self._handle_report(ReportTask(
+                id=str(uuid.uuid4()),
+                repo=task.repo,
+                loc_filtered=result.loc_filtered,
+            ))
 
-            from src.api.slack_notifier import notify_report_result
-            from src.pipeline.reporter import generate_report
+    async def _handle_report(self, task: ReportTask) -> None:
+        import datetime
 
-            started_at = datetime.datetime.now()
-            try:
-                report_dir = await generate_report(
-                    config.neo4j, config.repo_name,
-                    include_tests=config.include_tests_in_graph,
-                    pipeline_config=config,
-                    loc_filtered=result.loc_filtered,
-                )
-            except Exception as exc:
-                await notify_report_result(False, started_at, None, str(exc))
-            else:
-                await notify_report_result(True, started_at, report_dir / "report.md", None)
+        from src.api.slack_notifier import notify_report_result
+        from src.pipeline.reporter import generate_report
+
+        config = replace(self._config, repo_name=task.repo)
+        started_at = datetime.datetime.now()
+        try:
+            report_dir = await generate_report(
+                config.neo4j, config.repo_name,
+                include_tests=config.include_tests_in_graph,
+                pipeline_config=config,
+                loc_filtered=task.loc_filtered,
+            )
+        except Exception as exc:
+            await notify_report_result(False, started_at, None, str(exc))
+            raise
+        await notify_report_result(True, started_at, report_dir / "report.md", None)
