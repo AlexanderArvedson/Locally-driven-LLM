@@ -175,20 +175,23 @@ For example: `run_reports/20260606-142530/report_20260606-142530.md`
 
 `run_reports/` is gitignored. Each run gets its own directory and both files carry the same timestamp in their names, so reports sort correctly and remain unambiguous when multiple are open at once.
 
-The report is fully deterministic — no LLM reasoning is involved. It contains ten sections in order:
+The report is fully deterministic — no LLM reasoning is involved. It contains thirteen sections in order:
 
 | # | Section | Contents |
 |---|---|---|
 | 1 | **Metadata** | Repo name, timestamp, Neo4j database, pipeline version, embedding model |
-| 2 | **Embedding Integrity** | Per-status counts for code embedding and description stages; table of failed functions with stage and error type |
-| 3 | **Graph Overview** | Function count, edge count, edge density, isolated ratio, intra-file vs inter-file edge split, language breakdown; LOC-filtered function count (when pipeline ran with a non-zero threshold) |
-| 4 | **Similarity Distribution** | Edge counts bucketed into four ranges defined by `sim_dist_bin_high`, `sim_dist_bin_mid`, and `sim_dist_bin_low` (defaults: 0.95 / 0.90 / 0.80) |
-| 5 | **Top N Most Similar Pairs** | Near-duplicate or shared-logic candidates, sorted by score |
-| 6 | **Top N Most Connected Functions** | Functions with the highest edge degree — likely utility or pattern code |
-| 7 | **Top N Files by Edge Count** | Per-file edge count with inter-file ratio column |
-| 8 | **Duplication Clusters** | Connected components of `SIMILAR_TO` edges at score ≥ `CLUSTER_THRESHOLD` (default 0.92), computed in Python via BFS. Columns: cluster ID, size, max/avg score, files involved, representative function |
-| 9 | **Heuristic Flags** | Rule-based diagnostics: `HIGH_DUPLICATION_CLUSTER`, `CROSS_FILE_DUPLICATION`, `ARCHITECTURE_COUPLING`, `TEST_POLLUTION` (only when tests are included) |
-| 10 | **Machine-Readable Export** | Fenced JSON block with all stats, embedding counts, cluster list, failures, and top pairs for downstream tooling |
+| 2 | **Delta Since Previous Run** | Function count, edge count, isolated count, and cluster count compared against the most recent prior `report_*.json`. Omitted on the first run. |
+| 3 | **Embedding Integrity** | Per-status counts for code embedding and description stages; table of failed functions with stage and error type |
+| 4 | **Graph Overview** | Function count, edge count, edge density, isolated ratio, intra-file vs inter-file edge split, language breakdown, LOC-filtered count; subsection listing each isolated function with its embed status |
+| 5 | **Similarity Distribution** | Edge counts bucketed into four ranges defined by `sim_dist_bin_high`, `sim_dist_bin_mid`, and `sim_dist_bin_low` (defaults: 0.95 / 0.90 / 0.80) |
+| 6 | **Top N Most Similar Pairs** | Near-duplicate or shared-logic candidates, sorted by score |
+| 7 | **Top N Most Connected Functions** | Functions with the highest edge degree; intra-file and inter-file counts shown separately — high intra = local utility, high inter = cross-codebase pattern or duplication |
+| 8 | **Top N Files by Edge Count** | Per-file edge count with inter-file ratio column |
+| 9 | **Top N Files by Function Count** | Files ranked by number of functions; files above `god_file_threshold` (default 20) are marked and flagged as `GOD_FILE` |
+| 10 | **File Cohesion Scores** | Average pairwise embedding similarity of functions within each file, sorted ascending. Low score = semantically unrelated functions = potential SOC violation. Includes the outlier function (lowest avg similarity to its filemates) per file |
+| 11 | **Class Cohesion Scores** | Same computation as File Cohesion but grouped by class name. Omitted entirely when the repo has no classes |
+| 12 | **Duplication Clusters** | Connected components of `SIMILAR_TO` edges at score ≥ `cluster_threshold` (default 0.92), computed in Python via BFS. Columns: cluster ID, size, max/avg score, files involved, representative function |
+| 13 | **Heuristic Flags** | Rule-based diagnostics: `HIGH_DUPLICATION_CLUSTER`, `CROSS_FILE_DUPLICATION`, `ARCHITECTURE_COUPLING`, `TEST_POLLUTION` (only when tests are included), `LOW_COHESION`, `GOD_FILE` |
 
 ### Thresholds
 
@@ -204,6 +207,11 @@ All report thresholds are configured under `pipeline.reporter` in `config.json`.
 | `max_embedding_failures` | `200` | Maximum rows in the Embedding Failure Table |
 | `high_dup_min_cluster_size` | `3` | Minimum cluster size to raise `HIGH_DUPLICATION_CLUSTER` |
 | `high_dup_min_score` | `0.95` | Minimum cluster `max_score` to raise `HIGH_DUPLICATION_CLUSTER` |
+| `cohesion_low_threshold` | `0.30` | Files with an average pairwise similarity below this value are flagged `LOW_COHESION` |
+| `cohesion_min_functions` | `2` | Minimum number of embeddable functions required to compute a cohesion score for a file or class |
+| `max_cohesion_files_listed` | `20` | Maximum rows shown in the File Cohesion and Class Cohesion tables |
+| `max_isolated_listed` | `50` | Maximum isolated functions shown in the Isolated Functions subsection |
+| `god_file_threshold` | `20` | Files with more functions than this value are flagged `GOD_FILE` |
 | `min_coupling_edges` | `5` | Minimum total edges a file must have before `arch_coupling_threshold` is evaluated |
 | `max_coupling_files_listed` | `5` | Maximum file paths shown in the `ARCHITECTURE_COUPLING` flag message |
 | `sim_dist_bin_high` | `0.95` | Upper boundary of the top similarity bucket |
