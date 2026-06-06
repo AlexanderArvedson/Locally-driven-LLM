@@ -41,6 +41,14 @@ After editing `.env`, apply the changes with `docker compose up --build`.
 | `SLACK_APP_TOKEN` | App-Level Token (`xapp-1-…`) with `connections:write` scope. Generated at **Basic Information → App-Level Tokens**. Required for Socket Mode. |
 | `SLACK_NOTIFY_CHANNEL` | Channel ID or `#name` to receive pipeline completion notifications. Optional — notifications are skipped if unset. |
 
+### Repositories
+
+| Variable | Description |
+|----------|-------------|
+| `REPOS_ROOT` | Absolute path on the host to the parent directory that contains all repositories listed in `config.json`. Mounted read-only into the `fastapi` container at the same path so the pipeline can read source files. Example: if `local_path` in `config.json` is `/home/alice/projects/myrepo`, set `REPOS_ROOT=/home/alice/projects`. All repos under this root become accessible automatically — no per-repo mounts needed. |
+
+Without `REPOS_ROOT` the container cannot read any source files and every pipeline run will extract 0 functions.
+
 ---
 
 ## Top-level fields

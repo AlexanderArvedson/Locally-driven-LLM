@@ -216,3 +216,4 @@ The bot reuses the existing `SLACK_BOT_TOKEN` and requires the `chat:write` and 
 | `not_allowed_token_type` | Wrong token type used | Make sure you're using the App-Level Token (`xapp-`) for `SLACK_APP_TOKEN`, not the bot token |
 | `not_in_channel` in fastapi logs | Bot not a member of `SLACK_NOTIFY_CHANNEL` | Open the channel in Slack and run `/invite @self-hosted LLM` |
 | `missing_scope: needed files:write` | App installed before `files:write` scope was added | Add `files:write` to the manifest, then reinstall the app (**OAuth & Permissions → Reinstall App**) |
+| Pipeline notification shows `New/modified: 0, Unchanged: 0` | The bot's container cannot read the repo path | Set `REPOS_ROOT` in `.env` to the parent directory of your repos and restart. See `docs/CONFIG.md` for details. |

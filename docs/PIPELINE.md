@@ -73,10 +73,12 @@ The same flags are available through the `/pipeline` slash command when the Slac
 /pipeline --no-descriptions --report
 /pipeline --report-only
 /pipeline --dry-run
-/pipeline --path /app/subdir --no-descriptions
+/pipeline --path /home/alice/projects/myrepo/apps/backend --no-descriptions
 ```
 
-On completion the bot posts a notification to `SLACK_NOTIFY_CHANNEL` if that env var is set. See `docs/SLACK_SETUP.md` for setup instructions.
+On completion the bot posts a Block Kit notification to `SLACK_NOTIFY_CHANNEL` if that env var is set. See `docs/SLACK_SETUP.md` for setup instructions.
+
+> **Note:** The bot runs inside Docker. For the pipeline to read source files, `REPOS_ROOT` must be set in `.env` to the parent directory of your repos. Paths passed via `--path` must also fall under `REPOS_ROOT`. See `docs/CONFIG.md` for details.
 
 ---
 
