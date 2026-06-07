@@ -6,6 +6,7 @@ import pytest
 
 from src.pipeline.contracts import PipelineConfig, Neo4jConfig, SimilarityConfig
 from src.pipeline.extraction.extractor import FunctionExtractor, _record_id, _source_hash
+from src.pipeline.extraction.treesitter import _is_anonymous_context
 
 _NEO4J = Neo4jConfig(uri="bolt://localhost:7687", database="neo4j", username="neo4j", password="pw")
 _SIM = SimilarityConfig()
@@ -137,6 +138,7 @@ def test_ts_named_function_declaration():
     assert len(records) == 1
     assert records[0].function_name == "greet"
     assert records[0].class_name is None
+    assert records[0].is_anonymous is False
 
 
 def test_ts_class_method_uses_property_identifier():
@@ -172,6 +174,7 @@ def test_ts_arrow_in_variable_declarator():
     records = _extract_ts("const greet = (name: string) => `hello ${name}`;\n")
     assert len(records) == 1
     assert records[0].function_name == "greet"
+    assert records[0].is_anonymous is False
 
 
 def test_ts_class_field_arrow():
@@ -185,7 +188,9 @@ def test_ts_class_field_arrow():
 def test_ts_object_literal_pair():
     src = "const obj = {\n  onClick: () => {\n    console.log('click');\n  },\n};\n"
     records = _extract_ts(src)
-    assert any(r.function_name == "onClick" for r in records)
+    r = next(r for r in records if r.function_name == "onClick")
+    assert r is not None
+    assert r.is_anonymous is False  # object-literal key is a real property name
 
 
 def test_ts_assignment_expression():
@@ -210,20 +215,24 @@ def test_ts_jsx_attribute_callback():
     records = _extract_ts(src, ext=".tsx")
     names = {r.function_name for r in records}
     assert "onClick" in names
+    onclick = next(r for r in records if r.function_name == "onClick")
+    assert onclick.is_anonymous is True  # inline JSX prop callback
 
 
 def test_ts_call_expression_single_arg():
     # One callback arg: forEach(fn) → callee name with no suffix
     src = "items.forEach((item) => { console.log(item); });\n"
     records = _extract_ts(src)
-    assert any(r.function_name == "forEach" for r in records)
+    r = next(r for r in records if r.function_name == "forEach")
+    assert r.is_anonymous is True  # callback passed to a call expression
 
 
 def test_ts_call_expression_multi_arg():
     # Multiple args: useEffect(fn, []) → callee name with positional suffix
     src = "useEffect(() => {\n  return;\n}, []);\n"
     records = _extract_ts(src)
-    assert any(r.function_name == "useEffect$0" for r in records)
+    r = next(r for r in records if r.function_name == "useEffect$0")
+    assert r.is_anonymous is True
 
 
 def test_ts_export_default_anonymous():
@@ -231,6 +240,7 @@ def test_ts_export_default_anonymous():
     records = _extract_ts(src)
     assert len(records) == 1
     assert records[0].function_name == "default"
+    assert records[0].is_anonymous is True  # export default has no declared name
 
 
 def test_ts_export_default_arrow():
@@ -238,6 +248,7 @@ def test_ts_export_default_arrow():
     records = _extract_ts(src)
     assert len(records) == 1
     assert records[0].function_name == "default"
+    assert records[0].is_anonymous is True
 
 
 def test_ts_truly_anonymous_falls_back():

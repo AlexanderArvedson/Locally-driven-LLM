@@ -30,6 +30,7 @@ from src.pipeline.extraction.treesitter import (
     _get_name_token,
     _get_ts_language,
     _get_tsx_language,
+    _is_anonymous_context,
     _resolve_name_from_context,
 )
 
@@ -76,10 +77,17 @@ def _extract_from_file(
     records: list[FunctionRecord] = []
 
     for fn_node in _find_functions(tree.root_node, func_types):
-        # Try direct name token first, then fall back to context resolution
+        # Try direct name token first, then fall back to context resolution.
+        # Functions that fall back are candidates for is_anonymous — checked
+        # by _is_anonymous_context to distinguish real bindings from callbacks.
         function_name = _get_name_token(fn_node)
         if function_name is None:
+            is_anonymous = _is_anonymous_context(fn_node)
             function_name = _resolve_name_from_context(fn_node) or "<anonymous>"
+            if function_name == "<anonymous>":
+                is_anonymous = True
+        else:
+            is_anonymous = False
 
         class_name = _get_class_name(fn_node)
         qualified_name = f"{class_name}.{function_name}" if class_name else function_name
@@ -102,6 +110,7 @@ def _extract_from_file(
             source_code=source_code,
             source_hash=_source_hash(source_code),
             is_test=is_test,
+            is_anonymous=is_anonymous,
         ))
 
     return records

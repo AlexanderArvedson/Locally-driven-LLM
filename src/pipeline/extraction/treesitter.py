@@ -200,3 +200,39 @@ def _resolve_name_from_context(node: Node) -> str | None:
         return "default"
 
     return None
+
+
+def _is_anonymous_context(node: Node) -> bool:
+    """Return True when the function's name is derived from an anonymous context.
+
+    Names that come from call-expression arguments (``arr.map(fn)``), export
+    default declarations (``export default () => {}``), or JSX attribute values
+    (``<Comp onClick={() => …} />``) are ephemeral labels, not declared
+    identifiers.  Functions with these origins are excluded from SIMILAR_TO edge
+    creation so they don't dilute the similarity graph with boilerplate noise.
+
+    Variable bindings (``const foo = () => …``), object-literal keys, class
+    field assignments, and assignment expressions all produce real declared names
+    and are therefore NOT considered anonymous.
+    """
+    parent = node.parent
+    if parent is None:
+        return True
+
+    # arr.map(fn) / setState(prev => ...) / useEffect(() => ..., [])
+    if parent.type == "arguments":
+        gp = parent.parent
+        if gp is not None and gp.type == "call_expression":
+            return True
+
+    # export default () => {}  /  export default function() {}
+    if parent.type in ("export_statement", "export_default_declaration"):
+        return True
+
+    # <Comp onClick={() => ...} />
+    if parent.type == "jsx_expression":
+        gp = parent.parent
+        if gp is not None and gp.type == "jsx_attribute":
+            return True
+
+    return False
