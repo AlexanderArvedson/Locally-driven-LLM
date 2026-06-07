@@ -55,7 +55,7 @@ Without `REPOS_ROOT` the container cannot read any source files and every pipeli
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `cron` | string | Cron expression controlling how often the automated workflow runs. Uses standard 5-part cron syntax (`minute hour day month weekday`). Default `"0 0 * * *"` runs once daily at midnight. |
+| `cron` | string | Cron expression controlling when the pipeline runs automatically. Uses standard 5-part syntax (`minute hour day month weekday`). Default `"0 0 * * *"` runs once daily at midnight. On each fire the server enqueues a pipeline run for the configured repository and posts an `Scheduled pipeline run queued` notice to `SLACK_NOTIFY_CHANNEL` (if configured). Pipeline completion and the report are also posted to Slack automatically after the run finishes. |
 
 ---
 

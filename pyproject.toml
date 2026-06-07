@@ -21,6 +21,7 @@ dependencies = [
     "neo4j>=5.0",
     "slack-bolt>=1.18",
     "aiohttp>=3.9",
+    "croniter>=6.2.2",
 ]
 
 [project.optional-dependencies]
