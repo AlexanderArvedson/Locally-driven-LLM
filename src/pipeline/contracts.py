@@ -37,6 +37,7 @@ class FunctionRecord:
     last_seen_at: str = field(default_factory=_now_iso)
     is_deleted: bool = False
     is_test: bool = False
+    is_anonymous: bool = False
     # Embedding and description pipeline status — None means not yet processed
     # (unchanged functions that skipped these stages preserve their Neo4j value).
     # code_embedding_status: "ok" | "skipped" | "context_overflow" | "timeout" | "error"

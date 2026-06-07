@@ -73,6 +73,7 @@ SET
   f.lastSeenAt            = rec.lastSeenAt,
   f.isDeleted             = false,
   f.isTest                = rec.isTest,
+  f.isAnonymous           = rec.isAnonymous,
   f.createdAt             = CASE WHEN f.createdAt IS NULL THEN rec.createdAt ELSE f.createdAt END,
   f.codeEmbeddingStatus        = CASE WHEN rec.codeEmbeddingStatus IS NOT NULL        THEN rec.codeEmbeddingStatus        ELSE f.codeEmbeddingStatus        END,
   f.codeEmbeddingInputChars    = CASE WHEN rec.codeEmbeddingInputChars IS NOT NULL    THEN rec.codeEmbeddingInputChars    ELSE f.codeEmbeddingInputChars    END,
@@ -101,6 +102,7 @@ DELETE r
 _GET_ALL_EMBEDDINGS: LiteralString = """
 MATCH (f:Function {repo: $repo})
 WHERE f.isDeleted = false AND (f.isTest = false OR $include_tests)
+  AND f.isAnonymous = false
   AND (f.codeEmbedding IS NOT NULL OR f.descriptionEmbedding IS NOT NULL)
 RETURN f.id AS id, f.codeEmbedding AS codeEmbedding, f.descriptionEmbedding AS descriptionEmbedding
 """
@@ -111,6 +113,7 @@ YIELD node AS b, score
 WHERE b.id <> $source_id
   AND b.repo = $repo
   AND b.isDeleted = false
+  AND b.isAnonymous = false
   AND (b.isTest = false OR $include_tests)
 RETURN b.id AS id, score
 """
@@ -121,6 +124,7 @@ YIELD node AS b, score
 WHERE b.id <> $source_id
   AND b.repo = $repo
   AND b.isDeleted = false
+  AND b.isAnonymous = false
   AND (b.isTest = false OR $include_tests)
 RETURN b.id AS id, score
 """
@@ -236,6 +240,7 @@ class Neo4jStore:
                 "updatedAt": r.updated_at,
                 "lastSeenAt": r.last_seen_at,
                 "isTest": r.is_test,
+                "isAnonymous": r.is_anonymous,
                 "codeEmbeddingStatus": r.code_embedding_status,
                 "codeEmbeddingInputChars": r.code_embedding_input_chars,
                 "codeEmbeddingTruncatedChars": r.code_embedding_truncated_chars,
