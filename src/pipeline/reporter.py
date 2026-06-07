@@ -44,7 +44,9 @@ RETURN count(f) AS test_count
 
 _Q_NO_EDGES: LiteralString = """
 MATCH (f:Function {repo: $repo, isDeleted: false})
-WHERE (f.isTest = false OR $include_tests) AND NOT (f)-[:SIMILAR_TO]-()
+WHERE (f.isTest = false OR $include_tests)
+  AND f.isAnonymous = false
+  AND NOT (f)-[:SIMILAR_TO]-()
 RETURN count(f) AS isolated
 """
 
@@ -158,6 +160,7 @@ RETURN count(r) AS cross_edges
 _Q_ISOLATED_FUNCTIONS: LiteralString = """
 MATCH (f:Function {repo: $repo, isDeleted: false})
 WHERE (f.isTest = false OR $include_tests)
+  AND f.isAnonymous = false
   AND NOT (f)-[:SIMILAR_TO]-()
 RETURN f.qualifiedName AS name, f.filePath AS file,
        f.codeEmbeddingStatus AS code_status,
