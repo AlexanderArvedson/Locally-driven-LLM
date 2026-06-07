@@ -52,7 +52,7 @@ class TaskDispatcher:
 
     async def _handle_query(self, task: QueryTask) -> None:
         from src.core.ollama_client import OllamaClient
-        from src.pipeline.neo4j_store import Neo4jStore
+        from src.pipeline.graph.store import Neo4jStore
         from src.pipeline.query import search
 
         client = OllamaClient(base_url=self._config.embedding_url)
@@ -108,7 +108,7 @@ class TaskDispatcher:
         import datetime
 
         from src.api.slack_notifier import notify_report_result
-        from src.pipeline.reporter import generate_report
+        from src.pipeline.reporting.reporter import generate_report
 
         config = replace(self._config, repo_name=task.repo)
         started_at = datetime.datetime.now()

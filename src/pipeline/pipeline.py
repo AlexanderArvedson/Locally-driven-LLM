@@ -14,11 +14,11 @@ from loguru import logger
 
 from src.core.ollama_client import OllamaClient
 from src.pipeline.contracts import PipelineConfig, PipelineResult
-from src.pipeline.describer import DescriptionService
-from src.pipeline.embedder import EmbeddingService
-from src.pipeline.extractor import FunctionExtractor
-from src.pipeline.neo4j_store import Neo4jStore
-from src.pipeline.similarity import compute_similarity_edges
+from src.pipeline.descriptions.service import DescriptionService
+from src.pipeline.embeddings.service import EmbeddingService
+from src.pipeline.extraction.extractor import FunctionExtractor
+from src.pipeline.graph.store import Neo4jStore
+from src.pipeline.graph.similarity import compute_similarity_edges
 
 
 class EmbeddingPipeline:

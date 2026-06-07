@@ -15,13 +15,9 @@ from pathlib import Path
 import pytest
 
 from src.pipeline.contracts import Neo4jConfig, PipelineConfig, ReporterConfig
-from src.pipeline.neo4j_store import Neo4jStore
-from src.pipeline.reporter import (
-    _cosine,
-    _compute_cohesion_scores,
-    _find_previous_report,
-    _build_report,
-)
+from src.pipeline.graph.store import Neo4jStore
+from src.pipeline.reporting.reporter import _build_report
+from src.pipeline.reporting.analysis import _cosine, _compute_cohesion_scores, _find_previous_report
 
 
 # ---------------------------------------------------------------------------

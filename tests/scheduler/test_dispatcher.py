@@ -82,7 +82,7 @@ async def test_handle_query_posts_results_to_response_url(monkeypatch):
 
     with (
         patch("src.core.ollama_client.OllamaClient", return_value=mock_client),
-        patch("src.pipeline.neo4j_store.Neo4jStore", return_value=mock_store),
+        patch("src.pipeline.graph.store.Neo4jStore", return_value=mock_store),
         patch("src.pipeline.query.search", AsyncMock(return_value=fake_result)),
     ):
         task = QueryTask(
@@ -119,7 +119,7 @@ async def test_handle_query_posts_error_message_on_search_failure(monkeypatch):
 
     with (
         patch("src.core.ollama_client.OllamaClient", return_value=mock_client),
-        patch("src.pipeline.neo4j_store.Neo4jStore", return_value=mock_store),
+        patch("src.pipeline.graph.store.Neo4jStore", return_value=mock_store),
         patch("src.pipeline.query.search", AsyncMock(side_effect=RuntimeError("Neo4j unavailable"))),
     ):
         task = QueryTask(
@@ -154,7 +154,7 @@ async def test_handle_query_returns_no_results_message_when_empty(monkeypatch):
 
     with (
         patch("src.core.ollama_client.OllamaClient", return_value=mock_client),
-        patch("src.pipeline.neo4j_store.Neo4jStore", return_value=mock_store),
+        patch("src.pipeline.graph.store.Neo4jStore", return_value=mock_store),
         patch("src.pipeline.query.search", AsyncMock(return_value=empty_result)),
     ):
         task = QueryTask(
@@ -312,7 +312,7 @@ async def test_handle_report_calls_generate_report_and_notifies():
     mock_report_dir.__truediv__ = lambda self, other: Path("/tmp/report.md")
 
     with (
-        patch("src.pipeline.reporter.generate_report", AsyncMock(return_value=mock_report_dir)),
+        patch("src.pipeline.reporting.reporter.generate_report", AsyncMock(return_value=mock_report_dir)),
         patch("src.api.slack_notifier.notify_report_result", AsyncMock()) as mock_notify,
     ):
         task = ReportTask(id="r2", repo="myrepo", loc_filtered=5)

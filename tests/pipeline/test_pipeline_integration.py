@@ -114,7 +114,7 @@ async def test_second_run_skips_unchanged_functions(monkeypatch):
         pipeline = EmbeddingPipeline(config, dry_run=True)
 
         # Simulate Neo4j already having all three functions with matching hashes.
-        from src.pipeline.extractor import FunctionExtractor, _source_hash
+        from src.pipeline.extraction.extractor import FunctionExtractor, _source_hash
         records = FunctionExtractor(config).extract_all()
         existing = {r.id: r.source_hash for r in records}
 

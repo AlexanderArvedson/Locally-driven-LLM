@@ -10,7 +10,7 @@ from unittest.mock import AsyncMock, MagicMock
 import pytest
 
 from src.pipeline.contracts import SimilarityConfig
-from src.pipeline.similarity import compute_similarity_edges
+from src.pipeline.graph.similarity import compute_similarity_edges
 
 
 def _make_store(code_neighbors=None, desc_neighbors=None):

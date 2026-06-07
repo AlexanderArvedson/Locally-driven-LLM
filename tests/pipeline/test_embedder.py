@@ -5,7 +5,7 @@ import pytest
 
 from src.core.ollama_client import EmbedResult, OllamaClient
 from src.pipeline.contracts import ConcurrencyConfig, FunctionRecord, Neo4jConfig, PipelineConfig, SimilarityConfig
-from src.pipeline.embedder import EmbeddingService
+from src.pipeline.embeddings.service import EmbeddingService
 
 _NEO4J = Neo4jConfig(uri="bolt://localhost:7687", database="neo4j", username="neo4j", password="pw")
 

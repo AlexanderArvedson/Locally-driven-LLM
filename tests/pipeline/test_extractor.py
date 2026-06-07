@@ -5,7 +5,7 @@ from pathlib import Path
 import pytest
 
 from src.pipeline.contracts import PipelineConfig, Neo4jConfig, SimilarityConfig
-from src.pipeline.extractor import FunctionExtractor, _record_id, _source_hash
+from src.pipeline.extraction.extractor import FunctionExtractor, _record_id, _source_hash
 
 _NEO4J = Neo4jConfig(uri="bolt://localhost:7687", database="neo4j", username="neo4j", password="pw")
 _SIM = SimilarityConfig()

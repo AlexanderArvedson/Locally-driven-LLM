@@ -23,7 +23,7 @@ load_dotenv()
 
 from src.core.pipeline_config import load_pipeline_config
 from src.pipeline.pipeline import EmbeddingPipeline
-from src.pipeline.reporter import generate_report
+from src.pipeline.reporting.reporter import generate_report
 
 
 def _parse_args() -> argparse.Namespace:

@@ -17,7 +17,7 @@ from typing import TYPE_CHECKING
 from src.pipeline.contracts import SimilarityConfig, SimilarityEdge
 
 if TYPE_CHECKING:
-    from src.pipeline.neo4j_store import Neo4jStore
+    from src.pipeline.graph.store import Neo4jStore
 
 _CONCURRENCY = 20
 

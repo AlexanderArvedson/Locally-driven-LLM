@@ -14,28 +14,7 @@ from loguru import logger
 
 from src.core.ollama_client import OllamaClient
 from src.pipeline.contracts import FunctionRecord, PipelineConfig
-
-_PROMPT_TEMPLATE = """\
-You are analyzing source code for a code intelligence system.
-
-Describe the following {language} function. Respond with a JSON object ONLY — \
-no markdown, no explanation, no code fences.
-
-Required fields:
-- summary: one or two sentences describing what the function does
-- inputs: list of important parameters or inputs
-- outputs: what the function returns or produces
-- sideEffects: list of external effects (db writes, network calls, mutations, I/O, logging)
-- errors: notable exceptions or error cases handled or raised
-- dependencies: important internal or external functions, services, or libraries used
-
-Function metadata:
-  Language: {language}
-  File: {file_path}
-  Name: {qualified_name}
-
-Source code:
-{source_code}"""
+from src.pipeline.descriptions.prompts import _PROMPT_TEMPLATE
 
 
 def _strip_fences(text: str) -> str:

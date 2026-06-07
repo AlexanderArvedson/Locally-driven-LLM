@@ -255,16 +255,31 @@ LIMIT 100;
 
 ```
 src/pipeline/
-  contracts.py      — FunctionRecord, SimilarityEdge, PipelineConfig dataclasses
+  contracts.py          — FunctionRecord, SimilarityEdge, PipelineConfig dataclasses
   (config loader moved to src/core/pipeline_config.py)
-  scanner.py        — repo file walker with ignore-path pruning
-  extractor.py      — tree-sitter AST traversal, emits FunctionRecord per function
-  embedder.py       — EmbeddingService: code and description embedding via OllamaClient
-  describer.py      — DescriptionService: LLM JSON description generation via OllamaClient
-  similarity.py     — Neo4j vector-index query per function, top-N neighbour merging, SimilarityEdge list
-  neo4j_store.py    — Neo4jStore: async driver, MERGE upserts, UNWIND batching
-  pipeline.py       — EmbeddingPipeline: orchestrates all twelve stages
-  reporter.py       — post-run markdown report generator
+  pipeline.py           — EmbeddingPipeline: orchestrates all twelve stages
 
-run_pipeline.py     — CLI entry point
+  extraction/
+    scanner.py          — repo file walker with ignore-path pruning
+    treesitter.py       — tree-sitter language setup, AST traversal helpers
+    extractor.py        — FunctionExtractor: emits FunctionRecord per function
+
+  embeddings/
+    service.py          — EmbeddingService: code and description embedding via OllamaClient
+
+  descriptions/
+    prompts.py          — LLM prompt template constant
+    service.py          — DescriptionService: LLM JSON description generation via OllamaClient
+
+  graph/
+    store.py            — Neo4jStore: async driver, MERGE upserts, UNWIND batching
+    similarity.py       — vector-index query per function, top-N neighbour merging, SimilarityEdge list
+
+  reporting/
+    queries.py          — Cypher query string constants
+    analysis.py         — cluster computation, cosine similarity, cohesion scoring
+    markdown.py         — markdown section renderers
+    reporter.py         — generate_report: post-run markdown report orchestrator
+
+run_pipeline.py         — CLI entry point
 ```

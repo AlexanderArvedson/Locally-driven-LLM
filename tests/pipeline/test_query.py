@@ -12,7 +12,7 @@ import pytest
 
 from src.core.ollama_client import EmbedResult, OllamaClient
 from src.pipeline.contracts import Neo4jConfig, PipelineConfig, SimilarityConfig
-from src.pipeline.neo4j_store import (
+from src.pipeline.graph.store import (
     Neo4jStore,
     _GET_FUNCTIONS_BY_IDS,
     _QUERY_CODE_NEIGHBORS,

@@ -11,7 +11,7 @@ from src.pipeline.contracts import (
     Neo4jConfig,
     SimilarityEdge,
 )
-from src.pipeline.neo4j_store import Neo4jStore
+from src.pipeline.graph.store import Neo4jStore
 
 
 # ---------------------------------------------------------------------------
@@ -132,7 +132,7 @@ async def test_upsert_functions_batch_uses_unwind():
 
 @pytest.mark.asyncio
 async def test_get_existing_hashes_filters_by_repo():
-    from src.pipeline.neo4j_store import _GET_HASHES
+    from src.pipeline.graph.store import _GET_HASHES
 
     rows = [{"id": "id1", "sourceHash": "hash1"}, {"id": "id2", "sourceHash": "hash2"}]
     store, driver = _make_store({_GET_HASHES.strip(): rows})
@@ -144,7 +144,7 @@ async def test_get_existing_hashes_filters_by_repo():
 
 @pytest.mark.asyncio
 async def test_soft_delete_passes_seen_ids():
-    from src.pipeline.neo4j_store import _SOFT_DELETE
+    from src.pipeline.graph.store import _SOFT_DELETE
 
     rows = [{"deleted": 2}]
     store, driver = _make_store({_SOFT_DELETE.strip(): rows})
@@ -160,7 +160,7 @@ async def test_soft_delete_passes_seen_ids():
 
 @pytest.mark.asyncio
 async def test_query_code_neighbors_uses_code_index():
-    from src.pipeline.neo4j_store import _QUERY_CODE_NEIGHBORS
+    from src.pipeline.graph.store import _QUERY_CODE_NEIGHBORS
 
     rows = [{"id": "fn_b", "score": 0.92}, {"id": "fn_c", "score": 0.85}]
     store, driver = _make_store({_QUERY_CODE_NEIGHBORS.strip(): rows})
@@ -180,7 +180,7 @@ async def test_query_code_neighbors_uses_code_index():
 
 @pytest.mark.asyncio
 async def test_query_desc_neighbors_uses_desc_index():
-    from src.pipeline.neo4j_store import _QUERY_DESC_NEIGHBORS
+    from src.pipeline.graph.store import _QUERY_DESC_NEIGHBORS
 
     rows = [{"id": "fn_d", "score": 0.88}]
     store, driver = _make_store({_QUERY_DESC_NEIGHBORS.strip(): rows})

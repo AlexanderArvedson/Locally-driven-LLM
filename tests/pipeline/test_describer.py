@@ -5,7 +5,7 @@ import pytest
 
 from src.core.ollama_client import LLMResult, OllamaClient
 from src.pipeline.contracts import FunctionRecord, Neo4jConfig, PipelineConfig, SimilarityConfig
-from src.pipeline.describer import DescriptionService, _strip_fences
+from src.pipeline.descriptions.service import DescriptionService, _strip_fences
 
 _NEO4J = Neo4jConfig(uri="bolt://localhost:7687", database="neo4j", username="neo4j", password="pw")
 

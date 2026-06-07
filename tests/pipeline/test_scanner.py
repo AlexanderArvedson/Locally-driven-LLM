@@ -1,7 +1,7 @@
 import tempfile
 from pathlib import Path
 
-from src.pipeline.scanner import scan_repository
+from src.pipeline.extraction.scanner import scan_repository
 
 
 def _make_tree(root: Path, files: list[str]) -> None:

@@ -12,7 +12,7 @@ from dataclasses import dataclass
 
 from src.core.ollama_client import OllamaClient
 from src.pipeline.contracts import PipelineConfig
-from src.pipeline.neo4j_store import Neo4jStore
+from src.pipeline.graph.store import Neo4jStore
 
 
 @dataclass
