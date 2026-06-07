@@ -258,3 +258,7 @@ def test_ts_truly_anonymous_falls_back():
     names = {r.function_name for r in records}
     assert "makeHandler" in names
     assert "<anonymous>" in names
+    maker = next(r for r in records if r.function_name == "makeHandler")
+    anon = next(r for r in records if r.function_name == "<anonymous>")
+    assert maker.is_anonymous is False
+    assert anon.is_anonymous is True
