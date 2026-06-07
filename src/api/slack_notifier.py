@@ -275,3 +275,24 @@ async def notify_report_result(
             )
     except Exception:
         logger.exception("Slack report notification failed")
+
+
+async def notify_scheduled_run(repo: str, cron_expr: str) -> None:
+    """Post a notice to Slack that a cron-triggered pipeline run has been queued.
+
+    Silently skips when SLACK_BOT_TOKEN or SLACK_NOTIFY_CHANNEL is unset.
+    Swallows Slack API errors so a Slack outage never blocks scheduling.
+    """
+    token = os.environ.get("SLACK_BOT_TOKEN", "")
+    channel = os.environ.get("SLACK_NOTIFY_CHANNEL", "")
+    if not token or not channel:
+        return
+
+    client = AsyncWebClient(token=token)
+    try:
+        await client.chat_postMessage(
+            channel=channel,
+            text=f"Scheduled pipeline run started or queued for repo: {repo} ",
+        )
+    except Exception:
+        logger.exception("Slack scheduled-run notification failed")
