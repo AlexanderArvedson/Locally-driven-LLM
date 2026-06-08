@@ -1,91 +1,55 @@
 # Locally-driven-langgraph-LLM
 
-A pipeline that scans a source repository, extracts every function and method, generates vector embeddings and LLM descriptions via Ollama, stores the results in Neo4j, and builds a weighted similarity graph — useful for code search, duplicate detection, and architectural analysis. Everything runs locally; no data leaves your machine.
+A pipeline that scans a source repository, extracts every function and method, generates vector embeddings and LLM descriptions via Ollama, and builds a weighted similarity graph in Neo4j. Useful for code search, duplicate detection, and architectural analysis. Everything runs locally — no data leaves your machine.
 
 ---
 
 ## Quick start
 
 ```bash
-cp .env.example .env          # fill in NEO4J_PASSWORD and REPOS_ROOT
-cp config.example.json config.json  # fill in name and local_path for your repo
+cp .env.example .env                  # set NEO4J_PASSWORD and REPOS_ROOT
+cp config.example.json config.json    # set name and local_path for your repo
 docker compose up -d ollama neo4j
 docker exec my_ollama ollama pull nomic-embed-text
 docker exec my_ollama ollama pull qwen2.5-coder:7b
 uv run run_pipeline.py --no-descriptions
 ```
 
-For the full walkthrough — prerequisites, GPU setup, model selection, dry-run verification — see `docs/SETUP.md`.
+For a complete walkthrough, start at [docs/guides/prerequisites.md](docs/guides/prerequisites.md).
 
 ---
 
-## Function Embedding Pipeline
-
-The pipeline scans a repository, embeds every function, stores nodes and similarity edges in Neo4j, and generates a report. It is a standalone subsystem under `src/pipeline/` and requires Neo4j and Ollama to be running.
+## Running the pipeline
 
 ```bash
-# Full run — embeddings, descriptions, similarity graph, and report
-uv run run_pipeline.py
-
-# Skip LLM descriptions — much faster, code-embedding similarity only
-uv run run_pipeline.py --no-descriptions
-
-# Target a subfolder instead of the whole repo
-uv run run_pipeline.py --path /path/to/repo/subdir --no-descriptions
-
-# Validate extraction counts without touching Neo4j or Ollama
-uv run run_pipeline.py --dry-run
-
-# Generate a report from the current graph without re-running the pipeline
-uv run run_pipeline.py --report-only
+uv run run_pipeline.py                      # full run with LLM descriptions
+uv run run_pipeline.py --no-descriptions    # faster, code embeddings only
+uv run run_pipeline.py --dry-run            # extract only, no writes
+uv run run_pipeline.py --report-only        # report from current graph, no re-run
 ```
 
-Reports are written to `run_reports/<repo_name>/<timestamp>/` as both a `.md` and a `.json` file. Runs are incremental — only changed functions are re-processed.
-
-Full documentation: `docs/PIPELINE.md`
+Reports are written to `run_reports/<repo_name>/<timestamp>/` as `.md` and `.json` files. Runs are incremental — only changed functions are re-processed.
 
 ---
 
-## Slack integration
+## Reference
 
-The bot exposes `/pipeline`, `/report`, and `/query` slash commands and posts completion notifications with an attached report to a configured channel. Requires the `fastapi` container and Slack app credentials.
-
-Setup instructions: `docs/SLACK_SETUP.md`
-
----
-
-## Configuration
-
-Two files are needed, both gitignored:
-
-- `.env` — infrastructure settings (service URLs, credentials, Slack tokens). Copy from `.env.example`.
-- `config.json` — application settings (repo paths, model names, pipeline tuning). Copy from `config.example.json`.
-
-Full reference: `docs/CONFIG.md`
+- [Pipeline reference](docs/PIPELINE.md) — all 13 stages, CLI flags, graph schema, report sections, example Cypher queries
+- [Configuration reference](docs/CONFIG.md) — every `.env` and `config.json` field with types and defaults
 
 ---
 
-## Dependencies
+## Setup guides
 
-Install all dependencies including dev and tool extras:
+Step-by-step guides for getting everything running:
 
-```bash
-uv sync --all-extras
-```
-
-Runtime only:
-
-```bash
-uv sync
-```
-
-OS-level build prerequisites (Python headers, C toolchain) and the full declared dependency list: `docs/DEPENDENCIES.md`
-
----
-
-## Repository Context Contract
-
-The retrieval → coder context schema, validation rules, and prompt rendering format: `docs/CONTEXT_CONTRACT.md`
+1. [Prerequisites](docs/guides/prerequisites.md) — Docker, uv
+2. [Configuration](docs/guides/configuration.md) — `.env` and `config.json`
+3. [Starting services](docs/guides/services.md) — Ollama, Neo4j, GPU setup
+4. [Pulling models](docs/guides/models.md) — embedding and chat models
+5. [Running the pipeline](docs/guides/running-the-pipeline.md) — dry run, first run, flags
+6. [Slack integration](docs/guides/slack.md) — slash commands, notifications *(optional)*
+7. [Scheduled runs](docs/guides/scheduled-runs.md) — cron schedule *(optional)*
 
 ---
 
@@ -108,7 +72,7 @@ If a patch fails to apply, the tool falls back to a whole-file write and saves t
 
 ### Observability
 
-`run_monorepo_task` prints a human-readable execution trace to the console at the end of every run:
+`run_monorepo_task` prints a human-readable execution trace at the end of every run:
 
 ```bash
 uv run -m scripts.run_monorepo_task --task "add docstrings to all public methods in foo.py"
