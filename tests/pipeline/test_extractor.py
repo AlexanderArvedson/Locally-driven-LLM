@@ -239,8 +239,8 @@ def test_ts_export_default_anonymous():
     src = "export default function() {\n  return 42;\n}\n"
     records = _extract_ts(src)
     assert len(records) == 1
-    # export default gets a unique location-suffixed name and is non-anonymous
-    assert records[0].function_name.startswith("default@L")
+    # export default uses the file stem instead of "default" as the name
+    assert records[0].function_name.startswith("code@L")
     assert records[0].is_anonymous is False
 
 
@@ -248,7 +248,7 @@ def test_ts_export_default_arrow():
     src = "export default () => {\n  return 42;\n};\n"
     records = _extract_ts(src)
     assert len(records) == 1
-    assert records[0].function_name.startswith("default@L")
+    assert records[0].function_name.startswith("code@L")
     assert records[0].is_anonymous is False
 
 

@@ -90,7 +90,8 @@ def _extract_from_file(
                 is_anonymous = True
             elif is_anonymous:
                 start_line = fn_node.start_point[0] + 1
-                function_name = f"{resolved}@L{start_line}"
+                label = file_path.stem if resolved == "default" else resolved
+                function_name = f"{label}@L{start_line}"
                 is_anonymous = False
             else:
                 function_name = resolved
