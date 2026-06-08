@@ -37,6 +37,18 @@ Open `config.json` and fill in the `repositories[0]` entry:
 
 The model names default to `nomic-embed-text` (embedding) and `qwen2.5-coder:7b` (chat/coder). These match what you will pull in the [Models](models.md) guide — leave them as-is for now.
 
+**If your repo contains TypeScript or JavaScript**, add the relevant languages to `pipeline.supported_languages`. The default only scans Python files:
+
+```json
+"pipeline": {
+  "supported_languages": ["python", "typescript", "javascript"]
+}
+```
+
+Supported values are `"python"`, `"typescript"`, and `"javascript"`. Files with unlisted extensions are silently skipped, so a TypeScript repo on the default setting will extract zero functions.
+
+**`integrations.slack_webhook_url`** — this field is for the agent workflow (on hold) and has no effect on the pipeline. Leave it `null`.
+
 Everything else can stay at the defaults for a first run. The full field reference is in [docs/CONFIG.md](../CONFIG.md).
 
 ---

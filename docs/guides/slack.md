@@ -15,8 +15,8 @@ The bot runs inside the `fastapi` Docker container and communicates via Slack's 
 ## Prerequisites
 
 - A Slack workspace where you have permission to install apps.
-- Services already running (Ollama and Neo4j from the [services guide](services.md)).
-- `REPOS_ROOT` set in `.env` — the container mounts this path to read source files.
+- Services already running and the pipeline run at least once (from the [running the pipeline guide](running-the-pipeline.md)). The `/query` command searches the Neo4j graph — it returns no results if the graph is empty.
+- `REPOS_ROOT` set in `.env` — the `fastapi` container mounts this path read-only so the pipeline can read source files when triggered via `/pipeline`.
 
 ---
 
