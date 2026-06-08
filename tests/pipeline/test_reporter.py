@@ -442,11 +442,9 @@ def _base_summary_args(**overrides: Any) -> Any:
         embed_failed=0,
         clusters=[],
         high_dup=[],
-        cross_file=[],
         coupled_files=[],
         low_cohesion_files=[],
         god_files=[],
-        file_cohesion=[],
         isolated=0,
         languages=[{"language": "Python", "count": 10}],
         files_by_count=[],
@@ -491,6 +489,21 @@ def test_render_summary_high_dup_is_lead():
     text = _text(lines)
     assert "Duplication is the dominant concern" in text
     assert "`my_func`" in text
+
+
+def test_render_summary_primary_target_is_max_spread():
+    # narrow_cluster is in high_dup but low spread; wide_cluster has higher size*files spread
+    narrow = {"id": 1, "size": 10, "files_involved": ["a.py"], "representative": "narrow_fn", "max_score": 0.99, "avg_score": 0.95}
+    wide   = {"id": 2, "size": 3,  "files_involved": ["a.py", "b.py", "c.py"], "representative": "wide_fn", "max_score": 0.95, "avg_score": 0.90}
+    # narrow spread = 10*1=10, wide spread = 3*3=9 — narrow wins here, but test the logic
+    widest = {"id": 3, "size": 5, "files_involved": ["a.py", "b.py", "c.py", "d.py"], "representative": "widest_fn", "max_score": 0.92, "avg_score": 0.88}
+    # widest spread = 5*4=20 > narrow 10*1=10
+    lines = render_summary(**_base_summary_args(
+        high_dup=[narrow],
+        clusters=[narrow, wide, widest],
+    ))
+    # primary_target should be widest (spread=20), not narrow (spread=10)
+    assert "`widest_fn`" in _text(lines)
 
 
 def test_render_summary_god_file_lead_when_no_high_dup():

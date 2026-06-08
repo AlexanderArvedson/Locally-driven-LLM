@@ -43,11 +43,9 @@ def render_summary(
     embed_failed: int,
     clusters: list[dict],
     high_dup: list[dict],
-    cross_file: list[dict],
     coupled_files: list[str],
     low_cohesion_files: list[str],
     god_files: list[str],
-    file_cohesion: list[dict],
     isolated: int,
     languages: list[dict],
     files_by_count: list[dict],
@@ -68,12 +66,15 @@ def render_summary(
 
     flag_count = sum([bool(high_dup), bool(god_files), bool(coupled_files), bool(low_cohesion_files), isolated > 0])
 
+    # Cluster with the broadest spread across files — most worth consolidating
+    primary_target = max(clusters, key=lambda c: c["size"] * len(c["files_involved"]), default=None)
+
     sentences: list[str] = [
         f"{total} functions indexed across {lang_summary}. {flag_count} concern(s) detected."
     ]
 
     if high_dup:
-        c = high_dup[0]
+        c = primary_target if primary_target is not None else high_dup[0]
         sentences.append(
             f"Duplication is the dominant concern: cluster {c['id']} groups {c['size']} functions "
             f"across {len(c['files_involved'])} file(s) — primary consolidation target is `{c['representative']}`."

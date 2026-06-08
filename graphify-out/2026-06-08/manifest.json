@@ -380,13 +380,13 @@
     "semantic_hash": ""
   },
   "/home/alexa/projects/examensarbete/Locally-driven-langgraph-LLM/src/pipeline/reporting/queries.py": {
-    "mtime": 1780897275.914034,
-    "ast_hash": "004904a38ff93ee2d611d837d8d03f81",
+    "mtime": 1780906302.6568396,
+    "ast_hash": "4b14029ddb0aef9cea289c760e339c16",
     "semantic_hash": ""
   },
   "/home/alexa/projects/examensarbete/Locally-driven-langgraph-LLM/src/pipeline/reporting/markdown.py": {
-    "mtime": 1780825645.087663,
-    "ast_hash": "4bac6b5f7db241eacd40911ab27f9a6d",
+    "mtime": 1780907694.3006568,
+    "ast_hash": "cfe1f722b9e58ac31ceaedd997c145e4",
     "semantic_hash": ""
   },
   "/home/alexa/projects/examensarbete/Locally-driven-langgraph-LLM/src/pipeline/reporting/__init__.py": {
@@ -395,8 +395,8 @@
     "semantic_hash": ""
   },
   "/home/alexa/projects/examensarbete/Locally-driven-langgraph-LLM/src/pipeline/reporting/reporter.py": {
-    "mtime": 1780825645.087663,
-    "ast_hash": "1d90c8c1e7069126843d69edd9a1fd72",
+    "mtime": 1780907748.8926497,
+    "ast_hash": "52d3f20b3b8d41345f8193ce79371a2a",
     "semantic_hash": ""
   },
   "/home/alexa/projects/examensarbete/Locally-driven-langgraph-LLM/src/pipeline/extraction/extractor.py": {
@@ -415,8 +415,8 @@
     "semantic_hash": ""
   },
   "/home/alexa/projects/examensarbete/Locally-driven-langgraph-LLM/src/pipeline/extraction/scanner.py": {
-    "mtime": 1780825645.087663,
-    "ast_hash": "678a5aa4a1427f8c84262fd5eb7160af",
+    "mtime": 1780906616.3447978,
+    "ast_hash": "54690275e6b8cd118df941452dcaa82c",
     "semantic_hash": ""
   },
   "/home/alexa/projects/examensarbete/Locally-driven-langgraph-LLM/src/pipeline/embeddings/service.py": {
@@ -430,8 +430,8 @@
     "semantic_hash": ""
   },
   "/home/alexa/projects/examensarbete/Locally-driven-langgraph-LLM/src/pipeline/graph/store.py": {
-    "mtime": 1780825645.087663,
-    "ast_hash": "51ea7a8087af2fb32397902cf18159e9",
+    "mtime": 1780904689.745056,
+    "ast_hash": "ccb2aced6e82dfe4cac13d2207a72aaf",
     "semantic_hash": ""
   },
   "/home/alexa/projects/examensarbete/Locally-driven-langgraph-LLM/src/pipeline/graph/similarity.py": {

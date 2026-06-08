@@ -244,9 +244,9 @@ async def _build_report(
     lines += render_metadata(repo, db, now, PIPELINE_VERSION, embed_model, min_loc, reporter_cfg.timezone)
 
     summary_lines = render_summary(
-        total, embed_failed, clusters, high_dup, cross_file,
+        total, embed_failed, clusters, high_dup,
         coupled_files, low_cohesion_files, god_files,
-        file_cohesion, isolated, languages, files_by_count,
+        isolated, languages, files_by_count,
     )
     lines += summary_lines
 
