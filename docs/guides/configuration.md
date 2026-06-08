@@ -47,8 +47,6 @@ The model names default to `nomic-embed-text` (embedding) and `qwen2.5-coder:7b`
 
 Supported values are `"python"`, `"typescript"`, and `"javascript"`. Files with unlisted extensions are silently skipped, so a TypeScript repo on the default setting will extract zero functions.
 
-**`integrations.slack_webhook_url`** — this field is for the agent workflow (on hold) and has no effect on the pipeline. Leave it `null`.
-
 Everything else can stay at the defaults for a first run. The full field reference is in [docs/CONFIG.md](../CONFIG.md).
 
 ---
