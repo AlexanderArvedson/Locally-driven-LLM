@@ -105,6 +105,7 @@ MATCH (f:Function {repo: $repo, isDeleted: false})
 WHERE f.isTest = false OR $include_tests
 WITH f.filePath AS path, count(f) AS fn_count
 OPTIONAL MATCH (a:Function {repo: $repo, isDeleted: false, filePath: path})-[r:SIMILAR_TO]-(b:Function {repo: $repo, isDeleted: false})
+WHERE b.filePath <> path OR a.id < b.id
 RETURN path, fn_count,
   count(r) AS edge_count,
   sum(CASE WHEN b.filePath <> path THEN 1 ELSE 0 END) AS inter_edges

@@ -82,7 +82,7 @@ def _minimal_rows() -> dict[str, list]:
         # _Q_TEST_COUNT
         "isTest: true})\nRETURN count(f) AS test_count": [{"test_count": 0}],
         # _Q_NO_EDGES
-        "AND NOT (f)-[:SIMILAR_TO]-()\nRETURN count(f) AS isolated": [{"isolated": 1}],
+        "RETURN count(f) AS isolated": [{"isolated": 1}],
         # _Q_INTRA_INTER_EDGES
         "AS intra,\n  sum(CASE WHEN a.filePath <> b.filePath": [{"intra": 1, "inter": 1}],
         # _Q_SIMILARITY_DISTRIBUTION
