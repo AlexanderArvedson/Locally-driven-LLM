@@ -25,12 +25,26 @@ def _supported_extensions(languages: list[str]) -> frozenset[str]:
 
 
 def _is_ignored(path: Path, repo_root: Path, ignore_names: list[str]) -> bool:
-    """Return True if any component of the path relative to repo_root is in ignore_names."""
+    """Return True if the path relative to repo_root matches any ignore pattern.
+
+    Single-part patterns (e.g. ``node_modules``) match any path component.
+    Multi-part patterns (e.g. ``dal/models``) match a consecutive segment.
+    """
     try:
         rel = path.relative_to(repo_root)
     except ValueError:
         return False
-    return any(part in ignore_names for part in rel.parts)
+    parts = rel.parts
+    for pattern in ignore_names:
+        pattern_parts = Path(pattern).parts
+        if len(pattern_parts) == 1:
+            if pattern_parts[0] in parts:
+                return True
+        else:
+            n = len(pattern_parts)
+            if any(parts[i:i + n] == pattern_parts for i in range(len(parts) - n + 1)):
+                return True
+    return False
 
 
 def scan_repository(

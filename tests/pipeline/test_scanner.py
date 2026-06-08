@@ -53,6 +53,20 @@ def test_typescript_extension_support():
         assert "readme.md" not in names
 
 
+def test_ignores_multi_level_path():
+    with tempfile.TemporaryDirectory() as tmp:
+        root = Path(tmp)
+        _make_tree(root, [
+            "apps/api/src/business/authBusiness.ts",
+            "apps/api/src/dal/models/user.ts",
+            "apps/api/src/dal/models/order.ts",
+        ])
+        result = scan_repository(root, ["typescript"], ["dal/models"])
+        rel_paths = [str(p.relative_to(root)) for p in result]
+        assert "apps/api/src/business/authBusiness.ts" in rel_paths
+        assert not any("dal/models" in p for p in rel_paths)
+
+
 def test_empty_repo_returns_empty():
     with tempfile.TemporaryDirectory() as tmp:
         result = scan_repository(tmp, ["python"], [])
