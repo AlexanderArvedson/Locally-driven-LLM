@@ -99,15 +99,15 @@ def _find_functions(node: Node, func_types: frozenset[str]) -> list[Node]:
 
 
 def _get_name_token(node: Node) -> str | None:
-    """Return the text of the first name-bearing child of *node*.
+    """Return the text of the name field of *node*, if present.
 
-    Covers Python identifiers, TypeScript/JS method names
-    (property_identifier), TypeScript class/type names (type_identifier), and
-    TypeScript private class members (private_property_identifier).
+    Uses the tree-sitter named 'name' field rather than scanning all children,
+    which prevents single-param arrow functions (``resolve => ...``) from
+    having their parameter identifier mistaken for a function name.
     """
-    for child in node.children:
-        if child.type in _NAME_NODE_TYPES:
-            return child.text.decode("utf-8") if child.text else None
+    name_node = node.child_by_field_name("name")
+    if name_node is not None and name_node.type in _NAME_NODE_TYPES:
+        return name_node.text.decode("utf-8") if name_node.text else None
     return None
 
 
