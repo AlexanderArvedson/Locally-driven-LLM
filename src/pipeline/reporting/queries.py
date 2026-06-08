@@ -8,7 +8,7 @@ _Q_STATS: LiteralString = """
 MATCH (f:Function {repo: $repo, isDeleted: false})
 WHERE f.isTest = false OR $include_tests
 WITH count(f) AS total
-OPTIONAL MATCH ()-[r:SIMILAR_TO]->()
+OPTIONAL MATCH (:Function {repo: $repo})-[r:SIMILAR_TO]->(:Function {repo: $repo})
 RETURN total, count(r) AS edges
 """
 
@@ -21,12 +21,12 @@ _Q_NO_EDGES: LiteralString = """
 MATCH (f:Function {repo: $repo, isDeleted: false})
 WHERE (f.isTest = false OR $include_tests)
   AND f.isAnonymous = false
-  AND NOT (f)-[:SIMILAR_TO]-()
+  AND NOT (f)-[:SIMILAR_TO]-(:Function {repo: $repo})
 RETURN count(f) AS isolated
 """
 
 _Q_TOP_PAIRS: LiteralString = """
-MATCH (a:Function {repo: $repo})-[r:SIMILAR_TO]->(b:Function)
+MATCH (a:Function {repo: $repo})-[r:SIMILAR_TO]->(b:Function {repo: $repo})
 WHERE (a.isTest = false OR $include_tests) AND (b.isTest = false OR $include_tests)
 RETURN
   a.qualifiedName AS a_name,
@@ -40,7 +40,7 @@ LIMIT $limit
 
 # Updated: intra/inter breakdown replaces simple connection count.
 _Q_MOST_CONNECTED: LiteralString = """
-MATCH (f:Function {repo: $repo})-[r:SIMILAR_TO]-(b:Function)
+MATCH (f:Function {repo: $repo})-[r:SIMILAR_TO]-(b:Function {repo: $repo})
 WHERE f.isTest = false OR $include_tests
 WITH f.qualifiedName AS name, f.filePath AS file,
      count(r) AS connections,
@@ -104,7 +104,7 @@ _Q_PER_FILE_INTER: LiteralString = """
 MATCH (f:Function {repo: $repo, isDeleted: false})
 WHERE f.isTest = false OR $include_tests
 WITH f.filePath AS path, count(f) AS fn_count
-OPTIONAL MATCH (a:Function {repo: $repo, filePath: path})-[r:SIMILAR_TO]-(b:Function)
+OPTIONAL MATCH (a:Function {repo: $repo, filePath: path})-[r:SIMILAR_TO]-(b:Function {repo: $repo})
 RETURN path, fn_count,
   count(r) AS edge_count,
   sum(CASE WHEN b.filePath <> path THEN 1 ELSE 0 END) AS inter_edges
@@ -132,7 +132,7 @@ _Q_ISOLATED_FUNCTIONS: LiteralString = """
 MATCH (f:Function {repo: $repo, isDeleted: false})
 WHERE (f.isTest = false OR $include_tests)
   AND f.isAnonymous = false
-  AND NOT (f)-[:SIMILAR_TO]-()
+  AND NOT (f)-[:SIMILAR_TO]-(:Function {repo: $repo})
 RETURN f.qualifiedName AS name, f.filePath AS file,
        f.codeEmbeddingStatus AS code_status,
        f.descriptionStatus AS desc_status
