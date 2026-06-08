@@ -49,21 +49,22 @@ def render_summary(
     god_files: list[str],
     file_cohesion: list[dict],
     isolated: int,
-    languages: list[str],
+    languages: list[dict],
     files_by_count: list[dict],
 ) -> list[str]:
     """Section 1b — one-paragraph executive summary placed after the metadata table.
 
     Returns a list whose index 2 is the plain-text paragraph (usable for JSON export).
     """
-    if not languages:
+    lang_names = [row["language"] for row in languages if row.get("language")]
+    if not lang_names:
         lang_summary = "unknown"
-    elif len(languages) == 1:
-        lang_summary = languages[0]
-    elif len(languages) == 2:
-        lang_summary = f"{languages[0]} and {languages[1]}"
+    elif len(lang_names) == 1:
+        lang_summary = lang_names[0]
+    elif len(lang_names) == 2:
+        lang_summary = f"{lang_names[0]} and {lang_names[1]}"
     else:
-        lang_summary = ", ".join(languages[:-1]) + f", and {languages[-1]}"
+        lang_summary = ", ".join(lang_names[:-1]) + f", and {lang_names[-1]}"
 
     flag_count = sum([bool(high_dup), bool(god_files), bool(coupled_files), bool(low_cohesion_files), isolated > 0])
 

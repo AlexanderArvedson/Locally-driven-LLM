@@ -11,6 +11,7 @@ from __future__ import annotations
 import json
 import math
 from pathlib import Path
+from typing import Any
 
 import pytest
 
@@ -434,7 +435,7 @@ async def test_build_report_json_export_has_all_keys():
 # render_summary unit tests
 # ---------------------------------------------------------------------------
 
-def _base_summary_args(**overrides):
+def _base_summary_args(**overrides: Any) -> Any:
     """Minimal keyword arguments for render_summary with no flags active."""
     defaults = dict(
         total=10,
@@ -447,7 +448,7 @@ def _base_summary_args(**overrides):
         god_files=[],
         file_cohesion=[],
         isolated=0,
-        languages=["Python"],
+        languages=[{"language": "Python", "count": 10}],
         files_by_count=[],
     )
     defaults.update(overrides)
@@ -531,12 +532,19 @@ def test_render_summary_isolated_lead():
 
 
 def test_render_summary_lang_summary_two_languages():
-    lines = render_summary(**_base_summary_args(languages=["Python", "TypeScript"]))
+    lines = render_summary(**_base_summary_args(languages=[
+        {"language": "Python", "count": 8},
+        {"language": "TypeScript", "count": 2},
+    ]))
     assert "Python and TypeScript" in _text(lines)
 
 
 def test_render_summary_lang_summary_three_plus():
-    lines = render_summary(**_base_summary_args(languages=["Python", "TypeScript", "Go"]))
+    lines = render_summary(**_base_summary_args(languages=[
+        {"language": "Python", "count": 8},
+        {"language": "TypeScript", "count": 2},
+        {"language": "Go", "count": 1},
+    ]))
     assert "Python, TypeScript, and Go" in _text(lines)
 
 
