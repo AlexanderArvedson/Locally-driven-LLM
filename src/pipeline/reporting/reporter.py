@@ -35,6 +35,7 @@ from src.pipeline.reporting.markdown import (
     render_metadata,
     render_most_connected,
     render_similarity_distribution,
+    render_summary,
     render_top_pairs,
 )
 from src.pipeline.reporting.queries import (
@@ -215,6 +216,22 @@ async def _build_report(
         file_embed_rows, "className", code_w, desc_w, reporter_cfg.cohesion_min_functions
     )
 
+    # Heuristic flag lists — computed here so both render_summary and render_heuristic_flags share them
+    high_dup = [c for c in clusters if c["size"] >= reporter_cfg.high_dup_min_cluster_size and c["max_score"] > reporter_cfg.high_dup_min_score]
+    cross_file = [c for c in clusters if len(c["files_involved"]) >= 2]
+    coupled_files = [
+        row["path"]
+        for row in per_file
+        if row["edge_count"] >= reporter_cfg.min_coupling_edges
+        and (row["inter_edges"] or 0) / row["edge_count"] > reporter_cfg.arch_coupling_threshold
+    ]
+    low_cohesion_files = [
+        c["group"] for c in file_cohesion
+        if c["cohesion_score"] < reporter_cfg.cohesion_low_threshold
+        and c["fn_count"] >= reporter_cfg.cohesion_min_functions
+    ]
+    god_files = [row["path"] for row in files_by_count if row["fn_count"] > reporter_cfg.god_file_threshold]
+
     tz = ZoneInfo(reporter_cfg.timezone)
     now_dt = datetime.now(tz)
     tz_abbr = now_dt.strftime("%Z") or reporter_cfg.timezone
@@ -225,6 +242,13 @@ async def _build_report(
     lines: list[str] = []
 
     lines += render_metadata(repo, db, now, PIPELINE_VERSION, embed_model, min_loc, reporter_cfg.timezone)
+
+    summary_lines = render_summary(
+        total, embed_failed, clusters, high_dup, cross_file,
+        coupled_files, low_cohesion_files, god_files,
+        file_cohesion, isolated, languages, files_by_count,
+    )
+    lines += summary_lines
 
     delta_lines, delta_export = render_delta(prev_report, total, edges, isolated, len(clusters))
     lines += delta_lines
@@ -248,22 +272,6 @@ async def _build_report(
     lines += render_file_cohesion(file_cohesion, reporter_cfg)
     lines += render_class_cohesion(class_cohesion, reporter_cfg)
     lines += render_duplication_clusters(clusters, reporter_cfg)
-
-    # Heuristic flag computation (results also feed into the JSON export)
-    high_dup = [c for c in clusters if c["size"] >= reporter_cfg.high_dup_min_cluster_size and c["max_score"] > reporter_cfg.high_dup_min_score]
-    cross_file = [c for c in clusters if len(c["files_involved"]) >= 2]
-    coupled_files = [
-        row["path"]
-        for row in per_file
-        if row["edge_count"] >= reporter_cfg.min_coupling_edges
-        and (row["inter_edges"] or 0) / row["edge_count"] > reporter_cfg.arch_coupling_threshold
-    ]
-    low_cohesion_files = [
-        c["group"] for c in file_cohesion
-        if c["cohesion_score"] < reporter_cfg.cohesion_low_threshold
-        and c["fn_count"] >= reporter_cfg.cohesion_min_functions
-    ]
-    god_files = [row["path"] for row in files_by_count if row["fn_count"] > reporter_cfg.god_file_threshold]
 
     lines += render_heuristic_flags(
         high_dup, cross_file, coupled_files, low_cohesion_files, god_files,
@@ -381,6 +389,7 @@ async def _build_report(
             "LOW_COHESION": low_cohesion_files,
             "GOD_FILE": god_files,
         },
+        "summary": summary_lines[2],
     }
 
     return lines, export

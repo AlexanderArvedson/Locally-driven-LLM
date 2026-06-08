@@ -18,6 +18,7 @@ from src.pipeline.contracts import Neo4jConfig, PipelineConfig, ReporterConfig
 from src.pipeline.graph.store import Neo4jStore
 from src.pipeline.reporting.reporter import _build_report
 from src.pipeline.reporting.analysis import _cosine, _compute_cohesion_scores, _find_previous_report
+from src.pipeline.reporting.markdown import render_summary
 
 
 # ---------------------------------------------------------------------------
@@ -290,6 +291,7 @@ async def test_build_report_all_sections_present():
     text = "\n".join(lines)
     for header in [
         "## Metadata",
+        "## Executive Summary",
         "## Delta Since Previous Run",
         "## Embedding Integrity",
         "## Graph Overview",
@@ -418,7 +420,7 @@ async def test_build_report_json_export_has_all_keys():
         "delta", "stats", "embedding", "similarity_distribution",
         "isolated_functions", "files_by_function_count",
         "file_cohesion", "class_cohesion",
-        "clusters", "failures", "top_pairs", "flags",
+        "clusters", "failures", "top_pairs", "flags", "summary",
     ]:
         assert key in export, f"Missing JSON export key: {key!r}"
 
@@ -426,3 +428,137 @@ async def test_build_report_json_export_has_all_keys():
                      "ARCHITECTURE_COUPLING", "TEST_POLLUTION",
                      "LOW_COHESION", "GOD_FILE"]:
         assert flag_key in export["flags"], f"Missing flag key: {flag_key!r}"
+
+
+# ---------------------------------------------------------------------------
+# render_summary unit tests
+# ---------------------------------------------------------------------------
+
+def _base_summary_args(**overrides):
+    """Minimal keyword arguments for render_summary with no flags active."""
+    defaults = dict(
+        total=10,
+        embed_failed=0,
+        clusters=[],
+        high_dup=[],
+        cross_file=[],
+        coupled_files=[],
+        low_cohesion_files=[],
+        god_files=[],
+        file_cohesion=[],
+        isolated=0,
+        languages=["Python"],
+        files_by_count=[],
+    )
+    defaults.update(overrides)
+    return defaults
+
+
+def _text(lines: list[str]) -> str:
+    """Extract the paragraph text from render_summary output (index 2)."""
+    return lines[2]
+
+
+def test_render_summary_structure():
+    # Output must always be exactly 6 lines: header, blank, text, blank, ---,  blank
+    lines = render_summary(**_base_summary_args())
+    assert lines == ["## Executive Summary", "", lines[2], "", "---", ""]
+    assert lines[2]  # paragraph must be non-empty
+
+
+def test_render_summary_clean_bill():
+    lines = render_summary(**_base_summary_args())
+    assert "No high-severity concerns detected." in _text(lines)
+
+
+def test_render_summary_embed_failed_omitted_when_zero():
+    lines = render_summary(**_base_summary_args(embed_failed=0))
+    assert "could not be embedded" not in _text(lines)
+
+
+def test_render_summary_embed_failed_included_when_nonzero():
+    lines = render_summary(**_base_summary_args(embed_failed=3))
+    assert "3 function(s) could not be embedded" in _text(lines)
+
+
+def test_render_summary_high_dup_is_lead():
+    cluster = {"id": 1, "size": 5, "files_involved": ["a.py", "b.py"], "representative": "my_func"}
+    lines = render_summary(**_base_summary_args(
+        high_dup=[cluster],
+        clusters=[cluster],
+    ))
+    text = _text(lines)
+    assert "Duplication is the dominant concern" in text
+    assert "`my_func`" in text
+
+
+def test_render_summary_god_file_lead_when_no_high_dup():
+    lines = render_summary(**_base_summary_args(
+        god_files=["bloated.py"],
+        files_by_count=[{"path": "bloated.py", "fn_count": 42}],
+    ))
+    assert "god file(s) flagged" in _text(lines)
+    assert "bloated.py" in _text(lines)
+    assert "42 functions" in _text(lines)
+
+
+def test_render_summary_god_file_secondary_when_high_dup_is_lead():
+    cluster = {"id": 1, "size": 3, "files_involved": ["a.py"], "representative": "fn"}
+    lines = render_summary(**_base_summary_args(
+        high_dup=[cluster],
+        clusters=[cluster],
+        god_files=["big.py"],
+        files_by_count=[{"path": "big.py", "fn_count": 30}],
+    ))
+    text = _text(lines)
+    assert "Duplication is the dominant concern" in text
+    assert "god file(s) flagged" in text
+
+
+def test_render_summary_coupled_lead():
+    lines = render_summary(**_base_summary_args(coupled_files=["a.py", "b.py"]))
+    assert "inter-file coupling" in _text(lines)
+
+
+def test_render_summary_low_cohesion_lead():
+    lines = render_summary(**_base_summary_args(low_cohesion_files=["mixed.py"]))
+    assert "low semantic cohesion" in _text(lines)
+
+
+def test_render_summary_isolated_lead():
+    lines = render_summary(**_base_summary_args(isolated=7))
+    assert "7 function(s) are isolated" in _text(lines)
+
+
+def test_render_summary_lang_summary_two_languages():
+    lines = render_summary(**_base_summary_args(languages=["Python", "TypeScript"]))
+    assert "Python and TypeScript" in _text(lines)
+
+
+def test_render_summary_lang_summary_three_plus():
+    lines = render_summary(**_base_summary_args(languages=["Python", "TypeScript", "Go"]))
+    assert "Python, TypeScript, and Go" in _text(lines)
+
+
+def test_render_summary_lang_summary_empty():
+    lines = render_summary(**_base_summary_args(languages=[]))
+    assert "unknown" in _text(lines)
+
+
+def test_render_summary_flag_count_in_text():
+    lines = render_summary(**_base_summary_args(
+        god_files=["a.py"],
+        coupled_files=["b.py"],
+        files_by_count=[{"path": "a.py", "fn_count": 25}],
+    ))
+    assert "2 concern(s) detected" in _text(lines)
+
+
+@pytest.mark.asyncio
+async def test_build_report_summary_key_is_string():
+    store = _make_store(_minimal_rows())
+    _, export = await _build_report(store, "repo", include_tests=False,
+                                    pipeline_config=None, loc_filtered=None,
+                                    prev_report=None)
+    assert isinstance(export["summary"], str)
+    assert len(export["summary"]) > 0

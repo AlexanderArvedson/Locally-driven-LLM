@@ -38,6 +38,96 @@ def render_metadata(
     return lines
 
 
+def render_summary(
+    total: int,
+    embed_failed: int,
+    clusters: list[dict],
+    high_dup: list[dict],
+    cross_file: list[dict],
+    coupled_files: list[str],
+    low_cohesion_files: list[str],
+    god_files: list[str],
+    file_cohesion: list[dict],
+    isolated: int,
+    languages: list[str],
+    files_by_count: list[dict],
+) -> list[str]:
+    """Section 1b — one-paragraph executive summary placed after the metadata table.
+
+    Returns a list whose index 2 is the plain-text paragraph (usable for JSON export).
+    """
+    if not languages:
+        lang_summary = "unknown"
+    elif len(languages) == 1:
+        lang_summary = languages[0]
+    elif len(languages) == 2:
+        lang_summary = f"{languages[0]} and {languages[1]}"
+    else:
+        lang_summary = ", ".join(languages[:-1]) + f", and {languages[-1]}"
+
+    flag_count = sum([bool(high_dup), bool(god_files), bool(coupled_files), bool(low_cohesion_files), isolated > 0])
+
+    sentences: list[str] = [
+        f"{total} functions indexed across {lang_summary}. {flag_count} concern(s) detected."
+    ]
+
+    if high_dup:
+        c = high_dup[0]
+        sentences.append(
+            f"Duplication is the dominant concern: cluster {c['id']} groups {c['size']} functions "
+            f"across {len(c['files_involved'])} file(s) — primary consolidation target is `{c['representative']}`."
+        )
+        lead = "high_dup"
+    elif god_files:
+        fn_count = next((r["fn_count"] for r in files_by_count if r["path"] == god_files[0]), "?")
+        sentences.append(
+            f"{len(god_files)} god file(s) flagged ({god_files[0]} is largest at {fn_count} functions)."
+        )
+        lead = "god_files"
+    elif coupled_files:
+        sentences.append(
+            f"{len(coupled_files)} file(s) exhibit high inter-file coupling — architectural boundaries may need review."
+        )
+        lead = "coupled"
+    elif low_cohesion_files:
+        sentences.append(
+            f"{len(low_cohesion_files)} file(s) show low semantic cohesion, suggesting mixed responsibilities."
+        )
+        lead = "low_cohesion"
+    elif isolated > 0:
+        sentences.append(
+            f"{isolated} function(s) are isolated (no similarity edges) — potential dead code candidates."
+        )
+        lead = "isolated"
+    else:
+        sentences.append("No high-severity concerns detected.")
+        lead = "clean"
+
+    if god_files and lead != "god_files":
+        fn_count = next((r["fn_count"] for r in files_by_count if r["path"] == god_files[0]), "?")
+        sentences.append(
+            f"{len(god_files)} god file(s) flagged ({god_files[0]} is largest at {fn_count} functions)."
+        )
+
+    if (low_cohesion_files or coupled_files) and lead not in ("low_cohesion", "coupled"):
+        parts: list[str] = []
+        if low_cohesion_files:
+            parts.append(
+                f"{len(low_cohesion_files)} file(s) show low semantic cohesion, suggesting mixed responsibilities."
+            )
+        if coupled_files:
+            parts.append(f"{len(coupled_files)} file(s) exhibit high inter-file coupling.")
+        sentences.append(" ".join(parts))
+
+    if embed_failed > 0:
+        sentences.append(
+            f"{embed_failed} function(s) could not be embedded and are excluded from similarity analysis."
+        )
+
+    text = " ".join(sentences)
+    return ["## Executive Summary", "", text, "", "---", ""]
+
+
 def render_delta(
     prev_report: dict | None,
     total: int,
