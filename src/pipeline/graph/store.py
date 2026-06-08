@@ -66,7 +66,7 @@ SET
   f.endLine               = rec.endLine,
   f.sourceCode            = rec.sourceCode,
   f.sourceHash            = rec.sourceHash,
-  f.description           = rec.description,
+  f.description           = CASE WHEN rec.description IS NOT NULL THEN rec.description ELSE f.description END,
   f.codeEmbedding         = CASE WHEN rec.codeEmbedding        IS NOT NULL THEN rec.codeEmbedding        ELSE f.codeEmbedding        END,
   f.descriptionEmbedding  = CASE WHEN rec.descriptionEmbedding IS NOT NULL THEN rec.descriptionEmbedding ELSE f.descriptionEmbedding END,
   f.updatedAt             = rec.updatedAt,
