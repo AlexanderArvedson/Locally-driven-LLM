@@ -173,9 +173,20 @@ class Neo4jStore:
         self._function_batch_size = function_batch_size
         self._edge_batch_size = edge_batch_size
 
+    @property
+    def database_name(self) -> str:
+        """The configured Neo4j database name."""
+        return self._config.database
+
     async def close(self) -> None:
         """Close the driver connection pool."""
         await self._driver.close()
+
+    async def run_query(self, query: LiteralString, **params) -> list[dict]:
+        """Execute a read Cypher query and return all result rows as dicts."""
+        async with self._driver.session(database=self._config.database) as session:
+            result = await session.run(query, **params)
+            return await result.data()
 
     async def ensure_schema(self, vector_dim: int | None = None) -> None:
         """Idempotently create constraints and indexes.

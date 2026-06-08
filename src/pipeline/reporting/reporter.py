@@ -8,6 +8,7 @@ machine-readable JSON footer. All logic is deterministic — no LLM usage.
 
 from __future__ import annotations
 
+import asyncio
 import json
 from collections import defaultdict
 from datetime import datetime
@@ -21,6 +22,7 @@ from src.pipeline.reporting.analysis import (
     _compute_clusters,
     _compute_cohesion_scores,
     _find_previous_report,
+    _pick_embed_status,
 )
 from src.pipeline.reporting.markdown import (
     render_class_cohesion,
@@ -89,11 +91,10 @@ async def generate_report(
     ts = datetime.now(ZoneInfo(reporter_cfg.timezone)).strftime("%Y%m%d-%H%M%S")
 
     run_reports_root = Path("run_reports")
-    prev_report: dict | None = None
+    prev_report: dict | None = _find_previous_report(run_reports_root)
 
     if output_dir is None:
         output_dir = run_reports_root / ts
-        prev_report = _find_previous_report(run_reports_root)
 
     output_dir = Path(output_dir)
 
@@ -121,46 +122,66 @@ async def _build_report(
     loc_filtered: int | None = None,
     prev_report: dict | None = None,
 ) -> tuple[list[str], dict]:
-    db = store._config.database
-    driver = store._driver
+    db = store.database_name
 
     reporter_cfg = pipeline_config.reporter if pipeline_config else ReporterConfig()
     top_n = reporter_cfg.top_n
     code_w = pipeline_config.similarity.code_weight if pipeline_config else 0.70
     desc_w = pipeline_config.similarity.description_weight if pipeline_config else 0.30
 
-    async def run(query: LiteralString, **params):
-        async with driver.session(database=db) as session:
-            result = await session.run(query, repo=repo, **params)
-            return await result.data()
+    async def run(query: LiteralString, **params) -> list[dict]:
+        return await store.run_query(query, repo=repo, **params)
 
-    # Run all queries
-    stats          = await run(_Q_STATS,                   include_tests=include_tests)
-    test_count     = await run(_Q_TEST_COUNT)
-    no_edges       = await run(_Q_NO_EDGES,                include_tests=include_tests)
-    top_pairs      = await run(_Q_TOP_PAIRS,               limit=top_n, include_tests=include_tests)
-    connected      = await run(_Q_MOST_CONNECTED,          limit=top_n, include_tests=include_tests)
-    languages      = await run(_Q_LANGUAGE_BREAKDOWN,      include_tests=include_tests)
-    embed_cov      = await run(_Q_EMBEDDING_COVERAGE,      include_tests=include_tests)
-    desc_cov       = await run(_Q_DESCRIPTION_COVERAGE,    include_tests=include_tests)
-    embed_failures = await run(_Q_EMBEDDING_FAILURES,      limit=reporter_cfg.max_embedding_failures, include_tests=include_tests)
-    intra_inter    = await run(_Q_INTRA_INTER_EDGES,       include_tests=include_tests)
-    sim_dist       = await run(_Q_SIMILARITY_DISTRIBUTION,
-                               bin_high=reporter_cfg.sim_dist_bin_high,
-                               bin_mid=reporter_cfg.sim_dist_bin_mid,
-                               bin_low=reporter_cfg.sim_dist_bin_low,
-                               include_tests=include_tests)
-    per_file       = await run(_Q_PER_FILE_INTER,          limit=top_n, include_tests=include_tests)
-    cluster_edges  = await run(_Q_CLUSTER_EDGES,           threshold=reporter_cfg.cluster_threshold, include_tests=include_tests)
+    # Run all independent queries concurrently.
+    (
+        stats,
+        test_count,
+        no_edges,
+        top_pairs,
+        connected,
+        languages,
+        embed_cov,
+        desc_cov,
+        embed_failures,
+        intra_inter,
+        sim_dist,
+        per_file,
+        cluster_edges,
+        isolated_fns,
+        files_by_count,
+    ) = await asyncio.gather(
+        run(_Q_STATS,                   include_tests=include_tests),
+        run(_Q_TEST_COUNT),
+        run(_Q_NO_EDGES,                include_tests=include_tests),
+        run(_Q_TOP_PAIRS,               limit=top_n, include_tests=include_tests),
+        run(_Q_MOST_CONNECTED,          limit=top_n, include_tests=include_tests),
+        run(_Q_LANGUAGE_BREAKDOWN,      include_tests=include_tests),
+        run(_Q_EMBEDDING_COVERAGE,      include_tests=include_tests),
+        run(_Q_DESCRIPTION_COVERAGE,    include_tests=include_tests),
+        run(_Q_EMBEDDING_FAILURES,      limit=reporter_cfg.max_embedding_failures, include_tests=include_tests),
+        run(_Q_INTRA_INTER_EDGES,       include_tests=include_tests),
+        run(_Q_SIMILARITY_DISTRIBUTION,
+            bin_high=reporter_cfg.sim_dist_bin_high,
+            bin_mid=reporter_cfg.sim_dist_bin_mid,
+            bin_low=reporter_cfg.sim_dist_bin_low,
+            include_tests=include_tests),
+        run(_Q_PER_FILE_INTER,          limit=top_n, include_tests=include_tests),
+        run(_Q_CLUSTER_EDGES,           threshold=reporter_cfg.cluster_threshold, include_tests=include_tests),
+        run(_Q_ISOLATED_FUNCTIONS,      limit=reporter_cfg.max_isolated_listed, include_tests=include_tests),
+        run(_Q_FILES_BY_FUNCTION_COUNT, limit=top_n, include_tests=include_tests),
+    )
+
     test_pollution = await run(_Q_TEST_POLLUTION) if include_tests else [{"cross_edges": 0}]
-    isolated_fns   = await run(_Q_ISOLATED_FUNCTIONS,      limit=reporter_cfg.max_isolated_listed, include_tests=include_tests)
-    files_by_count = await run(_Q_FILES_BY_FUNCTION_COUNT, limit=top_n, include_tests=include_tests)
 
-    # Fetch raw embeddings for cohesion computation. This query returns all
-    # embedding vectors and can be large — fall back to empty on failure so a
-    # Neo4j timeout or memory pressure here does not abort the whole report.
+    # Fetch raw embeddings for cohesion computation. Bounded by cohesion_max_functions
+    # to cap the O(n²) pairwise computation and avoid large result sets.
+    # Falls back to empty on failure so a timeout here does not abort the whole report.
     try:
-        file_embed_rows = await run(_Q_FILE_EMBEDDINGS, include_tests=include_tests)
+        file_embed_rows = await run(
+            _Q_FILE_EMBEDDINGS,
+            include_tests=include_tests,
+            limit=reporter_cfg.cohesion_max_functions,
+        )
     except Exception as exc:
         from loguru import logger
         logger.warning("[reporter] cohesion query failed ({}), skipping cohesion sections", exc)
@@ -243,7 +264,7 @@ async def _build_report(
 
     lines += render_metadata(repo, db, now, PIPELINE_VERSION, embed_model, min_loc, reporter_cfg.timezone)
 
-    summary_lines = render_summary(
+    summary_lines, summary_text = render_summary(
         total, embed_failed, clusters, high_dup,
         coupled_files, low_cohesion_files, god_files,
         isolated, languages, files_by_count,
@@ -323,9 +344,7 @@ async def _build_report(
             {
                 "name": row["name"],
                 "file": row["file"],
-                "embed_status": (row.get("code_status") or "ok")
-                    if (row.get("code_status") or "ok") != "ok"
-                    else (row.get("desc_status") or "ok"),
+                "embed_status": _pick_embed_status(row.get("code_status"), row.get("desc_status")),
             }
             for row in isolated_fns
         ],
@@ -389,7 +408,7 @@ async def _build_report(
             "LOW_COHESION": low_cohesion_files,
             "GOD_FILE": god_files,
         },
-        "summary": summary_lines[2],
+        "summary": summary_text,
     }
 
     return lines, export

@@ -150,6 +150,7 @@ RETURN f.filePath AS filePath, f.className AS className,
        f.codeEmbedding AS codeEmbedding,
        f.descriptionEmbedding AS descriptionEmbedding
 ORDER BY f.filePath
+LIMIT $limit
 """
 
 _Q_FILES_BY_FUNCTION_COUNT: LiteralString = """
