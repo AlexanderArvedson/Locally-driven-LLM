@@ -112,6 +112,7 @@ class ReporterConfig:
     max_cohesion_files_listed: int = 20
     max_isolated_listed: int = 50
     god_file_threshold: int = 20
+    cohesion_max_functions: int = 5000
 
 
 @dataclass(frozen=True)

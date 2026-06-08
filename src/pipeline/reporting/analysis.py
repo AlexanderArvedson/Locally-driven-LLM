@@ -183,6 +183,19 @@ def _compute_cohesion_scores(
     return results
 
 
+def _pick_embed_status(code_status: str | None, desc_status: str | None) -> str:
+    """Return the most informative non-ok embed status for a function row.
+
+    Prefers code_embedding_status; falls back to description_status, treating
+    'skipped' and 'ok' as unremarkable so they don't surface in reports.
+    """
+    cs = code_status or "ok"
+    if cs != "ok":
+        return cs
+    ds = desc_status or "ok"
+    return ds if ds not in ("ok", "skipped") else "ok"
+
+
 def _find_previous_report(run_reports_root: Path) -> dict | None:
     """Return the parsed JSON of the most recent prior report, or None."""
     if not run_reports_root.exists():

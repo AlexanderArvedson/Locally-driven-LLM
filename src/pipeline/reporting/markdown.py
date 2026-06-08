@@ -7,6 +7,7 @@ No database I/O, no LLM calls — pure formatting logic.
 from __future__ import annotations
 
 from src.pipeline.contracts import ReporterConfig
+from src.pipeline.reporting.analysis import _pick_embed_status
 
 
 def render_metadata(
@@ -49,10 +50,11 @@ def render_summary(
     isolated: int,
     languages: list[dict],
     files_by_count: list[dict],
-) -> list[str]:
+) -> tuple[list[str], str]:
     """Section 1b — one-paragraph executive summary placed after the metadata table.
 
-    Returns a list whose index 2 is the plain-text paragraph (usable for JSON export).
+    Returns ``(markdown_lines, summary_text)`` so callers can use the plain-text
+    paragraph directly (e.g. for JSON export) without indexing into the list.
     """
     lang_names = [row["language"] for row in languages if row.get("language")]
     if not lang_names:
@@ -127,7 +129,7 @@ def render_summary(
         )
 
     text = " ".join(sentences)
-    return ["## Executive Summary", "", text, "", "---", ""]
+    return ["## Executive Summary", "", text, "", "---", ""], text
 
 
 def render_delta(
@@ -206,7 +208,7 @@ def render_embedding_integrity(
         "| Status | Count |",
         "|---|---|",
         f"| ok | {embed_ok} |",
-        f"| context\\_overflow | {embed_overflow} |",
+        f"| context_overflow | {embed_overflow} |",
         f"| timeout | {embed_timeout} |",
         f"| error | {embed_error} |",
         f"| skipped | {embed_skipped} |",
@@ -218,7 +220,7 @@ def render_embedding_integrity(
         "| Status | Count |",
         "|---|---|",
         f"| ok | {desc_ok} |",
-        f"| invalid\\_json | {desc_invalid} |",
+        f"| invalid_json | {desc_invalid} |",
         f"| timeout | {desc_timeout} |",
         f"| error | {desc_error} |",
         f"| skipped | {desc_skipped} |",
@@ -319,9 +321,7 @@ def render_graph_overview(
             "|---|---|---|",
         ]
         for row in isolated_fns:
-            cs = row.get("code_status") or "ok"
-            ds = row.get("desc_status") or "ok"
-            status = cs if cs != "ok" else (ds if ds not in ("ok", "skipped") else "ok")
+            status = _pick_embed_status(row.get("code_status"), row.get("desc_status"))
             lines.append(f"| `{row['name']}` | {row['file']} | {status} |")
         if isolated > reporter_cfg.max_isolated_listed:
             lines.append(
@@ -410,7 +410,7 @@ def render_files_by_edge_count(per_file: list[dict], top_n: int) -> list[str]:
     lines: list[str] = [
         f"## Top {top_n} Files by Edge Count",
         "",
-        "Files whose functions are most similar to functions in other files.",
+        "Files ranked by total SIMILAR_TO edge count; inter-file ratio indicates cross-boundary coupling.",
         "",
         "| Edges | Inter-file Ratio | Functions | File |",
         "|---|---|---|---|",

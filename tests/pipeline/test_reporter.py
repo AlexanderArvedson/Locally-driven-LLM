@@ -453,16 +453,16 @@ def _base_summary_args(**overrides: Any) -> Any:
     return defaults
 
 
-def _text(lines: list[str]) -> str:
-    """Extract the paragraph text from render_summary output (index 2)."""
-    return lines[2]
+def _text(result: tuple[list[str], str]) -> str:
+    """Extract the paragraph text from render_summary output."""
+    return result[1]
 
 
 def test_render_summary_structure():
     # Output must always be exactly 6 lines: header, blank, text, blank, ---,  blank
-    lines = render_summary(**_base_summary_args())
-    assert lines == ["## Executive Summary", "", lines[2], "", "---", ""]
-    assert lines[2]  # paragraph must be non-empty
+    lines, text = render_summary(**_base_summary_args())
+    assert lines == ["## Executive Summary", "", text, "", "---", ""]
+    assert text  # paragraph must be non-empty
 
 
 def test_render_summary_clean_bill():
