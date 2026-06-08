@@ -27,7 +27,6 @@ def _minimal_repo(overrides: dict | None = None) -> dict:
                 "url": "http://example.test:11434",
             }
         },
-        "slack_webhook_url": None,
     }
     if overrides:
         base.update(overrides)

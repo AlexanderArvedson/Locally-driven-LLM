@@ -76,7 +76,7 @@ The `/pipeline` slash command triggers a pipeline run and posts a Block Kit repo
 /report
 ```
 
-On completion the bot posts a Block Kit notification to `SLACK_NOTIFY_CHANNEL` if that env var is set. See `docs/SLACK_SETUP.md` for setup instructions.
+On completion the bot posts a Block Kit notification to `SLACK_NOTIFY_CHANNEL` if that env var is set. See `docs/guides/slack.md` for setup instructions.
 
 > **Note:** The bot runs inside Docker. For the pipeline to read source files, `REPOS_ROOT` must be set in `.env` to the parent directory of your repos. Paths passed via `--path` must also fall under `REPOS_ROOT`. See `docs/CONFIG.md` for details.
 
@@ -256,7 +256,6 @@ LIMIT 100;
 ```
 src/pipeline/
   contracts.py          — FunctionRecord, SimilarityEdge, PipelineConfig dataclasses
-  (config loader moved to src/core/pipeline_config.py)
   pipeline.py           — EmbeddingPipeline: orchestrates all twelve stages
 
   extraction/

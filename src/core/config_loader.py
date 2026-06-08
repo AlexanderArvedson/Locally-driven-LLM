@@ -124,7 +124,6 @@ class RepositoryConfig:
     planner: PlannerConfig
     credentials: dict[str, str] | None
     models: dict[str, ModelConfig]
-    slack_webhook_url: str | None
 
 
 @dataclass(frozen=True)
@@ -294,11 +293,6 @@ def _load_repository_config(raw: dict[str, Any], *, source: Path) -> RepositoryC
             raise ValueError(f"Missing or invalid object value for 'credentials.git' in {source}")
         credentials_raw = git_creds
 
-    integrations = raw.get("integrations", {})
-    slack_webhook_url = raw.get("slack_webhook_url") or (integrations.get("slack_webhook_url") if isinstance(integrations, dict) else None)
-    if slack_webhook_url is not None and not isinstance(slack_webhook_url, str):
-        _raise_invalid_field(source, "slack_webhook_url")
-
     max_workflow_revision_cycles = _require_int(raw, "max_workflow_revision_cycles", source=source)
     if max_workflow_revision_cycles < 1:
         raise ValueError(f"'max_workflow_revision_cycles' must be >= 1 in {source}")
@@ -318,7 +312,6 @@ def _load_repository_config(raw: dict[str, Any], *, source: Path) -> RepositoryC
         planner=_load_planner_config(raw.get("planner", {}), source=source),
         credentials=credentials_raw,
         models=models,
-        slack_webhook_url=slack_webhook_url,
     )
 
 

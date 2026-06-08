@@ -190,14 +190,6 @@ Each key under `models` names a role the agent uses an LLM for. All four roles m
 
 ---
 
-### `integrations`
-
-| Field | Type | Description |
-|-------|------|-------------|
-| `slack_webhook_url` | string \| null | Incoming Webhook URL for Slack notifications. The agent posts a summary message when a PR is created. Set to `null` to disable Slack notifications. |
-
----
-
 ### `pipeline`
 
 Controls the function embedding and similarity pipeline for this repository. See `docs/PIPELINE.md` for full usage.
