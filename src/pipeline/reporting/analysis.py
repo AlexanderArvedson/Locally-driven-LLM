@@ -200,7 +200,7 @@ def _find_previous_report(run_reports_root: Path) -> dict | None:
     """Return the parsed JSON of the most recent prior report, or None."""
     if not run_reports_root.exists():
         return None
-    candidates = sorted(run_reports_root.glob("*/report_*.json"), key=lambda p: p.name, reverse=True)
+    candidates = sorted(run_reports_root.glob("*/*_report_*.json"), key=lambda p: p.name, reverse=True)
     for candidate in candidates:
         try:
             return json.loads(candidate.read_text(encoding="utf-8"))
