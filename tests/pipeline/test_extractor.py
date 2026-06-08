@@ -213,42 +213,43 @@ def test_ts_jsx_attribute_callback():
         ");\n"
     )
     records = _extract_ts(src, ext=".tsx")
-    names = {r.function_name for r in records}
-    assert "onClick" in names
-    onclick = next(r for r in records if r.function_name == "onClick")
-    assert onclick.is_anonymous is True  # inline JSX prop callback
+    # onClick callback gets a unique location-suffixed name and is non-anonymous
+    onclick = next(r for r in records if r.function_name.startswith("onClick@L"))
+    assert onclick is not None
+    assert onclick.is_anonymous is False
 
 
 def test_ts_call_expression_single_arg():
-    # One callback arg: forEach(fn) → callee name with no suffix
+    # One callback arg: forEach(fn) → unique location-suffixed name, non-anonymous
     src = "items.forEach((item) => { console.log(item); });\n"
     records = _extract_ts(src)
-    r = next(r for r in records if r.function_name == "forEach")
-    assert r.is_anonymous is True  # callback passed to a call expression
+    r = next(r for r in records if r.function_name.startswith("forEach@L"))
+    assert r.is_anonymous is False
 
 
 def test_ts_call_expression_multi_arg():
-    # Multiple args: useEffect(fn, []) → callee name with positional suffix
+    # Multiple args: useEffect(fn, []) → callee name with positional + location suffix
     src = "useEffect(() => {\n  return;\n}, []);\n"
     records = _extract_ts(src)
-    r = next(r for r in records if r.function_name == "useEffect$0")
-    assert r.is_anonymous is True
+    r = next(r for r in records if r.function_name.startswith("useEffect$0@L"))
+    assert r.is_anonymous is False
 
 
 def test_ts_export_default_anonymous():
     src = "export default function() {\n  return 42;\n}\n"
     records = _extract_ts(src)
     assert len(records) == 1
-    assert records[0].function_name == "default"
-    assert records[0].is_anonymous is True  # export default has no declared name
+    # export default gets a unique location-suffixed name and is non-anonymous
+    assert records[0].function_name.startswith("default@L")
+    assert records[0].is_anonymous is False
 
 
 def test_ts_export_default_arrow():
     src = "export default () => {\n  return 42;\n};\n"
     records = _extract_ts(src)
     assert len(records) == 1
-    assert records[0].function_name == "default"
-    assert records[0].is_anonymous is True
+    assert records[0].function_name.startswith("default@L")
+    assert records[0].is_anonymous is False
 
 
 def test_ts_single_param_arrow_not_named_by_param():

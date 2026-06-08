@@ -78,14 +78,23 @@ def _extract_from_file(
 
     for fn_node in _find_functions(tree.root_node, func_types):
         # Try direct name token first, then fall back to context resolution.
-        # Functions that fall back are candidates for is_anonymous — checked
-        # by _is_anonymous_context to distinguish real bindings from callbacks.
+        # Callbacks (call-expression args, JSX handlers, export default) get a
+        # location-suffixed name (e.g. forEach@L42) so each occurrence is
+        # unique in the graph. Only truly unresolvable functions stay <anonymous>.
         function_name = _get_name_token(fn_node)
         if function_name is None:
             is_anonymous = _is_anonymous_context(fn_node)
-            function_name = _resolve_name_from_context(fn_node) or "<anonymous>"
-            if function_name == "<anonymous>":
+            resolved = _resolve_name_from_context(fn_node)
+            if resolved is None:
+                function_name = "<anonymous>"
                 is_anonymous = True
+            elif is_anonymous:
+                start_line = fn_node.start_point[0] + 1
+                function_name = f"{resolved}@L{start_line}"
+                is_anonymous = False
+            else:
+                function_name = resolved
+                is_anonymous = False
         else:
             is_anonymous = False
 
