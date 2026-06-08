@@ -229,7 +229,7 @@ def render_graph_overview(
         for row in isolated_fns:
             cs = row.get("code_status") or "ok"
             ds = row.get("desc_status") or "ok"
-            status = cs if cs != "ok" else (ds if ds != "ok" else "ok")
+            status = cs if cs != "ok" else (ds if ds not in ("ok", "skipped") else "ok")
             lines.append(f"| `{row['name']}` | {row['file']} | {status} |")
         if isolated > reporter_cfg.max_isolated_listed:
             lines.append(
