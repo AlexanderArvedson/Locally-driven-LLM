@@ -256,8 +256,8 @@ def test_find_previous_report_picks_most_recent(tmp_path):
     payload_old = {"timestamp": "old", "stats": {"total_functions": 10}}
     payload_new = {"timestamp": "new", "stats": {"total_functions": 20}}
 
-    (older / "report_20260601-120000.json").write_text(json.dumps(payload_old))
-    (newer / "report_20260605-160935.json").write_text(json.dumps(payload_new))
+    (older / "repo_report_20260601-120000.json").write_text(json.dumps(payload_old))
+    (newer / "repo_report_20260605-160935.json").write_text(json.dumps(payload_new))
 
     result = _find_previous_report(tmp_path)
     assert result is not None
@@ -267,12 +267,12 @@ def test_find_previous_report_picks_most_recent(tmp_path):
 def test_find_previous_report_skips_malformed(tmp_path):
     d = tmp_path / "20260601-120000"
     d.mkdir()
-    (d / "report_20260601-120000.json").write_text("not json {{{")
+    (d / "repo_report_20260601-120000.json").write_text("not json {{{")
 
     d2 = tmp_path / "20260605-160935"
     d2.mkdir()
     good = {"timestamp": "good", "stats": {}}
-    (d2 / "report_20260605-160935.json").write_text(json.dumps(good))
+    (d2 / "repo_report_20260605-160935.json").write_text(json.dumps(good))
 
     result = _find_previous_report(tmp_path)
     assert result is not None

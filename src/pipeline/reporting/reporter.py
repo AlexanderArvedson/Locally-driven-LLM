@@ -77,8 +77,8 @@ async def generate_report(
         neo4j_config: Connection settings for Neo4j.
         repo_name: The repository name to report on.
         output_dir: Directory to write the two report files into. Defaults to
-            ``run_reports/<timestamp>/`` relative to the current working directory.
-            Created automatically if it does not exist.
+            ``run_reports/<repo_name>/<timestamp>/`` relative to the current working
+            directory. Created automatically if it does not exist.
         include_tests: Whether to include test functions in graph stats.
         pipeline_config: Full pipeline config for metadata and reporter
             thresholds. When None, defaults from ReporterConfig are used
@@ -89,12 +89,14 @@ async def generate_report(
     """
     reporter_cfg = pipeline_config.reporter if pipeline_config else ReporterConfig()
     ts = datetime.now(ZoneInfo(reporter_cfg.timezone)).strftime("%Y%m%d-%H%M%S")
+    sanitized_repo = repo_name.replace("/", "_").replace("\\", "_").replace(" ", "_").replace(":", "_")
 
     run_reports_root = Path("run_reports")
-    prev_report: dict | None = _find_previous_report(run_reports_root)
+    repo_dir = run_reports_root / sanitized_repo
+    prev_report: dict | None = _find_previous_report(repo_dir)
 
     if output_dir is None:
-        output_dir = run_reports_root / ts
+        output_dir = repo_dir / ts
 
     output_dir = Path(output_dir)
 
@@ -108,9 +110,9 @@ async def generate_report(
 
     # Only create the directory once we have content to write.
     output_dir.mkdir(parents=True, exist_ok=True)
-    md_path = output_dir / f"report_{ts}.md"
+    md_path = output_dir / f"{sanitized_repo}_report_{ts}.md"
     md_path.write_text("\n".join(lines), encoding="utf-8")
-    (output_dir / f"report_{ts}.json").write_text(json.dumps(export, indent=2), encoding="utf-8")
+    (output_dir / f"{sanitized_repo}_report_{ts}.json").write_text(json.dumps(export, indent=2), encoding="utf-8")
     return md_path
 
 

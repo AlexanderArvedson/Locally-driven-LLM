@@ -166,21 +166,21 @@ The following are created automatically on first run by `ensure_schema`:
 
 ## Report generation
 
-By default, a report is generated automatically after every pipeline run (unless `--no-report` or `--dry-run` is passed). `--report-only` skips the pipeline and generates a report from the current Neo4j graph. Both paths create a timestamped directory under `run_reports/` containing two files:
+By default, a report is generated automatically after every pipeline run (unless `--no-report` or `--dry-run` is passed). `--report-only` skips the pipeline and generates a report from the current Neo4j graph. Both paths create a timestamped directory under `run_reports/<repo_name>/` containing two files:
 
-- `report_<timestamp>.md` — the full human-readable markdown report
-- `report_<timestamp>.json` — machine-readable export of all stats, clusters, failures, and flags
+- `<repo_name>_report_<timestamp>.md` — the full human-readable markdown report
+- `<repo_name>_report_<timestamp>.json` — machine-readable export of all stats, clusters, failures, and flags
 
-For example: `run_reports/20260606-142530/report_20260606-142530.md`
+For example: `run_reports/my-repo/20260606-142530/my-repo_report_20260606-142530.md`
 
-`run_reports/` is gitignored. Each run gets its own directory and both files carry the same timestamp in their names, so reports sort correctly and remain unambiguous when multiple are open at once.
+`run_reports/` is gitignored. Each repository gets its own subdirectory, and within it each run gets its own timestamped directory. Both files carry the repo name prefix and the same timestamp, so reports sort correctly per repo and remain unambiguous when multiple are open at once.
 
 The report is fully deterministic — no LLM reasoning is involved. It contains thirteen sections in order:
 
 | # | Section | Contents |
 |---|---|---|
 | 1 | **Metadata** | Repo name, timestamp, Neo4j database, pipeline version, embedding model |
-| 2 | **Delta Since Previous Run** | Function count, edge count, isolated count, and cluster count compared against the most recent prior `report_*.json`. Omitted on the first run. |
+| 2 | **Delta Since Previous Run** | Function count, edge count, isolated count, and cluster count compared against the most recent prior `<repo>_report_*.json` in the same repo directory. Omitted on the first run. |
 | 3 | **Embedding Integrity** | Per-status counts for code embedding and description stages; table of failed functions with stage and error type |
 | 4 | **Graph Overview** | Function count, edge count, edge density, isolated ratio, intra-file vs inter-file edge split, language breakdown, LOC-filtered count; subsection listing each isolated function with its embed status |
 | 5 | **Similarity Distribution** | Edge counts bucketed into four ranges defined by `sim_dist_bin_high`, `sim_dist_bin_mid`, and `sim_dist_bin_low` (defaults: 0.95 / 0.90 / 0.80) |
