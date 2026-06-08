@@ -1,16 +1,16 @@
 # Graph Report - Locally-driven-langgraph-LLM  (2026-06-08)
 
 ## Corpus Check
-- 89 files · ~32,197 words
+- 94 files · ~32,739 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 1151 nodes · 2454 edges · 81 communities (64 shown, 17 thin omitted)
-- Extraction: 78% EXTRACTED · 22% INFERRED · 0% AMBIGUOUS · INFERRED: 528 edges (avg confidence: 0.52)
+- 1152 nodes · 2477 edges · 74 communities (58 shown, 16 thin omitted)
+- Extraction: 78% EXTRACTED · 22% INFERRED · 0% AMBIGUOUS · INFERRED: 537 edges (avg confidence: 0.52)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `61f3aa95`
+- Built from commit: `b081521a`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -75,23 +75,16 @@
 - [[_COMMUNITY_Community 60|Community 60]]
 - [[_COMMUNITY_Community 61|Community 61]]
 - [[_COMMUNITY_Community 62|Community 62]]
-- [[_COMMUNITY_Community 63|Community 63]]
-- [[_COMMUNITY_Community 64|Community 64]]
 - [[_COMMUNITY_Community 66|Community 66]]
-- [[_COMMUNITY_Community 67|Community 67]]
-- [[_COMMUNITY_Community 68|Community 68]]
 - [[_COMMUNITY_Community 69|Community 69]]
 - [[_COMMUNITY_Community 70|Community 70]]
 - [[_COMMUNITY_Community 71|Community 71]]
 - [[_COMMUNITY_Community 72|Community 72]]
 - [[_COMMUNITY_Community 73|Community 73]]
-- [[_COMMUNITY_Community 74|Community 74]]
 - [[_COMMUNITY_Community 75|Community 75]]
 - [[_COMMUNITY_Community 76|Community 76]]
-- [[_COMMUNITY_Community 77|Community 77]]
 - [[_COMMUNITY_Community 78|Community 78]]
 - [[_COMMUNITY_Community 79|Community 79]]
-- [[_COMMUNITY_Community 80|Community 80]]
 
 ## God Nodes (most connected - your core abstractions)
 1. `GraphState` - 74 edges
@@ -100,10 +93,10 @@
 4. `PipelineConfig` - 57 edges
 5. `OllamaClient` - 42 edges
 6. `FunctionRecord` - 34 edges
-7. `emit_success()` - 31 edges
-8. `emit_failure()` - 30 edges
-9. `TaskQueue` - 27 edges
-10. `RepositorySnapshot` - 27 edges
+7. `ReporterConfig` - 33 edges
+8. `emit_success()` - 31 edges
+9. `emit_failure()` - 30 edges
+10. `TaskQueue` - 27 edges
 
 ## Surprising Connections (you probably didn't know these)
 - `diff_generator_node()` --implements--> `Phase 1 - File Mutation MVP`  [INFERRED]
@@ -137,35 +130,35 @@
 - **Project Development Phases (Phase 1-5)** — docs_project_plan_phase1_file_mutation_mvp, docs_project_plan_phase2_repo_awareness, docs_project_plan_phase3_async_execution, docs_project_plan_phase4_passive_analysis, docs_project_plan_phase5_advanced_maintenance [EXTRACTED 1.00]
 - **Context Contract Components (version, payload, determinism, prompt rendering)** — docs_context_contract_context_version, docs_context_contract_payload_shape, docs_context_contract_determinism_rules, docs_context_contract_prompt_rendering [EXTRACTED 1.00]
 
-## Communities (81 total, 17 thin omitted)
+## Communities (74 total, 16 thin omitted)
 
 ### Community 0 - "Graph State Data Flow"
-Cohesion: 0.25
-Nodes (16): load_config(), _load_graph_config(), _load_model_config(), _load_repository_config(), _load_retrieval_config(), _raise_invalid_field(), Parse a single model role entry from config, validating inference fields., Parse a single model role entry from config, validating inference fields. (+8 more)
+Cohesion: 0.05
+Nodes (75): BudgetAllocation, Context window budget allocation.  ContextBudget enforces per-file character lim, Result of a budget allocation pass., Result of a budget allocation pass.      Attributes:         selected_files: Ord, Return the largest prefix of `ranked_files` that fits the budget.          Tar, Return the largest prefix of `ranked_files` that fits within all limits., AppConfig, get_coder_model() (+67 more)
 
 ### Community 1 - "Community 1"
 Cohesion: 0.06
 Nodes (55): LanguageSlicer, Node, Parser, Symbol-level context slicing for language-agnostic code extraction., LanguageSlicer, Language-agnostic slicing Protocol.  Defines the shared contract that every lang, Everything extracted about one symbol from a source file., Extract and stitch back a named symbol within a source file. (+47 more)
 
 ### Community 2 - "Community 2"
-Cohesion: 0.18
-Nodes (19): OllamaClient, PipelineConfig, QueryMatch, QueryResult, Semantic search engine for functions stored in Neo4j.  Embeds a free-text query, A single function returned by a semantic search., Aggregated result from a semantic search over the Neo4j vector indexes., Embed query_text and return the top-N most similar functions from Neo4j.      Qu (+11 more)
+Cohesion: 0.20
+Nodes (23): OllamaClient, Neo4jStore, Async Neo4j driver wrapper for Function nodes and SIMILAR_TO edges., Async Neo4j driver wrapper for Function nodes and SIMILAR_TO edges., PipelineConfig, QueryMatch, QueryResult, Semantic search engine for functions stored in Neo4j.  Embeds a free-text query (+15 more)
 
 ### Community 3 - "Test Infrastructure & Fixtures"
-Cohesion: 0.10
-Nodes (33): load_pipeline_config(), Pipeline configuration loader.  Reads the top-level ``neo4j`` block and the per-, Load pipeline configuration for a repository.      Args:         config_path: Pa, Load pipeline configuration for a repository.      Args:         config_path: Pa, Load pipeline configuration for a repository.      Args:         config_path: Pa, Load pipeline configuration for a repository.      Args:         config_path: Pa, _require_env(), _validate_timezone() (+25 more)
+Cohesion: 0.07
+Nodes (45): load_pipeline_config(), Pipeline configuration loader.  Reads the top-level ``neo4j`` block and the per-, Load pipeline configuration for a repository.      Args:         config_path: Pa, Load pipeline configuration for a repository.      Args:         config_path: Pa, Load pipeline configuration for a repository.      Args:         config_path: Pa, Load pipeline configuration for a repository.      Args:         config_path: Pa, _require_env(), _validate_timezone() (+37 more)
 
 ### Community 4 - "Community 4"
-Cohesion: 0.13
-Nodes (31): create_app(), _make_signature_verifier(), FastAPI application.  Provides a health check endpoint. Slack slash commands are, Create and return the FastAPI application., Return a FastAPI dependency that validates X-Slack-Signature on every request., Create and return the FastAPI application.      Args:         queue: The shared, _parse_pipeline_args(), Slack Socket Mode integration.  Opens a persistent WebSocket connection to Slack (+23 more)
+Cohesion: 0.15
+Nodes (26): create_app(), _make_signature_verifier(), FastAPI application.  Provides a health check endpoint. Slack slash commands are, Create and return the FastAPI application., Return a FastAPI dependency that validates X-Slack-Signature on every request., Create and return the FastAPI application.      Args:         queue: The shared, _parse_pipeline_args(), Slack Socket Mode integration.  Opens a persistent WebSocket connection to Slack (+18 more)
 
 ### Community 5 - "LLM Pipeline & Sandbox"
 Cohesion: 0.13
 Nodes (18): EmbedResult, _gpu_layers(), LLMResult, Thin async client wrapper for Ollama HTTP API.  This module provides a minimal `, Send an embedding request to the Ollama API and return the vector.          Args, Return the Ollama ``num_gpu`` value for a given ``allow_gpu`` flag.      Ollama, Create a new `OllamaClient`.          Args:             base_url: Base URL of, Create a new `OllamaClient`.          Args:             base_url: Base URL of (+10 more)
 
 ### Community 6 - "Repository Indexer Protocol"
-Cohesion: 0.11
-Nodes (18): GraphQuery, Graph query utilities for the retrieval pipeline.  GraphQuery loads graph.json o, Map resolved absolute file paths to their highest node score.          Nodes wit, Like `files_for_nodes` but preserves per-node scores.          Maps each absolut, Extract normalised, non-stopword tokens from a task string., Loads graph.json once and exposes keyword + dependency queries.      Constructed, Load graph.json from `graph_dir` and return a GraphQuery instance.          Read, Return (node_id, score) pairs ranked by keyword overlap with task words. (+10 more)
+Cohesion: 0.18
+Nodes (9): Map resolved absolute file paths to their highest node score.          Nodes wit, Like `files_for_nodes` but preserves per-node scores.          Maps each absolut, Load graph.json from `graph_dir` and return a GraphQuery instance.          Read, Return (node_id, score) pairs ranked by keyword overlap with task words., BFS expansion: return all node_ids reachable within `hops` edges.          Inclu, float, int, Path (+1 more)
 
 ### Community 7 - "Community 7"
 Cohesion: 0.09
@@ -176,44 +169,44 @@ Cohesion: 0.08
 Nodes (44): Output contract from the retrieval pipeline, stored in GraphState.      Downstre, Input contract passed from the scheduler layer to the retrieval pipeline., RetrievalRequest, RetrievalResult, get_graph_config(), get_system_context_path(), GraphConfig, Return the graph lifecycle config for the repository matching ``repo_path``. (+36 more)
 
 ### Community 10 - "Community 10"
-Cohesion: 0.20
-Nodes (15): build_repository_context_payload(), _dedupe_preserve_order(), DependencySummaryItem, _normalize_path(), Versioned contract for retrieval -> coder repository context payloads.  This mod, Validate structural invariants for a repository context payload., Build a versioned, deterministic context payload from ContextPackage., RepositoryContextPayload (+7 more)
+Cohesion: 0.18
+Nodes (19): Markdown section renderers for the pipeline report.  Re-exports all render_* fun, Markdown renderers for graph topology and similarity sections.  Covers: Graph Ov, Section 6 — top N most similar function pairs., Section 7 — top N most connected functions with intra/inter breakdown., Section 8 — top N files by total edge count., Section 9 — top N files by function count, flagging god files., Section 4 — graph overview statistics, language breakdown, and isolated function, Section 5 — similarity score distribution across four bins. (+11 more)
 
 ### Community 12 - "Community 12"
 Cohesion: 0.18
 Nodes (7): Description service for LLM-generated function summaries.  Wraps ``OllamaClient., Remove triple-backtick code fences that models emit despite instructions., Populate ``record.description`` and ``record.description_status`` in-place., Generate descriptions for all records in-place, respecting concurrency limit., _strip_fences(), FunctionRecord, str
 
 ### Community 19 - "Community 19"
-Cohesion: 0.12
-Nodes (22): diff_generator_node(), Compute a unified diff between the original and generated code.      Expected st, Semantic validator node.  Evaluates whether the generated code correctly satisfi, Evaluate task-intent alignment of the generated code using an LLM judge.      Re, Evaluate task-intent alignment and regression risk of the generated change., semantic_validator_node(), Static validator node.  Replaces the former reviewer node. Responsibilities are, Validate generated code for structural correctness.      Runs Python syntax vali (+14 more)
+Cohesion: 0.13
+Nodes (20): bool, Static validator node.  Replaces the former reviewer node. Responsibilities are, Validate generated code for structural correctness.      Runs Python syntax vali, static_validator_node(), Shared helpers for graph node implementations., Return a required value from `state` or raise ValueError., Remove a single pair of surrounding Markdown code fences., Validate that `content` compiles as Python. (+12 more)
 
 ### Community 20 - "Community 20"
 Cohesion: 0.38
 Nodes (6): create_pull_request(), _parse_owner_repo(), GitHub pull request creation via the REST API., Extract (owner, repo) from a GitHub remote URL., Create a GitHub pull request and return its HTML URL.      Args:         remote_, str
 
 ### Community 26 - "Community 26"
-Cohesion: 0.11
-Nodes (28): ContextAssembler, Deterministic, capped context assembler that consumes a snapshot.      Returns a, ContextBudget, Allocates ranked files against char and file-count limits.      Limits are adv, Allocates ranked files against char-per-file, file-count, and token limits., _heuristic_rank(), Retrieval node — orchestrates the graph-backed retrieval pipeline.  Pipeline sta, Fallback ranking when graph is unavailable. (+20 more)
+Cohesion: 0.16
+Nodes (18): ContextAssembler, Deterministic, capped context assembler that consumes a snapshot.      Returns a, ContextBudget, Allocates ranked files against char and file-count limits.      Limits are adv, Allocates ranked files against char-per-file, file-count, and token limits., get_retrieval_config(), Return retrieval limits and behavior for the repository matching ``repo_path``., Return retrieval limits and behavior for the repository matching ``repo_path``. (+10 more)
 
 ### Community 27 - "Community 27"
-Cohesion: 0.20
-Nodes (16): DependencyEdge, FileNode, Core data types shared across the retrieval pipeline.  Defines the immutable sna, Represents a top-level symbol extracted from a file., Represents a directed import relationship between files., Metadata for a single file in the repository snapshot., Symbol, DependencyEdge (+8 more)
+Cohesion: 0.26
+Nodes (8): WorkflowExecutor as Single Orchestration Boundary, Cron-based pipeline trigger.  Reads a cron expression and enqueues a PipelineTas, Executor that runs a workflow graph for a given `Task`.      The executor acce, Executor that runs a workflow graph for a given `Task`.      The executor accept, WorkflowExecutor, Task types for the scheduler.  Two concrete work units and their union — the typ, Scheduler work unit wrapping a validated TaskRequest., Task
 
 ### Community 28 - "Community 28"
-Cohesion: 0.13
-Nodes (24): branch_creator_node(), Branch creator node.  Creates (or checks out) a task branch in the target reposi, Create a task branch in the target repository.      Reads ``repo_path`` and ``ta, git_committer_node(), Git committer node.  Stages the modified target file and creates a git commit on, Stage and commit the modified target file.      Expected state keys:     - ``, Stage and commit the modified target file.      Expected state keys:     - ``rep, Minimal per-run observability context.      Attributes:         run_id: A UUI (+16 more)
+Cohesion: 0.11
+Nodes (29): datetime, branch_creator_node(), Branch creator node.  Creates (or checks out) a task branch in the target reposi, Create a task branch in the target repository.      Reads ``repo_path`` and ``ta, diff_generator_node(), Compute a unified diff between the original and generated code.      Expected st, Git committer node.  Stages the modified target file and creates a git commit on, Graphify indexer — internal graph-building utility.  Provides `build_ast_graph`, (+21 more)
 
 ### Community 29 - "Community 29"
 Cohesion: 0.22
 Nodes (16): GraphState: repository_context field, format_repository_context_for_prompt(), Render repository context in a fixed, deterministic prompt section., OllamaClient.chat, _build_full_file_prompt(), _build_symbol_prompt(), coder_node(), _deindent() (+8 more)
 
 ### Community 30 - "Community 30"
-Cohesion: 0.16
-Nodes (17): ContextAssemblerProtocol, Context assembler — builds bounded ContextPackage from ranked files.  ContextAss, Interface for bounded context assembly., Build and return a bounded ContextPackage.          Must be deterministic and mu, ContextPackage, Immutable snapshot of the repository used for deterministic retrieval., Bounded context package returned by the ContextAssembler.      Contains only lig, RepositorySnapshot (+9 more)
+Cohesion: 0.06
+Nodes (56): ContextAssemblerProtocol, Context assembler — builds bounded ContextPackage from ranked files.  ContextAss, Interface for bounded context assembly., Build and return a bounded ContextPackage.          Must be deterministic and mu, build_repository_context_payload(), _dedupe_preserve_order(), DependencySummaryItem, _normalize_path() (+48 more)
 
 ### Community 31 - "Community 31"
-Cohesion: 0.25
-Nodes (7): GraphState: generated_code field, file_writer_node(), Write generated content to disk or apply a unified diff.      Expected state inp, Write generated content to disk or apply a unified diff.      Expected state inp, Aggregate export surface for graph nodes., GraphState, RunContext
+Cohesion: 0.15
+Nodes (12): GraphState: generated_code field, file_writer_node(), Write generated content to disk or apply a unified diff.      Expected state inp, Write generated content to disk or apply a unified diff.      Expected state inp, git_committer_node(), Stage and commit the modified target file.      Expected state keys:     - ``, Stage and commit the modified target file.      Expected state keys:     - ``rep, Aggregate export surface for graph nodes. (+4 more)
 
 ### Community 32 - "Community 32"
 Cohesion: 0.33
@@ -224,8 +217,8 @@ Cohesion: 0.14
 Nodes (19): GraphState: review_passed field, GraphState: verification_passed field, make_graph(), Graph construction helpers for the file-edit workflow.  This module builds a `St, Decide the next graph node after the `reviewer` (static_validator) node.      -, Decide the next graph node after the `semantic_validator` node.      - If semant, Terminate early when the planner found no file to modify., Decide the next graph node after the `semantic_validator` node.      - If semant (+11 more)
 
 ### Community 36 - "Community 36"
-Cohesion: 0.21
-Nodes (14): get_coder_model(), get_coder_model_config(), get_ollama_base_url(), get_primary_model(), get_semantic_model(), get_semantic_model_config(), Return the full ModelConfig for the coder role., Return the full ModelConfig for the coder role. (+6 more)
+Cohesion: 0.14
+Nodes (14): _find_previous_report(), _pick_embed_status(), Return the most informative non-ok embed status for a function row.      Prefers, Return the parsed JSON of the most recent prior report, or None., Return the parsed JSON of the most recent prior report, or None., _build_export(), Builds the structured JSON export dict for a pipeline report run., Assemble the machine-readable JSON export from pre-computed report data. (+6 more)
 
 ### Community 37 - "Community 37"
 Cohesion: 0.18
@@ -236,28 +229,28 @@ Cohesion: 0.13
 Nodes (18): _parse_file_list(), _parse_planner_response(), planner_node(), Planner node — selects which file(s) to modify from retrieval candidates.  When, Convert repo-relative paths to absolute paths using repo_path as the root., Convert repo-relative paths to absolute paths using repo_path as the root., Convert repo-relative paths to absolute paths using repo_path as the root., Convert repo-relative paths to absolute paths using repo_path as the root. (+10 more)
 
 ### Community 40 - "Community 40"
-Cohesion: 0.19
-Nodes (19): compute_similarity_edges(), Cosine similarity graph builder using Neo4j HNSW vector indexes.  For each funct, Compute SIMILAR_TO edges by querying Neo4j vector indexes.      Args:         st, Neo4jStore, Neo4j data store for Function nodes and SIMILAR_TO relationships.  Uses the offi, Async Neo4j driver wrapper for Function nodes and SIMILAR_TO edges., Async Neo4j driver wrapper for Function nodes and SIMILAR_TO edges., A SIMILAR_TO relationship between two Function nodes. (+11 more)
+Cohesion: 0.21
+Nodes (13): Markdown renderers for code-quality analysis sections.  Covers: File Cohesion, C, Section 13 — heuristic flags raised by the analysis., Section 10 — file cohesion scores (ascending, most fragmented first)., Section 11 — class cohesion scores (omitted when no classes present)., Section 12 — duplication clusters at the configured similarity threshold., render_class_cohesion(), render_duplication_clusters(), render_file_cohesion() (+5 more)
 
 ### Community 41 - "Community 41"
-Cohesion: 0.13
-Nodes (11): The configured Neo4j database name., Return ``{function_id: source_hash}`` for all live functions in the repo., Return ``{function_id: source_hash}`` for all live functions in the repo., Return ``{function_id: source_hash}`` for all live functions in the repo., Delete all SIMILAR_TO edges originating from functions in this repo.          Ca, Delete all SIMILAR_TO edges originating from functions in this repo.          Ca, Return qualifiedName, filePath, and description for each requested function id., Return qualifiedName, filePath, and description for each requested function id. (+3 more)
+Cohesion: 0.50
+Nodes (3): Return qualifiedName, filePath, and description for each requested function id., Return qualifiedName, filePath, and description for each requested function id., Return qualifiedName, filePath, and description for each requested function id.
 
 ### Community 42 - "Community 42"
 Cohesion: 0.30
 Nodes (7): HeuristicRanker, Return a deterministic, ordered list of file paths., Deterministic, heuristic-based file ranker.      Ordering rules (score-based, de, bool, int, RepositorySnapshot, str
 
 ### Community 43 - "Community 43"
-Cohesion: 0.17
-Nodes (12): get_max_workflow_revision_cycles(), get_repository_config(), get_semantic_threshold(), Return the configured repository that best matches `repo_path`.      If no repo, Return the configured repository that best matches `repo_path`.      If no repo, Return the maximum number of workflow revision cycles allowed., Return the maximum number of workflow revision cycles allowed., Return the minimum task_alignment_score required for semantic_validator to pass. (+4 more)
+Cohesion: 0.18
+Nodes (9): GraphQuery, Graph query utilities for the retrieval pipeline.  GraphQuery loads graph.json o, Extract normalised, non-stopword tokens from a task string., Loads graph.json once and exposes keyword + dependency queries.      Constructed, GraphQuery, Graph-aware file ranker.  GraphRanker uses a GraphQuery instance to rank file ca, Return an ordered list of file paths relevant to `task`.          Pipeline:, int (+1 more)
 
 ### Community 44 - "Community 44"
-Cohesion: 0.32
-Nodes (13): ReporterConfig, _build_report(), generate_report(), Query Neo4j and write a report directory containing report.md and report.json., Query Neo4j and write a report directory containing report.md and report.json., Query Neo4j and write a report directory containing report.md and report.json., bool, int (+5 more)
+Cohesion: 0.27
+Nodes (17): Neo4jConfig, ReporterConfig, _build_report(), generate_report(), Query Neo4j and write a report directory containing report.md and report.json., Query Neo4j and write a report directory containing report.md and report.json., Query Neo4j and write a report directory containing report.md and report.json., Query Neo4j and write a report directory containing report.md and report.json. (+9 more)
 
 ### Community 45 - "Community 45"
-Cohesion: 0.14
-Nodes (19): GraphState, Shared state passed between LangGraph nodes.      This state represents a sing, Shared state passed between LangGraph nodes.      This state represents a sing, Shared state passed between LangGraph nodes.      This state represents a single, build_ast_graph(), graphify_indexer_node(), Graphify indexer — internal graph-building utility.  Provides `build_ast_graph`,, Run AST-only graphify extraction and write graph.json to graph_dir. (+11 more)
+Cohesion: 0.17
+Nodes (15): GraphState, Shared state passed between LangGraph nodes.      This state represents a sing, Shared state passed between LangGraph nodes.      This state represents a sing, Shared state passed between LangGraph nodes.      This state represents a single, _build_semantic_feedback(), Semantic validator node.  Evaluates whether the generated code correctly satisfi, Format the LLM evaluation into a concise string for the coder prompt., Format the LLM evaluation into a concise string for the coder prompt. (+7 more)
 
 ### Community 46 - "Community 46"
 Cohesion: 0.19
@@ -269,23 +262,23 @@ Nodes (24): bytes, bool, Path, str, str, atomic_write_bytes(), _detect_crlf(), R
 
 ### Community 48 - "Community 48"
 Cohesion: 0.07
-Nodes (36): _build_pipeline_blocks(), _build_report_blocks(), notify_pipeline_result(), notify_report_result(), notify_scheduled_run(), Fire-and-forget Slack notification for pipeline completion events., Build a Slack Block Kit block list from a PipelineResult., Post a pipeline completion or failure notice to the configured Slack channel. (+28 more)
+Nodes (34): _build_pipeline_blocks(), _build_report_blocks(), notify_pipeline_result(), notify_report_result(), notify_scheduled_run(), Fire-and-forget Slack notification for pipeline completion events., Build a Slack Block Kit block list from a PipelineResult., Post a pipeline completion or failure notice to the configured Slack channel. (+26 more)
 
 ### Community 49 - "Community 49"
-Cohesion: 0.11
-Nodes (19): bool, GraphState: original_code field, _build_context_slice(), file_reader_node(), Read the target file (or select one) and return its contents.      Expected stat, Read the target file and, when a target symbol is set, build a context slice., Assemble the context dict for the coder's focused prompt., Shared helpers for graph node implementations. (+11 more)
+Cohesion: 0.22
+Nodes (9): GraphState: original_code field, _build_context_slice(), file_reader_node(), Read the target file (or select one) and return its contents.      Expected stat, Read the target file and, when a target symbol is set, build a context slice., Assemble the context dict for the coder's focused prompt., GraphState, RunContext (+1 more)
 
 ### Community 50 - "Community 50"
 Cohesion: 0.25
-Nodes (8): AppConfig, get_retrieval_config(), Centralized configuration loader for the project.  Configuration is loaded from, Return retrieval limits and behavior for the repository matching ``repo_path``., Return retrieval limits and behavior for the repository matching ``repo_path``., Controls how many files and tokens the retrieval pipeline may assemble.      Att, Controls how many files and tokens the retrieval pipeline may assemble.      Att, RetrievalConfig
+Nodes (9): build_ast_graph(), graphify_indexer_node(), Run AST-only graphify extraction and write graph.json to graph_dir., Build or refresh the graphify knowledge graph for the target repository., Run AST-only graphify extraction and write graph.json to graph_dir., GraphState, Path, RunContext (+1 more)
 
 ### Community 51 - "Community 51"
 Cohesion: 0.22
-Nodes (9): get_planner_config(), _load_planner_config(), PlannerConfig, Parse the ``planner`` sub-object from a repository config entry.      Defaults t, Parse the ``planner`` sub-object from a repository config entry.      Defaults t, Return planner settings for the repository matching ``repo_path``., Return planner settings for the repository matching ``repo_path``., Controls how many files the planner node may select for modification.      Attri (+1 more)
+Nodes (9): Read bounded file contents for the coder prompt, excluding target file., Read bounded file contents for the coder prompt, excluding target file., Convert absolute paths to repo-relative strings when possible., Convert absolute paths to repo-relative strings when possible., Read bounded file contents for the coder prompt, excluding target file., Convert absolute paths to repo-relative strings when possible., _read_related_files(), _to_relative_ids() (+1 more)
 
 ### Community 52 - "Community 52"
-Cohesion: 0.14
-Nodes (26): _extract_from_file(), _is_test_file(), Function extractor.  Uses tree-sitter directly to walk the AST of each source fi, Return True if the relative path matches any configured test pattern., Return True if the relative path matches any configured test pattern., _record_id(), _source_hash(), _find_functions() (+18 more)
+Cohesion: 0.09
+Nodes (37): _extract_from_file(), _is_test_file(), Function extractor.  Uses tree-sitter directly to walk the AST of each source fi, Return one FunctionRecord per function/method found in the repository., Return one FunctionRecord per function/method found in the repository., Return True if the relative path matches any configured test pattern., Return True if the relative path matches any configured test pattern., _record_id() (+29 more)
 
 ### Community 54 - "Community 54"
 Cohesion: 0.14
@@ -293,67 +286,51 @@ Nodes (12): Context Contract Version (CONTEXT_VERSION=1), Context Contract Deter
 
 ### Community 55 - "Community 55"
 Cohesion: 0.33
-Nodes (6): _load_system_config(), Global system-level settings shared across all repositories.      Attributes:, Global system-level settings shared across all repositories.      Attributes:, Parse the top-level ``system`` block from config.json.      Falls back to ``"~/., Parse the top-level ``system`` block from config.json.      Falls back to ``"~/., SystemConfig
+Nodes (4): CronTrigger, Fires a PipelineTask on a cron schedule.      Args:         cron_expr: Standard, Start the background scheduling loop. Idempotent., Cancel the scheduling loop and wait for it to exit. Idempotent.
 
 ### Community 56 - "Community 56"
-Cohesion: 0.20
-Nodes (10): BudgetAllocation, Context window budget allocation.  ContextBudget enforces per-file character lim, Result of a budget allocation pass., Result of a budget allocation pass.      Attributes:         selected_files: Ord, Return the largest prefix of `ranked_files` that fits the budget.          Tar, Return the largest prefix of `ranked_files` that fits within all limits., ModelConfig, Inference settings for a single named model role.      Attributes:         name: (+2 more)
+Cohesion: 0.33
+Nodes (5): Markdown renderers for the embedding and description integrity section., Section 3 — embedding and description coverage tables., render_embedding_integrity(), int, str
 
 ### Community 57 - "Community 57"
 Cohesion: 0.18
 Nodes (14): DescriptionService, Generates structured JSON descriptions of functions via OllamaClient., FunctionExtractor, Extracts every function and method from a repository as FunctionRecords.      Em, Extracts every function and method from a repository as FunctionRecords.      Em, EmbeddingPipeline, Main pipeline orchestrator.  Runs the full extraction → embedding → description, Orchestrates all pipeline stages for a single repository. (+6 more)
 
 ### Community 58 - "Community 58"
-Cohesion: 0.17
-Nodes (9): _ddl(), Close the driver connection pool., Close the driver connection pool., Idempotently create constraints and indexes.          Args:             vector_d, Close the driver connection pool., Execute a read Cypher query and return all result rows as dicts., Idempotently create constraints and indexes.          Args:             vector_d, Format a DDL template with integer-only substitutions and assert LiteralString. (+1 more)
+Cohesion: 0.14
+Nodes (10): _ddl(), Neo4j data store for Function nodes and SIMILAR_TO relationships.  Uses the offi, Close the driver connection pool., Close the driver connection pool., Idempotently create constraints and indexes.          Args:             vector_d, Close the driver connection pool., Execute a read Cypher query and return all result rows as dicts., Idempotently create constraints and indexes.          Args:             vector_d (+2 more)
 
 ### Community 59 - "Community 59"
-Cohesion: 0.18
-Nodes (10): Return ``[(id, code_embedding, description_embedding)]`` for all live functions., Return ``[(id, code_embedding, description_embedding)]`` for all live functions., Return top-N code-similar functions using the HNSW vector index.          Result, Return top-N code-similar functions using the HNSW vector index.          Result, Return top-N code-similar functions using the HNSW vector index.          Result, Return top-N description-similar functions using the HNSW vector index., Return top-N description-similar functions using the HNSW vector index., Return top-N description-similar functions using the HNSW vector index. (+2 more)
+Cohesion: 0.08
+Nodes (23): The configured Neo4j database name., Return ``{function_id: source_hash}`` for all live functions in the repo., Return ``{function_id: source_hash}`` for all live functions in the repo., Return ``{function_id: source_hash}`` for all live functions in the repo., Mark functions not in ``seen_ids`` as deleted. Returns count., Mark functions not in ``seen_ids`` as deleted. Returns count., Return ``[(id, code_embedding, description_embedding)]`` for all live functions., Mark functions not in ``seen_ids`` as deleted. Returns count. (+15 more)
 
 ### Community 60 - "Community 60"
-Cohesion: 0.13
-Nodes (20): WorkflowExecutor as Single Orchestration Boundary, Cron-based pipeline trigger.  Reads a cron expression and enqueues a PipelineTas, Executor that runs a workflow graph for a given `Task`.      The executor acce, Executor that runs a workflow graph for a given `Task`.      The executor accept, WorkflowExecutor, GraphStateFactory, Build the initial GraphState from a validated TaskRequest., Converts an external TaskRequest into the internal GraphState.      This is the (+12 more)
+Cohesion: 0.20
+Nodes (11): GraphStateFactory, Build the initial GraphState from a validated TaskRequest., Converts an external TaskRequest into the internal GraphState.      This is the, External request contract for submitting a task to the LangGraph workflow., TaskRequest, Legacy task type for the LangGraph workflow system.  WorkflowTask wraps a TaskRe, Scheduler work unit wrapping a validated TaskRequest., WorkflowTask (+3 more)
 
 ### Community 61 - "Community 61"
-Cohesion: 0.15
-Nodes (12): FIFO Task Queue - In-memory Deterministic Ordering, CronTrigger, Fires a PipelineTask on a cron schedule.      Args:         cron_expr: Standard, Start the background scheduling loop. Idempotent., Cancel the scheduling loop and wait for it to exit. Idempotent., TaskQueue, str, TaskQueue (+4 more)
+Cohesion: 0.25
+Nodes (8): FIFO Task Queue - In-memory Deterministic Ordering, TaskQueue, str, TaskQueue, TaskQueue, TaskDispatcher, TaskQueue, WorkflowExecutor
 
 ### Community 62 - "Community 62"
-Cohesion: 0.08
-Nodes (35): Markdown section renderers for the pipeline report.  Each function accepts pre-c, Section 2 — delta since previous run.      Returns the markdown lines and the de, Section 2 — delta since previous run.      Returns the markdown lines and the de, Section 2 — delta since previous run.      Returns the markdown lines and the de, Section 1 — report header and metadata table., Section 1 — report header and metadata table., Section 5 — similarity score distribution across four bins., Section 6 — top N most similar function pairs. (+27 more)
-
-### Community 63 - "Community 63"
-Cohesion: 0.23
-Nodes (8): Repository indexer protocol.  Defines the RepositoryIndexer interface that all i, Interface for repository indexing., Build and return an immutable repository snapshot for `root_path`., Return symbol names for a given file from the snapshot., Return dependency target paths for a given file from the snapshot., RepositoryIndexer, RepositorySnapshot, str
-
-### Community 64 - "Community 64"
-Cohesion: 0.67
-Nodes (3): Persist ``created_at`` and/or ``updated_at`` for a repository in config.json., Persist ``created_at`` and/or ``updated_at`` for a repository in config.json., update_repository_timestamps()
+Cohesion: 0.50
+Nodes (4): _heuristic_rank(), Fallback ranking when graph is unavailable., Fallback ranking when graph is unavailable., Fallback ranking when graph is unavailable.
 
 ### Community 66 - "Community 66"
-Cohesion: 0.19
-Nodes (12): ensure_runtime_dirs(), Centralized runtime artifact paths for deterministic CI and local runs.  All run, Create all required runtime directories if they don't exist.      Uses `parents=, format_run_console(), log_event(), Minimal JSONL logger and run summary writer for per-run observability events.  P, Append `event` as one JSON line to the per-run JSONL file.      Writes directl, Append `event` as one JSON line to the per-run JSONL file.      Writes compact e (+4 more)
-
-### Community 67 - "Community 67"
-Cohesion: 0.26
-Nodes (10): _is_ignored(), Repository file scanner.  Walks a source tree and yields paths to source files w, Return True if the path relative to repo_root matches any ignore pattern.      S, Return sorted list of source file paths to process.      Args:         repo_path, Return sorted list of source file paths to process.      Args:         repo_path, scan_repository(), _supported_extensions(), bool (+2 more)
-
-### Community 68 - "Community 68"
-Cohesion: 0.17
-Nodes (12): ReporterConfig, Section 10 — file cohesion scores (ascending, most fragmented first)., Section 12 — duplication clusters at the configured similarity threshold., Section 10 — file cohesion scores (ascending, most fragmented first)., Section 10 — file cohesion scores (ascending, most fragmented first)., Section 11 — class cohesion scores (omitted when no classes present)., Section 11 — class cohesion scores (omitted when no classes present)., Section 12 — duplication clusters at the configured similarity threshold. (+4 more)
+Cohesion: 0.13
+Nodes (15): ensure_runtime_dirs(), Centralized runtime artifact paths for deterministic CI and local runs.  All run, Create all required runtime directories if they don't exist.      Uses `parents=, Create a fresh RunContext with a new UUID4 run_id., Create a fresh RunContext with a new UUID4 run_id and current timestamp., format_run_console(), log_event(), Minimal JSONL logger and run summary writer for per-run observability events.  P (+7 more)
 
 ### Community 69 - "Community 69"
-Cohesion: 0.17
-Nodes (15): _combined_sim(), _compute_cohesion_scores(), _cosine(), _find_previous_report(), _pick_embed_status(), Pure Python analysis functions for the pipeline report.  These helpers operate o, Combined similarity matching the weighting used by similarity.py., Compute average pairwise similarity for each group (file or class).      Args: (+7 more)
+Cohesion: 0.18
+Nodes (14): _combined_sim(), _compute_clusters(), _compute_cohesion_scores(), _compute_flags(), _cosine(), Pure Python analysis functions for the pipeline report.  These helpers operate o, Combined similarity matching the weighting used by similarity.py., Compute average pairwise similarity for each group (file or class).      Args: (+6 more)
 
 ### Community 70 - "Community 70"
-Cohesion: 0.22
-Nodes (9): Return one FunctionRecord per function/method found in the repository., Return one FunctionRecord per function/method found in the repository., FunctionRecord, One extracted function or method from a source file., FunctionRecord, int, Parser, Path (+1 more)
+Cohesion: 0.16
+Nodes (12): FunctionRecord, One extracted function or method from a source file., OllamaClient, PipelineConfig, OllamaClient, PipelineConfig, bool, FunctionRecord (+4 more)
 
 ### Community 71 - "Community 71"
-Cohesion: 0.20
-Nodes (8): _compute_clusters(), Build connected components from similarity edges via BFS.      Each node is iden, Section 3 — embedding and description coverage tables., Section 3 — embedding and description coverage tables., Section 3 — embedding and description coverage tables., Section 3 — embedding and description coverage tables., render_embedding_integrity(), Post-run report generator.  Queries Neo4j after a pipeline run and writes a stru
+Cohesion: 0.23
+Nodes (10): Markdown renderers for the report header and run-level overview sections.  Cover, Section 2 — delta since previous run.      Returns the markdown lines and the de, Section 1 — report header and metadata table., Section 1b — one-paragraph executive summary placed after the metadata table., render_delta(), render_metadata(), render_summary(), Post-run report generator.  Queries Neo4j after a pipeline run and writes a stru (+2 more)
 
 ### Community 72 - "Community 72"
 Cohesion: 0.40
@@ -362,14 +339,6 @@ Nodes (5): Active Mode - User-triggered Code Modification, Passive Mode - Contin
 ### Community 73 - "Community 73"
 Cohesion: 0.20
 Nodes (9): ReportTask, _format_query_result(), Build a Slack mrkdwn text payload for a list of QueryMatch results., Build a Slack mrkdwn text payload for a list of QueryMatch results., Build a Slack mrkdwn text payload for a list of QueryMatch results., Routes Task instances to the appropriate handler.      Resources (OllamaClient,, Routes Task instances to the appropriate handler.      Resources (OllamaClient,, Routes Task instances to the appropriate handler.      Resources (OllamaClient, (+1 more)
-
-### Community 74 - "Community 74"
-Cohesion: 0.29
-Nodes (5): Mark functions not in ``seen_ids`` as deleted. Returns count., Mark functions not in ``seen_ids`` as deleted. Returns count., Mark functions not in ``seen_ids`` as deleted. Returns count., int, Neo4jConfig
-
-### Community 77 - "Community 77"
-Cohesion: 0.18
-Nodes (11): Section 4 — graph overview statistics, language breakdown, and isolated function, Section 4 — graph overview statistics, language breakdown, and isolated function, Section 4 — graph overview statistics, language breakdown, and isolated function, Section 4 — graph overview statistics, language breakdown, and isolated function, Section 13 — heuristic flags raised by the analysis., Section 13 — heuristic flags raised by the analysis., Section 13 — heuristic flags raised by the analysis., render_graph_overview() (+3 more)
 
 ### Community 78 - "Community 78"
 Cohesion: 0.40
@@ -380,19 +349,19 @@ Cohesion: 0.22
 Nodes (7): Create vector indexes once the embedding dimension is known., Create vector indexes once the embedding dimension is known., Create vector indexes once the embedding dimension is known., Batch-upsert Function nodes using UNWIND for efficiency., Batch-upsert Function nodes using UNWIND for efficiency., Batch-upsert Function nodes using UNWIND for efficiency., FunctionRecord
 
 ## Knowledge Gaps
-- **35 isolated node(s):** `str`, `int`, `str`, `int`, `bool` (+30 more)
+- **37 isolated node(s):** `str`, `int`, `str`, `int`, `bool` (+32 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **17 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **16 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `GraphState` connect `Community 45` to `Community 33`, `Community 39`, `Community 9`, `Community 10`, `Community 28`, `Community 49`, `Community 19`, `Community 26`, `Community 60`, `Community 29`, `Community 31`?**
-  _High betweenness centrality (0.241) - this node is a cross-community bridge._
-- **Why does `OllamaClient` connect `Community 2` to `Community 32`, `Community 4`, `LLM Pipeline & Sandbox`, `Community 73`, `Community 12`, `Community 46`, `Community 49`, `Community 19`, `Community 57`?**
-  _High betweenness centrality (0.217) - this node is a cross-community bridge._
-- **Why does `datetime` connect `Community 48` to `Test Infrastructure & Fixtures`, `Community 71`, `Community 60`, `Community 19`, `Community 57`, `Community 28`?**
-  _High betweenness centrality (0.174) - this node is a cross-community bridge._
+- **Why does `GraphState` connect `Community 45` to `Community 33`, `Community 66`, `Community 39`, `Community 9`, `Community 28`, `Community 49`, `Community 50`, `Community 51`, `Community 19`, `Community 26`, `Community 27`, `Community 60`, `Community 29`, `Community 30`, `Community 31`?**
+  _High betweenness centrality (0.239) - this node is a cross-community bridge._
+- **Why does `OllamaClient` connect `Community 2` to `Community 32`, `LLM Pipeline & Sandbox`, `Community 70`, `Community 73`, `Community 12`, `Community 46`, `Community 19`, `Community 57`?**
+  _High betweenness centrality (0.209) - this node is a cross-community bridge._
+- **Why does `datetime` connect `Community 28` to `Test Infrastructure & Fixtures`, `Community 71`, `Community 48`, `Community 57`, `Community 27`?**
+  _High betweenness centrality (0.172) - this node is a cross-community bridge._
 - **Are the 52 inferred relationships involving `GraphState` (e.g. with `RepositoryContextPayload` and `RetrievalResult`) actually correct?**
   _`GraphState` has 52 INFERRED edges - model-reasoned connections that need verification._
 - **Are the 47 inferred relationships involving `RunContext` (e.g. with `GraphConfig` and `GraphHandle`) actually correct?**
