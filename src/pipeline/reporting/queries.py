@@ -160,3 +160,9 @@ RETURN f.filePath AS path, count(f) AS fn_count
 ORDER BY fn_count DESC
 LIMIT $limit
 """
+
+_Q_FILE_COUNT: LiteralString = """
+MATCH (f:Function {repo: $repo, isDeleted: false})
+WHERE f.isTest = false OR $include_tests
+RETURN count(DISTINCT f.filePath) AS file_count
+"""

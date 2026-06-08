@@ -238,32 +238,38 @@ async def notify_report_result(
     time_str = started_at.strftime("%Y-%m-%d %H:%M:%S")
     client = AsyncWebClient(token=token)
     try:
+        repo_label = report_path.parent.parent.name if report_path is not None else "unknown"
+
         if not success:
             await client.chat_postMessage(
                 channel=channel,
-                text=f"❌ Report started at {time_str} — failed: {error or 'unknown error'}",
+                text=f"❌ Report ({repo_label}) at {time_str} — failed: {error or 'unknown error'}",
             )
             return
 
         blocks = None
+        report_data: dict = {}
         if report_path is not None:
             json_path = report_path.with_suffix(".json")
             if json_path.exists():
                 try:
-                    blocks = _build_report_blocks(json.loads(json_path.read_text()))
+                    report_data = json.loads(json_path.read_text())
+                    repo_label = report_data.get("repo", repo_label)
+                    blocks = _build_report_blocks(report_data)
                 except Exception:
                     logger.warning("Could not parse report.json for Block Kit; falling back to plain text")
 
         if blocks:
             await client.chat_postMessage(
                 channel=channel,
-                text=f"✅ Report — {time_str}",
+                text=f"✅ Report ({repo_label}) — {time_str}",
                 blocks=blocks,
             )
         else:
+            total = report_data.get("stats", {}).get("total_functions", "?")
             await client.chat_postMessage(
                 channel=channel,
-                text=f"✅ Report started at {time_str} — finished",
+                text=f"✅ Report ({repo_label}) — {time_str} — {total} functions indexed",
             )
 
         if report_path is not None and report_path.exists():
@@ -271,7 +277,7 @@ async def notify_report_result(
                 channel=channel,
                 file=str(report_path),
                 filename=report_path.name,
-                title=f"Report — {time_str}",
+                title=f"Report ({repo_label}) — {time_str}",
             )
     except Exception:
         logger.exception("Slack report notification failed")

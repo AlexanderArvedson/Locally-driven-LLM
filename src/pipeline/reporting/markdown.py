@@ -16,6 +16,8 @@ def render_metadata(
     now: str,
     pipeline_version: str,
     embed_model: str,
+    chat_model: str,
+    describer_model: str,
     min_loc: int,
     timezone: str,
 ) -> list[str]:
@@ -32,6 +34,8 @@ def render_metadata(
         f"| Neo4j database | `{db}` |",
         f"| Pipeline version | {pipeline_version} |",
         f"| Embedding model | `{embed_model}` |",
+        f"| Chat model | `{chat_model}` |",
+        f"| Describer model | `{describer_model}` |",
     ]
     if min_loc > 0:
         lines.append(f"| Min LOC threshold | {min_loc} |")
@@ -138,6 +142,7 @@ def render_delta(
     edges: int,
     isolated: int,
     n_clusters: int,
+    file_count: int = 0,
 ) -> tuple[list[str], dict | None]:
     """Section 2 — delta since previous run.
 
@@ -148,12 +153,13 @@ def render_delta(
     delta_export: dict | None = None
 
     if prev_report:
-        prev_ts    = prev_report.get("timestamp", "unknown")
-        prev_stats = prev_report.get("stats", {})
-        prev_total = prev_stats.get("total_functions", 0)
-        prev_edges = prev_stats.get("edges", 0)
-        prev_iso   = prev_stats.get("isolated", 0)
-        prev_clust = len(prev_report.get("clusters", []))
+        prev_ts         = prev_report.get("timestamp", "unknown")
+        prev_stats      = prev_report.get("stats", {})
+        prev_total      = prev_stats.get("total_functions", 0)
+        prev_files      = prev_stats.get("file_count", 0)
+        prev_edges      = prev_stats.get("edges", 0)
+        prev_iso        = prev_stats.get("isolated", 0)
+        prev_clust      = len(prev_report.get("clusters", []))
 
         def _delta(curr: int, prev: int) -> str:
             diff = curr - prev
@@ -164,6 +170,7 @@ def render_delta(
             "",
             "| Metric | Previous | Current | Δ |",
             "|---|---|---|---|",
+            f"| Files | {prev_files} | {file_count} | {_delta(file_count, prev_files)} |",
             f"| Functions | {prev_total} | {total} | {_delta(total, prev_total)} |",
             f"| Edges | {prev_edges} | {edges} | {_delta(edges, prev_edges)} |",
             f"| Isolated functions | {prev_iso} | {isolated} | {_delta(isolated, prev_iso)} |",
@@ -172,6 +179,7 @@ def render_delta(
         ]
         delta_export = {
             "previous_timestamp": prev_ts,
+            "files": file_count - prev_files,
             "functions": total - prev_total,
             "edges": edges - prev_edges,
             "isolated": isolated - prev_iso,

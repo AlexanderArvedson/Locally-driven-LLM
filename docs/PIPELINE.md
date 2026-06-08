@@ -179,8 +179,8 @@ The report is fully deterministic — no LLM reasoning is involved. It contains 
 
 | # | Section | Contents |
 |---|---|---|
-| 1 | **Metadata** | Repo name, timestamp, Neo4j database, pipeline version, embedding model |
-| 2 | **Delta Since Previous Run** | Function count, edge count, isolated count, and cluster count compared against the most recent prior `<repo>_report_*.json` in the same repo directory. Omitted on the first run. |
+| 1 | **Metadata** | Repo name, timestamp, Neo4j database, pipeline version, embedding model, chat model, describer model, report generation time |
+| 2 | **Delta Since Previous Run** | File count, function count, edge count, isolated count, and cluster count compared against the most recent prior `<repo>_report_*.json` in the same repo directory. Omitted on the first run. |
 | 3 | **Embedding Integrity** | Per-status counts for code embedding and description stages; table of failed functions with stage and error type |
 | 4 | **Graph Overview** | Function count, edge count, edge density, isolated ratio, intra-file vs inter-file edge split, language breakdown, LOC-filtered count; subsection listing each isolated function with its embed status |
 | 5 | **Similarity Distribution** | Edge counts bucketed into four ranges defined by `sim_dist_bin_high`, `sim_dist_bin_mid`, and `sim_dist_bin_low` (defaults: 0.95 / 0.90 / 0.80) |

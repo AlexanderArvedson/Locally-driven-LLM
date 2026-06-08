@@ -87,6 +87,8 @@ def _minimal_rows() -> dict[str, list]:
         "AS intra,\n  sum(CASE WHEN a.filePath <> b.filePath": [{"intra": 1, "inter": 1}],
         # _Q_SIMILARITY_DISTRIBUTION
         "AS gt_high,": [{"gt_high": 0, "b_mid_high": 0, "b_low_mid": 0, "lt_low": 0}],
+        # _Q_FILE_COUNT
+        "count(DISTINCT f.filePath) AS file_count": [{"file_count": 3}],
         # everything else → empty list (default)
     }
 
@@ -324,7 +326,7 @@ async def test_build_report_no_delta_when_no_previous():
 async def test_build_report_delta_shown_when_previous_provided():
     prev = {
         "timestamp": "2026-06-05 10:00 UTC",
-        "stats": {"total_functions": 100, "edges": 50, "isolated": 10},
+        "stats": {"total_functions": 100, "edges": 50, "isolated": 10, "file_count": 8},
         "clusters": [],
     }
     store = _make_store(_minimal_rows())
@@ -334,7 +336,8 @@ async def test_build_report_delta_shown_when_previous_provided():
     text = "\n".join(lines)
     assert "2026-06-05 10:00 UTC" in text
     assert export["delta"] is not None
-    assert export["delta"]["functions"] == 5 - 100  # current total=5, prev=100
+    assert export["delta"]["functions"] == 5 - 100   # current total=5, prev=100
+    assert export["delta"]["files"] == 3 - 8         # current file_count=3, prev=8
 
 
 @pytest.mark.asyncio
@@ -417,7 +420,8 @@ async def test_build_report_json_export_has_all_keys():
                                     pipeline_config=None, loc_filtered=None,
                                     prev_report=None)
     for key in [
-        "repo", "timestamp", "pipeline_version", "embedding_model",
+        "repo", "timestamp", "pipeline_version",
+        "embedding_model", "chat_model", "describer_model",
         "delta", "stats", "embedding", "similarity_distribution",
         "isolated_functions", "files_by_function_count",
         "file_cohesion", "class_cohesion",

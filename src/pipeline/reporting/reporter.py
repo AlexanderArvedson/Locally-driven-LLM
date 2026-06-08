@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import asyncio
 import json
+import time
 from collections import defaultdict
 from datetime import datetime
 from pathlib import Path
@@ -45,6 +46,7 @@ from src.pipeline.reporting.queries import (
     _Q_DESCRIPTION_COVERAGE,
     _Q_EMBEDDING_COVERAGE,
     _Q_EMBEDDING_FAILURES,
+    _Q_FILE_COUNT,
     _Q_FILE_EMBEDDINGS,
     _Q_FILES_BY_FUNCTION_COUNT,
     _Q_INTRA_INTER_EDGES,
@@ -101,12 +103,21 @@ async def generate_report(
     output_dir = Path(output_dir)
 
     store = Neo4jStore(neo4j_config)
+    t0 = time.monotonic()
     try:
         lines, export = await _build_report(
             store, repo_name, include_tests, pipeline_config, loc_filtered, prev_report
         )
     finally:
         await store.close()
+    duration_s = round(time.monotonic() - t0, 1)
+    export["duration_s"] = duration_s
+    # Inject duration row into the metadata table (ends at the first "---" in lines).
+    try:
+        sep_idx = lines.index("---")
+        lines.insert(sep_idx - 1, f"| Report generated in | {duration_s:.1f}s |")
+    except ValueError:
+        pass
 
     # Only create the directory once we have content to write.
     output_dir.mkdir(parents=True, exist_ok=True)
@@ -151,6 +162,7 @@ async def _build_report(
         cluster_edges,
         isolated_fns,
         files_by_count,
+        file_count_rows,
     ) = await asyncio.gather(
         run(_Q_STATS,                   include_tests=include_tests),
         run(_Q_TEST_COUNT),
@@ -171,6 +183,7 @@ async def _build_report(
         run(_Q_CLUSTER_EDGES,           threshold=reporter_cfg.cluster_threshold, include_tests=include_tests),
         run(_Q_ISOLATED_FUNCTIONS,      limit=reporter_cfg.max_isolated_listed, include_tests=include_tests),
         run(_Q_FILES_BY_FUNCTION_COUNT, limit=top_n, include_tests=include_tests),
+        run(_Q_FILE_COUNT,              include_tests=include_tests),
     )
 
     test_pollution = await run(_Q_TEST_POLLUTION) if include_tests else [{"cross_edges": 0}]
@@ -190,8 +203,9 @@ async def _build_report(
         file_embed_rows = []
 
     # Scalar extraction
-    total       = stats[0]["total"] if stats else 0
-    edges       = stats[0]["edges"] if stats else 0
+    total       = stats[0]["total"]      if stats           else 0
+    edges       = stats[0]["edges"]      if stats           else 0
+    file_count  = file_count_rows[0]["file_count"] if file_count_rows else 0
     isolated    = no_edges[0]["isolated"] if no_edges else 0
     test_funcs  = test_count[0]["test_count"] if test_count else 0
     intra       = intra_inter[0]["intra"] if intra_inter else 0
@@ -259,12 +273,18 @@ async def _build_report(
     now_dt = datetime.now(tz)
     tz_abbr = now_dt.strftime("%Z") or reporter_cfg.timezone
     now = now_dt.strftime(f"%Y-%m-%d %H:%M {tz_abbr}")
-    embed_model = pipeline_config.embedding_model if pipeline_config else "N/A"
-    min_loc = pipeline_config.limits.min_loc_threshold if pipeline_config else 0
+    embed_model     = pipeline_config.embedding_model  if pipeline_config else "N/A"
+    chat_model      = pipeline_config.chat_model       if pipeline_config else "N/A"
+    describer_model = pipeline_config.describer_model  if pipeline_config else "N/A"
+    min_loc         = pipeline_config.limits.min_loc_threshold if pipeline_config else 0
 
     lines: list[str] = []
 
-    lines += render_metadata(repo, db, now, PIPELINE_VERSION, embed_model, min_loc, reporter_cfg.timezone)
+    lines += render_metadata(
+        repo, db, now, PIPELINE_VERSION,
+        embed_model, chat_model, describer_model,
+        min_loc, reporter_cfg.timezone,
+    )
 
     summary_lines, summary_text = render_summary(
         total, embed_failed, clusters, high_dup,
@@ -273,7 +293,7 @@ async def _build_report(
     )
     lines += summary_lines
 
-    delta_lines, delta_export = render_delta(prev_report, total, edges, isolated, len(clusters))
+    delta_lines, delta_export = render_delta(prev_report, total, edges, isolated, len(clusters), file_count)
     lines += delta_lines
 
     lines += render_embedding_integrity(
@@ -306,9 +326,12 @@ async def _build_report(
         "timestamp": now,
         "pipeline_version": PIPELINE_VERSION,
         "embedding_model": embed_model,
+        "chat_model": chat_model,
+        "describer_model": describer_model,
         "delta": delta_export,
         "stats": {
             "total_functions": total,
+            "file_count": file_count,
             "test_functions": test_funcs,
             "loc_filtered": loc_filtered,
             "edges": edges,
