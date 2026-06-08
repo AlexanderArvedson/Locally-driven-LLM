@@ -22,9 +22,10 @@ from src.pipeline.graph.store import Neo4jStore
 from src.pipeline.reporting.analysis import (
     _compute_clusters,
     _compute_cohesion_scores,
+    _compute_flags,
     _find_previous_report,
-    _pick_embed_status,
 )
+from src.pipeline.reporting.export import _build_export
 from src.pipeline.reporting.markdown import (
     render_class_cohesion,
     render_delta,
@@ -245,7 +246,6 @@ async def _build_report(
 
     clusters = _compute_clusters(cluster_edges)
 
-    # Cohesion scores (file and class level)
     file_cohesion = _compute_cohesion_scores(
         file_embed_rows, "filePath", code_w, desc_w, reporter_cfg.cohesion_min_functions
     )
@@ -253,21 +253,9 @@ async def _build_report(
         file_embed_rows, "className", code_w, desc_w, reporter_cfg.cohesion_min_functions
     )
 
-    # Heuristic flag lists — computed here so both render_summary and render_heuristic_flags share them
-    high_dup = [c for c in clusters if c["size"] >= reporter_cfg.high_dup_min_cluster_size and c["max_score"] > reporter_cfg.high_dup_min_score]
-    cross_file = [c for c in clusters if len(c["files_involved"]) >= 2]
-    coupled_files = [
-        row["path"]
-        for row in per_file
-        if row["edge_count"] >= reporter_cfg.min_coupling_edges
-        and (row["inter_edges"] or 0) / row["edge_count"] > reporter_cfg.arch_coupling_threshold
-    ]
-    low_cohesion_files = [
-        c["group"] for c in file_cohesion
-        if c["cohesion_score"] < reporter_cfg.cohesion_low_threshold
-        and c["fn_count"] >= reporter_cfg.cohesion_min_functions
-    ]
-    god_files = [row["path"] for row in files_by_count if row["fn_count"] > reporter_cfg.god_file_threshold]
+    high_dup, cross_file, coupled_files, low_cohesion_files, god_files = _compute_flags(
+        clusters, per_file, file_cohesion, files_by_count, reporter_cfg
+    )
 
     tz = ZoneInfo(reporter_cfg.timezone)
     now_dt = datetime.now(tz)
@@ -321,119 +309,56 @@ async def _build_report(
         cross_edges, include_tests, reporter_cfg,
     )
 
-    export = {
-        "repo": repo,
-        "timestamp": now,
-        "pipeline_version": PIPELINE_VERSION,
-        "embedding_model": embed_model,
-        "chat_model": chat_model,
-        "describer_model": describer_model,
-        "delta": delta_export,
-        "stats": {
-            "total_functions": total,
-            "file_count": file_count,
-            "test_functions": test_funcs,
-            "loc_filtered": loc_filtered,
-            "edges": edges,
-            "density": density,
-            "isolated": isolated,
-            "isolated_pct": isolated_pct,
-            "intra_edges": intra,
-            "inter_edges": inter,
-        },
-        "embedding": {
-            "code": {
-                "ok": embed_ok,
-                "context_overflow": embed_overflow,
-                "timeout": embed_timeout,
-                "error": embed_error,
-                "skipped": embed_skipped,
-                "unchanged": embed_unchanged,
-                "failed_total": embed_failed,
-            },
-            "description": {
-                "ok": desc_ok,
-                "invalid_json": desc_invalid,
-                "timeout": desc_timeout,
-                "error": desc_error,
-                "skipped": desc_skipped,
-            },
-        },
-        "similarity_distribution": {
-            f"gt_{reporter_cfg.sim_dist_bin_high}": gt_high,
-            f"b_{reporter_cfg.sim_dist_bin_mid}_{reporter_cfg.sim_dist_bin_high}": b_mid_high,
-            f"b_{reporter_cfg.sim_dist_bin_low}_{reporter_cfg.sim_dist_bin_mid}": b_low_mid,
-            f"lt_{reporter_cfg.sim_dist_bin_low}": lt_low,
-        },
-        "isolated_functions": [
-            {
-                "name": row["name"],
-                "file": row["file"],
-                "embed_status": _pick_embed_status(row.get("code_status"), row.get("desc_status")),
-            }
-            for row in isolated_fns
-        ],
-        "files_by_function_count": [
-            {"path": row["path"], "fn_count": row["fn_count"]}
-            for row in files_by_count
-        ],
-        "file_cohesion": [
-            {
-                "file": c["group"],
-                "fn_count": c["fn_count"],
-                "cohesion_score": c["cohesion_score"],
-                "outlier": c["outlier"],
-            }
-            for c in file_cohesion
-        ],
-        "class_cohesion": [
-            {
-                "class": c["group"],
-                "fn_count": c["fn_count"],
-                "cohesion_score": c["cohesion_score"],
-                "outlier": c["outlier"],
-            }
-            for c in class_cohesion
-        ],
-        "clusters": [
-            {
-                "id": c["id"],
-                "size": c["size"],
-                "max_score": round(c["max_score"], 4),
-                "avg_score": round(c["avg_score"], 4),
-                "files_involved": c["files_involved"],
-                "representative": c["representative"],
-            }
-            for c in clusters
-        ],
-        "failures": [
-            {
-                "name": row["name"],
-                "file": row["file"],
-                "code_status": row.get("code_status"),
-                "desc_status": row.get("desc_status"),
-            }
-            for row in embed_failures
-        ],
-        "top_pairs": [
-            {
-                "a_name": row["a_name"],
-                "a_file": row["a_file"],
-                "b_name": row["b_name"],
-                "b_file": row["b_file"],
-                "score": round(row["score"], 4),
-            }
-            for row in top_pairs
-        ],
-        "flags": {
-            "HIGH_DUPLICATION_CLUSTER": [c["id"] for c in high_dup],
-            "CROSS_FILE_DUPLICATION": [c["id"] for c in cross_file],
-            "ARCHITECTURE_COUPLING": coupled_files,
-            "TEST_POLLUTION": cross_edges if include_tests else None,
-            "LOW_COHESION": low_cohesion_files,
-            "GOD_FILE": god_files,
-        },
-        "summary": summary_text,
-    }
+    export = _build_export(
+        repo=repo,
+        now=now,
+        pipeline_version=PIPELINE_VERSION,
+        embed_model=embed_model,
+        chat_model=chat_model,
+        describer_model=describer_model,
+        delta_export=delta_export,
+        total=total,
+        file_count=file_count,
+        test_funcs=test_funcs,
+        loc_filtered=loc_filtered,
+        edges=edges,
+        density=density,
+        isolated=isolated,
+        isolated_pct=isolated_pct,
+        intra=intra,
+        inter=inter,
+        embed_ok=embed_ok,
+        embed_overflow=embed_overflow,
+        embed_timeout=embed_timeout,
+        embed_error=embed_error,
+        embed_skipped=embed_skipped,
+        embed_unchanged=embed_unchanged,
+        embed_failed=embed_failed,
+        desc_ok=desc_ok,
+        desc_invalid=desc_invalid,
+        desc_timeout=desc_timeout,
+        desc_error=desc_error,
+        desc_skipped=desc_skipped,
+        reporter_cfg=reporter_cfg,
+        gt_high=gt_high,
+        b_mid_high=b_mid_high,
+        b_low_mid=b_low_mid,
+        lt_low=lt_low,
+        isolated_fns=isolated_fns,
+        files_by_count=files_by_count,
+        file_cohesion=file_cohesion,
+        class_cohesion=class_cohesion,
+        clusters=clusters,
+        embed_failures=embed_failures,
+        top_pairs=top_pairs,
+        high_dup=high_dup,
+        cross_file=cross_file,
+        coupled_files=coupled_files,
+        cross_edges=cross_edges,
+        include_tests=include_tests,
+        low_cohesion_files=low_cohesion_files,
+        god_files=god_files,
+        summary_text=summary_text,
+    )
 
     return lines, export

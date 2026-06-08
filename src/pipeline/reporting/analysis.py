@@ -196,6 +196,38 @@ def _pick_embed_status(code_status: str | None, desc_status: str | None) -> str:
     return ds if ds not in ("ok", "skipped") else "ok"
 
 
+def _compute_flags(
+    clusters: list[dict],
+    per_file: list[dict],
+    file_cohesion: list[dict],
+    files_by_count: list[dict],
+    reporter_cfg,
+) -> tuple[list[dict], list[dict], list[str], list[str], list[str]]:
+    """Derive heuristic flag lists from pre-computed analysis data.
+
+    Returns (high_dup, cross_file, coupled_files, low_cohesion_files, god_files).
+    """
+    high_dup = [
+        c for c in clusters
+        if c["size"] >= reporter_cfg.high_dup_min_cluster_size
+        and c["max_score"] > reporter_cfg.high_dup_min_score
+    ]
+    cross_file = [c for c in clusters if len(c["files_involved"]) >= 2]
+    coupled_files = [
+        row["path"]
+        for row in per_file
+        if row["edge_count"] >= reporter_cfg.min_coupling_edges
+        and (row["inter_edges"] or 0) / row["edge_count"] > reporter_cfg.arch_coupling_threshold
+    ]
+    low_cohesion_files = [
+        c["group"] for c in file_cohesion
+        if c["cohesion_score"] < reporter_cfg.cohesion_low_threshold
+        and c["fn_count"] >= reporter_cfg.cohesion_min_functions
+    ]
+    god_files = [row["path"] for row in files_by_count if row["fn_count"] > reporter_cfg.god_file_threshold]
+    return high_dup, cross_file, coupled_files, low_cohesion_files, god_files
+
+
 def _find_previous_report(run_reports_root: Path) -> dict | None:
     """Return the parsed JSON of the most recent prior report, or None."""
     if not run_reports_root.exists():
