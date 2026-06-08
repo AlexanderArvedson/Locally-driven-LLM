@@ -8,7 +8,7 @@ _Q_STATS: LiteralString = """
 MATCH (f:Function {repo: $repo, isDeleted: false})
 WHERE f.isTest = false OR $include_tests
 WITH count(f) AS total
-OPTIONAL MATCH (:Function {repo: $repo})-[r:SIMILAR_TO]->(:Function {repo: $repo})
+OPTIONAL MATCH (:Function {repo: $repo, isDeleted: false})-[r:SIMILAR_TO]->(:Function {repo: $repo, isDeleted: false})
 RETURN total, count(r) AS edges
 """
 
@@ -26,7 +26,7 @@ RETURN count(f) AS isolated
 """
 
 _Q_TOP_PAIRS: LiteralString = """
-MATCH (a:Function {repo: $repo})-[r:SIMILAR_TO]->(b:Function {repo: $repo})
+MATCH (a:Function {repo: $repo, isDeleted: false})-[r:SIMILAR_TO]->(b:Function {repo: $repo, isDeleted: false})
 WHERE (a.isTest = false OR $include_tests) AND (b.isTest = false OR $include_tests)
 RETURN
   a.qualifiedName AS a_name,
@@ -40,7 +40,7 @@ LIMIT $limit
 
 # Updated: intra/inter breakdown replaces simple connection count.
 _Q_MOST_CONNECTED: LiteralString = """
-MATCH (f:Function {repo: $repo})-[r:SIMILAR_TO]-(b:Function {repo: $repo})
+MATCH (f:Function {repo: $repo, isDeleted: false})-[r:SIMILAR_TO]-(b:Function {repo: $repo, isDeleted: false})
 WHERE f.isTest = false OR $include_tests
 WITH f.qualifiedName AS name, f.filePath AS file,
      count(r) AS connections,
@@ -83,7 +83,7 @@ LIMIT $limit
 """
 
 _Q_INTRA_INTER_EDGES: LiteralString = """
-MATCH (a:Function {repo: $repo})-[r:SIMILAR_TO]->(b:Function {repo: $repo})
+MATCH (a:Function {repo: $repo, isDeleted: false})-[r:SIMILAR_TO]->(b:Function {repo: $repo, isDeleted: false})
 WHERE a.isTest = false OR $include_tests
 RETURN
   sum(CASE WHEN a.filePath = b.filePath THEN 1 ELSE 0 END) AS intra,
@@ -91,7 +91,7 @@ RETURN
 """
 
 _Q_SIMILARITY_DISTRIBUTION: LiteralString = """
-MATCH (a:Function {repo: $repo})-[r:SIMILAR_TO]->(b:Function {repo: $repo})
+MATCH (a:Function {repo: $repo, isDeleted: false})-[r:SIMILAR_TO]->(b:Function {repo: $repo, isDeleted: false})
 WHERE a.isTest = false OR $include_tests
 RETURN
   sum(CASE WHEN r.combinedSimilarity > $bin_high THEN 1 ELSE 0 END) AS gt_high,
@@ -104,7 +104,7 @@ _Q_PER_FILE_INTER: LiteralString = """
 MATCH (f:Function {repo: $repo, isDeleted: false})
 WHERE f.isTest = false OR $include_tests
 WITH f.filePath AS path, count(f) AS fn_count
-OPTIONAL MATCH (a:Function {repo: $repo, filePath: path})-[r:SIMILAR_TO]-(b:Function {repo: $repo})
+OPTIONAL MATCH (a:Function {repo: $repo, isDeleted: false, filePath: path})-[r:SIMILAR_TO]-(b:Function {repo: $repo, isDeleted: false})
 RETURN path, fn_count,
   count(r) AS edge_count,
   sum(CASE WHEN b.filePath <> path THEN 1 ELSE 0 END) AS inter_edges
@@ -113,7 +113,7 @@ LIMIT $limit
 """
 
 _Q_CLUSTER_EDGES: LiteralString = """
-MATCH (a:Function {repo: $repo})-[r:SIMILAR_TO]->(b:Function {repo: $repo})
+MATCH (a:Function {repo: $repo, isDeleted: false})-[r:SIMILAR_TO]->(b:Function {repo: $repo, isDeleted: false})
 WHERE r.combinedSimilarity >= $threshold
   AND (a.isTest = false OR $include_tests)
 RETURN
@@ -123,7 +123,7 @@ RETURN
 """
 
 _Q_TEST_POLLUTION: LiteralString = """
-MATCH (a:Function {repo: $repo})-[r:SIMILAR_TO]-(b:Function {repo: $repo})
+MATCH (a:Function {repo: $repo, isDeleted: false})-[r:SIMILAR_TO]-(b:Function {repo: $repo, isDeleted: false})
 WHERE a.isTest = true AND b.isTest = false
 RETURN count(r) AS cross_edges
 """
