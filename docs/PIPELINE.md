@@ -256,7 +256,6 @@ LIMIT 100;
 ```
 src/pipeline/
   contracts.py          — FunctionRecord, SimilarityEdge, PipelineConfig dataclasses
-  (config loader moved to src/core/pipeline_config.py)
   pipeline.py           — EmbeddingPipeline: orchestrates all twelve stages
 
   extraction/
