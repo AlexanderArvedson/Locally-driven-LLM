@@ -277,8 +277,16 @@ src/pipeline/
 
   reporting/
     queries.py          — Cypher query string constants
-    analysis.py         — cluster computation, cosine similarity, cohesion scoring
-    markdown.py         — markdown section renderers
+    analysis.py         — cluster computation, cosine similarity, cohesion scoring, flag derivation
+    export.py           — _build_export: assembles the machine-readable JSON export dict
+    markdown/
+      __init__.py       — re-exports all render_* names
+      overview.py       — render_metadata, render_summary, render_delta
+      integrity.py      — render_embedding_integrity
+      topology.py       — render_graph_overview, render_similarity_distribution, render_top_pairs,
+                          render_most_connected, render_files_by_edge_count, render_files_by_function_count
+      quality.py        — render_file_cohesion, render_class_cohesion, render_duplication_clusters,
+                          render_heuristic_flags
     reporter.py         — generate_report: post-run markdown report orchestrator
 
 run_pipeline.py         — CLI entry point
