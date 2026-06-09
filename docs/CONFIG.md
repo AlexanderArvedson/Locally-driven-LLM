@@ -49,6 +49,15 @@ After editing `.env`, apply the changes with `docker compose up --build`.
 
 Without `REPOS_ROOT` the container cannot read any source files and every pipeline run will extract 0 functions.
 
+### Container user
+
+| Variable | Description |
+|----------|-------------|
+| `UID` | Host user ID to run the `fastapi` container as. Files written to `run_reports/` will be owned by this user, so they can be deleted without `sudo`. Find your value with `id -u`. |
+| `GID` | Host group ID to run the `fastapi` container as. Find your value with `id -g`. |
+
+Both must be set in `.env`. If omitted, Docker Compose will substitute an empty string and the container will fail to start.
+
 ---
 
 ## Top-level fields

@@ -37,6 +37,7 @@ services:
       context: .
       dockerfile: docker/dockerfile
     container_name: fastapi
+    user: "${UID}:${GID}"
     ports:
       - "8000:8000"
     environment:
