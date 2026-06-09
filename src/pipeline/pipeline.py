@@ -57,8 +57,20 @@ class EmbeddingPipeline:
 
         return result
 
+    def _sync_repo(self) -> None:
+        """Ensure the target repo exists and is on the correct base branch before extraction."""
+        cfg = self._config
+        if not cfg.repo_url:
+            logger.debug("No repo_url configured — skipping repo sync.")
+            return
+        sync_path = cfg.git_sync_path or cfg.repo_path
+        from src.git.branch_manager import ensure_repo_synced
+        ensure_repo_synced(cfg.repo_url, sync_path, cfg.base_branch, cfg.git_username, cfg.git_token)
+
     async def _run_stages(self, result: PipelineResult) -> None:
         config = self._config
+
+        self._sync_repo()
 
         # Stage 1: ensure Neo4j schema exists.
         if not self._dry_run:

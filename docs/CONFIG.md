@@ -78,8 +78,8 @@ A list of repository configurations. Each entry describes one target repository 
 | Field | Type | Description |
 |-------|------|-------------|
 | `name` | string | Human-readable name for the repository. Used in logs and PR descriptions. |
-| `url` | string | Remote Git URL (HTTPS). Used when cloning a missing repository and when constructing authenticated push URLs. |
-| `base_branch` | string | The branch the agent checks out as its base before creating task branches (e.g. `"main"` or `"develop"`). |
+| `url` | string | Remote Git URL (HTTPS). Used when cloning a missing repository, constructing authenticated push URLs, and by the pipeline pre-flight sync when the local clone is absent. |
+| `base_branch` | string | The branch the agent checks out as its base before creating task branches (e.g. `"main"` or `"develop"`). Also used by the pipeline pre-flight sync — the pipeline will `git checkout` and `git pull` this branch before each run. |
 | `prefix` | string | Prefix applied to all agent-created branch names. The workflow appends a date and task slug, e.g. `AI-2026-05-29-add-type-hints`. |
 | `local_path` | string | Absolute path to the local clone on disk. If the directory does not exist the agent will clone the repository automatically. |
 
@@ -154,8 +154,8 @@ Authentication used when cloning or pushing to the remote repository.
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `username` | string | Git hosting username (e.g. your GitHub username). Used to construct the authenticated remote URL. |
-| `token` | string | Personal access token with at least `repo` scope. Never commit this value — keep it in `config.json` which is gitignored. |
+| `username` | string | Git hosting username (e.g. your GitHub username). Used to construct the authenticated remote URL for cloning and pushing, including the pipeline pre-flight clone. |
+| `token` | string | Personal access token with at least `repo` scope. Used for cloning and pushing. Never commit this value — keep it in `config.json` which is gitignored. |
 
 ---
 

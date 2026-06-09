@@ -8,7 +8,16 @@ It is a standalone subsystem under `src/pipeline/` and shares no code with the L
 
 ## How it works
 
-The pipeline runs thirteen sequential stages:
+Before the numbered stages run, the pipeline performs a **pre-flight repo sync**:
+
+- If `local_path` (the configured repo directory) does not exist, the pipeline clones it from `url` using the credentials in `credentials.git`.
+- If `local_path` already exists, the pipeline checks out `base_branch` and runs `git pull` so the local clone is up to date before extraction begins.
+- If the working tree has uncommitted changes, the checkout/pull is skipped with a warning (guards against discarding in-progress work that should not normally be present in a pipeline-target repo).
+- The sync step is skipped entirely when `url` is not configured (useful for local-only repos or test configurations).
+
+The sync always runs against the canonical `local_path` from config, even when `--path` is used to target a subfolder for quick testing.
+
+The pipeline then runs thirteen sequential stages:
 
 1. **ensure_schema** — creates Neo4j constraints, property indexes, and vector indexes if they do not already exist.
 2. **extract** — walks the repository with tree-sitter, extracting every function and method as a `FunctionRecord` with source text, line numbers, language, and class membership.
@@ -289,4 +298,7 @@ src/pipeline/
     reporter.py         — generate_report: post-run markdown report orchestrator
 
 run_pipeline.py         — CLI entry point
+
+src/git/
+  branch_manager.py     — ensure_repo_synced (pre-flight clone/pull), clone_if_missing, create_task_branch, commit_file, push_branch
 ```

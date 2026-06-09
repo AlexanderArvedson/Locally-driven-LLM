@@ -124,6 +124,11 @@ def load_pipeline_config(config_path: str | Path = "config.json", repo_name: str
         ),
         test_patterns=pipeline_block.get("test_patterns", ["tests/", "test_", "_test.py"]),
         include_tests_in_graph=pipeline_block.get("include_tests_in_graph", False),
+        repo_url=repo.get("url", ""),
+        base_branch=repo.get("base_branch", "main"),
+        git_sync_path=repo.get("local_path", ""),
+        git_username=repo.get("credentials", {}).get("git", {}).get("username", ""),
+        git_token=repo.get("credentials", {}).get("git", {}).get("token", ""),
         reporter=ReporterConfig(
             cluster_threshold=reporter_block.get("cluster_threshold", 0.92),
             arch_coupling_threshold=reporter_block.get("arch_coupling_threshold", 0.60),

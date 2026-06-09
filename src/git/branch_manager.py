@@ -69,6 +69,45 @@ def clone_if_missing(
     return repo
 
 
+def ensure_repo_synced(
+    remote_url: str,
+    local_path: str,
+    base_branch: str,
+    username: str = "",
+    token: str = "",
+) -> None:
+    """Clone the repo if absent; otherwise switch to base_branch and pull.
+
+    If the working tree has uncommitted changes the checkout/pull is skipped
+    with a warning — this guards against discarding in-progress work that
+    should not normally be present in a pipeline-target repo.
+    """
+    from pathlib import Path
+
+    if not Path(local_path).exists():
+        clone_if_missing(remote_url, local_path, username, token)
+        return
+
+    repo = _open_repo(local_path)
+    if repo.is_dirty(untracked_files=False):
+        logger.warning(
+            "Working tree at '%s' has uncommitted changes — skipping checkout/pull.",
+            local_path,
+        )
+        return
+
+    try:
+        repo.git.checkout(base_branch)
+    except GitCommandError as exc:
+        logger.warning("Could not checkout '%s': %s", base_branch, exc.stderr.strip())
+
+    try:
+        repo.remotes.origin.pull(base_branch)
+        logger.info("Pulled '%s' at '%s'.", base_branch, local_path)
+    except GitCommandError as exc:
+        logger.warning("Could not pull '%s': %s", base_branch, exc.stderr.strip())
+
+
 def _auth_url(remote_url: str, username: str, token: str) -> str:
     if remote_url.startswith("https://"):
         return remote_url.replace("https://", f"https://{username}:{token}@", 1)
