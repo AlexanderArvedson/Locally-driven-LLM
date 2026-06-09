@@ -135,7 +135,16 @@ Open any channel in your workspace and run:
 /query find functions that handle authentication
 ```
 
-You should see an ephemeral **Searching…** reply within a few seconds, followed by the results.
+You should see an ephemeral **Searching…** reply within a few seconds, followed by the results. Each result shows the function name, similarity score out of 1.0, file path, and — when descriptions are populated — a short italic summary of what the function does:
+
+```
+Results for: "find functions that handle authentication"
+
+• `AuthMiddleware.authenticate`  ·  score 0.91 / 1.0  ·  middleware/auth.ts
+  _Middleware that validates JWT tokens on protected routes and rejects unauthenticated requests._
+• `JwtHelper.verify`  ·  score 0.87 / 1.0  ·  service/jwtHelper.ts
+  _Verifies a JWT token signature and returns the decoded payload._
+```
 
 To trigger a pipeline run:
 
@@ -206,19 +215,58 @@ On failure:
 ❌ Pipeline failed — ConnectionError: Neo4j unreachable
 ```
 
-After every run (unless `--no-report` or `--dry-run`), a report summary is posted followed by the timestamped `.md` file as an attachment:
+After every run (unless `--no-report` or `--dry-run`), a report summary is posted followed by the timestamped `.md` file as an attachment. The push notification preview shows a one-line health verdict, e.g.:
+
+```
+✅ Report (monorepo) — 2 flags raised, 321 functions
+```
+
+The full Block Kit message contains the following sections, each separated by a divider:
 
 ```
 📊 monorepo — 2026-06-05 14:32 CEST
 
-Functions 321   Edges 200   Density 0.62
-Intra 97   Inter 103
-Code ok 312   Failed 9   (8 overflow · 1 error)
-Similarity >0.95: 12 · 0.90–0.95: 23 · 0.80–0.90: 165
-8 duplication clusters
-Largest: GamepadDriver.last_emitted — 5 functions, avg 0.963
-🚨 HIGH_DUPLICATION_CLUSTER · CROSS_FILE_DUPLICATION · ARCHITECTURE_COUPLING
+Summary
+321 functions indexed across TypeScript. 2 concerns detected.
+Duplication is the dominant concern: cluster 1 groups 5 functions
+across 3 file(s) — primary consolidation target is `GamepadDriver.last_emitted`.
+
+Graph
+Functions: 321
+Edges: 200
+Density: 0.62 (how connected functions are on average)
+Intra-file: 97 (similar functions in the same file)
+Cross-file: 103 (similar functions across different files)
+Isolated: 4 (no similar counterparts found)
+
+Embedding
+Code — OK: 312   Failed: 9
+  Too large to embed: 8
+  Error: 1
+Descriptions — OK: 305   Failed: 3
+
+Similarity
+>0.95 (near-identical): 12 (3.7%)
+0.90–0.95 (highly similar): 23 (7.2%)
+0.80–0.90 (similar): 165 (51.4%)
+≤0.80 (low similarity): 44 (13.7%)
+
+Duplication clusters: 8
+• GamepadDriver.last_emitted  ·  5 functions, avg similarity 0.963
+• KeyboardDriver.process  ·  3 functions, avg similarity 0.941
+• AuthMiddleware.validate  ·  3 functions, avg similarity 0.921
+
+Flags
+🚨 High duplication — large groups of near-identical functions
+🚨 Cross-file duplication — same logic copied across multiple files
+
+Top pairs
+• KeyboardDriver.last_emitted ↔ WindowsGamepadDriver.last_emitted  ·  1.0000
+• GamepadDriver.emit ↔ XboxDriver.emit  ·  0.9971
+• AuthService.validate ↔ AuthMiddleware.check  ·  0.9943
 ```
+
+When no flags are raised the Flags section shows `✅ No flags raised` instead.
 
 Leave `SLACK_NOTIFY_CHANNEL` unset to disable notifications entirely.
 
