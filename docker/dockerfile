@@ -5,6 +5,10 @@ WORKDIR /app
 # git is required by GitPython for the pre-flight repo sync
 RUN apt-get update && apt-get install -y --no-install-recommends git && rm -rf /var/lib/apt/lists/*
 
+# trust all mounted directories — needed because the container runs as root
+# while repo files are owned by the host user (git 2.35.2+ safe.directory check)
+RUN git config --global --add safe.directory '*'
+
 # install uv
 RUN pip install --no-cache-dir uv
 
