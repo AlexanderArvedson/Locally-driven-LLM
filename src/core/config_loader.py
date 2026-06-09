@@ -167,8 +167,8 @@ def _load_model_config(raw: dict[str, Any], *, source: Path) -> ModelConfig:
     if max_tokens_raw is not None:
         if not isinstance(max_tokens_raw, int):
             raise ValueError(f"'max_tokens' must be an integer or null in {source}")
-        if max_tokens_raw <= 0:
-            raise ValueError(f"'max_tokens' must be > 0 when provided in {source}")
+        if max_tokens_raw == 0 or max_tokens_raw < -1:
+            raise ValueError(f"'max_tokens' must be > 0 or -1 (unlimited) when provided in {source}")
         max_tokens = max_tokens_raw
 
     num_ctx_raw = raw.get("num_ctx")
