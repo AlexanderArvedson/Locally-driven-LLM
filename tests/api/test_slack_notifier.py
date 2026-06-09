@@ -18,6 +18,7 @@ def full_data() -> dict:
     return {
         "repo": "monorepo",
         "timestamp": "2026-06-05 14:41 CEST",
+        "summary": "321 functions indexed across TypeScript. 2 concerns detected. Duplication is the dominant concern.",
         "stats": {
             "total_functions": 321,
             "edges": 200,
@@ -31,9 +32,21 @@ def full_data() -> dict:
                 "context_overflow": 8,
                 "error": 1,
                 "failed_total": 9,
-            }
+            },
+            "description": {
+                "ok": 305,
+                "invalid_json": 2,
+                "timeout": 0,
+                "error": 1,
+                "skipped": 0,
+            },
         },
-        "similarity_distribution": {"gt95": 12, "b90_95": 23, "b80_90": 165},
+        "similarity_distribution": {
+            "gt_0.95": 12,
+            "b_0.9_0.95": 23,
+            "b_0.8_0.9": 165,
+            "lt_0.8": 44,
+        },
         "clusters": [
             {
                 "id": 1,
@@ -102,10 +115,26 @@ def test_build_report_blocks_overview_fields(full_data):
 
 def test_build_report_blocks_embedding_health(full_data):
     text = _all_text(_build_report_blocks(full_data))
-    assert "312" in text  # ok
-    assert "9" in text    # failed_total
+    assert "312" in text  # code ok
+    assert "9" in text    # code failed_total
     assert "8" in text    # context_overflow
-    assert "1" in text    # error
+    assert "305" in text  # desc ok
+
+
+# ---------------------------------------------------------------------------
+# Summary
+# ---------------------------------------------------------------------------
+
+
+def test_build_report_blocks_summary_shown(full_data):
+    text = _all_text(_build_report_blocks(full_data))
+    assert "2 concerns detected" in text
+
+
+def test_build_report_blocks_summary_omitted_when_absent(full_data):
+    del full_data["summary"]
+    text = _all_text(_build_report_blocks(full_data))
+    assert "Summary" not in text
 
 
 # ---------------------------------------------------------------------------
@@ -115,9 +144,28 @@ def test_build_report_blocks_embedding_health(full_data):
 
 def test_build_report_blocks_similarity_bands(full_data):
     text = _all_text(_build_report_blocks(full_data))
-    assert "12" in text   # gt95
-    assert "23" in text   # b90_95
-    assert "165" in text  # b80_90
+    assert "12" in text   # gt_0.95
+    assert "23" in text   # b_0.9_0.95
+    assert "165" in text  # b_0.8_0.9
+    assert "44" in text   # lt_0.8
+
+
+# ---------------------------------------------------------------------------
+# LOC threshold
+# ---------------------------------------------------------------------------
+
+
+def test_build_report_blocks_loc_filtered_shown(full_data):
+    full_data["stats"]["loc_filtered"] = 17
+    text = _all_text(_build_report_blocks(full_data))
+    assert "17" in text
+    assert "LOC" in text
+
+
+def test_build_report_blocks_loc_filtered_absent_when_none(full_data):
+    full_data["stats"]["loc_filtered"] = None
+    text = _all_text(_build_report_blocks(full_data))
+    assert "LOC" not in text
 
 
 # ---------------------------------------------------------------------------
@@ -147,9 +195,9 @@ def test_build_report_blocks_no_clusters_omits_block(full_data):
 
 def test_build_report_blocks_flags_raised(full_data):
     text = _all_text(_build_report_blocks(full_data))
-    assert "HIGH_DUPLICATION_CLUSTER" in text
-    assert "CROSS_FILE_DUPLICATION" in text
-    assert "ARCHITECTURE_COUPLING" in text
+    assert "High duplication" in text
+    assert "Cross-file duplication" in text
+    assert "High coupling" in text
 
 
 def test_build_report_blocks_no_flags_omits_block(full_data):
@@ -160,14 +208,14 @@ def test_build_report_blocks_no_flags_omits_block(full_data):
         "TEST_POLLUTION": None,
     }
     text = _all_text(_build_report_blocks(full_data))
-    assert "HIGH_DUPLICATION_CLUSTER" not in text
+    assert "High duplication" not in text
     assert "\U0001f6a8" not in text
 
 
 def test_build_report_blocks_test_pollution_flag(full_data):
     full_data["flags"]["TEST_POLLUTION"] = 3
     text = _all_text(_build_report_blocks(full_data))
-    assert "TEST_POLLUTION" in text
+    assert "Test pollution" in text
 
 
 # ---------------------------------------------------------------------------

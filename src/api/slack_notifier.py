@@ -8,7 +8,7 @@ from pathlib import Path
 from loguru import logger
 from slack_sdk.web.async_client import AsyncWebClient
 
-from src.pipeline.contracts import PipelineResult
+from src.pipeline.contracts import PipelineResult, ReporterConfig
 
 
 def _build_pipeline_blocks(result: PipelineResult) -> list:
@@ -18,6 +18,7 @@ def _build_pipeline_blocks(result: PipelineResult) -> list:
             "type": "header",
             "text": {"type": "plain_text", "text": "✅ Pipeline complete"},
         },
+        {"type": "divider"},
         {
             "type": "section",
             "text": {
@@ -48,15 +49,28 @@ def _build_pipeline_blocks(result: PipelineResult) -> list:
     return blocks
 
 
-def _build_report_blocks(data: dict) -> list:
+_FLAG_LABELS = {
+    "HIGH_DUPLICATION_CLUSTER": "High duplication — large groups of near-identical functions",
+    "CROSS_FILE_DUPLICATION": "Cross-file duplication — same logic copied across multiple files",
+    "ARCHITECTURE_COUPLING": "High coupling — some files heavily depended on across the codebase",
+}
+
+
+def _build_report_blocks(data: dict, reporter_cfg: ReporterConfig | None = None) -> list:
     """Build a Slack Block Kit block list from a parsed report.json dict."""
+    if reporter_cfg is None:
+        reporter_cfg = ReporterConfig()
+    top_n = reporter_cfg.slack_top_n_report
+
     stats = data.get("stats", {})
     emb = data.get("embedding", {}).get("code", {})
+    desc = data.get("embedding", {}).get("description", {})
     sim = data.get("similarity_distribution", {})
     clusters = data.get("clusters", [])
     top_pairs = data.get("top_pairs", [])
     flags_raw = data.get("flags", {})
     delta = data.get("delta")
+    summary = data.get("summary", "")
 
     blocks: list = []
 
@@ -66,44 +80,69 @@ def _build_report_blocks(data: dict) -> list:
         "text": {"type": "plain_text", "text": f"\U0001f4ca {data.get('repo', '?')} — {data.get('timestamp', '?')}"},
     })
 
-    # Graph overview — one value per line
-    blocks.append({
-        "type": "section",
-        "text": {
-            "type": "mrkdwn",
-            "text": (
-                f"*Graph*\n"
-                f"Functions: {stats.get('total_functions', '?')}\n"
-                f"Edges: {stats.get('edges', '?')}   Density: {stats.get('density', 0):.2f}\n"
-                f"Intra: {stats.get('intra_edges', '?')}   Inter: {stats.get('inter_edges', '?')}   Isolated: {stats.get('isolated_functions', 0)}"
-            ),
-        },
-    })
+    # Executive summary (omit if absent)
+    if summary:
+        blocks.append({"type": "divider"})
+        blocks.append({
+            "type": "section",
+            "text": {"type": "mrkdwn", "text": f"*Summary*\n{summary}"},
+        })
 
-    # Embedding health
+    # Graph overview — one value per line
+    loc_filtered = stats.get("loc_filtered")
+    graph_text = (
+        f"*Graph*\n"
+        f"Functions: {stats.get('total_functions', '?')}\n"
+        f"Edges: {stats.get('edges', '?')}\n"
+        f"Density: {stats.get('density', 0):.2f} (how connected functions are on average)\n"
+        f"Intra-file: {stats.get('intra_edges', '?')} (similar functions in the same file)\n"
+        f"Cross-file: {stats.get('inter_edges', '?')} (similar functions across different files)\n"
+        f"Isolated: {stats.get('isolated', 0)} (no similar counterparts found)"
+    )
+    if loc_filtered:
+        graph_text += f"\nExcluded by LOC threshold: {loc_filtered}"
+    blocks.append({"type": "divider"})
+    blocks.append({"type": "section", "text": {"type": "mrkdwn", "text": graph_text}})
+
+    # Embedding health — code and description
     failed = emb.get("failed_total", emb.get("context_overflow", 0) + emb.get("error", 0))
+    desc_failed = desc.get("invalid_json", 0) + desc.get("timeout", 0) + desc.get("error", 0)
+    blocks.append({"type": "divider"})
     blocks.append({
         "type": "section",
         "text": {
             "type": "mrkdwn",
             "text": (
                 f"*Embedding*\n"
-                f"OK: {emb.get('ok', '?')}\n"
-                f"Failed: {failed}   ({emb.get('context_overflow', 0)} overflow · {emb.get('error', 0)} error)"
+                f"Code — OK: {emb.get('ok', '?')}   Failed: {failed}\n"
+                f"  Too large to embed: {emb.get('context_overflow', 0)}\n"
+                f"  Error: {emb.get('error', 0)}\n"
+                f"Descriptions — OK: {desc.get('ok', '?')}   Failed: {desc_failed}"
             ),
         },
     })
 
-    # Similarity bands
+    # Similarity bands — keys match the JSON export format (gt_0.95, b_0.9_0.95, etc.)
+    total_fns = stats.get("total_functions") or 0
+
+    def _pct(n: int) -> str:
+        return f" ({n / total_fns:.1%})" if total_fns else ""
+
+    gt95 = sim.get("gt_0.95", 0)
+    b90_95 = sim.get("b_0.9_0.95", 0)
+    b80_90 = sim.get("b_0.8_0.9", 0)
+    lt80 = sim.get("lt_0.8", 0)
+    blocks.append({"type": "divider"})
     blocks.append({
         "type": "section",
         "text": {
             "type": "mrkdwn",
             "text": (
                 f"*Similarity*\n"
-                f">0.95: {sim.get('gt95', 0)}\n"
-                f"0.90–0.95: {sim.get('b90_95', 0)}\n"
-                f"0.80–0.90: {sim.get('b80_90', 0)}"
+                f">0.95 (near-identical): {gt95}{_pct(gt95)}\n"
+                f"0.90–0.95 (highly similar): {b90_95}{_pct(b90_95)}\n"
+                f"0.80–0.90 (similar): {b80_90}{_pct(b80_90)}\n"
+                f"≤0.80 (low similarity): {lt80}{_pct(lt80)}"
             ),
         },
     })
@@ -113,12 +152,13 @@ def _build_report_blocks(data: dict) -> list:
         def _fmt(n: int) -> str:
             return f"+{n}" if n >= 0 else str(n)
 
+        blocks.append({"type": "divider"})
         blocks.append({
             "type": "section",
             "text": {
                 "type": "mrkdwn",
                 "text": (
-                    f"*Δ vs {delta['previous_timestamp']}*\n"
+                    f"*Changes since {delta['previous_timestamp']}*\n"
                     f"Functions: {_fmt(delta.get('functions', 0))}\n"
                     f"Edges: {_fmt(delta.get('edges', 0))}\n"
                     f"Clusters: {_fmt(delta.get('clusters', 0))}"
@@ -128,35 +168,33 @@ def _build_report_blocks(data: dict) -> list:
 
     # Duplication clusters (omit if empty)
     if clusters:
-        largest = clusters[0]
+        cluster_lines = [f"*Duplication clusters: {len(clusters)}*"]
+        for c in clusters[:top_n]:
+            cluster_lines.append(
+                f"• {c.get('representative', '?')}  ·  {c.get('size', '?')} functions, avg similarity {c.get('avg_score', 0):.3f}"
+            )
+        blocks.append({"type": "divider"})
         blocks.append({
             "type": "section",
-            "text": {
-                "type": "mrkdwn",
-                "text": (
-                    f"*Duplication clusters: {len(clusters)}*\n"
-                    f"Largest: {largest.get('representative', '?')}\n"
-                    f"{largest.get('size', '?')} functions, avg score {largest.get('avg_score', 0):.3f}"
-                ),
-            },
+            "text": {"type": "mrkdwn", "text": "\n".join(cluster_lines)},
         })
 
     # Raised flags — one flag per line (omit block if none)
     raised = []
-    for flag in ("HIGH_DUPLICATION_CLUSTER", "CROSS_FILE_DUPLICATION", "ARCHITECTURE_COUPLING"):
-        val = flags_raw.get(flag)
-        if val:
-            raised.append(flag)
+    for flag, label in _FLAG_LABELS.items():
+        if flags_raw.get(flag):
+            raised.append(label)
     test_poll = flags_raw.get("TEST_POLLUTION")
     if isinstance(test_poll, int) and test_poll > 0:
-        raised.append("TEST_POLLUTION")
+        raised.append("Test pollution — test code leaked into the similarity graph")
     god_files = flags_raw.get("GOD_FILE")
     if god_files:
-        raised.append(f"GOD_FILE ({len(god_files)} files)")
+        raised.append(f"God files ({len(god_files)}) — files doing too many things, candidates for splitting")
     low_coh = flags_raw.get("LOW_COHESION")
     if low_coh:
-        raised.append(f"LOW_COHESION ({len(low_coh)} files)")
+        raised.append(f"Low cohesion ({len(low_coh)}) — files where functions don't belong together")
 
+    blocks.append({"type": "divider"})
     if raised:
         blocks.append({
             "type": "section",
@@ -165,20 +203,23 @@ def _build_report_blocks(data: dict) -> list:
                 "text": "*Flags*\n\U0001f6a8 " + "\n\U0001f6a8 ".join(raised),
             },
         })
-
-    # Top pair (omit if empty)
-    if top_pairs:
-        pair = top_pairs[0]
+    else:
         blocks.append({
             "type": "section",
-            "text": {
-                "type": "mrkdwn",
-                "text": (
-                    f"*Top pair*\n"
-                    f"{pair.get('a_name', '?')} ↔ {pair.get('b_name', '?')}\n"
-                    f"Score: {pair.get('score', 0):.4f}"
-                ),
-            },
+            "text": {"type": "mrkdwn", "text": "*Flags*\n✅ No flags raised"},
+        })
+
+    # Top pairs (omit if empty)
+    if top_pairs:
+        pair_lines = ["*Top pairs*"]
+        for pair in top_pairs[:top_n]:
+            pair_lines.append(
+                f"• {pair.get('a_name', '?')} ↔ {pair.get('b_name', '?')}  ·  {pair.get('score', 0):.4f}"
+            )
+        blocks.append({"type": "divider"})
+        blocks.append({
+            "type": "section",
+            "text": {"type": "mrkdwn", "text": "\n".join(pair_lines)},
         })
 
     return blocks
@@ -222,6 +263,7 @@ async def notify_report_result(
     started_at: datetime.datetime,
     report_path: Path | None,
     error: str | None,
+    reporter_cfg: ReporterConfig | None = None,
 ) -> None:
     """Post a Block Kit report summary and upload the .md file on success.
 
@@ -255,21 +297,33 @@ async def notify_report_result(
                 try:
                     report_data = json.loads(json_path.read_text())
                     repo_label = report_data.get("repo", repo_label)
-                    blocks = _build_report_blocks(report_data)
+                    blocks = _build_report_blocks(report_data, reporter_cfg)
                 except Exception:
                     logger.warning("Could not parse report.json for Block Kit; falling back to plain text")
+
+        total_fns = report_data.get("stats", {}).get("total_functions", "?")
+        flags_raw = report_data.get("flags", {})
+        flag_count = sum([
+            bool(flags_raw.get("HIGH_DUPLICATION_CLUSTER")),
+            bool(flags_raw.get("CROSS_FILE_DUPLICATION")),
+            bool(flags_raw.get("ARCHITECTURE_COUPLING")),
+            isinstance(flags_raw.get("TEST_POLLUTION"), int) and flags_raw["TEST_POLLUTION"] > 0,
+            bool(flags_raw.get("GOD_FILE")),
+            bool(flags_raw.get("LOW_COHESION")),
+        ])
+        flag_str = f"{flag_count} flag{'s' if flag_count != 1 else ''} raised" if flag_count else "no flags"
+        preview = f"✅ Report ({repo_label}) — {flag_str}, {total_fns} functions"
 
         if blocks:
             await client.chat_postMessage(
                 channel=channel,
-                text=f"✅ Report ({repo_label}) — {time_str}",
+                text=preview,
                 blocks=blocks,
             )
         else:
-            total = report_data.get("stats", {}).get("total_functions", "?")
             await client.chat_postMessage(
                 channel=channel,
-                text=f"✅ Report ({repo_label}) — {time_str} — {total} functions indexed",
+                text=preview,
             )
 
         if report_path is not None and report_path.exists():
@@ -294,11 +348,12 @@ async def notify_scheduled_run(repo: str, cron_expr: str) -> None:
     if not token or not channel:
         return
 
+    now_utc = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
     client = AsyncWebClient(token=token)
     try:
         await client.chat_postMessage(
             channel=channel,
-            text=f"Scheduled pipeline run started or queued for repo: {repo} ",
+            text=f"⏰ Scheduled pipeline run queued for *{repo}* — `{cron_expr}` — {now_utc}",
         )
     except Exception:
         logger.exception("Slack scheduled-run notification failed")

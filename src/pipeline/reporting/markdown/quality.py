@@ -17,7 +17,7 @@ def render_file_cohesion(
         "## File Cohesion Scores",
         "",
         "Score = average pairwise embedding similarity of functions within each file. "
-        "Low score → semantically unrelated functions → potential SOC violation. "
+        "Low score → semantically unrelated functions → potential separation of concerns violation. "
         "Sorted ascending (most fragmented first).",
         "",
     ]
@@ -68,7 +68,7 @@ def render_duplication_clusters(
     lines: list[str] = [
         "## Duplication Clusters",
         "",
-        f"Connected components of SIMILAR\\_TO edges with score ≥ {reporter_cfg.cluster_threshold}.",
+        f"Connected components of similarity edges with score ≥ {reporter_cfg.cluster_threshold}.",
         "",
     ]
     if clusters:
@@ -102,30 +102,32 @@ def render_heuristic_flags(
     flags: list[str] = []
     if high_dup:
         ids = ", ".join(str(c["id"]) for c in high_dup)
+        cluster_word = "clusters" if len(high_dup) > 1 else "cluster"
         flags.append(
-            f"- **HIGH\\_DUPLICATION\\_CLUSTER**: clusters {ids}"
+            f"- **High duplication** ({cluster_word} {ids}): large groups of near-identical functions"
             f" (size ≥ {reporter_cfg.high_dup_min_cluster_size}, max score > {reporter_cfg.high_dup_min_score})"
         )
     if cross_file:
         ids = ", ".join(str(c["id"]) for c in cross_file)
-        flags.append(f"- **CROSS\\_FILE\\_DUPLICATION**: clusters {ids} span multiple files")
+        cluster_word = "clusters" if len(cross_file) > 1 else "cluster"
+        flags.append(f"- **Cross-file duplication** ({cluster_word} {ids}): same logic copied across multiple files")
     if coupled_files:
         file_list = ", ".join(f"`{f}`" for f in coupled_files[:reporter_cfg.max_coupling_files_listed])
-        flags.append(f"- **ARCHITECTURE\\_COUPLING**: high inter-file edge ratio in {file_list}")
+        flags.append(f"- **High coupling**: some files heavily depended on across the codebase — {file_list}")
     if include_tests and cross_edges >= reporter_cfg.test_pollution_threshold:
         flags.append(
-            f"- **TEST\\_POLLUTION**: {cross_edges} edges between test and production functions"
+            f"- **Test pollution**: {cross_edges} edges between test and production functions"
         )
     if low_cohesion_files:
         file_list = ", ".join(f"`{f}`" for f in low_cohesion_files[:reporter_cfg.max_coupling_files_listed])
         flags.append(
-            f"- **LOW\\_COHESION**: semantically fragmented files — {file_list}"
+            f"- **Low cohesion**: semantically fragmented files — {file_list}"
             f" (score < {reporter_cfg.cohesion_low_threshold})"
         )
     if god_files:
         file_list = ", ".join(f"`{f}`" for f in god_files[:reporter_cfg.max_coupling_files_listed])
         flags.append(
-            f"- **GOD\\_FILE**: files exceeding {reporter_cfg.god_file_threshold} functions — {file_list}"
+            f"- **God files**: files with >{reporter_cfg.god_file_threshold} functions — {file_list}"
         )
 
     lines: list[str] = ["## Heuristic Flags", ""]

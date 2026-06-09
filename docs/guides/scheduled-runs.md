@@ -1,6 +1,12 @@
 # Scheduled runs
 
-The pipeline can run automatically on a cron schedule. On each fire, the FastAPI server enqueues a pipeline run and posts the completion notification and report to `SLACK_NOTIFY_CHANNEL`.
+The pipeline can run automatically on a cron schedule. On each fire, the FastAPI server enqueues a pipeline run and posts a notification to `SLACK_NOTIFY_CHANNEL` when it starts, followed by the standard completion notification and report when it finishes.
+
+The start notification shows the repo, cron expression, and UTC time so it is always clear what triggered the run:
+
+```
+⏰ Scheduled pipeline run queued for *monorepo* — `0 0 * * *` — 2026-06-06 00:00 UTC
+```
 
 Scheduled runs require the `fastapi` container to be running and Slack to be configured. If you have not done that yet, see the [Slack guide](slack.md) first.
 

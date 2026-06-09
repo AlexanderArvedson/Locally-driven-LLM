@@ -352,7 +352,7 @@ async def test_build_report_god_file_flag():
                                         pipeline_config=cfg, loc_filtered=None,
                                         prev_report=None)
     text = "\n".join(lines)
-    assert "GOD\\_FILE" in text
+    assert "God files" in text
     assert "big_file.py" in export["flags"]["GOD_FILE"]
 
 
@@ -576,7 +576,7 @@ def test_render_summary_flag_count_in_text():
         coupled_files=["b.py"],
         files_by_count=[{"path": "a.py", "fn_count": 25}],
     ))
-    assert "2 concern(s) detected" in _text(lines)
+    assert "2 concerns detected" in _text(lines)
 
 
 @pytest.mark.asyncio

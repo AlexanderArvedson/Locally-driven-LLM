@@ -113,6 +113,8 @@ class ReporterConfig:
     max_isolated_listed: int = 50
     god_file_threshold: int = 20
     cohesion_max_functions: int = 5000
+    slack_top_n_query: int = 5
+    slack_top_n_report: int = 3
 
 
 @dataclass(frozen=True)

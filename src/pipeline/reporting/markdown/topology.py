@@ -34,7 +34,7 @@ def render_graph_overview(
         "|---|---|",
         f"| Production functions indexed | {total} |",
         f"| Test functions ({'included in' if include_tests else 'excluded from'} graph) | {test_funcs} |",
-        f"| SIMILAR\\_TO edges | {edges} |",
+        f"| Similarity edges | {edges} |",
         f"| Edge density (edges / functions) | {density} |",
         f"| Isolated functions (no edges) | {isolated} |",
         f"| Isolated ratio | {isolated_pct}% |",
@@ -102,14 +102,18 @@ def render_similarity_distribution(
         "| Score Range | Edge Count | % of Total |",
         "|---|---|---|",
     ]
-    for label, count in [
-        (f"> {bh}", gt_high),
-        (f"{bm}–{bh}", b_mid_high),
-        (f"{bl}–{bm}", b_low_mid),
-        (f"≤ {bl}", lt_low),
-    ]:
+    _band_labels = ["near-identical", "highly similar", "similar", "low similarity"]
+    for (label, count), desc in zip(
+        [
+            (f"> {bh}", gt_high),
+            (f"{bm}–{bh}", b_mid_high),
+            (f"{bl}–{bm}", b_low_mid),
+            (f"≤ {bl}", lt_low),
+        ],
+        _band_labels,
+    ):
         pct = f"{100 * count / edges:.1f}" if edges > 0 else "0.0"
-        lines.append(f"| {label} | {count} | {pct}% |")
+        lines.append(f"| {label} ({desc}) | {count} | {pct}% |")
     lines += ["", "---", ""]
     return lines
 
@@ -182,7 +186,7 @@ def render_files_by_function_count(
     lines: list[str] = [
         f"## Top {top_n} Files by Function Count",
         "",
-        f"Files above {reporter_cfg.god_file_threshold} functions are flagged as GOD\\_FILE.",
+        f"Files above {reporter_cfg.god_file_threshold} functions are flagged as god files.",
         "",
         "| Functions | File |",
         "|---|---|",

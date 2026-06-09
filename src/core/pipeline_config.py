@@ -149,5 +149,7 @@ def load_pipeline_config(config_path: str | Path = "config.json", repo_name: str
             max_cohesion_files_listed=reporter_block.get("max_cohesion_files_listed", 20),
             max_isolated_listed=reporter_block.get("max_isolated_listed", 50),
             god_file_threshold=reporter_block.get("god_file_threshold", 20),
+            slack_top_n_query=reporter_block.get("slack_top_n_query", 5),
+            slack_top_n_report=reporter_block.get("slack_top_n_report", 3),
         ),
     )
