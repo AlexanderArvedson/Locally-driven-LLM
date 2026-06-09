@@ -71,8 +71,9 @@ def render_summary(
     # Cluster with the broadest spread across files — most worth consolidating
     primary_target = max(clusters, key=lambda c: c["size"] * len(c["files_involved"]), default=None)
 
+    concern_word = "concern" if flag_count == 1 else "concerns"
     sentences: list[str] = [
-        f"{total} functions indexed across {lang_summary}. {flag_count} concern(s) detected."
+        f"{total} functions indexed across {lang_summary}. {flag_count} {concern_word} detected."
     ]
 
     if high_dup:
