@@ -58,7 +58,11 @@ async def start_socket_mode(queue: TaskQueue, repo_name: str) -> AsyncSocketMode
         await ack()
         query_text = body.get("text", "").strip()
         if not query_text:
-            await respond("Usage: `/query <search text>`")
+            await respond(
+                "Usage: `/query <description>`\n"
+                "Tip: describe the *behaviour*, not the location — "
+                "e.g. `/query AES encrypt decrypt value` rather than `/query where is crypto handled?`"
+            )
             return
         await queue.enqueue(
             QueryTask(

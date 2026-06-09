@@ -31,7 +31,7 @@ The bot runs inside the `fastapi` Docker container and communicates via Slack's 
 {
     "display_information": {
         "name": "self-hosted LLM",
-        "description": "Query your codebase using natural language",
+        "description": "Search your codebase by describing function behaviour",
         "background_color": "#1a1a2e"
     },
     "features": {
@@ -43,7 +43,7 @@ The bot runs inside the `fastapi` Docker container and communicates via Slack's 
             {
                 "command": "/query",
                 "description": "Search the codebase for semantically similar functions",
-                "usage_hint": "[natural language description or function name]",
+                "usage_hint": "[describe the behaviour — e.g. AES encrypt decrypt value]",
                 "should_escape": false
             },
             {
@@ -144,6 +144,28 @@ To trigger a pipeline run:
 ```
 
 Invalid flags return an ephemeral error with the usage hint.
+
+---
+
+## Writing effective queries
+
+`/query` embeds your text with the same model used by the pipeline and finds functions whose code or description embeddings are closest to your query vector. This means **vocabulary matters** — the query works best when you describe the *behaviour* you are looking for rather than asking a navigational question.
+
+**Prefer descriptive over navigational:**
+
+| Less effective | More effective |
+|---|---|
+| `/query where is crypto handled?` | `/query AES encrypt decrypt value` |
+| `/query authentication` | `/query verify JWT token from request header` |
+| `/query database stuff` | `/query Sequelize query with where clause and include` |
+
+**Why this matters:** a query like "where is crypto handled?" embeds close to RSA/JWT concepts (the dominant meaning of "crypto" in web services) rather than AES symmetric encryption — even if the `Crypto` class is exactly what you want. Describing the operation directly avoids this ambiguity.
+
+**Tips:**
+- Use the same terminology the code likely uses — function names, library names, error messages, type names
+- Describe inputs, outputs, or side effects rather than asking "where is X?"
+- Short, specific phrases (3–8 words) tend to score better than full sentences
+- If descriptions are populated in the graph, abstract intent ("validate deadline has not passed") works well alongside structural queries ("compare two date timestamps")
 
 ---
 
