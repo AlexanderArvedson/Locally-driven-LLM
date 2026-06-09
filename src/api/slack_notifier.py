@@ -18,6 +18,7 @@ def _build_pipeline_blocks(result: PipelineResult) -> list:
             "type": "header",
             "text": {"type": "plain_text", "text": "✅ Pipeline complete"},
         },
+        {"type": "divider"},
         {
             "type": "section",
             "text": {
@@ -109,6 +110,14 @@ def _build_report_blocks(data: dict) -> list:
     })
 
     # Similarity bands
+    total_fns = stats.get("total_functions") or 0
+
+    def _pct(n: int) -> str:
+        return f" ({n / total_fns:.1%})" if total_fns else ""
+
+    gt95 = sim.get("gt95", 0)
+    b90_95 = sim.get("b90_95", 0)
+    b80_90 = sim.get("b80_90", 0)
     blocks.append({"type": "divider"})
     blocks.append({
         "type": "section",
@@ -116,9 +125,9 @@ def _build_report_blocks(data: dict) -> list:
             "type": "mrkdwn",
             "text": (
                 f"*Similarity*\n"
-                f">0.95 (near-identical): {sim.get('gt95', 0)}\n"
-                f"0.90–0.95 (highly similar): {sim.get('b90_95', 0)}\n"
-                f"0.80–0.90 (similar): {sim.get('b80_90', 0)}"
+                f">0.95 (near-identical): {gt95}{_pct(gt95)}\n"
+                f"0.90–0.95 (highly similar): {b90_95}{_pct(b90_95)}\n"
+                f"0.80–0.90 (similar): {b80_90}{_pct(b80_90)}"
             ),
         },
     })
@@ -170,14 +179,19 @@ def _build_report_blocks(data: dict) -> list:
     if low_coh:
         raised.append(f"Low cohesion ({len(low_coh)}) — files where functions don't belong together")
 
+    blocks.append({"type": "divider"})
     if raised:
-        blocks.append({"type": "divider"})
         blocks.append({
             "type": "section",
             "text": {
                 "type": "mrkdwn",
                 "text": "*Flags*\n\U0001f6a8 " + "\n\U0001f6a8 ".join(raised),
             },
+        })
+    else:
+        blocks.append({
+            "type": "section",
+            "text": {"type": "mrkdwn", "text": "*Flags*\n✅ No flags raised"},
         })
 
     # Top pairs (omit if empty)
