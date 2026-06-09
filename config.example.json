@@ -150,7 +150,9 @@
           "cohesion_min_functions": 2,
           "max_cohesion_files_listed": 20,
           "max_isolated_listed": 50,
-          "god_file_threshold": 20
+          "god_file_threshold": 20,
+          "slack_top_n_query": 5,
+          "slack_top_n_report": 3
         }
       }
     }

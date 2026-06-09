@@ -8,7 +8,7 @@ from pathlib import Path
 from loguru import logger
 from slack_sdk.web.async_client import AsyncWebClient
 
-from src.pipeline.contracts import PipelineResult
+from src.pipeline.contracts import PipelineResult, ReporterConfig
 
 
 def _build_pipeline_blocks(result: PipelineResult) -> list:
@@ -56,8 +56,12 @@ _FLAG_LABELS = {
 }
 
 
-def _build_report_blocks(data: dict) -> list:
+def _build_report_blocks(data: dict, reporter_cfg: ReporterConfig | None = None) -> list:
     """Build a Slack Block Kit block list from a parsed report.json dict."""
+    if reporter_cfg is None:
+        reporter_cfg = ReporterConfig()
+    top_n = reporter_cfg.slack_top_n_report
+
     stats = data.get("stats", {})
     emb = data.get("embedding", {}).get("code", {})
     desc = data.get("embedding", {}).get("description", {})
@@ -165,7 +169,7 @@ def _build_report_blocks(data: dict) -> list:
     # Duplication clusters (omit if empty)
     if clusters:
         cluster_lines = [f"*Duplication clusters: {len(clusters)}*"]
-        for c in clusters[:3]:
+        for c in clusters[:top_n]:
             cluster_lines.append(
                 f"• {c.get('representative', '?')}  ·  {c.get('size', '?')} functions, avg similarity {c.get('avg_score', 0):.3f}"
             )
@@ -208,7 +212,7 @@ def _build_report_blocks(data: dict) -> list:
     # Top pairs (omit if empty)
     if top_pairs:
         pair_lines = ["*Top pairs*"]
-        for pair in top_pairs[:3]:
+        for pair in top_pairs[:top_n]:
             pair_lines.append(
                 f"• {pair.get('a_name', '?')} ↔ {pair.get('b_name', '?')}  ·  {pair.get('score', 0):.4f}"
             )
@@ -259,6 +263,7 @@ async def notify_report_result(
     started_at: datetime.datetime,
     report_path: Path | None,
     error: str | None,
+    reporter_cfg: ReporterConfig | None = None,
 ) -> None:
     """Post a Block Kit report summary and upload the .md file on success.
 
@@ -292,7 +297,7 @@ async def notify_report_result(
                 try:
                     report_data = json.loads(json_path.read_text())
                     repo_label = report_data.get("repo", repo_label)
-                    blocks = _build_report_blocks(report_data)
+                    blocks = _build_report_blocks(report_data, reporter_cfg)
                 except Exception:
                     logger.warning("Could not parse report.json for Block Kit; falling back to plain text")
 

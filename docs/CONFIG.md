@@ -254,6 +254,8 @@ Controls the thresholds used when generating the post-run markdown report. All f
 | `max_cohesion_files_listed` | integer | `20` | Maximum rows shown in the File Cohesion Scores and Class Cohesion Scores report tables. |
 | `max_isolated_listed` | integer | `50` | Maximum number of isolated functions (no similarity edges) shown in the Isolated Functions subsection of Graph Overview. |
 | `god_file_threshold` | integer | `20` | Files containing more functions than this value are flagged `GOD_FILE`. Adjust upward for large utility modules that intentionally centralise many small helpers. |
+| `slack_top_n_query` | integer | `5` | Maximum number of results shown in a `/query` Slack response. |
+| `slack_top_n_report` | integer | `3` | Maximum number of duplication clusters and top similar pairs shown in the Slack report notification. |
 
 #### `pipeline.limits`
 

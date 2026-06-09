@@ -16,17 +16,16 @@ from loguru import logger
 from src.pipeline.contracts import PipelineConfig
 from src.scheduler.task import PipelineTask, QueryTask, ReportTask, Task
 
-_TOP_N_DISPLAY = 5
 _DESC_MAX = 120
 
 
-def _format_query_result(query_text: str, matches: list) -> dict:
+def _format_query_result(query_text: str, matches: list, top_n: int) -> dict:
     """Build a Slack mrkdwn text payload for a list of QueryMatch results."""
     if not matches:
         return {"text": f"No results found for: _{query_text}_"}
 
     lines = [f'*Results for:* "{query_text}"\n']
-    for m in matches[:_TOP_N_DISPLAY]:
+    for m in matches[:top_n]:
         lines.append(f"• `{m.qualified_name}`  ·  score {m.score:.2f} / 1.0  ·  {m.file_path}")
         if m.description:
             desc = m.description if len(m.description) <= _DESC_MAX else m.description[:_DESC_MAX] + "…"
@@ -69,7 +68,7 @@ class TaskDispatcher:
             logger.info("[dispatcher] searching: {!r}", task.query_text)
             result = await search(store, client, task.query_text, task.repo, self._config, task.top_n)
             logger.info("[dispatcher] got {} matches", len(result.matches))
-            payload = _format_query_result(task.query_text, result.matches)
+            payload = _format_query_result(task.query_text, result.matches, self._config.reporter.slack_top_n_query)
         except Exception as exc:
             logger.exception("[dispatcher] search failed: {}", exc)
             payload = {"text": f"Search failed: {exc}"}
@@ -126,4 +125,4 @@ class TaskDispatcher:
         except Exception as exc:
             await notify_report_result(False, started_at, None, str(exc))
             raise
-        await notify_report_result(True, started_at, report_path, None)
+        await notify_report_result(True, started_at, report_path, None, reporter_cfg=self._config.reporter)
