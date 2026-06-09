@@ -18,7 +18,7 @@ Open `.env` and set these two values:
 | Variable | What to set |
 |---|---|
 | `NEO4J_PASSWORD` | Any password you choose — used both to initialise the Neo4j container and to connect to it. |
-| `REPOS_ROOT` | Absolute path to the **parent** directory of your target repo. If your repo is at `/home/alice/projects/myrepo`, set this to `/home/alice/projects`. The container mounts this path to read source files. |
+| `REPOS_ROOT` | Absolute path to the **parent** directory of your target repo. If your repo is at `/home/alice/projects/myrepo`, set this to `/home/alice/projects`. The container mounts this path read-write so the pipeline can clone the repo on first run and pull updates on subsequent runs. |
 
 Leave the Ollama variables at their defaults. Leave the `SLACK_*` variables blank for now — they are only needed if you set up Slack later.
 
@@ -33,7 +33,9 @@ Open `config.json` and fill in the `repositories[0]` entry:
 | Field | What to set |
 |---|---|
 | `name` | A short identifier for your repo (e.g. `"myrepo"`). Used in report filenames and log output. |
-| `local_path` | Absolute path to the repo on disk (e.g. `"/home/alice/projects/myrepo"`). Must be under `REPOS_ROOT`. |
+| `url` | HTTPS git URL of the repository (e.g. `"https://github.com/owner/repo.git"`). Used to clone the repo automatically on first run. |
+| `base_branch` | The main branch of the repo (e.g. `"main"` or `"develop"`). The pipeline checks out and pulls this branch before each run. |
+| `local_path` | Absolute path where the repo should be cloned on disk (e.g. `"/home/alice/projects/myrepo"`). Must be under `REPOS_ROOT`. Created automatically if it does not exist. |
 
 The model names default to `nomic-embed-text` (embedding) and `qwen2.5-coder:7b` (chat/coder). These match what you will pull in the [Models](models.md) guide — leave them as-is for now.
 
