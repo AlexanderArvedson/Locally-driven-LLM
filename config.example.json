@@ -129,7 +129,7 @@
           "context_overflow_char_threshold": 10000,
           "min_loc_threshold": 3
         },
-        "test_patterns": ["tests/", "test_", "_test.py", "cypress/", ".cy.ts"],
+        "test_patterns": ["tests/", "test_", "_test.py", "cypress/", ".cy.ts", ".test.", ".spec."],
         "include_tests_in_graph": false,
         "reporter": {
           "cluster_threshold": 0.92,
