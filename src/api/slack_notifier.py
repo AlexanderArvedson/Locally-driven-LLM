@@ -285,17 +285,29 @@ async def notify_report_result(
                 except Exception:
                     logger.warning("Could not parse report.json for Block Kit; falling back to plain text")
 
+        total_fns = report_data.get("stats", {}).get("total_functions", "?")
+        flags_raw = report_data.get("flags", {})
+        flag_count = sum([
+            bool(flags_raw.get("HIGH_DUPLICATION_CLUSTER")),
+            bool(flags_raw.get("CROSS_FILE_DUPLICATION")),
+            bool(flags_raw.get("ARCHITECTURE_COUPLING")),
+            isinstance(flags_raw.get("TEST_POLLUTION"), int) and flags_raw["TEST_POLLUTION"] > 0,
+            bool(flags_raw.get("GOD_FILE")),
+            bool(flags_raw.get("LOW_COHESION")),
+        ])
+        flag_str = f"{flag_count} flag{'s' if flag_count != 1 else ''} raised" if flag_count else "no flags"
+        preview = f"✅ Report ({repo_label}) — {flag_str}, {total_fns} functions"
+
         if blocks:
             await client.chat_postMessage(
                 channel=channel,
-                text=f"✅ Report ({repo_label}) — {time_str}",
+                text=preview,
                 blocks=blocks,
             )
         else:
-            total = report_data.get("stats", {}).get("total_functions", "?")
             await client.chat_postMessage(
                 channel=channel,
-                text=f"✅ Report ({repo_label}) — {time_str} — {total} functions indexed",
+                text=preview,
             )
 
         if report_path is not None and report_path.exists():
