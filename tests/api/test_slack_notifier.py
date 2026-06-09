@@ -147,9 +147,9 @@ def test_build_report_blocks_no_clusters_omits_block(full_data):
 
 def test_build_report_blocks_flags_raised(full_data):
     text = _all_text(_build_report_blocks(full_data))
-    assert "HIGH_DUPLICATION_CLUSTER" in text
-    assert "CROSS_FILE_DUPLICATION" in text
-    assert "ARCHITECTURE_COUPLING" in text
+    assert "High duplication" in text
+    assert "Cross-file duplication" in text
+    assert "High coupling" in text
 
 
 def test_build_report_blocks_no_flags_omits_block(full_data):
@@ -160,14 +160,14 @@ def test_build_report_blocks_no_flags_omits_block(full_data):
         "TEST_POLLUTION": None,
     }
     text = _all_text(_build_report_blocks(full_data))
-    assert "HIGH_DUPLICATION_CLUSTER" not in text
+    assert "High duplication" not in text
     assert "\U0001f6a8" not in text
 
 
 def test_build_report_blocks_test_pollution_flag(full_data):
     full_data["flags"]["TEST_POLLUTION"] = 3
     text = _all_text(_build_report_blocks(full_data))
-    assert "TEST_POLLUTION" in text
+    assert "Test pollution" in text
 
 
 # ---------------------------------------------------------------------------

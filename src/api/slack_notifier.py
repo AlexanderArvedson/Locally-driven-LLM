@@ -48,6 +48,13 @@ def _build_pipeline_blocks(result: PipelineResult) -> list:
     return blocks
 
 
+_FLAG_LABELS = {
+    "HIGH_DUPLICATION_CLUSTER": "High duplication — large groups of near-identical functions",
+    "CROSS_FILE_DUPLICATION": "Cross-file duplication — same logic copied across multiple files",
+    "ARCHITECTURE_COUPLING": "High coupling — some files heavily depended on across the codebase",
+}
+
+
 def _build_report_blocks(data: dict) -> list:
     """Build a Slack Block Kit block list from a parsed report.json dict."""
     stats = data.get("stats", {})
@@ -74,8 +81,11 @@ def _build_report_blocks(data: dict) -> list:
             "text": (
                 f"*Graph*\n"
                 f"Functions: {stats.get('total_functions', '?')}\n"
-                f"Edges: {stats.get('edges', '?')}   Density: {stats.get('density', 0):.2f}\n"
-                f"Intra: {stats.get('intra_edges', '?')}   Inter: {stats.get('inter_edges', '?')}   Isolated: {stats.get('isolated_functions', 0)}"
+                f"Edges: {stats.get('edges', '?')}\n"
+                f"Density: {stats.get('density', 0):.2f} (how connected functions are on average)\n"
+                f"Intra-file: {stats.get('intra_edges', '?')} (similar functions in the same file)\n"
+                f"Cross-file: {stats.get('inter_edges', '?')} (similar functions across different files)\n"
+                f"Isolated: {stats.get('isolated_functions', 0)} (no similar counterparts found)"
             ),
         },
     })
@@ -89,7 +99,9 @@ def _build_report_blocks(data: dict) -> list:
             "text": (
                 f"*Embedding*\n"
                 f"OK: {emb.get('ok', '?')}\n"
-                f"Failed: {failed}   ({emb.get('context_overflow', 0)} overflow · {emb.get('error', 0)} error)"
+                f"Failed: {failed}\n"
+                f"  Too large to embed: {emb.get('context_overflow', 0)}\n"
+                f"  Error: {emb.get('error', 0)}"
             ),
         },
     })
@@ -128,34 +140,30 @@ def _build_report_blocks(data: dict) -> list:
 
     # Duplication clusters (omit if empty)
     if clusters:
-        largest = clusters[0]
+        cluster_lines = [f"*Duplication clusters: {len(clusters)}*"]
+        for c in clusters[:3]:
+            cluster_lines.append(
+                f"• {c.get('representative', '?')}  ·  {c.get('size', '?')} functions, avg score {c.get('avg_score', 0):.3f}"
+            )
         blocks.append({
             "type": "section",
-            "text": {
-                "type": "mrkdwn",
-                "text": (
-                    f"*Duplication clusters: {len(clusters)}*\n"
-                    f"Largest: {largest.get('representative', '?')}\n"
-                    f"{largest.get('size', '?')} functions, avg score {largest.get('avg_score', 0):.3f}"
-                ),
-            },
+            "text": {"type": "mrkdwn", "text": "\n".join(cluster_lines)},
         })
 
     # Raised flags — one flag per line (omit block if none)
     raised = []
-    for flag in ("HIGH_DUPLICATION_CLUSTER", "CROSS_FILE_DUPLICATION", "ARCHITECTURE_COUPLING"):
-        val = flags_raw.get(flag)
-        if val:
-            raised.append(flag)
+    for flag, label in _FLAG_LABELS.items():
+        if flags_raw.get(flag):
+            raised.append(label)
     test_poll = flags_raw.get("TEST_POLLUTION")
     if isinstance(test_poll, int) and test_poll > 0:
-        raised.append("TEST_POLLUTION")
+        raised.append("Test pollution — test code leaked into the similarity graph")
     god_files = flags_raw.get("GOD_FILE")
     if god_files:
-        raised.append(f"GOD_FILE ({len(god_files)} files)")
+        raised.append(f"God files ({len(god_files)}) — files doing too many things, candidates for splitting")
     low_coh = flags_raw.get("LOW_COHESION")
     if low_coh:
-        raised.append(f"LOW_COHESION ({len(low_coh)} files)")
+        raised.append(f"Low cohesion ({len(low_coh)}) — files where functions don't belong together")
 
     if raised:
         blocks.append({
@@ -166,19 +174,16 @@ def _build_report_blocks(data: dict) -> list:
             },
         })
 
-    # Top pair (omit if empty)
+    # Top pairs (omit if empty)
     if top_pairs:
-        pair = top_pairs[0]
+        pair_lines = ["*Top pairs*"]
+        for pair in top_pairs[:3]:
+            pair_lines.append(
+                f"• {pair.get('a_name', '?')} ↔ {pair.get('b_name', '?')}  ·  {pair.get('score', 0):.4f}"
+            )
         blocks.append({
             "type": "section",
-            "text": {
-                "type": "mrkdwn",
-                "text": (
-                    f"*Top pair*\n"
-                    f"{pair.get('a_name', '?')} ↔ {pair.get('b_name', '?')}\n"
-                    f"Score: {pair.get('score', 0):.4f}"
-                ),
-            },
+            "text": {"type": "mrkdwn", "text": "\n".join(pair_lines)},
         })
 
     return blocks
@@ -294,11 +299,12 @@ async def notify_scheduled_run(repo: str, cron_expr: str) -> None:
     if not token or not channel:
         return
 
+    now_utc = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
     client = AsyncWebClient(token=token)
     try:
         await client.chat_postMessage(
             channel=channel,
-            text=f"Scheduled pipeline run started or queued for repo: {repo} ",
+            text=f"Scheduled pipeline run queued for *{repo}* — `{cron_expr}` — {now_utc}",
         )
     except Exception:
         logger.exception("Slack scheduled-run notification failed")

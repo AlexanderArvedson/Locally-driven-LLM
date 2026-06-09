@@ -17,6 +17,7 @@ from src.pipeline.contracts import PipelineConfig
 from src.scheduler.task import PipelineTask, QueryTask, ReportTask, Task
 
 _TOP_N_DISPLAY = 5
+_DESC_MAX = 120
 
 
 def _format_query_result(query_text: str, matches: list) -> dict:
@@ -26,7 +27,10 @@ def _format_query_result(query_text: str, matches: list) -> dict:
 
     lines = [f'*Results for:* "{query_text}"\n']
     for m in matches[:_TOP_N_DISPLAY]:
-        lines.append(f"• `{m.qualified_name}`  ·  score {m.score:.2f}  ·  {m.file_path}")
+        lines.append(f"• `{m.qualified_name}`  ·  score {m.score:.2f} / 1.0  ·  {m.file_path}")
+        if m.description:
+            desc = m.description if len(m.description) <= _DESC_MAX else m.description[:_DESC_MAX] + "…"
+            lines.append(f"  _{desc}_")
 
     return {"response_type": "in_channel", "text": "\n".join(lines)}
 
