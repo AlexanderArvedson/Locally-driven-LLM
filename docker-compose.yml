@@ -51,7 +51,7 @@ services:
       PYTHONUNBUFFERED: "1"
     volumes:
       - ./config.json:/app/config.json:ro
-      - ${REPOS_ROOT}:${REPOS_ROOT}:ro
+      - ${REPOS_ROOT}:${REPOS_ROOT}
       - ./run_reports:/app/run_reports
     depends_on:
       - ollama
