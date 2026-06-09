@@ -59,6 +59,9 @@ def _is_anonymous_callback_name(name: str) -> bool:
     The ``@L<line>`` suffix is appended by the extractor whenever a function has
     no developer-assigned name and is resolved only from its call-expression
     context. Real identifiers in TypeScript/JavaScript/Python cannot contain ``@``.
+
+    Truly unresolvable functions (``<anonymous>``) are caught separately via the
+    ``is_anonymous`` flag in the extraction loop rather than by this helper.
     """
     return "@L" in name
 
@@ -110,7 +113,7 @@ def _extract_from_file(
         else:
             is_anonymous = False
 
-        if ignore_anonymous_callbacks and _is_anonymous_callback_name(function_name):
+        if ignore_anonymous_callbacks and (_is_anonymous_callback_name(function_name) or is_anonymous):
             continue
 
         class_name = _get_class_name(fn_node)
