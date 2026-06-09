@@ -271,7 +271,7 @@ def test_ts_single_param_arrow_not_named_by_param():
 def test_ts_truly_anonymous_falls_back():
     # Arrow returned from another function — no context to infer a name
     src = "function makeHandler() {\n  return () => {\n    return 1;\n  };\n}\n"
-    records = _extract_ts(src)
+    records = _extract_ts(src, ignore_anonymous_callbacks=False)
     names = {r.function_name for r in records}
     assert "makeHandler" in names
     assert "<anonymous>" in names
@@ -279,3 +279,12 @@ def test_ts_truly_anonymous_falls_back():
     anon = next(r for r in records if r.function_name == "<anonymous>")
     assert maker.is_anonymous is False
     assert anon.is_anonymous is True
+
+
+def test_ts_truly_anonymous_filtered_by_default():
+    # With ignore_anonymous_callbacks=True (default), <anonymous> functions are excluded
+    src = "function makeHandler() {\n  return () => {\n    return 1;\n  };\n}\n"
+    records = _extract_ts(src)
+    names = {r.function_name for r in records}
+    assert "makeHandler" in names
+    assert "<anonymous>" not in names
