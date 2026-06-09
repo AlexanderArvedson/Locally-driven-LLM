@@ -53,6 +53,16 @@ def _is_test_file(rel_path: str, test_patterns: list[str]) -> bool:
     return any(pattern in rel_path for pattern in test_patterns)
 
 
+def _is_anonymous_callback_name(name: str) -> bool:
+    """Return True for synthetically-named callbacks like useEffect$0@L87 or map@L42.
+
+    The ``@L<line>`` suffix is appended by the extractor whenever a function has
+    no developer-assigned name and is resolved only from its call-expression
+    context. Real identifiers in TypeScript/JavaScript/Python cannot contain ``@``.
+    """
+    return "@L" in name
+
+
 def _extract_from_file(
     file_path: Path,
     repo_root: Path,
@@ -61,6 +71,7 @@ def _extract_from_file(
     func_types: frozenset[str],
     parser: Parser,
     test_patterns: list[str] | None = None,
+    ignore_anonymous_callbacks: bool = True,
 ) -> list[FunctionRecord]:
     try:
         source_bytes = file_path.read_bytes()
@@ -98,6 +109,9 @@ def _extract_from_file(
                 is_anonymous = False
         else:
             is_anonymous = False
+
+        if ignore_anonymous_callbacks and _is_anonymous_callback_name(function_name):
+            continue
 
         class_name = _get_class_name(fn_node)
         qualified_name = f"{class_name}.{function_name}" if class_name else function_name
@@ -184,6 +198,7 @@ class FunctionExtractor:
                     func_types,
                     parser,
                     test_patterns=self._config.test_patterns,
+                    ignore_anonymous_callbacks=self._config.ignore_anonymous_callbacks,
                 )
             )
 

@@ -20,7 +20,7 @@ The sync always runs against the canonical `local_path` from config, even when `
 The pipeline then runs thirteen sequential stages:
 
 1. **ensure_schema** — creates Neo4j constraints, property indexes, and vector indexes if they do not already exist.
-2. **extract** — walks the repository with tree-sitter, extracting every function and method as a `FunctionRecord` with source text, line numbers, language, and class membership.
+2. **extract** — walks the repository with tree-sitter, extracting every function and method as a `FunctionRecord` with source text, line numbers, language, and class membership. When `ignore_anonymous_callbacks` is `true` (default), functions that were given a synthetic location-based name by the extractor — such as `useEffect$0@L87` or `map@L42` — are skipped. These are unnamed inline callbacks that produce structural-similarity noise in the graph because all instances of the same hook or iterator pattern appear identical to the embedding model.
 3. **loc_filter** — if `pipeline.limits.min_loc_threshold` is greater than `0`, removes any function whose line count (`endLine - startLine + 1`) falls below the threshold. Filtered functions are never embedded, described, or stored. The count is reported in the CLI summary and the report's Graph Overview section. Disabled by default (`0`).
 4. **get_existing_hashes** — fetches `{id: sourceHash}` for all live functions already in Neo4j.
 5. **partition** — splits extracted records into _changed_ (new or source-modified) and _unchanged_ (hash matches Neo4j).

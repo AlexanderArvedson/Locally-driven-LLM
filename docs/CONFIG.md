@@ -200,6 +200,7 @@ Controls the function embedding and similarity pipeline for this repository. See
 | `ignore_paths` | string[] | `[".venv", "node_modules", "__pycache__", ".git"]` | Directory or file name segments to exclude when scanning the repository. Any path component matching one of these strings is skipped. |
 | `test_patterns` | string[] | `["tests/", "test_", "_test.py"]` | Substrings matched against each function's relative file path to identify test code. Matched functions are stored in Neo4j with `isTest: true`. Whether they participate in the similarity graph and report is controlled by `include_tests_in_graph`. |
 | `include_tests_in_graph` | boolean | `false` | When `false` (default), test functions are excluded from similarity computation and all report rankings. When `true`, they are included — useful if you want to see how test coverage maps to production logic. The test function count is always shown in the report summary regardless of this setting. |
+| `ignore_anonymous_callbacks` | boolean | `true` | When `true` (default), functions that were given a synthetic name by the extractor — anonymous callbacks like `useEffect$0@L87`, `map@L864`, or `then@L42` — are excluded from extraction entirely. These functions have no developer-assigned name and produce structural-similarity noise in the graph because all instances of the same hook or iterator pattern look identical to the embedding model. Set to `false` to include them (e.g. if you need full coverage of all executable code). |
 
 #### `pipeline.similarity`
 
@@ -207,8 +208,8 @@ Controls the function embedding and similarity pipeline for this repository. See
 |-------|------|---------|-------------|
 | `threshold` | float | `0.82` | Minimum cosine similarity required to create a `SIMILAR_TO` edge. Lower values produce denser graphs; raise toward `1.0` to keep only near-exact matches. |
 | `top_n` | integer | `20` | Maximum number of nearest neighbours to consider per function when computing edges. |
-| `code_weight` | float | `0.70` | Weight applied to code embedding similarity in the combined score. |
-| `description_weight` | float | `0.30` | Weight applied to description embedding similarity in the combined score. When description embeddings are absent the combined score falls back to the code similarity only. |
+| `code_weight` | float | `0.55` | Weight applied to code embedding similarity in the combined score. |
+| `description_weight` | float | `0.45` | Weight applied to description embedding similarity in the combined score. When description embeddings are absent the combined score falls back to the code similarity only. Higher description weight helps differentiate functions that are structurally similar but semantically distinct (e.g. React hooks with different purposes). Has no effect until descriptions are populated. |
 
 #### `pipeline.concurrency`
 

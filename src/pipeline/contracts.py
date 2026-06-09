@@ -144,6 +144,7 @@ class PipelineConfig:
     reporter: ReporterConfig = field(default_factory=ReporterConfig)
     test_patterns: list[str] = field(default_factory=lambda: ["tests/", "test_", "_test.py"])
     include_tests_in_graph: bool = False
+    ignore_anonymous_callbacks: bool = True
     repo_url: str = ""
     base_branch: str = "main"
     git_sync_path: str = ""      # canonical local_path from config; unaffected by --path override

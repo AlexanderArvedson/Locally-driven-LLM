@@ -12,7 +12,11 @@ _NEO4J = Neo4jConfig(uri="bolt://localhost:7687", database="neo4j", username="ne
 _SIM = SimilarityConfig()
 
 
-def _make_config(repo_path: str, languages: list[str] | None = None) -> PipelineConfig:
+def _make_config(
+    repo_path: str,
+    languages: list[str] | None = None,
+    ignore_anonymous_callbacks: bool = True,
+) -> PipelineConfig:
     return PipelineConfig(
         repo_path=repo_path,
         repo_name="test-repo",
@@ -25,14 +29,17 @@ def _make_config(repo_path: str, languages: list[str] | None = None) -> Pipeline
         describer_model="qwen2.5-coder:7b",
         similarity=_SIM,
         neo4j=_NEO4J,
+        ignore_anonymous_callbacks=ignore_anonymous_callbacks,
     )
 
 
-def _extract_ts(src: str, ext: str = ".ts") -> list:
+def _extract_ts(src: str, ext: str = ".ts", ignore_anonymous_callbacks: bool = True) -> list:
     """Write *src* to a temp file with the given extension and extract records."""
     with tempfile.TemporaryDirectory() as tmp:
         (Path(tmp) / f"code{ext}").write_text(src)
-        extractor = FunctionExtractor(_make_config(tmp, languages=["typescript"]))
+        extractor = FunctionExtractor(
+            _make_config(tmp, languages=["typescript"], ignore_anonymous_callbacks=ignore_anonymous_callbacks)
+        )
         return extractor.extract_all()
 
 
@@ -212,8 +219,8 @@ def test_ts_jsx_attribute_callback():
         "  <button onClick={() => { console.log('x'); }}>click</button>\n"
         ");\n"
     )
-    records = _extract_ts(src, ext=".tsx")
-    # onClick callback gets a unique location-suffixed name and is non-anonymous
+    # ignore_anonymous_callbacks=False: verify the naming logic still works when filtering is off
+    records = _extract_ts(src, ext=".tsx", ignore_anonymous_callbacks=False)
     onclick = next(r for r in records if r.function_name.startswith("onClick@L"))
     assert onclick is not None
     assert onclick.is_anonymous is False
@@ -222,7 +229,7 @@ def test_ts_jsx_attribute_callback():
 def test_ts_call_expression_single_arg():
     # One callback arg: forEach(fn) → unique location-suffixed name, non-anonymous
     src = "items.forEach((item) => { console.log(item); });\n"
-    records = _extract_ts(src)
+    records = _extract_ts(src, ignore_anonymous_callbacks=False)
     r = next(r for r in records if r.function_name.startswith("forEach@L"))
     assert r.is_anonymous is False
 
@@ -230,14 +237,14 @@ def test_ts_call_expression_single_arg():
 def test_ts_call_expression_multi_arg():
     # Multiple args: useEffect(fn, []) → callee name with positional + location suffix
     src = "useEffect(() => {\n  return;\n}, []);\n"
-    records = _extract_ts(src)
+    records = _extract_ts(src, ignore_anonymous_callbacks=False)
     r = next(r for r in records if r.function_name.startswith("useEffect$0@L"))
     assert r.is_anonymous is False
 
 
 def test_ts_export_default_anonymous():
     src = "export default function() {\n  return 42;\n}\n"
-    records = _extract_ts(src)
+    records = _extract_ts(src, ignore_anonymous_callbacks=False)
     assert len(records) == 1
     # export default uses the file stem instead of "default" as the name
     assert records[0].function_name.startswith("code@L")
@@ -246,7 +253,7 @@ def test_ts_export_default_anonymous():
 
 def test_ts_export_default_arrow():
     src = "export default () => {\n  return 42;\n};\n"
-    records = _extract_ts(src)
+    records = _extract_ts(src, ignore_anonymous_callbacks=False)
     assert len(records) == 1
     assert records[0].function_name.startswith("code@L")
     assert records[0].is_anonymous is False

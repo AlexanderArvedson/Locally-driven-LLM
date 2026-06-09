@@ -110,8 +110,8 @@
         "similarity": {
           "threshold": 0.90,
           "top_n": 20,
-          "code_weight": 0.70,
-          "description_weight": 0.30
+          "code_weight": 0.55,
+          "description_weight": 0.45
         },
         "concurrency": {
           "embed_code": 4,
@@ -131,6 +131,7 @@
         },
         "test_patterns": ["tests/", "test_", "_test.py", "cypress/", ".cy.ts", ".test.", ".spec."],
         "include_tests_in_graph": false,
+        "ignore_anonymous_callbacks": true,
         "reporter": {
           "cluster_threshold": 0.92,
           "arch_coupling_threshold": 0.60,
