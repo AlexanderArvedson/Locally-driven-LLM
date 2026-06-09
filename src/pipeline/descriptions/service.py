@@ -17,12 +17,18 @@ from src.pipeline.contracts import FunctionRecord, PipelineConfig
 from src.pipeline.descriptions.prompts import _PROMPT_TEMPLATE
 
 
-def _strip_fences(text: str) -> str:
-    """Remove triple-backtick code fences that models emit despite instructions."""
+def _extract_json(text: str) -> str:
+    """Strip code fences and extract the outermost JSON object from the response.
+
+    Handles models that emit prose before or after the JSON object despite
+    being instructed not to (e.g. "Here is the description: {...} Hope this helps!").
+    """
     text = text.strip()
     text = re.sub(r"^```[a-zA-Z]*\n?", "", text)
     text = re.sub(r"\n?```$", "", text)
-    return text.strip()
+    text = text.strip()
+    match = re.search(r"\{.*\}", text, re.DOTALL)
+    return match.group(0) if match else text
 
 
 class DescriptionService:
@@ -57,7 +63,7 @@ class DescriptionService:
                     model=self._model,
                     allow_gpu=self._allow_gpu,
                 )
-                cleaned = _strip_fences(result.message)
+                cleaned = _extract_json(result.message)
                 json.loads(cleaned)   # validate — raises if not JSON
                 record.description = cleaned
                 record.description_status = "ok"
