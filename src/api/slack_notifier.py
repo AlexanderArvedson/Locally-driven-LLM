@@ -60,11 +60,13 @@ def _build_report_blocks(data: dict) -> list:
     """Build a Slack Block Kit block list from a parsed report.json dict."""
     stats = data.get("stats", {})
     emb = data.get("embedding", {}).get("code", {})
+    desc = data.get("embedding", {}).get("description", {})
     sim = data.get("similarity_distribution", {})
     clusters = data.get("clusters", [])
     top_pairs = data.get("top_pairs", [])
     flags_raw = data.get("flags", {})
     delta = data.get("delta")
+    summary = data.get("summary", "")
 
     blocks: list = []
 
@@ -74,26 +76,33 @@ def _build_report_blocks(data: dict) -> list:
         "text": {"type": "plain_text", "text": f"\U0001f4ca {data.get('repo', '?')} — {data.get('timestamp', '?')}"},
     })
 
-    # Graph overview — one value per line
-    blocks.append({"type": "divider"})
-    blocks.append({
-        "type": "section",
-        "text": {
-            "type": "mrkdwn",
-            "text": (
-                f"*Graph*\n"
-                f"Functions: {stats.get('total_functions', '?')}\n"
-                f"Edges: {stats.get('edges', '?')}\n"
-                f"Density: {stats.get('density', 0):.2f} (how connected functions are on average)\n"
-                f"Intra-file: {stats.get('intra_edges', '?')} (similar functions in the same file)\n"
-                f"Cross-file: {stats.get('inter_edges', '?')} (similar functions across different files)\n"
-                f"Isolated: {stats.get('isolated_functions', 0)} (no similar counterparts found)"
-            ),
-        },
-    })
+    # Executive summary (omit if absent)
+    if summary:
+        blocks.append({"type": "divider"})
+        blocks.append({
+            "type": "section",
+            "text": {"type": "mrkdwn", "text": f"*Summary*\n{summary}"},
+        })
 
-    # Embedding health
+    # Graph overview — one value per line
+    loc_filtered = stats.get("loc_filtered")
+    graph_text = (
+        f"*Graph*\n"
+        f"Functions: {stats.get('total_functions', '?')}\n"
+        f"Edges: {stats.get('edges', '?')}\n"
+        f"Density: {stats.get('density', 0):.2f} (how connected functions are on average)\n"
+        f"Intra-file: {stats.get('intra_edges', '?')} (similar functions in the same file)\n"
+        f"Cross-file: {stats.get('inter_edges', '?')} (similar functions across different files)\n"
+        f"Isolated: {stats.get('isolated_functions', 0)} (no similar counterparts found)"
+    )
+    if loc_filtered:
+        graph_text += f"\nExcluded by LOC threshold: {loc_filtered}"
+    blocks.append({"type": "divider"})
+    blocks.append({"type": "section", "text": {"type": "mrkdwn", "text": graph_text}})
+
+    # Embedding health — code and description
     failed = emb.get("failed_total", emb.get("context_overflow", 0) + emb.get("error", 0))
+    desc_failed = desc.get("invalid_json", 0) + desc.get("timeout", 0) + desc.get("error", 0)
     blocks.append({"type": "divider"})
     blocks.append({
         "type": "section",
@@ -101,23 +110,24 @@ def _build_report_blocks(data: dict) -> list:
             "type": "mrkdwn",
             "text": (
                 f"*Embedding*\n"
-                f"OK: {emb.get('ok', '?')}\n"
-                f"Failed: {failed}\n"
+                f"Code — OK: {emb.get('ok', '?')}   Failed: {failed}\n"
                 f"  Too large to embed: {emb.get('context_overflow', 0)}\n"
-                f"  Error: {emb.get('error', 0)}"
+                f"  Error: {emb.get('error', 0)}\n"
+                f"Descriptions — OK: {desc.get('ok', '?')}   Failed: {desc_failed}"
             ),
         },
     })
 
-    # Similarity bands
+    # Similarity bands — keys match the JSON export format (gt_0.95, b_0.9_0.95, etc.)
     total_fns = stats.get("total_functions") or 0
 
     def _pct(n: int) -> str:
         return f" ({n / total_fns:.1%})" if total_fns else ""
 
-    gt95 = sim.get("gt95", 0)
-    b90_95 = sim.get("b90_95", 0)
-    b80_90 = sim.get("b80_90", 0)
+    gt95 = sim.get("gt_0.95", 0)
+    b90_95 = sim.get("b_0.9_0.95", 0)
+    b80_90 = sim.get("b_0.8_0.9", 0)
+    lt80 = sim.get("lt_0.8", 0)
     blocks.append({"type": "divider"})
     blocks.append({
         "type": "section",
@@ -127,7 +137,8 @@ def _build_report_blocks(data: dict) -> list:
                 f"*Similarity*\n"
                 f">0.95 (near-identical): {gt95}{_pct(gt95)}\n"
                 f"0.90–0.95 (highly similar): {b90_95}{_pct(b90_95)}\n"
-                f"0.80–0.90 (similar): {b80_90}{_pct(b80_90)}"
+                f"0.80–0.90 (similar): {b80_90}{_pct(b80_90)}\n"
+                f"≤0.80 (low similarity): {lt80}{_pct(lt80)}"
             ),
         },
     })
