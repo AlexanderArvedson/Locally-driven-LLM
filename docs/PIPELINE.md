@@ -137,7 +137,7 @@ One node per extracted function or method.
 | `codeEmbeddingStatus` | string \| null | Result of the code embedding stage: `"ok"`, `"skipped"` (empty source), `"context_overflow"` (large input, likely exceeded model context), `"timeout"`, or `"error"`. `null` for functions that have not been through an embedding run (e.g. legacy nodes). |
 | `codeEmbeddingInputChars` | integer \| null | Length of the raw source code in characters before truncation. Set only on failure. |
 | `codeEmbeddingTruncatedChars` | integer \| null | Length of the source code actually sent to the model after truncation. Set only on failure. |
-| `descriptionStatus` | string \| null | Result of the description generation stage: `"ok"`, `"skipped"` (run with `--no-descriptions`), `"invalid_json"` (model returned non-JSON after retries), `"timeout"`, or `"error"`. `null` for functions that have not been through a description run. |
+| `descriptionStatus` | string \| null | Result of the description generation stage: `"ok"`, `"skipped"` (run with `--no-descriptions`), `"invalid_json"` (response contained no parseable JSON object after stripping code fences and extracting the outermost `{…}` block — tried twice before giving up), `"timeout"`, or `"error"`. `null` for functions that have not been through a description run. |
 
 ### Relationship: `SIMILAR_TO`
 

@@ -5,7 +5,7 @@ import pytest
 
 from src.core.ollama_client import LLMResult, OllamaClient
 from src.pipeline.contracts import FunctionRecord, Neo4jConfig, PipelineConfig, SimilarityConfig
-from src.pipeline.descriptions.service import DescriptionService, _strip_fences
+from src.pipeline.descriptions.service import DescriptionService, _extract_json
 
 _NEO4J = Neo4jConfig(uri="bolt://localhost:7687", database="neo4j", username="neo4j", password="pw")
 
@@ -52,14 +52,19 @@ def _make_record() -> FunctionRecord:
     )
 
 
-def test_strip_fences_removes_markdown():
+def test_extract_json_removes_markdown_fences():
     wrapped = "```json\n{\"key\": 1}\n```"
-    assert _strip_fences(wrapped) == '{"key": 1}'
+    assert _extract_json(wrapped) == '{"key": 1}'
 
 
-def test_strip_fences_no_fences_unchanged():
+def test_extract_json_no_fences_unchanged():
     raw = '{"key": 1}'
-    assert _strip_fences(raw) == raw
+    assert _extract_json(raw) == raw
+
+
+def test_extract_json_strips_surrounding_prose():
+    prose = 'Here is the description:\n{"key": 1}\nHope this helps!'
+    assert _extract_json(prose) == '{"key": 1}'
 
 
 @pytest.mark.asyncio
