@@ -108,7 +108,7 @@
         "supported_languages": ["python", "typescript"],
         "ignore_paths": [".venv", "node_modules", "__pycache__", "dist", "build", ".git"],
         "similarity": {
-          "threshold": 0.82,
+          "threshold": 0.90,
           "top_n": 20,
           "code_weight": 0.70,
           "description_weight": 0.30
@@ -129,7 +129,7 @@
           "context_overflow_char_threshold": 10000,
           "min_loc_threshold": 3
         },
-        "test_patterns": ["tests/", "test_", "_test.py"],
+        "test_patterns": ["tests/", "test_", "_test.py", "cypress/", ".cy.ts"],
         "include_tests_in_graph": false,
         "reporter": {
           "cluster_threshold": 0.92,
