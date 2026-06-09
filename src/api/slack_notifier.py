@@ -93,7 +93,7 @@ def _build_report_blocks(data: dict) -> list:
         f"Density: {stats.get('density', 0):.2f} (how connected functions are on average)\n"
         f"Intra-file: {stats.get('intra_edges', '?')} (similar functions in the same file)\n"
         f"Cross-file: {stats.get('inter_edges', '?')} (similar functions across different files)\n"
-        f"Isolated: {stats.get('isolated_functions', 0)} (no similar counterparts found)"
+        f"Isolated: {stats.get('isolated', 0)} (no similar counterparts found)"
     )
     if loc_filtered:
         graph_text += f"\nExcluded by LOC threshold: {loc_filtered}"
