@@ -106,7 +106,7 @@
 
       "pipeline": {
         "supported_languages": ["python", "typescript"],
-        "ignore_paths": [".venv", "node_modules", "__pycache__", "dist", "build", ".git", "migrations/"],
+        "ignore_paths": [".venv", "node_modules", "__pycache__", "dist", "build", ".git", "migrations/", "seeds/"],
         "similarity": {
           "threshold": 0.90,
           "top_n": 20,
