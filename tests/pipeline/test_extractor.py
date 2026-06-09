@@ -262,7 +262,7 @@ def test_ts_export_default_arrow():
 def test_ts_single_param_arrow_not_named_by_param():
     # new Promise(resolve => {...}) — 'resolve' is the parameter name, not the function name
     src = "new Promise(resolve => {\n  resolve(42);\n});\n"
-    records = _extract_ts(src)
+    records = _extract_ts(src, ignore_anonymous_callbacks=False)
     assert len(records) == 1
     assert records[0].function_name != "resolve"
     assert records[0].is_anonymous is True
