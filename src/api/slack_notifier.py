@@ -74,6 +74,7 @@ def _build_report_blocks(data: dict) -> list:
     })
 
     # Graph overview — one value per line
+    blocks.append({"type": "divider"})
     blocks.append({
         "type": "section",
         "text": {
@@ -92,6 +93,7 @@ def _build_report_blocks(data: dict) -> list:
 
     # Embedding health
     failed = emb.get("failed_total", emb.get("context_overflow", 0) + emb.get("error", 0))
+    blocks.append({"type": "divider"})
     blocks.append({
         "type": "section",
         "text": {
@@ -107,15 +109,16 @@ def _build_report_blocks(data: dict) -> list:
     })
 
     # Similarity bands
+    blocks.append({"type": "divider"})
     blocks.append({
         "type": "section",
         "text": {
             "type": "mrkdwn",
             "text": (
                 f"*Similarity*\n"
-                f">0.95: {sim.get('gt95', 0)}\n"
-                f"0.90–0.95: {sim.get('b90_95', 0)}\n"
-                f"0.80–0.90: {sim.get('b80_90', 0)}"
+                f">0.95 (near-identical): {sim.get('gt95', 0)}\n"
+                f"0.90–0.95 (highly similar): {sim.get('b90_95', 0)}\n"
+                f"0.80–0.90 (similar): {sim.get('b80_90', 0)}"
             ),
         },
     })
@@ -125,12 +128,13 @@ def _build_report_blocks(data: dict) -> list:
         def _fmt(n: int) -> str:
             return f"+{n}" if n >= 0 else str(n)
 
+        blocks.append({"type": "divider"})
         blocks.append({
             "type": "section",
             "text": {
                 "type": "mrkdwn",
                 "text": (
-                    f"*Δ vs {delta['previous_timestamp']}*\n"
+                    f"*Changes since {delta['previous_timestamp']}*\n"
                     f"Functions: {_fmt(delta.get('functions', 0))}\n"
                     f"Edges: {_fmt(delta.get('edges', 0))}\n"
                     f"Clusters: {_fmt(delta.get('clusters', 0))}"
@@ -143,8 +147,9 @@ def _build_report_blocks(data: dict) -> list:
         cluster_lines = [f"*Duplication clusters: {len(clusters)}*"]
         for c in clusters[:3]:
             cluster_lines.append(
-                f"• {c.get('representative', '?')}  ·  {c.get('size', '?')} functions, avg score {c.get('avg_score', 0):.3f}"
+                f"• {c.get('representative', '?')}  ·  {c.get('size', '?')} functions, avg similarity {c.get('avg_score', 0):.3f}"
             )
+        blocks.append({"type": "divider"})
         blocks.append({
             "type": "section",
             "text": {"type": "mrkdwn", "text": "\n".join(cluster_lines)},
@@ -166,6 +171,7 @@ def _build_report_blocks(data: dict) -> list:
         raised.append(f"Low cohesion ({len(low_coh)}) — files where functions don't belong together")
 
     if raised:
+        blocks.append({"type": "divider"})
         blocks.append({
             "type": "section",
             "text": {
@@ -181,6 +187,7 @@ def _build_report_blocks(data: dict) -> list:
             pair_lines.append(
                 f"• {pair.get('a_name', '?')} ↔ {pair.get('b_name', '?')}  ·  {pair.get('score', 0):.4f}"
             )
+        blocks.append({"type": "divider"})
         blocks.append({
             "type": "section",
             "text": {"type": "mrkdwn", "text": "\n".join(pair_lines)},
