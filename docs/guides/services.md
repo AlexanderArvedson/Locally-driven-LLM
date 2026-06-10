@@ -7,10 +7,16 @@ The pipeline needs Ollama (model inference) and Neo4j (graph database) running b
 ## Start Ollama and Neo4j
 
 ```bash
-docker compose up -d ollama neo4j
+docker compose up --build -d ollama neo4j
 ```
 
-The `-d` flag runs them in the background. The first start will pull the Docker images, which may take a minute.
+The `--build` flag rebuilds images if anything has changed. The `-d` flag runs them in the background. The first start will pull the Docker images, which may take a minute.
+
+To see logs in the terminal instead of running in the background, omit `-d`:
+
+```bash
+docker compose up --build ollama neo4j
+```
 
 To check that both containers are up:
 
@@ -27,7 +33,13 @@ Both should show `running`.
 The FastAPI service is required for scheduled pipeline runs and the REST API. Start it alongside the other services:
 
 ```bash
-docker compose up -d ollama neo4j fastapi
+docker compose up --build -d ollama neo4j fastapi
+```
+
+Omit `-d` to follow logs in the terminal:
+
+```bash
+docker compose up --build ollama neo4j fastapi
 ```
 
 ---
@@ -37,14 +49,16 @@ docker compose up -d ollama neo4j fastapi
 By default, Ollama runs on CPU. If you have an Nvidia GPU you can enable hardware acceleration by appending the GPU override file:
 
 ```bash
-docker compose -f docker-compose.yml -f docker-compose.gpu.yml up -d ollama neo4j
+docker compose -f docker-compose.yml -f docker-compose.gpu.yml up --build -d ollama neo4j
 ```
 
 To include the FastAPI service at the same time:
 
 ```bash
-docker compose -f docker-compose.yml -f docker-compose.gpu.yml up -d ollama neo4j fastapi
+docker compose -f docker-compose.yml -f docker-compose.gpu.yml up --build -d ollama neo4j fastapi
 ```
+
+Omit `-d` from either command to follow logs in the terminal.
 
 This requires the [Nvidia Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html) to be installed on your host. Without it, Docker will fail to start the container with a device error.
 
