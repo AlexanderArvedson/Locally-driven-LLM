@@ -193,7 +193,7 @@ Each key under `models` names a role the agent uses an LLM for. All four roles m
 | `chat` | General-purpose conversational model used for planning and task decomposition. |
 | `coder` | Code generation model — should be a model fine-tuned for code (e.g. a Qwen-coder or DeepSeek-coder variant). |
 | `semantic_validator` | Model used to judge whether generated code satisfies the original task intent. Receives the task description, a unified diff of the change, and a truncated original file snippet for context; returns a structured JSON evaluation including `task_alignment_score` and `regression_risk`. Can be the same model as `coder`. |
-| `describer` | Model used by the embedding pipeline to generate structured JSON descriptions of extracted functions. Falls back to `chat` if this key is absent, so it is optional. A smaller or faster model is sufficient here — descriptions do not require the same reasoning quality as code planning. Set `max_tokens` to `-1` (unlimited) to prevent Ollama's default `num_predict` from truncating the JSON response mid-way, which produces a valid but incomplete description stored with `descriptionStatus: "ok"`. |
+| `describer` | Model used by the embedding pipeline to generate structured JSON descriptions of extracted functions. Falls back to `chat` if this key is absent, so it is optional. A smaller or faster model is sufficient here — descriptions do not require the same reasoning quality as code planning. Set `max_tokens` to `-1` (unlimited) to prevent Ollama's default `num_predict` from truncating the JSON response mid-way, which produces a valid but incomplete description stored with `descriptionStatus: "ok"`. The `num_ctx` value here is used as the context window for every description request — set it large enough to fit the system prompt plus up to `max_description_source_chars` of source code plus the JSON response (16 384 is a safe value for the default `max_description_source_chars: 12000`). If `num_ctx` is `null`, the pipeline falls back to `pipeline.limits.embedding_num_ctx`. |
 | `reporter` | Model reserved for future report analysis. Will be used to compare pipeline reports across runs and produce a synthesised document highlighting the most important findings, regressions, and patterns. Not wired into any pipeline stage yet — add it to your config now so the key is available when the feature is implemented. |
 | `embedding` | Embedding model used to build the vector-similarity layer of the knowledge graph. Must produce dense vector outputs. |
 
@@ -272,10 +272,10 @@ Controls source text truncation and embedding context window size.
 
 | Field | Type | Default | Description |
 |-------|------|---------|-------------|
-| `max_code_chars` | integer | `22000` | Maximum characters of source code sent to the embedding model. At ~3–4 chars/token for code, 22 000 chars fits within the 8192-token context of `nomic-embed-text` with a safety margin. |
+| `max_code_chars` | integer | `22000` | Maximum characters of source code sent to the embedding model for single-pass embedding. Has no effect on the chunked path (functions at or above `context_overflow_char_threshold` are always chunked regardless of this value). |
 | `max_description_source_chars` | integer | `12000` | Maximum characters of source code included in the LLM description prompt. Keeps the total prompt within the chat model's `num_ctx` budget. |
-| `embedding_num_ctx` | integer | `8192` | Context window size passed to Ollama on every embed request. Ollama's built-in default is 2048, which truncates long functions — this overrides it to the maximum supported by `nomic-embed-text`. |
-| `context_overflow_char_threshold` | integer | `10000` | When an Ollama embedding call fails with an HTTP 500, the pipeline uses this threshold to classify the failure: if the truncated input was at or above this many characters the status is set to `"context_overflow"`, otherwise `"error"`. Tune downward if you want to catch overflow failures earlier. |
+| `embedding_num_ctx` | integer | `8192` | Context window size passed to Ollama on every embed request. Falls back to this value if `models.embedding.num_ctx` is `null`. Ollama's built-in default is 2048, which can truncate inputs — this overrides it to the maximum supported by `nomic-embed-text`. Each chunk in the chunked embedding path is also sent with this value. |
+| `context_overflow_char_threshold` | integer | `10000` | Functions whose source code is at or above this many characters are embedded via mean-pooled chunk averaging instead of a single pass. Their `codeEmbeddingStatus` is set to `"chunked"`. Tune downward to chunk more functions; raise to restrict chunking to only the largest ones. |
 | `min_loc_threshold` | integer | `0` | Minimum lines of code a function must have to be included in the pipeline. Functions shorter than this value are silently skipped before embedding, description, and Neo4j storage. Set to `0` (default) to disable filtering. The count of excluded functions appears in the CLI output and in the report's Graph Overview section. |
 
 #### `pipeline.slack`
@@ -290,7 +290,7 @@ Controls live Slack progress notifications posted while the pipeline runs. Requi
 
 Setting `enabled` to `false` or leaving `SLACK_NOTIFY_CHANNEL` unset disables all pipeline notifications without affecting the post-run report notification.
 
-The pipeline reads `models.embedding` and `models.chat` from the same repository entry — no duplication of model settings is needed.
+The pipeline reads `models.embedding` and `models.describer` (falling back to `models.chat`) from the same repository entry — no duplication of model settings is needed.
 
 ---
 
