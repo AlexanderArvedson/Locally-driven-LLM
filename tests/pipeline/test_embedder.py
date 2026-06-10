@@ -4,7 +4,9 @@ import hashlib
 import pytest
 
 from src.core.ollama_client import EmbedResult, OllamaClient
-from src.pipeline.contracts import ConcurrencyConfig, FunctionRecord, Neo4jConfig, PipelineConfig, SimilarityConfig
+import dataclasses
+
+from src.pipeline.contracts import ConcurrencyConfig, FunctionRecord, LimitsConfig, Neo4jConfig, PipelineConfig, SimilarityConfig
 from src.pipeline.embeddings.service import EmbeddingService
 
 _NEO4J = Neo4jConfig(uri="bolt://localhost:7687", database="neo4j", username="neo4j", password="pw")
@@ -142,7 +144,7 @@ async def test_embed_code_skipped_status_on_empty_source(monkeypatch):
 
 
 @pytest.mark.asyncio
-async def test_embed_code_context_overflow_status_on_large_input(monkeypatch):
+async def test_embed_code_error_status_when_chunked_embed_fails(monkeypatch):
     async def fail_embed(self, text, model, **kw):
         raise RuntimeError("Ollama embed request failed: 500")
 
@@ -150,13 +152,12 @@ async def test_embed_code_context_overflow_status_on_large_input(monkeypatch):
 
     client = OllamaClient("http://localhost:11434")
     service = EmbeddingService(client, _make_config())
-    # Source larger than the _CONTEXT_OVERFLOW_CHARS threshold (10 000)
+    # Large input routes through _embed_chunked; if chunking fails it becomes "error"
     record = _make_record(source_code="x" * 15_000)
     await service.embed_code(record)
 
-    assert record.code_embedding_status == "context_overflow"
+    assert record.code_embedding_status == "error"
     assert record.code_embedding_input_chars == 15_000
-    assert record.code_embedding_truncated_chars is not None
 
 
 @pytest.mark.asyncio
@@ -269,3 +270,63 @@ async def test_embed_description_batch_calls_on_progress_per_item(monkeypatch):
 
     assert len(calls) == 3
     assert calls[-1] == (3, 3)
+
+
+def test_chunk_source_produces_correct_windows():
+    # chunk_size=10, overlap=2 → step=8; text of 16 chars → 2 chunks
+    config = dataclasses.replace(_make_config(), limits=LimitsConfig(chunk_size_chars=10, chunk_overlap_chars=2))
+    service = EmbeddingService(OllamaClient("http://localhost:11434"), config)
+
+    text = "abcdefghijklmnop"  # 16 chars
+    chunks = service._chunk_source(text)
+
+    assert len(chunks) == 2
+    assert all(len(c) <= 10 for c in chunks)
+    # Adjacent chunks share the 2-char overlap
+    assert chunks[0][-2:] == chunks[1][:2]
+    # No content is dropped — removing the repeated overlap reconstructs original
+    assert chunks[0] + chunks[1][2:] == text
+
+
+@pytest.mark.asyncio
+async def test_embed_chunked_returns_mean_of_chunk_embeddings(monkeypatch):
+    # Produce exactly 2 chunks: chunk_size=8, overlap=1, step=7; text of 12 chars
+    config = dataclasses.replace(_make_config(), limits=LimitsConfig(chunk_size_chars=8, chunk_overlap_chars=1))
+    call_results = [[1.0, 0.0], [0.0, 1.0]]
+    call_index = 0
+
+    async def fake_embed(self, text, model, **kwargs):
+        nonlocal call_index
+        result = call_results[call_index % len(call_results)]
+        call_index += 1
+        return EmbedResult(embedding=result)
+
+    monkeypatch.setattr(OllamaClient, "embed", fake_embed)
+
+    service = EmbeddingService(OllamaClient("http://localhost:11434"), config)
+    result = await service._embed_chunked("a" * 12)
+
+    assert call_index == 2
+    assert result == [0.5, 0.5]
+
+
+@pytest.mark.asyncio
+async def test_embed_code_uses_chunked_path_for_large_input(monkeypatch):
+    call_count = 0
+
+    async def fake_embed(self, text, model, **kwargs):
+        nonlocal call_count
+        call_count += 1
+        return EmbedResult(embedding=[0.5] * 768)
+
+    monkeypatch.setattr(OllamaClient, "embed", fake_embed)
+
+    client = OllamaClient("http://localhost:11434")
+    service = EmbeddingService(client, _make_config())
+    record = _make_record(source_code="x" * 10_000)  # >= context_overflow_char_threshold
+
+    await service.embed_code(record)
+
+    assert record.code_embedding is not None
+    assert record.code_embedding_status == "chunked"
+    assert call_count > 1  # multiple chunks were embedded
