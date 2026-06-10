@@ -424,7 +424,7 @@ async def test_report_complete_success_posts_preview():
 
 
 @pytest.mark.asyncio
-async def test_report_complete_posts_to_thread_when_thread_ts_set():
+async def test_report_complete_posts_to_channel_even_when_thread_ts_set():
     n = _notifier()
     client = _mock_client()
     n._client = client
@@ -434,7 +434,7 @@ async def test_report_complete_posts_to_thread_when_thread_ts_set():
     with patch.dict("os.environ", {"SLACK_BOT_TOKEN": "xoxb-test", "SLACK_NOTIFY_CHANNEL": "#pipe"}):
         await n.report_complete(True, started, None, None)
     call_kwargs = client.chat_postMessage.call_args.kwargs
-    assert call_kwargs.get("thread_ts") == "111.222"
+    assert "thread_ts" not in call_kwargs
 
 
 @pytest.mark.asyncio
