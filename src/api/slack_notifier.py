@@ -116,10 +116,13 @@ def _build_report_blocks(data: dict, reporter_cfg: ReporterConfig | None = None)
     })
 
     if summary:
+        bullets = "\n".join(
+            f"• {s.rstrip('.')}." for s in summary.split(". ") if s.strip()
+        )
         blocks.append({"type": "divider"})
         blocks.append({
             "type": "section",
-            "text": {"type": "mrkdwn", "text": f"*Summary*\n{summary}"},
+            "text": {"type": "mrkdwn", "text": f"*Summary*\n{bullets}"},
         })
 
     loc_filtered = stats.get("loc_filtered")
@@ -162,6 +165,7 @@ def _build_report_blocks(data: dict, reporter_cfg: ReporterConfig | None = None)
 
     def _pct(n: int) -> str:
         return f" ({n / total_edges:.1%})" if total_edges else ""
+
     blocks.append({"type": "divider"})
     blocks.append({
         "type": "section",
@@ -169,7 +173,7 @@ def _build_report_blocks(data: dict, reporter_cfg: ReporterConfig | None = None)
             "type": "mrkdwn",
             "text": (
                 f"*Similarity*\n"
-                f">0.95 (near-identical): {gt95}{_pct(gt95)}\n"
+                f"≥0.95 (near-identical): {gt95}{_pct(gt95)}\n"
                 f"0.90–0.95 (highly similar): {b90_95}{_pct(b90_95)}\n"
                 f"0.80–0.90 (similar): {b80_90}{_pct(b80_90)}\n"
                 f"≤0.80 (low similarity): {lt80}{_pct(lt80)}"
