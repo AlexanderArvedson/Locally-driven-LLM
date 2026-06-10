@@ -337,7 +337,7 @@ async def notify_report_result(
         logger.exception("Slack report notification failed")
 
 
-async def notify_scheduled_run(repo: str, cron_expr: str) -> None:
+async def notify_scheduled_run(repo: str) -> None:
     """Post a notice to Slack that a cron-triggered pipeline run has been queued.
 
     Silently skips when SLACK_BOT_TOKEN or SLACK_NOTIFY_CHANNEL is unset.
@@ -353,7 +353,7 @@ async def notify_scheduled_run(repo: str, cron_expr: str) -> None:
     try:
         await client.chat_postMessage(
             channel=channel,
-            text=f"⏰ Scheduled pipeline run queued for *{repo}* — `{cron_expr}` — {now_utc}",
+            text=f"⏰ Scheduled pipeline run queued for *{repo}* — {now_utc}",
         )
     except Exception:
         logger.exception("Slack scheduled-run notification failed")
