@@ -119,8 +119,12 @@ def ensure_repo_synced(
         logger.warning("Could not checkout '%s': %s", base_branch, exc.stderr.strip())
 
     head_before = repo.head.commit.hexsha[:7]
+    pull_url = _auth_url(remote_url, username, token) if token else None
     try:
-        repo.remotes.origin.pull(base_branch)
+        if pull_url:
+            repo.git.pull(pull_url, base_branch)
+        else:
+            repo.remotes.origin.pull(base_branch)
         head_after = repo.head.commit.hexsha[:7]
         already_up_to_date = head_before == head_after
         logger.info("Pulled '%s' at '%s'.", base_branch, local_path)

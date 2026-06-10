@@ -102,6 +102,17 @@ class TestEnsureRepoSynced:
         mock_repo.remotes.origin.pull.assert_called_once_with("develop")
         assert result.branch == "develop"
 
+    def test_pull_uses_authenticated_url_when_token_provided(self, tmp_path, mock_repo):
+        existing = str(tmp_path)
+        with patch("src.git.branch_manager._open_repo", return_value=mock_repo):
+            ensure_repo_synced(
+                "https://example.com/repo.git", existing, "main", username="user", token="tok"
+            )
+        mock_repo.git.pull.assert_called_once_with(
+            "https://user:tok@example.com/repo.git", "main"
+        )
+        mock_repo.remotes.origin.pull.assert_not_called()
+
     def test_already_up_to_date_when_commit_unchanged(self, tmp_path, mock_repo):
         # Same hexsha before and after pull → already_up_to_date=True
         mock_repo.head.commit.hexsha = "abc1234def5678"
