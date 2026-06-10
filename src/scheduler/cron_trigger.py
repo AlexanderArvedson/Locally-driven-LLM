@@ -14,6 +14,9 @@ import uuid
 from croniter import croniter
 from loguru import logger
 
+from src.api.slack_notifier import SlackNotifier
+from src.pipeline.contracts import SlackPipelineConfig
+
 from .queue import TaskQueue
 from .task import PipelineTask
 
@@ -67,8 +70,7 @@ class CronTrigger:
 
             logger.info("[cron] firing scheduled pipeline run — repo={}", self._repo)
 
-            from src.api.slack_notifier import notify_scheduled_run
-            await notify_scheduled_run(self._repo)
+            await SlackNotifier(SlackPipelineConfig()).scheduled_run_queued(self._repo)
 
             await self._queue.enqueue(
                 PipelineTask(id=str(uuid.uuid4()), repo=self._repo)

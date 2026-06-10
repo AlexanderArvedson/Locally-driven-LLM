@@ -82,7 +82,7 @@ class TaskDispatcher:
         logger.info("[dispatcher] done")
 
     async def _handle_pipeline(self, task: PipelineTask) -> None:
-        from src.api.slack_notifier import notify_pipeline_result
+        from src.api.slack_notifier import SlackNotifier
         from src.pipeline.pipeline import EmbeddingPipeline
 
         config = replace(self._config, repo_name=task.repo)
@@ -91,27 +91,29 @@ class TaskDispatcher:
         logger.info("[dispatcher] pipeline starting — repo_path={} repo_name={} languages={}",
                     config.repo_path, config.repo_name, config.supported_languages)
 
-        pipeline = EmbeddingPipeline(config, dry_run=task.dry_run, skip_descriptions=task.no_descriptions)
+        notifier = SlackNotifier(config.slack)
+        pipeline = EmbeddingPipeline(config, dry_run=task.dry_run, skip_descriptions=task.no_descriptions, notifier=notifier)
         try:
             result = await pipeline.run()
         finally:
             await pipeline.close()
-
-        error = result.errors[0] if result.errors else None
-        await notify_pipeline_result(not result.errors, result, error)
 
         if not task.no_report and not task.dry_run:
             await self._handle_report(ReportTask(
                 id=str(uuid.uuid4()),
                 repo=task.repo,
                 loc_filtered=result.loc_filtered,
-            ))
+            ), notifier=notifier)
 
-    async def _handle_report(self, task: ReportTask) -> None:
+    async def _handle_report(self, task: ReportTask, notifier=None) -> None:
         import datetime
 
-        from src.api.slack_notifier import notify_report_result
+        from src.api.slack_notifier import SlackNotifier
+        from src.pipeline.contracts import SlackPipelineConfig
         from src.pipeline.reporting.reporter import generate_report
+
+        if notifier is None:
+            notifier = SlackNotifier(SlackPipelineConfig())
 
         config = replace(self._config, repo_name=task.repo)
         started_at = datetime.datetime.now()
@@ -123,6 +125,6 @@ class TaskDispatcher:
                 loc_filtered=task.loc_filtered,
             )
         except Exception as exc:
-            await notify_report_result(False, started_at, None, str(exc))
+            await notifier.report_complete(False, started_at, None, str(exc))
             raise
-        await notify_report_result(True, started_at, report_path, None, reporter_cfg=self._config.reporter)
+        await notifier.report_complete(True, started_at, report_path, None, reporter_cfg=self._config.reporter)

@@ -134,7 +134,6 @@ async def test_handle_query_posts_error_message_on_search_failure(monkeypatch):
     assert "Search failed" in payload["text"]
     assert "Neo4j unavailable" in payload["text"]
 
-    # Resources must be released even when search() raises.
     mock_client.close.assert_called_once()
     mock_store.close.assert_called_once()
 
@@ -183,7 +182,6 @@ async def test_handle_pipeline_runs_pipeline_and_closes_it():
 
     with (
         patch("src.pipeline.pipeline.EmbeddingPipeline", return_value=mock_pipeline),
-        patch("src.api.slack_notifier.notify_pipeline_result", AsyncMock()),
         patch.object(dispatcher, "_handle_report", AsyncMock()),
     ):
         task = PipelineTask(id="p1", repo="myrepo")
@@ -217,7 +215,6 @@ async def test_handle_pipeline_passes_no_descriptions_flag():
 
     with (
         patch("src.pipeline.pipeline.EmbeddingPipeline", return_value=mock_pipeline) as mock_cls,
-        patch("src.api.slack_notifier.notify_pipeline_result", AsyncMock()),
         patch.object(dispatcher, "_handle_report", AsyncMock()),
     ):
         task = PipelineTask(id="p3", repo="myrepo", no_descriptions=True)
@@ -237,7 +234,6 @@ async def test_handle_pipeline_chains_report_by_default():
 
     with (
         patch("src.pipeline.pipeline.EmbeddingPipeline", return_value=mock_pipeline),
-        patch("src.api.slack_notifier.notify_pipeline_result", AsyncMock()),
         patch.object(dispatcher, "_handle_report", mock_handle_report),
     ):
         task = PipelineTask(id="p4", repo="myrepo")
@@ -260,7 +256,6 @@ async def test_handle_pipeline_skips_report_with_no_report_flag():
 
     with (
         patch("src.pipeline.pipeline.EmbeddingPipeline", return_value=mock_pipeline),
-        patch("src.api.slack_notifier.notify_pipeline_result", AsyncMock()),
         patch.object(dispatcher, "_handle_report", mock_handle_report),
     ):
         task = PipelineTask(id="p5", repo="myrepo", no_report=True)
@@ -279,13 +274,34 @@ async def test_handle_pipeline_skips_report_on_dry_run():
 
     with (
         patch("src.pipeline.pipeline.EmbeddingPipeline", return_value=mock_pipeline),
-        patch("src.api.slack_notifier.notify_pipeline_result", AsyncMock()),
         patch.object(dispatcher, "_handle_report", mock_handle_report),
     ):
         task = PipelineTask(id="p6", repo="myrepo", dry_run=True)
         await dispatcher.execute(task)
 
     mock_handle_report.assert_not_called()
+
+
+async def test_handle_pipeline_passes_notifier_to_report():
+    """The same SlackNotifier instance created in _handle_pipeline is forwarded to _handle_report."""
+    dispatcher = TaskDispatcher(pipeline_config=_make_pipeline_config())
+
+    mock_pipeline = AsyncMock()
+    mock_pipeline.run = AsyncMock(return_value=PipelineResult())
+    mock_pipeline.close = AsyncMock()
+    mock_handle_report = AsyncMock()
+
+    with (
+        patch("src.pipeline.pipeline.EmbeddingPipeline", return_value=mock_pipeline),
+        patch.object(dispatcher, "_handle_report", mock_handle_report),
+    ):
+        task = PipelineTask(id="p7", repo="myrepo")
+        await dispatcher.execute(task)
+
+    # _handle_report must receive a notifier keyword argument
+    _, kwargs = mock_handle_report.call_args
+    assert "notifier" in kwargs
+    assert kwargs["notifier"] is not None
 
 
 # ---------------------------------------------------------------------------
@@ -311,14 +327,16 @@ async def test_handle_report_calls_generate_report_and_notifies():
     mock_report_dir = MagicMock()
     mock_report_dir.__truediv__ = lambda self, other: Path("/tmp/report.md")
 
+    mock_notifier = AsyncMock()
+
     with (
         patch("src.pipeline.reporting.reporter.generate_report", AsyncMock(return_value=mock_report_dir)),
-        patch("src.api.slack_notifier.notify_report_result", AsyncMock()) as mock_notify,
+        patch("src.api.slack_notifier.SlackNotifier", return_value=mock_notifier),
     ):
         task = ReportTask(id="r2", repo="myrepo", loc_filtered=5)
         await dispatcher.execute(task)
 
-    mock_notify.assert_called_once()
-    success, started_at, report_path, error = mock_notify.call_args.args
+    mock_notifier.report_complete.assert_called_once()
+    success, started_at, report_path, error = mock_notifier.report_complete.call_args.args
     assert success is True
     assert error is None

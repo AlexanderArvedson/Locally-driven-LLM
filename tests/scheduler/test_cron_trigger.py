@@ -1,7 +1,7 @@
 """Unit tests for CronTrigger.
 
 asyncio.sleep is mocked to return immediately so tests run without real delays.
-notify_scheduled_run is mocked so tests run without a live Slack workspace.
+SlackNotifier is mocked so tests run without a live Slack workspace.
 """
 
 from __future__ import annotations
@@ -60,10 +60,7 @@ async def test_double_start_is_idempotent():
             return
         fired.set()
 
-    with (
-        patch("src.scheduler.cron_trigger.asyncio.sleep", side_effect=fake_sleep),
-        patch("src.api.slack_notifier.notify_scheduled_run", new=AsyncMock()),
-    ):
+    with patch("src.scheduler.cron_trigger.asyncio.sleep", side_effect=fake_sleep):
         await trigger.start()
         task_after_first_start = trigger._task
 
@@ -93,10 +90,7 @@ async def test_pipeline_task_enqueued_on_fire():
             return
         fired.set()
 
-    with (
-        patch("src.scheduler.cron_trigger.asyncio.sleep", side_effect=fake_sleep),
-        patch("src.api.slack_notifier.notify_scheduled_run", new=AsyncMock()),
-    ):
+    with patch("src.scheduler.cron_trigger.asyncio.sleep", side_effect=fake_sleep):
         await trigger.start()
         await asyncio.wait_for(fired.wait(), timeout=2)
         await trigger.stop()
@@ -120,10 +114,7 @@ async def test_correct_repo_name_in_task():
             return
         fired.set()
 
-    with (
-        patch("src.scheduler.cron_trigger.asyncio.sleep", side_effect=fake_sleep),
-        patch("src.api.slack_notifier.notify_scheduled_run", new=AsyncMock()),
-    ):
+    with patch("src.scheduler.cron_trigger.asyncio.sleep", side_effect=fake_sleep):
         await trigger.start()
         await asyncio.wait_for(fired.wait(), timeout=2)
         await trigger.stop()
@@ -151,10 +142,7 @@ async def test_multiple_fires_enqueue_multiple_tasks():
             await block.wait()  # park here until stop()
             return
 
-    with (
-        patch("src.scheduler.cron_trigger.asyncio.sleep", side_effect=fake_sleep),
-        patch("src.api.slack_notifier.notify_scheduled_run", new=AsyncMock()),
-    ):
+    with patch("src.scheduler.cron_trigger.asyncio.sleep", side_effect=fake_sleep):
         await trigger.start()
         await asyncio.wait_for(done.wait(), timeout=2)
         await trigger.stop()
@@ -186,20 +174,20 @@ async def test_slack_notify_called_on_fire():
             return
         fired.set()
 
-    mock_notify = AsyncMock()
+    mock_notifier = AsyncMock()
     with (
         patch("src.scheduler.cron_trigger.asyncio.sleep", side_effect=fake_sleep),
-        patch("src.api.slack_notifier.notify_scheduled_run", mock_notify),
+        patch("src.scheduler.cron_trigger.SlackNotifier", return_value=mock_notifier),
     ):
         await trigger.start()
         await asyncio.wait_for(fired.wait(), timeout=2)
         await trigger.stop()
 
-    mock_notify.assert_called_once_with("myrepo", EVERY_MINUTE)
+    mock_notifier.scheduled_run_queued.assert_called_once_with("myrepo")
 
 
 @pytest.mark.asyncio
-async def test_slack_notify_called_with_correct_cron_expr():
+async def test_slack_notify_called_with_correct_repo():
     queue = TaskQueue()
     trigger = CronTrigger(cron_expr=DAILY_MIDNIGHT, repo="repo-x", queue=queue)
 
@@ -212,14 +200,14 @@ async def test_slack_notify_called_with_correct_cron_expr():
             return
         fired.set()
 
-    mock_notify = AsyncMock()
+    mock_notifier = AsyncMock()
     with (
         patch("src.scheduler.cron_trigger.asyncio.sleep", side_effect=fake_sleep),
-        patch("src.api.slack_notifier.notify_scheduled_run", mock_notify),
+        patch("src.scheduler.cron_trigger.SlackNotifier", return_value=mock_notifier),
     ):
         await trigger.start()
         await asyncio.wait_for(fired.wait(), timeout=2)
         await trigger.stop()
 
-    _, call_cron = mock_notify.call_args.args
-    assert call_cron == DAILY_MIDNIGHT
+    repo_arg = mock_notifier.scheduled_run_queued.call_args.args[0]
+    assert repo_arg == "repo-x"

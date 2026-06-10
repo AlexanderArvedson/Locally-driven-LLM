@@ -153,6 +153,11 @@
           "god_file_threshold": 20,
           "slack_top_n_query": 5,
           "slack_top_n_report": 3
+        },
+        "slack": {
+          "enabled": true,
+          "debug_messages": false,
+          "progress_update_interval": 100
         }
       }
     }

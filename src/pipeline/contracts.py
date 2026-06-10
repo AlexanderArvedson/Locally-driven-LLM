@@ -128,6 +128,14 @@ class LimitsConfig:
 
 
 @dataclass(frozen=True)
+class SlackPipelineConfig:
+    """Slack notification settings for pipeline observability."""
+    enabled: bool = True
+    debug_messages: bool = False
+    progress_update_interval: int = 100
+
+
+@dataclass(frozen=True)
 class PipelineConfig:
     repo_path: str
     repo_name: str
@@ -144,6 +152,7 @@ class PipelineConfig:
     batch_sizes: BatchSizeConfig = field(default_factory=BatchSizeConfig)
     limits: LimitsConfig = field(default_factory=LimitsConfig)
     reporter: ReporterConfig = field(default_factory=ReporterConfig)
+    slack: SlackPipelineConfig = field(default_factory=SlackPipelineConfig)
     test_patterns: list[str] = field(default_factory=lambda: ["tests/", "test_", "_test.py"])
     include_tests_in_graph: bool = False
     ignore_anonymous_callbacks: bool = True

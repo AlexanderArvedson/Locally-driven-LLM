@@ -12,6 +12,7 @@ from datetime import datetime, timezone
 
 from loguru import logger
 
+from src.api.slack_notifier import SlackNotifier
 from src.core.ollama_client import OllamaClient
 from src.pipeline.contracts import PipelineConfig, PipelineResult
 from src.pipeline.descriptions.service import DescriptionService
@@ -24,7 +25,13 @@ from src.pipeline.graph.similarity import compute_similarity_edges
 class EmbeddingPipeline:
     """Orchestrates all pipeline stages for a single repository."""
 
-    def __init__(self, config: PipelineConfig, dry_run: bool = False, skip_descriptions: bool = False) -> None:
+    def __init__(
+        self,
+        config: PipelineConfig,
+        dry_run: bool = False,
+        skip_descriptions: bool = False,
+        notifier: SlackNotifier | None = None,
+    ) -> None:
         self._config = config
         self._dry_run = dry_run
         self._skip_descriptions = skip_descriptions
@@ -37,6 +44,7 @@ class EmbeddingPipeline:
         self._extractor = FunctionExtractor(config)
         self._embedder = EmbeddingService(self._client, config)
         self._describer = DescriptionService(self._client, config)
+        self._notifier = notifier if notifier is not None else SlackNotifier(config.slack)
 
     async def close(self) -> None:
         await self._client.close()
@@ -47,30 +55,41 @@ class EmbeddingPipeline:
         result = PipelineResult()
         start = time.monotonic()
 
+        await self._notifier.pipeline_start(self._config.repo_name)
         try:
             await self._run_stages(result)
         except Exception as e:
             result.errors.append(str(e))
             logger.exception("Pipeline failed")
+            await self._notifier.pipeline_failed(str(e))
         finally:
             result.duration_seconds = time.monotonic() - start
+            if not result.errors:
+                await self._notifier.pipeline_complete(result)
 
         return result
 
-    def _sync_repo(self) -> None:
-        """Ensure the target repo exists and is on the correct base branch before extraction."""
+    def _sync_repo(self):
+        """Ensure the target repo exists and is on the correct base branch before extraction.
+
+        Returns a SyncResult if sync was attempted, or None if no repo_url is configured.
+        """
         cfg = self._config
         if not cfg.repo_url:
             logger.debug("No repo_url configured — skipping repo sync.")
-            return
+            return None
         sync_path = cfg.git_sync_path or cfg.repo_path
         from src.git.branch_manager import ensure_repo_synced
-        ensure_repo_synced(cfg.repo_url, sync_path, cfg.base_branch, cfg.git_username, cfg.git_token)
+        return ensure_repo_synced(cfg.repo_url, sync_path, cfg.base_branch, cfg.git_username, cfg.git_token)
 
     async def _run_stages(self, result: PipelineResult) -> None:
         config = self._config
 
-        self._sync_repo()
+        # Repo sync
+        await self._notifier.sync_start()
+        sync_result = self._sync_repo()
+        if sync_result is not None:
+            await self._notifier.sync_complete(sync_result)
 
         # Stage 1: ensure Neo4j schema exists.
         if not self._dry_run:
@@ -79,7 +98,9 @@ class EmbeddingPipeline:
 
         # Stage 2: extract all functions from disk.
         logger.info("Extracting functions from {}...", config.repo_path)
+        t_extract = time.monotonic()
         all_records = self._extractor.extract_all()
+        extraction_duration = time.monotonic() - t_extract
         result.total_extracted = len(all_records)
         logger.info("Extracted {} functions", result.total_extracted)
 
@@ -95,6 +116,9 @@ class EmbeddingPipeline:
                     result.loc_filtered,
                     threshold,
                 )
+
+        files_processed = len({r.file_path for r in all_records})
+        await self._notifier.extraction_complete(files_processed, result.total_extracted, extraction_duration)
 
         if not all_records:
             return
@@ -115,16 +139,48 @@ class EmbeddingPipeline:
         # to validate extraction without making expensive Ollama calls.
         if not self._dry_run and changed:
             logger.info("Embedding source code for {} functions...", len(changed))
-            await self._embedder.embed_code_batch(changed)
+            await self._notifier.embedding_start(len(changed), "code")
+            t_code_embed = time.monotonic()
+
+            async def _on_code_progress(done: int, total: int) -> None:
+                await self._notifier.progress("Code embedding", done, total, t_code_embed)
+
+            await self._embedder.embed_code_batch(changed, on_progress=_on_code_progress)
+            code_failures = sum(1 for r in changed if r.code_embedding_status not in ("ok", "skipped", None))
+            await self._notifier.embedding_complete(
+                len(changed) - code_failures, code_failures, time.monotonic() - t_code_embed, "code"
+            )
 
             if not self._skip_descriptions:
                 logger.info("Generating descriptions for {} functions...", len(changed))
-                await self._describer.describe_batch(changed)
+                await self._notifier.description_start(len(changed))
+                t_desc = time.monotonic()
+
+                async def _on_desc_progress(done: int, total: int) -> None:
+                    await self._notifier.progress("Description generation", done, total, t_desc)
+
+                await self._describer.describe_batch(changed, on_progress=_on_desc_progress)
+                desc_ok = sum(1 for r in changed if r.description_status == "ok")
+                desc_skipped = sum(1 for r in changed if r.description_status == "skipped")
+                await self._notifier.description_complete(desc_ok, desc_skipped, time.monotonic() - t_desc)
 
                 described = [r for r in changed if r.description]
                 if described:
                     logger.info("Embedding descriptions for {} functions...", len(described))
-                    await self._embedder.embed_description_batch(described)
+                    await self._notifier.embedding_start(len(described), "description")
+                    t_desc_embed = time.monotonic()
+
+                    async def _on_desc_embed_progress(done: int, total: int) -> None:
+                        await self._notifier.progress("Description embedding", done, total, t_desc_embed)
+
+                    await self._embedder.embed_description_batch(described, on_progress=_on_desc_embed_progress)
+                    desc_embed_failures = sum(1 for r in described if r.description_embedding is None)
+                    await self._notifier.embedding_complete(
+                        len(described) - desc_embed_failures,
+                        desc_embed_failures,
+                        time.monotonic() - t_desc_embed,
+                        "description",
+                    )
             else:
                 logger.info("Skipping description generation (--no-descriptions)")
                 for r in changed:
@@ -160,11 +216,14 @@ class EmbeddingPipeline:
             return
 
         logger.info("Computing similarity edges for {} functions...", len(embeddings))
+        await self._notifier.similarity_start(len(embeddings))
+        t_sim = time.monotonic()
         edges = await compute_similarity_edges(
             self._store, embeddings, config.repo_name, config.similarity,
             include_tests=config.include_tests_in_graph,
         )
         result.edges_written = len(edges)
+        await self._notifier.similarity_complete(result.edges_written, time.monotonic() - t_sim)
         logger.info("Writing {} similarity edges...", result.edges_written)
 
         # Delete existing edges before re-inserting so stale edges from

@@ -208,3 +208,64 @@ async def test_embed_description_extracts_summary(monkeypatch):
 
     # Embedding was generated from "does something", not the full JSON.
     assert record.description_embedding == [float(len("does something"))]
+
+
+@pytest.mark.asyncio
+async def test_embed_code_batch_calls_on_progress_per_item(monkeypatch):
+    async def fake_embed(self, text, model, **kwargs):
+        return EmbedResult(embedding=[0.1] * 768)
+
+    monkeypatch.setattr(OllamaClient, "embed", fake_embed)
+
+    client = OllamaClient("http://localhost:11434")
+    service = EmbeddingService(client, _make_config())
+    records = [_make_record(f"def f{i}(): pass") for i in range(5)]
+
+    calls: list[tuple[int, int]] = []
+
+    async def on_progress(done: int, total: int) -> None:
+        calls.append((done, total))
+
+    await service.embed_code_batch(records, on_progress=on_progress)
+
+    assert len(calls) == 5
+    assert calls[-1] == (5, 5)
+
+
+@pytest.mark.asyncio
+async def test_embed_code_batch_no_progress_when_callback_is_none(monkeypatch):
+    async def fake_embed(self, text, model, **kwargs):
+        return EmbedResult(embedding=[0.1] * 768)
+
+    monkeypatch.setattr(OllamaClient, "embed", fake_embed)
+
+    client = OllamaClient("http://localhost:11434")
+    service = EmbeddingService(client, _make_config())
+    records = [_make_record()]
+    # Should not raise
+    await service.embed_code_batch(records, on_progress=None)
+
+
+@pytest.mark.asyncio
+async def test_embed_description_batch_calls_on_progress_per_item(monkeypatch):
+    async def fake_embed(self, text, model, **kwargs):
+        return EmbedResult(embedding=[0.2] * 768)
+
+    monkeypatch.setattr(OllamaClient, "embed", fake_embed)
+
+    client = OllamaClient("http://localhost:11434")
+    service = EmbeddingService(client, _make_config())
+    import json
+    records = [_make_record() for _ in range(3)]
+    for r in records:
+        r.description = json.dumps({"summary": "x"})
+
+    calls: list[tuple[int, int]] = []
+
+    async def on_progress(done: int, total: int) -> None:
+        calls.append((done, total))
+
+    await service.embed_description_batch(records, on_progress=on_progress)
+
+    assert len(calls) == 3
+    assert calls[-1] == (3, 3)

@@ -278,6 +278,18 @@ Controls source text truncation and embedding context window size.
 | `context_overflow_char_threshold` | integer | `10000` | When an Ollama embedding call fails with an HTTP 500, the pipeline uses this threshold to classify the failure: if the truncated input was at or above this many characters the status is set to `"context_overflow"`, otherwise `"error"`. Tune downward if you want to catch overflow failures earlier. |
 | `min_loc_threshold` | integer | `0` | Minimum lines of code a function must have to be included in the pipeline. Functions shorter than this value are silently skipped before embedding, description, and Neo4j storage. Set to `0` (default) to disable filtering. The count of excluded functions appears in the CLI output and in the report's Graph Overview section. |
 
+#### `pipeline.slack`
+
+Controls live Slack progress notifications posted while the pipeline runs. Requires `SLACK_BOT_TOKEN` and `SLACK_NOTIFY_CHANNEL` to be set in `.env`. See `docs/guides/slack.md` for the full thread strategy and stage notification format.
+
+| Field | Type | Default | Description |
+|-------|------|---------|-------------|
+| `enabled` | boolean | `true` | Enables or disables all pipeline progress notifications. When `false`, the dispatcher falls back to the simpler one-shot completion message instead. |
+| `debug_messages` | boolean | `false` | When `true`, posts additional operational detail — e.g. "Repository found — pulling latest changes…" and per-sync commit information. Useful when debugging sync or connectivity issues. |
+| `progress_update_interval` | integer | `100` | Number of processed items between progress posts during code embedding, description generation, and description embedding. Increase for large repositories to reduce thread noise; lower to `10` for small runs to verify the feature. |
+
+Setting `enabled` to `false` or leaving `SLACK_NOTIFY_CHANNEL` unset disables all pipeline notifications without affecting the post-run report notification.
+
 The pipeline reads `models.embedding` and `models.chat` from the same repository entry — no duplication of model settings is needed.
 
 ---

@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import asyncio
 import json
+from collections.abc import Awaitable, Callable
 
 from loguru import logger
 
@@ -114,22 +115,40 @@ class EmbeddingService:
                 e,
             )
 
-    async def embed_code_batch(self, records: list[FunctionRecord]) -> None:
+    async def embed_code_batch(
+        self,
+        records: list[FunctionRecord],
+        on_progress: Callable[[int, int], Awaitable[None]] | None = None,
+    ) -> None:
         """Embed source code for all records in-place, respecting concurrency limit."""
         sem = asyncio.Semaphore(self._embed_code_concurrency)
+        completed = 0
 
         async def _embed_one(record: FunctionRecord) -> None:
+            nonlocal completed
             async with sem:
                 await self.embed_code(record)
+                completed += 1
+                if on_progress is not None:
+                    await on_progress(completed, len(records))
 
         await asyncio.gather(*[_embed_one(r) for r in records])
 
-    async def embed_description_batch(self, records: list[FunctionRecord]) -> None:
+    async def embed_description_batch(
+        self,
+        records: list[FunctionRecord],
+        on_progress: Callable[[int, int], Awaitable[None]] | None = None,
+    ) -> None:
         """Embed descriptions for all records in-place, respecting concurrency limit."""
         sem = asyncio.Semaphore(self._embed_description_concurrency)
+        completed = 0
 
         async def _embed_one(record: FunctionRecord) -> None:
+            nonlocal completed
             async with sem:
                 await self.embed_description(record)
+                completed += 1
+                if on_progress is not None:
+                    await on_progress(completed, len(records))
 
         await asyncio.gather(*[_embed_one(r) for r in records])
