@@ -1409,7 +1409,7 @@
       "source_file": "src/git/branch_manager.py",
       "source_location": "L17",
       "id": "git_branch_manager_syncresult",
-      "community": 86,
+      "community": 48,
       "norm_label": "syncresult"
     },
     {
@@ -1553,7 +1553,7 @@
       "source_file": "src/git/branch_manager.py",
       "source_location": "L18",
       "id": "git_branch_manager_rationale_18",
-      "community": 86,
+      "community": 48,
       "norm_label": "outcome of a repository synchronisation attempt."
     },
     {
@@ -1805,7 +1805,7 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L33",
       "id": "api_slack_notifier_fmt_duration",
-      "community": 36,
+      "community": 50,
       "norm_label": "_fmt_duration()"
     },
     {
@@ -1814,7 +1814,7 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L33",
       "id": "src_api_slack_notifier_py_float",
-      "community": 36,
+      "community": 50,
       "norm_label": "float"
     },
     {
@@ -1823,7 +1823,7 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L33",
       "id": "src_api_slack_notifier_py_str",
-      "community": 79,
+      "community": 50,
       "norm_label": "str"
     },
     {
@@ -1832,7 +1832,7 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L45",
       "id": "api_slack_notifier_fmt_eta",
-      "community": 36,
+      "community": 50,
       "norm_label": "_fmt_eta()"
     },
     {
@@ -1875,34 +1875,34 @@
       "label": "SlackNotifier",
       "file_type": "code",
       "source_file": "src/api/slack_notifier.py",
-      "source_location": "L255",
+      "source_location": "L258",
       "id": "api_slack_notifier_slacknotifier",
-      "community": 36,
+      "community": 57,
       "norm_label": "slacknotifier"
     },
     {
       "label": ".__init__()",
       "file_type": "code",
       "source_file": "src/api/slack_notifier.py",
-      "source_location": "L263",
+      "source_location": "L266",
       "id": "api_slack_notifier_slacknotifier_init",
-      "community": 86,
+      "community": 82,
       "norm_label": ".__init__()"
     },
     {
       "label": "SlackPipelineConfig",
       "file_type": "code",
       "source_file": "src/api/slack_notifier.py",
-      "source_location": "L263",
+      "source_location": "L266",
       "id": "slackpipelineconfig",
-      "community": 86,
+      "community": 82,
       "norm_label": "slackpipelineconfig"
     },
     {
       "label": "._get_client()",
       "file_type": "code",
       "source_file": "src/api/slack_notifier.py",
-      "source_location": "L272",
+      "source_location": "L275",
       "id": "api_slack_notifier_slacknotifier_get_client",
       "community": 79,
       "norm_label": "._get_client()"
@@ -1911,7 +1911,7 @@
       "label": "AsyncWebClient",
       "file_type": "code",
       "source_file": "src/api/slack_notifier.py",
-      "source_location": "L272",
+      "source_location": "L275",
       "id": "asyncwebclient",
       "community": 79,
       "norm_label": "asyncwebclient"
@@ -1920,7 +1920,7 @@
       "label": "._reply()",
       "file_type": "code",
       "source_file": "src/api/slack_notifier.py",
-      "source_location": "L283",
+      "source_location": "L286",
       "id": "api_slack_notifier_slacknotifier_reply",
       "community": 36,
       "norm_label": "._reply()"
@@ -1929,7 +1929,7 @@
       "label": ".pipeline_start()",
       "file_type": "code",
       "source_file": "src/api/slack_notifier.py",
-      "source_location": "L300",
+      "source_location": "L303",
       "id": "api_slack_notifier_slacknotifier_pipeline_start",
       "community": 79,
       "norm_label": ".pipeline_start()"
@@ -1938,7 +1938,7 @@
       "label": ".pipeline_complete()",
       "file_type": "code",
       "source_file": "src/api/slack_notifier.py",
-      "source_location": "L317",
+      "source_location": "L320",
       "id": "api_slack_notifier_slacknotifier_pipeline_complete",
       "community": 70,
       "norm_label": ".pipeline_complete()"
@@ -1947,7 +1947,7 @@
       "label": ".pipeline_failed()",
       "file_type": "code",
       "source_file": "src/api/slack_notifier.py",
-      "source_location": "L343",
+      "source_location": "L346",
       "id": "api_slack_notifier_slacknotifier_pipeline_failed",
       "community": 79,
       "norm_label": ".pipeline_failed()"
@@ -1956,7 +1956,7 @@
       "label": ".sync_start()",
       "file_type": "code",
       "source_file": "src/api/slack_notifier.py",
-      "source_location": "L365",
+      "source_location": "L368",
       "id": "api_slack_notifier_slacknotifier_sync_start",
       "community": 36,
       "norm_label": ".sync_start()"
@@ -1965,7 +1965,7 @@
       "label": ".sync_complete()",
       "file_type": "code",
       "source_file": "src/api/slack_notifier.py",
-      "source_location": "L371",
+      "source_location": "L374",
       "id": "api_slack_notifier_slacknotifier_sync_complete",
       "community": 86,
       "norm_label": ".sync_complete()"
@@ -1974,7 +1974,7 @@
       "label": "SyncResult",
       "file_type": "code",
       "source_file": "src/api/slack_notifier.py",
-      "source_location": "L371",
+      "source_location": "L374",
       "id": "syncresult",
       "community": 86,
       "norm_label": "syncresult"
@@ -1983,7 +1983,7 @@
       "label": ".extraction_complete()",
       "file_type": "code",
       "source_file": "src/api/slack_notifier.py",
-      "source_location": "L415",
+      "source_location": "L418",
       "id": "api_slack_notifier_slacknotifier_extraction_complete",
       "community": 36,
       "norm_label": ".extraction_complete()"
@@ -1992,7 +1992,7 @@
       "label": "int",
       "file_type": "code",
       "source_file": "src/api/slack_notifier.py",
-      "source_location": "L415",
+      "source_location": "L418",
       "id": "src_api_slack_notifier_py_int",
       "community": 36,
       "norm_label": "int"
@@ -2001,7 +2001,7 @@
       "label": ".embedding_start()",
       "file_type": "code",
       "source_file": "src/api/slack_notifier.py",
-      "source_location": "L427",
+      "source_location": "L430",
       "id": "api_slack_notifier_slacknotifier_embedding_start",
       "community": 36,
       "norm_label": ".embedding_start()"
@@ -2010,16 +2010,16 @@
       "label": ".embedding_complete()",
       "file_type": "code",
       "source_file": "src/api/slack_notifier.py",
-      "source_location": "L434",
+      "source_location": "L437",
       "id": "api_slack_notifier_slacknotifier_embedding_complete",
-      "community": 36,
+      "community": 50,
       "norm_label": ".embedding_complete()"
     },
     {
       "label": ".description_start()",
       "file_type": "code",
       "source_file": "src/api/slack_notifier.py",
-      "source_location": "L449",
+      "source_location": "L452",
       "id": "api_slack_notifier_slacknotifier_description_start",
       "community": 36,
       "norm_label": ".description_start()"
@@ -2028,16 +2028,16 @@
       "label": ".description_complete()",
       "file_type": "code",
       "source_file": "src/api/slack_notifier.py",
-      "source_location": "L455",
+      "source_location": "L458",
       "id": "api_slack_notifier_slacknotifier_description_complete",
-      "community": 36,
+      "community": 50,
       "norm_label": ".description_complete()"
     },
     {
       "label": ".similarity_start()",
       "file_type": "code",
       "source_file": "src/api/slack_notifier.py",
-      "source_location": "L469",
+      "source_location": "L472",
       "id": "api_slack_notifier_slacknotifier_similarity_start",
       "community": 36,
       "norm_label": ".similarity_start()"
@@ -2046,7 +2046,7 @@
       "label": ".similarity_complete()",
       "file_type": "code",
       "source_file": "src/api/slack_notifier.py",
-      "source_location": "L475",
+      "source_location": "L478",
       "id": "api_slack_notifier_slacknotifier_similarity_complete",
       "community": 36,
       "norm_label": ".similarity_complete()"
@@ -2055,16 +2055,16 @@
       "label": ".progress()",
       "file_type": "code",
       "source_file": "src/api/slack_notifier.py",
-      "source_location": "L486",
+      "source_location": "L489",
       "id": "api_slack_notifier_slacknotifier_progress",
-      "community": 36,
+      "community": 50,
       "norm_label": ".progress()"
     },
     {
       "label": ".report_complete()",
       "file_type": "code",
       "source_file": "src/api/slack_notifier.py",
-      "source_location": "L520",
+      "source_location": "L523",
       "id": "api_slack_notifier_slacknotifier_report_complete",
       "community": 48,
       "norm_label": ".report_complete()"
@@ -2073,7 +2073,7 @@
       "label": "bool",
       "file_type": "code",
       "source_file": "src/api/slack_notifier.py",
-      "source_location": "L520",
+      "source_location": "L523",
       "id": "src_api_slack_notifier_py_bool",
       "community": 70,
       "norm_label": "bool"
@@ -2082,7 +2082,7 @@
       "label": "datetime",
       "file_type": "code",
       "source_file": "src/api/slack_notifier.py",
-      "source_location": "L520",
+      "source_location": "L523",
       "id": "datetime",
       "community": 48,
       "norm_label": "datetime"
@@ -2091,7 +2091,7 @@
       "label": "Path",
       "file_type": "code",
       "source_file": "src/api/slack_notifier.py",
-      "source_location": "L520",
+      "source_location": "L523",
       "id": "src_api_slack_notifier_py_path",
       "community": 48,
       "norm_label": "path"
@@ -2100,7 +2100,7 @@
       "label": ".scheduled_run_queued()",
       "file_type": "code",
       "source_file": "src/api/slack_notifier.py",
-      "source_location": "L595",
+      "source_location": "L596",
       "id": "api_slack_notifier_slacknotifier_scheduled_run_queued",
       "community": 79,
       "norm_label": ".scheduled_run_queued()"
@@ -2120,7 +2120,7 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L34",
       "id": "api_slack_notifier_rationale_34",
-      "community": 36,
+      "community": 50,
       "norm_label": "format a duration in seconds as a human-readable string."
     },
     {
@@ -2129,7 +2129,7 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L46",
       "id": "api_slack_notifier_rationale_46",
-      "community": 36,
+      "community": 50,
       "norm_label": "format remaining seconds as 'xh ym remaining' or similar."
     },
     {
@@ -2154,17 +2154,17 @@
       "label": "Unified Slack notifier for all pipeline events, reports, and schedule notices.",
       "file_type": "rationale",
       "source_file": "src/api/slack_notifier.py",
-      "source_location": "L256",
-      "id": "api_slack_notifier_rationale_256",
-      "community": 36,
+      "source_location": "L259",
+      "id": "api_slack_notifier_rationale_259",
+      "community": 57,
       "norm_label": "unified slack notifier for all pipeline events, reports, and schedule notices."
     },
     {
       "label": "Return a configured client, or None if Slack env vars are absent.",
       "file_type": "rationale",
       "source_file": "src/api/slack_notifier.py",
-      "source_location": "L273",
-      "id": "api_slack_notifier_rationale_273",
+      "source_location": "L276",
+      "id": "api_slack_notifier_rationale_276",
       "community": 79,
       "norm_label": "return a configured client, or none if slack env vars are absent."
     },
@@ -2172,17 +2172,17 @@
       "label": "Post text as a thread reply, or directly to the channel if no thread is active.",
       "file_type": "rationale",
       "source_file": "src/api/slack_notifier.py",
-      "source_location": "L284",
-      "id": "api_slack_notifier_rationale_284",
-      "community": 36,
+      "source_location": "L287",
+      "id": "api_slack_notifier_rationale_287",
+      "community": 93,
       "norm_label": "post text as a thread reply, or directly to the channel if no thread is active."
     },
     {
       "label": "Post the initial channel message and store thread_ts for all subsequent replies.",
       "file_type": "rationale",
       "source_file": "src/api/slack_notifier.py",
-      "source_location": "L301",
-      "id": "api_slack_notifier_rationale_301",
+      "source_location": "L304",
+      "id": "api_slack_notifier_rationale_304",
       "community": 79,
       "norm_label": "post the initial channel message and store thread_ts for all subsequent replies."
     },
@@ -2190,8 +2190,8 @@
       "label": "Update the original channel message and post a thread summary.",
       "file_type": "rationale",
       "source_file": "src/api/slack_notifier.py",
-      "source_location": "L318",
-      "id": "api_slack_notifier_rationale_318",
+      "source_location": "L321",
+      "id": "api_slack_notifier_rationale_321",
       "community": 70,
       "norm_label": "update the original channel message and post a thread summary."
     },
@@ -2199,8 +2199,8 @@
       "label": "Update the original channel message and post a thread failure notice.",
       "file_type": "rationale",
       "source_file": "src/api/slack_notifier.py",
-      "source_location": "L344",
-      "id": "api_slack_notifier_rationale_344",
+      "source_location": "L347",
+      "id": "api_slack_notifier_rationale_347",
       "community": 79,
       "norm_label": "update the original channel message and post a thread failure notice."
     },
@@ -2208,8 +2208,8 @@
       "label": "Notify that repository synchronisation has started.",
       "file_type": "rationale",
       "source_file": "src/api/slack_notifier.py",
-      "source_location": "L366",
-      "id": "api_slack_notifier_rationale_366",
+      "source_location": "L369",
+      "id": "api_slack_notifier_rationale_369",
       "community": 36,
       "norm_label": "notify that repository synchronisation has started."
     },
@@ -2217,8 +2217,8 @@
       "label": "Post a sync summary and, when debug_messages is on, operation detail.",
       "file_type": "rationale",
       "source_file": "src/api/slack_notifier.py",
-      "source_location": "L372",
-      "id": "api_slack_notifier_rationale_372",
+      "source_location": "L375",
+      "id": "api_slack_notifier_rationale_375",
       "community": 86,
       "norm_label": "post a sync summary and, when debug_messages is on, operation detail."
     },
@@ -2226,8 +2226,8 @@
       "label": "Post extraction stage completion summary.",
       "file_type": "rationale",
       "source_file": "src/api/slack_notifier.py",
-      "source_location": "L416",
-      "id": "api_slack_notifier_rationale_416",
+      "source_location": "L419",
+      "id": "api_slack_notifier_rationale_419",
       "community": 36,
       "norm_label": "post extraction stage completion summary."
     },
@@ -2235,8 +2235,8 @@
       "label": "Notify that an embedding stage has started.",
       "file_type": "rationale",
       "source_file": "src/api/slack_notifier.py",
-      "source_location": "L428",
-      "id": "api_slack_notifier_rationale_428",
+      "source_location": "L431",
+      "id": "api_slack_notifier_rationale_431",
       "community": 36,
       "norm_label": "notify that an embedding stage has started."
     },
@@ -2244,17 +2244,17 @@
       "label": "Post embedding stage completion summary.",
       "file_type": "rationale",
       "source_file": "src/api/slack_notifier.py",
-      "source_location": "L437",
-      "id": "api_slack_notifier_rationale_437",
-      "community": 36,
+      "source_location": "L440",
+      "id": "api_slack_notifier_rationale_440",
+      "community": 50,
       "norm_label": "post embedding stage completion summary."
     },
     {
       "label": "Notify that description generation has started.",
       "file_type": "rationale",
       "source_file": "src/api/slack_notifier.py",
-      "source_location": "L450",
-      "id": "api_slack_notifier_rationale_450",
+      "source_location": "L453",
+      "id": "api_slack_notifier_rationale_453",
       "community": 36,
       "norm_label": "notify that description generation has started."
     },
@@ -2262,17 +2262,17 @@
       "label": "Post description generation completion summary.",
       "file_type": "rationale",
       "source_file": "src/api/slack_notifier.py",
-      "source_location": "L458",
-      "id": "api_slack_notifier_rationale_458",
-      "community": 36,
+      "source_location": "L461",
+      "id": "api_slack_notifier_rationale_461",
+      "community": 50,
       "norm_label": "post description generation completion summary."
     },
     {
       "label": "Notify that similarity analysis has started.",
       "file_type": "rationale",
       "source_file": "src/api/slack_notifier.py",
-      "source_location": "L470",
-      "id": "api_slack_notifier_rationale_470",
+      "source_location": "L473",
+      "id": "api_slack_notifier_rationale_473",
       "community": 36,
       "norm_label": "notify that similarity analysis has started."
     },
@@ -2280,8 +2280,8 @@
       "label": "Post similarity analysis completion summary.",
       "file_type": "rationale",
       "source_file": "src/api/slack_notifier.py",
-      "source_location": "L476",
-      "id": "api_slack_notifier_rationale_476",
+      "source_location": "L479",
+      "id": "api_slack_notifier_rationale_479",
       "community": 36,
       "norm_label": "post similarity analysis completion summary."
     },
@@ -2289,26 +2289,26 @@
       "label": "Post a progress update, throttled to once per configured interval.          Call",
       "file_type": "rationale",
       "source_file": "src/api/slack_notifier.py",
-      "source_location": "L489",
-      "id": "api_slack_notifier_rationale_489",
-      "community": 36,
+      "source_location": "L492",
+      "id": "api_slack_notifier_rationale_492",
+      "community": 50,
       "norm_label": "post a progress update, throttled to once per configured interval.          call"
     },
     {
-      "label": "Post a Block Kit report summary and upload the .md file.          Posts as a thr",
+      "label": "Post a Block Kit report summary and upload the .md file.          Always posts d",
       "file_type": "rationale",
       "source_file": "src/api/slack_notifier.py",
-      "source_location": "L528",
-      "id": "api_slack_notifier_rationale_528",
+      "source_location": "L531",
+      "id": "api_slack_notifier_rationale_531",
       "community": 48,
-      "norm_label": "post a block kit report summary and upload the .md file.          posts as a thr"
+      "norm_label": "post a block kit report summary and upload the .md file.          always posts d"
     },
     {
       "label": "Post a notice that a cron-triggered pipeline run has been queued.          Not g",
       "file_type": "rationale",
       "source_file": "src/api/slack_notifier.py",
-      "source_location": "L596",
-      "id": "api_slack_notifier_rationale_596",
+      "source_location": "L597",
+      "id": "api_slack_notifier_rationale_597",
       "community": 79,
       "norm_label": "post a notice that a cron-triggered pipeline run has been queued.          not g"
     },
@@ -2390,7 +2390,7 @@
       "source_file": "src/scheduler/dispatcher.py",
       "source_location": "L22",
       "id": "src_scheduler_dispatcher_py_str",
-      "community": 4,
+      "community": 57,
       "norm_label": "str"
     },
     {
@@ -2444,7 +2444,7 @@
       "source_file": "src/scheduler/dispatcher.py",
       "source_location": "L48",
       "id": "src_scheduler_dispatcher_py_task",
-      "community": 57,
+      "community": 4,
       "norm_label": "task"
     },
     {
@@ -2462,7 +2462,7 @@
       "source_file": "src/scheduler/dispatcher.py",
       "source_location": "L56",
       "id": "querytask",
-      "community": 57,
+      "community": 4,
       "norm_label": "querytask"
     },
     {
@@ -2480,7 +2480,7 @@
       "source_file": "src/scheduler/dispatcher.py",
       "source_location": "L84",
       "id": "pipelinetask",
-      "community": 57,
+      "community": 4,
       "norm_label": "pipelinetask"
     },
     {
@@ -2975,7 +2975,7 @@
       "source_file": "src/scheduler/cron_trigger.py",
       "source_location": "L36",
       "id": "scheduler_cron_trigger_crontrigger_init",
-      "community": 55,
+      "community": 57,
       "norm_label": ".__init__()"
     },
     {
@@ -2984,7 +2984,7 @@
       "source_file": "src/scheduler/cron_trigger.py",
       "source_location": "L36",
       "id": "src_scheduler_cron_trigger_py_str",
-      "community": 55,
+      "community": 57,
       "norm_label": "str"
     },
     {
@@ -2993,7 +2993,7 @@
       "source_file": "src/scheduler/cron_trigger.py",
       "source_location": "L36",
       "id": "src_scheduler_cron_trigger_py_taskqueue",
-      "community": 55,
+      "community": 57,
       "norm_label": "taskqueue"
     },
     {
@@ -3065,7 +3065,7 @@
       "source_file": "src/pipeline/pipeline.py",
       "source_location": "L1",
       "id": "src_pipeline_pipeline_py",
-      "community": 84,
+      "community": 44,
       "norm_label": "pipeline.py"
     },
     {
@@ -3164,7 +3164,7 @@
       "source_file": "src/pipeline/pipeline.py",
       "source_location": "L1",
       "id": "pipeline_pipeline_rationale_1",
-      "community": 84,
+      "community": 44,
       "norm_label": "main pipeline orchestrator.  runs the full extraction \u2192 embedding \u2192 description"
     },
     {
@@ -3416,7 +3416,7 @@
       "source_file": "src/pipeline/contracts.py",
       "source_location": "L131",
       "id": "pipeline_contracts_slackpipelineconfig",
-      "community": 48,
+      "community": 57,
       "norm_label": "slackpipelineconfig"
     },
     {
@@ -3497,7 +3497,7 @@
       "source_file": "src/pipeline/contracts.py",
       "source_location": "L132",
       "id": "pipeline_contracts_rationale_132",
-      "community": 48,
+      "community": 82,
       "norm_label": "slack notification settings for pipeline observability."
     },
     {
@@ -3596,7 +3596,7 @@
       "source_file": "src/pipeline/descriptions/service.py",
       "source_location": "L45",
       "id": "src_pipeline_descriptions_service_py_functionrecord",
-      "community": 12,
+      "community": 92,
       "norm_label": "functionrecord"
     },
     {
@@ -3605,7 +3605,7 @@
       "source_file": "src/pipeline/descriptions/service.py",
       "source_location": "L92",
       "id": "descriptions_service_descriptionservice_describe_batch",
-      "community": 12,
+      "community": 92,
       "norm_label": ".describe_batch()"
     },
     {
@@ -3659,7 +3659,7 @@
       "source_file": "src/pipeline/descriptions/service.py",
       "source_location": "L97",
       "id": "descriptions_service_rationale_97",
-      "community": 12,
+      "community": 92,
       "norm_label": "generate descriptions for all records in-place, respecting concurrency limit."
     },
     {
@@ -3704,7 +3704,7 @@
       "source_file": "src/pipeline/reporting/analysis.py",
       "source_location": "L15",
       "id": "reporting_analysis_compute_clusters",
-      "community": 69,
+      "community": 90,
       "norm_label": "_compute_clusters()"
     },
     {
@@ -3767,7 +3767,7 @@
       "source_file": "src/pipeline/reporting/analysis.py",
       "source_location": "L186",
       "id": "reporting_analysis_pick_embed_status",
-      "community": 69,
+      "community": 91,
       "norm_label": "_pick_embed_status()"
     },
     {
@@ -3785,7 +3785,7 @@
       "source_file": "src/pipeline/reporting/analysis.py",
       "source_location": "L231",
       "id": "reporting_analysis_find_previous_report",
-      "community": 69,
+      "community": 90,
       "norm_label": "_find_previous_report()"
     },
     {
@@ -3794,7 +3794,7 @@
       "source_file": "src/pipeline/reporting/analysis.py",
       "source_location": "L231",
       "id": "src_pipeline_reporting_analysis_py_path",
-      "community": 69,
+      "community": 90,
       "norm_label": "path"
     },
     {
@@ -3812,7 +3812,7 @@
       "source_file": "src/pipeline/reporting/analysis.py",
       "source_location": "L16",
       "id": "reporting_analysis_rationale_16",
-      "community": 69,
+      "community": 90,
       "norm_label": "build connected components from similarity edges via bfs.      each node is iden"
     },
     {
@@ -3848,7 +3848,7 @@
       "source_file": "src/pipeline/reporting/analysis.py",
       "source_location": "L187",
       "id": "reporting_analysis_rationale_187",
-      "community": 69,
+      "community": 90,
       "norm_label": "return the most informative non-ok embed status for a function row.      prefers"
     },
     {
@@ -3866,7 +3866,7 @@
       "source_file": "src/pipeline/reporting/analysis.py",
       "source_location": "L232",
       "id": "reporting_analysis_rationale_232",
-      "community": 69,
+      "community": 90,
       "norm_label": "return the parsed json of the most recent prior report, or none."
     },
     {
@@ -3875,7 +3875,7 @@
       "source_file": "src/pipeline/reporting/export.py",
       "source_location": "L1",
       "id": "src_pipeline_reporting_export_py",
-      "community": 69,
+      "community": 91,
       "norm_label": "export.py"
     },
     {
@@ -3884,7 +3884,7 @@
       "source_file": "src/pipeline/reporting/export.py",
       "source_location": "L9",
       "id": "reporting_export_build_export",
-      "community": 40,
+      "community": 91,
       "norm_label": "_build_export()"
     },
     {
@@ -3893,7 +3893,7 @@
       "source_file": "src/pipeline/reporting/export.py",
       "source_location": "L9",
       "id": "src_pipeline_reporting_export_py_str",
-      "community": 40,
+      "community": 91,
       "norm_label": "str"
     },
     {
@@ -3902,7 +3902,7 @@
       "source_file": "src/pipeline/reporting/export.py",
       "source_location": "L9",
       "id": "src_pipeline_reporting_export_py_int",
-      "community": 40,
+      "community": 91,
       "norm_label": "int"
     },
     {
@@ -3911,7 +3911,7 @@
       "source_file": "src/pipeline/reporting/export.py",
       "source_location": "L9",
       "id": "src_pipeline_reporting_export_py_float",
-      "community": 40,
+      "community": 91,
       "norm_label": "float"
     },
     {
@@ -3920,7 +3920,7 @@
       "source_file": "src/pipeline/reporting/export.py",
       "source_location": "L9",
       "id": "src_pipeline_reporting_export_py_reporterconfig",
-      "community": 40,
+      "community": 91,
       "norm_label": "reporterconfig"
     },
     {
@@ -3929,7 +3929,7 @@
       "source_file": "src/pipeline/reporting/export.py",
       "source_location": "L9",
       "id": "src_pipeline_reporting_export_py_bool",
-      "community": 40,
+      "community": 91,
       "norm_label": "bool"
     },
     {
@@ -3938,7 +3938,7 @@
       "source_file": "src/pipeline/reporting/export.py",
       "source_location": "L1",
       "id": "reporting_export_rationale_1",
-      "community": 69,
+      "community": 91,
       "norm_label": "builds the structured json export dict for a pipeline report run."
     },
     {
@@ -3947,7 +3947,7 @@
       "source_file": "src/pipeline/reporting/export.py",
       "source_location": "L60",
       "id": "reporting_export_rationale_60",
-      "community": 40,
+      "community": 91,
       "norm_label": "assemble the machine-readable json export from pre-computed report data."
     },
     {
@@ -3974,7 +3974,7 @@
       "source_file": "src/pipeline/reporting/__init__.py",
       "source_location": "L1",
       "id": "src_pipeline_reporting_init_py",
-      "community": 69,
+      "community": 90,
       "norm_label": "__init__.py"
     },
     {
@@ -3983,7 +3983,7 @@
       "source_file": "src/pipeline/reporting/reporter.py",
       "source_location": "L1",
       "id": "src_pipeline_reporting_reporter_py",
-      "community": 69,
+      "community": 90,
       "norm_label": "reporter.py"
     },
     {
@@ -4073,7 +4073,7 @@
       "source_file": "src/pipeline/reporting/reporter.py",
       "source_location": "L1",
       "id": "reporting_reporter_rationale_1",
-      "community": 69,
+      "community": 90,
       "norm_label": "post-run report generator.  queries neo4j after a pipeline run and writes a stru"
     },
     {
@@ -4748,7 +4748,7 @@
       "source_file": "src/pipeline/extraction/treesitter.py",
       "source_location": "L22",
       "id": "extraction_treesitter_get_ts_language",
-      "community": 61,
+      "community": 52,
       "norm_label": "_get_ts_language()"
     },
     {
@@ -4757,7 +4757,7 @@
       "source_file": "src/pipeline/extraction/treesitter.py",
       "source_location": "L22",
       "id": "language",
-      "community": 61,
+      "community": 52,
       "norm_label": "language"
     },
     {
@@ -4766,7 +4766,7 @@
       "source_file": "src/pipeline/extraction/treesitter.py",
       "source_location": "L33",
       "id": "extraction_treesitter_get_tsx_language",
-      "community": 61,
+      "community": 52,
       "norm_label": "_get_tsx_language()"
     },
     {
@@ -5189,7 +5189,7 @@
       "source_file": "src/pipeline/graph/store.py",
       "source_location": "L20",
       "id": "src_pipeline_graph_store_py_int",
-      "community": 87,
+      "community": 27,
       "norm_label": "int"
     },
     {
@@ -5216,7 +5216,7 @@
       "source_file": "src/pipeline/graph/store.py",
       "source_location": "L161",
       "id": "graph_store_neo4jstore_init",
-      "community": 87,
+      "community": 27,
       "norm_label": ".__init__()"
     },
     {
@@ -5225,7 +5225,7 @@
       "source_file": "src/pipeline/graph/store.py",
       "source_location": "L161",
       "id": "src_pipeline_graph_store_py_neo4jconfig",
-      "community": 87,
+      "community": 27,
       "norm_label": "neo4jconfig"
     },
     {
@@ -5243,7 +5243,7 @@
       "source_file": "src/pipeline/graph/store.py",
       "source_location": "L181",
       "id": "graph_store_neo4jstore_close",
-      "community": 27,
+      "community": 94,
       "norm_label": ".close()"
     },
     {
@@ -5270,7 +5270,7 @@
       "source_file": "src/pipeline/graph/store.py",
       "source_location": "L209",
       "id": "graph_store_neo4jstore_ensure_vector_indexes",
-      "community": 83,
+      "community": 27,
       "norm_label": "._ensure_vector_indexes()"
     },
     {
@@ -5432,7 +5432,7 @@
       "source_file": "src/pipeline/graph/store.py",
       "source_location": "L182",
       "id": "graph_store_rationale_182",
-      "community": 27,
+      "community": 94,
       "norm_label": "close the driver connection pool."
     },
     {
@@ -5459,7 +5459,7 @@
       "source_file": "src/pipeline/graph/store.py",
       "source_location": "L210",
       "id": "graph_store_rationale_210",
-      "community": 83,
+      "community": 27,
       "norm_label": "create vector indexes once the embedding dimension is known."
     },
     {
@@ -5927,7 +5927,7 @@
       "source_file": "",
       "source_location": "",
       "id": "protocol",
-      "community": 42,
+      "community": 30,
       "norm_label": "protocol"
     },
     {
@@ -6314,7 +6314,7 @@
       "source_file": "src/retrieval/ranking/graph_ranker.py",
       "source_location": "L1",
       "id": "src_retrieval_ranking_graph_ranker_py",
-      "community": 26,
+      "community": 6,
       "norm_label": "graph_ranker.py"
     },
     {
@@ -6332,7 +6332,7 @@
       "source_file": "src/retrieval/ranking/graph_ranker.py",
       "source_location": "L24",
       "id": "ranking_graph_ranker_graphranker_rank_candidates",
-      "community": 26,
+      "community": 6,
       "norm_label": ".rank_candidates()"
     },
     {
@@ -6341,7 +6341,7 @@
       "source_file": "src/retrieval/ranking/graph_ranker.py",
       "source_location": "L24",
       "id": "src_retrieval_ranking_graph_ranker_py_str",
-      "community": 26,
+      "community": 6,
       "norm_label": "str"
     },
     {
@@ -6350,7 +6350,7 @@
       "source_file": "src/retrieval/ranking/graph_ranker.py",
       "source_location": "L24",
       "id": "graphquery",
-      "community": 26,
+      "community": 6,
       "norm_label": "graphquery"
     },
     {
@@ -6359,7 +6359,7 @@
       "source_file": "src/retrieval/ranking/graph_ranker.py",
       "source_location": "L24",
       "id": "src_retrieval_ranking_graph_ranker_py_int",
-      "community": 26,
+      "community": 6,
       "norm_label": "int"
     },
     {
@@ -6368,7 +6368,7 @@
       "source_file": "src/retrieval/ranking/graph_ranker.py",
       "source_location": "L1",
       "id": "ranking_graph_ranker_rationale_1",
-      "community": 26,
+      "community": 6,
       "norm_label": "graph-aware file ranker.  graphranker uses a graphquery instance to rank file ca"
     },
     {
@@ -6386,7 +6386,7 @@
       "source_file": "src/retrieval/ranking/graph_ranker.py",
       "source_location": "L32",
       "id": "ranking_graph_ranker_rationale_32",
-      "community": 26,
+      "community": 6,
       "norm_label": "return an ordered list of file paths relevant to `task`.          pipeline:"
     },
     {
@@ -6395,7 +6395,7 @@
       "source_file": "src/retrieval/ranking/heuristic_ranker.py",
       "source_location": "L1",
       "id": "src_retrieval_ranking_heuristic_ranker_py",
-      "community": 42,
+      "community": 30,
       "norm_label": "heuristic_ranker.py"
     },
     {
@@ -6404,7 +6404,7 @@
       "source_file": "src/retrieval/ranking/heuristic_ranker.py",
       "source_location": "L17",
       "id": "ranking_heuristic_ranker_rankerprotocol",
-      "community": 42,
+      "community": 30,
       "norm_label": "rankerprotocol"
     },
     {
@@ -6503,7 +6503,7 @@
       "source_file": "src/retrieval/ranking/heuristic_ranker.py",
       "source_location": "L1",
       "id": "ranking_heuristic_ranker_rationale_1",
-      "community": 42,
+      "community": 30,
       "norm_label": "heuristic file ranker \u2014 deterministic, graph-free retrieval.  heuristicranker sc"
     },
     {
@@ -6512,7 +6512,7 @@
       "source_file": "src/retrieval/ranking/heuristic_ranker.py",
       "source_location": "L18",
       "id": "ranking_heuristic_ranker_rationale_18",
-      "community": 42,
+      "community": 30,
       "norm_label": "interface for file ranking strategies."
     },
     {
@@ -7205,7 +7205,7 @@
       "source_file": "src/retrieval/graph/graph_query.py",
       "source_location": "L1",
       "id": "src_retrieval_graph_graph_query_py",
-      "community": 26,
+      "community": 6,
       "norm_label": "graph_query.py"
     },
     {
@@ -7214,7 +7214,7 @@
       "source_file": "src/retrieval/graph/graph_query.py",
       "source_location": "L22",
       "id": "graph_graph_query_graphquery",
-      "community": 26,
+      "community": 6,
       "norm_label": "graphquery"
     },
     {
@@ -7322,7 +7322,7 @@
       "source_file": "src/retrieval/graph/graph_query.py",
       "source_location": "L1",
       "id": "graph_graph_query_rationale_1",
-      "community": 26,
+      "community": 6,
       "norm_label": "graph query utilities for the retrieval pipeline.  graphquery loads graph.json o"
     },
     {
@@ -7331,7 +7331,7 @@
       "source_file": "src/retrieval/graph/graph_query.py",
       "source_location": "L23",
       "id": "graph_graph_query_rationale_23",
-      "community": 26,
+      "community": 6,
       "norm_label": "loads graph.json once and exposes keyword + dependency queries.      constructed"
     },
     {
@@ -7529,7 +7529,7 @@
       "source_file": "src/retrieval/contracts/context_contract.py",
       "source_location": "L139",
       "id": "contracts_context_contract_format_repository_context_for_prompt",
-      "community": 43,
+      "community": 29,
       "norm_label": "format_repository_context_for_prompt()"
     },
     {
@@ -7565,7 +7565,7 @@
       "source_file": "src/retrieval/contracts/context_contract.py",
       "source_location": "L140",
       "id": "contracts_context_contract_rationale_140",
-      "community": 43,
+      "community": 29,
       "norm_label": "render repository context in a fixed, deterministic prompt section."
     },
     {
@@ -7610,7 +7610,7 @@
       "source_file": "src/retrieval/contracts/types.py",
       "source_location": "L44",
       "id": "contracts_types_repositorysnapshot",
-      "community": 41,
+      "community": 30,
       "norm_label": "repositorysnapshot"
     },
     {
@@ -7619,7 +7619,7 @@
       "source_file": "src/retrieval/contracts/types.py",
       "source_location": "L50",
       "id": "contracts_types_repositorysnapshot_get_file",
-      "community": 41,
+      "community": 30,
       "norm_label": ".get_file()"
     },
     {
@@ -7628,7 +7628,7 @@
       "source_file": "src/retrieval/contracts/types.py",
       "source_location": "L50",
       "id": "src_retrieval_contracts_types_py_str",
-      "community": 41,
+      "community": 30,
       "norm_label": "str"
     },
     {
@@ -7637,7 +7637,7 @@
       "source_file": "src/retrieval/contracts/types.py",
       "source_location": "L58",
       "id": "contracts_types_contextpackage",
-      "community": 43,
+      "community": 30,
       "norm_label": "contextpackage"
     },
     {
@@ -7682,7 +7682,7 @@
       "source_file": "src/retrieval/contracts/types.py",
       "source_location": "L45",
       "id": "contracts_types_rationale_45",
-      "community": 41,
+      "community": 30,
       "norm_label": "immutable snapshot of the repository used for deterministic retrieval."
     },
     {
@@ -7691,7 +7691,7 @@
       "source_file": "src/retrieval/contracts/types.py",
       "source_location": "L59",
       "id": "contracts_types_rationale_59",
-      "community": 43,
+      "community": 30,
       "norm_label": "bounded context package returned by the contextassembler.      contains only lig"
     },
     {
@@ -7772,7 +7772,7 @@
       "source_file": "src/graph/state.py",
       "source_location": "L8",
       "id": "graph_state_graphstate",
-      "community": 19,
+      "community": 45,
       "norm_label": "graphstate"
     },
     {
@@ -7781,7 +7781,7 @@
       "source_file": "src/graph/state.py",
       "source_location": "L9",
       "id": "graph_state_rationale_9",
-      "community": 19,
+      "community": 45,
       "norm_label": "shared state passed between langgraph nodes.      this state represents a single"
     },
     {
@@ -7934,7 +7934,7 @@
       "source_file": "src/graph/nodes/branch_creator.py",
       "source_location": "L23",
       "id": "nodes_branch_creator_branch_creator_node",
-      "community": 31,
+      "community": 28,
       "norm_label": "branch_creator_node()"
     },
     {
@@ -7943,7 +7943,7 @@
       "source_file": "src/graph/nodes/branch_creator.py",
       "source_location": "L23",
       "id": "src_graph_nodes_branch_creator_py_graphstate",
-      "community": 31,
+      "community": 28,
       "norm_label": "graphstate"
     },
     {
@@ -7952,7 +7952,7 @@
       "source_file": "src/graph/nodes/branch_creator.py",
       "source_location": "L23",
       "id": "src_graph_nodes_branch_creator_py_runcontext",
-      "community": 31,
+      "community": 28,
       "norm_label": "runcontext"
     },
     {
@@ -7970,7 +7970,7 @@
       "source_file": "src/graph/nodes/branch_creator.py",
       "source_location": "L24",
       "id": "nodes_branch_creator_rationale_24",
-      "community": 31,
+      "community": 28,
       "norm_label": "create a task branch in the target repository.      reads ``repo_path`` and ``ta"
     },
     {
@@ -8375,7 +8375,7 @@
       "source_file": "src/graph/nodes/file_writer.py",
       "source_location": "L1",
       "id": "src_graph_nodes_file_writer_py",
-      "community": 66,
+      "community": 28,
       "norm_label": "file_writer.py"
     },
     {
@@ -8384,7 +8384,7 @@
       "source_file": "src/graph/nodes/file_writer.py",
       "source_location": "L23",
       "id": "nodes_file_writer_file_writer_node",
-      "community": 66,
+      "community": 31,
       "norm_label": "file_writer_node()"
     },
     {
@@ -8393,7 +8393,7 @@
       "source_file": "src/graph/nodes/file_writer.py",
       "source_location": "L23",
       "id": "src_graph_nodes_file_writer_py_graphstate",
-      "community": 66,
+      "community": 31,
       "norm_label": "graphstate"
     },
     {
@@ -8402,7 +8402,7 @@
       "source_file": "src/graph/nodes/file_writer.py",
       "source_location": "L23",
       "id": "src_graph_nodes_file_writer_py_runcontext",
-      "community": 66,
+      "community": 31,
       "norm_label": "runcontext"
     },
     {
@@ -8411,7 +8411,7 @@
       "source_file": "src/graph/nodes/file_writer.py",
       "source_location": "L24",
       "id": "nodes_file_writer_rationale_24",
-      "community": 66,
+      "community": 31,
       "norm_label": "write generated content to disk or apply a unified diff.      expected state inp"
     },
     {
@@ -8483,7 +8483,7 @@
       "source_file": "src/graph/nodes/support.py",
       "source_location": "L59",
       "id": "nodes_support_select_target_file_from_repo_path",
-      "community": 49,
+      "community": 19,
       "norm_label": "select_target_file_from_repo_path()"
     },
     {
@@ -8528,7 +8528,7 @@
       "source_file": "src/graph/nodes/support.py",
       "source_location": "L60",
       "id": "nodes_support_rationale_60",
-      "community": 49,
+      "community": 19,
       "norm_label": "pick the first python file in a repo root deterministically."
     },
     {
@@ -8546,7 +8546,7 @@
       "source_file": "src/graph/nodes/graphify_indexer.py",
       "source_location": "L14",
       "id": "nodes_graphify_indexer_build_ast_graph",
-      "community": 50,
+      "community": 45,
       "norm_label": "build_ast_graph()"
     },
     {
@@ -8555,7 +8555,7 @@
       "source_file": "src/graph/nodes/graphify_indexer.py",
       "source_location": "L14",
       "id": "src_graph_nodes_graphify_indexer_py_str",
-      "community": 50,
+      "community": 45,
       "norm_label": "str"
     },
     {
@@ -8564,7 +8564,7 @@
       "source_file": "src/graph/nodes/graphify_indexer.py",
       "source_location": "L14",
       "id": "src_graph_nodes_graphify_indexer_py_path",
-      "community": 50,
+      "community": 45,
       "norm_label": "path"
     },
     {
@@ -8582,7 +8582,7 @@
       "source_file": "src/graph/nodes/graphify_indexer.py",
       "source_location": "L15",
       "id": "nodes_graphify_indexer_rationale_15",
-      "community": 50,
+      "community": 45,
       "norm_label": "run ast-only graphify extraction and write graph.json to graph_dir."
     },
     {
@@ -8807,7 +8807,7 @@
       "source_file": "src/graph/nodes/static_validator.py",
       "source_location": "L1",
       "id": "src_graph_nodes_static_validator_py",
-      "community": 19,
+      "community": 28,
       "norm_label": "static_validator.py"
     },
     {
@@ -8843,7 +8843,7 @@
       "source_file": "src/graph/nodes/static_validator.py",
       "source_location": "L1",
       "id": "nodes_static_validator_rationale_1",
-      "community": 19,
+      "community": 28,
       "norm_label": "static validator node.  replaces the former reviewer node. responsibilities are"
     },
     {
@@ -8960,7 +8960,7 @@
       "source_file": "src/graph/nodes/git_committer.py",
       "source_location": "L23",
       "id": "nodes_git_committer_git_committer_node",
-      "community": 28,
+      "community": 31,
       "norm_label": "git_committer_node()"
     },
     {
@@ -8969,7 +8969,7 @@
       "source_file": "src/graph/nodes/git_committer.py",
       "source_location": "L23",
       "id": "src_graph_nodes_git_committer_py_graphstate",
-      "community": 28,
+      "community": 31,
       "norm_label": "graphstate"
     },
     {
@@ -8978,7 +8978,7 @@
       "source_file": "src/graph/nodes/git_committer.py",
       "source_location": "L23",
       "id": "src_graph_nodes_git_committer_py_runcontext",
-      "community": 28,
+      "community": 31,
       "norm_label": "runcontext"
     },
     {
@@ -8996,7 +8996,7 @@
       "source_file": "src/graph/nodes/git_committer.py",
       "source_location": "L24",
       "id": "nodes_git_committer_rationale_24",
-      "community": 28,
+      "community": 31,
       "norm_label": "stage and commit the modified target file.      expected state keys:     - ``rep"
     },
     {
@@ -9133,6 +9133,168 @@
       "id": "nodes_retrieval_node_rationale_194",
       "community": 26,
       "norm_label": "convert absolute paths to repo-relative strings when possible."
+    },
+    {
+      "label": "Unified Slack notifier for all pipeline events, reports, and schedule notices.",
+      "file_type": "rationale",
+      "source_file": "src/api/slack_notifier.py",
+      "source_location": "L256",
+      "community": 57,
+      "norm_label": "unified slack notifier for all pipeline events, reports, and schedule notices.",
+      "id": "api_slack_notifier_rationale_256"
+    },
+    {
+      "label": "Return a configured client, or None if Slack env vars are absent.",
+      "file_type": "rationale",
+      "source_file": "src/api/slack_notifier.py",
+      "source_location": "L273",
+      "community": 79,
+      "norm_label": "return a configured client, or none if slack env vars are absent.",
+      "id": "api_slack_notifier_rationale_273"
+    },
+    {
+      "label": "Post text as a thread reply, or directly to the channel if no thread is active.",
+      "file_type": "rationale",
+      "source_file": "src/api/slack_notifier.py",
+      "source_location": "L284",
+      "community": 36,
+      "norm_label": "post text as a thread reply, or directly to the channel if no thread is active.",
+      "id": "api_slack_notifier_rationale_284"
+    },
+    {
+      "label": "Post the initial channel message and store thread_ts for all subsequent replies.",
+      "file_type": "rationale",
+      "source_file": "src/api/slack_notifier.py",
+      "source_location": "L301",
+      "community": 79,
+      "norm_label": "post the initial channel message and store thread_ts for all subsequent replies.",
+      "id": "api_slack_notifier_rationale_301"
+    },
+    {
+      "label": "Update the original channel message and post a thread summary.",
+      "file_type": "rationale",
+      "source_file": "src/api/slack_notifier.py",
+      "source_location": "L318",
+      "community": 70,
+      "norm_label": "update the original channel message and post a thread summary.",
+      "id": "api_slack_notifier_rationale_318"
+    },
+    {
+      "label": "Update the original channel message and post a thread failure notice.",
+      "file_type": "rationale",
+      "source_file": "src/api/slack_notifier.py",
+      "source_location": "L344",
+      "community": 79,
+      "norm_label": "update the original channel message and post a thread failure notice.",
+      "id": "api_slack_notifier_rationale_344"
+    },
+    {
+      "label": "Notify that repository synchronisation has started.",
+      "file_type": "rationale",
+      "source_file": "src/api/slack_notifier.py",
+      "source_location": "L366",
+      "community": 36,
+      "norm_label": "notify that repository synchronisation has started.",
+      "id": "api_slack_notifier_rationale_366"
+    },
+    {
+      "label": "Post a sync summary and, when debug_messages is on, operation detail.",
+      "file_type": "rationale",
+      "source_file": "src/api/slack_notifier.py",
+      "source_location": "L372",
+      "community": 86,
+      "norm_label": "post a sync summary and, when debug_messages is on, operation detail.",
+      "id": "api_slack_notifier_rationale_372"
+    },
+    {
+      "label": "Post extraction stage completion summary.",
+      "file_type": "rationale",
+      "source_file": "src/api/slack_notifier.py",
+      "source_location": "L416",
+      "community": 36,
+      "norm_label": "post extraction stage completion summary.",
+      "id": "api_slack_notifier_rationale_416"
+    },
+    {
+      "label": "Notify that an embedding stage has started.",
+      "file_type": "rationale",
+      "source_file": "src/api/slack_notifier.py",
+      "source_location": "L428",
+      "community": 36,
+      "norm_label": "notify that an embedding stage has started.",
+      "id": "api_slack_notifier_rationale_428"
+    },
+    {
+      "label": "Post embedding stage completion summary.",
+      "file_type": "rationale",
+      "source_file": "src/api/slack_notifier.py",
+      "source_location": "L437",
+      "community": 50,
+      "norm_label": "post embedding stage completion summary.",
+      "id": "api_slack_notifier_rationale_437"
+    },
+    {
+      "label": "Notify that description generation has started.",
+      "file_type": "rationale",
+      "source_file": "src/api/slack_notifier.py",
+      "source_location": "L450",
+      "community": 36,
+      "norm_label": "notify that description generation has started.",
+      "id": "api_slack_notifier_rationale_450"
+    },
+    {
+      "label": "Post description generation completion summary.",
+      "file_type": "rationale",
+      "source_file": "src/api/slack_notifier.py",
+      "source_location": "L458",
+      "community": 50,
+      "norm_label": "post description generation completion summary.",
+      "id": "api_slack_notifier_rationale_458"
+    },
+    {
+      "label": "Notify that similarity analysis has started.",
+      "file_type": "rationale",
+      "source_file": "src/api/slack_notifier.py",
+      "source_location": "L470",
+      "community": 36,
+      "norm_label": "notify that similarity analysis has started.",
+      "id": "api_slack_notifier_rationale_470"
+    },
+    {
+      "label": "Post similarity analysis completion summary.",
+      "file_type": "rationale",
+      "source_file": "src/api/slack_notifier.py",
+      "source_location": "L476",
+      "community": 36,
+      "norm_label": "post similarity analysis completion summary.",
+      "id": "api_slack_notifier_rationale_476"
+    },
+    {
+      "label": "Post a progress update, throttled to once per configured interval.          Call",
+      "file_type": "rationale",
+      "source_file": "src/api/slack_notifier.py",
+      "source_location": "L489",
+      "community": 50,
+      "norm_label": "post a progress update, throttled to once per configured interval.          call",
+      "id": "api_slack_notifier_rationale_489"
+    },
+    {
+      "label": "Post a Block Kit report summary and upload the .md file.          Posts as a thr",
+      "file_type": "rationale",
+      "source_file": "src/api/slack_notifier.py",
+      "source_location": "L528",
+      "community": 48,
+      "norm_label": "post a block kit report summary and upload the .md file.          posts as a thr",
+      "id": "api_slack_notifier_rationale_528"
+    },
+    {
+      "label": "Post a notice that a cron-triggered pipeline run has been queued.          Not g",
+      "file_type": "rationale",
+      "source_file": "src/api/slack_notifier.py",
+      "source_location": "L596",
+      "community": 79,
+      "norm_label": "post a notice that a cron-triggered pipeline run has been queued.          not g",
+      "id": "api_slack_notifier_rationale_596"
     },
     {
       "label": "Fires a PipelineTask on a cron schedule.      Args:         cron_expr: Standard",
@@ -9310,7 +9472,7 @@
       "file_type": "rationale",
       "source_file": "src/pipeline/descriptions/service.py",
       "source_location": "L92",
-      "community": 12,
+      "community": 92,
       "norm_label": "generate descriptions for all records in-place, respecting concurrency limit.",
       "id": "descriptions_service_rationale_92"
     },
@@ -9382,7 +9544,7 @@
       "file_type": "code",
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L340",
-      "community": 79,
+      "community": 93,
       "norm_label": "notify_scheduled_run()",
       "id": "api_slack_notifier_notify_scheduled_run"
     },
@@ -9427,7 +9589,7 @@
       "file_type": "rationale",
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L341",
-      "community": 79,
+      "community": 93,
       "norm_label": "post a notice to slack that a cron-triggered pipeline run has been queued.",
       "id": "api_slack_notifier_rationale_341"
     },
@@ -9549,15 +9711,6 @@
       "id": "api_slack_notifier_rationale_226"
     },
     {
-      "label": "Post a notice to Slack that a cron-triggered pipeline run has been queued.",
-      "file_type": "rationale",
-      "source_file": "src/api/slack_notifier.py",
-      "source_location": "L287",
-      "community": 79,
-      "norm_label": "post a notice to slack that a cron-triggered pipeline run has been queued.",
-      "id": "api_slack_notifier_rationale_287"
-    },
-    {
       "label": "Create (or check out) a task branch from *base_branch*.      Returns the full br",
       "file_type": "rationale",
       "source_file": "src/git/branch_manager.py",
@@ -9625,7 +9778,7 @@
       "file_type": "rationale",
       "source_file": "src/pipeline/descriptions/service.py",
       "source_location": "L86",
-      "community": 12,
+      "community": 92,
       "norm_label": "generate descriptions for all records in-place, respecting concurrency limit.",
       "id": "descriptions_service_rationale_86"
     },
@@ -9778,7 +9931,7 @@
       "file_type": "rationale",
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L281",
-      "community": 79,
+      "community": 93,
       "norm_label": "post a notice to slack that a cron-triggered pipeline run has been queued.",
       "id": "api_slack_notifier_rationale_281"
     },
@@ -9787,7 +9940,7 @@
       "file_type": "rationale",
       "source_file": "src/pipeline/reporting/analysis.py",
       "source_location": "L200",
-      "community": 69,
+      "community": 90,
       "norm_label": "return the parsed json of the most recent prior report, or none.",
       "id": "reporting_analysis_rationale_200"
     },
@@ -9832,7 +9985,7 @@
       "file_type": "rationale",
       "source_file": "src/pipeline/graph/store.py",
       "source_location": "L177",
-      "community": 27,
+      "community": 94,
       "norm_label": "close the driver connection pool.",
       "id": "graph_store_rationale_177"
     },
@@ -9850,7 +10003,7 @@
       "file_type": "rationale",
       "source_file": "src/pipeline/graph/store.py",
       "source_location": "L199",
-      "community": 83,
+      "community": 27,
       "norm_label": "create vector indexes once the embedding dimension is known.",
       "id": "graph_store_rationale_199"
     },
@@ -10030,7 +10183,7 @@
       "file_type": "rationale",
       "source_file": "src/pipeline/graph/store.py",
       "source_location": "L173",
-      "community": 27,
+      "community": 94,
       "norm_label": "close the driver connection pool.",
       "id": "graph_store_rationale_173"
     },
@@ -10039,7 +10192,7 @@
       "file_type": "rationale",
       "source_file": "src/pipeline/graph/store.py",
       "source_location": "L195",
-      "community": 83,
+      "community": 27,
       "norm_label": "create vector indexes once the embedding dimension is known.",
       "id": "graph_store_rationale_195"
     },
@@ -10786,7 +10939,7 @@
       "file_type": "rationale",
       "source_file": "src/graph/nodes/support.py",
       "source_location": "L59",
-      "community": 49,
+      "community": 19,
       "norm_label": "pick the first python file in a repo root deterministically.",
       "id": "nodes_support_rationale_59"
     },
@@ -11083,7 +11236,7 @@
       "file_type": "rationale",
       "source_file": "src/graph/nodes/git_committer.py",
       "source_location": "L22",
-      "community": 28,
+      "community": 31,
       "norm_label": "stage and commit the modified target file.      expected state keys:     - ``",
       "id": "nodes_git_committer_rationale_22"
     },
@@ -11092,7 +11245,7 @@
       "file_type": "rationale",
       "source_file": "src/graph/state.py",
       "source_location": "L7",
-      "community": 19,
+      "community": 45,
       "norm_label": "shared state passed between langgraph nodes.      this state represents a sing",
       "id": "graph_state_rationale_7"
     },
@@ -11290,7 +11443,7 @@
       "file_type": "rationale",
       "source_file": "src/graph/state.py",
       "source_location": "L8",
-      "community": 19,
+      "community": 45,
       "norm_label": "shared state passed between langgraph nodes.      this state represents a sing",
       "id": "graph_state_rationale_8"
     },
@@ -11299,7 +11452,7 @@
       "file_type": "code",
       "source_file": "src/graph/nodes/graphify_indexer.py",
       "source_location": "L21",
-      "community": 50,
+      "community": 45,
       "norm_label": "graphify_indexer_node()",
       "id": "nodes_graphify_indexer_graphify_indexer_node"
     },
@@ -11308,7 +11461,7 @@
       "file_type": "code",
       "source_file": "src/graph/nodes/graphify_indexer.py",
       "source_location": "L21",
-      "community": 50,
+      "community": 45,
       "norm_label": "graphstate",
       "id": "src_graph_nodes_graphify_indexer_py_graphstate"
     },
@@ -11317,7 +11470,7 @@
       "file_type": "code",
       "source_file": "src/graph/nodes/graphify_indexer.py",
       "source_location": "L21",
-      "community": 50,
+      "community": 45,
       "norm_label": "runcontext",
       "id": "src_graph_nodes_graphify_indexer_py_runcontext"
     },
@@ -11326,7 +11479,7 @@
       "file_type": "rationale",
       "source_file": "src/graph/nodes/graphify_indexer.py",
       "source_location": "L22",
-      "community": 50,
+      "community": 45,
       "norm_label": "build or refresh the graphify knowledge graph for the target repository.",
       "id": "nodes_graphify_indexer_rationale_22"
     },
@@ -11335,7 +11488,7 @@
       "file_type": "rationale",
       "source_file": "src/graph/nodes/graphify_indexer.py",
       "source_location": "L58",
-      "community": 50,
+      "community": 45,
       "norm_label": "run ast-only graphify extraction and write graph.json to graph_dir.",
       "id": "nodes_graphify_indexer_rationale_58"
     },
@@ -11443,7 +11596,7 @@
       "file_type": "rationale",
       "source_file": "src/graph/nodes/file_writer.py",
       "source_location": "L22",
-      "community": 66,
+      "community": 31,
       "norm_label": "write generated content to disk or apply a unified diff.      expected state inp",
       "id": "nodes_file_writer_rationale_22"
     },
@@ -11504,7 +11657,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 29,
+      "community": 31,
       "norm_label": "graphstate: generated_code field",
       "id": "concept_state_field_generated_code"
     },
@@ -12574,9 +12727,9 @@
       "source_file": "src/core/pipeline_config.py",
       "source_location": "L18",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_core_pipeline_config_py",
-      "target": "pipeline_contracts_slackpipelineconfig",
-      "confidence_score": 1.0
+      "target": "pipeline_contracts_slackpipelineconfig"
     },
     {
       "relation": "calls",
@@ -12698,9 +12851,9 @@
       "source_file": "src/core/pipeline_config.py",
       "source_location": "L18",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "src_core_pipeline_config_py_str",
-      "target": "pipeline_contracts_slackpipelineconfig",
-      "confidence_score": 0.5
+      "target": "pipeline_contracts_slackpipelineconfig"
     },
     {
       "relation": "calls",
@@ -12797,9 +12950,9 @@
       "source_file": "src/core/pipeline_config.py",
       "source_location": "L135",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "core_pipeline_config_load_pipeline_config",
-      "target": "pipeline_contracts_slackpipelineconfig",
-      "confidence_score": 1.0
+      "target": "pipeline_contracts_slackpipelineconfig"
     },
     {
       "relation": "references",
@@ -12869,9 +13022,9 @@
       "source_file": "src/core/pipeline_config.py",
       "source_location": "L46",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "core_pipeline_config_rationale_46",
-      "target": "core_pipeline_config_load_pipeline_config",
-      "confidence_score": 1.0
+      "target": "core_pipeline_config_load_pipeline_config"
     },
     {
       "relation": "uses",
@@ -12949,9 +13102,9 @@
       "source_file": "src/core/pipeline_config.py",
       "source_location": "L18",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "src_core_pipeline_config_py_path",
-      "target": "pipeline_contracts_slackpipelineconfig",
-      "confidence_score": 0.5
+      "target": "pipeline_contracts_slackpipelineconfig"
     },
     {
       "relation": "uses",
@@ -13029,9 +13182,9 @@
       "source_file": "src/core/pipeline_config.py",
       "source_location": "L18",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "src_core_pipeline_config_py_pipelineconfig",
-      "target": "pipeline_contracts_slackpipelineconfig",
-      "confidence_score": 0.5
+      "target": "pipeline_contracts_slackpipelineconfig"
     },
     {
       "relation": "rationale_for",
@@ -13349,9 +13502,9 @@
       "source_file": "src/pipeline/pipeline.py",
       "source_location": "L16",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "slacknotifier",
-      "target": "core_ollama_client_ollamaclient",
-      "confidence_score": 0.5
+      "target": "core_ollama_client_ollamaclient"
     },
     {
       "relation": "imports",
@@ -13421,9 +13574,9 @@
       "source_file": "src/pipeline/descriptions/service.py",
       "source_location": "L16",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "src_pipeline_descriptions_service_py_int",
-      "target": "core_ollama_client_ollamaclient",
-      "confidence_score": 0.5
+      "target": "core_ollama_client_ollamaclient"
     },
     {
       "relation": "uses",
@@ -13482,9 +13635,9 @@
       "source_file": "src/pipeline/embeddings/service.py",
       "source_location": "L15",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "src_pipeline_embeddings_service_py_int",
-      "target": "core_ollama_client_ollamaclient",
-      "confidence_score": 0.5
+      "target": "core_ollama_client_ollamaclient"
     },
     {
       "relation": "uses",
@@ -16418,9 +16571,9 @@
       "source_file": "src/git/branch_manager.py",
       "source_location": "L17",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_git_branch_manager_py",
-      "target": "git_branch_manager_syncresult",
-      "confidence_score": 1.0
+      "target": "git_branch_manager_syncresult"
     },
     {
       "relation": "uses",
@@ -16428,9 +16581,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L29",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "api_slack_notifier_slacknotifier",
-      "target": "git_branch_manager_syncresult",
-      "confidence_score": 0.5
+      "target": "git_branch_manager_syncresult"
     },
     {
       "relation": "uses",
@@ -16438,9 +16591,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L29",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "asyncwebclient",
-      "target": "git_branch_manager_syncresult",
-      "confidence_score": 0.5
+      "target": "git_branch_manager_syncresult"
     },
     {
       "relation": "uses",
@@ -16448,9 +16601,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L29",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "datetime",
-      "target": "git_branch_manager_syncresult",
-      "confidence_score": 0.5
+      "target": "git_branch_manager_syncresult"
     },
     {
       "relation": "references",
@@ -16459,9 +16612,9 @@
       "source_file": "src/git/branch_manager.py",
       "source_location": "L86",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "git_branch_manager_ensure_repo_synced",
-      "target": "git_branch_manager_syncresult",
-      "confidence_score": 1.0
+      "target": "git_branch_manager_syncresult"
     },
     {
       "relation": "rationale_for",
@@ -16469,9 +16622,9 @@
       "source_file": "src/git/branch_manager.py",
       "source_location": "L18",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "git_branch_manager_rationale_18",
-      "target": "git_branch_manager_syncresult",
-      "confidence_score": 1.0
+      "target": "git_branch_manager_syncresult"
     },
     {
       "relation": "uses",
@@ -16479,9 +16632,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L29",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "slackpipelineconfig",
-      "target": "git_branch_manager_syncresult",
-      "confidence_score": 0.5
+      "target": "git_branch_manager_syncresult"
     },
     {
       "relation": "imports",
@@ -16490,9 +16643,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L29",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_api_slack_notifier_py",
-      "target": "git_branch_manager_syncresult",
-      "confidence_score": 1.0
+      "target": "git_branch_manager_syncresult"
     },
     {
       "relation": "uses",
@@ -16500,9 +16653,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L29",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "src_api_slack_notifier_py_bool",
-      "target": "git_branch_manager_syncresult",
-      "confidence_score": 0.5
+      "target": "git_branch_manager_syncresult"
     },
     {
       "relation": "uses",
@@ -16510,9 +16663,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L29",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "src_api_slack_notifier_py_float",
-      "target": "git_branch_manager_syncresult",
-      "confidence_score": 0.5
+      "target": "git_branch_manager_syncresult"
     },
     {
       "relation": "uses",
@@ -16520,9 +16673,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L29",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "src_api_slack_notifier_py_int",
-      "target": "git_branch_manager_syncresult",
-      "confidence_score": 0.5
+      "target": "git_branch_manager_syncresult"
     },
     {
       "relation": "uses",
@@ -16530,9 +16683,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L29",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "src_api_slack_notifier_py_path",
-      "target": "git_branch_manager_syncresult",
-      "confidence_score": 0.5
+      "target": "git_branch_manager_syncresult"
     },
     {
       "relation": "uses",
@@ -16540,9 +16693,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L29",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "src_api_slack_notifier_py_pipelineresult",
-      "target": "git_branch_manager_syncresult",
-      "confidence_score": 0.5
+      "target": "git_branch_manager_syncresult"
     },
     {
       "relation": "uses",
@@ -16550,9 +16703,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L29",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "src_api_slack_notifier_py_reporterconfig",
-      "target": "git_branch_manager_syncresult",
-      "confidence_score": 0.5
+      "target": "git_branch_manager_syncresult"
     },
     {
       "relation": "uses",
@@ -16560,9 +16713,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L29",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "src_api_slack_notifier_py_str",
-      "target": "git_branch_manager_syncresult",
-      "confidence_score": 0.5
+      "target": "git_branch_manager_syncresult"
     },
     {
       "relation": "uses",
@@ -16570,9 +16723,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L29",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "syncresult",
-      "target": "git_branch_manager_syncresult",
-      "confidence_score": 0.5
+      "target": "git_branch_manager_syncresult"
     },
     {
       "relation": "calls",
@@ -16774,9 +16927,9 @@
       "source_file": "src/git/branch_manager.py",
       "source_location": "L42",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "git_branch_manager_rationale_42",
-      "target": "git_branch_manager_build_branch_name",
-      "confidence_score": 1.0
+      "target": "git_branch_manager_build_branch_name"
     },
     {
       "relation": "calls",
@@ -16914,9 +17067,9 @@
       "source_file": "src/git/branch_manager.py",
       "source_location": "L59",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "git_branch_manager_rationale_59",
-      "target": "git_branch_manager_clone_if_missing",
-      "confidence_score": 1.0
+      "target": "git_branch_manager_clone_if_missing"
     },
     {
       "relation": "calls",
@@ -16947,9 +17100,9 @@
       "source_file": "src/git/branch_manager.py",
       "source_location": "L122",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "git_branch_manager_ensure_repo_synced",
-      "target": "git_branch_manager_auth_url",
-      "confidence_score": 1.0
+      "target": "git_branch_manager_auth_url"
     },
     {
       "relation": "rationale_for",
@@ -16967,9 +17120,9 @@
       "source_file": "src/git/branch_manager.py",
       "source_location": "L93",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "git_branch_manager_rationale_93",
-      "target": "git_branch_manager_ensure_repo_synced",
-      "confidence_score": 1.0
+      "target": "git_branch_manager_ensure_repo_synced"
     },
     {
       "relation": "calls",
@@ -17053,9 +17206,9 @@
       "source_file": "src/git/branch_manager.py",
       "source_location": "L156",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "git_branch_manager_rationale_156",
-      "target": "git_branch_manager_branch_exists",
-      "confidence_score": 1.0
+      "target": "git_branch_manager_branch_exists"
     },
     {
       "relation": "rationale_for",
@@ -17135,9 +17288,9 @@
       "source_file": "src/git/branch_manager.py",
       "source_location": "L167",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "git_branch_manager_rationale_167",
-      "target": "git_branch_manager_create_task_branch",
-      "confidence_score": 1.0
+      "target": "git_branch_manager_create_task_branch"
     },
     {
       "relation": "rationale_for",
@@ -17247,9 +17400,9 @@
       "source_file": "src/git/branch_manager.py",
       "source_location": "L214",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "git_branch_manager_rationale_214",
-      "target": "git_branch_manager_commit_file",
-      "confidence_score": 1.0
+      "target": "git_branch_manager_commit_file"
     },
     {
       "relation": "rationale_for",
@@ -17309,9 +17462,9 @@
       "source_file": "src/git/branch_manager.py",
       "source_location": "L237",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "git_branch_manager_rationale_237",
-      "target": "git_branch_manager_get_diff_stat",
-      "confidence_score": 1.0
+      "target": "git_branch_manager_get_diff_stat"
     },
     {
       "relation": "calls",
@@ -17391,9 +17544,9 @@
       "source_file": "src/git/branch_manager.py",
       "source_location": "L253",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "git_branch_manager_rationale_253",
-      "target": "git_branch_manager_push_branch",
-      "confidence_score": 1.0
+      "target": "git_branch_manager_push_branch"
     },
     {
       "relation": "rationale_for",
@@ -17886,9 +18039,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L33",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_api_slack_notifier_py",
-      "target": "api_slack_notifier_fmt_duration",
-      "confidence_score": 1.0
+      "target": "api_slack_notifier_fmt_duration"
     },
     {
       "relation": "contains",
@@ -17896,9 +18049,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L45",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_api_slack_notifier_py",
-      "target": "api_slack_notifier_fmt_eta",
-      "confidence_score": 1.0
+      "target": "api_slack_notifier_fmt_eta"
     },
     {
       "relation": "contains",
@@ -17936,9 +18089,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L255",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_api_slack_notifier_py",
-      "target": "api_slack_notifier_slacknotifier",
-      "confidence_score": 1.0
+      "target": "api_slack_notifier_slacknotifier"
     },
     {
       "relation": "imports",
@@ -17980,9 +18133,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L30",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_api_slack_notifier_py",
-      "target": "pipeline_contracts_slackpipelineconfig",
-      "confidence_score": 1.0
+      "target": "pipeline_contracts_slackpipelineconfig"
     },
     {
       "relation": "references",
@@ -17991,9 +18144,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L33",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "api_slack_notifier_fmt_duration",
-      "target": "src_api_slack_notifier_py_float",
-      "confidence_score": 1.0
+      "target": "src_api_slack_notifier_py_float"
     },
     {
       "relation": "references",
@@ -18002,9 +18155,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L33",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "api_slack_notifier_fmt_duration",
-      "target": "src_api_slack_notifier_py_str",
-      "confidence_score": 1.0
+      "target": "src_api_slack_notifier_py_str"
     },
     {
       "relation": "calls",
@@ -18013,9 +18166,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L47",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "api_slack_notifier_fmt_eta",
-      "target": "api_slack_notifier_fmt_duration",
-      "confidence_score": 1.0
+      "target": "api_slack_notifier_fmt_duration"
     },
     {
       "relation": "rationale_for",
@@ -18023,9 +18176,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L34",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "api_slack_notifier_rationale_34",
-      "target": "api_slack_notifier_fmt_duration",
-      "confidence_score": 1.0
+      "target": "api_slack_notifier_fmt_duration"
     },
     {
       "relation": "calls",
@@ -18034,9 +18187,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L465",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "api_slack_notifier_slacknotifier_description_complete",
-      "target": "api_slack_notifier_fmt_duration",
-      "confidence_score": 1.0
+      "target": "api_slack_notifier_fmt_duration"
     },
     {
       "relation": "calls",
@@ -18045,9 +18198,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L445",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "api_slack_notifier_slacknotifier_embedding_complete",
-      "target": "api_slack_notifier_fmt_duration",
-      "confidence_score": 1.0
+      "target": "api_slack_notifier_fmt_duration"
     },
     {
       "relation": "calls",
@@ -18056,9 +18209,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L423",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "api_slack_notifier_slacknotifier_extraction_complete",
-      "target": "api_slack_notifier_fmt_duration",
-      "confidence_score": 1.0
+      "target": "api_slack_notifier_fmt_duration"
     },
     {
       "relation": "calls",
@@ -18067,9 +18220,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L330",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "api_slack_notifier_slacknotifier_pipeline_complete",
-      "target": "api_slack_notifier_fmt_duration",
-      "confidence_score": 1.0
+      "target": "api_slack_notifier_fmt_duration"
     },
     {
       "relation": "calls",
@@ -18078,9 +18231,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L511",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "api_slack_notifier_slacknotifier_progress",
-      "target": "api_slack_notifier_fmt_duration",
-      "confidence_score": 1.0
+      "target": "api_slack_notifier_fmt_duration"
     },
     {
       "relation": "calls",
@@ -18089,9 +18242,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L482",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "api_slack_notifier_slacknotifier_similarity_complete",
-      "target": "api_slack_notifier_fmt_duration",
-      "confidence_score": 1.0
+      "target": "api_slack_notifier_fmt_duration"
     },
     {
       "relation": "references",
@@ -18100,9 +18253,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L45",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "api_slack_notifier_fmt_eta",
-      "target": "src_api_slack_notifier_py_float",
-      "confidence_score": 1.0
+      "target": "src_api_slack_notifier_py_float"
     },
     {
       "relation": "references",
@@ -18111,9 +18264,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L455",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "api_slack_notifier_slacknotifier_description_complete",
-      "target": "src_api_slack_notifier_py_float",
-      "confidence_score": 1.0
+      "target": "src_api_slack_notifier_py_float"
     },
     {
       "relation": "references",
@@ -18122,9 +18275,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L434",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "api_slack_notifier_slacknotifier_embedding_complete",
-      "target": "src_api_slack_notifier_py_float",
-      "confidence_score": 1.0
+      "target": "src_api_slack_notifier_py_float"
     },
     {
       "relation": "references",
@@ -18133,9 +18286,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L415",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "api_slack_notifier_slacknotifier_extraction_complete",
-      "target": "src_api_slack_notifier_py_float",
-      "confidence_score": 1.0
+      "target": "src_api_slack_notifier_py_float"
     },
     {
       "relation": "references",
@@ -18144,9 +18297,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L486",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "api_slack_notifier_slacknotifier_progress",
-      "target": "src_api_slack_notifier_py_float",
-      "confidence_score": 1.0
+      "target": "src_api_slack_notifier_py_float"
     },
     {
       "relation": "references",
@@ -18155,9 +18308,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L475",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "api_slack_notifier_slacknotifier_similarity_complete",
-      "target": "src_api_slack_notifier_py_float",
-      "confidence_score": 1.0
+      "target": "src_api_slack_notifier_py_float"
     },
     {
       "relation": "uses",
@@ -18165,9 +18318,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L30",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "src_api_slack_notifier_py_float",
-      "target": "pipeline_contracts_pipelineresult",
-      "confidence_score": 0.5
+      "target": "pipeline_contracts_pipelineresult"
     },
     {
       "relation": "uses",
@@ -18175,9 +18328,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L30",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "src_api_slack_notifier_py_float",
-      "target": "pipeline_contracts_reporterconfig",
-      "confidence_score": 0.5
+      "target": "pipeline_contracts_reporterconfig"
     },
     {
       "relation": "uses",
@@ -18185,9 +18338,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L30",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "src_api_slack_notifier_py_float",
-      "target": "pipeline_contracts_slackpipelineconfig",
-      "confidence_score": 0.5
+      "target": "pipeline_contracts_slackpipelineconfig"
     },
     {
       "relation": "references",
@@ -18196,9 +18349,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L45",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "api_slack_notifier_fmt_eta",
-      "target": "src_api_slack_notifier_py_str",
-      "confidence_score": 1.0
+      "target": "src_api_slack_notifier_py_str"
     },
     {
       "relation": "references",
@@ -18240,9 +18393,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L434",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "api_slack_notifier_slacknotifier_embedding_complete",
-      "target": "src_api_slack_notifier_py_str",
-      "confidence_score": 1.0
+      "target": "src_api_slack_notifier_py_str"
     },
     {
       "relation": "references",
@@ -18251,9 +18404,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L427",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "api_slack_notifier_slacknotifier_embedding_start",
-      "target": "src_api_slack_notifier_py_str",
-      "confidence_score": 1.0
+      "target": "src_api_slack_notifier_py_str"
     },
     {
       "relation": "references",
@@ -18262,9 +18415,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L343",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "api_slack_notifier_slacknotifier_pipeline_failed",
-      "target": "src_api_slack_notifier_py_str",
-      "confidence_score": 1.0
+      "target": "src_api_slack_notifier_py_str"
     },
     {
       "relation": "references",
@@ -18273,9 +18426,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L300",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "api_slack_notifier_slacknotifier_pipeline_start",
-      "target": "src_api_slack_notifier_py_str",
-      "confidence_score": 1.0
+      "target": "src_api_slack_notifier_py_str"
     },
     {
       "relation": "references",
@@ -18284,9 +18437,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L486",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "api_slack_notifier_slacknotifier_progress",
-      "target": "src_api_slack_notifier_py_str",
-      "confidence_score": 1.0
+      "target": "src_api_slack_notifier_py_str"
     },
     {
       "relation": "references",
@@ -18295,9 +18448,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L283",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "api_slack_notifier_slacknotifier_reply",
-      "target": "src_api_slack_notifier_py_str",
-      "confidence_score": 1.0
+      "target": "src_api_slack_notifier_py_str"
     },
     {
       "relation": "references",
@@ -18306,9 +18459,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L520",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "api_slack_notifier_slacknotifier_report_complete",
-      "target": "src_api_slack_notifier_py_str",
-      "confidence_score": 1.0
+      "target": "src_api_slack_notifier_py_str"
     },
     {
       "relation": "references",
@@ -18317,9 +18470,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L595",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "api_slack_notifier_slacknotifier_scheduled_run_queued",
-      "target": "src_api_slack_notifier_py_str",
-      "confidence_score": 1.0
+      "target": "src_api_slack_notifier_py_str"
     },
     {
       "relation": "uses",
@@ -18347,9 +18500,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L30",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "src_api_slack_notifier_py_str",
-      "target": "pipeline_contracts_slackpipelineconfig",
-      "confidence_score": 0.5
+      "target": "pipeline_contracts_slackpipelineconfig"
     },
     {
       "relation": "rationale_for",
@@ -18357,9 +18510,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L46",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "api_slack_notifier_rationale_46",
-      "target": "api_slack_notifier_fmt_eta",
-      "confidence_score": 1.0
+      "target": "api_slack_notifier_fmt_eta"
     },
     {
       "relation": "calls",
@@ -18368,9 +18521,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L504",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "api_slack_notifier_slacknotifier_progress",
-      "target": "api_slack_notifier_fmt_eta",
-      "confidence_score": 1.0
+      "target": "api_slack_notifier_fmt_eta"
     },
     {
       "relation": "references",
@@ -18420,9 +18573,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L51",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "api_slack_notifier_rationale_51",
-      "target": "api_slack_notifier_build_pipeline_blocks",
-      "confidence_score": 1.0
+      "target": "api_slack_notifier_build_pipeline_blocks"
     },
     {
       "relation": "references",
@@ -18442,9 +18595,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L317",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "api_slack_notifier_slacknotifier_pipeline_complete",
-      "target": "src_api_slack_notifier_py_pipelineresult",
-      "confidence_score": 1.0
+      "target": "src_api_slack_notifier_py_pipelineresult"
     },
     {
       "relation": "uses",
@@ -18472,9 +18625,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L30",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "src_api_slack_notifier_py_pipelineresult",
-      "target": "pipeline_contracts_slackpipelineconfig",
-      "confidence_score": 0.5
+      "target": "pipeline_contracts_slackpipelineconfig"
     },
     {
       "relation": "calls",
@@ -18545,9 +18698,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L96",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "api_slack_notifier_rationale_96",
-      "target": "api_slack_notifier_build_report_blocks",
-      "confidence_score": 1.0
+      "target": "api_slack_notifier_build_report_blocks"
     },
     {
       "relation": "calls",
@@ -18556,9 +18709,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L557",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "api_slack_notifier_slacknotifier_report_complete",
-      "target": "api_slack_notifier_build_report_blocks",
-      "confidence_score": 1.0
+      "target": "api_slack_notifier_build_report_blocks"
     },
     {
       "relation": "references",
@@ -18578,9 +18731,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L520",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "api_slack_notifier_slacknotifier_report_complete",
-      "target": "src_api_slack_notifier_py_reporterconfig",
-      "confidence_score": 1.0
+      "target": "src_api_slack_notifier_py_reporterconfig"
     },
     {
       "relation": "uses",
@@ -18608,9 +18761,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L30",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "src_api_slack_notifier_py_reporterconfig",
-      "target": "pipeline_contracts_slackpipelineconfig",
-      "confidence_score": 0.5
+      "target": "pipeline_contracts_slackpipelineconfig"
     },
     {
       "relation": "rationale_for",
@@ -18618,7 +18771,17 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L256",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "api_slack_notifier_rationale_256",
+      "target": "api_slack_notifier_slacknotifier"
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/api/slack_notifier.py",
+      "source_location": "L259",
+      "weight": 1.0,
+      "source": "api_slack_notifier_rationale_259",
       "target": "api_slack_notifier_slacknotifier",
       "confidence_score": 1.0
     },
@@ -18628,9 +18791,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L455",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "api_slack_notifier_slacknotifier",
-      "target": "api_slack_notifier_slacknotifier_description_complete",
-      "confidence_score": 1.0
+      "target": "api_slack_notifier_slacknotifier_description_complete"
     },
     {
       "relation": "method",
@@ -18638,9 +18801,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L449",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "api_slack_notifier_slacknotifier",
-      "target": "api_slack_notifier_slacknotifier_description_start",
-      "confidence_score": 1.0
+      "target": "api_slack_notifier_slacknotifier_description_start"
     },
     {
       "relation": "method",
@@ -18648,9 +18811,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L434",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "api_slack_notifier_slacknotifier",
-      "target": "api_slack_notifier_slacknotifier_embedding_complete",
-      "confidence_score": 1.0
+      "target": "api_slack_notifier_slacknotifier_embedding_complete"
     },
     {
       "relation": "method",
@@ -18658,9 +18821,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L427",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "api_slack_notifier_slacknotifier",
-      "target": "api_slack_notifier_slacknotifier_embedding_start",
-      "confidence_score": 1.0
+      "target": "api_slack_notifier_slacknotifier_embedding_start"
     },
     {
       "relation": "method",
@@ -18668,9 +18831,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L415",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "api_slack_notifier_slacknotifier",
-      "target": "api_slack_notifier_slacknotifier_extraction_complete",
-      "confidence_score": 1.0
+      "target": "api_slack_notifier_slacknotifier_extraction_complete"
     },
     {
       "relation": "method",
@@ -18678,9 +18841,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L272",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "api_slack_notifier_slacknotifier",
-      "target": "api_slack_notifier_slacknotifier_get_client",
-      "confidence_score": 1.0
+      "target": "api_slack_notifier_slacknotifier_get_client"
     },
     {
       "relation": "method",
@@ -18688,9 +18851,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L263",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "api_slack_notifier_slacknotifier",
-      "target": "api_slack_notifier_slacknotifier_init",
-      "confidence_score": 1.0
+      "target": "api_slack_notifier_slacknotifier_init"
     },
     {
       "relation": "method",
@@ -18698,9 +18861,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L317",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "api_slack_notifier_slacknotifier",
-      "target": "api_slack_notifier_slacknotifier_pipeline_complete",
-      "confidence_score": 1.0
+      "target": "api_slack_notifier_slacknotifier_pipeline_complete"
     },
     {
       "relation": "method",
@@ -18708,9 +18871,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L343",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "api_slack_notifier_slacknotifier",
-      "target": "api_slack_notifier_slacknotifier_pipeline_failed",
-      "confidence_score": 1.0
+      "target": "api_slack_notifier_slacknotifier_pipeline_failed"
     },
     {
       "relation": "method",
@@ -18718,9 +18881,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L300",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "api_slack_notifier_slacknotifier",
-      "target": "api_slack_notifier_slacknotifier_pipeline_start",
-      "confidence_score": 1.0
+      "target": "api_slack_notifier_slacknotifier_pipeline_start"
     },
     {
       "relation": "method",
@@ -18728,9 +18891,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L486",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "api_slack_notifier_slacknotifier",
-      "target": "api_slack_notifier_slacknotifier_progress",
-      "confidence_score": 1.0
+      "target": "api_slack_notifier_slacknotifier_progress"
     },
     {
       "relation": "method",
@@ -18738,9 +18901,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L283",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "api_slack_notifier_slacknotifier",
-      "target": "api_slack_notifier_slacknotifier_reply",
-      "confidence_score": 1.0
+      "target": "api_slack_notifier_slacknotifier_reply"
     },
     {
       "relation": "method",
@@ -18748,9 +18911,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L520",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "api_slack_notifier_slacknotifier",
-      "target": "api_slack_notifier_slacknotifier_report_complete",
-      "confidence_score": 1.0
+      "target": "api_slack_notifier_slacknotifier_report_complete"
     },
     {
       "relation": "method",
@@ -18758,9 +18921,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L595",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "api_slack_notifier_slacknotifier",
-      "target": "api_slack_notifier_slacknotifier_scheduled_run_queued",
-      "confidence_score": 1.0
+      "target": "api_slack_notifier_slacknotifier_scheduled_run_queued"
     },
     {
       "relation": "method",
@@ -18768,9 +18931,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L475",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "api_slack_notifier_slacknotifier",
-      "target": "api_slack_notifier_slacknotifier_similarity_complete",
-      "confidence_score": 1.0
+      "target": "api_slack_notifier_slacknotifier_similarity_complete"
     },
     {
       "relation": "method",
@@ -18778,9 +18941,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L469",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "api_slack_notifier_slacknotifier",
-      "target": "api_slack_notifier_slacknotifier_similarity_start",
-      "confidence_score": 1.0
+      "target": "api_slack_notifier_slacknotifier_similarity_start"
     },
     {
       "relation": "method",
@@ -18788,9 +18951,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L371",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "api_slack_notifier_slacknotifier",
-      "target": "api_slack_notifier_slacknotifier_sync_complete",
-      "confidence_score": 1.0
+      "target": "api_slack_notifier_slacknotifier_sync_complete"
     },
     {
       "relation": "method",
@@ -18798,9 +18961,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L365",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "api_slack_notifier_slacknotifier",
-      "target": "api_slack_notifier_slacknotifier_sync_start",
-      "confidence_score": 1.0
+      "target": "api_slack_notifier_slacknotifier_sync_start"
     },
     {
       "relation": "uses",
@@ -18808,9 +18971,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L30",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "api_slack_notifier_slacknotifier",
-      "target": "pipeline_contracts_pipelineresult",
-      "confidence_score": 0.5
+      "target": "pipeline_contracts_pipelineresult"
     },
     {
       "relation": "uses",
@@ -18818,9 +18981,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L30",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "api_slack_notifier_slacknotifier",
-      "target": "pipeline_contracts_reporterconfig",
-      "confidence_score": 0.5
+      "target": "pipeline_contracts_reporterconfig"
     },
     {
       "relation": "uses",
@@ -18828,9 +18991,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L30",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "api_slack_notifier_slacknotifier",
-      "target": "pipeline_contracts_slackpipelineconfig",
-      "confidence_score": 0.5
+      "target": "pipeline_contracts_slackpipelineconfig"
     },
     {
       "relation": "uses",
@@ -18838,9 +19001,9 @@
       "source_file": "src/pipeline/pipeline.py",
       "source_location": "L15",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "pipeline_pipeline_embeddingpipeline",
-      "target": "api_slack_notifier_slacknotifier",
-      "confidence_score": 0.5
+      "target": "api_slack_notifier_slacknotifier"
     },
     {
       "relation": "uses",
@@ -18848,9 +19011,9 @@
       "source_file": "src/scheduler/dispatcher.py",
       "source_location": "L111",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "pipelinetask",
-      "target": "api_slack_notifier_slacknotifier",
-      "confidence_score": 0.5
+      "target": "api_slack_notifier_slacknotifier"
     },
     {
       "relation": "uses",
@@ -18858,9 +19021,9 @@
       "source_file": "src/scheduler/dispatcher.py",
       "source_location": "L111",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "querytask",
-      "target": "api_slack_notifier_slacknotifier",
-      "confidence_score": 0.5
+      "target": "api_slack_notifier_slacknotifier"
     },
     {
       "relation": "uses",
@@ -18868,9 +19031,9 @@
       "source_file": "src/scheduler/dispatcher.py",
       "source_location": "L111",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "reporttask",
-      "target": "api_slack_notifier_slacknotifier",
-      "confidence_score": 0.5
+      "target": "api_slack_notifier_slacknotifier"
     },
     {
       "relation": "uses",
@@ -18878,9 +19041,9 @@
       "source_file": "src/scheduler/cron_trigger.py",
       "source_location": "L17",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "scheduler_cron_trigger_crontrigger",
-      "target": "api_slack_notifier_slacknotifier",
-      "confidence_score": 0.5
+      "target": "api_slack_notifier_slacknotifier"
     },
     {
       "relation": "uses",
@@ -18888,9 +19051,9 @@
       "source_file": "src/scheduler/dispatcher.py",
       "source_location": "L111",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "scheduler_dispatcher_taskdispatcher",
-      "target": "api_slack_notifier_slacknotifier",
-      "confidence_score": 0.5
+      "target": "api_slack_notifier_slacknotifier"
     },
     {
       "relation": "uses",
@@ -18898,9 +19061,9 @@
       "source_file": "src/pipeline/pipeline.py",
       "source_location": "L15",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "slacknotifier",
-      "target": "api_slack_notifier_slacknotifier",
-      "confidence_score": 0.5
+      "target": "api_slack_notifier_slacknotifier"
     },
     {
       "relation": "imports",
@@ -18909,9 +19072,9 @@
       "source_file": "src/pipeline/pipeline.py",
       "source_location": "L15",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_pipeline_pipeline_py",
-      "target": "api_slack_notifier_slacknotifier",
-      "confidence_score": 1.0
+      "target": "api_slack_notifier_slacknotifier"
     },
     {
       "relation": "uses",
@@ -18919,9 +19082,9 @@
       "source_file": "src/pipeline/pipeline.py",
       "source_location": "L15",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "src_pipeline_pipeline_py_bool",
-      "target": "api_slack_notifier_slacknotifier",
-      "confidence_score": 0.5
+      "target": "api_slack_notifier_slacknotifier"
     },
     {
       "relation": "uses",
@@ -18929,9 +19092,9 @@
       "source_file": "src/pipeline/pipeline.py",
       "source_location": "L15",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "src_pipeline_pipeline_py_pipelineconfig",
-      "target": "api_slack_notifier_slacknotifier",
-      "confidence_score": 0.5
+      "target": "api_slack_notifier_slacknotifier"
     },
     {
       "relation": "uses",
@@ -18939,9 +19102,9 @@
       "source_file": "src/pipeline/pipeline.py",
       "source_location": "L15",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "src_pipeline_pipeline_py_pipelineresult",
-      "target": "api_slack_notifier_slacknotifier",
-      "confidence_score": 0.5
+      "target": "api_slack_notifier_slacknotifier"
     },
     {
       "relation": "imports",
@@ -18950,9 +19113,9 @@
       "source_file": "src/scheduler/cron_trigger.py",
       "source_location": "L17",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_scheduler_cron_trigger_py",
-      "target": "api_slack_notifier_slacknotifier",
-      "confidence_score": 1.0
+      "target": "api_slack_notifier_slacknotifier"
     },
     {
       "relation": "uses",
@@ -18960,9 +19123,9 @@
       "source_file": "src/scheduler/cron_trigger.py",
       "source_location": "L17",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "src_scheduler_cron_trigger_py_str",
-      "target": "api_slack_notifier_slacknotifier",
-      "confidence_score": 0.5
+      "target": "api_slack_notifier_slacknotifier"
     },
     {
       "relation": "uses",
@@ -18970,9 +19133,9 @@
       "source_file": "src/scheduler/cron_trigger.py",
       "source_location": "L17",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "src_scheduler_cron_trigger_py_taskqueue",
-      "target": "api_slack_notifier_slacknotifier",
-      "confidence_score": 0.5
+      "target": "api_slack_notifier_slacknotifier"
     },
     {
       "relation": "imports",
@@ -18981,9 +19144,9 @@
       "source_file": "src/scheduler/dispatcher.py",
       "source_location": "L85",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_scheduler_dispatcher_py",
-      "target": "api_slack_notifier_slacknotifier",
-      "confidence_score": 1.0
+      "target": "api_slack_notifier_slacknotifier"
     },
     {
       "relation": "uses",
@@ -18991,9 +19154,9 @@
       "source_file": "src/scheduler/dispatcher.py",
       "source_location": "L111",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "src_scheduler_dispatcher_py_int",
-      "target": "api_slack_notifier_slacknotifier",
-      "confidence_score": 0.5
+      "target": "api_slack_notifier_slacknotifier"
     },
     {
       "relation": "uses",
@@ -19001,9 +19164,9 @@
       "source_file": "src/scheduler/dispatcher.py",
       "source_location": "L111",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "src_scheduler_dispatcher_py_pipelineconfig",
-      "target": "api_slack_notifier_slacknotifier",
-      "confidence_score": 0.5
+      "target": "api_slack_notifier_slacknotifier"
     },
     {
       "relation": "uses",
@@ -19011,9 +19174,9 @@
       "source_file": "src/scheduler/dispatcher.py",
       "source_location": "L111",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "src_scheduler_dispatcher_py_str",
-      "target": "api_slack_notifier_slacknotifier",
-      "confidence_score": 0.5
+      "target": "api_slack_notifier_slacknotifier"
     },
     {
       "relation": "uses",
@@ -19021,9 +19184,9 @@
       "source_file": "src/scheduler/dispatcher.py",
       "source_location": "L111",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "src_scheduler_dispatcher_py_task",
-      "target": "api_slack_notifier_slacknotifier",
-      "confidence_score": 0.5
+      "target": "api_slack_notifier_slacknotifier"
     },
     {
       "relation": "references",
@@ -19032,9 +19195,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L263",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "api_slack_notifier_slacknotifier_init",
-      "target": "slackpipelineconfig",
-      "confidence_score": 1.0
+      "target": "slackpipelineconfig"
     },
     {
       "relation": "uses",
@@ -19042,9 +19205,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L30",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "slackpipelineconfig",
-      "target": "pipeline_contracts_pipelineresult",
-      "confidence_score": 0.5
+      "target": "pipeline_contracts_pipelineresult"
     },
     {
       "relation": "uses",
@@ -19052,9 +19215,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L30",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "slackpipelineconfig",
-      "target": "pipeline_contracts_reporterconfig",
-      "confidence_score": 0.5
+      "target": "pipeline_contracts_reporterconfig"
     },
     {
       "relation": "uses",
@@ -19062,9 +19225,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L30",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "slackpipelineconfig",
-      "target": "pipeline_contracts_slackpipelineconfig",
-      "confidence_score": 0.5
+      "target": "pipeline_contracts_slackpipelineconfig"
     },
     {
       "relation": "rationale_for",
@@ -19072,7 +19235,17 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L273",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "api_slack_notifier_rationale_273",
+      "target": "api_slack_notifier_slacknotifier_get_client"
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/api/slack_notifier.py",
+      "source_location": "L276",
+      "weight": 1.0,
+      "source": "api_slack_notifier_rationale_276",
       "target": "api_slack_notifier_slacknotifier_get_client",
       "confidence_score": 1.0
     },
@@ -19083,9 +19256,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L272",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "api_slack_notifier_slacknotifier_get_client",
-      "target": "asyncwebclient",
-      "confidence_score": 1.0
+      "target": "asyncwebclient"
     },
     {
       "relation": "calls",
@@ -19094,9 +19267,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L321",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "api_slack_notifier_slacknotifier_pipeline_complete",
-      "target": "api_slack_notifier_slacknotifier_get_client",
-      "confidence_score": 1.0
+      "target": "api_slack_notifier_slacknotifier_get_client"
     },
     {
       "relation": "calls",
@@ -19105,9 +19278,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L347",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "api_slack_notifier_slacknotifier_pipeline_failed",
-      "target": "api_slack_notifier_slacknotifier_get_client",
-      "confidence_score": 1.0
+      "target": "api_slack_notifier_slacknotifier_get_client"
     },
     {
       "relation": "calls",
@@ -19116,9 +19289,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L304",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "api_slack_notifier_slacknotifier_pipeline_start",
-      "target": "api_slack_notifier_slacknotifier_get_client",
-      "confidence_score": 1.0
+      "target": "api_slack_notifier_slacknotifier_get_client"
     },
     {
       "relation": "calls",
@@ -19127,9 +19300,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L285",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "api_slack_notifier_slacknotifier_reply",
-      "target": "api_slack_notifier_slacknotifier_get_client",
-      "confidence_score": 1.0
+      "target": "api_slack_notifier_slacknotifier_get_client"
     },
     {
       "relation": "calls",
@@ -19138,9 +19311,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L535",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "api_slack_notifier_slacknotifier_report_complete",
-      "target": "api_slack_notifier_slacknotifier_get_client",
-      "confidence_score": 1.0
+      "target": "api_slack_notifier_slacknotifier_get_client"
     },
     {
       "relation": "calls",
@@ -19149,9 +19322,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L601",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "api_slack_notifier_slacknotifier_scheduled_run_queued",
-      "target": "api_slack_notifier_slacknotifier_get_client",
-      "confidence_score": 1.0
+      "target": "api_slack_notifier_slacknotifier_get_client"
     },
     {
       "relation": "uses",
@@ -19159,9 +19332,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L30",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "asyncwebclient",
-      "target": "pipeline_contracts_pipelineresult",
-      "confidence_score": 0.5
+      "target": "pipeline_contracts_pipelineresult"
     },
     {
       "relation": "uses",
@@ -19169,9 +19342,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L30",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "asyncwebclient",
-      "target": "pipeline_contracts_reporterconfig",
-      "confidence_score": 0.5
+      "target": "pipeline_contracts_reporterconfig"
     },
     {
       "relation": "uses",
@@ -19179,9 +19352,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L30",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "asyncwebclient",
-      "target": "pipeline_contracts_slackpipelineconfig",
-      "confidence_score": 0.5
+      "target": "pipeline_contracts_slackpipelineconfig"
     },
     {
       "relation": "rationale_for",
@@ -19189,7 +19362,17 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L284",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "api_slack_notifier_rationale_284",
+      "target": "api_slack_notifier_slacknotifier_reply"
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/api/slack_notifier.py",
+      "source_location": "L287",
+      "weight": 1.0,
+      "source": "api_slack_notifier_rationale_287",
       "target": "api_slack_notifier_slacknotifier_reply",
       "confidence_score": 1.0
     },
@@ -19200,9 +19383,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L467",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "api_slack_notifier_slacknotifier_description_complete",
-      "target": "api_slack_notifier_slacknotifier_reply",
-      "confidence_score": 1.0
+      "target": "api_slack_notifier_slacknotifier_reply"
     },
     {
       "relation": "calls",
@@ -19211,9 +19394,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L453",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "api_slack_notifier_slacknotifier_description_start",
-      "target": "api_slack_notifier_slacknotifier_reply",
-      "confidence_score": 1.0
+      "target": "api_slack_notifier_slacknotifier_reply"
     },
     {
       "relation": "calls",
@@ -19222,9 +19405,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L447",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "api_slack_notifier_slacknotifier_embedding_complete",
-      "target": "api_slack_notifier_slacknotifier_reply",
-      "confidence_score": 1.0
+      "target": "api_slack_notifier_slacknotifier_reply"
     },
     {
       "relation": "calls",
@@ -19233,9 +19416,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L432",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "api_slack_notifier_slacknotifier_embedding_start",
-      "target": "api_slack_notifier_slacknotifier_reply",
-      "confidence_score": 1.0
+      "target": "api_slack_notifier_slacknotifier_reply"
     },
     {
       "relation": "calls",
@@ -19244,9 +19427,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L425",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "api_slack_notifier_slacknotifier_extraction_complete",
-      "target": "api_slack_notifier_slacknotifier_reply",
-      "confidence_score": 1.0
+      "target": "api_slack_notifier_slacknotifier_reply"
     },
     {
       "relation": "calls",
@@ -19255,9 +19438,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L339",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "api_slack_notifier_slacknotifier_pipeline_complete",
-      "target": "api_slack_notifier_slacknotifier_reply",
-      "confidence_score": 1.0
+      "target": "api_slack_notifier_slacknotifier_reply"
     },
     {
       "relation": "calls",
@@ -19266,9 +19449,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L357",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "api_slack_notifier_slacknotifier_pipeline_failed",
-      "target": "api_slack_notifier_slacknotifier_reply",
-      "confidence_score": 1.0
+      "target": "api_slack_notifier_slacknotifier_reply"
     },
     {
       "relation": "calls",
@@ -19277,9 +19460,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L514",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "api_slack_notifier_slacknotifier_progress",
-      "target": "api_slack_notifier_slacknotifier_reply",
-      "confidence_score": 1.0
+      "target": "api_slack_notifier_slacknotifier_reply"
     },
     {
       "relation": "calls",
@@ -19288,9 +19471,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L544",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "api_slack_notifier_slacknotifier_report_complete",
-      "target": "api_slack_notifier_slacknotifier_reply",
-      "confidence_score": 1.0
+      "target": "api_slack_notifier_slacknotifier_reply"
     },
     {
       "relation": "calls",
@@ -19299,9 +19482,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L484",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "api_slack_notifier_slacknotifier_similarity_complete",
-      "target": "api_slack_notifier_slacknotifier_reply",
-      "confidence_score": 1.0
+      "target": "api_slack_notifier_slacknotifier_reply"
     },
     {
       "relation": "calls",
@@ -19310,9 +19493,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L473",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "api_slack_notifier_slacknotifier_similarity_start",
-      "target": "api_slack_notifier_slacknotifier_reply",
-      "confidence_score": 1.0
+      "target": "api_slack_notifier_slacknotifier_reply"
     },
     {
       "relation": "calls",
@@ -19321,9 +19504,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L395",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "api_slack_notifier_slacknotifier_sync_complete",
-      "target": "api_slack_notifier_slacknotifier_reply",
-      "confidence_score": 1.0
+      "target": "api_slack_notifier_slacknotifier_reply"
     },
     {
       "relation": "calls",
@@ -19332,9 +19515,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L369",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "api_slack_notifier_slacknotifier_sync_start",
-      "target": "api_slack_notifier_slacknotifier_reply",
-      "confidence_score": 1.0
+      "target": "api_slack_notifier_slacknotifier_reply"
     },
     {
       "relation": "rationale_for",
@@ -19342,7 +19525,17 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L301",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "api_slack_notifier_rationale_301",
+      "target": "api_slack_notifier_slacknotifier_pipeline_start"
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/api/slack_notifier.py",
+      "source_location": "L304",
+      "weight": 1.0,
+      "source": "api_slack_notifier_rationale_304",
       "target": "api_slack_notifier_slacknotifier_pipeline_start",
       "confidence_score": 1.0
     },
@@ -19352,7 +19545,17 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L318",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "api_slack_notifier_rationale_318",
+      "target": "api_slack_notifier_slacknotifier_pipeline_complete"
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/api/slack_notifier.py",
+      "source_location": "L321",
+      "weight": 1.0,
+      "source": "api_slack_notifier_rationale_321",
       "target": "api_slack_notifier_slacknotifier_pipeline_complete",
       "confidence_score": 1.0
     },
@@ -19362,7 +19565,17 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L344",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "api_slack_notifier_rationale_344",
+      "target": "api_slack_notifier_slacknotifier_pipeline_failed"
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/api/slack_notifier.py",
+      "source_location": "L347",
+      "weight": 1.0,
+      "source": "api_slack_notifier_rationale_347",
       "target": "api_slack_notifier_slacknotifier_pipeline_failed",
       "confidence_score": 1.0
     },
@@ -19372,7 +19585,17 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L366",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "api_slack_notifier_rationale_366",
+      "target": "api_slack_notifier_slacknotifier_sync_start"
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/api/slack_notifier.py",
+      "source_location": "L369",
+      "weight": 1.0,
+      "source": "api_slack_notifier_rationale_369",
       "target": "api_slack_notifier_slacknotifier_sync_start",
       "confidence_score": 1.0
     },
@@ -19382,7 +19605,17 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L372",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "api_slack_notifier_rationale_372",
+      "target": "api_slack_notifier_slacknotifier_sync_complete"
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/api/slack_notifier.py",
+      "source_location": "L375",
+      "weight": 1.0,
+      "source": "api_slack_notifier_rationale_375",
       "target": "api_slack_notifier_slacknotifier_sync_complete",
       "confidence_score": 1.0
     },
@@ -19393,9 +19626,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L371",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "api_slack_notifier_slacknotifier_sync_complete",
-      "target": "syncresult",
-      "confidence_score": 1.0
+      "target": "syncresult"
     },
     {
       "relation": "uses",
@@ -19403,9 +19636,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L30",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "syncresult",
-      "target": "pipeline_contracts_pipelineresult",
-      "confidence_score": 0.5
+      "target": "pipeline_contracts_pipelineresult"
     },
     {
       "relation": "uses",
@@ -19413,9 +19646,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L30",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "syncresult",
-      "target": "pipeline_contracts_reporterconfig",
-      "confidence_score": 0.5
+      "target": "pipeline_contracts_reporterconfig"
     },
     {
       "relation": "uses",
@@ -19423,9 +19656,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L30",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "syncresult",
-      "target": "pipeline_contracts_slackpipelineconfig",
-      "confidence_score": 0.5
+      "target": "pipeline_contracts_slackpipelineconfig"
     },
     {
       "relation": "rationale_for",
@@ -19433,7 +19666,17 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L416",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "api_slack_notifier_rationale_416",
+      "target": "api_slack_notifier_slacknotifier_extraction_complete"
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/api/slack_notifier.py",
+      "source_location": "L419",
+      "weight": 1.0,
+      "source": "api_slack_notifier_rationale_419",
       "target": "api_slack_notifier_slacknotifier_extraction_complete",
       "confidence_score": 1.0
     },
@@ -19444,9 +19687,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L415",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "api_slack_notifier_slacknotifier_extraction_complete",
-      "target": "src_api_slack_notifier_py_int",
-      "confidence_score": 1.0
+      "target": "src_api_slack_notifier_py_int"
     },
     {
       "relation": "references",
@@ -19455,9 +19698,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L455",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "api_slack_notifier_slacknotifier_description_complete",
-      "target": "src_api_slack_notifier_py_int",
-      "confidence_score": 1.0
+      "target": "src_api_slack_notifier_py_int"
     },
     {
       "relation": "references",
@@ -19466,9 +19709,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L449",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "api_slack_notifier_slacknotifier_description_start",
-      "target": "src_api_slack_notifier_py_int",
-      "confidence_score": 1.0
+      "target": "src_api_slack_notifier_py_int"
     },
     {
       "relation": "references",
@@ -19477,9 +19720,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L434",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "api_slack_notifier_slacknotifier_embedding_complete",
-      "target": "src_api_slack_notifier_py_int",
-      "confidence_score": 1.0
+      "target": "src_api_slack_notifier_py_int"
     },
     {
       "relation": "references",
@@ -19488,9 +19731,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L427",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "api_slack_notifier_slacknotifier_embedding_start",
-      "target": "src_api_slack_notifier_py_int",
-      "confidence_score": 1.0
+      "target": "src_api_slack_notifier_py_int"
     },
     {
       "relation": "references",
@@ -19499,9 +19742,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L486",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "api_slack_notifier_slacknotifier_progress",
-      "target": "src_api_slack_notifier_py_int",
-      "confidence_score": 1.0
+      "target": "src_api_slack_notifier_py_int"
     },
     {
       "relation": "references",
@@ -19510,9 +19753,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L475",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "api_slack_notifier_slacknotifier_similarity_complete",
-      "target": "src_api_slack_notifier_py_int",
-      "confidence_score": 1.0
+      "target": "src_api_slack_notifier_py_int"
     },
     {
       "relation": "references",
@@ -19521,9 +19764,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L469",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "api_slack_notifier_slacknotifier_similarity_start",
-      "target": "src_api_slack_notifier_py_int",
-      "confidence_score": 1.0
+      "target": "src_api_slack_notifier_py_int"
     },
     {
       "relation": "uses",
@@ -19531,9 +19774,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L30",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "src_api_slack_notifier_py_int",
-      "target": "pipeline_contracts_pipelineresult",
-      "confidence_score": 0.5
+      "target": "pipeline_contracts_pipelineresult"
     },
     {
       "relation": "uses",
@@ -19541,9 +19784,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L30",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "src_api_slack_notifier_py_int",
-      "target": "pipeline_contracts_reporterconfig",
-      "confidence_score": 0.5
+      "target": "pipeline_contracts_reporterconfig"
     },
     {
       "relation": "uses",
@@ -19551,9 +19794,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L30",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "src_api_slack_notifier_py_int",
-      "target": "pipeline_contracts_slackpipelineconfig",
-      "confidence_score": 0.5
+      "target": "pipeline_contracts_slackpipelineconfig"
     },
     {
       "relation": "rationale_for",
@@ -19561,7 +19804,17 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L428",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "api_slack_notifier_rationale_428",
+      "target": "api_slack_notifier_slacknotifier_embedding_start"
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/api/slack_notifier.py",
+      "source_location": "L431",
+      "weight": 1.0,
+      "source": "api_slack_notifier_rationale_431",
       "target": "api_slack_notifier_slacknotifier_embedding_start",
       "confidence_score": 1.0
     },
@@ -19571,7 +19824,17 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L437",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "api_slack_notifier_rationale_437",
+      "target": "api_slack_notifier_slacknotifier_embedding_complete"
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/api/slack_notifier.py",
+      "source_location": "L440",
+      "weight": 1.0,
+      "source": "api_slack_notifier_rationale_440",
       "target": "api_slack_notifier_slacknotifier_embedding_complete",
       "confidence_score": 1.0
     },
@@ -19581,7 +19844,17 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L450",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "api_slack_notifier_rationale_450",
+      "target": "api_slack_notifier_slacknotifier_description_start"
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/api/slack_notifier.py",
+      "source_location": "L453",
+      "weight": 1.0,
+      "source": "api_slack_notifier_rationale_453",
       "target": "api_slack_notifier_slacknotifier_description_start",
       "confidence_score": 1.0
     },
@@ -19591,7 +19864,17 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L458",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "api_slack_notifier_rationale_458",
+      "target": "api_slack_notifier_slacknotifier_description_complete"
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/api/slack_notifier.py",
+      "source_location": "L461",
+      "weight": 1.0,
+      "source": "api_slack_notifier_rationale_461",
       "target": "api_slack_notifier_slacknotifier_description_complete",
       "confidence_score": 1.0
     },
@@ -19601,7 +19884,17 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L470",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "api_slack_notifier_rationale_470",
+      "target": "api_slack_notifier_slacknotifier_similarity_start"
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/api/slack_notifier.py",
+      "source_location": "L473",
+      "weight": 1.0,
+      "source": "api_slack_notifier_rationale_473",
       "target": "api_slack_notifier_slacknotifier_similarity_start",
       "confidence_score": 1.0
     },
@@ -19611,7 +19904,17 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L476",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "api_slack_notifier_rationale_476",
+      "target": "api_slack_notifier_slacknotifier_similarity_complete"
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/api/slack_notifier.py",
+      "source_location": "L479",
+      "weight": 1.0,
+      "source": "api_slack_notifier_rationale_479",
       "target": "api_slack_notifier_slacknotifier_similarity_complete",
       "confidence_score": 1.0
     },
@@ -19621,7 +19924,17 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L489",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "api_slack_notifier_rationale_489",
+      "target": "api_slack_notifier_slacknotifier_progress"
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/api/slack_notifier.py",
+      "source_location": "L492",
+      "weight": 1.0,
+      "source": "api_slack_notifier_rationale_492",
       "target": "api_slack_notifier_slacknotifier_progress",
       "confidence_score": 1.0
     },
@@ -19631,7 +19944,17 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L528",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "api_slack_notifier_rationale_528",
+      "target": "api_slack_notifier_slacknotifier_report_complete"
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/api/slack_notifier.py",
+      "source_location": "L531",
+      "weight": 1.0,
+      "source": "api_slack_notifier_rationale_531",
       "target": "api_slack_notifier_slacknotifier_report_complete",
       "confidence_score": 1.0
     },
@@ -19642,9 +19965,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L520",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "api_slack_notifier_slacknotifier_report_complete",
-      "target": "datetime",
-      "confidence_score": 1.0
+      "target": "datetime"
     },
     {
       "relation": "references",
@@ -19653,9 +19976,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L520",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "api_slack_notifier_slacknotifier_report_complete",
-      "target": "src_api_slack_notifier_py_bool",
-      "confidence_score": 1.0
+      "target": "src_api_slack_notifier_py_bool"
     },
     {
       "relation": "references",
@@ -19664,9 +19987,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L520",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "api_slack_notifier_slacknotifier_report_complete",
-      "target": "src_api_slack_notifier_py_path",
-      "confidence_score": 1.0
+      "target": "src_api_slack_notifier_py_path"
     },
     {
       "relation": "references",
@@ -19716,9 +20039,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L30",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "src_api_slack_notifier_py_bool",
-      "target": "pipeline_contracts_slackpipelineconfig",
-      "confidence_score": 0.5
+      "target": "pipeline_contracts_slackpipelineconfig"
     },
     {
       "relation": "references",
@@ -19757,9 +20080,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L30",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "datetime",
-      "target": "pipeline_contracts_slackpipelineconfig",
-      "confidence_score": 0.5
+      "target": "pipeline_contracts_slackpipelineconfig"
     },
     {
       "relation": "imports_from",
@@ -19875,9 +20198,9 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L30",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "src_api_slack_notifier_py_path",
-      "target": "pipeline_contracts_slackpipelineconfig",
-      "confidence_score": 0.5
+      "target": "pipeline_contracts_slackpipelineconfig"
     },
     {
       "relation": "rationale_for",
@@ -19885,9 +20208,29 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L596",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "api_slack_notifier_rationale_596",
+      "target": "api_slack_notifier_slacknotifier_scheduled_run_queued"
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/api/slack_notifier.py",
+      "source_location": "L597",
+      "weight": 1.0,
+      "source": "api_slack_notifier_rationale_597",
       "target": "api_slack_notifier_slacknotifier_scheduled_run_queued",
       "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/api/slack_notifier.py",
+      "source_location": "L287",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "api_slack_notifier_rationale_287",
+      "target": "api_slack_notifier_notify_scheduled_run"
     },
     {
       "relation": "rationale_for",
@@ -20140,9 +20483,9 @@
       "source_file": "src/scheduler/dispatcher.py",
       "source_location": "L112",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_scheduler_dispatcher_py",
-      "target": "pipeline_contracts_slackpipelineconfig",
-      "confidence_score": 1.0
+      "target": "pipeline_contracts_slackpipelineconfig"
     },
     {
       "relation": "imports",
@@ -20330,9 +20673,9 @@
       "source_file": "src/scheduler/dispatcher.py",
       "source_location": "L112",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "src_scheduler_dispatcher_py_str",
-      "target": "pipeline_contracts_slackpipelineconfig",
-      "confidence_score": 0.5
+      "target": "pipeline_contracts_slackpipelineconfig"
     },
     {
       "relation": "uses",
@@ -20400,9 +20743,9 @@
       "source_file": "src/scheduler/dispatcher.py",
       "source_location": "L112",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "src_scheduler_dispatcher_py_int",
-      "target": "pipeline_contracts_slackpipelineconfig",
-      "confidence_score": 0.5
+      "target": "pipeline_contracts_slackpipelineconfig"
     },
     {
       "relation": "uses",
@@ -20510,9 +20853,9 @@
       "source_file": "src/scheduler/dispatcher.py",
       "source_location": "L112",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "scheduler_dispatcher_taskdispatcher",
-      "target": "pipeline_contracts_slackpipelineconfig",
-      "confidence_score": 0.5
+      "target": "pipeline_contracts_slackpipelineconfig"
     },
     {
       "relation": "uses",
@@ -20702,9 +21045,9 @@
       "source_file": "src/scheduler/dispatcher.py",
       "source_location": "L112",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "src_scheduler_dispatcher_py_pipelineconfig",
-      "target": "pipeline_contracts_slackpipelineconfig",
-      "confidence_score": 0.5
+      "target": "pipeline_contracts_slackpipelineconfig"
     },
     {
       "relation": "uses",
@@ -20816,9 +21159,9 @@
       "source_file": "src/scheduler/dispatcher.py",
       "source_location": "L112",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "src_scheduler_dispatcher_py_task",
-      "target": "pipeline_contracts_slackpipelineconfig",
-      "confidence_score": 0.5
+      "target": "pipeline_contracts_slackpipelineconfig"
     },
     {
       "relation": "uses",
@@ -20908,9 +21251,9 @@
       "source_file": "src/scheduler/dispatcher.py",
       "source_location": "L112",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "querytask",
-      "target": "pipeline_contracts_slackpipelineconfig",
-      "confidence_score": 0.5
+      "target": "pipeline_contracts_slackpipelineconfig"
     },
     {
       "relation": "uses",
@@ -21044,9 +21387,9 @@
       "source_file": "src/scheduler/dispatcher.py",
       "source_location": "L112",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "pipelinetask",
-      "target": "pipeline_contracts_slackpipelineconfig",
-      "confidence_score": 0.5
+      "target": "pipeline_contracts_slackpipelineconfig"
     },
     {
       "relation": "uses",
@@ -21147,9 +21490,9 @@
       "source_file": "src/scheduler/dispatcher.py",
       "source_location": "L112",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "reporttask",
-      "target": "pipeline_contracts_slackpipelineconfig",
-      "confidence_score": 0.5
+      "target": "pipeline_contracts_slackpipelineconfig"
     },
     {
       "relation": "uses",
@@ -22716,9 +23059,9 @@
       "source_file": "src/scheduler/cron_trigger.py",
       "source_location": "L18",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_scheduler_cron_trigger_py",
-      "target": "pipeline_contracts_slackpipelineconfig",
-      "confidence_score": 1.0
+      "target": "pipeline_contracts_slackpipelineconfig"
     },
     {
       "relation": "contains",
@@ -22736,9 +23079,9 @@
       "source_file": "src/scheduler/cron_trigger.py",
       "source_location": "L18",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "scheduler_cron_trigger_crontrigger",
-      "target": "pipeline_contracts_slackpipelineconfig",
-      "confidence_score": 0.5
+      "target": "pipeline_contracts_slackpipelineconfig"
     },
     {
       "relation": "method",
@@ -22796,9 +23139,9 @@
       "source_file": "src/scheduler/cron_trigger.py",
       "source_location": "L25",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scheduler_cron_trigger_rationale_25",
-      "target": "scheduler_cron_trigger_crontrigger",
-      "confidence_score": 1.0
+      "target": "scheduler_cron_trigger_crontrigger"
     },
     {
       "relation": "references",
@@ -22828,9 +23171,9 @@
       "source_file": "src/scheduler/cron_trigger.py",
       "source_location": "L18",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "src_scheduler_cron_trigger_py_str",
-      "target": "pipeline_contracts_slackpipelineconfig",
-      "confidence_score": 0.5
+      "target": "pipeline_contracts_slackpipelineconfig"
     },
     {
       "relation": "uses",
@@ -22838,9 +23181,9 @@
       "source_file": "src/scheduler/cron_trigger.py",
       "source_location": "L18",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "src_scheduler_cron_trigger_py_taskqueue",
-      "target": "pipeline_contracts_slackpipelineconfig",
-      "confidence_score": 0.5
+      "target": "pipeline_contracts_slackpipelineconfig"
     },
     {
       "relation": "calls",
@@ -22869,9 +23212,9 @@
       "source_file": "src/scheduler/cron_trigger.py",
       "source_location": "L45",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scheduler_cron_trigger_rationale_45",
-      "target": "scheduler_cron_trigger_crontrigger_start",
-      "confidence_score": 1.0
+      "target": "scheduler_cron_trigger_crontrigger_start"
     },
     {
       "relation": "rationale_for",
@@ -22889,9 +23232,9 @@
       "source_file": "src/scheduler/cron_trigger.py",
       "source_location": "L51",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scheduler_cron_trigger_rationale_51",
-      "target": "scheduler_cron_trigger_crontrigger_stop",
-      "confidence_score": 1.0
+      "target": "scheduler_cron_trigger_crontrigger_stop"
     },
     {
       "relation": "calls",
@@ -23117,9 +23460,9 @@
       "source_file": "src/pipeline/pipeline.py",
       "source_location": "L26",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "pipeline_pipeline_rationale_26",
-      "target": "pipeline_pipeline_embeddingpipeline",
-      "confidence_score": 1.0
+      "target": "pipeline_pipeline_embeddingpipeline"
     },
     {
       "relation": "calls",
@@ -23161,9 +23504,9 @@
       "source_file": "src/pipeline/pipeline.py",
       "source_location": "L28",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "pipeline_pipeline_embeddingpipeline_init",
-      "target": "slacknotifier",
-      "confidence_score": 1.0
+      "target": "slacknotifier"
     },
     {
       "relation": "references",
@@ -23293,9 +23636,9 @@
       "source_file": "src/pipeline/pipeline.py",
       "source_location": "L18",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "slacknotifier",
-      "target": "descriptions_service_descriptionservice",
-      "confidence_score": 0.5
+      "target": "descriptions_service_descriptionservice"
     },
     {
       "relation": "uses",
@@ -23303,9 +23646,9 @@
       "source_file": "src/pipeline/pipeline.py",
       "source_location": "L20",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "slacknotifier",
-      "target": "extraction_extractor_functionextractor",
-      "confidence_score": 0.5
+      "target": "extraction_extractor_functionextractor"
     },
     {
       "relation": "uses",
@@ -23313,9 +23656,9 @@
       "source_file": "src/pipeline/pipeline.py",
       "source_location": "L21",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "slacknotifier",
-      "target": "graph_store_neo4jstore",
-      "confidence_score": 0.5
+      "target": "graph_store_neo4jstore"
     },
     {
       "relation": "uses",
@@ -23323,9 +23666,9 @@
       "source_file": "src/pipeline/pipeline.py",
       "source_location": "L17",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "slacknotifier",
-      "target": "pipeline_contracts_pipelineconfig",
-      "confidence_score": 0.5
+      "target": "pipeline_contracts_pipelineconfig"
     },
     {
       "relation": "uses",
@@ -23333,9 +23676,9 @@
       "source_file": "src/pipeline/pipeline.py",
       "source_location": "L17",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "slacknotifier",
-      "target": "pipeline_contracts_pipelineresult",
-      "confidence_score": 0.5
+      "target": "pipeline_contracts_pipelineresult"
     },
     {
       "relation": "calls",
@@ -23396,9 +23739,9 @@
       "source_file": "src/pipeline/pipeline.py",
       "source_location": "L54",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "pipeline_pipeline_rationale_54",
-      "target": "pipeline_pipeline_embeddingpipeline_run",
-      "confidence_score": 1.0
+      "target": "pipeline_pipeline_embeddingpipeline_run"
     },
     {
       "relation": "references",
@@ -23488,9 +23831,9 @@
       "source_file": "src/pipeline/pipeline.py",
       "source_location": "L73",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "pipeline_pipeline_rationale_73",
-      "target": "pipeline_pipeline_embeddingpipeline_sync_repo",
-      "confidence_score": 1.0
+      "target": "pipeline_pipeline_embeddingpipeline_sync_repo"
     },
     {
       "relation": "calls",
@@ -23949,9 +24292,9 @@
       "source_file": "src/pipeline/contracts.py",
       "source_location": "L131",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_pipeline_contracts_py",
-      "target": "pipeline_contracts_slackpipelineconfig",
-      "confidence_score": 1.0
+      "target": "pipeline_contracts_slackpipelineconfig"
     },
     {
       "relation": "references",
@@ -24072,9 +24415,9 @@
       "source_file": "src/pipeline/descriptions/service.py",
       "source_location": "L17",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "src_pipeline_descriptions_service_py_int",
-      "target": "pipeline_contracts_functionrecord",
-      "confidence_score": 0.5
+      "target": "pipeline_contracts_functionrecord"
     },
     {
       "relation": "uses",
@@ -24133,9 +24476,9 @@
       "source_file": "src/pipeline/embeddings/service.py",
       "source_location": "L16",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "src_pipeline_embeddings_service_py_int",
-      "target": "pipeline_contracts_functionrecord",
-      "confidence_score": 0.5
+      "target": "pipeline_contracts_functionrecord"
     },
     {
       "relation": "uses",
@@ -25247,9 +25590,9 @@
       "source_file": "src/pipeline/contracts.py",
       "source_location": "L132",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "pipeline_contracts_rationale_132",
-      "target": "pipeline_contracts_slackpipelineconfig",
-      "confidence_score": 1.0
+      "target": "pipeline_contracts_slackpipelineconfig"
     },
     {
       "relation": "uses",
@@ -25328,9 +25671,9 @@
       "source_file": "src/pipeline/descriptions/service.py",
       "source_location": "L17",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "src_pipeline_descriptions_service_py_int",
-      "target": "pipeline_contracts_pipelineconfig",
-      "confidence_score": 0.5
+      "target": "pipeline_contracts_pipelineconfig"
     },
     {
       "relation": "uses",
@@ -25389,9 +25732,9 @@
       "source_file": "src/pipeline/embeddings/service.py",
       "source_location": "L16",
       "weight": 0.8,
+      "confidence_score": 0.5,
       "source": "src_pipeline_embeddings_service_py_int",
-      "target": "pipeline_contracts_pipelineconfig",
-      "confidence_score": 0.5
+      "target": "pipeline_contracts_pipelineconfig"
     },
     {
       "relation": "uses",
@@ -25691,9 +26034,9 @@
       "source_file": "src/pipeline/contracts.py",
       "source_location": "L168",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "pipeline_contracts_rationale_168",
-      "target": "pipeline_contracts_pipelineresult",
-      "confidence_score": 1.0
+      "target": "pipeline_contracts_pipelineresult"
     },
     {
       "relation": "rationale_for",
@@ -25804,9 +26147,9 @@
       "source_file": "src/pipeline/descriptions/service.py",
       "source_location": "L22",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "descriptions_service_rationale_22",
-      "target": "descriptions_service_extract_json",
-      "confidence_score": 1.0
+      "target": "descriptions_service_extract_json"
     },
     {
       "relation": "references",
@@ -25875,9 +26218,9 @@
       "source_file": "src/pipeline/descriptions/service.py",
       "source_location": "L36",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "descriptions_service_rationale_36",
-      "target": "descriptions_service_descriptionservice",
-      "confidence_score": 1.0
+      "target": "descriptions_service_descriptionservice"
     },
     {
       "relation": "imports",
@@ -25960,9 +26303,9 @@
       "source_file": "src/pipeline/descriptions/service.py",
       "source_location": "L46",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "descriptions_service_rationale_46",
-      "target": "descriptions_service_descriptionservice_describe",
-      "confidence_score": 1.0
+      "target": "descriptions_service_descriptionservice_describe"
     },
     {
       "relation": "references",
@@ -25982,9 +26325,9 @@
       "source_file": "src/pipeline/descriptions/service.py",
       "source_location": "L92",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "descriptions_service_descriptionservice_describe_batch",
-      "target": "src_pipeline_descriptions_service_py_int",
-      "confidence_score": 1.0
+      "target": "src_pipeline_descriptions_service_py_int"
     },
     {
       "relation": "rationale_for",
@@ -26012,9 +26355,9 @@
       "source_file": "src/pipeline/descriptions/service.py",
       "source_location": "L97",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "descriptions_service_rationale_97",
-      "target": "descriptions_service_descriptionservice_describe_batch",
-      "confidence_score": 1.0
+      "target": "descriptions_service_descriptionservice_describe_batch"
     },
     {
       "relation": "rationale_for",
@@ -29345,9 +29688,9 @@
       "source_file": "src/pipeline/embeddings/service.py",
       "source_location": "L20",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "embeddings_service_rationale_20",
-      "target": "embeddings_service_embeddingservice",
-      "confidence_score": 1.0
+      "target": "embeddings_service_embeddingservice"
     },
     {
       "relation": "imports",
@@ -29409,9 +29752,9 @@
       "source_file": "src/pipeline/embeddings/service.py",
       "source_location": "L33",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "embeddings_service_rationale_33",
-      "target": "embeddings_service_embeddingservice_embed_code",
-      "confidence_score": 1.0
+      "target": "embeddings_service_embeddingservice_embed_code"
     },
     {
       "relation": "references",
@@ -29462,9 +29805,9 @@
       "source_file": "src/pipeline/embeddings/service.py",
       "source_location": "L85",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "embeddings_service_rationale_85",
-      "target": "embeddings_service_embeddingservice_embed_description",
-      "confidence_score": 1.0
+      "target": "embeddings_service_embeddingservice_embed_description"
     },
     {
       "relation": "references",
@@ -29473,9 +29816,9 @@
       "source_file": "src/pipeline/embeddings/service.py",
       "source_location": "L118",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "embeddings_service_embeddingservice_embed_code_batch",
-      "target": "src_pipeline_embeddings_service_py_int",
-      "confidence_score": 1.0
+      "target": "src_pipeline_embeddings_service_py_int"
     },
     {
       "relation": "rationale_for",
@@ -29493,9 +29836,9 @@
       "source_file": "src/pipeline/embeddings/service.py",
       "source_location": "L123",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "embeddings_service_rationale_123",
-      "target": "embeddings_service_embeddingservice_embed_code_batch",
-      "confidence_score": 1.0
+      "target": "embeddings_service_embeddingservice_embed_code_batch"
     },
     {
       "relation": "references",
@@ -29504,9 +29847,9 @@
       "source_file": "src/pipeline/embeddings/service.py",
       "source_location": "L137",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "embeddings_service_embeddingservice_embed_description_batch",
-      "target": "src_pipeline_embeddings_service_py_int",
-      "confidence_score": 1.0
+      "target": "src_pipeline_embeddings_service_py_int"
     },
     {
       "relation": "rationale_for",
@@ -29524,9 +29867,9 @@
       "source_file": "src/pipeline/embeddings/service.py",
       "source_location": "L142",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "embeddings_service_rationale_142",
-      "target": "embeddings_service_embeddingservice_embed_description_batch",
-      "confidence_score": 1.0
+      "target": "embeddings_service_embeddingservice_embed_description_batch"
     },
     {
       "relation": "rationale_for",
@@ -40632,16 +40975,6 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "src/api/slack_notifier.py",
-      "source_location": "L287",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "api_slack_notifier_rationale_287",
-      "target": "api_slack_notifier_notify_scheduled_run"
-    },
-    {
-      "relation": "rationale_for",
-      "confidence": "EXTRACTED",
-      "source_file": "src/api/slack_notifier.py",
       "source_location": "L341",
       "weight": 1.0,
       "confidence_score": 1.0,
@@ -41218,5 +41551,5 @@
       "source_file": "docs/CONTEXT_CONTRACT.md"
     }
   ],
-  "built_at_commit": "b7ac58ef040e082c2ba6402d953e2af1752ae95b"
+  "built_at_commit": "9ea59429acd67a130b4b8c030dfeb2ac377868e8"
 }
