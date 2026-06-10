@@ -8,8 +8,8 @@ SlackNotifier is the single entry point for all Slack communication:
 Thread strategy: pipeline_start() posts to the channel and stores thread_ts.
 All stage/progress updates are posted as thread replies. pipeline_complete()
 and pipeline_failed() also update the original channel message via chat_update.
-report_complete() posts to the active thread when called on the same notifier
-instance as the pipeline run; otherwise it posts directly to the channel.
+report_complete() always posts directly to the channel as a standalone message,
+appearing below the pipeline thread regardless of whether a thread is active.
 
 All methods are fire-and-forget: Slack errors are swallowed so a Slack outage
 never affects pipeline execution.
@@ -154,15 +154,14 @@ def _build_report_blocks(data: dict, reporter_cfg: ReporterConfig | None = None)
         },
     })
 
-    total_fns = stats.get("total_functions") or 0
-
-    def _pct(n: int) -> str:
-        return f" ({n / total_fns:.1%})" if total_fns else ""
-
     gt95 = sim.get("gt_0.95", 0)
     b90_95 = sim.get("b_0.9_0.95", 0)
     b80_90 = sim.get("b_0.8_0.9", 0)
     lt80 = sim.get("lt_0.8", 0)
+    total_edges = gt95 + b90_95 + b80_90 + lt80
+
+    def _pct(n: int) -> str:
+        return f" ({n / total_edges:.1%})" if total_edges else ""
     blocks.append({"type": "divider"})
     blocks.append({
         "type": "section",
@@ -527,10 +526,10 @@ class SlackNotifier:
     ) -> None:
         """Post a Block Kit report summary and upload the .md file.
 
-        Posts as a thread reply when a pipeline thread is active (thread_ts set),
-        otherwise posts directly to the channel. File uploads always go to the
-        channel for maximum visibility. Not gated by self._enabled — report
-        notifications fire regardless of pipeline progress config.
+        Always posts directly to the channel as a standalone message so it appears
+        below the pipeline thread. File uploads also go to the channel.
+        Not gated by self._enabled — report notifications fire regardless of
+        pipeline progress config.
         """
         client = self._get_client()
         if client is None:
@@ -574,8 +573,6 @@ class SlackNotifier:
             post_kwargs: dict = {"channel": self._channel, "text": preview}
             if blocks:
                 post_kwargs["blocks"] = blocks
-            if self._thread_ts is not None:
-                post_kwargs["thread_ts"] = self._thread_ts
             await client.chat_postMessage(**post_kwargs)
 
             if report_path is not None and report_path.exists():
