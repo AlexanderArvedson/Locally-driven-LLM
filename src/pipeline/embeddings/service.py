@@ -58,7 +58,7 @@ class EmbeddingService:
 
         Logs and skips on failure so a single bad function does not abort the batch.
         On failure, also stores ``code_embedding_input_chars`` and
-        ``code_embedding_truncated_chars`` to help diagnose context overflow issues.
+        ``code_embedding_truncated_chars`` to help diagnose the failure.
         """
         text = record.source_code.strip()
         if not text:
