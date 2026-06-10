@@ -4,9 +4,7 @@ import hashlib
 import pytest
 
 from src.core.ollama_client import EmbedResult, OllamaClient
-import dataclasses
-
-from src.pipeline.contracts import ConcurrencyConfig, FunctionRecord, LimitsConfig, Neo4jConfig, PipelineConfig, SimilarityConfig
+from src.pipeline.contracts import ConcurrencyConfig, FunctionRecord, Neo4jConfig, PipelineConfig, SimilarityConfig
 from src.pipeline.embeddings.service import EmbeddingService
 
 _NEO4J = Neo4jConfig(uri="bolt://localhost:7687", database="neo4j", username="neo4j", password="pw")
@@ -273,25 +271,22 @@ async def test_embed_description_batch_calls_on_progress_per_item(monkeypatch):
 
 
 def test_chunk_source_produces_correct_windows():
-    # chunk_size=10, overlap=2 → step=8; text of 16 chars → 2 chunks
-    config = dataclasses.replace(_make_config(), limits=LimitsConfig(chunk_size_chars=10, chunk_overlap_chars=2))
-    service = EmbeddingService(OllamaClient("http://localhost:11434"), config)
-
-    text = "abcdefghijklmnop"  # 16 chars
+    # 7 000-char text → 2 chunks with defaults (size=6 000, overlap=600, step=5 400)
+    service = EmbeddingService(OllamaClient("http://localhost:11434"), _make_config())
+    text = "a" * 7_000
     chunks = service._chunk_source(text)
 
     assert len(chunks) == 2
-    assert all(len(c) <= 10 for c in chunks)
-    # Adjacent chunks share the 2-char overlap
-    assert chunks[0][-2:] == chunks[1][:2]
+    assert all(len(c) <= 6_000 for c in chunks)
+    # Adjacent chunks share the 600-char overlap
+    assert chunks[0][-600:] == chunks[1][:600]
     # No content is dropped — removing the repeated overlap reconstructs original
-    assert chunks[0] + chunks[1][2:] == text
+    assert chunks[0] + chunks[1][600:] == text
 
 
 @pytest.mark.asyncio
 async def test_embed_chunked_returns_mean_of_chunk_embeddings(monkeypatch):
-    # Produce exactly 2 chunks: chunk_size=8, overlap=1, step=7; text of 12 chars
-    config = dataclasses.replace(_make_config(), limits=LimitsConfig(chunk_size_chars=8, chunk_overlap_chars=1))
+    # 7 000-char text → exactly 2 chunks with defaults
     call_results = [[1.0, 0.0], [0.0, 1.0]]
     call_index = 0
 
@@ -303,8 +298,8 @@ async def test_embed_chunked_returns_mean_of_chunk_embeddings(monkeypatch):
 
     monkeypatch.setattr(OllamaClient, "embed", fake_embed)
 
-    service = EmbeddingService(OllamaClient("http://localhost:11434"), config)
-    result = await service._embed_chunked("a" * 12)
+    service = EmbeddingService(OllamaClient("http://localhost:11434"), _make_config())
+    result = await service._embed_chunked("a" * 7_000)
 
     assert call_index == 2
     assert result == [0.5, 0.5]
