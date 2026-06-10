@@ -19,6 +19,7 @@ from src.pipeline.contracts import (
     PipelineResult,
     ReporterConfig,
     SimilarityConfig,
+    SlackPipelineConfig,
 )
 from src.pipeline.query import QueryMatch, QueryResult
 from src.scheduler.dispatcher import TaskDispatcher
@@ -286,6 +287,45 @@ async def test_handle_pipeline_skips_report_on_dry_run():
         await dispatcher.execute(task)
 
     mock_handle_report.assert_not_called()
+
+
+async def test_handle_pipeline_skips_notify_pipeline_result_when_slack_enabled():
+    config = _make_pipeline_config()  # slack.enabled=True by default
+    dispatcher = TaskDispatcher(pipeline_config=config)
+
+    mock_pipeline = AsyncMock()
+    mock_pipeline.run = AsyncMock(return_value=PipelineResult())
+    mock_pipeline.close = AsyncMock()
+    mock_notify = AsyncMock()
+
+    with (
+        patch("src.pipeline.pipeline.EmbeddingPipeline", return_value=mock_pipeline),
+        patch("src.api.slack_notifier.notify_pipeline_result", mock_notify),
+        patch.object(dispatcher, "_handle_report", AsyncMock()),
+    ):
+        await dispatcher.execute(PipelineTask(id="p7", repo="myrepo"))
+
+    mock_notify.assert_not_called()
+
+
+async def test_handle_pipeline_calls_notify_pipeline_result_when_slack_disabled():
+    from dataclasses import replace as dc_replace
+    config = dc_replace(_make_pipeline_config(), slack=SlackPipelineConfig(enabled=False))
+    dispatcher = TaskDispatcher(pipeline_config=config)
+
+    mock_pipeline = AsyncMock()
+    mock_pipeline.run = AsyncMock(return_value=PipelineResult())
+    mock_pipeline.close = AsyncMock()
+    mock_notify = AsyncMock()
+
+    with (
+        patch("src.pipeline.pipeline.EmbeddingPipeline", return_value=mock_pipeline),
+        patch("src.api.slack_notifier.notify_pipeline_result", mock_notify),
+        patch.object(dispatcher, "_handle_report", AsyncMock()),
+    ):
+        await dispatcher.execute(PipelineTask(id="p8", repo="myrepo"))
+
+    mock_notify.assert_called_once()
 
 
 # ---------------------------------------------------------------------------

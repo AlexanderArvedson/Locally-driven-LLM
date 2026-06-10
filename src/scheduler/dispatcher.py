@@ -98,7 +98,10 @@ class TaskDispatcher:
             await pipeline.close()
 
         error = result.errors[0] if result.errors else None
-        await notify_pipeline_result(not result.errors, result, error)
+        # Skip the standalone completion message when the pipeline notifier is enabled —
+        # pipeline_complete() / pipeline_failed() already posted to the Slack thread.
+        if not config.slack.enabled:
+            await notify_pipeline_result(not result.errors, result, error)
 
         if not task.no_report and not task.dry_run:
             await self._handle_report(ReportTask(
