@@ -1,4 +1,4 @@
-"""Unit tests for PipelineProgressNotifier.
+"""Unit tests for SlackNotifier.
 
 Uses a mocked AsyncWebClient to verify Slack API calls without
 requiring real credentials or a live Slack workspace.
@@ -6,12 +6,14 @@ requiring real credentials or a live Slack workspace.
 
 from __future__ import annotations
 
+import datetime
 import time
-from unittest.mock import AsyncMock, MagicMock, patch
+from pathlib import Path
+from unittest.mock import AsyncMock, patch
 
 import pytest
 
-from src.api.pipeline_notifier import PipelineProgressNotifier, _fmt_duration, _fmt_eta
+from src.api.slack_notifier import SlackNotifier, _fmt_duration, _fmt_eta
 from src.git.branch_manager import SyncResult
 from src.pipeline.contracts import PipelineResult, SlackPipelineConfig
 
@@ -25,8 +27,8 @@ def _notifier(
     enabled: bool = True,
     debug: bool = False,
     interval: int = 10,
-) -> PipelineProgressNotifier:
-    return PipelineProgressNotifier(
+) -> SlackNotifier:
+    return SlackNotifier(
         SlackPipelineConfig(enabled=enabled, debug_messages=debug, progress_update_interval=interval)
     )
 
@@ -386,3 +388,114 @@ async def test_similarity_complete_includes_relationship_count():
         await n.similarity_complete(relationships=4200, duration=45.0)
     text = client.chat_postMessage.call_args.kwargs["text"]
     assert "4,200" in text
+
+
+# ---------------------------------------------------------------------------
+# report_complete
+# ---------------------------------------------------------------------------
+
+
+@pytest.mark.asyncio
+async def test_report_complete_failure_posts_error():
+    n = _notifier()
+    client = _mock_client()
+    n._client = client
+    n._channel = "#pipe"
+    started = datetime.datetime(2026, 6, 10, 9, 0, 0)
+    with patch.dict("os.environ", {"SLACK_BOT_TOKEN": "xoxb-test", "SLACK_NOTIFY_CHANNEL": "#pipe"}):
+        await n.report_complete(False, started, None, "Permission denied")
+    text = client.chat_postMessage.call_args.kwargs["text"]
+    assert "Permission denied" in text
+    assert "❌" in text
+
+
+@pytest.mark.asyncio
+async def test_report_complete_success_posts_preview():
+    n = _notifier()
+    client = _mock_client()
+    n._client = client
+    n._channel = "#pipe"
+    started = datetime.datetime(2026, 6, 10, 9, 0, 0)
+    with patch.dict("os.environ", {"SLACK_BOT_TOKEN": "xoxb-test", "SLACK_NOTIFY_CHANNEL": "#pipe"}):
+        await n.report_complete(True, started, None, None)
+    text = client.chat_postMessage.call_args.kwargs["text"]
+    assert "✅" in text
+    assert "Report" in text
+
+
+@pytest.mark.asyncio
+async def test_report_complete_posts_to_thread_when_thread_ts_set():
+    n = _notifier()
+    client = _mock_client()
+    n._client = client
+    n._channel = "#pipe"
+    n._thread_ts = "111.222"
+    started = datetime.datetime(2026, 6, 10, 9, 0, 0)
+    with patch.dict("os.environ", {"SLACK_BOT_TOKEN": "xoxb-test", "SLACK_NOTIFY_CHANNEL": "#pipe"}):
+        await n.report_complete(True, started, None, None)
+    call_kwargs = client.chat_postMessage.call_args.kwargs
+    assert call_kwargs.get("thread_ts") == "111.222"
+
+
+@pytest.mark.asyncio
+async def test_report_complete_posts_to_channel_when_no_thread():
+    n = _notifier()
+    client = _mock_client()
+    n._client = client
+    n._channel = "#pipe"
+    # thread_ts is None (standalone /report run)
+    started = datetime.datetime(2026, 6, 10, 9, 0, 0)
+    with patch.dict("os.environ", {"SLACK_BOT_TOKEN": "xoxb-test", "SLACK_NOTIFY_CHANNEL": "#pipe"}):
+        await n.report_complete(True, started, None, None)
+    call_kwargs = client.chat_postMessage.call_args.kwargs
+    assert "thread_ts" not in call_kwargs
+
+
+@pytest.mark.asyncio
+async def test_report_complete_fires_when_slack_enabled_false():
+    # report_complete is not gated by self._enabled
+    n = _notifier(enabled=False)
+    client = _mock_client()
+    n._client = client
+    n._channel = "#pipe"
+    started = datetime.datetime(2026, 6, 10, 9, 0, 0)
+    with patch.dict("os.environ", {"SLACK_BOT_TOKEN": "xoxb-test", "SLACK_NOTIFY_CHANNEL": "#pipe"}):
+        await n.report_complete(True, started, None, None)
+    client.chat_postMessage.assert_called_once()
+
+
+# ---------------------------------------------------------------------------
+# scheduled_run_queued
+# ---------------------------------------------------------------------------
+
+
+@pytest.mark.asyncio
+async def test_scheduled_run_queued_posts_repo_name():
+    n = _notifier()
+    client = _mock_client()
+    n._client = client
+    n._channel = "#pipe"
+    with patch.dict("os.environ", {"SLACK_BOT_TOKEN": "xoxb-test", "SLACK_NOTIFY_CHANNEL": "#pipe"}):
+        await n.scheduled_run_queued("my-repo")
+    text = client.chat_postMessage.call_args.kwargs["text"]
+    assert "my-repo" in text
+    assert "⏰" in text
+
+
+@pytest.mark.asyncio
+async def test_scheduled_run_queued_fires_when_slack_enabled_false():
+    # scheduled_run_queued is not gated by self._enabled
+    n = _notifier(enabled=False)
+    client = _mock_client()
+    n._client = client
+    n._channel = "#pipe"
+    with patch.dict("os.environ", {"SLACK_BOT_TOKEN": "xoxb-test", "SLACK_NOTIFY_CHANNEL": "#pipe"}):
+        await n.scheduled_run_queued("my-repo")
+    client.chat_postMessage.assert_called_once()
+
+
+@pytest.mark.asyncio
+async def test_scheduled_run_queued_noop_without_env_vars():
+    n = _notifier()
+    with patch.dict("os.environ", {}, clear=True):
+        await n.scheduled_run_queued("my-repo")  # must not raise

@@ -12,7 +12,7 @@ from datetime import datetime, timezone
 
 from loguru import logger
 
-from src.api.pipeline_notifier import PipelineProgressNotifier
+from src.api.slack_notifier import SlackNotifier
 from src.core.ollama_client import OllamaClient
 from src.pipeline.contracts import PipelineConfig, PipelineResult
 from src.pipeline.descriptions.service import DescriptionService
@@ -25,7 +25,13 @@ from src.pipeline.graph.similarity import compute_similarity_edges
 class EmbeddingPipeline:
     """Orchestrates all pipeline stages for a single repository."""
 
-    def __init__(self, config: PipelineConfig, dry_run: bool = False, skip_descriptions: bool = False) -> None:
+    def __init__(
+        self,
+        config: PipelineConfig,
+        dry_run: bool = False,
+        skip_descriptions: bool = False,
+        notifier: SlackNotifier | None = None,
+    ) -> None:
         self._config = config
         self._dry_run = dry_run
         self._skip_descriptions = skip_descriptions
@@ -38,7 +44,7 @@ class EmbeddingPipeline:
         self._extractor = FunctionExtractor(config)
         self._embedder = EmbeddingService(self._client, config)
         self._describer = DescriptionService(self._client, config)
-        self._notifier = PipelineProgressNotifier(config.slack)
+        self._notifier = notifier if notifier is not None else SlackNotifier(config.slack)
 
     async def close(self) -> None:
         await self._client.close()
