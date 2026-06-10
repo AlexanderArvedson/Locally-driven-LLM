@@ -299,6 +299,9 @@ src/pipeline/
 
 run_pipeline.py         — CLI entry point
 
+src/api/
+  pipeline_notifier.py  — PipelineProgressNotifier: posts stage/progress updates to a Slack thread during the pipeline run
+
 src/git/
-  branch_manager.py     — ensure_repo_synced (pre-flight clone/pull), clone_if_missing, create_task_branch, commit_file, push_branch
+  branch_manager.py     — SyncResult dataclass, ensure_repo_synced (pre-flight clone/pull), clone_if_missing, create_task_branch, commit_file, push_branch
 ```
