@@ -22,12 +22,28 @@ Both should show `running`.
 
 ---
 
+## Starting the FastAPI service
+
+The FastAPI service is required for scheduled pipeline runs and the REST API. Start it alongside the other services:
+
+```bash
+docker compose up -d ollama neo4j fastapi
+```
+
+---
+
 ## GPU acceleration (Nvidia only)
 
 By default, Ollama runs on CPU. If you have an Nvidia GPU you can enable hardware acceleration by appending the GPU override file:
 
 ```bash
 docker compose -f docker-compose.yml -f docker-compose.gpu.yml up -d ollama neo4j
+```
+
+To include the FastAPI service at the same time:
+
+```bash
+docker compose -f docker-compose.yml -f docker-compose.gpu.yml up -d ollama neo4j fastapi
 ```
 
 This requires the [Nvidia Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html) to be installed on your host. Without it, Docker will fail to start the container with a device error.
