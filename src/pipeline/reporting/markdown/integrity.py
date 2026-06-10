@@ -5,7 +5,7 @@ from __future__ import annotations
 
 def render_embedding_integrity(
     embed_ok: int,
-    embed_overflow: int,
+    embed_chunked: int,
     embed_timeout: int,
     embed_error: int,
     embed_skipped: int,
@@ -17,6 +17,7 @@ def render_embedding_integrity(
     desc_error: int,
     desc_skipped: int,
     embed_failures: list[dict],
+    chunked_functions: list[dict],
 ) -> list[str]:
     """Section 3 — embedding and description coverage tables."""
     lines: list[str] = [
@@ -27,7 +28,7 @@ def render_embedding_integrity(
         "| Status | Count |",
         "|---|---|",
         f"| OK | {embed_ok} |",
-        f"| Too large to embed | {embed_overflow} |",
+        f"| Chunked (mean-pooled) | {embed_chunked} |",
         f"| Timeout | {embed_timeout} |",
         f"| Error | {embed_error} |",
         f"| Skipped | {embed_skipped} |",
@@ -54,7 +55,6 @@ def render_embedding_integrity(
             "|---|---|---|---|",
         ]
         _CODE_ERROR_MAP = {
-            "context_overflow": ("embed", "context_limit"),
             "timeout": ("embed", "timeout"),
             "error": ("embed", "model_error"),
         }
@@ -75,6 +75,20 @@ def render_embedding_integrity(
         lines.append("")
     else:
         lines += ["_No embedding failures detected._", ""]
+
+    if chunked_functions:
+        lines += [
+            "### Chunked Functions",
+            "",
+            "> These functions exceeded the embedding context threshold and were embedded via"
+            " mean-pooled chunk averaging. Similarity results may be coarser than for single-pass embeddings.",
+            "",
+            "| Function | File |",
+            "|---|---|",
+        ]
+        for row in chunked_functions:
+            lines.append(f"| `{row['name']}` | {row['file']} |")
+        lines.append("")
 
     lines += ["---", ""]
     return lines

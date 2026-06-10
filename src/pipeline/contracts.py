@@ -40,7 +40,7 @@ class FunctionRecord:
     is_anonymous: bool = False
     # Embedding and description pipeline status — None means not yet processed
     # (unchanged functions that skipped these stages preserve their Neo4j value).
-    # code_embedding_status: "ok" | "skipped" | "context_overflow" | "timeout" | "error"
+    # code_embedding_status: "ok" | "skipped" | "chunked" | "timeout" | "error"
     # description_status:    "ok" | "skipped" | "invalid_json"     | "timeout" | "error"
     code_embedding_status: str | None = None
     code_embedding_input_chars: int | None = None       # set on failure only
@@ -123,6 +123,7 @@ class LimitsConfig:
     max_code_chars: int = 22_000
     max_description_source_chars: int = 12_000
     embedding_num_ctx: int = 8192
+    describe_num_ctx: int = 8192
     context_overflow_char_threshold: int = 10_000
     min_loc_threshold: int = 0   # 0 = disabled; functions below this LOC are skipped
 

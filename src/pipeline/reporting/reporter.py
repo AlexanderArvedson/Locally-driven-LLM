@@ -43,6 +43,7 @@ from src.pipeline.reporting.markdown import (
     render_top_pairs,
 )
 from src.pipeline.reporting.queries import (
+    _Q_CHUNKED_FUNCTIONS,
     _Q_CLUSTER_EDGES,
     _Q_DESCRIPTION_COVERAGE,
     _Q_EMBEDDING_COVERAGE,
@@ -157,6 +158,7 @@ async def _build_report(
         embed_cov,
         desc_cov,
         embed_failures,
+        chunked_functions,
         intra_inter,
         sim_dist,
         per_file,
@@ -174,6 +176,7 @@ async def _build_report(
         run(_Q_EMBEDDING_COVERAGE,      include_tests=include_tests),
         run(_Q_DESCRIPTION_COVERAGE,    include_tests=include_tests),
         run(_Q_EMBEDDING_FAILURES,      limit=reporter_cfg.max_embedding_failures, include_tests=include_tests),
+        run(_Q_CHUNKED_FUNCTIONS,       limit=reporter_cfg.max_embedding_failures, include_tests=include_tests),
         run(_Q_INTRA_INTER_EDGES,       include_tests=include_tests),
         run(_Q_SIMILARITY_DISTRIBUTION,
             bin_high=reporter_cfg.sim_dist_bin_high,
@@ -231,12 +234,12 @@ async def _build_report(
         desc_by_status[row["status"] or "null"] += row["cnt"]
 
     embed_ok       = embed_by_status.get("ok", 0)
-    embed_overflow = embed_by_status.get("context_overflow", 0)
+    embed_chunked  = embed_by_status.get("chunked", 0)
     embed_timeout  = embed_by_status.get("timeout", 0)
     embed_error    = embed_by_status.get("error", 0)
     embed_skipped  = embed_by_status.get("skipped", 0)
     embed_unchanged = embed_by_status.get("null", 0)
-    embed_failed   = embed_overflow + embed_timeout + embed_error
+    embed_failed   = embed_timeout + embed_error
 
     desc_ok      = desc_by_status.get("ok", 0)
     desc_invalid = desc_by_status.get("invalid_json", 0)
@@ -285,9 +288,9 @@ async def _build_report(
     lines += delta_lines
 
     lines += render_embedding_integrity(
-        embed_ok, embed_overflow, embed_timeout, embed_error, embed_skipped, embed_unchanged,
+        embed_ok, embed_chunked, embed_timeout, embed_error, embed_skipped, embed_unchanged,
         embed_failed, desc_ok, desc_invalid, desc_timeout, desc_error, desc_skipped,
-        embed_failures,
+        embed_failures, chunked_functions,
     )
 
     lines += render_graph_overview(
@@ -328,7 +331,7 @@ async def _build_report(
         intra=intra,
         inter=inter,
         embed_ok=embed_ok,
-        embed_overflow=embed_overflow,
+        embed_chunked=embed_chunked,
         embed_timeout=embed_timeout,
         embed_error=embed_error,
         embed_skipped=embed_skipped,
@@ -350,6 +353,7 @@ async def _build_report(
         class_cohesion=class_cohesion,
         clusters=clusters,
         embed_failures=embed_failures,
+        chunked_functions=chunked_functions,
         top_pairs=top_pairs,
         high_dup=high_dup,
         cross_file=cross_file,

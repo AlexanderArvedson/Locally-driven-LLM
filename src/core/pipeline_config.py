@@ -120,7 +120,8 @@ def load_pipeline_config(config_path: str | Path = "config.json", repo_name: str
         limits=LimitsConfig(
             max_code_chars=limits_block.get("max_code_chars", 22_000),
             max_description_source_chars=limits_block.get("max_description_source_chars", 12_000),
-            embedding_num_ctx=limits_block.get("embedding_num_ctx", 8192),
+            embedding_num_ctx=embed_model.get("num_ctx") or limits_block.get("embedding_num_ctx", 8192),
+            describe_num_ctx=describer_model.get("num_ctx") or limits_block.get("describe_num_ctx", 8192),
             context_overflow_char_threshold=limits_block.get("context_overflow_char_threshold", 10_000),
             min_loc_threshold=limits_block.get("min_loc_threshold", 0),
         ),

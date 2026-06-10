@@ -140,7 +140,7 @@ def _build_report_blocks(data: dict, reporter_cfg: ReporterConfig | None = None)
     blocks.append({"type": "divider"})
     blocks.append({"type": "section", "text": {"type": "mrkdwn", "text": graph_text}})
 
-    failed = emb.get("failed_total", emb.get("context_overflow", 0) + emb.get("error", 0))
+    failed = emb.get("failed_total", emb.get("error", 0) + emb.get("timeout", 0))
     desc_failed = desc.get("invalid_json", 0) + desc.get("timeout", 0) + desc.get("error", 0)
     blocks.append({"type": "divider"})
     blocks.append({
@@ -149,8 +149,7 @@ def _build_report_blocks(data: dict, reporter_cfg: ReporterConfig | None = None)
             "type": "mrkdwn",
             "text": (
                 f"*Embedding*\n"
-                f"Code — OK: {emb.get('ok', '?')}   Failed: {failed}\n"
-                f"  Too large to embed: {emb.get('context_overflow', 0)}\n"
+                f"Code — OK: {emb.get('ok', '?')}   Chunked: {emb.get('chunked', 0)}   Failed: {failed}\n"
                 f"  Error: {emb.get('error', 0)}\n"
                 f"Descriptions — OK: {desc.get('ok', '?')}   Failed: {desc_failed}"
             ),

@@ -25,7 +25,7 @@ def _build_export(
     intra: int,
     inter: int,
     embed_ok: int,
-    embed_overflow: int,
+    embed_chunked: int,
     embed_timeout: int,
     embed_error: int,
     embed_skipped: int,
@@ -47,6 +47,7 @@ def _build_export(
     class_cohesion: list[dict],
     clusters: list[dict],
     embed_failures: list[dict],
+    chunked_functions: list[dict],
     top_pairs: list[dict],
     high_dup: list[dict],
     cross_file: list[dict],
@@ -81,7 +82,7 @@ def _build_export(
         "embedding": {
             "code": {
                 "ok": embed_ok,
-                "context_overflow": embed_overflow,
+                "chunked": embed_chunked,
                 "timeout": embed_timeout,
                 "error": embed_error,
                 "skipped": embed_skipped,
@@ -151,6 +152,10 @@ def _build_export(
                 "desc_status": row.get("desc_status"),
             }
             for row in embed_failures
+        ],
+        "chunked_functions": [
+            {"name": row["name"], "file": row["file"]}
+            for row in chunked_functions
         ],
         "top_pairs": [
             {

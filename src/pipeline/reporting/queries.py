@@ -73,11 +73,20 @@ RETURN f.descriptionStatus AS status, count(f) AS cnt
 _Q_EMBEDDING_FAILURES: LiteralString = """
 MATCH (f:Function {repo: $repo, isDeleted: false})
 WHERE (f.isTest = false OR $include_tests)
-  AND (f.codeEmbeddingStatus IN ['timeout', 'context_overflow', 'error']
+  AND (f.codeEmbeddingStatus IN ['timeout', 'error']
     OR f.descriptionStatus IN ['timeout', 'invalid_json', 'error'])
 RETURN f.qualifiedName AS name, f.filePath AS file,
        f.codeEmbeddingStatus AS code_status,
        f.descriptionStatus AS desc_status
+ORDER BY f.filePath
+LIMIT $limit
+"""
+
+_Q_CHUNKED_FUNCTIONS: LiteralString = """
+MATCH (f:Function {repo: $repo, isDeleted: false})
+WHERE (f.isTest = false OR $include_tests)
+  AND f.codeEmbeddingStatus = 'chunked'
+RETURN f.qualifiedName AS name, f.filePath AS file
 ORDER BY f.filePath
 LIMIT $limit
 """
