@@ -23,6 +23,7 @@ from src.pipeline.contracts import (
     PipelineConfig,
     ReporterConfig,
     SimilarityConfig,
+    SlackPipelineConfig,
 )
 
 
@@ -83,6 +84,7 @@ def load_pipeline_config(config_path: str | Path = "config.json", repo_name: str
     batch_block = pipeline_block.get("batch_sizes", {})
     limits_block = pipeline_block.get("limits", {})
     reporter_block = pipeline_block.get("reporter", {})
+    slack_block = pipeline_block.get("slack", {})
 
     return PipelineConfig(
         repo_path=repo["local_path"],
@@ -130,6 +132,11 @@ def load_pipeline_config(config_path: str | Path = "config.json", repo_name: str
         git_sync_path=repo.get("local_path", ""),
         git_username=repo.get("credentials", {}).get("git", {}).get("username", ""),
         git_token=repo.get("credentials", {}).get("git", {}).get("token", ""),
+        slack=SlackPipelineConfig(
+            enabled=slack_block.get("enabled", True),
+            debug_messages=slack_block.get("debug_messages", False),
+            progress_update_interval=slack_block.get("progress_update_interval", 100),
+        ),
         reporter=ReporterConfig(
             cluster_threshold=reporter_block.get("cluster_threshold", 0.92),
             arch_coupling_threshold=reporter_block.get("arch_coupling_threshold", 0.60),

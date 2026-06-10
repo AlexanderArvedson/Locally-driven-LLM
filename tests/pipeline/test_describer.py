@@ -187,3 +187,42 @@ async def test_describe_sets_timeout_status(monkeypatch):
 
     assert record.description_status == "timeout"
     assert record.description is None
+
+
+@pytest.mark.asyncio
+async def test_describe_batch_calls_on_progress_per_item(monkeypatch):
+    async def fake_chat(self, messages, model, **kwargs):
+        return LLMResult(message=_VALID_JSON, input_tokens=0, output_tokens=0)
+
+    monkeypatch.setattr(OllamaClient, "chat", fake_chat)
+
+    client = OllamaClient("http://localhost:11434")
+    service = DescriptionService(client, _make_config())
+    records = [_make_record() for _ in range(4)]
+    # Give each record a unique id so they don't alias
+    for i, r in enumerate(records):
+        r.id = f"id{i}"
+
+    calls: list[tuple[int, int]] = []
+
+    async def on_progress(done: int, total: int) -> None:
+        calls.append((done, total))
+
+    await service.describe_batch(records, on_progress=on_progress)
+
+    assert len(calls) == 4
+    assert calls[-1] == (4, 4)
+
+
+@pytest.mark.asyncio
+async def test_describe_batch_no_progress_when_callback_is_none(monkeypatch):
+    async def fake_chat(self, messages, model, **kwargs):
+        return LLMResult(message=_VALID_JSON, input_tokens=0, output_tokens=0)
+
+    monkeypatch.setattr(OllamaClient, "chat", fake_chat)
+
+    client = OllamaClient("http://localhost:11434")
+    service = DescriptionService(client, _make_config())
+    records = [_make_record()]
+    # Should not raise
+    await service.describe_batch(records, on_progress=None)

@@ -178,9 +178,11 @@ Invalid flags return an ephemeral error with the usage hint.
 
 ---
 
-## Completion notifications
+## Pipeline progress notifications
 
-To receive a notification when a pipeline run finishes, set `SLACK_NOTIFY_CHANNEL` in `.env` to a channel ID or `#name`:
+When `SLACK_NOTIFY_CHANNEL` is set, the pipeline posts a live running commentary to Slack in a thread — one message per stage, plus periodic progress updates during long-running stages. This lets you monitor execution without access to server logs.
+
+To enable, set `SLACK_NOTIFY_CHANNEL` in `.env` to a channel ID or `#name`:
 
 ```
 SLACK_NOTIFY_CHANNEL=#deployments
@@ -198,15 +200,66 @@ Restart the stack to pick up the new env var:
 docker compose up -d --build fastapi
 ```
 
-On every pipeline run you will receive a Block Kit message:
+### Thread strategy
+
+When the pipeline starts, one message is posted to the channel as the thread anchor. All stage updates and progress reports are posted as replies in that thread — the channel stays clean while the full trace is one click away. When the pipeline finishes, the original channel message is updated to show the final outcome.
+
+### Stage notifications
+
+Each pipeline stage reports start and completion:
 
 ```
-✅ Pipeline complete
+Repository synchronisation completed.
 
-New/modified: 5
-Unchanged: 441
-Deleted: 2
-Duration: 43s
+Operation: Pull
+Branch: main
+Commit: a1b2c3d
+Status: Success
+```
+
+```
+Function extraction completed.
+
+Files processed: 1,284
+Functions extracted: 34,821
+Duration: 3m 12s
+```
+
+```
+Code embeddings completed.
+
+Generated embeddings: 34,821
+Failures: 0
+Duration: 42m 15s
+```
+
+```
+Similarity analysis completed.
+
+Relationships created: 87,421
+Duration: 8m 03s
+```
+
+### Progress updates
+
+During code embedding, description generation, and description embedding, progress is reported every configured number of items:
+
+```
+Code embedding progress
+
+Processed: 12,000 / 34,821
+Progress: 34.5%
+Rate: 142 items/sec
+Elapsed: 1h 12m
+ETA: 2h 41m remaining
+```
+
+### Pipeline completion
+
+The thread anchor message is updated and a final summary is posted to the thread:
+
+```
+✅ Pipeline complete — 5,241 changed, 42m 15s
 ```
 
 On failure:
@@ -215,7 +268,33 @@ On failure:
 ❌ Pipeline failed — ConnectionError: Neo4j unreachable
 ```
 
-After every run (unless `--no-report` or `--dry-run`), a report summary is posted followed by the timestamped `.md` file as an attachment. The push notification preview shows a one-line health verdict, e.g.:
+### Configuration
+
+Progress notifications are controlled by a `slack` block inside the `pipeline` section of `config.json`:
+
+```json
+"pipeline": {
+  "slack": {
+    "enabled": true,
+    "debug_messages": false,
+    "progress_update_interval": 100
+  }
+}
+```
+
+| Field | Default | Purpose |
+|---|---|---|
+| `enabled` | `true` | Enables or disables all pipeline progress notifications. |
+| `debug_messages` | `false` | When `true`, also posts operational detail such as "Repository found — pulling latest changes…" |
+| `progress_update_interval` | `100` | Number of processed items between progress posts. Increase for large repos to reduce thread noise. |
+
+Setting `enabled` to `false` or leaving `SLACK_NOTIFY_CHANNEL` unset disables all pipeline notifications.
+
+---
+
+## Completion notifications
+
+After every pipeline run, a report summary is posted followed by the timestamped `.md` file as an attachment. The push notification preview shows a one-line health verdict, e.g.:
 
 ```
 ✅ Report (monorepo) — 2 flags raised, 321 functions

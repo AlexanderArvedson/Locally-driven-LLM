@@ -9,6 +9,7 @@ from __future__ import annotations
 import asyncio
 import json
 import re
+from collections.abc import Awaitable, Callable
 
 from loguru import logger
 
@@ -88,12 +89,21 @@ class DescriptionService:
         else:
             record.description_status = "error"
 
-    async def describe_batch(self, records: list[FunctionRecord]) -> None:
+    async def describe_batch(
+        self,
+        records: list[FunctionRecord],
+        on_progress: Callable[[int, int], Awaitable[None]] | None = None,
+    ) -> None:
         """Generate descriptions for all records in-place, respecting concurrency limit."""
         sem = asyncio.Semaphore(self._describe_concurrency)
+        completed = 0
 
         async def _describe_one(record: FunctionRecord) -> None:
+            nonlocal completed
             async with sem:
                 await self.describe(record)
+                completed += 1
+                if on_progress is not None:
+                    await on_progress(completed, len(records))
 
         await asyncio.gather(*[_describe_one(r) for r in records])
