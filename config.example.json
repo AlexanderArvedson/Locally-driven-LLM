@@ -114,8 +114,8 @@
           "description_weight": 0.45
         },
         "concurrency": {
-          "embed_code": 2,
-          "embed_description": 4,
+          "embed_code": 1,
+          "embed_description": 1,
           "describe": 1
         },
         "batch_sizes": {

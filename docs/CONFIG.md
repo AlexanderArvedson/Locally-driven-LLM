@@ -222,13 +222,15 @@ Controls the function embedding and similarity pipeline for this repository. See
 
 #### `pipeline.concurrency`
 
-Controls the maximum number of simultaneous Ollama requests in each processing stage. Reduce these if the Ollama server becomes saturated or returns errors under load.
+Controls the maximum number of simultaneous Ollama requests in each processing stage. All three default to `1` to match the default `OLLAMA_NUM_PARALLEL=1` Ollama setting — with that setting, Ollama serialises all requests regardless, so higher concurrency values just queue requests without improving throughput and can cause 500 errors under load.
+
+If you raise `OLLAMA_NUM_PARALLEL` in `.env`, increase the embedding concurrency values to match. Description concurrency rarely benefits from values above `1` even with higher parallelism, since the bottleneck is GPU inference time per request rather than queuing.
 
 | Field | Type | Default | Description |
 |-------|------|---------|-------------|
-| `embed_code` | integer | `2` | Max concurrent code embedding requests. Higher values can saturate Ollama and trigger 500 errors on large repositories. |
-| `embed_description` | integer | `4` | Max concurrent description embedding requests. |
-| `describe` | integer | `1` | Max concurrent LLM description requests. With `OLLAMA_NUM_PARALLEL=1` (the default), Ollama processes one request at a time anyway — higher values just queue requests without improving throughput. Increase only if you raise `OLLAMA_NUM_PARALLEL`. |
+| `embed_code` | integer | `1` | Max concurrent code embedding requests. |
+| `embed_description` | integer | `1` | Max concurrent description embedding requests. |
+| `describe` | integer | `1` | Max concurrent LLM description requests. |
 
 #### `pipeline.batch_sizes`
 
