@@ -258,6 +258,24 @@ class SlackNotifier:
         except Exception:
             logger.exception("Slack reply failed")
 
+    async def _reply_blocks(self, title: str, body: str) -> None:
+        """Post a header + divider + section Block Kit message as a thread reply."""
+        client = self._get_client()
+        if client is None:
+            return
+        blocks = [
+            {"type": "header", "text": {"type": "plain_text", "text": title}},
+            {"type": "divider"},
+            {"type": "section", "text": {"type": "mrkdwn", "text": body}},
+        ]
+        try:
+            kwargs: dict = {"channel": self._channel, "text": title, "blocks": blocks}
+            if self._thread_ts is not None:
+                kwargs["thread_ts"] = self._thread_ts
+            await client.chat_postMessage(**kwargs)
+        except Exception:
+            logger.exception("Slack reply failed")
+
     # -------------------------------------------------------------------------
     # Pipeline lifecycle
     # -------------------------------------------------------------------------
@@ -287,8 +305,7 @@ class SlackNotifier:
         if client is None:
             return
 
-        summary = (
-            f"Pipeline completed successfully.\n\n"
+        body = (
             f"*Functions extracted:* {result.total_extracted:,}\n"
             f"*Embeddings generated:* {result.changed:,}\n"
             f"*Relationships created:* {result.edges_written:,}\n\n"
@@ -301,9 +318,9 @@ class SlackNotifier:
                     ts=self._message_ts,
                     text=f"✅ Pipeline complete — {result.changed:,} changed, {_fmt_duration(result.duration_seconds)}",
                 )
-            await self._reply(f"✅ {summary}")
         except Exception:
             logger.exception("Slack pipeline_complete notification failed")
+        await self._reply_blocks("✅ Pipeline completed successfully.", body)
 
     async def pipeline_failed(self, error: str) -> None:
         """Update the original channel message and post a thread failure notice."""
@@ -319,9 +336,9 @@ class SlackNotifier:
                     ts=self._message_ts,
                     text="❌ Pipeline failed",
                 )
-            await self._reply(f"❌ Pipeline failed.\n\nReason:\n{error}")
         except Exception:
             logger.exception("Slack pipeline_failed notification failed")
+        await self._reply_blocks("❌ Pipeline failed.", f"*Reason:*\n{error}")
 
     async def pipeline_cancelled(self) -> None:
         """Update the original channel message and post a thread cancellation notice."""
@@ -368,7 +385,7 @@ class SlackNotifier:
 
         if not result.success:
             op = "Clone" if result.operation == "clone" else "Pull"
-            await self._reply(f"{op} failed.\n\n*Reason:*\n{result.error or 'unknown'}")
+            await self._reply_blocks(f"{op} failed.", f"*Reason:*\n{result.error or 'unknown'}")
             return
 
         if result.already_up_to_date:
@@ -379,14 +396,10 @@ class SlackNotifier:
             status = "Updated"
 
         commit_str = result.commit_hash or "unknown"
-        summary = (
-            f"Repository synchronisation completed.\n\n"
-            f"*Status:* {status}\n"
-            f"*Operation:* {result.operation.capitalize()}\n"
-            f"*Branch:* {result.branch}\n"
-            f"*Commit:* {commit_str}"
+        await self._reply_blocks(
+            "Repository synchronisation completed.",
+            f"*Status:* {status}\n*Operation:* {result.operation.capitalize()}\n*Branch:* {result.branch}\n*Commit:* {commit_str}",
         )
-        await self._reply(summary)
 
     # -------------------------------------------------------------------------
     # Pipeline stages
@@ -396,13 +409,10 @@ class SlackNotifier:
         """Post extraction stage completion summary."""
         if not self._enabled:
             return
-        msg = (
-            f"Function extraction completed.\n\n"
-            f"*Files processed:* {files:,}\n"
-            f"*Functions extracted:* {functions:,}\n"
-            f"*Duration:* {_fmt_duration(duration)}"
+        await self._reply_blocks(
+            "Function extraction completed.",
+            f"*Files processed:* {files:,}\n*Functions extracted:* {functions:,}\n*Duration:* {_fmt_duration(duration)}",
         )
-        await self._reply(msg)
 
     async def embedding_start(self, count: int, stage: str) -> None:
         """Notify that an embedding stage has started."""
@@ -418,16 +428,14 @@ class SlackNotifier:
         if not self._enabled:
             return
         label = "Code embeddings" if stage == "code" else "Description embeddings"
-        already = f"*Already completed:* {checkpointed:,}\n" if checkpointed else ""
-        failure_line = f"*Failures:* {failures:,}\n" if failures else ""
-        msg = (
-            f"{label} completed.\n\n"
-            f"{already}"
-            f"*Generated embeddings:* {generated:,}\n"
-            f"{failure_line}"
-            f"*Duration:* {_fmt_duration(duration)}"
-        )
-        await self._reply(msg)
+        lines = []
+        if checkpointed:
+            lines.append(f"*Already completed:* {checkpointed:,}")
+        lines.append(f"*Generated embeddings:* {generated:,}")
+        if failures:
+            lines.append(f"*Failures:* {failures:,}")
+        lines.append(f"*Duration:* {_fmt_duration(duration)}")
+        await self._reply_blocks(f"{label} completed.", "\n".join(lines))
 
     async def description_start(self, count: int) -> None:
         """Notify that description generation has started."""
@@ -441,16 +449,14 @@ class SlackNotifier:
         """Post description generation completion summary."""
         if not self._enabled:
             return
-        already = f"*Already completed:* {checkpointed:,}\n" if checkpointed else ""
-        skipped_line = f"*Skipped:* {skipped:,}\n" if skipped else ""
-        msg = (
-            f"Description generation completed.\n\n"
-            f"{already}"
-            f"*Generated descriptions:* {generated:,}\n"
-            f"{skipped_line}"
-            f"*Duration:* {_fmt_duration(duration)}"
-        )
-        await self._reply(msg)
+        lines = []
+        if checkpointed:
+            lines.append(f"*Already completed:* {checkpointed:,}")
+        lines.append(f"*Generated descriptions:* {generated:,}")
+        if skipped:
+            lines.append(f"*Skipped:* {skipped:,}")
+        lines.append(f"*Duration:* {_fmt_duration(duration)}")
+        await self._reply_blocks("Description generation completed.", "\n".join(lines))
 
     async def similarity_start(self, count: int) -> None:
         """Notify that similarity analysis has started."""
@@ -462,12 +468,10 @@ class SlackNotifier:
         """Post similarity analysis completion summary."""
         if not self._enabled:
             return
-        msg = (
-            f"Similarity analysis completed.\n\n"
-            f"*Relationships created:* {relationships:,}\n"
-            f"*Duration:* {_fmt_duration(duration)}"
+        await self._reply_blocks(
+            "Similarity analysis completed.",
+            f"*Relationships created:* {relationships:,}\n*Duration:* {_fmt_duration(duration)}",
         )
-        await self._reply(msg)
 
     async def progress(
         self, stage: str, processed: int, total: int, stage_start: float
@@ -498,15 +502,10 @@ class SlackNotifier:
         else:
             rate_str = "unknown"
 
-        msg = (
-            f"{stage} progress\n\n"
-            f"*Processed:* {processed:,} / {total:,}\n"
-            f"*Progress:* {pct:.1f}%\n"
-            f"*Rate:* {rate_str}\n"
-            f"*Elapsed:* {_fmt_duration(elapsed)}\n"
-            f"*ETA:* {eta_str}"
+        await self._reply_blocks(
+            f"{stage} progress",
+            f"*Processed:* {processed:,} / {total:,}\n*Progress:* {pct:.1f}%\n*Rate:* {rate_str}\n*Elapsed:* {_fmt_duration(elapsed)}\n*ETA:* {eta_str}",
         )
-        await self._reply(msg)
 
     # -------------------------------------------------------------------------
     # Report
