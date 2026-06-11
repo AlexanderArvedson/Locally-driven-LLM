@@ -47,43 +47,6 @@ def _fmt_eta(remaining_seconds: float) -> str:
     return f"{_fmt_duration(remaining_seconds)} remaining"
 
 
-def _build_pipeline_blocks(result: PipelineResult) -> list:
-    """Build a Slack Block Kit block list from a PipelineResult."""
-    blocks: list = [
-        {
-            "type": "header",
-            "text": {"type": "plain_text", "text": "✅ Pipeline complete"},
-        },
-        {"type": "divider"},
-        {
-            "type": "section",
-            "text": {
-                "type": "mrkdwn",
-                "text": (
-                    f"*New/modified:* {result.changed}\n"
-                    f"*Unchanged:* {result.unchanged}\n"
-                    f"*Deleted:* {result.newly_deleted}\n"
-                    f"*Duration:* {result.duration_seconds:.0f}s"
-                ),
-            },
-        },
-    ]
-
-    exclusions = []
-    if result.loc_filtered:
-        exclusions.append(f"{result.loc_filtered} below LOC threshold")
-
-    if exclusions:
-        blocks.append({
-            "type": "section",
-            "text": {
-                "type": "mrkdwn",
-                "text": "*Excluded:* " + " · ".join(exclusions),
-            },
-        })
-
-    return blocks
-
 
 _FLAG_LABELS = {
     "HIGH_DUPLICATION_CLUSTER": "High duplication — large groups of near-identical functions",
@@ -149,9 +112,8 @@ def _build_report_blocks(data: dict, reporter_cfg: ReporterConfig | None = None)
             "type": "mrkdwn",
             "text": (
                 f"*Embedding*\n"
-                f"Code — OK: {emb.get('ok', '?')}   Chunked: {emb.get('chunked', 0)}   Failed: {failed}\n"
-                f"  Error: {emb.get('error', 0)}\n"
-                f"Descriptions — OK: {desc.get('ok', '?')}   Failed: {desc_failed}"
+                f"Code — OK: {emb.get('ok', '?')} · Chunked: {emb.get('chunked', 0)} · Failed: {failed}\n"
+                f"Descriptions — OK: {desc.get('ok', '?')} · Failed: {desc_failed}"
             ),
         },
     })
@@ -327,10 +289,10 @@ class SlackNotifier:
 
         summary = (
             f"Pipeline completed successfully.\n\n"
-            f"Functions extracted: {result.total_extracted:,}\n"
-            f"Embeddings generated: {result.changed:,}\n"
-            f"Relationships created: {result.edges_written:,}\n\n"
-            f"Total runtime: {_fmt_duration(result.duration_seconds)}"
+            f"*Functions extracted:* {result.total_extracted:,}\n"
+            f"*Embeddings generated:* {result.changed:,}\n"
+            f"*Relationships created:* {result.edges_written:,}\n\n"
+            f"*Total runtime:* {_fmt_duration(result.duration_seconds)}"
         )
         try:
             if self._message_ts:
@@ -406,7 +368,7 @@ class SlackNotifier:
 
         if not result.success:
             op = "Clone" if result.operation == "clone" else "Pull"
-            await self._reply(f"{op} failed.\n\nReason:\n{result.error or 'unknown'}")
+            await self._reply(f"{op} failed.\n\n*Reason:*\n{result.error or 'unknown'}")
             return
 
         if result.already_up_to_date:
@@ -419,10 +381,10 @@ class SlackNotifier:
         commit_str = result.commit_hash or "unknown"
         summary = (
             f"Repository synchronisation completed.\n\n"
-            f"Status: {status}\n"
-            f"Operation: {result.operation.capitalize()}\n"
-            f"Branch: {result.branch}\n"
-            f"Commit: {commit_str}"
+            f"*Status:* {status}\n"
+            f"*Operation:* {result.operation.capitalize()}\n"
+            f"*Branch:* {result.branch}\n"
+            f"*Commit:* {commit_str}"
         )
         await self._reply(summary)
 
@@ -436,9 +398,9 @@ class SlackNotifier:
             return
         msg = (
             f"Function extraction completed.\n\n"
-            f"Files processed: {files:,}\n"
-            f"Functions extracted: {functions:,}\n"
-            f"Duration: {_fmt_duration(duration)}"
+            f"*Files processed:* {files:,}\n"
+            f"*Functions extracted:* {functions:,}\n"
+            f"*Duration:* {_fmt_duration(duration)}"
         )
         await self._reply(msg)
 
@@ -456,14 +418,14 @@ class SlackNotifier:
         if not self._enabled:
             return
         label = "Code embeddings" if stage == "code" else "Description embeddings"
-        already = f"Already completed: {checkpointed:,}\n" if checkpointed else ""
-        failure_line = f"Failures: {failures:,}\n" if failures else ""
+        already = f"*Already completed:* {checkpointed:,}\n" if checkpointed else ""
+        failure_line = f"*Failures:* {failures:,}\n" if failures else ""
         msg = (
             f"{label} completed.\n\n"
             f"{already}"
-            f"Generated embeddings: {generated:,}\n"
+            f"*Generated embeddings:* {generated:,}\n"
             f"{failure_line}"
-            f"Duration: {_fmt_duration(duration)}"
+            f"*Duration:* {_fmt_duration(duration)}"
         )
         await self._reply(msg)
 
@@ -479,14 +441,14 @@ class SlackNotifier:
         """Post description generation completion summary."""
         if not self._enabled:
             return
-        already = f"Already completed: {checkpointed:,}\n" if checkpointed else ""
-        skipped_line = f"Skipped: {skipped:,}\n" if skipped else ""
+        already = f"*Already completed:* {checkpointed:,}\n" if checkpointed else ""
+        skipped_line = f"*Skipped:* {skipped:,}\n" if skipped else ""
         msg = (
             f"Description generation completed.\n\n"
             f"{already}"
-            f"Generated descriptions: {generated:,}\n"
+            f"*Generated descriptions:* {generated:,}\n"
             f"{skipped_line}"
-            f"Duration: {_fmt_duration(duration)}"
+            f"*Duration:* {_fmt_duration(duration)}"
         )
         await self._reply(msg)
 
@@ -502,8 +464,8 @@ class SlackNotifier:
             return
         msg = (
             f"Similarity analysis completed.\n\n"
-            f"Relationships created: {relationships:,}\n"
-            f"Duration: {_fmt_duration(duration)}"
+            f"*Relationships created:* {relationships:,}\n"
+            f"*Duration:* {_fmt_duration(duration)}"
         )
         await self._reply(msg)
 
@@ -538,11 +500,11 @@ class SlackNotifier:
 
         msg = (
             f"{stage} progress\n\n"
-            f"Processed: {processed:,} / {total:,}\n"
-            f"Progress: {pct:.1f}%\n"
-            f"Rate: {rate_str}\n"
-            f"Elapsed: {_fmt_duration(elapsed)}\n"
-            f"ETA: {eta_str}"
+            f"*Processed:* {processed:,} / {total:,}\n"
+            f"*Progress:* {pct:.1f}%\n"
+            f"*Rate:* {rate_str}\n"
+            f"*Elapsed:* {_fmt_duration(elapsed)}\n"
+            f"*ETA:* {eta_str}"
         )
         await self._reply(msg)
 
