@@ -155,6 +155,8 @@ class PipelineConfig:
     embedding_num_ctx: int = 8192
     describe_num_ctx: int = 8192
     describe_timeout_seconds: int = 900
+    describer_temperature: float | None = None
+    describer_max_tokens: int | None = None
     test_patterns: list[str] = field(default_factory=lambda: ["tests/", "test_", "_test.py"])
     include_tests_in_graph: bool = False
     ignore_anonymous_callbacks: bool = True
