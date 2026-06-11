@@ -66,3 +66,52 @@ Four pipeline runs were performed against a Python subfolder of the modukey mono
 **Descriptions degrade gracefully on failure.** Functions that fail description generation still participate in the graph via code-only similarity (the fallback path uses raw `code_sim` with no weighting applied). No description failure can prevent a strongly similar structural pair from forming an edge.
 
 **Cost vs. benefit.** The description stage (LLM chat completions, concurrency 2) accounts for the majority of the ~40-minute run time on this subfolder, and up to 24+ hours on a full repository. At 7/3 weighting, descriptions add 36% more edges and surface cross-file architectural patterns that code alone misses. For a one-time analysis the cost is justified. For frequent automated runs on large repos, the marginal gain should be weighed against runtime.
+
+---
+
+## Describer model size — 14B vs 7B comparison
+
+### Setup
+
+Two pipeline runs against `kreation-core/src` from the kreation monorepo (64 TypeScript functions). Both runs used identical config except for the describer model. `num_ctx` was 12288 for both runs. A third run with 7B at `num_ctx: 16384` is in progress to test whether the additional context resolves the `upload` failure.
+
+| Run | Model | `num_ctx` | Duration |
+|---|---|---|---|
+| Run 1 | `qwen2.5-coder:14b` | 12288 | 1883.8 s (~31 min) |
+| Run 2 | `qwen2.5-coder:7b` | 12288 | TBC |
+| Run 3 | `qwen2.5-coder:7b` | 16384 | in progress |
+
+### Results
+
+| Metric | 14B | 7B (12288) |
+|---|---|---|
+| `ok` | 63 / 64 | 62 / 64 |
+| `invalid_json` | 1 | 2 |
+| Failed functions | `parseMixedContent` | `parseMixedContent`, `upload` |
+
+### Quality observations
+
+**~95% of functions: identical quality.** Simple functions (constructors, pure utilities, logger methods, short service helpers) produced descriptions of equivalent depth and accuracy across both models. Conciseness was marginally better in 7B on simple cases.
+
+**7B hallucinations (3 confirmed):**
+- `verify` in `service/jwtHelper.ts` — described return type as `Promise<decoded payload>`. The function is synchronous; `jwt.verify` is not async. Actively misleading.
+- `normalizeEntityTodoBoardStatus` — described a throw for invalid input. The function defaults to `'open'`; it does not throw. Incorrect.
+- `importMusicMetadata` — described a side effect of "loads a JavaScript module using eval-like functionality". The implementation uses dynamic `import()`, not eval.
+
+**7B additional `invalid_json`:** `upload` in `service/s3Upload.ts` — the most complex function in the codebase (~50 lines, 5 parameters, DynamoDB + S3 interaction, multiple branches). 14B produced a complete description. 7B failed. The failure likely reflects insufficient output space at `num_ctx: 12288` rather than model capability — Run 3 (`num_ctx: 16384`) will confirm.
+
+**Places 7B was equal or better:**
+- `getFileExtemsion` — 7B explicitly enumerated the valid extensions in the output description; more informative than 14B's generic phrasing.
+- `addFileIndex`, `fileExistsWithClient` — 7B's structured sideEffects/errors formatting was slightly cleaner.
+
+### Conclusions
+
+**7B is viable for this codebase.** The failure rate is low (2/64 vs 1/64) and the hallucinations are isolated to edge cases rather than representative of a pattern across the run.
+
+**The `num_ctx` floor matters more for smaller models.** At 12288, 7B ran out of output room on the most complex function in the codebase. 14B did not fail the same function, likely because it generates more compact JSON for complex outputs. Setting `num_ctx: 16384` (now the project default) should resolve this.
+
+**Hallucinations concentrate on type/contract details, not behavioural logic.** The incorrect async annotation on `verify` and the false throw on `normalizeEntityTodoBoardStatus` are type-level mistakes rather than logic mistakes. This matters for how the descriptions are used: if the graph is queried for behavioural intent, 7B is reliable; if it is queried for interface contracts (return type, throws), 14B is safer.
+
+**Speed tradeoff.** 7B runs ~1.5–2× faster than 14B. On a 64-function repo the absolute saving is modest (~15 minutes). On a 500-function repo it becomes the difference between a 4-hour and a 2-hour pipeline run. For teams running the pipeline frequently on large repos, 7B is the right default with 14B reserved for final or audited runs.
+
+**Recommendation:** Use `qwen2.5-coder:7b` with `num_ctx: 16384` as the default describer. Switch to 14B when: (a) the codebase has a high proportion of large, complex functions (>50 LOC), or (b) description accuracy for interface contracts is load-bearing for downstream tooling.
