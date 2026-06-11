@@ -27,7 +27,8 @@ class EmbeddingService:
         self._model = config.embedding_model
         self._allow_gpu = config.allow_gpu
         self._max_code_chars = config.limits.max_code_chars
-        self._num_ctx = config.limits.embedding_num_ctx
+        self._num_ctx = config.embedding_num_ctx
+        self._timeout_seconds = config.embedding_timeout_seconds
         self._context_overflow_threshold = config.limits.context_overflow_char_threshold
         self._embed_code_concurrency = config.concurrency.embed_code
         self._embed_description_concurrency = config.concurrency.embed_description
@@ -46,7 +47,7 @@ class EmbeddingService:
         """Embed text by splitting into chunks and returning the element-wise mean embedding."""
         chunks = self._chunk_source(text)
         results = await asyncio.gather(*[
-            self._client.embed(chunk, model=self._model, allow_gpu=self._allow_gpu, num_ctx=self._num_ctx)
+            self._client.embed(chunk, model=self._model, allow_gpu=self._allow_gpu, num_ctx=self._num_ctx, timeout_seconds=self._timeout_seconds)
             for chunk in chunks
         ])
         vecs = [r.embedding for r in results]
@@ -77,6 +78,7 @@ class EmbeddingService:
                     model=self._model,
                     allow_gpu=self._allow_gpu,
                     num_ctx=self._num_ctx,
+                    timeout_seconds=self._timeout_seconds,
                 )
                 record.code_embedding = result.embedding
                 record.code_embedding_status = "ok"
@@ -130,6 +132,7 @@ class EmbeddingService:
                 text,
                 model=self._model,
                 allow_gpu=self._allow_gpu,
+                timeout_seconds=self._timeout_seconds,
             )
             record.description_embedding = result.embedding
         except Exception as e:

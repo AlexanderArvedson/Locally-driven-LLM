@@ -38,9 +38,12 @@ class DescriptionService:
     def __init__(self, client: OllamaClient, config: PipelineConfig) -> None:
         self._client = client
         self._model = config.describer_model
-        self._allow_gpu = config.allow_gpu
+        self._allow_gpu = config.describer_allow_gpu
         self._max_source_chars = config.limits.max_description_source_chars
-        self._num_ctx = config.limits.describe_num_ctx
+        self._num_ctx = config.describe_num_ctx
+        self._timeout_seconds = config.describe_timeout_seconds
+        self._temperature = config.describer_temperature
+        self._max_tokens = config.describer_max_tokens
         self._describe_concurrency = config.concurrency.describe
 
     async def describe(self, record: FunctionRecord) -> None:
@@ -65,6 +68,9 @@ class DescriptionService:
                     model=self._model,
                     allow_gpu=self._allow_gpu,
                     num_ctx=self._num_ctx,
+                    timeout_seconds=self._timeout_seconds,
+                    temperature=self._temperature,
+                    max_tokens=self._max_tokens,
                 )
                 cleaned = _extract_json(result.message)
                 json.loads(cleaned)   # validate — raises if not JSON
