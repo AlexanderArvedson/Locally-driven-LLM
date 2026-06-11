@@ -27,7 +27,7 @@ class EmbeddingService:
         self._model = config.embedding_model
         self._allow_gpu = config.allow_gpu
         self._max_code_chars = config.limits.max_code_chars
-        self._num_ctx = config.limits.embedding_num_ctx
+        self._num_ctx = config.embedding_num_ctx
         self._context_overflow_threshold = config.limits.context_overflow_char_threshold
         self._embed_code_concurrency = config.concurrency.embed_code
         self._embed_description_concurrency = config.concurrency.embed_description

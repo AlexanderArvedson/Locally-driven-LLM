@@ -40,8 +40,8 @@ class DescriptionService:
         self._model = config.describer_model
         self._allow_gpu = config.allow_gpu
         self._max_source_chars = config.limits.max_description_source_chars
-        self._num_ctx = config.limits.describe_num_ctx
-        self._timeout_seconds = config.limits.describe_timeout_seconds
+        self._num_ctx = config.describe_num_ctx
+        self._timeout_seconds = config.describe_timeout_seconds
         self._describe_concurrency = config.concurrency.describe
 
     async def describe(self, record: FunctionRecord) -> None:

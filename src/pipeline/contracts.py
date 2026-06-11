@@ -119,14 +119,11 @@ class ReporterConfig:
 
 @dataclass(frozen=True)
 class LimitsConfig:
-    """Source text truncation limits and embedding context window."""
+    """Source text truncation limits."""
     max_code_chars: int = 22_000
     max_description_source_chars: int = 12_000
-    embedding_num_ctx: int = 8192
-    describe_num_ctx: int = 8192
     context_overflow_char_threshold: int = 10_000
     min_loc_threshold: int = 0   # 0 = disabled; functions below this LOC are skipped
-    describe_timeout_seconds: int = 300
 
 
 @dataclass(frozen=True)
@@ -155,6 +152,9 @@ class PipelineConfig:
     limits: LimitsConfig = field(default_factory=LimitsConfig)
     reporter: ReporterConfig = field(default_factory=ReporterConfig)
     slack: SlackPipelineConfig = field(default_factory=SlackPipelineConfig)
+    embedding_num_ctx: int = 8192
+    describe_num_ctx: int = 8192
+    describe_timeout_seconds: int = 900
     test_patterns: list[str] = field(default_factory=lambda: ["tests/", "test_", "_test.py"])
     include_tests_in_graph: bool = False
     ignore_anonymous_callbacks: bool = True
