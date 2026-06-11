@@ -228,7 +228,7 @@ Controls the maximum number of simultaneous Ollama requests in each processing s
 |-------|------|---------|-------------|
 | `embed_code` | integer | `2` | Max concurrent code embedding requests. Higher values can saturate Ollama and trigger 500 errors on large repositories. |
 | `embed_description` | integer | `4` | Max concurrent description embedding requests. |
-| `describe` | integer | `2` | Max concurrent LLM description requests. Lower than embedding because chat inference is more GPU-bound. |
+| `describe` | integer | `1` | Max concurrent LLM description requests. With `OLLAMA_NUM_PARALLEL=1` (the default), Ollama processes one request at a time anyway — higher values just queue requests without improving throughput. Increase only if you raise `OLLAMA_NUM_PARALLEL`. |
 
 #### `pipeline.batch_sizes`
 

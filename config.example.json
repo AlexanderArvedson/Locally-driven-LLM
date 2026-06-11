@@ -116,7 +116,7 @@
         "concurrency": {
           "embed_code": 2,
           "embed_description": 4,
-          "describe": 2
+          "describe": 1
         },
         "batch_sizes": {
           "function_upsert": 50,
