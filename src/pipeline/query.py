@@ -53,7 +53,7 @@ async def search(
         query_text,
         model=config.embedding_model,
         allow_gpu=config.allow_gpu,
-        num_ctx=config.limits.embedding_num_ctx,
+        num_ctx=config.embedding_num_ctx,
     )
     vec = embed_result.embedding
 
