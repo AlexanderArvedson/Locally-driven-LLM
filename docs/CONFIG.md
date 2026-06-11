@@ -226,7 +226,7 @@ Controls the maximum number of simultaneous Ollama requests in each processing s
 
 | Field | Type | Default | Description |
 |-------|------|---------|-------------|
-| `embed_code` | integer | `4` | Max concurrent code embedding requests. |
+| `embed_code` | integer | `2` | Max concurrent code embedding requests. Higher values can saturate Ollama and trigger 500 errors on large repositories. |
 | `embed_description` | integer | `4` | Max concurrent description embedding requests. |
 | `describe` | integer | `2` | Max concurrent LLM description requests. Lower than embedding because chat inference is more GPU-bound. |
 
