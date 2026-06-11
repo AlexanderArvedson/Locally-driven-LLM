@@ -523,11 +523,18 @@ class SlackNotifier:
         remaining = total - processed
         eta_str = _fmt_eta(remaining / rate) if rate > 0 else "unknown"
 
+        if rate >= 1.0:
+            rate_str = f"{rate:.1f} items/sec"
+        elif rate > 0:
+            rate_str = f"{1 / rate:.0f} sec/item"
+        else:
+            rate_str = "unknown"
+
         msg = (
             f"{stage} progress\n\n"
             f"Processed: {processed:,} / {total:,}\n"
             f"Progress: {pct:.1f}%\n"
-            f"Rate: {rate:.0f} items/sec\n"
+            f"Rate: {rate_str}\n"
             f"Elapsed: {_fmt_duration(elapsed)}\n"
             f"ETA: {eta_str}"
         )
