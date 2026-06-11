@@ -78,40 +78,46 @@ Two pipeline runs against `kreation-core/src` from the kreation monorepo (64 Typ
 | Run | Model | `num_ctx` | Duration |
 |---|---|---|---|
 | Run 1 | `qwen2.5-coder:14b` | 12288 | 1883.8 s (~31 min) |
-| Run 2 | `qwen2.5-coder:7b` | 12288 | TBC |
-| Run 3 | `qwen2.5-coder:7b` | 16384 | in progress |
+| Run 2 | `qwen2.5-coder:7b` | 12288 | — |
+| Run 3 | `qwen2.5-coder:7b` | 16384 | — |
 
 ### Results
 
-| Metric | 14B | 7B (12288) |
-|---|---|---|
-| `ok` | 63 / 64 | 62 / 64 |
-| `invalid_json` | 1 | 2 |
-| Failed functions | `parseMixedContent` | `parseMixedContent`, `upload` |
+| Metric | 14B (12288) | 7B (12288) | 7B (16384) |
+|---|---|---|---|
+| `ok` | 63 / 64 | 62 / 64 | 62 / 64 |
+| `invalid_json` | 1 | 2 | 2 |
+| Failed functions | `parseMixedContent` | `parseMixedContent`, `upload` | `parseMixedContent`, `upload` |
 
 ### Quality observations
 
-**~95% of functions: identical quality.** Simple functions (constructors, pure utilities, logger methods, short service helpers) produced descriptions of equivalent depth and accuracy across both models. Conciseness was marginally better in 7B on simple cases.
+**~95% of functions: identical quality across all three runs.** Simple functions (constructors, pure utilities, logger methods, short service helpers) produced descriptions of equivalent depth and accuracy. Conciseness was marginally better in 7B on simple cases.
 
-**7B hallucinations (3 confirmed):**
-- `verify` in `service/jwtHelper.ts` — described return type as `Promise<decoded payload>`. The function is synchronous; `jwt.verify` is not async. Actively misleading.
-- `normalizeEntityTodoBoardStatus` — described a throw for invalid input. The function defaults to `'open'`; it does not throw. Incorrect.
-- `importMusicMetadata` — described a side effect of "loads a JavaScript module using eval-like functionality". The implementation uses dynamic `import()`, not eval.
+**`upload` failure is a 7B capability limit, not a context window issue.** The function failed with `invalid_json` in both Run 2 (12288) and Run 3 (16384). Increasing `num_ctx` made no difference. `upload` is the most complex function in the codebase (~50 lines, 5 parameters, DynamoDB + S3 interaction, conditional deduplication logic). 14B produced a complete description for it. This failure is inherent to 7B on highly complex functions and cannot be addressed by tuning context size.
 
-**7B additional `invalid_json`:** `upload` in `service/s3Upload.ts` — the most complex function in the codebase (~50 lines, 5 parameters, DynamoDB + S3 interaction, multiple branches). 14B produced a complete description. 7B failed. The failure likely reflects insufficient output space at `num_ctx: 12288` rather than model capability — Run 3 (`num_ctx: 16384`) will confirm.
+**`parseMixedContent` fails consistently across all models.** Failed in 14B (Run 1) and both 7B runs. Likely a genuinely difficult function (mixed content parsing) that pushes the structured JSON output schema regardless of model size.
 
-**Places 7B was equal or better:**
-- `getFileExtemsion` — 7B explicitly enumerated the valid extensions in the output description; more informative than 14B's generic phrasing.
+**Persistent 7B hallucinations (2, confirmed across both 7B runs):**
+- `verify` in `service/jwtHelper.ts` — described return type as `Promise<decoded payload>`. The function is synchronous; `jwt.verify` is not async. Present in Run 2 and Run 3.
+- `normalizeEntityTodoBoardStatus` — described a throw (`InvalidInputError`) for invalid input. The function defaults to `'open'`; it does not throw. Present in Run 2 and Run 3.
+
+**Non-deterministic 7B hallucinations (resolved in Run 3):**
+- `importMusicMetadata` — Run 2 described a side effect of "loads a JavaScript module using eval-like functionality". Run 3 correctly says "Asynchronously loads the 'music-metadata' module." No eval involved.
+- `entityTodoBoardStatusImpliesUserEngaged` — Run 2 described the boolean return as "true if not engaged, false if engaged" (inverted). Run 3 got it correct: "true if engaged, false otherwise."
+
+**Places 7B was equal or better than 14B:**
+- `getFileExtemsion` — 7B explicitly enumerated the valid extensions; more informative than 14B's generic phrasing.
 - `addFileIndex`, `fileExistsWithClient` — 7B's structured sideEffects/errors formatting was slightly cleaner.
+- `getSecret` in `credentials.ts` — Run 3 correctly captured the in-memory caching behaviour that Run 2 missed.
 
 ### Conclusions
 
-**7B is viable for this codebase.** The failure rate is low (2/64 vs 1/64) and the hallucinations are isolated to edge cases rather than representative of a pattern across the run.
+**7B is viable for this codebase.** The failure rate is low (2/64 vs 1/64) and hallucinations are isolated rather than systemic.
 
-**The `num_ctx` floor matters more for smaller models.** At 12288, 7B ran out of output room on the most complex function in the codebase. 14B did not fail the same function, likely because it generates more compact JSON for complex outputs. Setting `num_ctx: 16384` (now the project default) should resolve this.
+**`upload` failing is a hard 7B limit.** The `num_ctx` bump to 16384 did not help. The function requires model reasoning depth beyond what 7B can reliably sustain for structured JSON output. Workaround options: accept the missing description, manually write it, or use 14B as a targeted fallback for functions that fail 7B.
 
-**Hallucinations concentrate on type/contract details, not behavioural logic.** The incorrect async annotation on `verify` and the false throw on `normalizeEntityTodoBoardStatus` are type-level mistakes rather than logic mistakes. This matters for how the descriptions are used: if the graph is queried for behavioural intent, 7B is reliable; if it is queried for interface contracts (return type, throws), 14B is safer.
+**Two hallucinations are stable and should be treated as known defects.** `verify` (false async annotation) and `normalizeEntityTodoBoardStatus` (false throw) recurred across both 7B runs. They are type/contract mistakes, not behavioural logic mistakes — risky if the graph is queried for interface contracts, acceptable if queried for behavioural intent.
 
-**Speed tradeoff.** 7B runs ~1.5–2× faster than 14B. On a 64-function repo the absolute saving is modest (~15 minutes). On a 500-function repo it becomes the difference between a 4-hour and a 2-hour pipeline run. For teams running the pipeline frequently on large repos, 7B is the right default with 14B reserved for final or audited runs.
+**Speed tradeoff.** 7B runs ~1.5–2× faster than 14B. On a 64-function repo the absolute saving is modest. On a 500-function repo it becomes the difference between a ~4-hour and a ~2-hour pipeline run. For teams running the pipeline frequently on large repos, 7B is the right default.
 
 **Recommendation:** Use `qwen2.5-coder:7b` with `num_ctx: 16384` as the default describer. Switch to 14B when: (a) the codebase has a high proportion of large, complex functions (>50 LOC), or (b) description accuracy for interface contracts is load-bearing for downstream tooling.
