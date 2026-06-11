@@ -222,13 +222,15 @@ Controls the function embedding and similarity pipeline for this repository. See
 
 #### `pipeline.concurrency`
 
-Controls the maximum number of simultaneous Ollama requests in each processing stage. Reduce these if the Ollama server becomes saturated or returns errors under load.
+Controls the maximum number of simultaneous Ollama requests in each processing stage. All three default to `1` to match the default `OLLAMA_NUM_PARALLEL=1` Ollama setting — with that setting, Ollama serialises all requests regardless, so higher concurrency values just queue requests without improving throughput and can cause 500 errors under load.
+
+If you raise `OLLAMA_NUM_PARALLEL` in `.env`, increase the embedding concurrency values to match. Description concurrency rarely benefits from values above `1` even with higher parallelism, since the bottleneck is GPU inference time per request rather than queuing.
 
 | Field | Type | Default | Description |
 |-------|------|---------|-------------|
-| `embed_code` | integer | `2` | Max concurrent code embedding requests. Higher values can saturate Ollama and trigger 500 errors on large repositories. |
-| `embed_description` | integer | `4` | Max concurrent description embedding requests. |
-| `describe` | integer | `2` | Max concurrent LLM description requests. Lower than embedding because chat inference is more GPU-bound. |
+| `embed_code` | integer | `1` | Max concurrent code embedding requests. |
+| `embed_description` | integer | `1` | Max concurrent description embedding requests. |
+| `describe` | integer | `1` | Max concurrent LLM description requests. |
 
 #### `pipeline.batch_sizes`
 
@@ -285,7 +287,8 @@ Controls live Slack progress notifications posted while the pipeline runs. Requi
 |-------|------|---------|-------------|
 | `enabled` | boolean | `true` | Enables or disables all pipeline progress notifications. When `false`, the dispatcher falls back to the simpler one-shot completion message instead. |
 | `debug_messages` | boolean | `false` | When `true`, posts additional operational detail — e.g. "Repository found — pulling latest changes…" and per-sync commit information. Useful when debugging sync or connectivity issues. |
-| `progress_update_interval` | integer | `100` | Number of processed items between progress posts during code embedding, description generation, and description embedding. Increase for large repositories to reduce thread noise; lower to `10` for small runs to verify the feature. |
+| `embed_progress_interval` | integer | `100` | Items between progress posts during code embedding and description embedding. These stages process quickly (sub-second/item), so 100 keeps thread noise low on large repositories. Set to `0` to disable. |
+| `describe_progress_interval` | integer | `10` | Items between progress posts during description generation. This stage is slow (30–120 s/item at low concurrency), so a lower value keeps updates flowing. Set to `0` to disable. |
 
 Setting `enabled` to `false` or leaving `SLACK_NOTIFY_CHANNEL` unset disables all pipeline notifications without affecting the post-run report notification.
 

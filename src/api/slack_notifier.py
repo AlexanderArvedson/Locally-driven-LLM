@@ -265,7 +265,8 @@ class SlackNotifier:
     def __init__(self, config: SlackPipelineConfig) -> None:
         self._enabled = config.enabled
         self._debug = config.debug_messages
-        self._interval = config.progress_update_interval
+        self._embed_interval = config.embed_progress_interval
+        self._describe_interval = config.describe_progress_interval
         self._thread_ts: str | None = None
         self._message_ts: str | None = None
         self._channel: str = ""
@@ -359,6 +360,24 @@ class SlackNotifier:
             await self._reply(f"❌ Pipeline failed.\n\nReason:\n{error}")
         except Exception:
             logger.exception("Slack pipeline_failed notification failed")
+
+    async def pipeline_cancelled(self) -> None:
+        """Update the original channel message and post a thread cancellation notice."""
+        if not self._enabled:
+            return
+        client = self._get_client()
+        if client is None:
+            return
+        try:
+            if self._message_ts:
+                await client.chat_update(
+                    channel=self._channel,
+                    ts=self._message_ts,
+                    text="⚠️ Pipeline cancelled",
+                )
+            await self._reply("⚠️ Pipeline was cancelled before completing.")
+        except Exception:
+            logger.exception("Slack pipeline_cancelled notification failed")
 
     # -------------------------------------------------------------------------
     # Sync stage
@@ -490,12 +509,14 @@ class SlackNotifier:
     ) -> None:
         """Post a progress update, throttled to once per configured interval.
 
-        Called once per processed item; only sends to Slack when
-        processed is a multiple of progress_update_interval.
+        Called once per processed item; only sends to Slack when processed is a
+        multiple of describe_progress_interval (for description generation) or
+        embed_progress_interval (for all other stages).
         """
         if not self._enabled:
             return
-        if self._interval <= 0 or processed % self._interval != 0:
+        interval = self._describe_interval if stage == "Description generation" else self._embed_interval
+        if interval <= 0 or processed % interval != 0:
             return
 
         elapsed = time.monotonic() - stage_start
@@ -505,11 +526,18 @@ class SlackNotifier:
         remaining = total - processed
         eta_str = _fmt_eta(remaining / rate) if rate > 0 else "unknown"
 
+        if rate >= 1.0:
+            rate_str = f"{rate:.1f} items/sec"
+        elif rate > 0:
+            rate_str = f"{1 / rate:.0f} sec/item"
+        else:
+            rate_str = "unknown"
+
         msg = (
             f"{stage} progress\n\n"
             f"Processed: {processed:,} / {total:,}\n"
             f"Progress: {pct:.1f}%\n"
-            f"Rate: {rate:.0f} items/sec\n"
+            f"Rate: {rate_str}\n"
             f"Elapsed: {_fmt_duration(elapsed)}\n"
             f"ETA: {eta_str}"
         )

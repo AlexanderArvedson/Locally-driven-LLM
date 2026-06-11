@@ -26,10 +26,16 @@ from src.pipeline.contracts import PipelineResult, SlackPipelineConfig
 def _notifier(
     enabled: bool = True,
     debug: bool = False,
-    interval: int = 10,
+    embed_interval: int = 10,
+    describe_interval: int = 10,
 ) -> SlackNotifier:
     return SlackNotifier(
-        SlackPipelineConfig(enabled=enabled, debug_messages=debug, progress_update_interval=interval)
+        SlackPipelineConfig(
+            enabled=enabled,
+            debug_messages=debug,
+            embed_progress_interval=embed_interval,
+            describe_progress_interval=describe_interval,
+        )
     )
 
 
@@ -291,7 +297,7 @@ async def test_sync_start_posts_when_debug_true():
 
 @pytest.mark.asyncio
 async def test_progress_posts_at_interval():
-    n = _notifier(interval=10)
+    n = _notifier(embed_interval=10)
     client = _mock_client()
     n._client = client
     n._channel = "#pipe"
@@ -308,7 +314,7 @@ async def test_progress_posts_at_interval():
 
 @pytest.mark.asyncio
 async def test_progress_skips_between_intervals():
-    n = _notifier(interval=10)
+    n = _notifier(embed_interval=10)
     client = _mock_client()
     n._client = client
     n._channel = "#pipe"
@@ -322,11 +328,39 @@ async def test_progress_skips_between_intervals():
 
 @pytest.mark.asyncio
 async def test_progress_noop_when_disabled():
-    n = _notifier(enabled=False, interval=1)
+    n = _notifier(enabled=False, embed_interval=1)
     client = _mock_client()
     n._client = client
     await n.progress("Code embedding", 1, 10, time.monotonic())
     client.chat_postMessage.assert_not_called()
+
+
+@pytest.mark.asyncio
+async def test_progress_embed_stage_uses_embed_interval():
+    """Code embedding hits at embed_progress_interval, not describe_progress_interval."""
+    n = _notifier(embed_interval=5, describe_interval=100)
+    client = _mock_client()
+    n._client = client
+    n._channel = "#pipe"
+    n._thread_ts = "111.222"
+    t0 = time.monotonic() - 1
+    with patch.dict("os.environ", {"SLACK_BOT_TOKEN": "xoxb-test", "SLACK_NOTIFY_CHANNEL": "#pipe"}):
+        await n.progress("Code embedding", 5, 100, t0)   # multiple of embed_interval=5
+    client.chat_postMessage.assert_called_once()
+
+
+@pytest.mark.asyncio
+async def test_progress_describe_stage_uses_describe_interval():
+    """Description generation hits at describe_progress_interval, not embed_progress_interval."""
+    n = _notifier(embed_interval=100, describe_interval=5)
+    client = _mock_client()
+    n._client = client
+    n._channel = "#pipe"
+    n._thread_ts = "111.222"
+    t0 = time.monotonic() - 1
+    with patch.dict("os.environ", {"SLACK_BOT_TOKEN": "xoxb-test", "SLACK_NOTIFY_CHANNEL": "#pipe"}):
+        await n.progress("Description generation", 5, 100, t0)   # multiple of describe_interval=5
+    client.chat_postMessage.assert_called_once()
 
 
 # ---------------------------------------------------------------------------

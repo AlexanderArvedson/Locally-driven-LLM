@@ -114,9 +114,9 @@
           "description_weight": 0.45
         },
         "concurrency": {
-          "embed_code": 2,
-          "embed_description": 4,
-          "describe": 2
+          "embed_code": 1,
+          "embed_description": 1,
+          "describe": 1
         },
         "batch_sizes": {
           "function_upsert": 50,
@@ -156,7 +156,8 @@
         "slack": {
           "enabled": true,
           "debug_messages": false,
-          "progress_update_interval": 100
+          "embed_progress_interval": 100,
+          "describe_progress_interval": 10
         },
         "checkpoint": {
           "enabled": true,

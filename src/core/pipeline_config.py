@@ -143,7 +143,8 @@ def load_pipeline_config(config_path: str | Path = "config.json", repo_name: str
         slack=SlackPipelineConfig(
             enabled=slack_block.get("enabled", True),
             debug_messages=slack_block.get("debug_messages", False),
-            progress_update_interval=slack_block.get("progress_update_interval", 100),
+            embed_progress_interval=slack_block.get("embed_progress_interval", 100),
+            describe_progress_interval=slack_block.get("describe_progress_interval", 10),
         ),
         checkpoint=CheckpointConfig(
             enabled=checkpoint_block.get("enabled", True),
