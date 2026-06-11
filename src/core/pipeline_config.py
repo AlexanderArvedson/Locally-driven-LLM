@@ -148,7 +148,6 @@ def load_pipeline_config(config_path: str | Path = "config.json", repo_name: str
         checkpoint=CheckpointConfig(
             enabled=checkpoint_block.get("enabled", True),
             interval=checkpoint_block.get("interval", 10),
-            directory=checkpoint_block.get("directory", ".pipeline_checkpoints"),
         ),
         reporter=ReporterConfig(
             cluster_threshold=reporter_block.get("cluster_threshold", 0.92),

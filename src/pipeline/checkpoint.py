@@ -20,6 +20,8 @@ if TYPE_CHECKING:
 
 logger = logging.getLogger(__name__)
 
+_CHECKPOINT_DIR = ".pipeline_checkpoints"
+
 _SAVED_FIELDS = (
     "description",
     "description_status",
@@ -74,8 +76,7 @@ class CheckpointManager:
         """Atomically write the expensive fields of all records to disk."""
         if not self._config.enabled:
             return
-        directory = Path(self._config.directory)
-        directory.mkdir(parents=True, exist_ok=True)
+        Path(_CHECKPOINT_DIR).mkdir(parents=True, exist_ok=True)
         path = self._checkpoint_path(repo_name, run_key)
         tmp = path.with_suffix(".tmp")
         payload = {
@@ -104,4 +105,4 @@ class CheckpointManager:
 
     def _checkpoint_path(self, repo_name: str, run_key: str) -> Path:
         safe_name = repo_name.replace(" ", "_").replace("/", "_")
-        return Path(self._config.directory) / f"{safe_name}_{run_key}.json"
+        return Path(_CHECKPOINT_DIR) / f"{safe_name}_{run_key}.json"

@@ -139,7 +139,6 @@ class CheckpointConfig:
     """Controls mid-run persistence so a crashed pipeline can resume without redoing expensive work."""
     enabled: bool = True
     interval: int = 10            # save after every N completed descriptions
-    directory: str = ".pipeline_checkpoints"
 
 
 @dataclass(frozen=True)
