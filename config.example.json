@@ -79,7 +79,7 @@
           "temperature": null,
           "max_tokens": -1,
           "num_ctx": null,
-          "timeout_seconds": 300,
+          "timeout_seconds": 900,
           "allow_gpu": true
         },
         "reporter": {
