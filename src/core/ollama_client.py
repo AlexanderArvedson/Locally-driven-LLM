@@ -98,24 +98,29 @@ class OllamaClient:
         if options:
             payload["options"] = options
 
-        response = await self._client.post(
-            f"{self.base_url}/api/chat",
-            json=payload,
-            timeout=timeout_seconds,
-        )
+        try:
+            response = await self._client.post(
+                f"{self.base_url}/api/chat",
+                json=payload,
+                timeout=timeout_seconds,
+            )
+        except httpx.TransportError as e:
+            raise RuntimeError(f"Ollama request failed: {e}") from e
 
         try:
             response.raise_for_status()
-        except httpx.HTTPError as e:
+        except httpx.HTTPStatusError as e:
             raise RuntimeError(f"Ollama request failed: {e}") from e
 
-        data = response.json()
-
-        return LLMResult(
-            message=data["message"]["content"],
-            input_tokens=data.get("prompt_eval_count", 0),
-            output_tokens=data.get("eval_count", 0),
-        )
+        try:
+            data = response.json()
+            return LLMResult(
+                message=data["message"]["content"],
+                input_tokens=data.get("prompt_eval_count", 0),
+                output_tokens=data.get("eval_count", 0),
+            )
+        except (KeyError, ValueError) as e:
+            raise RuntimeError(f"Ollama response parse failed: {e}") from e
 
     async def embed(
         self,
@@ -145,18 +150,24 @@ class OllamaClient:
             "options": {"num_gpu": _gpu_layers(allow_gpu), "num_ctx": num_ctx},
         }
 
-        response = await self._client.post(
-            f"{self.base_url}/api/embeddings",
-            json=payload,
-            timeout=timeout_seconds,
-        )
+        try:
+            response = await self._client.post(
+                f"{self.base_url}/api/embeddings",
+                json=payload,
+                timeout=timeout_seconds,
+            )
+        except httpx.TransportError as e:
+            raise RuntimeError(f"Ollama embed request failed: {e}") from e
 
         try:
             response.raise_for_status()
-        except httpx.HTTPError as e:
+        except httpx.HTTPStatusError as e:
             raise RuntimeError(f"Ollama embed request failed: {e}") from e
 
-        return EmbedResult(embedding=response.json()["embedding"])
+        try:
+            return EmbedResult(embedding=response.json()["embedding"])
+        except (KeyError, ValueError) as e:
+            raise RuntimeError(f"Ollama embed response parse failed: {e}") from e
 
     async def close(self):
         """Close the underlying HTTP client connection pool."""
