@@ -725,7 +725,7 @@
       "source_file": "",
       "source_location": "",
       "id": "protocol",
-      "community": 42,
+      "community": 30,
       "norm_label": "protocol"
     },
     {
@@ -1274,7 +1274,7 @@
       "source_file": "src/retrieval/contracts/types.py",
       "source_location": "L44",
       "id": "contracts_types_repositorysnapshot",
-      "community": 41,
+      "community": 30,
       "norm_label": "repositorysnapshot"
     },
     {
@@ -1283,7 +1283,7 @@
       "source_file": "src/retrieval/contracts/types.py",
       "source_location": "L50",
       "id": "contracts_types_repositorysnapshot_get_file",
-      "community": 41,
+      "community": 30,
       "norm_label": ".get_file()"
     },
     {
@@ -1292,7 +1292,7 @@
       "source_file": "src/retrieval/contracts/types.py",
       "source_location": "L50",
       "id": "src_retrieval_contracts_types_py_str",
-      "community": 41,
+      "community": 30,
       "norm_label": "str"
     },
     {
@@ -1301,7 +1301,7 @@
       "source_file": "src/retrieval/contracts/types.py",
       "source_location": "L58",
       "id": "contracts_types_contextpackage",
-      "community": 43,
+      "community": 30,
       "norm_label": "contextpackage"
     },
     {
@@ -1346,7 +1346,7 @@
       "source_file": "src/retrieval/contracts/types.py",
       "source_location": "L45",
       "id": "contracts_types_rationale_45",
-      "community": 41,
+      "community": 30,
       "norm_label": "immutable snapshot of the repository used for deterministic retrieval."
     },
     {
@@ -1355,7 +1355,7 @@
       "source_file": "src/retrieval/contracts/types.py",
       "source_location": "L59",
       "id": "contracts_types_rationale_59",
-      "community": 43,
+      "community": 30,
       "norm_label": "bounded context package returned by the contextassembler.      contains only lig"
     },
     {
@@ -1526,7 +1526,7 @@
       "source_file": "src/retrieval/contracts/context_contract.py",
       "source_location": "L139",
       "id": "contracts_context_contract_format_repository_context_for_prompt",
-      "community": 43,
+      "community": 29,
       "norm_label": "format_repository_context_for_prompt()"
     },
     {
@@ -1562,7 +1562,7 @@
       "source_file": "src/retrieval/contracts/context_contract.py",
       "source_location": "L140",
       "id": "contracts_context_contract_rationale_140",
-      "community": 43,
+      "community": 29,
       "norm_label": "render repository context in a fixed, deterministic prompt section."
     },
     {
@@ -1589,7 +1589,7 @@
       "source_file": "src/retrieval/graph/graph_query.py",
       "source_location": "L1",
       "id": "src_retrieval_graph_graph_query_py",
-      "community": 26,
+      "community": 6,
       "norm_label": "graph_query.py"
     },
     {
@@ -1598,7 +1598,7 @@
       "source_file": "src/retrieval/graph/graph_query.py",
       "source_location": "L22",
       "id": "graph_graph_query_graphquery",
-      "community": 26,
+      "community": 6,
       "norm_label": "graphquery"
     },
     {
@@ -1706,7 +1706,7 @@
       "source_file": "src/retrieval/graph/graph_query.py",
       "source_location": "L1",
       "id": "graph_graph_query_rationale_1",
-      "community": 26,
+      "community": 6,
       "norm_label": "graph query utilities for the retrieval pipeline.  graphquery loads graph.json o"
     },
     {
@@ -1715,7 +1715,7 @@
       "source_file": "src/retrieval/graph/graph_query.py",
       "source_location": "L23",
       "id": "graph_graph_query_rationale_23",
-      "community": 26,
+      "community": 6,
       "norm_label": "loads graph.json once and exposes keyword + dependency queries.      constructed"
     },
     {
@@ -1922,7 +1922,7 @@
       "source_file": "src/retrieval/ranking/heuristic_ranker.py",
       "source_location": "L1",
       "id": "src_retrieval_ranking_heuristic_ranker_py",
-      "community": 42,
+      "community": 30,
       "norm_label": "heuristic_ranker.py"
     },
     {
@@ -1931,7 +1931,7 @@
       "source_file": "src/retrieval/ranking/heuristic_ranker.py",
       "source_location": "L17",
       "id": "ranking_heuristic_ranker_rankerprotocol",
-      "community": 42,
+      "community": 30,
       "norm_label": "rankerprotocol"
     },
     {
@@ -2030,7 +2030,7 @@
       "source_file": "src/retrieval/ranking/heuristic_ranker.py",
       "source_location": "L1",
       "id": "ranking_heuristic_ranker_rationale_1",
-      "community": 42,
+      "community": 30,
       "norm_label": "heuristic file ranker \u2014 deterministic, graph-free retrieval.  heuristicranker sc"
     },
     {
@@ -2039,7 +2039,7 @@
       "source_file": "src/retrieval/ranking/heuristic_ranker.py",
       "source_location": "L18",
       "id": "ranking_heuristic_ranker_rationale_18",
-      "community": 42,
+      "community": 30,
       "norm_label": "interface for file ranking strategies."
     },
     {
@@ -2066,7 +2066,7 @@
       "source_file": "src/retrieval/ranking/graph_ranker.py",
       "source_location": "L1",
       "id": "src_retrieval_ranking_graph_ranker_py",
-      "community": 26,
+      "community": 6,
       "norm_label": "graph_ranker.py"
     },
     {
@@ -2084,7 +2084,7 @@
       "source_file": "src/retrieval/ranking/graph_ranker.py",
       "source_location": "L24",
       "id": "ranking_graph_ranker_graphranker_rank_candidates",
-      "community": 26,
+      "community": 6,
       "norm_label": ".rank_candidates()"
     },
     {
@@ -2093,7 +2093,7 @@
       "source_file": "src/retrieval/ranking/graph_ranker.py",
       "source_location": "L24",
       "id": "src_retrieval_ranking_graph_ranker_py_str",
-      "community": 26,
+      "community": 6,
       "norm_label": "str"
     },
     {
@@ -2102,7 +2102,7 @@
       "source_file": "src/retrieval/ranking/graph_ranker.py",
       "source_location": "L24",
       "id": "graphquery",
-      "community": 26,
+      "community": 6,
       "norm_label": "graphquery"
     },
     {
@@ -2111,7 +2111,7 @@
       "source_file": "src/retrieval/ranking/graph_ranker.py",
       "source_location": "L24",
       "id": "src_retrieval_ranking_graph_ranker_py_int",
-      "community": 26,
+      "community": 6,
       "norm_label": "int"
     },
     {
@@ -2120,7 +2120,7 @@
       "source_file": "src/retrieval/ranking/graph_ranker.py",
       "source_location": "L1",
       "id": "ranking_graph_ranker_rationale_1",
-      "community": 26,
+      "community": 6,
       "norm_label": "graph-aware file ranker.  graphranker uses a graphquery instance to rank file ca"
     },
     {
@@ -2138,7 +2138,7 @@
       "source_file": "src/retrieval/ranking/graph_ranker.py",
       "source_location": "L32",
       "id": "ranking_graph_ranker_rationale_32",
-      "community": 26,
+      "community": 6,
       "norm_label": "return an ordered list of file paths relevant to `task`.          pipeline:"
     },
     {
@@ -2615,7 +2615,7 @@
       "source_file": "src/scheduler/dispatcher.py",
       "source_location": "L48",
       "id": "src_scheduler_dispatcher_py_task",
-      "community": 57,
+      "community": 4,
       "norm_label": "task"
     },
     {
@@ -2633,7 +2633,7 @@
       "source_file": "src/scheduler/dispatcher.py",
       "source_location": "L56",
       "id": "querytask",
-      "community": 57,
+      "community": 4,
       "norm_label": "querytask"
     },
     {
@@ -2723,7 +2723,7 @@
       "source_file": "src/scheduler/cron_trigger.py",
       "source_location": "L36",
       "id": "scheduler_cron_trigger_crontrigger_init",
-      "community": 57,
+      "community": 86,
       "norm_label": ".__init__()"
     },
     {
@@ -2732,7 +2732,7 @@
       "source_file": "src/scheduler/cron_trigger.py",
       "source_location": "L36",
       "id": "src_scheduler_cron_trigger_py_str",
-      "community": 57,
+      "community": 86,
       "norm_label": "str"
     },
     {
@@ -2741,7 +2741,7 @@
       "source_file": "src/scheduler/cron_trigger.py",
       "source_location": "L36",
       "id": "src_scheduler_cron_trigger_py_taskqueue",
-      "community": 57,
+      "community": 86,
       "norm_label": "taskqueue"
     },
     {
@@ -3072,7 +3072,7 @@
       "label": "_require_env()",
       "file_type": "code",
       "source_file": "src/core/pipeline_config.py",
-      "source_location": "L30",
+      "source_location": "L31",
       "id": "core_pipeline_config_require_env",
       "community": 3,
       "norm_label": "_require_env()"
@@ -3081,7 +3081,7 @@
       "label": "str",
       "file_type": "code",
       "source_file": "src/core/pipeline_config.py",
-      "source_location": "L30",
+      "source_location": "L31",
       "id": "src_core_pipeline_config_py_str",
       "community": 3,
       "norm_label": "str"
@@ -3090,7 +3090,7 @@
       "label": "_validate_timezone()",
       "file_type": "code",
       "source_file": "src/core/pipeline_config.py",
-      "source_location": "L37",
+      "source_location": "L38",
       "id": "core_pipeline_config_validate_timezone",
       "community": 3,
       "norm_label": "_validate_timezone()"
@@ -3099,7 +3099,7 @@
       "label": "load_pipeline_config()",
       "file_type": "code",
       "source_file": "src/core/pipeline_config.py",
-      "source_location": "L45",
+      "source_location": "L46",
       "id": "core_pipeline_config_load_pipeline_config",
       "community": 3,
       "norm_label": "load_pipeline_config()"
@@ -3108,7 +3108,7 @@
       "label": "Path",
       "file_type": "code",
       "source_file": "src/core/pipeline_config.py",
-      "source_location": "L45",
+      "source_location": "L46",
       "id": "src_core_pipeline_config_py_path",
       "community": 3,
       "norm_label": "path"
@@ -3117,7 +3117,7 @@
       "label": "PipelineConfig",
       "file_type": "code",
       "source_file": "src/core/pipeline_config.py",
-      "source_location": "L45",
+      "source_location": "L46",
       "id": "src_core_pipeline_config_py_pipelineconfig",
       "community": 3,
       "norm_label": "pipelineconfig"
@@ -3135,8 +3135,8 @@
       "label": "Load pipeline configuration for a repository.      Args:         config_path: Pa",
       "file_type": "rationale",
       "source_file": "src/core/pipeline_config.py",
-      "source_location": "L46",
-      "id": "core_pipeline_config_rationale_46",
+      "source_location": "L47",
+      "id": "core_pipeline_config_rationale_47",
       "community": 3,
       "norm_label": "load pipeline configuration for a repository.      args:         config_path: pa"
     },
@@ -3146,7 +3146,7 @@
       "source_file": "src/core/config_loader.py",
       "source_location": "L1",
       "id": "src_core_config_loader_py",
-      "community": 74,
+      "community": 63,
       "norm_label": "config_loader.py"
     },
     {
@@ -3209,7 +3209,7 @@
       "source_file": "src/core/config_loader.py",
       "source_location": "L130",
       "id": "core_config_loader_appconfig",
-      "community": 74,
+      "community": 63,
       "norm_label": "appconfig"
     },
     {
@@ -3236,7 +3236,7 @@
       "source_file": "src/core/config_loader.py",
       "source_location": "L136",
       "id": "src_core_config_loader_py_str",
-      "community": 63,
+      "community": 0,
       "norm_label": "str"
     },
     {
@@ -3452,7 +3452,7 @@
       "source_file": "src/core/config_loader.py",
       "source_location": "L408",
       "id": "core_config_loader_get_graph_config",
-      "community": 64,
+      "community": 9,
       "norm_label": "get_graph_config()"
     },
     {
@@ -3461,7 +3461,7 @@
       "source_file": "src/core/config_loader.py",
       "source_location": "L416",
       "id": "core_config_loader_get_system_context_path",
-      "community": 74,
+      "community": 9,
       "norm_label": "get_system_context_path()"
     },
     {
@@ -3488,7 +3488,7 @@
       "source_file": "src/core/config_loader.py",
       "source_location": "L1",
       "id": "core_config_loader_rationale_1",
-      "community": 74,
+      "community": 63,
       "norm_label": "centralized configuration loader for the project.  configuration is loaded from"
     },
     {
@@ -3659,7 +3659,7 @@
       "source_file": "src/core/config_loader.py",
       "source_location": "L409",
       "id": "core_config_loader_rationale_409",
-      "community": 64,
+      "community": 9,
       "norm_label": "return the graph lifecycle config for the repository matching ``repo_path``."
     },
     {
@@ -3668,7 +3668,7 @@
       "source_file": "src/core/config_loader.py",
       "source_location": "L417",
       "id": "core_config_loader_rationale_417",
-      "community": 74,
+      "community": 9,
       "norm_label": "return the expanded absolute path for the system-level context store.      resol"
     },
     {
@@ -4037,7 +4037,7 @@
       "source_file": "src/git/branch_manager.py",
       "source_location": "L17",
       "id": "git_branch_manager_syncresult",
-      "community": 86,
+      "community": 48,
       "norm_label": "syncresult"
     },
     {
@@ -4181,7 +4181,7 @@
       "source_file": "src/git/branch_manager.py",
       "source_location": "L18",
       "id": "git_branch_manager_rationale_18",
-      "community": 86,
+      "community": 48,
       "norm_label": "outcome of a repository synchronisation attempt."
     },
     {
@@ -4289,7 +4289,7 @@
       "source_file": "src/observability/logger.py",
       "source_location": "L19",
       "id": "src_observability_logger_py_str",
-      "community": 66,
+      "community": 56,
       "norm_label": "str"
     },
     {
@@ -4298,7 +4298,7 @@
       "source_file": "src/observability/logger.py",
       "source_location": "L34",
       "id": "observability_logger_write_run_summary",
-      "community": 66,
+      "community": 56,
       "norm_label": "write_run_summary()"
     },
     {
@@ -4334,7 +4334,7 @@
       "source_file": "src/observability/logger.py",
       "source_location": "L35",
       "id": "observability_logger_rationale_35",
-      "community": 66,
+      "community": 56,
       "norm_label": "write the aggregated run object to `.runtime/runs/<run_id>.json`.      produces"
     },
     {
@@ -4415,7 +4415,7 @@
       "source_file": "src/observability/event_logging_utils.py",
       "source_location": "L60",
       "id": "observability_event_logging_utils_emit_failure",
-      "community": 45,
+      "community": 28,
       "norm_label": "emit_failure()"
     },
     {
@@ -4451,7 +4451,7 @@
       "source_file": "src/observability/event_logging_utils.py",
       "source_location": "L61",
       "id": "observability_event_logging_utils_rationale_61",
-      "community": 45,
+      "community": 28,
       "norm_label": "emit a failure event for the given node with the error message in the payload."
     },
     {
@@ -4460,7 +4460,7 @@
       "source_file": "src/observability/context.py",
       "source_location": "L1",
       "id": "src_observability_context_py",
-      "community": 28,
+      "community": 45,
       "norm_label": "context.py"
     },
     {
@@ -4469,7 +4469,7 @@
       "source_file": "src/observability/context.py",
       "source_location": "L17",
       "id": "observability_context_runcontext",
-      "community": 28,
+      "community": 45,
       "norm_label": "runcontext"
     },
     {
@@ -4487,7 +4487,7 @@
       "source_file": "src/observability/context.py",
       "source_location": "L1",
       "id": "observability_context_rationale_1",
-      "community": 28,
+      "community": 45,
       "norm_label": "runcontext helper for observability.  this module provides a minimal `runcontext"
     },
     {
@@ -4496,7 +4496,7 @@
       "source_file": "src/observability/context.py",
       "source_location": "L18",
       "id": "observability_context_rationale_18",
-      "community": 28,
+      "community": 45,
       "norm_label": "per-run observability context.      attributes:         run_id: a uuid4 string u"
     },
     {
@@ -4748,7 +4748,7 @@
       "source_file": "src/graph/nodes/git_committer.py",
       "source_location": "L1",
       "id": "src_graph_nodes_git_committer_py",
-      "community": 92,
+      "community": 28,
       "norm_label": "git_committer.py"
     },
     {
@@ -4784,7 +4784,7 @@
       "source_file": "src/graph/nodes/git_committer.py",
       "source_location": "L1",
       "id": "nodes_git_committer_rationale_1",
-      "community": 92,
+      "community": 28,
       "norm_label": "git committer node.  stages the modified target file and creates a git commit on"
     },
     {
@@ -4802,7 +4802,7 @@
       "source_file": "src/graph/nodes/support.py",
       "source_location": "L1",
       "id": "src_graph_nodes_support_py",
-      "community": 45,
+      "community": 49,
       "norm_label": "support.py"
     },
     {
@@ -4811,7 +4811,7 @@
       "source_file": "src/graph/nodes/support.py",
       "source_location": "L23",
       "id": "nodes_support_require_state_value",
-      "community": 45,
+      "community": 49,
       "norm_label": "require_state_value()"
     },
     {
@@ -4820,7 +4820,7 @@
       "source_file": "src/graph/nodes/support.py",
       "source_location": "L23",
       "id": "src_graph_nodes_support_py_graphstate",
-      "community": 45,
+      "community": 49,
       "norm_label": "graphstate"
     },
     {
@@ -4829,7 +4829,7 @@
       "source_file": "src/graph/nodes/support.py",
       "source_location": "L23",
       "id": "src_graph_nodes_support_py_str",
-      "community": 45,
+      "community": 49,
       "norm_label": "str"
     },
     {
@@ -4847,7 +4847,7 @@
       "source_file": "src/graph/nodes/support.py",
       "source_location": "L45",
       "id": "nodes_support_validate_python_syntax",
-      "community": 45,
+      "community": 44,
       "norm_label": "validate_python_syntax()"
     },
     {
@@ -4856,7 +4856,7 @@
       "source_file": "src/graph/nodes/support.py",
       "source_location": "L45",
       "id": "src_graph_nodes_support_py_bool",
-      "community": 45,
+      "community": 44,
       "norm_label": "bool"
     },
     {
@@ -4874,7 +4874,7 @@
       "source_file": "src/graph/nodes/support.py",
       "source_location": "L1",
       "id": "nodes_support_rationale_1",
-      "community": 45,
+      "community": 49,
       "norm_label": "shared helpers for graph node implementations."
     },
     {
@@ -4883,7 +4883,7 @@
       "source_file": "src/graph/nodes/support.py",
       "source_location": "L24",
       "id": "nodes_support_rationale_24",
-      "community": 45,
+      "community": 49,
       "norm_label": "return a required value from `state` or raise valueerror."
     },
     {
@@ -4901,7 +4901,7 @@
       "source_file": "src/graph/nodes/support.py",
       "source_location": "L46",
       "id": "nodes_support_rationale_46",
-      "community": 45,
+      "community": 44,
       "norm_label": "validate that `content` compiles as python."
     },
     {
@@ -5216,7 +5216,7 @@
       "source_file": "src/graph/nodes/semantic_validator.py",
       "source_location": "L46",
       "id": "nodes_semantic_validator_build_semantic_feedback",
-      "community": 58,
+      "community": 45,
       "norm_label": "_build_semantic_feedback()"
     },
     {
@@ -5225,7 +5225,7 @@
       "source_file": "src/graph/nodes/semantic_validator.py",
       "source_location": "L46",
       "id": "src_graph_nodes_semantic_validator_py_float",
-      "community": 58,
+      "community": 45,
       "norm_label": "float"
     },
     {
@@ -5234,7 +5234,7 @@
       "source_file": "src/graph/nodes/semantic_validator.py",
       "source_location": "L46",
       "id": "src_graph_nodes_semantic_validator_py_str",
-      "community": 58,
+      "community": 45,
       "norm_label": "str"
     },
     {
@@ -5279,7 +5279,7 @@
       "source_file": "src/graph/nodes/semantic_validator.py",
       "source_location": "L47",
       "id": "nodes_semantic_validator_rationale_47",
-      "community": 58,
+      "community": 45,
       "norm_label": "format the llm evaluation into a concise string for the coder prompt."
     },
     {
@@ -5297,7 +5297,7 @@
       "source_file": "src/graph/nodes/graphify_indexer.py",
       "source_location": "L1",
       "id": "src_graph_nodes_graphify_indexer_py",
-      "community": 28,
+      "community": 58,
       "norm_label": "graphify_indexer.py"
     },
     {
@@ -5333,7 +5333,7 @@
       "source_file": "src/graph/nodes/graphify_indexer.py",
       "source_location": "L1",
       "id": "nodes_graphify_indexer_rationale_1",
-      "community": 28,
+      "community": 58,
       "norm_label": "graphify indexer \u2014 internal graph-building utility.  provides `build_ast_graph`,"
     },
     {
@@ -5351,7 +5351,7 @@
       "source_file": "src/graph/nodes/static_validator.py",
       "source_location": "L1",
       "id": "src_graph_nodes_static_validator_py",
-      "community": 45,
+      "community": 44,
       "norm_label": "static_validator.py"
     },
     {
@@ -5360,7 +5360,7 @@
       "source_file": "src/graph/nodes/static_validator.py",
       "source_location": "L23",
       "id": "nodes_static_validator_static_validator_node",
-      "community": 45,
+      "community": 44,
       "norm_label": "static_validator_node()"
     },
     {
@@ -5369,7 +5369,7 @@
       "source_file": "src/graph/nodes/static_validator.py",
       "source_location": "L23",
       "id": "src_graph_nodes_static_validator_py_graphstate",
-      "community": 58,
+      "community": 44,
       "norm_label": "graphstate"
     },
     {
@@ -5378,7 +5378,7 @@
       "source_file": "src/graph/nodes/static_validator.py",
       "source_location": "L23",
       "id": "src_graph_nodes_static_validator_py_runcontext",
-      "community": 58,
+      "community": 44,
       "norm_label": "runcontext"
     },
     {
@@ -5387,7 +5387,7 @@
       "source_file": "src/graph/nodes/static_validator.py",
       "source_location": "L1",
       "id": "nodes_static_validator_rationale_1",
-      "community": 45,
+      "community": 44,
       "norm_label": "static validator node.  replaces the former reviewer node. responsibilities are"
     },
     {
@@ -5396,7 +5396,7 @@
       "source_file": "src/graph/nodes/static_validator.py",
       "source_location": "L24",
       "id": "nodes_static_validator_rationale_24",
-      "community": 45,
+      "community": 44,
       "norm_label": "validate generated code for structural correctness.      runs python syntax vali"
     },
     {
@@ -5540,7 +5540,7 @@
       "source_file": "src/graph/nodes/graph_resolver.py",
       "source_location": "L277",
       "id": "nodes_graph_resolver_graph_resolver_node",
-      "community": 31,
+      "community": 9,
       "norm_label": "graph_resolver_node()"
     },
     {
@@ -5549,7 +5549,7 @@
       "source_file": "src/graph/nodes/graph_resolver.py",
       "source_location": "L277",
       "id": "src_graph_nodes_graph_resolver_py_graphstate",
-      "community": 31,
+      "community": 9,
       "norm_label": "graphstate"
     },
     {
@@ -5558,7 +5558,7 @@
       "source_file": "src/graph/nodes/graph_resolver.py",
       "source_location": "L277",
       "id": "src_graph_nodes_graph_resolver_py_runcontext",
-      "community": 31,
+      "community": 9,
       "norm_label": "runcontext"
     },
     {
@@ -5657,7 +5657,7 @@
       "source_file": "src/graph/nodes/graph_resolver.py",
       "source_location": "L278",
       "id": "nodes_graph_resolver_rationale_278",
-      "community": 31,
+      "community": 9,
       "norm_label": "resolve a valid knowledge graph for the target repository.      determines the c"
     },
     {
@@ -5666,7 +5666,7 @@
       "source_file": "src/graph/nodes/node_index.py",
       "source_location": "L1",
       "id": "src_graph_nodes_node_index_py",
-      "community": 31,
+      "community": 92,
       "norm_label": "node_index.py"
     },
     {
@@ -5675,7 +5675,7 @@
       "source_file": "src/graph/nodes/node_index.py",
       "source_location": "L1",
       "id": "nodes_node_index_rationale_1",
-      "community": 31,
+      "community": 92,
       "norm_label": "aggregate export surface for graph nodes."
     },
     {
@@ -5702,7 +5702,7 @@
       "source_file": "src/graph/nodes/file_writer.py",
       "source_location": "L1",
       "id": "src_graph_nodes_file_writer_py",
-      "community": 45,
+      "community": 66,
       "norm_label": "file_writer.py"
     },
     {
@@ -5711,7 +5711,7 @@
       "source_file": "src/graph/nodes/file_writer.py",
       "source_location": "L23",
       "id": "nodes_file_writer_file_writer_node",
-      "community": 31,
+      "community": 66,
       "norm_label": "file_writer_node()"
     },
     {
@@ -5720,7 +5720,7 @@
       "source_file": "src/graph/nodes/file_writer.py",
       "source_location": "L23",
       "id": "src_graph_nodes_file_writer_py_graphstate",
-      "community": 31,
+      "community": 66,
       "norm_label": "graphstate"
     },
     {
@@ -5729,7 +5729,7 @@
       "source_file": "src/graph/nodes/file_writer.py",
       "source_location": "L23",
       "id": "src_graph_nodes_file_writer_py_runcontext",
-      "community": 31,
+      "community": 66,
       "norm_label": "runcontext"
     },
     {
@@ -5738,7 +5738,7 @@
       "source_file": "src/graph/nodes/file_writer.py",
       "source_location": "L24",
       "id": "nodes_file_writer_rationale_24",
-      "community": 31,
+      "community": 66,
       "norm_label": "write generated content to disk or apply a unified diff.      expected state inp"
     },
     {
@@ -5864,7 +5864,7 @@
       "source_file": "src/graph/nodes/diff_generator.py",
       "source_location": "L14",
       "id": "src_graph_nodes_diff_generator_py_graphstate",
-      "community": 58,
+      "community": 45,
       "norm_label": "graphstate"
     },
     {
@@ -5873,7 +5873,7 @@
       "source_file": "src/graph/nodes/diff_generator.py",
       "source_location": "L14",
       "id": "src_graph_nodes_diff_generator_py_runcontext",
-      "community": 58,
+      "community": 45,
       "norm_label": "runcontext"
     },
     {
@@ -6015,7 +6015,7 @@
       "label": "EmbeddingPipeline",
       "file_type": "code",
       "source_file": "src/pipeline/pipeline.py",
-      "source_location": "L25",
+      "source_location": "L26",
       "id": "pipeline_pipeline_embeddingpipeline",
       "community": 57,
       "norm_label": "embeddingpipeline"
@@ -6024,7 +6024,7 @@
       "label": ".__init__()",
       "file_type": "code",
       "source_file": "src/pipeline/pipeline.py",
-      "source_location": "L28",
+      "source_location": "L29",
       "id": "pipeline_pipeline_embeddingpipeline_init",
       "community": 84,
       "norm_label": ".__init__()"
@@ -6033,7 +6033,7 @@
       "label": "PipelineConfig",
       "file_type": "code",
       "source_file": "src/pipeline/pipeline.py",
-      "source_location": "L28",
+      "source_location": "L29",
       "id": "src_pipeline_pipeline_py_pipelineconfig",
       "community": 84,
       "norm_label": "pipelineconfig"
@@ -6042,7 +6042,7 @@
       "label": "bool",
       "file_type": "code",
       "source_file": "src/pipeline/pipeline.py",
-      "source_location": "L28",
+      "source_location": "L29",
       "id": "src_pipeline_pipeline_py_bool",
       "community": 84,
       "norm_label": "bool"
@@ -6051,7 +6051,7 @@
       "label": "SlackNotifier",
       "file_type": "code",
       "source_file": "src/pipeline/pipeline.py",
-      "source_location": "L28",
+      "source_location": "L29",
       "id": "slacknotifier",
       "community": 84,
       "norm_label": "slacknotifier"
@@ -6060,7 +6060,7 @@
       "label": ".close()",
       "file_type": "code",
       "source_file": "src/pipeline/pipeline.py",
-      "source_location": "L49",
+      "source_location": "L50",
       "id": "pipeline_pipeline_embeddingpipeline_close",
       "community": 57,
       "norm_label": ".close()"
@@ -6069,7 +6069,7 @@
       "label": ".run()",
       "file_type": "code",
       "source_file": "src/pipeline/pipeline.py",
-      "source_location": "L53",
+      "source_location": "L54",
       "id": "pipeline_pipeline_embeddingpipeline_run",
       "community": 85,
       "norm_label": ".run()"
@@ -6078,7 +6078,7 @@
       "label": "PipelineResult",
       "file_type": "code",
       "source_file": "src/pipeline/pipeline.py",
-      "source_location": "L53",
+      "source_location": "L54",
       "id": "src_pipeline_pipeline_py_pipelineresult",
       "community": 85,
       "norm_label": "pipelineresult"
@@ -6087,16 +6087,16 @@
       "label": "._sync_repo()",
       "file_type": "code",
       "source_file": "src/pipeline/pipeline.py",
-      "source_location": "L72",
+      "source_location": "L73",
       "id": "pipeline_pipeline_embeddingpipeline_sync_repo",
-      "community": 85,
+      "community": 7,
       "norm_label": "._sync_repo()"
     },
     {
       "label": "._run_stages()",
       "file_type": "code",
       "source_file": "src/pipeline/pipeline.py",
-      "source_location": "L85",
+      "source_location": "L86",
       "id": "pipeline_pipeline_embeddingpipeline_run_stages",
       "community": 85,
       "norm_label": "._run_stages()"
@@ -6114,8 +6114,8 @@
       "label": "Orchestrates all pipeline stages for a single repository.",
       "file_type": "rationale",
       "source_file": "src/pipeline/pipeline.py",
-      "source_location": "L26",
-      "id": "pipeline_pipeline_rationale_26",
+      "source_location": "L27",
+      "id": "pipeline_pipeline_rationale_27",
       "community": 57,
       "norm_label": "orchestrates all pipeline stages for a single repository."
     },
@@ -6123,8 +6123,8 @@
       "label": "Execute all pipeline stages and return a summary.",
       "file_type": "rationale",
       "source_file": "src/pipeline/pipeline.py",
-      "source_location": "L54",
-      "id": "pipeline_pipeline_rationale_54",
+      "source_location": "L55",
+      "id": "pipeline_pipeline_rationale_55",
       "community": 85,
       "norm_label": "execute all pipeline stages and return a summary."
     },
@@ -6132,10 +6132,172 @@
       "label": "Ensure the target repo exists and is on the correct base branch before extractio",
       "file_type": "rationale",
       "source_file": "src/pipeline/pipeline.py",
-      "source_location": "L73",
-      "id": "pipeline_pipeline_rationale_73",
-      "community": 85,
+      "source_location": "L74",
+      "id": "pipeline_pipeline_rationale_74",
+      "community": 7,
       "norm_label": "ensure the target repo exists and is on the correct base branch before extractio"
+    },
+    {
+      "label": "checkpoint.py",
+      "file_type": "code",
+      "source_file": "src/pipeline/checkpoint.py",
+      "source_location": "L1",
+      "id": "src_pipeline_checkpoint_py",
+      "community": 19,
+      "norm_label": "checkpoint.py"
+    },
+    {
+      "label": "make_run_key()",
+      "file_type": "code",
+      "source_file": "src/pipeline/checkpoint.py",
+      "source_location": "L34",
+      "id": "pipeline_checkpoint_make_run_key",
+      "community": 19,
+      "norm_label": "make_run_key()"
+    },
+    {
+      "label": "FunctionRecord",
+      "file_type": "code",
+      "source_file": "src/pipeline/checkpoint.py",
+      "source_location": "L34",
+      "id": "src_pipeline_checkpoint_py_functionrecord",
+      "community": 19,
+      "norm_label": "functionrecord"
+    },
+    {
+      "label": "str",
+      "file_type": "code",
+      "source_file": "src/pipeline/checkpoint.py",
+      "source_location": "L34",
+      "id": "src_pipeline_checkpoint_py_str",
+      "community": 19,
+      "norm_label": "str"
+    },
+    {
+      "label": "CheckpointManager",
+      "file_type": "code",
+      "source_file": "src/pipeline/checkpoint.py",
+      "source_location": "L46",
+      "id": "pipeline_checkpoint_checkpointmanager",
+      "community": 19,
+      "norm_label": "checkpointmanager"
+    },
+    {
+      "label": ".__init__()",
+      "file_type": "code",
+      "source_file": "src/pipeline/checkpoint.py",
+      "source_location": "L49",
+      "id": "pipeline_checkpoint_checkpointmanager_init",
+      "community": 19,
+      "norm_label": ".__init__()"
+    },
+    {
+      "label": "CheckpointConfig",
+      "file_type": "code",
+      "source_file": "src/pipeline/checkpoint.py",
+      "source_location": "L49",
+      "id": "checkpointconfig",
+      "community": 19,
+      "norm_label": "checkpointconfig"
+    },
+    {
+      "label": ".load()",
+      "file_type": "code",
+      "source_file": "src/pipeline/checkpoint.py",
+      "source_location": "L56",
+      "id": "pipeline_checkpoint_checkpointmanager_load",
+      "community": 19,
+      "norm_label": ".load()"
+    },
+    {
+      "label": ".save()",
+      "file_type": "code",
+      "source_file": "src/pipeline/checkpoint.py",
+      "source_location": "L75",
+      "id": "pipeline_checkpoint_checkpointmanager_save",
+      "community": 19,
+      "norm_label": ".save()"
+    },
+    {
+      "label": ".clear()",
+      "file_type": "code",
+      "source_file": "src/pipeline/checkpoint.py",
+      "source_location": "L93",
+      "id": "pipeline_checkpoint_checkpointmanager_clear",
+      "community": 19,
+      "norm_label": ".clear()"
+    },
+    {
+      "label": "._checkpoint_path()",
+      "file_type": "code",
+      "source_file": "src/pipeline/checkpoint.py",
+      "source_location": "L106",
+      "id": "pipeline_checkpoint_checkpointmanager_checkpoint_path",
+      "community": 19,
+      "norm_label": "._checkpoint_path()"
+    },
+    {
+      "label": "Path",
+      "file_type": "code",
+      "source_file": "src/pipeline/checkpoint.py",
+      "source_location": "L106",
+      "id": "src_pipeline_checkpoint_py_path",
+      "community": 19,
+      "norm_label": "path"
+    },
+    {
+      "label": "Mid-run checkpoint persistence for the pipeline.  Saves expensive per-record fie",
+      "file_type": "rationale",
+      "source_file": "src/pipeline/checkpoint.py",
+      "source_location": "L1",
+      "id": "pipeline_checkpoint_rationale_1",
+      "community": 19,
+      "norm_label": "mid-run checkpoint persistence for the pipeline.  saves expensive per-record fie"
+    },
+    {
+      "label": "Derive a stable key for this set of changed records.      The key is the first 1",
+      "file_type": "rationale",
+      "source_file": "src/pipeline/checkpoint.py",
+      "source_location": "L35",
+      "id": "pipeline_checkpoint_rationale_35",
+      "community": 19,
+      "norm_label": "derive a stable key for this set of changed records.      the key is the first 1"
+    },
+    {
+      "label": "Persists and restores mid-run pipeline state to a local JSON file.",
+      "file_type": "rationale",
+      "source_file": "src/pipeline/checkpoint.py",
+      "source_location": "L47",
+      "id": "pipeline_checkpoint_rationale_47",
+      "community": 19,
+      "norm_label": "persists and restores mid-run pipeline state to a local json file."
+    },
+    {
+      "label": "Return saved record fields keyed by record ID, or {} if missing/stale/corrupt.",
+      "file_type": "rationale",
+      "source_file": "src/pipeline/checkpoint.py",
+      "source_location": "L57",
+      "id": "pipeline_checkpoint_rationale_57",
+      "community": 19,
+      "norm_label": "return saved record fields keyed by record id, or {} if missing/stale/corrupt."
+    },
+    {
+      "label": "Atomically write the expensive fields of all records to disk.",
+      "file_type": "rationale",
+      "source_file": "src/pipeline/checkpoint.py",
+      "source_location": "L76",
+      "id": "pipeline_checkpoint_rationale_76",
+      "community": 19,
+      "norm_label": "atomically write the expensive fields of all records to disk."
+    },
+    {
+      "label": "Delete the checkpoint file after a successful pipeline run.",
+      "file_type": "rationale",
+      "source_file": "src/pipeline/checkpoint.py",
+      "source_location": "L94",
+      "id": "pipeline_checkpoint_rationale_94",
+      "community": 19,
+      "norm_label": "delete the checkpoint file after a successful pipeline run."
     },
     {
       "label": "contracts.py",
@@ -6143,7 +6305,7 @@
       "source_file": "src/pipeline/contracts.py",
       "source_location": "L1",
       "id": "src_pipeline_contracts_py",
-      "community": 90,
+      "community": 3,
       "norm_label": "contracts.py"
     },
     {
@@ -6152,7 +6314,7 @@
       "source_file": "src/pipeline/contracts.py",
       "source_location": "L13",
       "id": "pipeline_contracts_now_iso",
-      "community": 90,
+      "community": 3,
       "norm_label": "_now_iso()"
     },
     {
@@ -6161,7 +6323,7 @@
       "source_file": "src/pipeline/contracts.py",
       "source_location": "L13",
       "id": "src_pipeline_contracts_py_str",
-      "community": 90,
+      "community": 3,
       "norm_label": "str"
     },
     {
@@ -6179,7 +6341,7 @@
       "source_file": "src/pipeline/contracts.py",
       "source_location": "L52",
       "id": "pipeline_contracts_similarityedge",
-      "community": 44,
+      "community": 3,
       "norm_label": "similarityedge"
     },
     {
@@ -6197,7 +6359,7 @@
       "source_file": "src/pipeline/contracts.py",
       "source_location": "L73",
       "id": "pipeline_contracts_similarityconfig",
-      "community": 44,
+      "community": 3,
       "norm_label": "similarityconfig"
     },
     {
@@ -6224,7 +6386,7 @@
       "source_file": "src/pipeline/contracts.py",
       "source_location": "L96",
       "id": "pipeline_contracts_reporterconfig",
-      "community": 40,
+      "community": 31,
       "norm_label": "reporterconfig"
     },
     {
@@ -6242,14 +6404,23 @@
       "source_file": "src/pipeline/contracts.py",
       "source_location": "L130",
       "id": "pipeline_contracts_slackpipelineconfig",
-      "community": 57,
+      "community": 86,
       "norm_label": "slackpipelineconfig"
+    },
+    {
+      "label": "CheckpointConfig",
+      "file_type": "code",
+      "source_file": "src/pipeline/contracts.py",
+      "source_location": "L138",
+      "id": "pipeline_contracts_checkpointconfig",
+      "community": 3,
+      "norm_label": "checkpointconfig"
     },
     {
       "label": "PipelineConfig",
       "file_type": "code",
       "source_file": "src/pipeline/contracts.py",
-      "source_location": "L138",
+      "source_location": "L145",
       "id": "pipeline_contracts_pipelineconfig",
       "community": 2,
       "norm_label": "pipelineconfig"
@@ -6258,7 +6429,7 @@
       "label": "PipelineResult",
       "file_type": "code",
       "source_file": "src/pipeline/contracts.py",
-      "source_location": "L173",
+      "source_location": "L181",
       "id": "pipeline_contracts_pipelineresult",
       "community": 82,
       "norm_label": "pipelineresult"
@@ -6269,7 +6440,7 @@
       "source_file": "src/pipeline/contracts.py",
       "source_location": "L1",
       "id": "pipeline_contracts_rationale_1",
-      "community": 90,
+      "community": 3,
       "norm_label": "data contracts for the function embedding pipeline.  all dataclasses here are pl"
     },
     {
@@ -6287,7 +6458,7 @@
       "source_file": "src/pipeline/contracts.py",
       "source_location": "L53",
       "id": "pipeline_contracts_rationale_53",
-      "community": 44,
+      "community": 3,
       "norm_label": "a similar_to relationship between two function nodes."
     },
     {
@@ -6323,15 +6494,24 @@
       "source_file": "src/pipeline/contracts.py",
       "source_location": "L131",
       "id": "pipeline_contracts_rationale_131",
-      "community": 57,
+      "community": 86,
       "norm_label": "slack notification settings for pipeline observability."
+    },
+    {
+      "label": "Controls mid-run persistence so a crashed pipeline can resume without redoing ex",
+      "file_type": "rationale",
+      "source_file": "src/pipeline/contracts.py",
+      "source_location": "L139",
+      "id": "pipeline_contracts_rationale_139",
+      "community": 3,
+      "norm_label": "controls mid-run persistence so a crashed pipeline can resume without redoing ex"
     },
     {
       "label": "Summary of a completed pipeline run.",
       "file_type": "rationale",
       "source_file": "src/pipeline/contracts.py",
-      "source_location": "L174",
-      "id": "pipeline_contracts_rationale_174",
+      "source_location": "L182",
+      "id": "pipeline_contracts_rationale_182",
       "community": 82,
       "norm_label": "summary of a completed pipeline run."
     },
@@ -6710,7 +6890,7 @@
       "source_file": "src/pipeline/extraction/extractor.py",
       "source_location": "L38",
       "id": "src_pipeline_extraction_extractor_py_int",
-      "community": 52,
+      "community": 19,
       "norm_label": "int"
     },
     {
@@ -6773,7 +6953,7 @@
       "source_file": "src/pipeline/extraction/extractor.py",
       "source_location": "L69",
       "id": "src_pipeline_extraction_extractor_py_parser",
-      "community": 52,
+      "community": 19,
       "norm_label": "parser"
     },
     {
@@ -6782,7 +6962,7 @@
       "source_file": "src/pipeline/extraction/extractor.py",
       "source_location": "L69",
       "id": "src_pipeline_extraction_extractor_py_functionrecord",
-      "community": 52,
+      "community": 19,
       "norm_label": "functionrecord"
     },
     {
@@ -6872,7 +7052,7 @@
       "source_file": "src/pipeline/extraction/__init__.py",
       "source_location": "L1",
       "id": "src_pipeline_extraction_init_py",
-      "community": 83,
+      "community": 52,
       "norm_label": "__init__.py"
     },
     {
@@ -6881,7 +7061,7 @@
       "source_file": "src/pipeline/extraction/scanner.py",
       "source_location": "L1",
       "id": "src_pipeline_extraction_scanner_py",
-      "community": 83,
+      "community": 52,
       "norm_label": "scanner.py"
     },
     {
@@ -6890,7 +7070,7 @@
       "source_file": "src/pipeline/extraction/scanner.py",
       "source_location": "L20",
       "id": "extraction_scanner_supported_extensions",
-      "community": 83,
+      "community": 52,
       "norm_label": "_supported_extensions()"
     },
     {
@@ -6899,7 +7079,7 @@
       "source_file": "src/pipeline/extraction/scanner.py",
       "source_location": "L20",
       "id": "src_pipeline_extraction_scanner_py_str",
-      "community": 83,
+      "community": 52,
       "norm_label": "str"
     },
     {
@@ -6908,7 +7088,7 @@
       "source_file": "src/pipeline/extraction/scanner.py",
       "source_location": "L27",
       "id": "extraction_scanner_is_ignored",
-      "community": 83,
+      "community": 52,
       "norm_label": "_is_ignored()"
     },
     {
@@ -6917,7 +7097,7 @@
       "source_file": "src/pipeline/extraction/scanner.py",
       "source_location": "L27",
       "id": "src_pipeline_extraction_scanner_py_path",
-      "community": 83,
+      "community": 52,
       "norm_label": "path"
     },
     {
@@ -6926,7 +7106,7 @@
       "source_file": "src/pipeline/extraction/scanner.py",
       "source_location": "L27",
       "id": "src_pipeline_extraction_scanner_py_bool",
-      "community": 83,
+      "community": 52,
       "norm_label": "bool"
     },
     {
@@ -6935,7 +7115,7 @@
       "source_file": "src/pipeline/extraction/scanner.py",
       "source_location": "L50",
       "id": "extraction_scanner_scan_repository",
-      "community": 83,
+      "community": 52,
       "norm_label": "scan_repository()"
     },
     {
@@ -6944,7 +7124,7 @@
       "source_file": "src/pipeline/extraction/scanner.py",
       "source_location": "L1",
       "id": "extraction_scanner_rationale_1",
-      "community": 83,
+      "community": 52,
       "norm_label": "repository file scanner.  walks a source tree and yields paths to source files w"
     },
     {
@@ -6953,7 +7133,7 @@
       "source_file": "src/pipeline/extraction/scanner.py",
       "source_location": "L28",
       "id": "extraction_scanner_rationale_28",
-      "community": 83,
+      "community": 52,
       "norm_label": "return true if the path relative to repo_root matches any ignore pattern.      s"
     },
     {
@@ -6962,7 +7142,7 @@
       "source_file": "src/pipeline/extraction/scanner.py",
       "source_location": "L55",
       "id": "extraction_scanner_rationale_55",
-      "community": 83,
+      "community": 52,
       "norm_label": "return sorted list of source file paths to process.      args:         repo_path"
     },
     {
@@ -6971,7 +7151,7 @@
       "source_file": "src/pipeline/graph/store.py",
       "source_location": "L1",
       "id": "src_pipeline_graph_store_py",
-      "community": 44,
+      "community": 40,
       "norm_label": "store.py"
     },
     {
@@ -6998,7 +7178,7 @@
       "source_file": "src/pipeline/graph/store.py",
       "source_location": "L20",
       "id": "src_pipeline_graph_store_py_int",
-      "community": 27,
+      "community": 59,
       "norm_label": "int"
     },
     {
@@ -7016,7 +7196,7 @@
       "source_file": "src/pipeline/graph/store.py",
       "source_location": "L158",
       "id": "graph_store_neo4jstore",
-      "community": 44,
+      "community": 40,
       "norm_label": "neo4jstore"
     },
     {
@@ -7025,7 +7205,7 @@
       "source_file": "src/pipeline/graph/store.py",
       "source_location": "L161",
       "id": "graph_store_neo4jstore_init",
-      "community": 27,
+      "community": 59,
       "norm_label": ".__init__()"
     },
     {
@@ -7034,7 +7214,7 @@
       "source_file": "src/pipeline/graph/store.py",
       "source_location": "L161",
       "id": "src_pipeline_graph_store_py_neo4jconfig",
-      "community": 27,
+      "community": 59,
       "norm_label": "neo4jconfig"
     },
     {
@@ -7079,7 +7259,7 @@
       "source_file": "src/pipeline/graph/store.py",
       "source_location": "L209",
       "id": "graph_store_neo4jstore_ensure_vector_indexes",
-      "community": 87,
+      "community": 27,
       "norm_label": "._ensure_vector_indexes()"
     },
     {
@@ -7097,7 +7277,7 @@
       "source_file": "src/pipeline/graph/store.py",
       "source_location": "L225",
       "id": "graph_store_neo4jstore_upsert_functions_batch",
-      "community": 87,
+      "community": 27,
       "norm_label": ".upsert_functions_batch()"
     },
     {
@@ -7106,7 +7286,7 @@
       "source_file": "src/pipeline/graph/store.py",
       "source_location": "L225",
       "id": "src_pipeline_graph_store_py_functionrecord",
-      "community": 87,
+      "community": 27,
       "norm_label": "functionrecord"
     },
     {
@@ -7115,7 +7295,7 @@
       "source_file": "src/pipeline/graph/store.py",
       "source_location": "L266",
       "id": "graph_store_neo4jstore_soft_delete_missing",
-      "community": 94,
+      "community": 59,
       "norm_label": ".soft_delete_missing()"
     },
     {
@@ -7124,7 +7304,7 @@
       "source_file": "src/pipeline/graph/store.py",
       "source_location": "L273",
       "id": "graph_store_neo4jstore_get_all_embeddings",
-      "community": 61,
+      "community": 59,
       "norm_label": ".get_all_embeddings()"
     },
     {
@@ -7133,7 +7313,7 @@
       "source_file": "src/pipeline/graph/store.py",
       "source_location": "L273",
       "id": "src_pipeline_graph_store_py_bool",
-      "community": 61,
+      "community": 59,
       "norm_label": "bool"
     },
     {
@@ -7142,7 +7322,7 @@
       "source_file": "src/pipeline/graph/store.py",
       "source_location": "L273",
       "id": "src_pipeline_graph_store_py_float",
-      "community": 61,
+      "community": 59,
       "norm_label": "float"
     },
     {
@@ -7151,7 +7331,7 @@
       "source_file": "src/pipeline/graph/store.py",
       "source_location": "L289",
       "id": "graph_store_neo4jstore_query_code_neighbors",
-      "community": 61,
+      "community": 59,
       "norm_label": ".query_code_neighbors()"
     },
     {
@@ -7160,7 +7340,7 @@
       "source_file": "src/pipeline/graph/store.py",
       "source_location": "L314",
       "id": "graph_store_neo4jstore_query_desc_neighbors",
-      "community": 61,
+      "community": 59,
       "norm_label": ".query_desc_neighbors()"
     },
     {
@@ -7205,7 +7385,7 @@
       "source_file": "src/pipeline/graph/store.py",
       "source_location": "L1",
       "id": "graph_store_rationale_1",
-      "community": 44,
+      "community": 40,
       "norm_label": "neo4j data store for function nodes and similar_to relationships.  uses the offi"
     },
     {
@@ -7223,7 +7403,7 @@
       "source_file": "src/pipeline/graph/store.py",
       "source_location": "L159",
       "id": "graph_store_rationale_159",
-      "community": 44,
+      "community": 40,
       "norm_label": "async neo4j driver wrapper for function nodes and similar_to edges."
     },
     {
@@ -7268,7 +7448,7 @@
       "source_file": "src/pipeline/graph/store.py",
       "source_location": "L210",
       "id": "graph_store_rationale_210",
-      "community": 87,
+      "community": 27,
       "norm_label": "create vector indexes once the embedding dimension is known."
     },
     {
@@ -7286,7 +7466,7 @@
       "source_file": "src/pipeline/graph/store.py",
       "source_location": "L226",
       "id": "graph_store_rationale_226",
-      "community": 87,
+      "community": 27,
       "norm_label": "batch-upsert function nodes using unwind for efficiency."
     },
     {
@@ -7295,7 +7475,7 @@
       "source_file": "src/pipeline/graph/store.py",
       "source_location": "L267",
       "id": "graph_store_rationale_267",
-      "community": 94,
+      "community": 59,
       "norm_label": "mark functions not in ``seen_ids`` as deleted. returns count."
     },
     {
@@ -7304,7 +7484,7 @@
       "source_file": "src/pipeline/graph/store.py",
       "source_location": "L278",
       "id": "graph_store_rationale_278",
-      "community": 61,
+      "community": 59,
       "norm_label": "return ``[(id, code_embedding, description_embedding)]`` for all live functions."
     },
     {
@@ -7313,7 +7493,7 @@
       "source_file": "src/pipeline/graph/store.py",
       "source_location": "L297",
       "id": "graph_store_rationale_297",
-      "community": 61,
+      "community": 59,
       "norm_label": "return top-n code-similar functions using the hnsw vector index.          result"
     },
     {
@@ -7322,7 +7502,7 @@
       "source_file": "src/pipeline/graph/store.py",
       "source_location": "L322",
       "id": "graph_store_rationale_322",
-      "community": 61,
+      "community": 59,
       "norm_label": "return top-n description-similar functions using the hnsw vector index."
     },
     {
@@ -7358,7 +7538,7 @@
       "source_file": "src/pipeline/graph/__init__.py",
       "source_location": "L1",
       "id": "src_pipeline_graph_init_py",
-      "community": 44,
+      "community": 3,
       "norm_label": "__init__.py"
     },
     {
@@ -7367,7 +7547,7 @@
       "source_file": "src/pipeline/graph/similarity.py",
       "source_location": "L1",
       "id": "src_pipeline_graph_similarity_py",
-      "community": 44,
+      "community": 3,
       "norm_label": "similarity.py"
     },
     {
@@ -7376,7 +7556,7 @@
       "source_file": "src/pipeline/graph/similarity.py",
       "source_location": "L25",
       "id": "graph_similarity_compute_similarity_edges",
-      "community": 44,
+      "community": 3,
       "norm_label": "compute_similarity_edges()"
     },
     {
@@ -7385,7 +7565,7 @@
       "source_file": "src/pipeline/graph/similarity.py",
       "source_location": "L25",
       "id": "src_pipeline_graph_similarity_py_neo4jstore",
-      "community": 44,
+      "community": 3,
       "norm_label": "neo4jstore"
     },
     {
@@ -7394,7 +7574,7 @@
       "source_file": "src/pipeline/graph/similarity.py",
       "source_location": "L25",
       "id": "src_pipeline_graph_similarity_py_str",
-      "community": 44,
+      "community": 3,
       "norm_label": "str"
     },
     {
@@ -7403,7 +7583,7 @@
       "source_file": "src/pipeline/graph/similarity.py",
       "source_location": "L25",
       "id": "src_pipeline_graph_similarity_py_float",
-      "community": 44,
+      "community": 3,
       "norm_label": "float"
     },
     {
@@ -7412,7 +7592,7 @@
       "source_file": "src/pipeline/graph/similarity.py",
       "source_location": "L25",
       "id": "similarityconfig",
-      "community": 44,
+      "community": 3,
       "norm_label": "similarityconfig"
     },
     {
@@ -7421,7 +7601,7 @@
       "source_file": "src/pipeline/graph/similarity.py",
       "source_location": "L25",
       "id": "src_pipeline_graph_similarity_py_bool",
-      "community": 44,
+      "community": 3,
       "norm_label": "bool"
     },
     {
@@ -7430,7 +7610,7 @@
       "source_file": "src/pipeline/graph/similarity.py",
       "source_location": "L25",
       "id": "src_pipeline_graph_similarity_py_similarityedge",
-      "community": 44,
+      "community": 3,
       "norm_label": "similarityedge"
     },
     {
@@ -7439,7 +7619,7 @@
       "source_file": "src/pipeline/graph/similarity.py",
       "source_location": "L1",
       "id": "graph_similarity_rationale_1",
-      "community": 44,
+      "community": 3,
       "norm_label": "cosine similarity graph builder using neo4j hnsw vector indexes.  for each funct"
     },
     {
@@ -7448,7 +7628,7 @@
       "source_file": "src/pipeline/graph/similarity.py",
       "source_location": "L32",
       "id": "graph_similarity_rationale_32",
-      "community": 44,
+      "community": 3,
       "norm_label": "compute similar_to edges by querying neo4j vector indexes.      args:         st"
     },
     {
@@ -7457,7 +7637,7 @@
       "source_file": "src/pipeline/embeddings/service.py",
       "source_location": "L1",
       "id": "src_pipeline_embeddings_service_py",
-      "community": 19,
+      "community": 81,
       "norm_label": "service.py"
     },
     {
@@ -7466,7 +7646,7 @@
       "source_file": "src/pipeline/embeddings/service.py",
       "source_location": "L22",
       "id": "embeddings_service_embeddingservice",
-      "community": 19,
+      "community": 81,
       "norm_label": "embeddingservice"
     },
     {
@@ -7475,7 +7655,7 @@
       "source_file": "src/pipeline/embeddings/service.py",
       "source_location": "L25",
       "id": "embeddings_service_embeddingservice_init",
-      "community": 19,
+      "community": 2,
       "norm_label": ".__init__()"
     },
     {
@@ -7484,7 +7664,7 @@
       "source_file": "src/pipeline/embeddings/service.py",
       "source_location": "L25",
       "id": "src_pipeline_embeddings_service_py_ollamaclient",
-      "community": 19,
+      "community": 2,
       "norm_label": "ollamaclient"
     },
     {
@@ -7493,7 +7673,7 @@
       "source_file": "src/pipeline/embeddings/service.py",
       "source_location": "L25",
       "id": "src_pipeline_embeddings_service_py_pipelineconfig",
-      "community": 19,
+      "community": 2,
       "norm_label": "pipelineconfig"
     },
     {
@@ -7529,7 +7709,7 @@
       "source_file": "src/pipeline/embeddings/service.py",
       "source_location": "L46",
       "id": "src_pipeline_embeddings_service_py_float",
-      "community": 2,
+      "community": 81,
       "norm_label": "float"
     },
     {
@@ -7592,7 +7772,7 @@
       "source_file": "src/pipeline/embeddings/service.py",
       "source_location": "L1",
       "id": "embeddings_service_rationale_1",
-      "community": 19,
+      "community": 81,
       "norm_label": "embedding service for code and description vectors.  wraps ``ollamaclient.embed("
     },
     {
@@ -7601,7 +7781,7 @@
       "source_file": "src/pipeline/embeddings/service.py",
       "source_location": "L23",
       "id": "embeddings_service_rationale_23",
-      "community": 19,
+      "community": 81,
       "norm_label": "generates code and description embeddings using ollamaclient."
     },
     {
@@ -7664,7 +7844,7 @@
       "source_file": "src/pipeline/embeddings/__init__.py",
       "source_location": "L1",
       "id": "src_pipeline_embeddings_init_py",
-      "community": 19,
+      "community": 81,
       "norm_label": "__init__.py"
     },
     {
@@ -7745,7 +7925,7 @@
       "source_file": "src/pipeline/reporting/analysis.py",
       "source_location": "L186",
       "id": "reporting_analysis_pick_embed_status",
-      "community": 69,
+      "community": 31,
       "norm_label": "_pick_embed_status()"
     },
     {
@@ -7853,7 +8033,7 @@
       "source_file": "src/pipeline/reporting/export.py",
       "source_location": "L1",
       "id": "src_pipeline_reporting_export_py",
-      "community": 69,
+      "community": 31,
       "norm_label": "export.py"
     },
     {
@@ -7862,7 +8042,7 @@
       "source_file": "src/pipeline/reporting/export.py",
       "source_location": "L9",
       "id": "reporting_export_build_export",
-      "community": 40,
+      "community": 31,
       "norm_label": "_build_export()"
     },
     {
@@ -7871,7 +8051,7 @@
       "source_file": "src/pipeline/reporting/export.py",
       "source_location": "L9",
       "id": "src_pipeline_reporting_export_py_str",
-      "community": 40,
+      "community": 31,
       "norm_label": "str"
     },
     {
@@ -7880,7 +8060,7 @@
       "source_file": "src/pipeline/reporting/export.py",
       "source_location": "L9",
       "id": "src_pipeline_reporting_export_py_int",
-      "community": 40,
+      "community": 31,
       "norm_label": "int"
     },
     {
@@ -7889,7 +8069,7 @@
       "source_file": "src/pipeline/reporting/export.py",
       "source_location": "L9",
       "id": "src_pipeline_reporting_export_py_float",
-      "community": 40,
+      "community": 31,
       "norm_label": "float"
     },
     {
@@ -7898,7 +8078,7 @@
       "source_file": "src/pipeline/reporting/export.py",
       "source_location": "L9",
       "id": "src_pipeline_reporting_export_py_reporterconfig",
-      "community": 40,
+      "community": 31,
       "norm_label": "reporterconfig"
     },
     {
@@ -7907,7 +8087,7 @@
       "source_file": "src/pipeline/reporting/export.py",
       "source_location": "L9",
       "id": "src_pipeline_reporting_export_py_bool",
-      "community": 40,
+      "community": 31,
       "norm_label": "bool"
     },
     {
@@ -7916,7 +8096,7 @@
       "source_file": "src/pipeline/reporting/export.py",
       "source_location": "L1",
       "id": "reporting_export_rationale_1",
-      "community": 69,
+      "community": 31,
       "norm_label": "builds the structured json export dict for a pipeline report run."
     },
     {
@@ -7925,7 +8105,7 @@
       "source_file": "src/pipeline/reporting/export.py",
       "source_location": "L61",
       "id": "reporting_export_rationale_61",
-      "community": 40,
+      "community": 31,
       "norm_label": "assemble the machine-readable json export from pre-computed report data."
     },
     {
@@ -7952,7 +8132,7 @@
       "source_file": "src/pipeline/reporting/reporter.py",
       "source_location": "L1",
       "id": "src_pipeline_reporting_reporter_py",
-      "community": 69,
+      "community": 10,
       "norm_label": "reporter.py"
     },
     {
@@ -8042,7 +8222,7 @@
       "source_file": "src/pipeline/reporting/reporter.py",
       "source_location": "L1",
       "id": "reporting_reporter_rationale_1",
-      "community": 69,
+      "community": 10,
       "norm_label": "post-run report generator.  queries neo4j after a pipeline run and writes a stru"
     },
     {
@@ -8060,7 +8240,7 @@
       "source_file": "src/pipeline/reporting/__init__.py",
       "source_location": "L1",
       "id": "src_pipeline_reporting_init_py",
-      "community": 69,
+      "community": 10,
       "norm_label": "__init__.py"
     },
     {
@@ -8366,7 +8546,7 @@
       "source_file": "src/pipeline/reporting/markdown/integrity.py",
       "source_location": "L1",
       "id": "src_pipeline_reporting_markdown_integrity_py",
-      "community": 88,
+      "community": 80,
       "norm_label": "integrity.py"
     },
     {
@@ -8375,7 +8555,7 @@
       "source_file": "src/pipeline/reporting/markdown/integrity.py",
       "source_location": "L6",
       "id": "markdown_integrity_render_embedding_integrity",
-      "community": 88,
+      "community": 80,
       "norm_label": "render_embedding_integrity()"
     },
     {
@@ -8384,7 +8564,7 @@
       "source_file": "src/pipeline/reporting/markdown/integrity.py",
       "source_location": "L6",
       "id": "src_pipeline_reporting_markdown_integrity_py_int",
-      "community": 88,
+      "community": 80,
       "norm_label": "int"
     },
     {
@@ -8393,7 +8573,7 @@
       "source_file": "src/pipeline/reporting/markdown/integrity.py",
       "source_location": "L6",
       "id": "src_pipeline_reporting_markdown_integrity_py_str",
-      "community": 88,
+      "community": 80,
       "norm_label": "str"
     },
     {
@@ -8402,7 +8582,7 @@
       "source_file": "src/pipeline/reporting/markdown/integrity.py",
       "source_location": "L1",
       "id": "markdown_integrity_rationale_1",
-      "community": 88,
+      "community": 80,
       "norm_label": "markdown renderers for the embedding and description integrity section."
     },
     {
@@ -8411,7 +8591,7 @@
       "source_file": "src/pipeline/reporting/markdown/integrity.py",
       "source_location": "L22",
       "id": "markdown_integrity_rationale_22",
-      "community": 88,
+      "community": 80,
       "norm_label": "section 3 \u2014 embedding and description coverage tables."
     },
     {
@@ -8510,7 +8690,7 @@
       "source_file": "src/pipeline/reporting/markdown/__init__.py",
       "source_location": "L1",
       "id": "src_pipeline_reporting_markdown_init_py",
-      "community": 10,
+      "community": 80,
       "norm_label": "__init__.py"
     },
     {
@@ -8519,7 +8699,7 @@
       "source_file": "src/pipeline/reporting/markdown/__init__.py",
       "source_location": "L1",
       "id": "markdown_init_rationale_1",
-      "community": 10,
+      "community": 80,
       "norm_label": "markdown section renderers for the pipeline report.  re-exports all render_* fun"
     },
     {
@@ -8528,7 +8708,7 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L1",
       "id": "src_api_slack_notifier_py",
-      "community": 90,
+      "community": 48,
       "norm_label": "slack_notifier.py"
     },
     {
@@ -8609,7 +8789,7 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L257",
       "id": "api_slack_notifier_slacknotifier",
-      "community": 57,
+      "community": 79,
       "norm_label": "slacknotifier"
     },
     {
@@ -8618,7 +8798,7 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L265",
       "id": "api_slack_notifier_slacknotifier_init",
-      "community": 86,
+      "community": 82,
       "norm_label": ".__init__()"
     },
     {
@@ -8627,7 +8807,7 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L265",
       "id": "slackpipelineconfig",
-      "community": 86,
+      "community": 82,
       "norm_label": "slackpipelineconfig"
     },
     {
@@ -8654,7 +8834,7 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L285",
       "id": "api_slack_notifier_slacknotifier_reply",
-      "community": 93,
+      "community": 36,
       "norm_label": "._reply()"
     },
     {
@@ -8672,7 +8852,7 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L319",
       "id": "api_slack_notifier_slacknotifier_pipeline_complete",
-      "community": 70,
+      "community": 79,
       "norm_label": ".pipeline_complete()"
     },
     {
@@ -8771,7 +8951,7 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L471",
       "id": "api_slack_notifier_slacknotifier_similarity_start",
-      "community": 93,
+      "community": 36,
       "norm_label": ".similarity_start()"
     },
     {
@@ -8807,7 +8987,7 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L522",
       "id": "src_api_slack_notifier_py_bool",
-      "community": 48,
+      "community": 70,
       "norm_label": "bool"
     },
     {
@@ -8816,7 +8996,7 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L522",
       "id": "datetime",
-      "community": 90,
+      "community": 48,
       "norm_label": "datetime"
     },
     {
@@ -8843,7 +9023,7 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L1",
       "id": "api_slack_notifier_rationale_1",
-      "community": 90,
+      "community": 48,
       "norm_label": "unified slack notifications for all pipeline events.  slacknotifier is the singl"
     },
     {
@@ -8888,7 +9068,7 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L258",
       "id": "api_slack_notifier_rationale_258",
-      "community": 57,
+      "community": 79,
       "norm_label": "unified slack notifier for all pipeline events, reports, and schedule notices."
     },
     {
@@ -8906,7 +9086,7 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L286",
       "id": "api_slack_notifier_rationale_286",
-      "community": 93,
+      "community": 36,
       "norm_label": "post text as a thread reply, or directly to the channel if no thread is active."
     },
     {
@@ -8924,7 +9104,7 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L320",
       "id": "api_slack_notifier_rationale_320",
-      "community": 70,
+      "community": 79,
       "norm_label": "update the original channel message and post a thread summary."
     },
     {
@@ -9005,7 +9185,7 @@
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L472",
       "id": "api_slack_notifier_rationale_472",
-      "community": 93,
+      "community": 36,
       "norm_label": "notify that similarity analysis has started."
     },
     {
@@ -9189,6 +9369,51 @@
       "norm_label": "__init__.py"
     },
     {
+      "label": "Load pipeline configuration for a repository.      Args:         config_path: Pa",
+      "file_type": "rationale",
+      "source_file": "src/core/pipeline_config.py",
+      "source_location": "L46",
+      "community": 3,
+      "norm_label": "load pipeline configuration for a repository.      args:         config_path: pa",
+      "id": "core_pipeline_config_rationale_46"
+    },
+    {
+      "label": "Orchestrates all pipeline stages for a single repository.",
+      "file_type": "rationale",
+      "source_file": "src/pipeline/pipeline.py",
+      "source_location": "L26",
+      "community": 57,
+      "norm_label": "orchestrates all pipeline stages for a single repository.",
+      "id": "pipeline_pipeline_rationale_26"
+    },
+    {
+      "label": "Execute all pipeline stages and return a summary.",
+      "file_type": "rationale",
+      "source_file": "src/pipeline/pipeline.py",
+      "source_location": "L54",
+      "community": 85,
+      "norm_label": "execute all pipeline stages and return a summary.",
+      "id": "pipeline_pipeline_rationale_54"
+    },
+    {
+      "label": "Ensure the target repo exists and is on the correct base branch before extractio",
+      "file_type": "rationale",
+      "source_file": "src/pipeline/pipeline.py",
+      "source_location": "L73",
+      "community": 7,
+      "norm_label": "ensure the target repo exists and is on the correct base branch before extractio",
+      "id": "pipeline_pipeline_rationale_73"
+    },
+    {
+      "label": "Summary of a completed pipeline run.",
+      "file_type": "rationale",
+      "source_file": "src/pipeline/contracts.py",
+      "source_location": "L174",
+      "community": 82,
+      "norm_label": "summary of a completed pipeline run.",
+      "id": "pipeline_contracts_rationale_174"
+    },
+    {
       "label": "Send an embedding request to the Ollama API and return the vector.          Args",
       "file_type": "rationale",
       "source_file": "src/core/ollama_client.py",
@@ -9211,7 +9436,7 @@
       "file_type": "rationale",
       "source_file": "src/pipeline/contracts.py",
       "source_location": "L133",
-      "community": 82,
+      "community": 86,
       "norm_label": "slack notification settings for pipeline observability.",
       "id": "pipeline_contracts_rationale_133"
     },
@@ -9301,7 +9526,7 @@
       "file_type": "rationale",
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L259",
-      "community": 57,
+      "community": 79,
       "norm_label": "unified slack notifier for all pipeline events, reports, and schedule notices.",
       "id": "api_slack_notifier_rationale_259"
     },
@@ -9319,7 +9544,7 @@
       "file_type": "rationale",
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L287",
-      "community": 93,
+      "community": 55,
       "norm_label": "post text as a thread reply, or directly to the channel if no thread is active.",
       "id": "api_slack_notifier_rationale_287"
     },
@@ -9337,7 +9562,7 @@
       "file_type": "rationale",
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L321",
-      "community": 70,
+      "community": 79,
       "norm_label": "update the original channel message and post a thread summary.",
       "id": "api_slack_notifier_rationale_321"
     },
@@ -9418,7 +9643,7 @@
       "file_type": "rationale",
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L473",
-      "community": 93,
+      "community": 36,
       "norm_label": "notify that similarity analysis has started.",
       "id": "api_slack_notifier_rationale_473"
     },
@@ -9463,7 +9688,7 @@
       "file_type": "rationale",
       "source_file": "src/pipeline/contracts.py",
       "source_location": "L132",
-      "community": 82,
+      "community": 86,
       "norm_label": "slack notification settings for pipeline observability.",
       "id": "pipeline_contracts_rationale_132"
     },
@@ -9499,7 +9724,7 @@
       "file_type": "rationale",
       "source_file": "src/pipeline/reporting/export.py",
       "source_location": "L60",
-      "community": 40,
+      "community": 31,
       "norm_label": "assemble the machine-readable json export from pre-computed report data.",
       "id": "reporting_export_rationale_60"
     },
@@ -9517,7 +9742,7 @@
       "file_type": "rationale",
       "source_file": "src/pipeline/reporting/markdown/integrity.py",
       "source_location": "L21",
-      "community": 88,
+      "community": 80,
       "norm_label": "section 3 \u2014 embedding and description coverage tables.",
       "id": "markdown_integrity_rationale_21"
     },
@@ -9526,7 +9751,7 @@
       "file_type": "rationale",
       "source_file": "src/pipeline/embeddings/service.py",
       "source_location": "L20",
-      "community": 19,
+      "community": 81,
       "norm_label": "generates code and description embeddings using ollamaclient.",
       "id": "embeddings_service_rationale_20"
     },
@@ -9571,7 +9796,7 @@
       "file_type": "rationale",
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L256",
-      "community": 57,
+      "community": 79,
       "norm_label": "unified slack notifier for all pipeline events, reports, and schedule notices.",
       "id": "api_slack_notifier_rationale_256"
     },
@@ -9589,7 +9814,7 @@
       "file_type": "rationale",
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L284",
-      "community": 93,
+      "community": 36,
       "norm_label": "post text as a thread reply, or directly to the channel if no thread is active.",
       "id": "api_slack_notifier_rationale_284"
     },
@@ -9607,7 +9832,7 @@
       "file_type": "rationale",
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L318",
-      "community": 70,
+      "community": 79,
       "norm_label": "update the original channel message and post a thread summary.",
       "id": "api_slack_notifier_rationale_318"
     },
@@ -9688,7 +9913,7 @@
       "file_type": "rationale",
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L470",
-      "community": 93,
+      "community": 36,
       "norm_label": "notify that similarity analysis has started.",
       "id": "api_slack_notifier_rationale_470"
     },
@@ -9850,7 +10075,7 @@
       "file_type": "rationale",
       "source_file": "src/pipeline/pipeline.py",
       "source_location": "L61",
-      "community": 85,
+      "community": 7,
       "norm_label": "ensure the target repo exists and is on the correct base branch before extractio",
       "id": "pipeline_pipeline_rationale_61"
     },
@@ -9904,7 +10129,7 @@
       "file_type": "rationale",
       "source_file": "src/pipeline/embeddings/service.py",
       "source_location": "L19",
-      "community": 19,
+      "community": 81,
       "norm_label": "generates code and description embeddings using ollamaclient.",
       "id": "embeddings_service_rationale_19"
     },
@@ -9967,7 +10192,7 @@
       "file_type": "code",
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L340",
-      "community": 93,
+      "community": 55,
       "norm_label": "notify_scheduled_run()",
       "id": "api_slack_notifier_notify_scheduled_run"
     },
@@ -10012,7 +10237,7 @@
       "file_type": "rationale",
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L341",
-      "community": 93,
+      "community": 55,
       "norm_label": "post a notice to slack that a cron-triggered pipeline run has been queued.",
       "id": "api_slack_notifier_rationale_341"
     },
@@ -10327,7 +10552,7 @@
       "file_type": "rationale",
       "source_file": "src/core/config_loader.py",
       "source_location": "L416",
-      "community": 64,
+      "community": 9,
       "norm_label": "return the graph lifecycle config for the repository matching ``repo_path``.",
       "id": "core_config_loader_rationale_416"
     },
@@ -10336,7 +10561,7 @@
       "file_type": "rationale",
       "source_file": "src/core/config_loader.py",
       "source_location": "L424",
-      "community": 74,
+      "community": 9,
       "norm_label": "return the expanded absolute path for the system-level context store.      resol",
       "id": "core_config_loader_rationale_424"
     },
@@ -10354,7 +10579,7 @@
       "file_type": "rationale",
       "source_file": "src/api/slack_notifier.py",
       "source_location": "L281",
-      "community": 93,
+      "community": 55,
       "norm_label": "post a notice to slack that a cron-triggered pipeline run has been queued.",
       "id": "api_slack_notifier_rationale_281"
     },
@@ -10426,7 +10651,7 @@
       "file_type": "rationale",
       "source_file": "src/pipeline/graph/store.py",
       "source_location": "L199",
-      "community": 87,
+      "community": 27,
       "norm_label": "create vector indexes once the embedding dimension is known.",
       "id": "graph_store_rationale_199"
     },
@@ -10444,7 +10669,7 @@
       "file_type": "rationale",
       "source_file": "src/pipeline/graph/store.py",
       "source_location": "L215",
-      "community": 87,
+      "community": 27,
       "norm_label": "batch-upsert function nodes using unwind for efficiency.",
       "id": "graph_store_rationale_215"
     },
@@ -10453,7 +10678,7 @@
       "file_type": "rationale",
       "source_file": "src/pipeline/graph/store.py",
       "source_location": "L256",
-      "community": 94,
+      "community": 59,
       "norm_label": "mark functions not in ``seen_ids`` as deleted. returns count.",
       "id": "graph_store_rationale_256"
     },
@@ -10462,7 +10687,7 @@
       "file_type": "rationale",
       "source_file": "src/pipeline/graph/store.py",
       "source_location": "L286",
-      "community": 61,
+      "community": 59,
       "norm_label": "return top-n code-similar functions using the hnsw vector index.          result",
       "id": "graph_store_rationale_286"
     },
@@ -10471,7 +10696,7 @@
       "file_type": "rationale",
       "source_file": "src/pipeline/graph/store.py",
       "source_location": "L311",
-      "community": 61,
+      "community": 59,
       "norm_label": "return top-n description-similar functions using the hnsw vector index.",
       "id": "graph_store_rationale_311"
     },
@@ -10516,7 +10741,7 @@
       "file_type": "rationale",
       "source_file": "src/pipeline/extraction/scanner.py",
       "source_location": "L41",
-      "community": 83,
+      "community": 52,
       "norm_label": "return sorted list of source file paths to process.      args:         repo_path",
       "id": "extraction_scanner_rationale_41"
     },
@@ -10525,7 +10750,7 @@
       "file_type": "rationale",
       "source_file": "src/pipeline/contracts.py",
       "source_location": "L52",
-      "community": 44,
+      "community": 3,
       "norm_label": "a similar_to relationship between two function nodes.",
       "id": "pipeline_contracts_rationale_52"
     },
@@ -10597,7 +10822,7 @@
       "file_type": "rationale",
       "source_file": "src/pipeline/graph/store.py",
       "source_location": "L155",
-      "community": 44,
+      "community": 40,
       "norm_label": "async neo4j driver wrapper for function nodes and similar_to edges.",
       "id": "graph_store_rationale_155"
     },
@@ -10615,7 +10840,7 @@
       "file_type": "rationale",
       "source_file": "src/pipeline/graph/store.py",
       "source_location": "L195",
-      "community": 87,
+      "community": 27,
       "norm_label": "create vector indexes once the embedding dimension is known.",
       "id": "graph_store_rationale_195"
     },
@@ -10633,7 +10858,7 @@
       "file_type": "rationale",
       "source_file": "src/pipeline/graph/store.py",
       "source_location": "L211",
-      "community": 87,
+      "community": 27,
       "norm_label": "batch-upsert function nodes using unwind for efficiency.",
       "id": "graph_store_rationale_211"
     },
@@ -10642,7 +10867,7 @@
       "file_type": "rationale",
       "source_file": "src/pipeline/graph/store.py",
       "source_location": "L251",
-      "community": 94,
+      "community": 59,
       "norm_label": "mark functions not in ``seen_ids`` as deleted. returns count.",
       "id": "graph_store_rationale_251"
     },
@@ -10651,7 +10876,7 @@
       "file_type": "rationale",
       "source_file": "src/pipeline/graph/store.py",
       "source_location": "L262",
-      "community": 61,
+      "community": 59,
       "norm_label": "return ``[(id, code_embedding, description_embedding)]`` for all live functions.",
       "id": "graph_store_rationale_262"
     },
@@ -10660,7 +10885,7 @@
       "file_type": "rationale",
       "source_file": "src/pipeline/graph/store.py",
       "source_location": "L281",
-      "community": 61,
+      "community": 59,
       "norm_label": "return top-n code-similar functions using the hnsw vector index.          result",
       "id": "graph_store_rationale_281"
     },
@@ -10669,7 +10894,7 @@
       "file_type": "rationale",
       "source_file": "src/pipeline/graph/store.py",
       "source_location": "L306",
-      "community": 61,
+      "community": 59,
       "norm_label": "return top-n description-similar functions using the hnsw vector index.",
       "id": "graph_store_rationale_306"
     },
@@ -11038,7 +11263,7 @@
       "file_type": "rationale",
       "source_file": "src/core/config_loader.py",
       "source_location": "L413",
-      "community": 64,
+      "community": 9,
       "norm_label": "return the graph lifecycle config for the repository matching ``repo_path``.",
       "id": "core_config_loader_rationale_413"
     },
@@ -11047,7 +11272,7 @@
       "file_type": "rationale",
       "source_file": "src/core/config_loader.py",
       "source_location": "L421",
-      "community": 74,
+      "community": 9,
       "norm_label": "return the expanded absolute path for the system-level context store.      resol",
       "id": "core_config_loader_rationale_421"
     },
@@ -11173,7 +11398,7 @@
       "file_type": "rationale",
       "source_file": "src/pipeline/contracts.py",
       "source_location": "L44",
-      "community": 44,
+      "community": 3,
       "norm_label": "a similar_to relationship between two function nodes.",
       "id": "pipeline_contracts_rationale_44"
     },
@@ -11218,7 +11443,7 @@
       "file_type": "rationale",
       "source_file": "src/pipeline/contracts.py",
       "source_location": "L43",
-      "community": 44,
+      "community": 3,
       "norm_label": "a similar_to relationship between two function nodes.",
       "id": "pipeline_contracts_rationale_43"
     },
@@ -11344,7 +11569,7 @@
       "file_type": "rationale",
       "source_file": "src/graph/nodes/support.py",
       "source_location": "L45",
-      "community": 45,
+      "community": 44,
       "norm_label": "validate that `content` compiles as python.",
       "id": "nodes_support_rationale_45"
     },
@@ -11479,7 +11704,7 @@
       "file_type": "rationale",
       "source_file": "src/graph/nodes/semantic_validator.py",
       "source_location": "L37",
-      "community": 58,
+      "community": 45,
       "norm_label": "format the llm evaluation into a concise string for the coder prompt.",
       "id": "nodes_semantic_validator_rationale_37"
     },
@@ -11794,7 +12019,7 @@
       "file_type": "rationale",
       "source_file": "src/observability/context.py",
       "source_location": "L14",
-      "community": 28,
+      "community": 45,
       "norm_label": "minimal per-run observability context.      attributes:         run_id: a uui",
       "id": "observability_context_rationale_14"
     },
@@ -11848,7 +12073,7 @@
       "file_type": "rationale",
       "source_file": "src/graph/nodes/graph_resolver.py",
       "source_location": "L221",
-      "community": 31,
+      "community": 9,
       "norm_label": "resolve a valid knowledge graph for the target repository.      determines the c",
       "id": "nodes_graph_resolver_rationale_221"
     },
@@ -12001,7 +12226,7 @@
       "file_type": "code",
       "source_file": "src/graph/nodes/support.py",
       "source_location": "L44",
-      "community": 45,
+      "community": 44,
       "norm_label": "bool",
       "id": "bool"
     },
@@ -12010,7 +12235,7 @@
       "file_type": "rationale",
       "source_file": "src/graph/nodes/file_writer.py",
       "source_location": "L22",
-      "community": 31,
+      "community": 66,
       "norm_label": "write generated content to disk or apply a unified diff.      expected state inp",
       "id": "nodes_file_writer_rationale_22"
     },
@@ -12019,7 +12244,7 @@
       "file_type": "code",
       "source_file": "src/observability/context.py",
       "source_location": "L22",
-      "community": 28,
+      "community": 45,
       "norm_label": "new()",
       "id": "observability_context_new"
     },
@@ -12071,7 +12296,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 31,
+      "community": 66,
       "norm_label": "graphstate: generated_code field",
       "id": "concept_state_field_generated_code"
     },
@@ -21205,9 +21430,9 @@
       "source_file": "src/core/ollama_client.py",
       "source_location": "L133",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "core_ollama_client_rationale_133",
-      "target": "core_ollama_client_ollamaclient_embed",
-      "confidence_score": 1.0
+      "target": "core_ollama_client_ollamaclient_embed"
     },
     {
       "relation": "rationale_for",
@@ -21235,9 +21460,9 @@
       "source_file": "src/core/ollama_client.py",
       "source_location": "L173",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "core_ollama_client_rationale_173",
-      "target": "core_ollama_client_ollamaclient_close",
-      "confidence_score": 1.0
+      "target": "core_ollama_client_ollamaclient_close"
     },
     {
       "relation": "rationale_for",
@@ -21410,6 +21635,17 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "src/core/pipeline_config.py",
+      "source_location": "L18",
+      "weight": 1.0,
+      "source": "src_core_pipeline_config_py",
+      "target": "pipeline_contracts_checkpointconfig",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/core/pipeline_config.py",
       "source_location": "L16",
       "weight": 1.0,
       "confidence_score": 1.0,
@@ -21540,6 +21776,16 @@
       "relation": "uses",
       "confidence": "INFERRED",
       "source_file": "src/core/pipeline_config.py",
+      "source_location": "L18",
+      "weight": 0.8,
+      "source": "src_core_pipeline_config_py_str",
+      "target": "pipeline_contracts_checkpointconfig",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "src/core/pipeline_config.py",
       "source_location": "L16",
       "weight": 0.8,
       "confidence_score": 0.5,
@@ -21627,6 +21873,17 @@
       "confidence_score": 1.0,
       "source": "core_pipeline_config_load_pipeline_config",
       "target": "pipeline_contracts_batchsizeconfig"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/core/pipeline_config.py",
+      "source_location": "L148",
+      "weight": 1.0,
+      "source": "core_pipeline_config_load_pipeline_config",
+      "target": "pipeline_contracts_checkpointconfig",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -21778,6 +22035,16 @@
       "target": "core_pipeline_config_load_pipeline_config"
     },
     {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/core/pipeline_config.py",
+      "source_location": "L47",
+      "weight": 1.0,
+      "source": "core_pipeline_config_rationale_47",
+      "target": "core_pipeline_config_load_pipeline_config",
+      "confidence_score": 1.0
+    },
+    {
       "relation": "uses",
       "confidence": "INFERRED",
       "source_file": "src/core/pipeline_config.py",
@@ -21786,6 +22053,16 @@
       "confidence_score": 0.5,
       "source": "src_core_pipeline_config_py_path",
       "target": "pipeline_contracts_batchsizeconfig"
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "src/core/pipeline_config.py",
+      "source_location": "L18",
+      "weight": 0.8,
+      "source": "src_core_pipeline_config_py_path",
+      "target": "pipeline_contracts_checkpointconfig",
+      "confidence_score": 0.5
     },
     {
       "relation": "uses",
@@ -21866,6 +22143,16 @@
       "confidence_score": 0.5,
       "source": "src_core_pipeline_config_py_pipelineconfig",
       "target": "pipeline_contracts_batchsizeconfig"
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "src/core/pipeline_config.py",
+      "source_location": "L18",
+      "weight": 0.8,
+      "source": "src_core_pipeline_config_py_pipelineconfig",
+      "target": "pipeline_contracts_checkpointconfig",
+      "confidence_score": 0.5
     },
     {
       "relation": "uses",
@@ -31678,6 +31965,28 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "src/pipeline/pipeline.py",
+      "source_location": "L17",
+      "weight": 1.0,
+      "source": "src_pipeline_pipeline_py",
+      "target": "pipeline_checkpoint_checkpointmanager",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pipeline/pipeline.py",
+      "source_location": "L17",
+      "weight": 1.0,
+      "source": "src_pipeline_pipeline_py",
+      "target": "pipeline_checkpoint_make_run_key",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pipeline/pipeline.py",
       "source_location": "L16",
       "weight": 1.0,
       "confidence_score": 1.0,
@@ -31744,6 +32053,16 @@
       "confidence_score": 0.5,
       "source": "pipeline_pipeline_embeddingpipeline",
       "target": "graph_store_neo4jstore"
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "src/pipeline/pipeline.py",
+      "source_location": "L17",
+      "weight": 0.8,
+      "source": "pipeline_pipeline_embeddingpipeline",
+      "target": "pipeline_checkpoint_checkpointmanager",
+      "confidence_score": 0.5
     },
     {
       "relation": "uses",
@@ -31834,6 +32153,16 @@
       "confidence_score": 1.0,
       "source": "pipeline_pipeline_rationale_26",
       "target": "pipeline_pipeline_embeddingpipeline"
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pipeline/pipeline.py",
+      "source_location": "L27",
+      "weight": 1.0,
+      "source": "pipeline_pipeline_rationale_27",
+      "target": "pipeline_pipeline_embeddingpipeline",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -31945,6 +32274,16 @@
       "relation": "uses",
       "confidence": "INFERRED",
       "source_file": "src/pipeline/pipeline.py",
+      "source_location": "L17",
+      "weight": 0.8,
+      "source": "src_pipeline_pipeline_py_pipelineconfig",
+      "target": "pipeline_checkpoint_checkpointmanager",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "src/pipeline/pipeline.py",
       "source_location": "L16",
       "weight": 0.8,
       "confidence_score": 0.5,
@@ -32005,6 +32344,16 @@
       "relation": "uses",
       "confidence": "INFERRED",
       "source_file": "src/pipeline/pipeline.py",
+      "source_location": "L17",
+      "weight": 0.8,
+      "source": "src_pipeline_pipeline_py_bool",
+      "target": "pipeline_checkpoint_checkpointmanager",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "src/pipeline/pipeline.py",
       "source_location": "L16",
       "weight": 0.8,
       "confidence_score": 0.5,
@@ -32060,6 +32409,16 @@
       "confidence_score": 0.5,
       "source": "slacknotifier",
       "target": "graph_store_neo4jstore"
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "src/pipeline/pipeline.py",
+      "source_location": "L17",
+      "weight": 0.8,
+      "source": "slacknotifier",
+      "target": "pipeline_checkpoint_checkpointmanager",
+      "confidence_score": 0.5
     },
     {
       "relation": "uses",
@@ -32145,6 +32504,16 @@
       "target": "pipeline_pipeline_embeddingpipeline_run"
     },
     {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pipeline/pipeline.py",
+      "source_location": "L55",
+      "weight": 1.0,
+      "source": "pipeline_pipeline_rationale_55",
+      "target": "pipeline_pipeline_embeddingpipeline_run",
+      "confidence_score": 1.0
+    },
+    {
       "relation": "references",
       "context": "parameter_type",
       "confidence": "EXTRACTED",
@@ -32199,6 +32568,16 @@
       "relation": "uses",
       "confidence": "INFERRED",
       "source_file": "src/pipeline/pipeline.py",
+      "source_location": "L17",
+      "weight": 0.8,
+      "source": "src_pipeline_pipeline_py_pipelineresult",
+      "target": "pipeline_checkpoint_checkpointmanager",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "src/pipeline/pipeline.py",
       "source_location": "L16",
       "weight": 0.8,
       "confidence_score": 0.5,
@@ -32247,6 +32626,16 @@
       "target": "pipeline_pipeline_embeddingpipeline_sync_repo"
     },
     {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pipeline/pipeline.py",
+      "source_location": "L74",
+      "weight": 1.0,
+      "source": "pipeline_pipeline_rationale_74",
+      "target": "pipeline_pipeline_embeddingpipeline_sync_repo",
+      "confidence_score": 1.0
+    },
+    {
       "relation": "calls",
       "context": "call",
       "confidence": "EXTRACTED",
@@ -32258,6 +32647,28 @@
       "target": "graph_similarity_compute_similarity_edges"
     },
     {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/pipeline/pipeline.py",
+      "source_location": "L139",
+      "weight": 1.0,
+      "source": "pipeline_pipeline_embeddingpipeline_run_stages",
+      "target": "pipeline_checkpoint_checkpointmanager"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/pipeline/pipeline.py",
+      "source_location": "L140",
+      "weight": 1.0,
+      "source": "pipeline_pipeline_embeddingpipeline_run_stages",
+      "target": "pipeline_checkpoint_make_run_key"
+    },
+    {
       "relation": "references",
       "context": "parameter_type",
       "confidence": "EXTRACTED",
@@ -32267,6 +32678,401 @@
       "confidence_score": 1.0,
       "source": "pipeline_pipeline_embeddingpipeline_run_stages",
       "target": "pipelineresult"
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pipeline/checkpoint.py",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "pipeline_checkpoint_rationale_1",
+      "target": "src_pipeline_checkpoint_py",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pipeline/checkpoint.py",
+      "source_location": "L46",
+      "weight": 1.0,
+      "source": "src_pipeline_checkpoint_py",
+      "target": "pipeline_checkpoint_checkpointmanager",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pipeline/checkpoint.py",
+      "source_location": "L34",
+      "weight": 1.0,
+      "source": "src_pipeline_checkpoint_py",
+      "target": "pipeline_checkpoint_make_run_key",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pipeline/checkpoint.py",
+      "source_location": "L19",
+      "weight": 1.0,
+      "source": "src_pipeline_checkpoint_py",
+      "target": "pipeline_contracts_checkpointconfig",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pipeline/checkpoint.py",
+      "source_location": "L19",
+      "weight": 1.0,
+      "source": "src_pipeline_checkpoint_py",
+      "target": "pipeline_contracts_functionrecord",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "generic_arg",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pipeline/checkpoint.py",
+      "source_location": "L34",
+      "weight": 1.0,
+      "source": "pipeline_checkpoint_make_run_key",
+      "target": "src_pipeline_checkpoint_py_functionrecord",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "return_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pipeline/checkpoint.py",
+      "source_location": "L34",
+      "weight": 1.0,
+      "source": "pipeline_checkpoint_make_run_key",
+      "target": "src_pipeline_checkpoint_py_str",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pipeline/checkpoint.py",
+      "source_location": "L35",
+      "weight": 1.0,
+      "source": "pipeline_checkpoint_rationale_35",
+      "target": "pipeline_checkpoint_make_run_key",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "generic_arg",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pipeline/checkpoint.py",
+      "source_location": "L75",
+      "weight": 1.0,
+      "source": "pipeline_checkpoint_checkpointmanager_save",
+      "target": "src_pipeline_checkpoint_py_functionrecord",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "src/pipeline/checkpoint.py",
+      "source_location": "L19",
+      "weight": 0.8,
+      "source": "src_pipeline_checkpoint_py_functionrecord",
+      "target": "pipeline_contracts_checkpointconfig",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "src/pipeline/checkpoint.py",
+      "source_location": "L19",
+      "weight": 0.8,
+      "source": "src_pipeline_checkpoint_py_functionrecord",
+      "target": "pipeline_contracts_functionrecord",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pipeline/checkpoint.py",
+      "source_location": "L106",
+      "weight": 1.0,
+      "source": "pipeline_checkpoint_checkpointmanager_checkpoint_path",
+      "target": "src_pipeline_checkpoint_py_str",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pipeline/checkpoint.py",
+      "source_location": "L93",
+      "weight": 1.0,
+      "source": "pipeline_checkpoint_checkpointmanager_clear",
+      "target": "src_pipeline_checkpoint_py_str",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "generic_arg",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pipeline/checkpoint.py",
+      "source_location": "L56",
+      "weight": 1.0,
+      "source": "pipeline_checkpoint_checkpointmanager_load",
+      "target": "src_pipeline_checkpoint_py_str",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pipeline/checkpoint.py",
+      "source_location": "L75",
+      "weight": 1.0,
+      "source": "pipeline_checkpoint_checkpointmanager_save",
+      "target": "src_pipeline_checkpoint_py_str",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "src/pipeline/checkpoint.py",
+      "source_location": "L19",
+      "weight": 0.8,
+      "source": "src_pipeline_checkpoint_py_str",
+      "target": "pipeline_contracts_checkpointconfig",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "src/pipeline/checkpoint.py",
+      "source_location": "L19",
+      "weight": 0.8,
+      "source": "src_pipeline_checkpoint_py_str",
+      "target": "pipeline_contracts_functionrecord",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pipeline/checkpoint.py",
+      "source_location": "L106",
+      "weight": 1.0,
+      "source": "pipeline_checkpoint_checkpointmanager",
+      "target": "pipeline_checkpoint_checkpointmanager_checkpoint_path",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pipeline/checkpoint.py",
+      "source_location": "L93",
+      "weight": 1.0,
+      "source": "pipeline_checkpoint_checkpointmanager",
+      "target": "pipeline_checkpoint_checkpointmanager_clear",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pipeline/checkpoint.py",
+      "source_location": "L49",
+      "weight": 1.0,
+      "source": "pipeline_checkpoint_checkpointmanager",
+      "target": "pipeline_checkpoint_checkpointmanager_init",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pipeline/checkpoint.py",
+      "source_location": "L56",
+      "weight": 1.0,
+      "source": "pipeline_checkpoint_checkpointmanager",
+      "target": "pipeline_checkpoint_checkpointmanager_load",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pipeline/checkpoint.py",
+      "source_location": "L75",
+      "weight": 1.0,
+      "source": "pipeline_checkpoint_checkpointmanager",
+      "target": "pipeline_checkpoint_checkpointmanager_save",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "src/pipeline/checkpoint.py",
+      "source_location": "L19",
+      "weight": 0.8,
+      "source": "pipeline_checkpoint_checkpointmanager",
+      "target": "pipeline_contracts_checkpointconfig",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "src/pipeline/checkpoint.py",
+      "source_location": "L19",
+      "weight": 0.8,
+      "source": "pipeline_checkpoint_checkpointmanager",
+      "target": "pipeline_contracts_functionrecord",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pipeline/checkpoint.py",
+      "source_location": "L47",
+      "weight": 1.0,
+      "source": "pipeline_checkpoint_rationale_47",
+      "target": "pipeline_checkpoint_checkpointmanager",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pipeline/checkpoint.py",
+      "source_location": "L49",
+      "weight": 1.0,
+      "source": "pipeline_checkpoint_checkpointmanager_init",
+      "target": "checkpointconfig",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "src/pipeline/checkpoint.py",
+      "source_location": "L19",
+      "weight": 0.8,
+      "source": "checkpointconfig",
+      "target": "pipeline_contracts_checkpointconfig",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "src/pipeline/checkpoint.py",
+      "source_location": "L19",
+      "weight": 0.8,
+      "source": "checkpointconfig",
+      "target": "pipeline_contracts_functionrecord",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pipeline/checkpoint.py",
+      "source_location": "L60",
+      "weight": 1.0,
+      "source": "pipeline_checkpoint_checkpointmanager_load",
+      "target": "pipeline_checkpoint_checkpointmanager_checkpoint_path",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pipeline/checkpoint.py",
+      "source_location": "L57",
+      "weight": 1.0,
+      "source": "pipeline_checkpoint_rationale_57",
+      "target": "pipeline_checkpoint_checkpointmanager_load",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pipeline/checkpoint.py",
+      "source_location": "L80",
+      "weight": 1.0,
+      "source": "pipeline_checkpoint_checkpointmanager_save",
+      "target": "pipeline_checkpoint_checkpointmanager_checkpoint_path",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pipeline/checkpoint.py",
+      "source_location": "L79",
+      "weight": 1.0,
+      "source": "pipeline_checkpoint_checkpointmanager_save",
+      "target": "src_pipeline_checkpoint_py_path",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pipeline/checkpoint.py",
+      "source_location": "L76",
+      "weight": 1.0,
+      "source": "pipeline_checkpoint_rationale_76",
+      "target": "pipeline_checkpoint_checkpointmanager_save",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pipeline/checkpoint.py",
+      "source_location": "L97",
+      "weight": 1.0,
+      "source": "pipeline_checkpoint_checkpointmanager_clear",
+      "target": "pipeline_checkpoint_checkpointmanager_checkpoint_path",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pipeline/checkpoint.py",
+      "source_location": "L94",
+      "weight": 1.0,
+      "source": "pipeline_checkpoint_rationale_94",
+      "target": "pipeline_checkpoint_checkpointmanager_clear",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "return_type",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pipeline/checkpoint.py",
+      "source_location": "L106",
+      "weight": 1.0,
+      "source": "pipeline_checkpoint_checkpointmanager_checkpoint_path",
+      "target": "src_pipeline_checkpoint_py_path",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "src/pipeline/checkpoint.py",
+      "source_location": "L19",
+      "weight": 0.8,
+      "source": "src_pipeline_checkpoint_py_path",
+      "target": "pipeline_contracts_checkpointconfig",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "src/pipeline/checkpoint.py",
+      "source_location": "L19",
+      "weight": 0.8,
+      "source": "src_pipeline_checkpoint_py_path",
+      "target": "pipeline_contracts_functionrecord",
+      "confidence_score": 0.5
     },
     {
       "relation": "rationale_for",
@@ -32298,6 +33104,16 @@
       "confidence_score": 1.0,
       "source": "src_pipeline_contracts_py",
       "target": "pipeline_contracts_batchsizeconfig"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pipeline/contracts.py",
+      "source_location": "L138",
+      "weight": 1.0,
+      "source": "src_pipeline_contracts_py",
+      "target": "pipeline_contracts_checkpointconfig",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -33895,9 +34711,9 @@
       "source_file": "src/pipeline/contracts.py",
       "source_location": "L131",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "pipeline_contracts_rationale_131",
-      "target": "pipeline_contracts_slackpipelineconfig",
-      "confidence_score": 1.0
+      "target": "pipeline_contracts_slackpipelineconfig"
     },
     {
       "relation": "rationale_for",
@@ -34019,6 +34835,16 @@
       "confidence_score": 0.5,
       "source": "syncresult",
       "target": "pipeline_contracts_slackpipelineconfig"
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pipeline/contracts.py",
+      "source_location": "L139",
+      "weight": 1.0,
+      "source": "pipeline_contracts_rationale_139",
+      "target": "pipeline_contracts_checkpointconfig",
+      "confidence_score": 1.0
     },
     {
       "relation": "uses",
@@ -34530,7 +35356,17 @@
       "source_file": "src/pipeline/contracts.py",
       "source_location": "L174",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "pipeline_contracts_rationale_174",
+      "target": "pipeline_contracts_pipelineresult"
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pipeline/contracts.py",
+      "source_location": "L182",
+      "weight": 1.0,
+      "source": "pipeline_contracts_rationale_182",
       "target": "pipeline_contracts_pipelineresult",
       "confidence_score": 1.0
     },
@@ -34930,9 +35766,9 @@
       "source_file": "src/pipeline/descriptions/service.py",
       "source_location": "L50",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "descriptions_service_rationale_50",
-      "target": "descriptions_service_descriptionservice_describe",
-      "confidence_score": 1.0
+      "target": "descriptions_service_descriptionservice_describe"
     },
     {
       "relation": "references",
@@ -34962,9 +35798,9 @@
       "source_file": "src/pipeline/descriptions/service.py",
       "source_location": "L105",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "descriptions_service_rationale_105",
-      "target": "descriptions_service_descriptionservice_describe_batch",
-      "confidence_score": 1.0
+      "target": "descriptions_service_descriptionservice_describe_batch"
     },
     {
       "relation": "rationale_for",
@@ -37504,9 +38340,9 @@
       "source_file": "src/pipeline/embeddings/service.py",
       "source_location": "L37",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "embeddings_service_rationale_37",
-      "target": "embeddings_service_embeddingservice_chunk_source",
-      "confidence_score": 1.0
+      "target": "embeddings_service_embeddingservice_chunk_source"
     },
     {
       "relation": "references",
@@ -37557,9 +38393,9 @@
       "source_file": "src/pipeline/embeddings/service.py",
       "source_location": "L47",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "embeddings_service_rationale_47",
-      "target": "embeddings_service_embeddingservice_embed_chunked",
-      "confidence_score": 1.0
+      "target": "embeddings_service_embeddingservice_embed_chunked"
     },
     {
       "relation": "references",
@@ -37608,9 +38444,9 @@
       "source_file": "src/pipeline/embeddings/service.py",
       "source_location": "L58",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "embeddings_service_rationale_58",
-      "target": "embeddings_service_embeddingservice_embed_code",
-      "confidence_score": 1.0
+      "target": "embeddings_service_embeddingservice_embed_code"
     },
     {
       "relation": "references",
@@ -37661,9 +38497,9 @@
       "source_file": "src/pipeline/embeddings/service.py",
       "source_location": "L112",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "embeddings_service_rationale_112",
-      "target": "embeddings_service_embeddingservice_embed_description",
-      "confidence_score": 1.0
+      "target": "embeddings_service_embeddingservice_embed_description"
     },
     {
       "relation": "rationale_for",
@@ -37732,9 +38568,9 @@
       "source_file": "src/pipeline/embeddings/service.py",
       "source_location": "L151",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "embeddings_service_rationale_151",
-      "target": "embeddings_service_embeddingservice_embed_code_batch",
-      "confidence_score": 1.0
+      "target": "embeddings_service_embeddingservice_embed_code_batch"
     },
     {
       "relation": "references",
@@ -37783,9 +38619,9 @@
       "source_file": "src/pipeline/embeddings/service.py",
       "source_location": "L170",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "embeddings_service_rationale_170",
-      "target": "embeddings_service_embeddingservice_embed_description_batch",
-      "confidence_score": 1.0
+      "target": "embeddings_service_embeddingservice_embed_description_batch"
     },
     {
       "relation": "rationale_for",
@@ -42530,5 +43366,5 @@
       "source_file": "docs/CONTEXT_CONTRACT.md"
     }
   ],
-  "built_at_commit": "8502543daa266bad08ce96a6726c2ff98d271747"
+  "built_at_commit": "586f5376a53e80bfe9f3c6904c7024c952514bb8"
 }

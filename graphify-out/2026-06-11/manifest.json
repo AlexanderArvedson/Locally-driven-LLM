@@ -30,7 +30,7 @@
     "semantic_hash": ""
   },
   "/home/developer/Local AI /Locally-driven-langgraph-LLM/src/core/ollama_client.py": {
-    "mtime": 1781158780.7100847,
+    "mtime": 1781162453.9196508,
     "ast_hash": "8496e46655ba2e90ffef4b426b6136f1",
     "semantic_hash": ""
   },
@@ -255,8 +255,8 @@
     "semantic_hash": ""
   },
   "/home/developer/Local AI /Locally-driven-langgraph-LLM/src/core/pipeline_config.py": {
-    "mtime": 1781158060.6488576,
-    "ast_hash": "51ea68ad2bf0415539ed4396ba3f8f43",
+    "mtime": 1781164749.897901,
+    "ast_hash": "c969f2d0fef5934d91f003f8cb607158",
     "semantic_hash": ""
   },
   "/home/developer/Local AI /Locally-driven-langgraph-LLM/src/core/config_loader.py": {
@@ -320,18 +320,18 @@
     "semantic_hash": ""
   },
   "/home/developer/Local AI /Locally-driven-langgraph-LLM/src/pipeline/query.py": {
-    "mtime": 1780987818.9712782,
-    "ast_hash": "a7ce64ba530ab204f2b4b5f3fe9df007",
+    "mtime": 1781162578.823081,
+    "ast_hash": "756e534cc9dafc38c56515bdb393fe21",
     "semantic_hash": ""
   },
   "/home/developer/Local AI /Locally-driven-langgraph-LLM/src/pipeline/pipeline.py": {
-    "mtime": 1781158060.6491585,
-    "ast_hash": "a69c04fcb300a4ed0e0847947562a371",
+    "mtime": 1781165824.089023,
+    "ast_hash": "0509eea4a6858d3634a1a5d5db84865b",
     "semantic_hash": ""
   },
   "/home/developer/Local AI /Locally-driven-langgraph-LLM/src/pipeline/contracts.py": {
-    "mtime": 1781158060.6489851,
-    "ast_hash": "5028ce58788f889255f320a1db403068",
+    "mtime": 1781164584.570672,
+    "ast_hash": "bbd4ccab12794fbb19ea77d22b712103",
     "semantic_hash": ""
   },
   "/home/developer/Local AI /Locally-driven-langgraph-LLM/src/pipeline/__init__.py": {
@@ -345,8 +345,8 @@
     "semantic_hash": ""
   },
   "/home/developer/Local AI /Locally-driven-langgraph-LLM/src/pipeline/descriptions/service.py": {
-    "mtime": 1781158060.6490326,
-    "ast_hash": "6af7571dea918f42f6c4b8e2f71d8f48",
+    "mtime": 1781162453.9198976,
+    "ast_hash": "e8aab3c356548498dc3ff436566e2202",
     "semantic_hash": ""
   },
   "/home/developer/Local AI /Locally-driven-langgraph-LLM/src/pipeline/descriptions/__init__.py": {
@@ -390,8 +390,8 @@
     "semantic_hash": ""
   },
   "/home/developer/Local AI /Locally-driven-langgraph-LLM/src/pipeline/embeddings/service.py": {
-    "mtime": 1781158060.6490874,
-    "ast_hash": "91c66cef67a33c32e19d3fd70121d4e4",
+    "mtime": 1781162453.919973,
+    "ast_hash": "a2607d8b0b7d023207aaa76eb8b7671f",
     "semantic_hash": ""
   },
   "/home/developer/Local AI /Locally-driven-langgraph-LLM/src/pipeline/embeddings/__init__.py": {
@@ -467,6 +467,11 @@
   "/home/developer/Local AI /Locally-driven-langgraph-LLM/src/api/__init__.py": {
     "mtime": 1780987818.9699802,
     "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
+    "semantic_hash": ""
+  },
+  "/home/developer/Local AI /Locally-driven-langgraph-LLM/src/pipeline/checkpoint.py": {
+    "mtime": 1781164736.1742706,
+    "ast_hash": "b88b3fa2e7ded70974326b7fc0948cbe",
     "semantic_hash": ""
   }
 }
