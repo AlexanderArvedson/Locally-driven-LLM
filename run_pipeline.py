@@ -21,6 +21,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+from src.api.slack_notifier import SlackNotifier
 from src.core.pipeline_config import load_pipeline_config
 from src.pipeline.pipeline import EmbeddingPipeline
 from src.pipeline.reporting.reporter import generate_report
@@ -82,7 +83,8 @@ async def _run(args: argparse.Namespace) -> int:
     print(f"Descriptions: {'off' if args.no_descriptions else 'on'}")
     print()
 
-    pipeline = EmbeddingPipeline(config, dry_run=args.dry_run, skip_descriptions=args.no_descriptions)
+    notifier = SlackNotifier(config.slack)
+    pipeline = EmbeddingPipeline(config, dry_run=args.dry_run, skip_descriptions=args.no_descriptions, notifier=notifier)
     try:
         result = await pipeline.run()
     finally:
@@ -105,14 +107,21 @@ async def _run(args: argparse.Namespace) -> int:
             print(f"    - {err}")
 
     if not args.no_report and not args.dry_run:
+        import datetime
         print()
-        report_path = await generate_report(
-            config.neo4j, config.repo_name,
-            include_tests=config.include_tests_in_graph,
-            pipeline_config=config,
-            loc_filtered=result.loc_filtered,
-        )
-        print(f"Report written to: {report_path.parent}/")
+        started_at = datetime.datetime.now(datetime.timezone.utc)
+        try:
+            report_path = await generate_report(
+                config.neo4j, config.repo_name,
+                include_tests=config.include_tests_in_graph,
+                pipeline_config=config,
+                loc_filtered=result.loc_filtered,
+            )
+            print(f"Report written to: {report_path.parent}/")
+            await notifier.report_complete(True, started_at, report_path, None, reporter_cfg=config.reporter)
+        except Exception as exc:
+            await notifier.report_complete(False, started_at, None, str(exc))
+            raise
 
     return 1 if result.errors else 0
 
