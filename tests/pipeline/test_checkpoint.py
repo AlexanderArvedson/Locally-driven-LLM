@@ -5,18 +5,28 @@ import json
 
 import pytest
 
+import src.pipeline.checkpoint as checkpoint_module
 from src.pipeline.checkpoint import CheckpointManager, make_run_key
 from src.pipeline.contracts import CheckpointConfig, FunctionRecord
+
+
+# ---------------------------------------------------------------------------
+# Fixtures
+# ---------------------------------------------------------------------------
+
+@pytest.fixture
+def chk_dir(tmp_path, monkeypatch):
+    """Redirect _CHECKPOINT_DIR to a temp directory so tests don't touch the real one."""
+    monkeypatch.setattr(checkpoint_module, "_CHECKPOINT_DIR", str(tmp_path))
+    return tmp_path
 
 
 # ---------------------------------------------------------------------------
 # Helpers
 # ---------------------------------------------------------------------------
 
-def _cfg(enabled: bool = True, interval: int = 5, directory: str | None = None, tmp_path=None) -> CheckpointConfig:
-    """Build a CheckpointConfig pointing at a tmp directory."""
-    d = str(tmp_path) if tmp_path else (directory or ".pipeline_checkpoints")
-    return CheckpointConfig(enabled=enabled, interval=interval, directory=d)
+def _cfg(enabled: bool = True, interval: int = 5) -> CheckpointConfig:
+    return CheckpointConfig(enabled=enabled, interval=interval)
 
 
 def _record(id: str = "r1", description: str | None = None, description_status: str | None = None,
@@ -74,49 +84,42 @@ def test_make_run_key_length():
 # load — missing / stale / corrupt
 # ---------------------------------------------------------------------------
 
-def test_load_returns_empty_when_no_file(tmp_path):
-    mgr = CheckpointManager(_cfg(tmp_path=tmp_path))
-    result = mgr.load("repo", "aabbccddeeff")
-    assert result == {}
-
-
-def test_load_returns_empty_when_run_key_mismatch(tmp_path):
-    """File exists but belongs to a different run — should be ignored."""
-    mgr = CheckpointManager(_cfg(tmp_path=tmp_path))
-    records = [_record("r1")]
-    run_key = make_run_key(records)
-    mgr.save("repo", run_key, records)
-    # Load with a different key
-    assert mgr.load("repo", "000000000000") == {}
-
-
-def test_load_returns_empty_when_json_corrupt(tmp_path):
-    """Corrupt checkpoint file must not crash the pipeline."""
-    cfg = _cfg(tmp_path=tmp_path)
-    mgr = CheckpointManager(cfg)
-    path = tmp_path / "repo_aabbccddeeff.json"
-    path.write_text("{ not valid json }")
+def test_load_returns_empty_when_no_file(chk_dir):
+    mgr = CheckpointManager(_cfg())
     assert mgr.load("repo", "aabbccddeeff") == {}
 
 
-def test_load_returns_empty_when_disabled(tmp_path):
-    """Disabled checkpoint must always return {}."""
-    mgr = CheckpointManager(_cfg(enabled=False, tmp_path=tmp_path))
+def test_load_returns_empty_when_run_key_mismatch(chk_dir):
+    """File exists but belongs to a different run — should be ignored."""
+    mgr = CheckpointManager(_cfg())
+    records = [_record("r1")]
+    run_key = make_run_key(records)
+    mgr.save("repo", run_key, records)
+    assert mgr.load("repo", "000000000000") == {}
+
+
+def test_load_returns_empty_when_json_corrupt(chk_dir):
+    """Corrupt checkpoint file must not crash the pipeline."""
+    (chk_dir / "repo_aabbccddeeff.json").write_text("{ not valid json }")
+    assert CheckpointManager(_cfg()).load("repo", "aabbccddeeff") == {}
+
+
+def test_load_returns_empty_when_disabled(chk_dir):
+    """Disabled checkpoint must always return {} even if a file exists."""
+    mgr = CheckpointManager(_cfg())
     records = [_record("r1", description_status="ok")]
     run_key = make_run_key(records)
-    # Manually write a file to ensure load truly ignores it when disabled
-    payload = {"run_key": run_key, "records": {"r1": {"description_status": "ok"}}}
-    (tmp_path / f"repo_{run_key}.json").write_text(json.dumps(payload))
-    assert mgr.load("repo", run_key) == {}
+    mgr.save("repo", run_key, records)  # write a real checkpoint first
+    assert CheckpointManager(_cfg(enabled=False)).load("repo", run_key) == {}
 
 
 # ---------------------------------------------------------------------------
 # save → load round-trip
 # ---------------------------------------------------------------------------
 
-def test_save_and_load_restores_all_fields(tmp_path):
+def test_save_and_load_restores_all_fields(chk_dir):
     """All five expensive fields survive a save/load cycle."""
-    mgr = CheckpointManager(_cfg(tmp_path=tmp_path))
+    mgr = CheckpointManager(_cfg())
     r = _record(
         id="r1",
         description='{"summary": "does a thing"}',
@@ -136,21 +139,21 @@ def test_save_and_load_restores_all_fields(tmp_path):
     assert saved["r1"]["description_embedding"] == [0.3, 0.4]
 
 
-def test_save_only_stores_expensive_fields(tmp_path):
+def test_save_only_stores_expensive_fields(chk_dir):
     """Checkpoint must not store source_code or other heavyweight fields."""
-    mgr = CheckpointManager(_cfg(tmp_path=tmp_path))
+    mgr = CheckpointManager(_cfg())
     r = _record("r1", description_status="ok")
     run_key = make_run_key([r])
     mgr.save("repo", run_key, [r])
 
-    raw = json.loads((tmp_path / f"repo_{run_key}.json").read_text())
+    raw = json.loads((chk_dir / f"repo_{run_key}.json").read_text())
     assert "source_code" not in raw["records"]["r1"]
     assert "file_path" not in raw["records"]["r1"]
 
 
-def test_save_multiple_records(tmp_path):
+def test_save_multiple_records(chk_dir):
     """All records in the batch are persisted."""
-    mgr = CheckpointManager(_cfg(tmp_path=tmp_path))
+    mgr = CheckpointManager(_cfg())
     records = [_record("r1", description_status="ok"), _record("r2"), _record("r3", description_status="ok")]
     run_key = make_run_key(records)
     mgr.save("repo", run_key, records)
@@ -159,21 +162,20 @@ def test_save_multiple_records(tmp_path):
     assert set(saved.keys()) == {"r1", "r2", "r3"}
 
 
-def test_save_is_disabled_when_config_disabled(tmp_path):
+def test_save_is_disabled_when_config_disabled(chk_dir):
     """No file is written when checkpoint is disabled."""
-    mgr = CheckpointManager(_cfg(enabled=False, tmp_path=tmp_path))
+    mgr = CheckpointManager(_cfg(enabled=False))
     r = _record("r1", description_status="ok")
-    run_key = make_run_key([r])
-    mgr.save("repo", run_key, [r])
-    assert not any(tmp_path.iterdir())
+    mgr.save("repo", make_run_key([r]), [r])
+    assert not any(chk_dir.iterdir())
 
 
 # ---------------------------------------------------------------------------
 # clear
 # ---------------------------------------------------------------------------
 
-def test_clear_removes_checkpoint_file(tmp_path):
-    mgr = CheckpointManager(_cfg(tmp_path=tmp_path))
+def test_clear_removes_checkpoint_file(chk_dir):
+    mgr = CheckpointManager(_cfg())
     r = _record("r1", description_status="ok")
     run_key = make_run_key([r])
     mgr.save("repo", run_key, [r])
@@ -183,19 +185,16 @@ def test_clear_removes_checkpoint_file(tmp_path):
     assert mgr.load("repo", run_key) == {}
 
 
-def test_clear_is_idempotent(tmp_path):
+def test_clear_is_idempotent(chk_dir):
     """Calling clear on a non-existent file must not raise."""
-    mgr = CheckpointManager(_cfg(tmp_path=tmp_path))
-    mgr.clear("repo", "nonexistent")  # should not raise
+    CheckpointManager(_cfg()).clear("repo", "nonexistent")
 
 
-def test_clear_is_disabled_when_config_disabled(tmp_path):
+def test_clear_is_disabled_when_config_disabled(chk_dir):
     """Disabled checkpoint must not delete files (even if they exist)."""
-    cfg = _cfg(enabled=False, tmp_path=tmp_path)
-    mgr = CheckpointManager(cfg)
-    path = tmp_path / "repo_aabbccddeeff.json"
+    path = chk_dir / "repo_aabbccddeeff.json"
     path.write_text("{}")
-    mgr.clear("repo", "aabbccddeeff")
+    CheckpointManager(_cfg(enabled=False)).clear("repo", "aabbccddeeff")
     assert path.exists()
 
 
@@ -203,28 +202,26 @@ def test_clear_is_disabled_when_config_disabled(tmp_path):
 # Atomic write safety
 # ---------------------------------------------------------------------------
 
-def test_no_stale_tmp_file_after_save(tmp_path):
+def test_no_stale_tmp_file_after_save(chk_dir):
     """Saving must not leave a .tmp file on disk."""
-    mgr = CheckpointManager(_cfg(tmp_path=tmp_path))
+    mgr = CheckpointManager(_cfg())
     r = _record("r1")
-    run_key = make_run_key([r])
-    mgr.save("repo", run_key, [r])
-    assert not list(tmp_path.glob("*.tmp"))
+    mgr.save("repo", make_run_key([r]), [r])
+    assert not list(chk_dir.glob("*.tmp"))
 
 
 # ---------------------------------------------------------------------------
 # Repo name sanitisation
 # ---------------------------------------------------------------------------
 
-def test_repo_name_with_spaces(tmp_path):
+def test_repo_name_with_spaces(chk_dir):
     """Repo names with spaces produce valid file paths."""
-    mgr = CheckpointManager(_cfg(tmp_path=tmp_path))
+    mgr = CheckpointManager(_cfg())
     r = _record("r1", description_status="ok")
     run_key = make_run_key([r])
     mgr.save("my repo name", run_key, [r])
-    files = list(tmp_path.iterdir())
+
+    files = list(chk_dir.iterdir())
     assert len(files) == 1
     assert " " not in files[0].name
-
-    saved = mgr.load("my repo name", run_key)
-    assert "r1" in saved
+    assert "r1" in mgr.load("my repo name", run_key)
