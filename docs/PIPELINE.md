@@ -114,6 +114,16 @@ On each run:
 
 Similarity edges are always recomputed from scratch to ensure stale edges from changed functions are removed.
 
+### Mid-run checkpointing
+
+Because description generation is slow (one LLM call per function), the pipeline checkpoints progress to disk so a crash can be resumed without redoing completed work.
+
+After every `pipeline.checkpoint.interval` descriptions (default: 10), the pipeline writes a JSON file to `pipeline.checkpoint.directory` (default: `.pipeline_checkpoints/`) containing the description, embedding, and status fields for every changed record processed so far. The same file is overwritten after code embeddings complete and again after description embeddings complete.
+
+On the next run, if the same set of changed records is detected (same SHA-256 run key), the checkpoint is loaded and already-completed records skip the embedding and description stages. The checkpoint file is deleted automatically after the Neo4j upsert succeeds.
+
+If the changed-record set shifts between runs (e.g. new commits landed), the run key changes and the checkpoint is ignored — the pipeline starts fresh. Configure or disable checkpointing under `pipeline.checkpoint` in `config.json`.
+
 ---
 
 ## Neo4j graph model
@@ -265,6 +275,7 @@ LIMIT 100;
 ```
 src/pipeline/
   contracts.py          — FunctionRecord, SimilarityEdge, PipelineConfig dataclasses
+  checkpoint.py         — CheckpointManager: mid-run JSON persistence and resume logic
   pipeline.py           — EmbeddingPipeline: orchestrates all twelve stages
 
   extraction/

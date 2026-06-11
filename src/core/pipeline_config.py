@@ -17,6 +17,7 @@ from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
 from src.pipeline.contracts import (
     BatchSizeConfig,
+    CheckpointConfig,
     ConcurrencyConfig,
     LimitsConfig,
     Neo4jConfig,
@@ -85,6 +86,7 @@ def load_pipeline_config(config_path: str | Path = "config.json", repo_name: str
     limits_block = pipeline_block.get("limits", {})
     reporter_block = pipeline_block.get("reporter", {})
     slack_block = pipeline_block.get("slack", {})
+    checkpoint_block = pipeline_block.get("checkpoint", {})
 
     return PipelineConfig(
         repo_path=repo["local_path"],
@@ -142,6 +144,11 @@ def load_pipeline_config(config_path: str | Path = "config.json", repo_name: str
             enabled=slack_block.get("enabled", True),
             debug_messages=slack_block.get("debug_messages", False),
             progress_update_interval=slack_block.get("progress_update_interval", 100),
+        ),
+        checkpoint=CheckpointConfig(
+            enabled=checkpoint_block.get("enabled", True),
+            interval=checkpoint_block.get("interval", 10),
+            directory=checkpoint_block.get("directory", ".pipeline_checkpoints"),
         ),
         reporter=ReporterConfig(
             cluster_threshold=reporter_block.get("cluster_threshold", 0.92),

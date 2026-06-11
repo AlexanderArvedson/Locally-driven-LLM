@@ -291,6 +291,18 @@ Setting `enabled` to `false` or leaving `SLACK_NOTIFY_CHANNEL` unset disables al
 
 The pipeline reads `models.embedding` and `models.describer` (falling back to `models.chat`) from the same repository entry — no duplication of model settings is needed.
 
+#### `pipeline.checkpoint`
+
+Controls mid-run checkpoint persistence. When enabled, the pipeline saves description and embedding results to a local JSON file at regular intervals so a crashed run can resume from the last saved point rather than restarting from scratch. The checkpoint is keyed by a hash of the changed-record IDs and is automatically discarded if the changed set shifts between runs (e.g. new commits landed).
+
+The checkpoint file is written to `directory` and is deleted automatically after a successful Neo4j upsert.
+
+| Field | Type | Default | Description |
+|-------|------|---------|-------------|
+| `enabled` | boolean | `true` | Enables or disables checkpoint persistence entirely. |
+| `interval` | integer | `10` | Save the checkpoint after every N completed descriptions. Lower values guard against longer crashes at the cost of more frequent disk writes; higher values reduce I/O on fast machines. |
+| `directory` | string | `".pipeline_checkpoints"` | Directory where checkpoint files are written. Created automatically if it does not exist. One file per run, named `<repo_name>_<run_key>.json`. |
+
 ---
 
 ## Neo4j

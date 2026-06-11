@@ -157,6 +157,11 @@
           "enabled": true,
           "debug_messages": false,
           "progress_update_interval": 100
+        },
+        "checkpoint": {
+          "enabled": true,
+          "interval": 10,
+          "directory": ".pipeline_checkpoints"
         }
       }
     }
