@@ -14,6 +14,7 @@ from loguru import logger
 
 from src.api.slack_notifier import SlackNotifier
 from src.core.ollama_client import OllamaClient
+from src.pipeline.checkpoint import CheckpointManager, make_run_key
 from src.pipeline.contracts import PipelineConfig, PipelineResult
 from src.pipeline.descriptions.service import DescriptionService
 from src.pipeline.embeddings.service import EmbeddingService
@@ -134,32 +135,51 @@ class EmbeddingPipeline:
         result.unchanged = len(unchanged)
         logger.info("{} changed, {} unchanged", result.changed, result.unchanged)
 
+        # Restore expensive fields from a previous run so we skip already-done work.
+        _checkpoint = CheckpointManager(config.checkpoint)
+        _run_key = make_run_key(changed) if changed else ""
+        if changed and _run_key:
+            _saved = _checkpoint.load(config.repo_name, _run_key)
+            if _saved:
+                for r in changed:
+                    if r.id in _saved:
+                        for field, val in _saved[r.id].items():
+                            if val is not None:
+                                setattr(r, field, val)
+                restored = sum(1 for r in changed if r.description_status == "ok")
+                logger.info("Checkpoint: {} descriptions already completed, skipping", restored)
+
         # Stages 5-7: embed and describe changed records.
         # Skipped entirely in dry-run — the extracted counts above are sufficient
         # to validate extraction without making expensive Ollama calls.
         if not self._dry_run and changed:
-            logger.info("Embedding source code for {} functions...", len(changed))
-            await self._notifier.embedding_start(len(changed), "code")
+            needs_code_embed = [r for r in changed if r.code_embedding_status not in ("ok", "skipped", "chunked")]
+            logger.info("Embedding source code for {} functions...", len(needs_code_embed))
+            await self._notifier.embedding_start(len(needs_code_embed), "code")
             t_code_embed = time.monotonic()
 
             async def _on_code_progress(done: int, total: int) -> None:
                 await self._notifier.progress("Code embedding", done, total, t_code_embed)
 
-            await self._embedder.embed_code_batch(changed, on_progress=_on_code_progress)
+            await self._embedder.embed_code_batch(needs_code_embed, on_progress=_on_code_progress)
             code_failures = sum(1 for r in changed if r.code_embedding_status not in ("ok", "skipped", None))
             await self._notifier.embedding_complete(
-                len(changed) - code_failures, code_failures, time.monotonic() - t_code_embed, "code"
+                len(needs_code_embed) - code_failures, code_failures, time.monotonic() - t_code_embed, "code"
             )
+            _checkpoint.save(config.repo_name, _run_key, changed)
 
             if not self._skip_descriptions:
-                logger.info("Generating descriptions for {} functions...", len(changed))
-                await self._notifier.description_start(len(changed))
+                needs_description = [r for r in changed if r.description_status != "ok"]
+                logger.info("Generating descriptions for {} functions...", len(needs_description))
+                await self._notifier.description_start(len(needs_description))
                 t_desc = time.monotonic()
 
                 async def _on_desc_progress(done: int, total: int) -> None:
                     await self._notifier.progress("Description generation", done, total, t_desc)
+                    if done > 0 and done % config.checkpoint.interval == 0:
+                        _checkpoint.save(config.repo_name, _run_key, changed)
 
-                await self._describer.describe_batch(changed, on_progress=_on_desc_progress)
+                await self._describer.describe_batch(needs_description, on_progress=_on_desc_progress)
                 desc_ok = sum(1 for r in changed if r.description_status == "ok")
                 desc_skipped = sum(1 for r in changed if r.description_status == "skipped")
                 await self._notifier.description_complete(desc_ok, desc_skipped, time.monotonic() - t_desc)
@@ -181,6 +201,7 @@ class EmbeddingPipeline:
                         time.monotonic() - t_desc_embed,
                         "description",
                     )
+                    _checkpoint.save(config.repo_name, _run_key, changed)
             else:
                 logger.info("Skipping description generation (--no-descriptions)")
                 for r in changed:
@@ -195,6 +216,8 @@ class EmbeddingPipeline:
         if not self._dry_run:
             logger.info("Upserting {} function nodes...", len(all_records))
             await self._store.upsert_functions_batch(all_records)
+            if _run_key:
+                _checkpoint.clear(config.repo_name, _run_key)
 
         # Stage 9: soft-delete functions no longer in the repo.
         if not self._dry_run:

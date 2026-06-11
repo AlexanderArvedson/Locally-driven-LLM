@@ -135,6 +135,13 @@ class SlackPipelineConfig:
 
 
 @dataclass(frozen=True)
+class CheckpointConfig:
+    """Controls mid-run persistence so a crashed pipeline can resume without redoing expensive work."""
+    enabled: bool = True
+    interval: int = 10            # save after every N completed descriptions
+
+
+@dataclass(frozen=True)
 class PipelineConfig:
     repo_path: str
     repo_name: str
@@ -152,6 +159,7 @@ class PipelineConfig:
     limits: LimitsConfig = field(default_factory=LimitsConfig)
     reporter: ReporterConfig = field(default_factory=ReporterConfig)
     slack: SlackPipelineConfig = field(default_factory=SlackPipelineConfig)
+    checkpoint: CheckpointConfig = field(default_factory=CheckpointConfig)
     embedding_num_ctx: int = 8192
     embedding_timeout_seconds: int = 300
     describe_num_ctx: int = 8192
