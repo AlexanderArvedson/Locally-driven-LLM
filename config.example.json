@@ -156,7 +156,8 @@
         "slack": {
           "enabled": true,
           "debug_messages": false,
-          "progress_update_interval": 100
+          "embed_progress_interval": 100,
+          "describe_progress_interval": 10
         },
         "checkpoint": {
           "enabled": true,

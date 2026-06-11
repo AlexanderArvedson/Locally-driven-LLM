@@ -131,7 +131,8 @@ class SlackPipelineConfig:
     """Slack notification settings for pipeline observability."""
     enabled: bool = True
     debug_messages: bool = False
-    progress_update_interval: int = 100
+    embed_progress_interval: int = 100
+    describe_progress_interval: int = 10
 
 
 @dataclass(frozen=True)

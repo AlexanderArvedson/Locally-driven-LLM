@@ -287,7 +287,8 @@ Controls live Slack progress notifications posted while the pipeline runs. Requi
 |-------|------|---------|-------------|
 | `enabled` | boolean | `true` | Enables or disables all pipeline progress notifications. When `false`, the dispatcher falls back to the simpler one-shot completion message instead. |
 | `debug_messages` | boolean | `false` | When `true`, posts additional operational detail — e.g. "Repository found — pulling latest changes…" and per-sync commit information. Useful when debugging sync or connectivity issues. |
-| `progress_update_interval` | integer | `100` | Number of processed items between progress posts during code embedding, description generation, and description embedding. Increase for large repositories to reduce thread noise; lower to `10` for small runs to verify the feature. |
+| `embed_progress_interval` | integer | `100` | Items between progress posts during code embedding and description embedding. These stages process quickly (sub-second/item), so 100 keeps thread noise low on large repositories. Set to `0` to disable. |
+| `describe_progress_interval` | integer | `10` | Items between progress posts during description generation. This stage is slow (30–120 s/item at low concurrency), so a lower value keeps updates flowing. Set to `0` to disable. |
 
 Setting `enabled` to `false` or leaving `SLACK_NOTIFY_CHANNEL` unset disables all pipeline notifications without affecting the post-run report notification.
 

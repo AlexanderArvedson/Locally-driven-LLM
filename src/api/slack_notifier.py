@@ -265,7 +265,8 @@ class SlackNotifier:
     def __init__(self, config: SlackPipelineConfig) -> None:
         self._enabled = config.enabled
         self._debug = config.debug_messages
-        self._interval = config.progress_update_interval
+        self._embed_interval = config.embed_progress_interval
+        self._describe_interval = config.describe_progress_interval
         self._thread_ts: str | None = None
         self._message_ts: str | None = None
         self._channel: str = ""
@@ -508,12 +509,14 @@ class SlackNotifier:
     ) -> None:
         """Post a progress update, throttled to once per configured interval.
 
-        Called once per processed item; only sends to Slack when
-        processed is a multiple of progress_update_interval.
+        Called once per processed item; only sends to Slack when processed is a
+        multiple of describe_progress_interval (for description generation) or
+        embed_progress_interval (for all other stages).
         """
         if not self._enabled:
             return
-        if self._interval <= 0 or processed % self._interval != 0:
+        interval = self._describe_interval if stage == "Description generation" else self._embed_interval
+        if interval <= 0 or processed % interval != 0:
             return
 
         elapsed = time.monotonic() - stage_start
