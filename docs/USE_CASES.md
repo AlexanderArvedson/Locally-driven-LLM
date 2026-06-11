@@ -4,6 +4,7 @@
 
 - Code refactoring/update
 - Documentation
+- Incremental change detection
 
 ## Results
 
@@ -121,3 +122,24 @@ Two pipeline runs against `kreation-core/src` from the kreation monorepo (64 Typ
 **Speed tradeoff.** 7B runs ~1.5–2× faster than 14B. On a 64-function repo the absolute saving is modest. On a 500-function repo it becomes the difference between a ~4-hour and a ~2-hour pipeline run. For teams running the pipeline frequently on large repos, 7B is the right default.
 
 **Recommendation:** Use `qwen2.5-coder:7b` with `num_ctx: 16384` as the default describer. Switch to 14B when: (a) the codebase has a high proportion of large, complex functions (>50 LOC), or (b) description accuracy for interface contracts is load-bearing for downstream tooling.
+
+---
+
+## Incremental change detection
+
+### Setup
+
+Two consecutive `--no-description` runs against `kreation-core/src` (64 functions). A single function was modified between runs. Both runs used the existing Neo4j graph — no clean between them.
+
+### Results
+
+| Run | Changed | Unchanged | Duration |
+|---|---|---|---|
+| Run 1 (baseline, post-clean) | 64 | 0 | 3.0 s |
+| Run 2 (one function modified) | 1 | 63 | 2.6 s |
+
+### Conclusions
+
+**Change detection works correctly.** The pipeline identified exactly the one modified function and processed only that — 63 unchanged functions were skipped entirely. The graph was updated and similarity edges recomputed in under 3 seconds.
+
+**Incremental runs are effectively free.** At sub-3-second turnaround for a small delta, the pipeline can be run on every commit without any meaningful overhead. The description stage (when enabled) will similarly only run on changed functions, making 7B vs 14B model choice largely irrelevant for day-to-day incremental use — the cost only materialises on the initial full run or after a bulk refactor.
