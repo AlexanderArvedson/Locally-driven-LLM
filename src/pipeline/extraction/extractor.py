@@ -35,8 +35,8 @@ from src.pipeline.extraction.treesitter import (
 )
 
 
-def _record_id(repo: str, file_path: str, qualified_name: str, start_line: int) -> str:
-    key = f"{repo}:{file_path}:{qualified_name}:{start_line}"
+def _record_id(repo: str, file_path: str, qualified_name: str) -> str:
+    key = f"{repo}:{file_path}:{qualified_name}"
     return hashlib.sha256(key.encode("utf-8")).hexdigest()
 
 
@@ -125,7 +125,7 @@ def _extract_from_file(
         source_code = source_bytes[fn_node.start_byte:fn_node.end_byte].decode("utf-8", errors="replace")
 
         records.append(FunctionRecord(
-            id=_record_id(repo_name, rel_path, qualified_name, start_line),
+            id=_record_id(repo_name, rel_path, qualified_name),
             repo=repo_name,
             language=language_name,
             file_path=rel_path,

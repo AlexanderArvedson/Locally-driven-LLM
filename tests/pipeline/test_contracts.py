@@ -32,7 +32,7 @@ def test_function_record_defaults():
 def test_function_record_id_is_stable():
     """Same inputs must always produce the same sha256 ID."""
     import hashlib
-    key = "repo:/path/to/file.py:MyClass.my_method:42"
+    key = "repo:/path/to/file.py:MyClass.my_method"
     expected = hashlib.sha256(key.encode("utf-8")).hexdigest()
 
     r = _make_record(
