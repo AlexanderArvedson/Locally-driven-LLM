@@ -160,8 +160,7 @@
         },
         "checkpoint": {
           "enabled": true,
-          "interval": 10,
-          "directory": ".pipeline_checkpoints"
+          "interval": 10
         }
       }
     }
