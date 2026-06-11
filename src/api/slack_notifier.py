@@ -360,6 +360,24 @@ class SlackNotifier:
         except Exception:
             logger.exception("Slack pipeline_failed notification failed")
 
+    async def pipeline_cancelled(self) -> None:
+        """Update the original channel message and post a thread cancellation notice."""
+        if not self._enabled:
+            return
+        client = self._get_client()
+        if client is None:
+            return
+        try:
+            if self._message_ts:
+                await client.chat_update(
+                    channel=self._channel,
+                    ts=self._message_ts,
+                    text="⚠️ Pipeline cancelled",
+                )
+            await self._reply("⚠️ Pipeline was cancelled before completing.")
+        except Exception:
+            logger.exception("Slack pipeline_cancelled notification failed")
+
     # -------------------------------------------------------------------------
     # Sync stage
     # -------------------------------------------------------------------------

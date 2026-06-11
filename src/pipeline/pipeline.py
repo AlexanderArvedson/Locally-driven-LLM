@@ -7,6 +7,7 @@ sequence as a linear async workflow. No LangGraph — a simple sequential
 
 from __future__ import annotations
 
+import asyncio
 import time
 from datetime import datetime, timezone
 
@@ -55,17 +56,23 @@ class EmbeddingPipeline:
         """Execute all pipeline stages and return a summary."""
         result = PipelineResult()
         start = time.monotonic()
+        _cancelled = False
 
         await self._notifier.pipeline_start(self._config.repo_name)
         try:
             await self._run_stages(result)
+        except asyncio.CancelledError:
+            _cancelled = True
+            logger.warning("Pipeline cancelled")
+            await asyncio.shield(self._notifier.pipeline_cancelled())
+            raise
         except Exception as e:
             result.errors.append(str(e))
             logger.exception("Pipeline failed")
             await self._notifier.pipeline_failed(str(e))
         finally:
             result.duration_seconds = time.monotonic() - start
-            if not result.errors:
+            if not _cancelled and not result.errors:
                 await self._notifier.pipeline_complete(result)
 
         return result
