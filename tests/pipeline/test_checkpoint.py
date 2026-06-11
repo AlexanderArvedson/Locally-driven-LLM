@@ -117,6 +117,16 @@ def test_load_returns_empty_when_disabled(chk_dir):
 # save → load round-trip
 # ---------------------------------------------------------------------------
 
+def test_save_and_load_restores_chunked_status(chk_dir):
+    """'chunked' is a terminal success state and must survive a save/load cycle."""
+    mgr = CheckpointManager(_cfg())
+    r = _record("r1", code_embedding_status="chunked", code_embedding=[0.1, 0.2])
+    run_key = make_run_key([r])
+    mgr.save("repo", run_key, [r])
+    saved = mgr.load("repo", run_key)
+    assert saved["r1"]["code_embedding_status"] == "chunked"
+
+
 def test_save_and_load_restores_all_fields(chk_dir):
     """All five expensive fields survive a save/load cycle."""
     mgr = CheckpointManager(_cfg())

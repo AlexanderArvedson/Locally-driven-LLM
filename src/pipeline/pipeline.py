@@ -153,7 +153,7 @@ class EmbeddingPipeline:
         # Skipped entirely in dry-run — the extracted counts above are sufficient
         # to validate extraction without making expensive Ollama calls.
         if not self._dry_run and changed:
-            needs_code_embed = [r for r in changed if r.code_embedding_status not in ("ok", "skipped")]
+            needs_code_embed = [r for r in changed if r.code_embedding_status not in ("ok", "skipped", "chunked")]
             logger.info("Embedding source code for {} functions...", len(needs_code_embed))
             await self._notifier.embedding_start(len(needs_code_embed), "code")
             t_code_embed = time.monotonic()
