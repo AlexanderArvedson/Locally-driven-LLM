@@ -396,36 +396,33 @@ class SlackNotifier:
 
         if result.operation == "clone":
             detail = "Repository not present locally.\nStarting repository clone…"
-            if result.success:
-                outcome = "Repository clone completed successfully."
-            else:
-                outcome = f"Repository clone failed.\n\nReason:\n{result.error or 'unknown'}"
         elif result.operation == "pull":
             detail = "Local repository found.\nPulling latest changes…"
-            if not result.success:
-                outcome = f"Pull failed.\n\nReason:\n{result.error or 'unknown'}"
-            elif result.already_up_to_date:
-                outcome = "Already up to date."
-            else:
-                outcome = "Repository successfully updated."
         else:  # skipped
             detail = "Local repository found (uncommitted changes — skipping pull)."
-            outcome = None
 
         if self._debug:
             await self._reply(detail)
 
-        if outcome:
-            await self._reply(outcome)
+        if not result.success:
+            op = "Clone" if result.operation == "clone" else "Pull"
+            await self._reply(f"{op} failed.\n\nReason:\n{result.error or 'unknown'}")
+            return
+
+        if result.already_up_to_date:
+            status = "Already up to date"
+        elif result.operation == "clone":
+            status = "Cloned"
+        else:
+            status = "Updated"
 
         commit_str = result.commit_hash or "unknown"
-        status_str = "Success" if result.success else "Failed"
         summary = (
             f"Repository synchronisation completed.\n\n"
+            f"Status: {status}\n"
             f"Operation: {result.operation.capitalize()}\n"
             f"Branch: {result.branch}\n"
-            f"Commit: {commit_str}\n"
-            f"Status: {status_str}"
+            f"Commit: {commit_str}"
         )
         await self._reply(summary)
 
@@ -453,16 +450,19 @@ class SlackNotifier:
         await self._reply(f"{label} started for {count:,} functions…")
 
     async def embedding_complete(
-        self, generated: int, failures: int, duration: float, stage: str
+        self, generated: int, failures: int, duration: float, stage: str, checkpointed: int = 0
     ) -> None:
         """Post embedding stage completion summary."""
         if not self._enabled:
             return
         label = "Code embeddings" if stage == "code" else "Description embeddings"
+        already = f"Already completed: {checkpointed:,}\n" if checkpointed else ""
+        failure_line = f"Failures: {failures:,}\n" if failures else ""
         msg = (
             f"{label} completed.\n\n"
+            f"{already}"
             f"Generated embeddings: {generated:,}\n"
-            f"Failures: {failures:,}\n"
+            f"{failure_line}"
             f"Duration: {_fmt_duration(duration)}"
         )
         await self._reply(msg)
@@ -474,15 +474,18 @@ class SlackNotifier:
         await self._reply(f"Description generation started for {count:,} functions…")
 
     async def description_complete(
-        self, generated: int, skipped: int, duration: float
+        self, generated: int, skipped: int, duration: float, checkpointed: int = 0
     ) -> None:
         """Post description generation completion summary."""
         if not self._enabled:
             return
+        already = f"Already completed: {checkpointed:,}\n" if checkpointed else ""
+        skipped_line = f"Skipped: {skipped:,}\n" if skipped else ""
         msg = (
             f"Description generation completed.\n\n"
+            f"{already}"
             f"Generated descriptions: {generated:,}\n"
-            f"Skipped: {skipped:,}\n"
+            f"{skipped_line}"
             f"Duration: {_fmt_duration(duration)}"
         )
         await self._reply(msg)

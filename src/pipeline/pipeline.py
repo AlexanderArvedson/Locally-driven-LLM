@@ -161,6 +161,7 @@ class EmbeddingPipeline:
         # to validate extraction without making expensive Ollama calls.
         if not self._dry_run and changed:
             needs_code_embed = [r for r in changed if r.code_embedding_status not in ("ok", "skipped", "chunked")]
+            code_checkpointed = len(changed) - len(needs_code_embed)
             logger.info("Embedding source code for {} functions...", len(needs_code_embed))
             await self._notifier.embedding_start(len(needs_code_embed), "code")
             t_code_embed = time.monotonic()
@@ -171,12 +172,14 @@ class EmbeddingPipeline:
             await self._embedder.embed_code_batch(needs_code_embed, on_progress=_on_code_progress)
             code_failures = sum(1 for r in changed if r.code_embedding_status not in ("ok", "skipped", None))
             await self._notifier.embedding_complete(
-                len(needs_code_embed) - code_failures, code_failures, time.monotonic() - t_code_embed, "code"
+                len(needs_code_embed) - code_failures, code_failures, time.monotonic() - t_code_embed, "code",
+                checkpointed=code_checkpointed,
             )
             _checkpoint.save(config.repo_name, _run_key, changed)
 
             if not self._skip_descriptions:
                 needs_description = [r for r in changed if r.description_status != "ok"]
+                desc_checkpointed = len(changed) - len(needs_description)
                 logger.info("Generating descriptions for {} functions...", len(needs_description))
                 await self._notifier.description_start(len(needs_description))
                 t_desc = time.monotonic()
@@ -189,7 +192,10 @@ class EmbeddingPipeline:
                 await self._describer.describe_batch(needs_description, on_progress=_on_desc_progress)
                 desc_ok = sum(1 for r in changed if r.description_status == "ok")
                 desc_skipped = sum(1 for r in changed if r.description_status == "skipped")
-                await self._notifier.description_complete(desc_ok, desc_skipped, time.monotonic() - t_desc)
+                await self._notifier.description_complete(
+                    desc_ok, desc_skipped, time.monotonic() - t_desc,
+                    checkpointed=desc_checkpointed,
+                )
 
                 described = [r for r in changed if r.description]
                 if described:
