@@ -277,6 +277,7 @@ Controls source text truncation and embedding context window size.
 | `embedding_num_ctx` | integer | `8192` | Context window size passed to Ollama on every embed request. Falls back to this value if `models.embedding.num_ctx` is `null`. Ollama's built-in default is 2048, which can truncate inputs — this overrides it to the maximum supported by `nomic-embed-text`. Each chunk in the chunked embedding path is also sent with this value. |
 | `context_overflow_char_threshold` | integer | `10000` | Functions whose source code is at or above this many characters are embedded via mean-pooled chunk averaging instead of a single pass. Their `codeEmbeddingStatus` is set to `"chunked"`. Tune downward to chunk more functions; raise to restrict chunking to only the largest ones. |
 | `min_loc_threshold` | integer | `0` | Minimum lines of code a function must have to be included in the pipeline. Functions shorter than this value are silently skipped before embedding, description, and Neo4j storage. Set to `0` (default) to disable filtering. The count of excluded functions appears in the CLI output and in the report's Graph Overview section. |
+| `describe_timeout_seconds` | integer | `300` | Per-request wall-clock timeout in seconds for LLM description generation. Sourced from `models.describer.timeout_seconds` — this field is a read-only mirror and cannot be overridden here. Increase if your describer model is slow or you are processing very large functions. |
 
 #### `pipeline.slack`
 

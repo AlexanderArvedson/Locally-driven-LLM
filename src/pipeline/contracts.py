@@ -126,6 +126,7 @@ class LimitsConfig:
     describe_num_ctx: int = 8192
     context_overflow_char_threshold: int = 10_000
     min_loc_threshold: int = 0   # 0 = disabled; functions below this LOC are skipped
+    describe_timeout_seconds: int = 300
 
 
 @dataclass(frozen=True)

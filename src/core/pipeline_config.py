@@ -124,6 +124,7 @@ def load_pipeline_config(config_path: str | Path = "config.json", repo_name: str
             describe_num_ctx=describer_model.get("num_ctx") or limits_block.get("describe_num_ctx", 8192),
             context_overflow_char_threshold=limits_block.get("context_overflow_char_threshold", 10_000),
             min_loc_threshold=limits_block.get("min_loc_threshold", 0),
+            describe_timeout_seconds=describer_model.get("timeout_seconds", 300),
         ),
         test_patterns=pipeline_block.get("test_patterns", ["tests/", "test_", "_test.py"]),
         include_tests_in_graph=pipeline_block.get("include_tests_in_graph", False),

@@ -226,3 +226,24 @@ async def test_describe_batch_no_progress_when_callback_is_none(monkeypatch):
     records = [_make_record()]
     # Should not raise
     await service.describe_batch(records, on_progress=None)
+
+
+@pytest.mark.asyncio
+async def test_describe_passes_timeout_from_config(monkeypatch):
+    from dataclasses import replace
+    from src.pipeline.contracts import LimitsConfig
+
+    captured: dict = {}
+
+    async def fake_chat(self, messages, model, **kwargs):
+        captured["timeout_seconds"] = kwargs.get("timeout_seconds")
+        return LLMResult(message=_VALID_JSON, input_tokens=0, output_tokens=0)
+
+    monkeypatch.setattr(OllamaClient, "chat", fake_chat)
+
+    config = replace(_make_config(), limits=LimitsConfig(describe_timeout_seconds=42))
+    client = OllamaClient("http://localhost:11434")
+    service = DescriptionService(client, config)
+    await service.describe(_make_record())
+
+    assert captured["timeout_seconds"] == 42
