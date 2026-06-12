@@ -33,8 +33,8 @@ pre {
     overflow-x: auto;
 }
 pre code { background: none; padding: 0; }
-table { border-collapse: collapse; width: 100%; margin: 1em 0; }
-th, td { border: 1px solid #dfe2e5; padding: 6px 13px; }
+table { border-collapse: collapse; width: 100%; margin: 1em 0; table-layout: fixed; }
+th, td { border: 1px solid #dfe2e5; padding: 6px 13px; word-break: break-word; overflow-wrap: break-word; }
 th { background: #f6f8fa; font-weight: 600; }
 tr:nth-child(even) { background: #f6f8fa; }
 blockquote {
