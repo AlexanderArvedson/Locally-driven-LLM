@@ -32,7 +32,7 @@ Once Neo4j is running you can browse the graph at **http://localhost:7474** usin
 
 ## Starting the FastAPI service
 
-The FastAPI service is required for scheduled pipeline runs and the REST API. Start it alongside the other services:
+The FastAPI service is required for Slack slash commands and scheduled pipeline runs. If you only need to run the pipeline manually from the terminal, you can skip it for now — `uv run run_pipeline.py` works without it.
 
 ```bash
 docker compose up --build -d ollama neo4j fastapi
@@ -43,6 +43,25 @@ Omit `-d` to follow logs in the terminal:
 ```bash
 docker compose up --build ollama neo4j fastapi
 ```
+
+To confirm it is healthy:
+
+```bash
+curl http://localhost:8000/health
+```
+
+You should receive `{"status":"ok"}`. If you changed `FASTAPI_PORT` in `.env`, substitute that port number.
+
+---
+
+## Two ways to run the pipeline
+
+| Mode | Command | When to use |
+|------|---------|-------------|
+| **CLI** | `uv run run_pipeline.py` | One-off runs from the terminal. Ollama and Neo4j must be running; the fastapi container is not required. |
+| **Server** | `docker compose up fastapi` | Needed for Slack slash commands (`/pipeline`, `/report`, `/query`) and cron-scheduled automatic runs. The fastapi container manages the task queue and keeps a persistent connection to Slack. |
+
+Both modes run the same pipeline logic and write to the same Neo4j database and `run_reports/` directory.
 
 ---
 
