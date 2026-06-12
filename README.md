@@ -11,7 +11,7 @@ cp .env.example .env                  # set NEO4J_PASSWORD, REPOS_ROOT, UID, GID
 cp config.example.json config.json    # set name, url, base_branch, local_path
 docker compose up -d ollama neo4j
 docker exec my_ollama ollama pull nomic-embed-text
-docker exec my_ollama ollama pull qwen2.5-coder:7b
+docker exec my_ollama ollama pull qwen2.5:7b
 uv run run_pipeline.py --no-descriptions
 ```
 

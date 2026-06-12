@@ -26,7 +26,7 @@ def _make_config(
         embedding_url="http://localhost:11434",
         allow_gpu=False,
         chat_model="qwen2.5-coder:7b",
-        describer_model="qwen2.5-coder:7b",
+        describer_model="qwen2.5:7b",
         similarity=_SIM,
         neo4j=_NEO4J,
         ignore_anonymous_callbacks=ignore_anonymous_callbacks,

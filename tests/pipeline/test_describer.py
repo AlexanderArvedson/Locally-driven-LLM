@@ -29,7 +29,7 @@ def _make_config() -> PipelineConfig:
         embedding_url="http://localhost:11434",
         allow_gpu=False,
         chat_model="qwen2.5-coder:7b",
-        describer_model="qwen2.5-coder:7b",
+        describer_model="qwen2.5:7b",
         similarity=SimilarityConfig(),
         neo4j=_NEO4J,
     )

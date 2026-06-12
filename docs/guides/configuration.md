@@ -43,7 +43,7 @@ Open `config.json` and fill in the `repositories[0]` entry:
 
 **`credentials.git.token`** — leave this empty if your repository is public. Set it to a GitHub Personal Access Token if the repository is private (requires `Contents: read` scope) or if you plan to use the agent workflow to push branches and open pull requests (requires `Contents: write` and `Pull requests: write` as well). The token is only used for git operations — the pipeline itself never needs it for a public repo.
 
-The model names default to `nomic-embed-text` (embedding) and `qwen2.5-coder:7b` (chat/coder). These match what you will pull in the [Models](models.md) guide — leave them as-is for now.
+The model names default to `nomic-embed-text` (embedding), `qwen2.5:7b` (describer), and `qwen2.5-coder:7b` (chat/coder roles used by the agent workflow). These match what you will pull in the [Models](models.md) guide — leave them as-is for now.
 
 The example config already includes `"python"` and `"typescript"`. If your repo also contains JavaScript, add it:
 
