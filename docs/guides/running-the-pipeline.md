@@ -72,7 +72,7 @@ Once you have confirmed the basic run works, run without the `--no-descriptions`
 uv run run_pipeline.py
 ```
 
-Description generation calls the chat model once per changed function, so this is significantly slower than a code-only run. For a repo with thousands of functions, expect the first full run to take tens of minutes.
+Description generation calls the describer model once per changed function, so this is significantly slower than a code-only run. For a repo with thousands of functions, expect the first full run to take tens of minutes.
 
 ---
 

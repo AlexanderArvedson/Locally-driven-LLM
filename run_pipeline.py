@@ -35,7 +35,7 @@ def _parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--dry-run",
         action="store_true",
-        help="Extract and embed but skip Neo4j writes",
+        help="Extract functions and query Neo4j for hashes; skip all Ollama calls and Neo4j writes",
     )
     parser.add_argument(
         "--no-descriptions",
