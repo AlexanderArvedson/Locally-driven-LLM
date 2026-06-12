@@ -64,6 +64,11 @@ The following dependencies are currently declared in `pyproject.toml`.
 - `tree-sitter-python>=0.23` - Python grammar for tree-sitter
 - `tree-sitter-typescript>=0.23` - TypeScript and JavaScript grammar for tree-sitter, used by the embedding pipeline
 - `uvicorn[standard]>=0.47.0` - ASGI server for local execution
+- `slack-bolt>=1.18` - Slack Bolt SDK for slash commands and Socket Mode
+- `aiohttp>=3.9` - async HTTP used internally by the Slack SDK
+- `croniter>=6.2.2` - cron expression parsing for the scheduler
+- `markdown>=3.7` - converts report markdown to HTML as an intermediate step for PDF generation
+- `weasyprint>=62.0` - renders HTML to PDF bytes; used to produce the PDF attachment uploaded to Slack after each report run
 
 ### Development extra
 
