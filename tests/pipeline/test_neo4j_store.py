@@ -209,3 +209,34 @@ async def test_upsert_similarity_edges_uses_unwind():
 
     all_queries = [q for s in driver.sessions for q in s.queries]
     assert any("UNWIND" in q and "SIMILAR_TO" in q for q in all_queries)
+
+
+@pytest.mark.asyncio
+async def test_ensure_vector_indexes_raises_on_dimension_mismatch():
+    from src.pipeline.graph.store import _SHOW_VECTOR_INDEXES
+
+    # Simulate Neo4j reporting an existing 768-dim index
+    existing_index_row = {
+        "name": "function_code_embedding_index",
+        "type": "VECTOR",
+        "options": {"indexConfig": {"vector.dimensions": 768, "vector.similarity_function": "cosine"}},
+    }
+    store, _ = _make_store({_SHOW_VECTOR_INDEXES.strip(): [existing_index_row]})
+
+    with pytest.raises(RuntimeError, match="dimension 768"):
+        await store._ensure_vector_indexes(1024)
+
+
+@pytest.mark.asyncio
+async def test_ensure_vector_indexes_no_error_when_dimensions_match():
+    from src.pipeline.graph.store import _SHOW_VECTOR_INDEXES
+
+    existing_index_row = {
+        "name": "function_code_embedding_index",
+        "type": "VECTOR",
+        "options": {"indexConfig": {"vector.dimensions": 768, "vector.similarity_function": "cosine"}},
+    }
+    store, _ = _make_store({_SHOW_VECTOR_INDEXES.strip(): [existing_index_row]})
+
+    # Should not raise — dimensions match
+    await store._ensure_vector_indexes(768)

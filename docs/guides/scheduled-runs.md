@@ -26,14 +26,16 @@ The default fires once daily at midnight:
 "cron": "0 0 * * *"
 ```
 
-Some examples:
+> **Cron is always UTC.** The schedule is evaluated in UTC regardless of your local timezone or the `reporter.timezone` setting in `config.json`. The `reporter.timezone` field only controls the timezone shown in report timestamps — it has no effect on when the cron fires. To schedule a run at a specific local time, convert to UTC first (e.g. 08:00 Stockholm in summer is `0 6 * * *`).
+
+Some examples (all UTC):
 
 | Expression | Schedule |
 |---|---|
-| `"0 0 * * *"` | Daily at midnight |
-| `"0 3 * * 1"` | Every Monday at 03:00 |
+| `"0 0 * * *"` | Daily at midnight UTC |
+| `"0 3 * * 1"` | Every Monday at 03:00 UTC |
 | `"0 */6 * * *"` | Every 6 hours |
-| `"30 8 * * 1-5"` | Weekdays at 08:30 |
+| `"30 8 * * 1-5"` | Weekdays at 08:30 UTC |
 
 Changes to `cron` require a container restart to take effect:
 

@@ -52,6 +52,10 @@ FOR (f:Function) ON (f.descriptionEmbedding)
 OPTIONS {{ indexConfig: {{ `vector.dimensions`: {dim}, `vector.similarity_function`: 'cosine' }} }}
 """
 
+_SHOW_VECTOR_INDEXES: LiteralString = "SHOW INDEXES WHERE type = 'VECTOR'"
+
+_INDEX_NAMES = frozenset({"function_code_embedding_index", "function_desc_embedding_index"})
+
 _UPSERT_FUNCTION: LiteralString = """
 UNWIND $records AS rec
 MERGE (f:Function {id: rec.id})
@@ -207,11 +211,36 @@ class Neo4jStore:
                 await session.run(_ddl(_VECTOR_INDEX_DESC, dim=vector_dim))
 
     async def _ensure_vector_indexes(self, dim: int) -> None:
-        """Create vector indexes once the embedding dimension is known."""
+        """Create vector indexes once the embedding dimension is known.
+
+        Raises RuntimeError if an existing index was built with a different
+        dimension — which happens when the embedding model is changed after the
+        first run. Drop both indexes in Neo4j Browser before switching models:
+            DROP INDEX function_code_embedding_index
+            DROP INDEX function_desc_embedding_index
+        """
         if self._vector_dim == dim:
             return
-        self._vector_dim = dim
         async with self._driver.session(database=self._config.database) as session:
+            result = await session.run(_SHOW_VECTOR_INDEXES)
+            existing = await result.data()
+            for idx in existing:
+                if idx.get("name") not in _INDEX_NAMES:
+                    continue
+                existing_dim = (
+                    (idx.get("options") or {})
+                    .get("indexConfig", {})
+                    .get("vector.dimensions")
+                )
+                if existing_dim is not None and existing_dim != dim:
+                    raise RuntimeError(
+                        f"Vector index '{idx['name']}' has dimension {existing_dim} but the "
+                        f"current embedding model produces {dim}-dimensional vectors. "
+                        f"Drop both indexes in Neo4j Browser before switching models:\n"
+                        f"  DROP INDEX function_code_embedding_index\n"
+                        f"  DROP INDEX function_desc_embedding_index"
+                    )
+            self._vector_dim = dim
             await session.run(_ddl(_VECTOR_INDEX_CODE, dim=dim))
             await session.run(_ddl(_VECTOR_INDEX_DESC, dim=dim))
 

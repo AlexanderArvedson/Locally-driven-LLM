@@ -92,5 +92,5 @@ The following dependencies are currently declared in `pyproject.toml`.
 
 ## Notes
 
-- If you intended to depend on the `graphify` package rather than `graphifyy`, update `pyproject.toml` separately before syncing.
+- The tools extra declares `graphifyy` (double-y) — this is intentional. `graphifyy` is the correct package name on PyPI for the graphify CLI tool used by this project.
 - The repo also uses the standard library, so no extra third-party packages are required beyond the list above.
