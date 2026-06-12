@@ -124,6 +124,8 @@ On the next run, if the same set of changed records is detected (same SHA-256 ru
 
 If the changed-record set shifts between runs (e.g. new commits landed), the run key changes and the checkpoint is ignored — the pipeline starts fresh. Configure or disable checkpointing under `pipeline.checkpoint` in `config.json`.
 
+> **Docker / Slack:** When the pipeline runs inside the FastAPI container (triggered via Slack or the REST API), `.pipeline_checkpoints/` is volume-mounted from the host (`docker-compose.yml`). This gives the container write access and makes checkpoint files persist across container restarts and image rebuilds.
+
 ---
 
 ## Neo4j graph model
