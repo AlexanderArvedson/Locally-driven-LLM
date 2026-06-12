@@ -10,6 +10,10 @@ The start notification shows the repo and UTC time:
 
 Scheduled runs require the `fastapi` container to be running and Slack to be configured. If you have not done that yet, see the [Slack guide](slack.md) first.
 
+**Which repository is targeted:** the scheduled run always uses the **first repository** entry in `config.json`. If you have multiple repositories configured, only the first one is ever scheduled automatically.
+
+**Missed fires are not recovered:** if the fastapi container is down when a scheduled time passes, that run is silently skipped — there is no catch-up mechanism. The next fire is always calculated from the current moment when the container starts.
+
 ---
 
 ## Configuring the schedule

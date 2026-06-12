@@ -10,13 +10,15 @@ The Slack bot exposes three slash commands and posts pipeline completion notific
 
 The bot runs inside the `fastapi` Docker container and communicates via Slack's Socket Mode — no public URL or inbound firewall rules are needed.
 
+**Which repository is targeted:** all three commands always operate on the **first repository** entry in `config.json`. There is no `--repo` flag for Slack commands — to target a different repository, reorder the `repositories` array in `config.json` and restart the container.
+
 ---
 
 ## Prerequisites
 
 - A Slack workspace where you have permission to install apps.
 - Services already running and the pipeline run at least once (from the [running the pipeline guide](running-the-pipeline.md)). The `/query` command searches the Neo4j graph — it returns no results if the graph is empty.
-- `REPOS_ROOT` set in `.env` — the `fastapi` container mounts this path read-only so the pipeline can read source files when triggered via `/pipeline`.
+- `REPOS_ROOT` set in `.env` — the `fastapi` container mounts this path read-write so the pipeline can clone and pull the repo when triggered via `/pipeline`.
 
 ---
 

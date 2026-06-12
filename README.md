@@ -7,8 +7,8 @@ A pipeline that scans a source repository, extracts every function and method, g
 ## Quick start
 
 ```bash
-cp .env.example .env                  # set NEO4J_PASSWORD and REPOS_ROOT
-cp config.example.json config.json    # set name and local_path for your repo
+cp .env.example .env                  # set NEO4J_PASSWORD, REPOS_ROOT, UID, GID
+cp config.example.json config.json    # set name, url, base_branch, local_path
 docker compose up -d ollama neo4j
 docker exec my_ollama ollama pull nomic-embed-text
 docker exec my_ollama ollama pull qwen2.5-coder:7b
@@ -50,8 +50,6 @@ Step-by-step guides for getting everything running:
 5. [Running the pipeline](docs/guides/running-the-pipeline.md) — dry run, first run, flags
 6. [Slack integration](docs/guides/slack.md) — slash commands, notifications *(optional)*
 7. [Scheduled runs](docs/guides/scheduled-runs.md) — cron schedule *(optional)*
-
----
 
 ---
 

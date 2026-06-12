@@ -165,6 +165,7 @@ class PipelineConfig:
     embedding_timeout_seconds: int = 300
     describe_num_ctx: int = 8192
     describe_timeout_seconds: int = 900
+    describer_url: str = ""
     describer_temperature: float | None = None
     describer_max_tokens: int | None = None
     describer_allow_gpu: bool = True
