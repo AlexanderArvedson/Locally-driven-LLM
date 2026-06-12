@@ -11,13 +11,64 @@ services:
     volumes:
       - ollama_data:/root/.ollama
     restart: unless-stopped
-    deploy:
-      resources:
-        reservations:
-          devices:
-            - driver: nvidia
-              count: all
-              capabilities: [gpu]
+
+  neo4j:
+    image: neo4j:5.23.0-community
+    container_name: neo4j
+    restart: unless-stopped
+    ports:
+      - "7474:7474"   # HTTP UI
+      - "7687:7687"   # Bolt
+    environment:
+      NEO4J_AUTH: ${NEO4J_USERNAME}/${NEO4J_PASSWORD}
+      NEO4J_PLUGINS: '["apoc"]'
+      NEO4J_dbms_security_procedures_unrestricted: "apoc.*"
+      NEO4J_server_memory_heap_initial__size: ${NEO4J_HEAP_INITIAL_SIZE:-1G}
+      NEO4J_server_memory_heap_max__size: ${NEO4J_HEAP_MAX_SIZE:-1G}
+      NEO4J_server_memory_pagecache_size: ${NEO4J_PAGECACHE_SIZE:-512m}
+    volumes:
+      - neo4j_data:/data
+      - neo4j_logs:/logs
+      - neo4j_import:/import
+      - neo4j_plugins:/plugins
+
+  fastapi:
+    build:
+      context: .
+      dockerfile: docker/dockerfile
+    container_name: fastapi
+    user: "${UID}:${GID}"
+    ports:
+      - "${FASTAPI_PORT:-8000}:${FASTAPI_PORT:-8000}"
+    environment:
+      FASTAPI_PORT: ${FASTAPI_PORT:-8000}
+      NEO4J_URI: ${NEO4J_URI:-bolt://neo4j:7687}
+      NEO4J_USERNAME: ${NEO4J_USERNAME}
+      NEO4J_PASSWORD: ${NEO4J_PASSWORD}
+      NEO4J_DATABASE: ${NEO4J_DATABASE:-neo4j}
+      OLLAMA_URL: ${OLLAMA_URL:-http://ollama:11434}
+      SLACK_BOT_TOKEN: ${SLACK_BOT_TOKEN}
+      SLACK_APP_TOKEN: ${SLACK_APP_TOKEN}
+      SLACK_NOTIFY_CHANNEL: ${SLACK_NOTIFY_CHANNEL:-}
+      PYTHONUNBUFFERED: "1"
+    volumes:
+      - ./config.json:/app/config.json:ro
+      - ${REPOS_ROOT}:${REPOS_ROOT}
+      - ./run_reports:/app/run_reports
+      - ./.pipeline_checkpoints:/app/.pipeline_checkpoints
+    depends_on:
+      - ollama
+      - neo4j
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:${FASTAPI_PORT:-8000}/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
 
 volumes:
   ollama_data:
+  neo4j_data:
+  neo4j_logs:
+  neo4j_import:
+  neo4j_plugins:

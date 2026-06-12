@@ -14,7 +14,7 @@ from langgraph.graph import StateGraph, START, END
 
 from src.graph.state import GraphState
 from src.graph.nodes import node_index as nodes_module
-from src.config_loader import get_max_workflow_revision_cycles
+from src.core.config_loader import get_max_workflow_revision_cycles
 from src.observability.context import RunContext
 
 

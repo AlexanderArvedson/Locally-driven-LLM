@@ -44,6 +44,16 @@ On macOS, install Xcode command line tools with `xcode-select --install`.
 
 On Windows, use a Python distribution with matching build tools available, or work inside WSL for the smoothest experience.
 
+### WeasyPrint system libraries
+
+`weasyprint` requires several native libraries for PDF rendering (Pango, Cairo, HarfBuzz, fontconfig). **When running via Docker Compose these are installed automatically** by `docker/dockerfile`. If you run `uv run run_pipeline.py` directly on your host machine and PDF report generation fails, install the libraries manually:
+
+- Debian/Ubuntu: `sudo apt-get install libpango-1.0-0 libpangoft2-1.0-0 libharfbuzz0b libfontconfig1 libcairo2 libglib2.0-0 fonts-dejavu-core`
+- Fedora/RHEL: `sudo dnf install pango harfbuzz fontconfig cairo glib2 dejavu-sans-fonts`
+- macOS (Homebrew): `brew install pango`
+
+If you see `Fontconfig error: No writable cache directories` in container logs, ensure `XDG_CACHE_HOME` is set to a writable path (the Dockerfile sets it to `/tmp/cache`).
+
 ## Declared project dependencies
 
 The following dependencies are currently declared in `pyproject.toml`.
@@ -51,14 +61,24 @@ The following dependencies are currently declared in `pyproject.toml`.
 ### Base runtime dependencies
 
 - `fastapi>=0.136.1` - API/server support
+- `python-multipart>=0.0.20` - required by FastAPI for parsing `application/x-www-form-urlencoded` and multipart form bodies (Slack slash command payloads)
 - `httpx>=0.28.1` - HTTP client used for API calls and test stubs
-- `langfuse>=4.6.1` - observability and tracing integration
 - `langgraph>=1.2.1` - graph-based workflow orchestration
 - `loguru>=0.7.3` - structured logging
+- `gitpython>=3.1.50` - Git repository interaction: branch creation, staging, committing, and pushing from within the pipeline
+- `neo4j>=5.0` - async Neo4j driver used by the embedding pipeline to store function nodes and similarity edges
 - `pydantic>=2.13.4` - data validation and settings models
 - `python-dotenv>=1.2.2` - environment variable loading
 - `tenacity>=9.1.4` - retry logic
+- `tree-sitter>=0.22` - AST parsing core, used by both the retrieval slicer and the embedding pipeline extractor
+- `tree-sitter-python>=0.23` - Python grammar for tree-sitter
+- `tree-sitter-typescript>=0.23` - TypeScript and JavaScript grammar for tree-sitter, used by the embedding pipeline
 - `uvicorn[standard]>=0.47.0` - ASGI server for local execution
+- `slack-bolt>=1.18` - Slack Bolt SDK for slash commands and Socket Mode
+- `aiohttp>=3.9` - async HTTP used internally by the Slack SDK
+- `croniter>=6.2.2` - cron expression parsing for the scheduler
+- `markdown>=3.7` - converts report markdown to HTML as an intermediate step for PDF generation
+- `weasyprint>=62.0` - renders HTML to PDF bytes; used to produce the PDF attachment uploaded to Slack after each report run
 
 ### Development extra
 
@@ -72,5 +92,5 @@ The following dependencies are currently declared in `pyproject.toml`.
 
 ## Notes
 
-- If you intended to depend on the `graphify` package rather than `graphifyy`, update `pyproject.toml` separately before syncing.
+- The tools extra declares `graphifyy` (double-y) — this is intentional. `graphifyy` is the correct package name on PyPI for the graphify CLI tool used by this project.
 - The repo also uses the standard library, so no extra third-party packages are required beyond the list above.

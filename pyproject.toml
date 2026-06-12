@@ -5,9 +5,9 @@ requires-python = ">=3.12"
 
 dependencies = [
     "fastapi>=0.136.1",
+    "python-multipart>=0.0.20",
     "httpx>=0.28.1",
     "langgraph>=1.2.1",
-    "langfuse>=4.6.1",
     "loguru>=0.7.3",
     "pydantic>=2.13.4",
     "python-dotenv>=1.2.2",
@@ -16,6 +16,13 @@ dependencies = [
     "gitpython>=3.1.50",
     "tree-sitter>=0.22",
     "tree-sitter-python>=0.23",
+    "tree-sitter-typescript>=0.23",
+    "neo4j>=5.0",
+    "slack-bolt>=1.18",
+    "aiohttp>=3.9",
+    "croniter>=6.2.2",
+    "markdown>=3.7",
+    "weasyprint>=62.0",
 ]
 
 [project.optional-dependencies]

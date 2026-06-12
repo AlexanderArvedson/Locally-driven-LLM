@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import asyncio
 
-from .executor import WorkflowExecutor
+from .dispatcher import TaskDispatcher
 from .queue import TaskQueue
 from .task import Task
 
@@ -18,7 +18,7 @@ class ExecutionLoop:
     - Track background tasks to ensure orderly shutdown.
     """
 
-    def __init__(self, queue: TaskQueue, executor: WorkflowExecutor) -> None:
+    def __init__(self, queue: TaskQueue, executor: TaskDispatcher) -> None:
         self.queue = queue
         self.executor = executor
         self._mutation_lock = asyncio.Lock()

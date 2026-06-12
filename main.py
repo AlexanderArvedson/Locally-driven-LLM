@@ -1,33 +1,50 @@
 from __future__ import annotations
 
 import asyncio
-import signal
+import os
 
-from src.scheduler.executor import WorkflowExecutor
+import uvicorn
+
+from src.api.app import create_app
+from src.api.slack_socket import start_socket_mode
+from src.core.config_loader import load_config
+from src.core.pipeline_config import load_pipeline_config
+from src.scheduler.cron_trigger import CronTrigger
+from src.scheduler.dispatcher import TaskDispatcher
 from src.scheduler.loop import ExecutionLoop
 from src.scheduler.queue import TaskQueue
 
 
 async def main() -> None:
-    queue = TaskQueue()
-    executor = WorkflowExecutor()
-    loop = ExecutionLoop(queue=queue, executor=executor)
+    app_config = load_config()
+    config = load_pipeline_config()
 
+    queue = TaskQueue()
+    dispatcher = TaskDispatcher(pipeline_config=config)
+    loop = ExecutionLoop(queue=queue, executor=dispatcher)
     await loop.start()
 
-    stop_event = asyncio.Event()
-    event_loop = asyncio.get_running_loop()
+    cron_trigger = CronTrigger(
+        cron_expr=app_config.cron,
+        repo=config.repo_name,
+        queue=queue,
+    )
+    await cron_trigger.start()
 
-    for sig in (signal.SIGINT, signal.SIGTERM):
-        try:
-            event_loop.add_signal_handler(sig, stop_event.set)
-        except NotImplementedError:
-            pass
+    socket_handler = await start_socket_mode(queue=queue, repo_name=config.repo_name)
+
+    app = create_app()
+    port = int(os.environ.get("FASTAPI_PORT", 8000))
+    server_config = uvicorn.Config(app, host="0.0.0.0", port=port, loop="asyncio")
+    server = uvicorn.Server(server_config)
 
     try:
-        await stop_event.wait()
+        await server.serve()
     finally:
+        await cron_trigger.stop()
         await loop.stop()
+        if socket_handler is not None:
+            await socket_handler.close_async()
 
 
 if __name__ == "__main__":

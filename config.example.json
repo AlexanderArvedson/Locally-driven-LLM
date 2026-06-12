@@ -36,7 +36,6 @@
 
       "credentials": {
         "git": {
-          "username": "",
           "token": ""
         }
       },
@@ -46,7 +45,6 @@
           "name": "qwen2.5-coder:7b",
           "provider": "ollama",
           "api_key": null,
-          "url": "http://localhost:11434",
           "temperature": null,
           "max_tokens": null,
           "num_ctx": null,
@@ -57,7 +55,6 @@
           "name": "qwen2.5-coder:7b",
           "provider": "ollama",
           "api_key": null,
-          "url": "http://localhost:11434",
           "temperature": null,
           "max_tokens": null,
           "num_ctx": null,
@@ -68,7 +65,26 @@
           "name": "qwen2.5-coder:7b",
           "provider": "ollama",
           "api_key": null,
-          "url": "http://localhost:11434",
+          "temperature": null,
+          "max_tokens": null,
+          "num_ctx": null,
+          "timeout_seconds": 300,
+          "allow_gpu": true
+        },
+        "describer": {
+          "name": "qwen2.5-coder:7b",
+          "provider": "ollama",
+          "api_key": null,
+          "temperature": null,
+          "max_tokens": -1,
+          "num_ctx": 16384,
+          "timeout_seconds": 900,
+          "allow_gpu": true
+        },
+        "reporter": {
+          "name": "qwen2.5-coder:7b",
+          "provider": "ollama",
+          "api_key": null,
           "temperature": null,
           "max_tokens": null,
           "num_ctx": null,
@@ -79,17 +95,73 @@
           "name": "nomic-embed-text",
           "provider": "ollama",
           "api_key": null,
-          "url": "http://localhost:11434",
           "temperature": null,
           "max_tokens": null,
-          "num_ctx": null,
+          "num_ctx": 8192,
           "timeout_seconds": 300,
           "allow_gpu": true
         }
       },
 
-      "integrations": {
-        "slack_webhook_url": null
+      "pipeline": {
+        "supported_languages": ["python", "typescript"],
+        "ignore_paths": [".venv", "node_modules", "__pycache__", "dist", "build", ".git", "migrations/", "seeds/"],
+        "similarity": {
+          "threshold": 0.90,
+          "top_n": 20,
+          "code_weight": 0.70,
+          "description_weight": 0.30
+        },
+        "concurrency": {
+          "embed_code": 1,
+          "embed_description": 1,
+          "describe": 1
+        },
+        "batch_sizes": {
+          "function_upsert": 50,
+          "edge_upsert": 200
+        },
+        "limits": {
+          "max_code_chars": 22000,
+          "max_description_source_chars": 12000,
+          "context_overflow_char_threshold": 10000,
+          "min_loc_threshold": 3
+        },
+        "test_patterns": ["tests/", "test_", "_test.py", "cypress/", ".cy.ts", ".test.", ".spec."],
+        "include_tests_in_graph": false,
+        "ignore_anonymous_callbacks": true,
+        "reporter": {
+          "cluster_threshold": 0.92,
+          "arch_coupling_threshold": 0.60,
+          "test_pollution_threshold": 5,
+          "timezone": "UTC",
+          "top_n": 20,
+          "max_embedding_failures": 200,
+          "high_dup_min_cluster_size": 3,
+          "high_dup_min_score": 0.95,
+          "min_coupling_edges": 5,
+          "max_coupling_files_listed": 5,
+          "sim_dist_bin_high": 0.95,
+          "sim_dist_bin_mid": 0.90,
+          "sim_dist_bin_low": 0.80,
+          "cohesion_low_threshold": 0.30,
+          "cohesion_min_functions": 2,
+          "max_cohesion_files_listed": 20,
+          "max_isolated_listed": 50,
+          "god_file_threshold": 20,
+          "slack_top_n_query": 5,
+          "slack_top_n_report": 3
+        },
+        "slack": {
+          "enabled": true,
+          "debug_messages": false,
+          "embed_progress_interval": 100,
+          "describe_progress_interval": 10
+        },
+        "checkpoint": {
+          "enabled": true,
+          "interval": 10
+        }
       }
     }
   ]

@@ -17,7 +17,7 @@ import time
 import uuid
 from pathlib import Path
 
-from src.config_loader import get_retrieval_config, get_coder_model_config
+from src.core.config_loader import get_retrieval_config, get_coder_model_config
 from src.graph.state import GraphState
 from src.observability.context import RunContext
 from src.observability.event_logging_utils import emit_failure, emit_success

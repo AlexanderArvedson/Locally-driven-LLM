@@ -30,7 +30,7 @@ class TestTokenCounter(unittest.TestCase):
         self.assertEqual(result, expected)
 
     def test_ollama_provider_uses_estimate(self) -> None:
-        from src.config_loader import ModelConfig
+        from src.core.config_loader import ModelConfig
         cfg = ModelConfig(name="qwen2.5-coder:7b", provider="ollama")
         text = "x" * 100
         result = self.counter.count(text, model_config=cfg)
@@ -38,7 +38,7 @@ class TestTokenCounter(unittest.TestCase):
 
     def test_openai_provider_falls_back_to_estimate_without_tiktoken(self) -> None:
         """When tiktoken is absent the openai path falls back to the estimate."""
-        from src.config_loader import ModelConfig
+        from src.core.config_loader import ModelConfig
         cfg = ModelConfig(name="gpt-4o", provider="openai")
         text = "a" * 80
         result = self.counter.count(text, model_config=cfg)

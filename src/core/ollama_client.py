@@ -34,6 +34,11 @@ class LLMResult:
     output_tokens: int
 
 
+@dataclass
+class EmbedResult:
+    embedding: list[float]
+
+
 class OllamaClient:
     def __init__(self, base_url: str, timeout: float = 600.0):
         """Create a new `OllamaClient`.
@@ -93,24 +98,76 @@ class OllamaClient:
         if options:
             payload["options"] = options
 
-        response = await self._client.post(
-            f"{self.base_url}/api/chat",
-            json=payload,
-            timeout=timeout_seconds,
-        )
+        try:
+            response = await self._client.post(
+                f"{self.base_url}/api/chat",
+                json=payload,
+                timeout=timeout_seconds,
+            )
+        except httpx.TransportError as e:
+            raise RuntimeError(f"Ollama request failed: {e}") from e
 
         try:
             response.raise_for_status()
-        except httpx.HTTPError as e:
+        except httpx.HTTPStatusError as e:
             raise RuntimeError(f"Ollama request failed: {e}") from e
 
-        data = response.json()
+        try:
+            data = response.json()
+            return LLMResult(
+                message=data["message"]["content"],
+                input_tokens=data.get("prompt_eval_count", 0),
+                output_tokens=data.get("eval_count", 0),
+            )
+        except (KeyError, ValueError) as e:
+            raise RuntimeError(f"Ollama response parse failed: {e}") from e
 
-        return LLMResult(
-            message=data["message"]["content"],
-            input_tokens=data.get("prompt_eval_count", 0),
-            output_tokens=data.get("eval_count", 0),
-        )
+    async def embed(
+        self,
+        text: str,
+        model: str,
+        num_ctx: int = 8192,
+        timeout_seconds: int = 120,
+        allow_gpu: bool = True,
+    ) -> EmbedResult:
+        """Send an embedding request to the Ollama API and return the vector.
+
+        Args:
+            text: The text to embed.
+            model: Ollama embedding model identifier (e.g. ``"nomic-embed-text"``).
+            num_ctx: Context window size. Defaults to 8192, the maximum for
+                nomic-embed-text. Ollama's own default is 2048, which causes
+                500s for functions longer than ~6 000 chars.
+            timeout_seconds: Per-request wall-clock timeout.
+            allow_gpu: When ``True``, offloads to GPU (``num_gpu=-1``).
+
+        Raises:
+            RuntimeError: On HTTP error responses from Ollama.
+        """
+        payload: dict = {
+            "model": model,
+            "prompt": text,
+            "options": {"num_gpu": _gpu_layers(allow_gpu), "num_ctx": num_ctx},
+        }
+
+        try:
+            response = await self._client.post(
+                f"{self.base_url}/api/embeddings",
+                json=payload,
+                timeout=timeout_seconds,
+            )
+        except httpx.TransportError as e:
+            raise RuntimeError(f"Ollama embed request failed: {e}") from e
+
+        try:
+            response.raise_for_status()
+        except httpx.HTTPStatusError as e:
+            raise RuntimeError(f"Ollama embed request failed: {e}") from e
+
+        try:
+            return EmbedResult(embedding=response.json()["embedding"])
+        except (KeyError, ValueError) as e:
+            raise RuntimeError(f"Ollama embed response parse failed: {e}") from e
 
     async def close(self):
         """Close the underlying HTTP client connection pool."""

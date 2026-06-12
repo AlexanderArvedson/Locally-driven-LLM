@@ -10,7 +10,7 @@ from __future__ import annotations
 import logging
 import time
 
-from src.config_loader import get_repository_config
+from src.core.config_loader import get_repository_config
 from src.git.branch_manager import clone_if_missing, create_task_branch
 from src.graph.nodes.support import require_state_value
 from src.graph.state import GraphState
@@ -41,7 +41,6 @@ async def branch_creator_node(state: GraphState, run_context: RunContext) -> dic
         clone_if_missing(
             remote_url=repo_config.url,
             local_path=repo_path,
-            username=credentials.get("username", ""),
             token=credentials.get("token", ""),
         )
 

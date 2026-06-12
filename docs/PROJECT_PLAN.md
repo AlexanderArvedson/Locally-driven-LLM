@@ -1,4 +1,4 @@
-Last updated: 2026-05-26
+Last updated: 2026-06-05
 
 # PROJECT PLAN
 
@@ -361,8 +361,14 @@ Do NOT implement:
 - `TaskQueue`
   - in-memory FIFO queue of workflow requests
 
-- `WorkflowExecutor`
-  - single entrypoint for running LangGraph workflows
+- `WorkflowExecutor` *(legacy — decoupled from the active scheduler)*
+  - original single entrypoint for running LangGraph workflows
+  - replaced by `TaskDispatcher` as part of the Slack integration event loop refactor
+  - re-integration requires wiring `WorkflowTask` through `TaskDispatcher`
+
+- `TaskDispatcher` *(active executor)*
+  - routes `QueryTask` (passive — semantic search) and `PipelineTask` (active — embedding pipeline)
+  - defined in `src/scheduler/dispatcher.py`
 
 ---
 
@@ -400,7 +406,7 @@ No lifecycle tracking beyond “running now / not running”.
 - [x] Implement in-memory `TaskQueue`
 - [x] Implement `Task` model (passive / active)
 - [x] Implement mutation exclusivity guard
-- [x] Integrate with existing `WorkflowExecutor`
+- [x] Integrate with existing `WorkflowExecutor` *(superseded — see `TaskDispatcher`)*
 
 ---
 
@@ -477,7 +483,7 @@ Phase 3 is complete when:
 
 ## Stage
 
-Phase 1 — File Mutation MVP: Completed. Phase 2 — Repository Awareness: initial implementation completed and integrated. Phase 3 — Execution & Scheduling Layer: core scheduler + workflow boundary refactor completed.
+Phase 1 — File Mutation MVP: Completed. Phase 2 — Repository Awareness: initial implementation completed and integrated. Phase 3 — Execution & Scheduling Layer: core scheduler + workflow boundary refactor completed. Slack Integration Phases 1–3 (query engine, event loop refactor, FastAPI layer): completed.
 
 ## Working capabilities
 
@@ -490,13 +496,14 @@ Phase 1 — File Mutation MVP: Completed. Phase 2 — Repository Awareness: init
 - [x] Deterministic repository snapshotting and normalized, versioned context payloads
 - [x] Test fixtures and helpers to stabilize import-time dependencies
 - [x] Autonomous file selection — `planner_node` uses the LLM to pick which file(s) to modify from retrieval candidates; `--target-file` is now optional
+- [x] Embedding pipeline — function extraction, Neo4j HNSW vector indexes, similarity graph
+- [x] Semantic search (`QueryTask`) — embed query text, retrieve top-N matching functions from Neo4j
+- [x] `TaskDispatcher` — routes `QueryTask` (passive) and `PipelineTask` (active) through the execution loop
+- [x] FastAPI layer — `POST /slack/query` and `POST /slack/pipeline` with HMAC-SHA256 signature verification; runs alongside the execution loop via uvicorn; deployed as a Docker service
 
 ## Current focus
 
-Stabilize and consolidate Phase 2 repository-awareness infrastructure; short-term priorities:
-
-- Begin Phase 3 execution/scheduling layer design
-- Define scheduler/runtime boundaries before passive analysis implementation
+Slack Integration Phase 4 — ngrok tunnel + wiring: expose the local FastAPI server to the internet and connect all pieces in `main.py`. See `docs/SLACK_INTEGRATION.md`.
 
 ---
 

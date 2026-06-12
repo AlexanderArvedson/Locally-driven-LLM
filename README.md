@@ -1,69 +1,104 @@
 # Locally-driven-langgraph-LLM
 
-Quick notes (how to run the file-edit MVP):
+A pipeline that scans a source repository, extracts every function and method, generates vector embeddings and LLM descriptions via Ollama, and builds a weighted similarity graph in Neo4j. Useful for code search, duplicate detection, and architectural analysis. Everything runs locally — no data leaves your machine.
 
-Before running the app, create a local `config.json` from `config.example.json` and edit the values for your machine and model setup. The repository ignores `config.json`, so each checkout can keep its own runtime settings. The example file is just a template; the local file is where the real repo-specific values live. The `max_workflow_revision_cycles` field under each repository controls the maximum number of implement → validate → correct loops the workflow may run. `api_key` is optional and is only needed for hosted providers; leave it `null` when using local hosting such as Ollama.
+---
+
+## Quick start
 
 ```bash
-cp config.example.json config.json
+cp .env.example .env                  # set NEO4J_PASSWORD, REPOS_ROOT, UID, GID
+cp config.example.json config.json    # set name, url, base_branch, local_path
+docker compose up -d ollama neo4j
+docker exec my_ollama ollama pull nomic-embed-text
+docker exec my_ollama ollama pull qwen2.5-coder:7b
+uv run run_pipeline.py --no-descriptions
 ```
 
-- Run unit tests:
+> **Running on host (not inside Docker)?** Change `NEO4J_URI` in `.env` to `bolt://localhost:7687` so the pipeline can reach Neo4j on your machine rather than the Docker-internal hostname.
+
+For a complete walkthrough, start at [docs/guides/prerequisites.md](docs/guides/prerequisites.md).
+
+---
+
+## Two ways to run
+
+**Standalone CLI** — `uv run run_pipeline.py`
+
+Runs the embedding pipeline directly. Requires Neo4j and Ollama to be reachable but needs no FastAPI container, Slack setup, or scheduler. This is the right choice for one-off runs and local development.
+
+**Full stack** — `docker compose up`
+
+Starts all services including the `fastapi` container, which runs `main.py`. This enables Slack slash commands (`/pipeline`, `/query`, `/report`), the HTTP API, and cron-scheduled automatic runs. The pipeline is triggered via Slack or the API — `run_pipeline.py` is not used in this mode.
+
+---
+
+## Running the pipeline
+
+```bash
+uv run run_pipeline.py                      # full run with LLM descriptions
+uv run run_pipeline.py --no-descriptions    # faster, code embeddings only
+uv run run_pipeline.py --dry-run            # extract only, no writes
+uv run run_pipeline.py --report-only        # report from current graph, no re-run
+```
+
+Reports are written to `run_reports/<repo_name>/<timestamp>/` as `.md` and `.json` files. Runs are incremental — only changed functions are re-processed.
+
+---
+
+## Reference
+
+- [Pipeline reference](docs/PIPELINE.md) — all 13 stages, CLI flags, graph schema, report sections, example Cypher queries
+- [Configuration reference](docs/CONFIG.md) — every `.env` and `config.json` field with types and defaults
+- [Dependencies](docs/DEPENDENCIES.md) — install instructions, system prerequisites, and full dependency list
+
+---
+
+## Setup guides
+
+Step-by-step guides for getting everything running:
+
+1. [Prerequisites](docs/guides/prerequisites.md) — Docker, uv
+2. [Configuration](docs/guides/configuration.md) — `.env` and `config.json`
+3. [Starting services](docs/guides/services.md) — Ollama, Neo4j, GPU setup
+4. [Pulling models](docs/guides/models.md) — embedding and chat models
+5. [Running the pipeline](docs/guides/running-the-pipeline.md) — dry run, first run, flags
+6. [Slack integration](docs/guides/slack.md) — slash commands, notifications *(optional)*
+7. [Scheduled runs](docs/guides/scheduled-runs.md) — cron schedule *(optional)*
+
+---
+
+## Agent Workflow (On Hold — Unfinished)
+
+> **This subsystem is not usable in its current state.** The LangGraph-based file-edit agent workflow is incomplete and has been put on hold. The sections below are retained for reference only.
+
+### File-edit smoke test
+
+Before running, create a local `config.json` from `config.example.json`. The `max_workflow_revision_cycles` field controls the maximum number of implement → validate → correct loops. `api_key` is optional and only needed for hosted providers.
 
 ```bash
 uv run -m pytest -q
-```
-
-- Run the single-file edit smoke test as a local integration check (uses `sandbox/example.py`):
-
-```bash
 uv run -m scripts.test_file_edit
 ```
 
-- Run the scheduler stress demo against the fixture repo and local model:
+If a patch fails to apply, the tool falls back to a whole-file write and saves the failed diff under `.runtime/failed_patches/` for manual inspection.
 
-```bash
-uv run -m scripts.stress_scheduler_fixture_repo --in-place
-```
+### Observability
 
-If a patch fails to apply, the tool falls back to a whole-file write using the already-generated code and saves the failed diff under `.runtime/failed_patches/` for manual inspection. If both the patch and the whole-file write fail, the run is aborted with a verification failure.
-
-Observability
--------------
-
-`run_monorepo_task` prints a human-readable execution trace to the console at the end of every run, showing each node, its duration, and the first line of any failure reason:
+`run_monorepo_task` prints a human-readable execution trace at the end of every run:
 
 ```bash
 uv run -m scripts.run_monorepo_task --task "add docstrings to all public methods in foo.py"
 ```
 
-A full per-run JSONL event log is written to `.runtime/runs/<run_id>.jsonl` for streaming inspection, and an aggregated JSON summary to `.runtime/runs/<run_id>.json`. Inspect the most recent run (requires `jq`):
+A full per-run JSONL event log is written to `.runtime/runs/<run_id>.jsonl` and an aggregated JSON summary to `.runtime/runs/<run_id>.json`. Inspect the most recent run (requires `jq`):
 
 ```bash
 ls -1 .runtime/runs/*.jsonl | tail -n1 | xargs cat | jq
 ```
 
-Logs and runtime artifacts are ignored by git; see `.gitignore` for entries such as `.runtime/`.
-
-Repository Context Contract
----------------------------
-
-The retrieval -> coder repository context schema, validation rules, and
-prompt rendering format are documented in:
-
-- `docs/CONTEXT_CONTRACT.md`
-
-Dependencies
-------------
-
-The full set of declared runtime, test, and tooling dependencies is documented in:
-
-- `docs/DEPENDENCIES.md`
-
-That file also covers OS-level build prerequisites for native extensions, including the `Python.h` fix path.
-
-If you want to install everything declared in `pyproject.toml`, use:
+### Scheduler stress demo
 
 ```bash
-uv sync --all-extras
+uv run -m scripts.stress_scheduler_fixture_repo --in-place
 ```

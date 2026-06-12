@@ -18,7 +18,7 @@ from typing import TYPE_CHECKING, Optional
 from src.retrieval.budgeting.token_counter import TokenCounter
 
 if TYPE_CHECKING:
-    from src.config_loader import ModelConfig
+    from src.core.config_loader import ModelConfig
 
 
 @dataclass

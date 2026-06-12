@@ -11,7 +11,7 @@ import json
 import time
 
 from src.graph.nodes.support import client, require_state_value, strip_code_fences
-from src.config_loader import get_semantic_model_config, get_semantic_threshold
+from src.core.config_loader import get_semantic_model_config, get_semantic_threshold
 from src.graph.state import GraphState
 from src.observability.context import RunContext
 from src.observability.event_logging_utils import emit_failure, emit_success
