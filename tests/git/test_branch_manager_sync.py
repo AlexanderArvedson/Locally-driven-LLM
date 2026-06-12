@@ -27,7 +27,7 @@ class TestEnsureRepoSynced:
         with patch("src.git.branch_manager.clone_if_missing", return_value=cloned_repo) as mock_clone:
             result = ensure_repo_synced("https://example.com/repo.git", missing, "main")
         mock_clone.assert_called_once_with(
-            "https://example.com/repo.git", missing, "", ""
+            "https://example.com/repo.git", missing, ""
         )
         assert isinstance(result, SyncResult)
         assert result.operation == "clone"
@@ -41,10 +41,10 @@ class TestEnsureRepoSynced:
         cloned_repo.head.commit.hexsha = "aabbccdd1234567"
         with patch("src.git.branch_manager.clone_if_missing", return_value=cloned_repo) as mock_clone:
             ensure_repo_synced(
-                "https://example.com/repo.git", missing, "main", username="user", token="tok"
+                "https://example.com/repo.git", missing, "main", token="tok"
             )
         mock_clone.assert_called_once_with(
-            "https://example.com/repo.git", missing, "user", "tok"
+            "https://example.com/repo.git", missing, "tok"
         )
 
     def test_checkout_and_pull_when_path_exists_and_clean(self, tmp_path, mock_repo):
@@ -106,10 +106,10 @@ class TestEnsureRepoSynced:
         existing = str(tmp_path)
         with patch("src.git.branch_manager._open_repo", return_value=mock_repo):
             ensure_repo_synced(
-                "https://example.com/repo.git", existing, "main", username="user", token="tok"
+                "https://example.com/repo.git", existing, "main", token="tok"
             )
         mock_repo.git.pull.assert_called_once_with(
-            "https://user:tok@example.com/repo.git", "main"
+            "https://x-access-token:tok@example.com/repo.git", "main"
         )
         mock_repo.remotes.origin.pull.assert_not_called()
 
@@ -183,7 +183,6 @@ class TestSyncRepoMethod:
             repo_url="https://example.com/repo.git",
             base_branch="main",
             git_sync_path="/canonical/path",
-            git_username="user",
             git_token="tok",
         )
         pipeline = EmbeddingPipeline.__new__(EmbeddingPipeline)
@@ -193,7 +192,7 @@ class TestSyncRepoMethod:
             pipeline._sync_repo()
 
         mock_sync.assert_called_once_with(
-            "https://example.com/repo.git", "/canonical/path", "main", "user", "tok"
+            "https://example.com/repo.git", "/canonical/path", "main", "tok"
         )
 
     def test_falls_back_to_repo_path_when_git_sync_path_empty(self):
@@ -212,5 +211,5 @@ class TestSyncRepoMethod:
             pipeline._sync_repo()
 
         mock_sync.assert_called_once_with(
-            "https://example.com/repo.git", "/fallback/path", "main", "", ""
+            "https://example.com/repo.git", "/fallback/path", "main", ""
         )

@@ -41,7 +41,6 @@ async def branch_creator_node(state: GraphState, run_context: RunContext) -> dic
         clone_if_missing(
             remote_url=repo_config.url,
             local_path=repo_path,
-            username=credentials.get("username", ""),
             token=credentials.get("token", ""),
         )
 

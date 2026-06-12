@@ -53,7 +53,6 @@ def _open_repo(repo_path: str) -> git.Repo:
 def clone_if_missing(
     remote_url: str,
     local_path: str,
-    username: str = "",
     token: str = "",
 ) -> git.Repo:
     """Return the repo at *local_path*, cloning from *remote_url* if absent.
@@ -76,7 +75,7 @@ def clone_if_missing(
                 f"Path '{local_path}' exists but is not a git repository."
             )
 
-    url = _auth_url(remote_url, username, token) if token else remote_url
+    url = _auth_url(remote_url, token) if token else remote_url
     logger.info("Cloning '%s' into '%s'…", remote_url, local_path)
     repo = git.Repo.clone_from(url, local_path)
     logger.info("Clone complete.")
@@ -87,7 +86,6 @@ def ensure_repo_synced(
     remote_url: str,
     local_path: str,
     base_branch: str,
-    username: str = "",
     token: str = "",
 ) -> SyncResult:
     """Clone the repo if absent; otherwise switch to base_branch and pull.
@@ -101,7 +99,7 @@ def ensure_repo_synced(
     from pathlib import Path
 
     if not Path(local_path).exists():
-        repo = clone_if_missing(remote_url, local_path, username, token)
+        repo = clone_if_missing(remote_url, local_path, token)
         commit_hash = repo.head.commit.hexsha[:7]
         return SyncResult(operation="clone", success=True, branch=base_branch, commit_hash=commit_hash)
 
@@ -119,7 +117,7 @@ def ensure_repo_synced(
         logger.warning("Could not checkout '%s': %s", base_branch, exc.stderr.strip())
 
     head_before = repo.head.commit.hexsha[:7]
-    pull_url = _auth_url(remote_url, username, token) if token else None
+    pull_url = _auth_url(remote_url, token) if token else None
     try:
         if pull_url:
             repo.git.pull(pull_url, base_branch)
@@ -146,9 +144,9 @@ def ensure_repo_synced(
         )
 
 
-def _auth_url(remote_url: str, username: str, token: str) -> str:
+def _auth_url(remote_url: str, token: str) -> str:
     if remote_url.startswith("https://"):
-        return remote_url.replace("https://", f"https://{username}:{token}@", 1)
+        return remote_url.replace("https://", f"https://x-access-token:{token}@", 1)
     return remote_url
 
 
@@ -247,12 +245,11 @@ def push_branch(
     repo_path: str,
     branch_name: str,
     remote_url: str,
-    username: str,
     token: str,
 ) -> None:
     """Push *branch_name* to the authenticated remote URL."""
     repo = _open_repo(repo_path)
-    url = _auth_url(remote_url, username, token)
+    url = _auth_url(remote_url, token)
 
     try:
         repo.git.push(url, branch_name)

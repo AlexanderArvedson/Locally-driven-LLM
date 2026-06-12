@@ -36,7 +36,6 @@
 
       "credentials": {
         "git": {
-          "username": "",
           "token": ""
         }
       },

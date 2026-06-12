@@ -88,7 +88,7 @@ class EmbeddingPipeline:
             return None
         sync_path = cfg.git_sync_path or cfg.repo_path
         from src.git.branch_manager import ensure_repo_synced
-        return ensure_repo_synced(cfg.repo_url, sync_path, cfg.base_branch, cfg.git_username, cfg.git_token)
+        return ensure_repo_synced(cfg.repo_url, sync_path, cfg.base_branch, cfg.git_token)
 
     async def _run_stages(self, result: PipelineResult) -> None:
         config = self._config
