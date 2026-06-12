@@ -65,7 +65,7 @@ async def _run(args: argparse.Namespace) -> int:
 
     if args.report_only:
         print(f"Generating report for: {config.repo_name}")
-        report_path = await generate_report(
+        report_path, _ = await generate_report(
             config.neo4j, config.repo_name,
             include_tests=config.include_tests_in_graph,
             pipeline_config=config,
@@ -111,14 +111,14 @@ async def _run(args: argparse.Namespace) -> int:
         print()
         started_at = datetime.datetime.now(datetime.timezone.utc)
         try:
-            report_path = await generate_report(
+            report_path, report_text = await generate_report(
                 config.neo4j, config.repo_name,
                 include_tests=config.include_tests_in_graph,
                 pipeline_config=config,
                 loc_filtered=result.loc_filtered,
             )
             print(f"Report written to: {report_path.parent}/")
-            await notifier.report_complete(True, started_at, report_path, None, reporter_cfg=config.reporter)
+            await notifier.report_complete(True, started_at, report_path, None, reporter_cfg=config.reporter, md_text=report_text)
         except Exception as exc:
             await notifier.report_complete(False, started_at, None, str(exc))
             raise
