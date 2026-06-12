@@ -48,6 +48,8 @@ run_reports/<repo_name>/<timestamp>/
 
 The `.md` report contains embedding integrity stats, a similarity distribution histogram, top similar function pairs, duplication clusters, and heuristic flags. See [docs/PIPELINE.md](../PIPELINE.md) for the full report structure.
 
+If `SLACK_NOTIFY_CHANNEL` is set, the report overview (Block Kit card) and the `.md` file are also posted to that channel automatically — the same as when triggered via the `/pipeline` Slack command.
+
 ---
 
 ## Subsequent runs are incremental

@@ -78,7 +78,7 @@
           "api_key": null,
           "temperature": null,
           "max_tokens": -1,
-          "num_ctx": null,
+          "num_ctx": 16384,
           "timeout_seconds": 900,
           "allow_gpu": true
         },

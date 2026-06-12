@@ -46,7 +46,7 @@ def _make_record(name: str, start_line: int, end_line: int) -> FunctionRecord:
     import hashlib
     source = f"def {name}(): pass"
     return FunctionRecord(
-        id=hashlib.sha256(f"test-repo:fake.py:{name}:{start_line}".encode()).hexdigest(),
+        id=hashlib.sha256(f"test-repo:fake.py:{name}".encode()).hexdigest(),
         repo="test-repo",
         language="python",
         file_path="fake.py",

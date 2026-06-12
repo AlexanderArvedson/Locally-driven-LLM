@@ -47,43 +47,6 @@ def _fmt_eta(remaining_seconds: float) -> str:
     return f"{_fmt_duration(remaining_seconds)} remaining"
 
 
-def _build_pipeline_blocks(result: PipelineResult) -> list:
-    """Build a Slack Block Kit block list from a PipelineResult."""
-    blocks: list = [
-        {
-            "type": "header",
-            "text": {"type": "plain_text", "text": "✅ Pipeline complete"},
-        },
-        {"type": "divider"},
-        {
-            "type": "section",
-            "text": {
-                "type": "mrkdwn",
-                "text": (
-                    f"*New/modified:* {result.changed}\n"
-                    f"*Unchanged:* {result.unchanged}\n"
-                    f"*Deleted:* {result.newly_deleted}\n"
-                    f"*Duration:* {result.duration_seconds:.0f}s"
-                ),
-            },
-        },
-    ]
-
-    exclusions = []
-    if result.loc_filtered:
-        exclusions.append(f"{result.loc_filtered} below LOC threshold")
-
-    if exclusions:
-        blocks.append({
-            "type": "section",
-            "text": {
-                "type": "mrkdwn",
-                "text": "*Excluded:* " + " · ".join(exclusions),
-            },
-        })
-
-    return blocks
-
 
 _FLAG_LABELS = {
     "HIGH_DUPLICATION_CLUSTER": "High duplication — large groups of near-identical functions",
@@ -149,9 +112,8 @@ def _build_report_blocks(data: dict, reporter_cfg: ReporterConfig | None = None)
             "type": "mrkdwn",
             "text": (
                 f"*Embedding*\n"
-                f"Code — OK: {emb.get('ok', '?')}   Chunked: {emb.get('chunked', 0)}   Failed: {failed}\n"
-                f"  Error: {emb.get('error', 0)}\n"
-                f"Descriptions — OK: {desc.get('ok', '?')}   Failed: {desc_failed}"
+                f"Code — OK: {emb.get('ok', '?')} · Chunked: {emb.get('chunked', 0)} · Failed: {failed}\n"
+                f"Descriptions — OK: {desc.get('ok', '?')} · Failed: {desc_failed}"
             ),
         },
     })
@@ -254,6 +216,32 @@ def _build_report_blocks(data: dict, reporter_cfg: ReporterConfig | None = None)
     return blocks
 
 
+def _build_pipeline_blocks(result: PipelineResult) -> list:
+    """Build a Slack Block Kit block list from a PipelineResult."""
+    blocks: list = []
+
+    blocks.append({
+        "type": "header",
+        "text": {"type": "plain_text", "text": "✅ Pipeline complete"},
+    })
+
+    lines = [
+        f"New/modified: {result.changed}",
+        f"Unchanged: {result.unchanged}",
+        f"Deleted: {result.newly_deleted}",
+        f"Duration: {_fmt_duration(result.duration_seconds)}",
+    ]
+    if result.loc_filtered:
+        lines.append(f"Excluded by LOC threshold: {result.loc_filtered}")
+
+    blocks.append({
+        "type": "section",
+        "text": {"type": "mrkdwn", "text": "\n".join(lines)},
+    })
+
+    return blocks
+
+
 class SlackNotifier:
     """Unified Slack notifier for all pipeline events, reports, and schedule notices.
 
@@ -296,6 +284,24 @@ class SlackNotifier:
         except Exception:
             logger.exception("Slack reply failed")
 
+    async def _reply_blocks(self, title: str, body: str) -> None:
+        """Post a header + divider + section Block Kit message as a thread reply."""
+        client = self._get_client()
+        if client is None:
+            return
+        blocks = [
+            {"type": "header", "text": {"type": "plain_text", "text": title}},
+            {"type": "divider"},
+            {"type": "section", "text": {"type": "mrkdwn", "text": body}},
+        ]
+        try:
+            kwargs: dict = {"channel": self._channel, "text": title, "blocks": blocks}
+            if self._thread_ts is not None:
+                kwargs["thread_ts"] = self._thread_ts
+            await client.chat_postMessage(**kwargs)
+        except Exception:
+            logger.exception("Slack reply failed")
+
     # -------------------------------------------------------------------------
     # Pipeline lifecycle
     # -------------------------------------------------------------------------
@@ -325,13 +331,11 @@ class SlackNotifier:
         if client is None:
             return
 
-        summary = (
-            f"Pipeline completed successfully.\n\n"
-            f"Functions extracted: {result.total_extracted:,}\n"
-            f"Embeddings generated: {result.changed:,}\n"
-            f"Relationships created: {result.edges_written:,}\n\n"
-            f"Total runtime: {_fmt_duration(result.duration_seconds)}"
+        preview = (
+            f"✅ Pipeline complete — {result.total_extracted:,} functions, "
+            f"{result.edges_written:,} edges, {_fmt_duration(result.duration_seconds)}"
         )
+        blocks = _build_pipeline_blocks(result)
         try:
             if self._message_ts:
                 await client.chat_update(
@@ -339,7 +343,10 @@ class SlackNotifier:
                     ts=self._message_ts,
                     text=f"✅ Pipeline complete — {result.changed:,} changed, {_fmt_duration(result.duration_seconds)}",
                 )
-            await self._reply(f"✅ {summary}")
+            kwargs: dict = {"channel": self._channel, "text": preview, "blocks": blocks}
+            if self._thread_ts is not None:
+                kwargs["thread_ts"] = self._thread_ts
+            await client.chat_postMessage(**kwargs)
         except Exception:
             logger.exception("Slack pipeline_complete notification failed")
 
@@ -357,9 +364,9 @@ class SlackNotifier:
                     ts=self._message_ts,
                     text="❌ Pipeline failed",
                 )
-            await self._reply(f"❌ Pipeline failed.\n\nReason:\n{error}")
         except Exception:
             logger.exception("Slack pipeline_failed notification failed")
+        await self._reply_blocks("❌ Pipeline failed.", f"*Reason:*\n{error}")
 
     async def pipeline_cancelled(self) -> None:
         """Update the original channel message and post a thread cancellation notice."""
@@ -396,38 +403,31 @@ class SlackNotifier:
 
         if result.operation == "clone":
             detail = "Repository not present locally.\nStarting repository clone…"
-            if result.success:
-                outcome = "Repository clone completed successfully."
-            else:
-                outcome = f"Repository clone failed.\n\nReason:\n{result.error or 'unknown'}"
         elif result.operation == "pull":
             detail = "Local repository found.\nPulling latest changes…"
-            if not result.success:
-                outcome = f"Pull failed.\n\nReason:\n{result.error or 'unknown'}"
-            elif result.already_up_to_date:
-                outcome = "Already up to date."
-            else:
-                outcome = "Repository successfully updated."
         else:  # skipped
             detail = "Local repository found (uncommitted changes — skipping pull)."
-            outcome = None
 
         if self._debug:
             await self._reply(detail)
 
-        if outcome:
-            await self._reply(outcome)
+        if not result.success:
+            op = "Clone" if result.operation == "clone" else "Pull"
+            await self._reply_blocks(f"{op} failed.", f"*Reason:*\n{result.error or 'unknown'}")
+            return
+
+        if result.already_up_to_date:
+            status = "Already up to date"
+        elif result.operation == "clone":
+            status = "Cloned"
+        else:
+            status = "Updated"
 
         commit_str = result.commit_hash or "unknown"
-        status_str = "Success" if result.success else "Failed"
-        summary = (
-            f"Repository synchronisation completed.\n\n"
-            f"Operation: {result.operation.capitalize()}\n"
-            f"Branch: {result.branch}\n"
-            f"Commit: {commit_str}\n"
-            f"Status: {status_str}"
+        await self._reply_blocks(
+            "Repository synchronisation completed.",
+            f"*Status:* {status}\n*Operation:* {result.operation.capitalize()}\n*Branch:* {result.branch}\n*Commit:* {commit_str}",
         )
-        await self._reply(summary)
 
     # -------------------------------------------------------------------------
     # Pipeline stages
@@ -437,13 +437,10 @@ class SlackNotifier:
         """Post extraction stage completion summary."""
         if not self._enabled:
             return
-        msg = (
-            f"Function extraction completed.\n\n"
-            f"Files processed: {files:,}\n"
-            f"Functions extracted: {functions:,}\n"
-            f"Duration: {_fmt_duration(duration)}"
+        await self._reply_blocks(
+            "Function extraction completed.",
+            f"*Files processed:* {files:,}\n*Functions extracted:* {functions:,}\n*Duration:* {_fmt_duration(duration)}",
         )
-        await self._reply(msg)
 
     async def embedding_start(self, count: int, stage: str) -> None:
         """Notify that an embedding stage has started."""
@@ -453,19 +450,20 @@ class SlackNotifier:
         await self._reply(f"{label} started for {count:,} functions…")
 
     async def embedding_complete(
-        self, generated: int, failures: int, duration: float, stage: str
+        self, generated: int, failures: int, duration: float, stage: str, checkpointed: int = 0
     ) -> None:
         """Post embedding stage completion summary."""
         if not self._enabled:
             return
         label = "Code embeddings" if stage == "code" else "Description embeddings"
-        msg = (
-            f"{label} completed.\n\n"
-            f"Generated embeddings: {generated:,}\n"
-            f"Failures: {failures:,}\n"
-            f"Duration: {_fmt_duration(duration)}"
-        )
-        await self._reply(msg)
+        lines = []
+        if checkpointed:
+            lines.append(f"*Already completed:* {checkpointed:,}")
+        lines.append(f"*Generated embeddings:* {generated:,}")
+        if failures:
+            lines.append(f"*Failures:* {failures:,}")
+        lines.append(f"*Duration:* {_fmt_duration(duration)}")
+        await self._reply_blocks(f"{label} completed.", "\n".join(lines))
 
     async def description_start(self, count: int) -> None:
         """Notify that description generation has started."""
@@ -474,18 +472,19 @@ class SlackNotifier:
         await self._reply(f"Description generation started for {count:,} functions…")
 
     async def description_complete(
-        self, generated: int, skipped: int, duration: float
+        self, generated: int, skipped: int, duration: float, checkpointed: int = 0
     ) -> None:
         """Post description generation completion summary."""
         if not self._enabled:
             return
-        msg = (
-            f"Description generation completed.\n\n"
-            f"Generated descriptions: {generated:,}\n"
-            f"Skipped: {skipped:,}\n"
-            f"Duration: {_fmt_duration(duration)}"
-        )
-        await self._reply(msg)
+        lines = []
+        if checkpointed:
+            lines.append(f"*Already completed:* {checkpointed:,}")
+        lines.append(f"*Generated descriptions:* {generated:,}")
+        if skipped:
+            lines.append(f"*Skipped:* {skipped:,}")
+        lines.append(f"*Duration:* {_fmt_duration(duration)}")
+        await self._reply_blocks("Description generation completed.", "\n".join(lines))
 
     async def similarity_start(self, count: int) -> None:
         """Notify that similarity analysis has started."""
@@ -497,12 +496,10 @@ class SlackNotifier:
         """Post similarity analysis completion summary."""
         if not self._enabled:
             return
-        msg = (
-            f"Similarity analysis completed.\n\n"
-            f"Relationships created: {relationships:,}\n"
-            f"Duration: {_fmt_duration(duration)}"
+        await self._reply_blocks(
+            "Similarity analysis completed.",
+            f"*Relationships created:* {relationships:,}\n*Duration:* {_fmt_duration(duration)}",
         )
-        await self._reply(msg)
 
     async def progress(
         self, stage: str, processed: int, total: int, stage_start: float
@@ -533,15 +530,10 @@ class SlackNotifier:
         else:
             rate_str = "unknown"
 
-        msg = (
-            f"{stage} progress\n\n"
-            f"Processed: {processed:,} / {total:,}\n"
-            f"Progress: {pct:.1f}%\n"
-            f"Rate: {rate_str}\n"
-            f"Elapsed: {_fmt_duration(elapsed)}\n"
-            f"ETA: {eta_str}"
+        await self._reply_blocks(
+            f"{stage} progress",
+            f"*Processed:* {processed:,} / {total:,}\n*Progress:* {pct:.1f}%\n*Rate:* {rate_str}\n*Elapsed:* {_fmt_duration(elapsed)}\n*ETA:* {eta_str}",
         )
-        await self._reply(msg)
 
     # -------------------------------------------------------------------------
     # Report

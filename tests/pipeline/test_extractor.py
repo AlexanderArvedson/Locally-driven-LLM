@@ -48,14 +48,14 @@ def _extract_ts(src: str, ext: str = ".ts", ignore_anonymous_callbacks: bool = T
 # ---------------------------------------------------------------------------
 
 def test_record_id_is_stable():
-    id1 = _record_id("repo", "src/foo.py", "Bar.baz", 10)
-    id2 = _record_id("repo", "src/foo.py", "Bar.baz", 10)
+    id1 = _record_id("repo", "src/foo.py", "Bar.baz")
+    id2 = _record_id("repo", "src/foo.py", "Bar.baz")
     assert id1 == id2
     assert len(id1) == 64   # sha256 hex digest
 
 
-def test_record_id_differs_on_line_change():
-    assert _record_id("repo", "f.py", "func", 1) != _record_id("repo", "f.py", "func", 2)
+def test_record_id_stable_across_line_changes():
+    assert _record_id("repo", "f.py", "func") == _record_id("repo", "f.py", "func")
 
 
 def test_source_hash():

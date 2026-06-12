@@ -120,7 +120,7 @@ Because description generation is slow (one LLM call per function), the pipeline
 
 After every `pipeline.checkpoint.interval` descriptions (default: 10), the pipeline writes a JSON file to `.pipeline_checkpoints/` containing the description, embedding, and status fields for every changed record processed so far. The same file is overwritten after code embeddings complete and again after description embeddings complete.
 
-On the next run, if the same set of changed records is detected (same SHA-256 run key), the checkpoint is loaded and already-completed records skip the embedding and description stages. The checkpoint file is deleted automatically after the Neo4j upsert succeeds.
+On the next run, if the same set of changed records is detected (same SHA-256 run key), the checkpoint is loaded and already-completed records skip the embedding and description stages. The checkpoint file is deleted automatically after the Neo4j upsert succeeds. When `SLACK_NOTIFY_CHANNEL` is set, the stage completion messages show an `Already completed: N` line indicating how many records were restored from the checkpoint.
 
 If the changed-record set shifts between runs (e.g. new commits landed), the run key changes and the checkpoint is ignored — the pipeline starts fresh. Configure or disable checkpointing under `pipeline.checkpoint` in `config.json`.
 

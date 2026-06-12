@@ -206,20 +206,20 @@ When the pipeline starts, one message is posted to the channel as the thread anc
 
 ### Stage notifications
 
-Each pipeline stage reports start and completion:
+Each pipeline stage posts a Block Kit card with a header, divider, and stats body. The content of each card:
 
 ```
 Repository synchronisation completed.
-
+───────────────────────────────────
+Status: Already up to date
 Operation: Pull
 Branch: main
 Commit: a1b2c3d
-Status: Success
 ```
 
 ```
 Function extraction completed.
-
+───────────────────────────────────
 Files processed: 1,284
 Functions extracted: 34,821
 Duration: 3m 12s
@@ -227,15 +227,24 @@ Duration: 3m 12s
 
 ```
 Code embeddings completed.
-
+───────────────────────────────────
 Generated embeddings: 34,821
-Failures: 0
 Duration: 42m 15s
+```
+
+`Failures` only appears when there are failures. If the run resumes from a checkpoint, an `Already completed` line appears first showing how many records were skipped:
+
+```
+Code embeddings completed.
+───────────────────────────────────
+Already completed: 34,821
+Generated embeddings: 0
+Duration: 0s
 ```
 
 ```
 Similarity analysis completed.
-
+───────────────────────────────────
 Relationships created: 87,421
 Duration: 8m 03s
 ```
@@ -246,7 +255,7 @@ During code embedding, description generation, and description embedding, progre
 
 ```
 Code embedding progress
-
+───────────────────────────────────
 Processed: 12,000 / 34,821
 Progress: 34.5%
 Rate: 142 items/sec
@@ -256,10 +265,22 @@ ETA: 2h 41m remaining
 
 ### Pipeline completion
 
-The thread anchor message is updated and a final summary is posted to the thread:
+The thread anchor message is updated to show a one-line outcome:
 
 ```
 ✅ Pipeline complete — 5,241 changed, 42m 15s
+```
+
+A Block Kit card is also posted to the thread with the full run summary:
+
+```
+✅ Pipeline complete
+─────────────────────────────────
+New/modified: 5,241
+Unchanged: 18,302
+Deleted: 12
+Duration: 42m 15s
+Excluded by LOC threshold: 116    ← only shown when loc_filtered > 0
 ```
 
 On failure:
@@ -277,7 +298,8 @@ Progress notifications are controlled by a `slack` block inside the `pipeline` s
   "slack": {
     "enabled": true,
     "debug_messages": false,
-    "progress_update_interval": 100
+    "embed_progress_interval": 100,
+    "describe_progress_interval": 10
   }
 }
 ```
@@ -286,7 +308,8 @@ Progress notifications are controlled by a `slack` block inside the `pipeline` s
 |---|---|---|
 | `enabled` | `true` | Enables or disables all pipeline progress notifications. |
 | `debug_messages` | `false` | When `true`, also posts operational detail such as "Repository found — pulling latest changes…" |
-| `progress_update_interval` | `100` | Number of processed items between progress posts. Increase for large repos to reduce thread noise. |
+| `embed_progress_interval` | `100` | Items between progress posts during code and description embedding (fast stages, sub-second/item). |
+| `describe_progress_interval` | `10` | Items between progress posts during description generation (slow stage, 30–120 s/item). |
 
 Setting `enabled` to `false` or leaving `SLACK_NOTIFY_CHANNEL` unset disables all pipeline notifications.
 
@@ -294,7 +317,7 @@ Setting `enabled` to `false` or leaving `SLACK_NOTIFY_CHANNEL` unset disables al
 
 ## Completion notifications
 
-After every pipeline run, a report summary is posted followed by the timestamped `.md` file as an attachment. The push notification preview shows a one-line health verdict, e.g.:
+After every pipeline run — whether triggered via the `/pipeline` Slack command or run directly with `run_pipeline.py` — a report summary is posted to `SLACK_NOTIFY_CHANNEL` followed by the timestamped `.md` file as an attachment. The push notification preview shows a one-line health verdict, e.g.:
 
 ```
 ✅ Report (monorepo) — 2 flags raised, 321 functions
@@ -319,10 +342,8 @@ Cross-file: 103 (similar functions across different files)
 Isolated: 4 (no similar counterparts found)
 
 Embedding
-Code — OK: 312   Failed: 9
-  Too large to embed: 8
-  Error: 1
-Descriptions — OK: 305   Failed: 3
+Code — OK: 312 · Chunked: 8 · Failed: 1
+Descriptions — OK: 305 · Failed: 3
 
 Similarity
 >0.95 (near-identical): 12 (3.7%)
