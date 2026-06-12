@@ -138,7 +138,6 @@ def load_pipeline_config(config_path: str | Path = "config.json", repo_name: str
         repo_url=repo.get("url", ""),
         base_branch=repo.get("base_branch", "main"),
         git_sync_path=repo.get("local_path", ""),
-        git_username=repo.get("credentials", {}).get("git", {}).get("username", ""),
         git_token=repo.get("credentials", {}).get("git", {}).get("token", ""),
         slack=SlackPipelineConfig(
             enabled=slack_block.get("enabled", True),

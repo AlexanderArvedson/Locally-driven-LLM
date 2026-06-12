@@ -174,7 +174,6 @@ class PipelineConfig:
     repo_url: str = ""
     base_branch: str = "main"
     git_sync_path: str = ""      # canonical local_path from config; unaffected by --path override
-    git_username: str = ""
     git_token: str = ""
 
 

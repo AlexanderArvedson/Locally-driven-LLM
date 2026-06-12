@@ -163,8 +163,7 @@ Authentication used when cloning or pushing to the remote repository.
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `username` | string | Git hosting username (e.g. your GitHub username). Used to construct the authenticated remote URL for cloning and pushing, including the pipeline pre-flight clone. |
-| `token` | string | Personal access token with at least `repo` scope. Used for cloning and pushing. Never commit this value — keep it in `config.json` which is gitignored. |
+| `token` | string | Personal access token with at least `Contents: read` scope (add `Contents: write` and `Pull requests: write` if pushing or opening PRs). The token is embedded in the HTTPS remote URL using the `x-access-token` placeholder — no username is required. Never commit this value — keep it in `config.json` which is gitignored. |
 
 ---
 
