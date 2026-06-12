@@ -54,6 +54,7 @@ services:
       - ./config.json:/app/config.json:ro
       - ${REPOS_ROOT}:${REPOS_ROOT}
       - ./run_reports:/app/run_reports
+      - ./.pipeline_checkpoints:/app/.pipeline_checkpoints
     depends_on:
       - ollama
       - neo4j

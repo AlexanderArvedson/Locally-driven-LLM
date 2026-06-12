@@ -13,6 +13,9 @@ build/
 dist/
 *.egg-info/
 
+# Pipeline checkpoints (host-owned; mounted as a volume at runtime)
+.pipeline_checkpoints/
+
 # Logs
 *.log
 
