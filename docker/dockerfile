@@ -31,6 +31,10 @@ RUN uv pip install --system .
 # copy application code
 COPY . .
 
+# Point XDG_CACHE_HOME to /tmp so fontconfig (used by WeasyPrint) can write its
+# cache when the container runs as a dynamic UID with no writable home directory.
+ENV XDG_CACHE_HOME=/tmp/cache
+
 EXPOSE 8000
 
 CMD ["python", "main.py"]
