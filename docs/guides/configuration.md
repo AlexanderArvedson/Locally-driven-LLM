@@ -17,6 +17,7 @@ Open `.env` and set these values:
 
 | Variable | What to set |
 |---|---|
+| `NEO4J_URI` | `bolt://neo4j:7687` when running via Docker Compose (uses the internal service name). Change to `bolt://localhost:7687` only if running `uv run run_pipeline.py` directly on your host machine outside of Docker. |
 | `NEO4J_PASSWORD` | Any password you choose — used both to initialise the Neo4j container and to connect to it. |
 | `REPOS_ROOT` | Absolute path to the **parent** directory of your target repo. If your repo is at `/home/alice/projects/myrepo`, set this to `/home/alice/projects`. The container mounts this path read-write so the pipeline can clone the repo on first run and pull updates on subsequent runs. |
 | `FASTAPI_PORT` | Only change this if port `8000` is already in use on your machine. Defaults to `8000`. |

@@ -319,7 +319,7 @@ Setting `enabled` to `false` or leaving `SLACK_NOTIFY_CHANNEL` unset disables al
 
 ## Completion notifications
 
-After every pipeline run — whether triggered via the `/pipeline` Slack command or run directly with `run_pipeline.py` — a report summary is posted to `SLACK_NOTIFY_CHANNEL` followed by the timestamped `.md` file as an attachment. The push notification preview shows a one-line health verdict, e.g.:
+After every pipeline run — whether triggered via the `/pipeline` Slack command or run directly with `run_pipeline.py` — a report summary is posted to `SLACK_NOTIFY_CHANNEL` followed by the full report as a **PDF attachment**. The PDF is rendered from the markdown report in memory and uploaded directly; the `.md` file is still written locally to `run_reports/`. The push notification preview shows a one-line health verdict, e.g.:
 
 ```
 ✅ Report (monorepo) — 2 flags raised, 321 functions

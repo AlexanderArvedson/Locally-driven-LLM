@@ -2,8 +2,19 @@ FROM python:3.12-slim
 
 WORKDIR /app
 
-# git is required by GitPython for the pre-flight repo sync
-RUN apt-get update && apt-get install -y --no-install-recommends git && rm -rf /var/lib/apt/lists/*
+# git is required by GitPython for the pre-flight repo sync.
+# libpango/libharfbuzz/libcairo/libfontconfig are required by WeasyPrint for PDF generation.
+# fonts-dejavu-core provides a baseline font set so PDFs render correctly.
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    git \
+    libpango-1.0-0 \
+    libpangoft2-1.0-0 \
+    libharfbuzz0b \
+    libfontconfig1 \
+    libcairo2 \
+    libglib2.0-0 \
+    fonts-dejavu-core \
+    && rm -rf /var/lib/apt/lists/*
 
 # trust all mounted directories — applies to all users, not just root
 RUN git config --system --add safe.directory '*'
@@ -19,6 +30,10 @@ RUN uv pip install --system .
 
 # copy application code
 COPY . .
+
+# Point XDG_CACHE_HOME to /tmp so fontconfig (used by WeasyPrint) can write its
+# cache when the container runs as a dynamic UID with no writable home directory.
+ENV XDG_CACHE_HOME=/tmp/cache
 
 EXPOSE 8000
 

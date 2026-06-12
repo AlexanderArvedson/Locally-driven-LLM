@@ -118,7 +118,7 @@ class TaskDispatcher:
         config = replace(self._config, repo_name=task.repo)
         started_at = datetime.datetime.now()
         try:
-            report_path = await generate_report(
+            report_path, md_text = await generate_report(
                 config.neo4j, config.repo_name,
                 include_tests=config.include_tests_in_graph,
                 pipeline_config=config,
@@ -127,4 +127,7 @@ class TaskDispatcher:
         except Exception as exc:
             await notifier.report_complete(False, started_at, None, str(exc))
             raise
-        await notifier.report_complete(True, started_at, report_path, None, reporter_cfg=self._config.reporter)
+        await notifier.report_complete(
+            True, started_at, report_path, None,
+            reporter_cfg=self._config.reporter, md_text=md_text,
+        )

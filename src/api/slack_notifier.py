@@ -546,6 +546,7 @@ class SlackNotifier:
         report_path: Path | None,
         error: str | None,
         reporter_cfg: ReporterConfig | None = None,
+        md_text: str | None = None,
     ) -> None:
         """Post a Block Kit report summary and upload the .md file.
 
@@ -598,7 +599,22 @@ class SlackNotifier:
                 post_kwargs["blocks"] = blocks
             await client.chat_postMessage(**post_kwargs)
 
-            if report_path is not None and report_path.exists():
+            uploaded_pdf = False
+            if md_text is not None:
+                try:
+                    from src.pipeline.reporting.pdf import render_pdf
+                    pdf_bytes = render_pdf(md_text)
+                    pdf_name = (report_path.stem if report_path else "report") + ".pdf"
+                    await client.files_upload_v2(
+                        channel=self._channel,
+                        content=pdf_bytes,
+                        filename=pdf_name,
+                        title=f"Report ({repo_label}) — {time_str}",
+                    )
+                    uploaded_pdf = True
+                except Exception:
+                    logger.warning("PDF conversion failed; falling back to .md upload")
+            if not uploaded_pdf and report_path is not None and report_path.exists():
                 await client.files_upload_v2(
                     channel=self._channel,
                     file=str(report_path),

@@ -74,7 +74,7 @@ async def generate_report(
     include_tests: bool = False,
     pipeline_config: PipelineConfig | None = None,
     loc_filtered: int | None = None,
-) -> Path:
+) -> tuple[Path, str]:
     """Query Neo4j and write a report directory containing report.md and report.json.
 
     Args:
@@ -89,7 +89,7 @@ async def generate_report(
             and model name is shown as "N/A".
 
     Returns:
-        Path to the generated report.md file.
+        Tuple of (path to the generated report.md file, full markdown text).
     """
     reporter_cfg = pipeline_config.reporter if pipeline_config else ReporterConfig()
     ts = datetime.now(ZoneInfo(reporter_cfg.timezone)).strftime("%Y%m%d-%H%M%S")
@@ -121,12 +121,14 @@ async def generate_report(
     except ValueError:
         pass
 
+    md_text = "\n".join(lines)
+
     # Only create the directory once we have content to write.
     output_dir.mkdir(parents=True, exist_ok=True)
     md_path = output_dir / f"{sanitized_repo}_report_{ts}.md"
-    md_path.write_text("\n".join(lines), encoding="utf-8")
+    md_path.write_text(md_text, encoding="utf-8")
     (output_dir / f"{sanitized_repo}_report_{ts}.json").write_text(json.dumps(export, indent=2), encoding="utf-8")
-    return md_path
+    return md_path, md_text
 
 
 async def _build_report(

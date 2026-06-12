@@ -25,6 +25,20 @@ This project depends on the following third-party libraries. Their licenses are 
 | [slack-bolt](https://github.com/slackapi/bolt-python) | 1.28.0 | MIT |
 | [aiohttp](https://github.com/aio-libs/aiohttp) | 3.14.0 | Apache-2.0 |
 | [croniter](https://github.com/kiorky/croniter) | 6.2.2 | MIT |
+| [Markdown](https://github.com/Python-Markdown/markdown) | 3.10.2 | BSD-3-Clause |
+| [weasyprint](https://github.com/Kozea/WeasyPrint) | 69.0 | BSD-3-Clause |
+| [brotli](https://github.com/google/brotli) | 1.2.0 | MIT |
+| [cffi](https://github.com/python-cffi/cffi) | 2.0.0 | MIT |
+| [cssselect2](https://github.com/Kozea/cssselect2) | 0.9.0 | BSD-3-Clause |
+| [fonttools](https://github.com/fonttools/fonttools) | 4.63.0 | MIT |
+| [pillow](https://github.com/python-pillow/Pillow) | 12.2.0 | MIT-CMU (HPND) |
+| [pycparser](https://github.com/eliben/pycparser) | 3.0 | BSD-3-Clause |
+| [pydyf](https://github.com/CourtBouillon/pydyf) | 0.12.1 | BSD-3-Clause |
+| [pyphen](https://github.com/Kozea/Pyphen) | 0.17.2 | MPL-1.1 / LGPL-2.1+ / GPL-2.0+ |
+| [tinycss2](https://github.com/Kozea/tinycss2) | 1.5.1 | BSD-3-Clause |
+| [tinyhtml5](https://github.com/CourtBouillon/tinyhtml5) | 2.1.0 | MIT |
+| [webencodings](https://github.com/gsnedders/python-webencodings) | 0.5.1 | BSD-3-Clause |
+| [zopfli](https://github.com/nicowillis/zopfli) | 0.4.3 | Apache-2.0 |
 
 ## Development Dependencies
 
@@ -41,7 +55,8 @@ This project depends on the following third-party libraries. Their licenses are 
 ### MIT License
 
 Used by: fastapi, langgraph, loguru, pydantic, tree-sitter, tree-sitter-python,
-tree-sitter-typescript, slack-bolt, croniter, pytest, ruff, aiohttp (partial)
+tree-sitter-typescript, slack-bolt, croniter, pytest, ruff, aiohttp (partial),
+brotli, cffi, fonttools, tinyhtml5
 
 ```
 Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -67,7 +82,7 @@ SOFTWARE.
 
 ### Apache License 2.0
 
-Used by: python-multipart, tenacity, neo4j, aiohttp (partial), pytest-asyncio
+Used by: python-multipart, tenacity, neo4j, aiohttp (partial), pytest-asyncio, zopfli
 
 ```
                                  Apache License
@@ -243,7 +258,8 @@ Used by: python-multipart, tenacity, neo4j, aiohttp (partial), pytest-asyncio
 
 ### BSD 3-Clause License
 
-Used by: httpx, python-dotenv, uvicorn, GitPython
+Used by: httpx, python-dotenv, uvicorn, GitPython, Markdown, weasyprint,
+cssselect2, pycparser, pydyf, tinycss2, webencodings
 
 ```
 Redistribution and use in source and binary forms, with or without
@@ -272,3 +288,52 @@ CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
 ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 POSSIBILITY OF SUCH DAMAGE.
 ```
+
+---
+
+### MIT-CMU License (HPND)
+
+Used by: pillow
+
+```
+The Python Imaging Library (PIL) is
+    Copyright © 1997-2011 by Secret Labs AB
+    Copyright © 1995-2011 by Fredrik Lundh and contributors
+
+Pillow is the friendly PIL fork. It is
+    Copyright © 2010-2024 by Jeffrey A. Clark (Alex) and contributors
+
+By obtaining, using, and/or copying this software and/or its associated
+documentation, you agree that you have read, understood, and will comply
+with the following terms and conditions:
+
+Permission to use, copy, modify and distribute this software and its
+documentation for any purpose and without fee is hereby granted,
+provided that the above copyright notice appears in all copies, and that
+both that copyright notice and this permission notice appear in supporting
+documentation, and that the name of Secret Labs AB or the author not be
+used in advertising or publicity pertaining to distribution of the software
+without specific, written prior permission.
+
+SECRET LABS AB AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS
+SOFTWARE, INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS.
+IN NO EVENT SHALL SECRET LABS AB OR THE AUTHOR BE LIABLE FOR ANY SPECIAL,
+INDIRECT OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
+LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE
+OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
+PERFORMANCE OF THIS SOFTWARE.
+```
+
+---
+
+### MPL-1.1 / LGPL-2.1+ / GPL-2.0+ (tri-license)
+
+Used by: pyphen
+
+pyphen is tri-licensed and may be used under any one of the following licences at your option:
+
+- **Mozilla Public License 1.1 (MPL-1.1):** https://www.mozilla.org/en-US/MPL/1.1/
+- **GNU Lesser General Public License v2.1 or later (LGPL-2.1+):** https://www.gnu.org/licenses/old-licenses/lgpl-2.1.html
+- **GNU General Public License v2.0 or later (GPL-2.0+):** https://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+
+Full license texts are available at the URLs above and in the pyphen source distribution at https://github.com/Kozea/Pyphen.

@@ -324,13 +324,13 @@ async def test_handle_report_calls_generate_report_and_notifies():
     dispatcher = TaskDispatcher(pipeline_config=_make_pipeline_config())
 
     from pathlib import Path
-    mock_report_dir = MagicMock()
-    mock_report_dir.__truediv__ = lambda self, other: Path("/tmp/report.md")
+    mock_report_path = Path("/tmp/report.md")
+    mock_md_text = "# Report\nsome content"
 
     mock_notifier = AsyncMock()
 
     with (
-        patch("src.pipeline.reporting.reporter.generate_report", AsyncMock(return_value=mock_report_dir)),
+        patch("src.pipeline.reporting.reporter.generate_report", AsyncMock(return_value=(mock_report_path, mock_md_text))),
         patch("src.api.slack_notifier.SlackNotifier", return_value=mock_notifier),
     ):
         task = ReportTask(id="r2", repo="myrepo", loc_filtered=5)

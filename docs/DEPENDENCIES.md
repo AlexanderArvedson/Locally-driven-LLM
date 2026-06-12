@@ -44,6 +44,16 @@ On macOS, install Xcode command line tools with `xcode-select --install`.
 
 On Windows, use a Python distribution with matching build tools available, or work inside WSL for the smoothest experience.
 
+### WeasyPrint system libraries
+
+`weasyprint` requires several native libraries for PDF rendering (Pango, Cairo, HarfBuzz, fontconfig). **When running via Docker Compose these are installed automatically** by `docker/dockerfile`. If you run `uv run run_pipeline.py` directly on your host machine and PDF report generation fails, install the libraries manually:
+
+- Debian/Ubuntu: `sudo apt-get install libpango-1.0-0 libpangoft2-1.0-0 libharfbuzz0b libfontconfig1 libcairo2 libglib2.0-0 fonts-dejavu-core`
+- Fedora/RHEL: `sudo dnf install pango harfbuzz fontconfig cairo glib2 dejavu-sans-fonts`
+- macOS (Homebrew): `brew install pango`
+
+If you see `Fontconfig error: No writable cache directories` in container logs, ensure `XDG_CACHE_HOME` is set to a writable path (the Dockerfile sets it to `/tmp/cache`).
+
 ## Declared project dependencies
 
 The following dependencies are currently declared in `pyproject.toml`.
@@ -64,6 +74,11 @@ The following dependencies are currently declared in `pyproject.toml`.
 - `tree-sitter-python>=0.23` - Python grammar for tree-sitter
 - `tree-sitter-typescript>=0.23` - TypeScript and JavaScript grammar for tree-sitter, used by the embedding pipeline
 - `uvicorn[standard]>=0.47.0` - ASGI server for local execution
+- `slack-bolt>=1.18` - Slack Bolt SDK for slash commands and Socket Mode
+- `aiohttp>=3.9` - async HTTP used internally by the Slack SDK
+- `croniter>=6.2.2` - cron expression parsing for the scheduler
+- `markdown>=3.7` - converts report markdown to HTML as an intermediate step for PDF generation
+- `weasyprint>=62.0` - renders HTML to PDF bytes; used to produce the PDF attachment uploaded to Slack after each report run
 
 ### Development extra
 

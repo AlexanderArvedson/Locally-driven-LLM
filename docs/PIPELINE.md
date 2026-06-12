@@ -189,8 +189,10 @@ The following are created automatically on first run by `ensure_schema`:
 
 By default, a report is generated automatically after every pipeline run (unless `--no-report` or `--dry-run` is passed). `--report-only` skips the pipeline and generates a report from the current Neo4j graph. Both paths create a timestamped directory under `run_reports/<repo_name>/` containing two files:
 
-- `<repo_name>_report_<timestamp>.md` — the full human-readable markdown report
+- `<repo_name>_report_<timestamp>.md` — the full human-readable markdown report (kept locally)
 - `<repo_name>_report_<timestamp>.json` — machine-readable export of all stats, clusters, failures, and flags
+
+When `SLACK_NOTIFY_CHANNEL` is set, the report is also converted to a PDF in memory and uploaded to Slack as an attachment alongside the Block Kit summary. If PDF conversion fails, the `.md` file is uploaded as a fallback.
 
 For example: `run_reports/my-repo/20260606-142530/my-repo_report_20260606-142530.md`
 
@@ -308,7 +310,8 @@ src/pipeline/
                           render_most_connected, render_files_by_edge_count, render_files_by_function_count
       quality.py        — render_file_cohesion, render_class_cohesion, render_duplication_clusters,
                           render_heuristic_flags
-    reporter.py         — generate_report: post-run markdown report orchestrator
+    pdf.py              — render_pdf: converts the markdown report to PDF bytes for Slack upload
+    reporter.py         — generate_report: post-run report orchestrator; returns (md_path, md_text)
 
 run_pipeline.py         — CLI entry point
 
