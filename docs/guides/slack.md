@@ -16,7 +16,7 @@ The bot runs inside the `fastapi` Docker container and communicates via Slack's 
 
 - A Slack workspace where you have permission to install apps.
 - Services already running and the pipeline run at least once (from the [running the pipeline guide](running-the-pipeline.md)). The `/query` command searches the Neo4j graph — it returns no results if the graph is empty.
-- `REPOS_ROOT` set in `.env` — the `fastapi` container mounts this path read-only so the pipeline can read source files when triggered via `/pipeline`.
+- `REPOS_ROOT` set in `.env` — the `fastapi` container mounts this path read-write so the pipeline can clone and pull the repo when triggered via `/pipeline`.
 
 ---
 
