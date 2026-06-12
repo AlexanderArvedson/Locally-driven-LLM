@@ -178,7 +178,7 @@ Authentication used when cloning or pushing to the remote repository.
 
 ### `models`
 
-Each key under `models` names a role the agent uses an LLM for. All four roles must be present; they may point to the same model if desired. All model entries share the same field schema.
+Each key under `models` names a role for a specific LLM use. All model entries share the same field schema. The example config defines six roles: `embedding` and `describer` are the two primary pipeline models (`chat` serves as a fallback for `describer` if that key is absent, but should always be explicitly configured). `chat` is also used for planning. `coder`, `semantic_validator`, and `reporter` belong to the agent workflow (currently on hold) — include them as shown in `config.example.json` so the keys are ready when that subsystem is used. All roles may point to the same model.
 
 #### Common fields (all model entries)
 
