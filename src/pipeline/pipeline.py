@@ -37,19 +37,27 @@ class EmbeddingPipeline:
         self._config = config
         self._dry_run = dry_run
         self._skip_descriptions = skip_descriptions
-        self._client = OllamaClient(base_url=config.embedding_url)
+        self._embed_client = OllamaClient(base_url=config.embedding_url)
+        describer_url = config.describer_url or config.embedding_url
+        self._describer_client = (
+            OllamaClient(base_url=describer_url)
+            if describer_url != config.embedding_url
+            else self._embed_client
+        )
         self._store = Neo4jStore(
             config.neo4j,
             function_batch_size=config.batch_sizes.function_upsert,
             edge_batch_size=config.batch_sizes.edge_upsert,
         )
         self._extractor = FunctionExtractor(config)
-        self._embedder = EmbeddingService(self._client, config)
-        self._describer = DescriptionService(self._client, config)
+        self._embedder = EmbeddingService(self._embed_client, config)
+        self._describer = DescriptionService(self._describer_client, config)
         self._notifier = notifier if notifier is not None else SlackNotifier(config.slack)
 
     async def close(self) -> None:
-        await self._client.close()
+        await self._embed_client.close()
+        if self._describer_client is not self._embed_client:
+            await self._describer_client.close()
         await self._store.close()
 
     async def run(self) -> PipelineResult:
