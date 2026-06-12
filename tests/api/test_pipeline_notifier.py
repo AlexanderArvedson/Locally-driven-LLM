@@ -46,6 +46,18 @@ def _mock_client(ts: str = "1234.5678") -> AsyncMock:
     return client
 
 
+def _blocks_text(call_kwargs: dict) -> str:
+    """Extract all text values from a Block Kit blocks list into a single string."""
+    parts = []
+    for block in call_kwargs.get("blocks", []):
+        text = block.get("text", {})
+        if isinstance(text, dict):
+            v = text.get("text", "")
+            if v:
+                parts.append(v)
+    return "\n".join(parts)
+
+
 # ---------------------------------------------------------------------------
 # _fmt_duration
 # ---------------------------------------------------------------------------
@@ -142,11 +154,14 @@ async def test_pipeline_complete_posts_thread_summary():
     result = PipelineResult(total_extracted=100, changed=10, edges_written=50, duration_seconds=60.0)
     with patch.dict("os.environ", {"SLACK_BOT_TOKEN": "xoxb-test", "SLACK_NOTIFY_CHANNEL": "#pipe"}):
         await n.pipeline_complete(result)
-    # One postMessage call (thread reply with summary)
+    # One postMessage call (thread reply with Block Kit summary)
     client.chat_postMessage.assert_called_once()
-    text = client.chat_postMessage.call_args.kwargs["text"]
-    assert "100" in text   # total_extracted
-    assert "50" in text    # edges_written
+    call_kwargs = client.chat_postMessage.call_args.kwargs
+    # fallback text carries key numbers for notification previews
+    assert "100" in call_kwargs["text"]   # total_extracted
+    assert "50" in call_kwargs["text"]    # edges_written
+    # blocks are present
+    assert "blocks" in call_kwargs
 
 
 # ---------------------------------------------------------------------------
@@ -178,7 +193,7 @@ async def test_pipeline_failed_posts_reason_to_thread():
     n._message_ts = "111.222"
     with patch.dict("os.environ", {"SLACK_BOT_TOKEN": "xoxb-test", "SLACK_NOTIFY_CHANNEL": "#pipe"}):
         await n.pipeline_failed("Connection refused")
-    text = client.chat_postMessage.call_args.kwargs["text"]
+    text = _blocks_text(client.chat_postMessage.call_args.kwargs)
     assert "Connection refused" in text
 
 
@@ -197,12 +212,11 @@ async def test_sync_complete_clone_success():
     result = SyncResult(operation="clone", success=True, branch="main", commit_hash="abc1234")
     with patch.dict("os.environ", {"SLACK_BOT_TOKEN": "xoxb-test", "SLACK_NOTIFY_CHANNEL": "#pipe"}):
         await n.sync_complete(result)
-    texts = [call.kwargs["text"] for call in client.chat_postMessage.call_args_list]
-    combined = "\n".join(texts)
+    combined = "\n".join(_blocks_text(call.kwargs) for call in client.chat_postMessage.call_args_list)
     assert "Clone" in combined
     assert "main" in combined
     assert "abc1234" in combined
-    assert "Success" in combined
+    assert "Cloned" in combined
 
 
 @pytest.mark.asyncio
@@ -215,7 +229,7 @@ async def test_sync_complete_pull_already_up_to_date():
     result = SyncResult(operation="pull", success=True, branch="main", commit_hash="def5678", already_up_to_date=True)
     with patch.dict("os.environ", {"SLACK_BOT_TOKEN": "xoxb-test", "SLACK_NOTIFY_CHANNEL": "#pipe"}):
         await n.sync_complete(result)
-    texts = "\n".join(call.kwargs["text"] for call in client.chat_postMessage.call_args_list)
+    texts = "\n".join(_blocks_text(call.kwargs) for call in client.chat_postMessage.call_args_list)
     assert "up to date" in texts.lower()
 
 
@@ -229,9 +243,9 @@ async def test_sync_complete_pull_failed():
     result = SyncResult(operation="pull", success=False, branch="main", commit_hash=None, error="Authentication failed")
     with patch.dict("os.environ", {"SLACK_BOT_TOKEN": "xoxb-test", "SLACK_NOTIFY_CHANNEL": "#pipe"}):
         await n.sync_complete(result)
-    texts = "\n".join(call.kwargs["text"] for call in client.chat_postMessage.call_args_list)
+    texts = "\n".join(_blocks_text(call.kwargs) for call in client.chat_postMessage.call_args_list)
     assert "Authentication failed" in texts
-    assert "Failed" in texts
+    assert "failed" in texts.lower()
 
 
 @pytest.mark.asyncio
@@ -259,8 +273,8 @@ async def test_sync_complete_no_debug_skips_detail():
     result = SyncResult(operation="pull", success=True, branch="main", commit_hash="aaa0000")
     with patch.dict("os.environ", {"SLACK_BOT_TOKEN": "xoxb-test", "SLACK_NOTIFY_CHANNEL": "#pipe"}):
         await n.sync_complete(result)
-    # Should only post outcome + summary, not "Local repository found" detail
-    assert client.chat_postMessage.call_count == 2  # outcome + summary
+    # Should only post the outcome card, not the "Local repository found" detail
+    assert client.chat_postMessage.call_count == 1
 
 
 # ---------------------------------------------------------------------------
@@ -306,7 +320,7 @@ async def test_progress_posts_at_interval():
     with patch.dict("os.environ", {"SLACK_BOT_TOKEN": "xoxb-test", "SLACK_NOTIFY_CHANNEL": "#pipe"}):
         await n.progress("Code embedding", 10, 100, t0)
     client.chat_postMessage.assert_called_once()
-    text = client.chat_postMessage.call_args.kwargs["text"]
+    text = _blocks_text(client.chat_postMessage.call_args.kwargs)
     assert "10" in text
     assert "100" in text
     assert "10.0%" in text
@@ -377,7 +391,7 @@ async def test_extraction_complete_includes_counts():
     n._thread_ts = "111.222"
     with patch.dict("os.environ", {"SLACK_BOT_TOKEN": "xoxb-test", "SLACK_NOTIFY_CHANNEL": "#pipe"}):
         await n.extraction_complete(files=50, functions=1200, duration=12.5)
-    text = client.chat_postMessage.call_args.kwargs["text"]
+    text = _blocks_text(client.chat_postMessage.call_args.kwargs)
     assert "50" in text
     assert "1,200" in text
 
@@ -391,7 +405,7 @@ async def test_embedding_complete_includes_stage_label():
     n._thread_ts = "111.222"
     with patch.dict("os.environ", {"SLACK_BOT_TOKEN": "xoxb-test", "SLACK_NOTIFY_CHANNEL": "#pipe"}):
         await n.embedding_complete(generated=990, failures=10, duration=120.0, stage="code")
-    text = client.chat_postMessage.call_args.kwargs["text"]
+    text = _blocks_text(client.chat_postMessage.call_args.kwargs)
     assert "Code embeddings" in text
     assert "990" in text
     assert "10" in text
@@ -406,7 +420,7 @@ async def test_description_complete_includes_skipped():
     n._thread_ts = "111.222"
     with patch.dict("os.environ", {"SLACK_BOT_TOKEN": "xoxb-test", "SLACK_NOTIFY_CHANNEL": "#pipe"}):
         await n.description_complete(generated=800, skipped=50, duration=300.0)
-    text = client.chat_postMessage.call_args.kwargs["text"]
+    text = _blocks_text(client.chat_postMessage.call_args.kwargs)
     assert "800" in text
     assert "50" in text
 
@@ -420,7 +434,7 @@ async def test_similarity_complete_includes_relationship_count():
     n._thread_ts = "111.222"
     with patch.dict("os.environ", {"SLACK_BOT_TOKEN": "xoxb-test", "SLACK_NOTIFY_CHANNEL": "#pipe"}):
         await n.similarity_complete(relationships=4200, duration=45.0)
-    text = client.chat_postMessage.call_args.kwargs["text"]
+    text = _blocks_text(client.chat_postMessage.call_args.kwargs)
     assert "4,200" in text
 
 

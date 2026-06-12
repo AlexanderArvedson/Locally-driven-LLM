@@ -265,10 +265,22 @@ ETA: 2h 41m remaining
 
 ### Pipeline completion
 
-The thread anchor message is updated and a final summary is posted to the thread:
+The thread anchor message is updated to show a one-line outcome:
 
 ```
 ✅ Pipeline complete — 5,241 changed, 42m 15s
+```
+
+A Block Kit card is also posted to the thread with the full run summary:
+
+```
+✅ Pipeline complete
+─────────────────────────────────
+New/modified: 5,241
+Unchanged: 18,302
+Deleted: 12
+Duration: 42m 15s
+Excluded by LOC threshold: 116    ← only shown when loc_filtered > 0
 ```
 
 On failure:
@@ -286,7 +298,8 @@ Progress notifications are controlled by a `slack` block inside the `pipeline` s
   "slack": {
     "enabled": true,
     "debug_messages": false,
-    "progress_update_interval": 100
+    "embed_progress_interval": 100,
+    "describe_progress_interval": 10
   }
 }
 ```
@@ -295,7 +308,8 @@ Progress notifications are controlled by a `slack` block inside the `pipeline` s
 |---|---|---|
 | `enabled` | `true` | Enables or disables all pipeline progress notifications. |
 | `debug_messages` | `false` | When `true`, also posts operational detail such as "Repository found — pulling latest changes…" |
-| `progress_update_interval` | `100` | Number of processed items between progress posts. Increase for large repos to reduce thread noise. |
+| `embed_progress_interval` | `100` | Items between progress posts during code and description embedding (fast stages, sub-second/item). |
+| `describe_progress_interval` | `10` | Items between progress posts during description generation (slow stage, 30–120 s/item). |
 
 Setting `enabled` to `false` or leaving `SLACK_NOTIFY_CHANNEL` unset disables all pipeline notifications.
 

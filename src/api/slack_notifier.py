@@ -216,6 +216,32 @@ def _build_report_blocks(data: dict, reporter_cfg: ReporterConfig | None = None)
     return blocks
 
 
+def _build_pipeline_blocks(result: PipelineResult) -> list:
+    """Build a Slack Block Kit block list from a PipelineResult."""
+    blocks: list = []
+
+    blocks.append({
+        "type": "header",
+        "text": {"type": "plain_text", "text": "✅ Pipeline complete"},
+    })
+
+    lines = [
+        f"New/modified: {result.changed}",
+        f"Unchanged: {result.unchanged}",
+        f"Deleted: {result.newly_deleted}",
+        f"Duration: {_fmt_duration(result.duration_seconds)}",
+    ]
+    if result.loc_filtered:
+        lines.append(f"Excluded by LOC threshold: {result.loc_filtered}")
+
+    blocks.append({
+        "type": "section",
+        "text": {"type": "mrkdwn", "text": "\n".join(lines)},
+    })
+
+    return blocks
+
+
 class SlackNotifier:
     """Unified Slack notifier for all pipeline events, reports, and schedule notices.
 
@@ -305,12 +331,11 @@ class SlackNotifier:
         if client is None:
             return
 
-        body = (
-            f"*Functions extracted:* {result.total_extracted:,}\n"
-            f"*Embeddings generated:* {result.changed:,}\n"
-            f"*Relationships created:* {result.edges_written:,}\n\n"
-            f"*Total runtime:* {_fmt_duration(result.duration_seconds)}"
+        preview = (
+            f"✅ Pipeline complete — {result.total_extracted:,} functions, "
+            f"{result.edges_written:,} edges, {_fmt_duration(result.duration_seconds)}"
         )
+        blocks = _build_pipeline_blocks(result)
         try:
             if self._message_ts:
                 await client.chat_update(
@@ -318,9 +343,12 @@ class SlackNotifier:
                     ts=self._message_ts,
                     text=f"✅ Pipeline complete — {result.changed:,} changed, {_fmt_duration(result.duration_seconds)}",
                 )
+            kwargs: dict = {"channel": self._channel, "text": preview, "blocks": blocks}
+            if self._thread_ts is not None:
+                kwargs["thread_ts"] = self._thread_ts
+            await client.chat_postMessage(**kwargs)
         except Exception:
             logger.exception("Slack pipeline_complete notification failed")
-        await self._reply_blocks("✅ Pipeline completed successfully.", body)
 
     async def pipeline_failed(self, error: str) -> None:
         """Update the original channel message and post a thread failure notice."""
