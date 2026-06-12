@@ -95,4 +95,4 @@ Update `NEO4J_URI`, `NEO4J_USERNAME`, `NEO4J_PASSWORD`, and `NEO4J_DATABASE` in 
 
 ---
 
-→ Next: [Pulling models](models.md)
+← Previous: [Configuration](configuration.md) | → Next: [Pulling models](models.md)

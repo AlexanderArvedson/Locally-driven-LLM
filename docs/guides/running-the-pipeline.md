@@ -89,4 +89,4 @@ The full flag reference and a description of every pipeline stage is in [docs/PI
 
 ---
 
-→ Next: [Slack integration](slack.md) (optional but recommended if you use slack)
+← Previous: [Pulling models](models.md) | → Next: [Slack integration](slack.md) *(optional)*

@@ -388,4 +388,4 @@ Leave `SLACK_NOTIFY_CHANNEL` unset to disable notifications entirely.
 
 ---
 
-→ Next: [Scheduled runs](scheduled-runs.md)
+← Previous: [Running the pipeline](running-the-pipeline.md) | → Next: [Scheduled runs](scheduled-runs.md)

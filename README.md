@@ -36,6 +36,7 @@ Reports are written to `run_reports/<repo_name>/<timestamp>/` as `.md` and `.jso
 
 - [Pipeline reference](docs/PIPELINE.md) — all 13 stages, CLI flags, graph schema, report sections, example Cypher queries
 - [Configuration reference](docs/CONFIG.md) — every `.env` and `config.json` field with types and defaults
+- [Dependencies](docs/DEPENDENCIES.md) — install instructions, system prerequisites, and full dependency list
 
 ---
 
