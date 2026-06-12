@@ -44,6 +44,16 @@ On macOS, install Xcode command line tools with `xcode-select --install`.
 
 On Windows, use a Python distribution with matching build tools available, or work inside WSL for the smoothest experience.
 
+### WeasyPrint system libraries
+
+`weasyprint` requires several native libraries for PDF rendering (Pango, Cairo, HarfBuzz, fontconfig). **When running via Docker Compose these are installed automatically** by `docker/dockerfile`. If you run `uv run run_pipeline.py` directly on your host machine and PDF report generation fails, install the libraries manually:
+
+- Debian/Ubuntu: `sudo apt-get install libpango-1.0-0 libpangoft2-1.0-0 libharfbuzz0b libfontconfig1 libcairo2 libglib2.0-0 fonts-dejavu-core`
+- Fedora/RHEL: `sudo dnf install pango harfbuzz fontconfig cairo glib2 dejavu-sans-fonts`
+- macOS (Homebrew): `brew install pango`
+
+If you see `Fontconfig error: No writable cache directories` in container logs, ensure `XDG_CACHE_HOME` is set to a writable path (the Dockerfile sets it to `/tmp/cache`).
+
 ## Declared project dependencies
 
 The following dependencies are currently declared in `pyproject.toml`.
