@@ -74,7 +74,7 @@ Four pipeline runs were performed against a Python subfolder of the modukey mono
 
 ### Setup
 
-Two pipeline runs against `kreation-core/src` from the kreation monorepo (64 TypeScript functions). Both runs used identical config except for the describer model. `num_ctx` was 12288 for both runs. A third run with 7B at `num_ctx: 16384` is in progress to test whether the additional context resolves the `upload` failure.
+Two pipeline runs against `kreation-core/src` from the kreation monorepo (64 TypeScript functions). Both runs used identical config except for the describer model. `num_ctx` was 12288 for both runs. A third run with 7B at `num_ctx: 16384` was added to test whether the additional context resolves the `upload` failure.
 
 | Run | Model | `num_ctx` | Duration |
 |---|---|---|---|
