@@ -15,8 +15,6 @@ docker exec my_ollama ollama pull qwen2.5-coder:7b
 uv run run_pipeline.py --no-descriptions
 ```
 
-> **Running on host (not inside Docker)?** Change `NEO4J_URI` in `.env` to `bolt://localhost:7687` so the pipeline can reach Neo4j on your machine rather than the Docker-internal hostname.
-
 For a complete walkthrough, start at [docs/guides/prerequisites.md](docs/guides/prerequisites.md).
 
 ---

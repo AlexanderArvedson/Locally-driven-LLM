@@ -240,12 +240,12 @@ class EmbeddingPipeline:
             if _run_key:
                 _checkpoint.clear(config.repo_name, _run_key)
 
-        # Stage 9: soft-delete functions no longer in the repo.
+        # Stage 9: delete functions no longer in the repo.
         if not self._dry_run:
             seen_ids = {r.id for r in all_records}
-            result.newly_deleted = await self._store.soft_delete_missing(config.repo_name, seen_ids)
+            result.newly_deleted = await self._store.delete_missing(config.repo_name, seen_ids)
             if result.newly_deleted:
-                logger.info("Soft-deleted {} stale functions", result.newly_deleted)
+                logger.info("Deleted {} stale functions", result.newly_deleted)
 
         # Stage 10–12: similarity graph (skip if dry-run or fewer than 2 functions).
         if self._dry_run or result.total_extracted < 2:

@@ -81,7 +81,7 @@ async def test_first_run_processes_all_functions(monkeypatch):
         pipeline._store.get_existing_hashes = AsyncMock(return_value={})
         pipeline._store.ensure_schema = AsyncMock()
         pipeline._store.upsert_functions_batch = AsyncMock()
-        pipeline._store.soft_delete_missing = AsyncMock(return_value=0)
+        pipeline._store.delete_missing = AsyncMock(return_value=0)
         pipeline._store.get_all_embeddings = AsyncMock(return_value=[])
         pipeline._store.upsert_similarity_edges_batch = AsyncMock()
 
@@ -121,7 +121,7 @@ async def test_second_run_skips_unchanged_functions(monkeypatch):
         pipeline._store.get_existing_hashes = AsyncMock(return_value=existing)
         pipeline._store.ensure_schema = AsyncMock()
         pipeline._store.upsert_functions_batch = AsyncMock()
-        pipeline._store.soft_delete_missing = AsyncMock(return_value=0)
+        pipeline._store.delete_missing = AsyncMock(return_value=0)
         pipeline._store.get_all_embeddings = AsyncMock(return_value=[])
         pipeline._store.upsert_similarity_edges_batch = AsyncMock()
 

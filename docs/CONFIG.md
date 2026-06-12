@@ -20,7 +20,7 @@ After editing `.env`, apply the changes with `docker compose up --build`.
 
 | Variable | Default | Description |
 |----------|---------|-------------|
-| `OLLAMA_URL` | `http://localhost:11434` | Base URL of the Ollama API. Override when Ollama runs on a different host or port (e.g. `http://ollama:11434` inside Docker). |
+| `OLLAMA_URL` | `http://localhost:11434` | Base URL of the Ollama API used when running `uv run run_pipeline.py` directly on your host. When running via `docker compose up`, `docker-compose.yml` always injects `http://ollama:11434` into the container regardless of this value — you never need to change it for Docker runs. |
 | `OLLAMA_KEEP_ALIVE` | `60m` | How long Ollama keeps a loaded model in VRAM after the last request. Accepts duration strings (`60m`, `24h`), `0` (never unload), or `-1` (unload immediately after each request). |
 | `OLLAMA_NUM_PARALLEL` | `1` | Maximum number of requests the Ollama server handles concurrently. Higher values increase throughput at the cost of additional VRAM per slot. |
 
@@ -28,7 +28,7 @@ After editing `.env`, apply the changes with `docker compose up --build`.
 
 | Variable | Description |
 |----------|-------------|
-| `NEO4J_URI` | Bolt connection URI (e.g. `bolt://localhost:7687`). When running via Docker Compose the fastapi container defaults to `bolt://neo4j:7687` (the internal service name) if this variable is not set. |
+| `NEO4J_URI` | Bolt connection URI used when running `uv run run_pipeline.py` directly on your host — set to `bolt://localhost:7687`. When running via `docker compose up`, `docker-compose.yml` always injects `bolt://neo4j:7687` into the container regardless of this value. |
 | `NEO4J_USERNAME` | Neo4j username. |
 | `NEO4J_PASSWORD` | Neo4j password. |
 | `NEO4J_DATABASE` | Neo4j database name. Defaults to `neo4j` if unset. |
