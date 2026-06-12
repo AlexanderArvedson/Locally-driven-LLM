@@ -28,7 +28,7 @@ The pipeline then runs thirteen sequential stages:
 7. **describe** — sends each changed function to the Ollama chat model, requesting a structured JSON description (summary, inputs, outputs, side effects, errors, dependencies). Skipped when `--no-descriptions` is passed.
 8. **embed_description** — embeds the `summary` field of each generated description. Skipped with `--no-descriptions`.
 9. **upsert_functions** — writes all function nodes to Neo4j via `MERGE` on stable ID. Unchanged functions have their `lastSeenAt` updated; everything else is overwritten.
-10. **soft_delete** — marks any function previously seen in this repo but absent from the current scan as `isDeleted: true`.
+10. **delete** — permanently removes (with `DETACH DELETE`) any function previously seen in this repo but absent from the current scan. All `SIMILAR_TO` edges attached to removed nodes are deleted with them.
 11. **get_all_embeddings** — fetches all live functions that have at least one embedding (code or description) from Neo4j for similarity computation. Functions with only a description embedding are included.
 12. **compute_similarity** — for each function, queries the Neo4j HNSW vector indexes (`function_code_embedding_index` and/or `function_desc_embedding_index`) to find its top-N nearest neighbours. Up to 20 index queries run concurrently. Candidates from both indexes are merged per target function; the combined score is `code_weight × codeSimilarity + description_weight × descriptionSimilarity` when both signals are available, falling back to the single available signal otherwise. This is O(n log n) rather than O(n²) and avoids building an in-memory similarity matrix.
 13. **upsert_edges** — deletes all existing `SIMILAR_TO` edges for the repo and re-inserts the freshly computed set so stale edges from changed functions do not persist.
@@ -110,7 +110,7 @@ The pipeline avoids redundant Ollama calls using `sourceHash` — a SHA-256 of t
 On each run:
 - Functions whose hash matches what is stored in Neo4j are skipped for embedding and description.
 - Functions that are new or changed are fully re-processed.
-- Functions present in the previous scan but missing from the current one are soft-deleted (`isDeleted: true`).
+- Functions present in the previous scan but missing from the current one are permanently deleted from Neo4j (`DETACH DELETE`), along with any `SIMILAR_TO` edges they held.
 
 Similarity edges are always recomputed from scratch to ensure stale edges from changed functions are removed.
 
@@ -153,7 +153,6 @@ One node per extracted function or method.
 | `createdAt` | string | ISO-8601 timestamp of first insertion. Preserved on re-runs. |
 | `updatedAt` | string | ISO-8601 timestamp of most recent change. |
 | `lastSeenAt` | string | ISO-8601 timestamp of the most recent scan that included this function. Used to detect deletions. |
-| `isDeleted` | boolean | `true` if the function was absent from the most recent scan. |
 | `isTest` | boolean | `true` if the function's file path matches any pattern in `pipeline.test_patterns`. Test functions are stored but excluded from similarity computation and report rankings. |
 | `codeEmbeddingStatus` | string \| null | Result of the code embedding stage: `"ok"` (single-pass), `"chunked"` (mean-pooled from overlapping chunks — set when source ≥ `context_overflow_char_threshold`), `"skipped"` (empty source), `"timeout"`, or `"error"`. `null` for functions that have not been through an embedding run (e.g. legacy nodes). |
 | `codeEmbeddingInputChars` | integer \| null | Length of the raw source code in characters before truncation. Set only on failure. |
@@ -254,31 +253,27 @@ All report thresholds are configured under `pipeline.reporter` in `config.json`.
 
 Example Cypher queries for the Neo4j browser at `http://localhost:7474`:
 
-> **Soft-deleted nodes:** Functions removed from the repo are marked `isDeleted: true` rather than physically deleted. They remain in Neo4j so history is preserved, but they are excluded from similarity computation and reports. Add `WHERE f.isDeleted = false` (or `AND f.isDeleted = false`) to any query that should show only live functions — otherwise soft-deleted nodes appear in results.
-
 ```cypher
--- Count all live functions and edges
-MATCH (f:Function) WHERE f.isDeleted = false RETURN count(f) AS functions;
+-- Count all functions and edges
+MATCH (f:Function) RETURN count(f) AS functions;
 MATCH ()-[r:SIMILAR_TO]->() RETURN count(r) AS edges;
 
--- Browse live functions in a specific file
+-- Browse functions in a specific file
 MATCH (f:Function)
-WHERE f.isDeleted = false AND f.filePath CONTAINS "EventLoop"
+WHERE f.filePath CONTAINS "EventLoop"
 RETURN f.functionName, f.startLine, f.endLine
 ORDER BY f.startLine;
 
 -- Find near-duplicates
 MATCH (a:Function)-[r:SIMILAR_TO]->(b:Function)
-WHERE a.isDeleted = false AND b.isDeleted = false
-  AND r.combinedSimilarity > 0.95
+WHERE r.combinedSimilarity > 0.95
 RETURN a.qualifiedName, a.filePath, b.qualifiedName, b.filePath, r.combinedSimilarity
 ORDER BY r.combinedSimilarity DESC
 LIMIT 20;
 
 -- Visualise the similarity graph
 MATCH (a:Function)-[r:SIMILAR_TO]->(b:Function)
-WHERE a.isDeleted = false AND b.isDeleted = false
-  AND r.combinedSimilarity > 0.88
+WHERE r.combinedSimilarity > 0.88
 RETURN a, r, b
 LIMIT 100;
 ```

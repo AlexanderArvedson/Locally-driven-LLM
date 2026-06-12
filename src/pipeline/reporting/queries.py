@@ -5,20 +5,20 @@ from __future__ import annotations
 from typing import LiteralString
 
 _Q_STATS: LiteralString = """
-MATCH (f:Function {repo: $repo, isDeleted: false})
+MATCH (f:Function {repo: $repo})
 WHERE f.isTest = false OR $include_tests
 WITH count(f) AS total
-OPTIONAL MATCH (:Function {repo: $repo, isDeleted: false})-[r:SIMILAR_TO]->(:Function {repo: $repo, isDeleted: false})
+OPTIONAL MATCH (:Function {repo: $repo})-[r:SIMILAR_TO]->(:Function {repo: $repo})
 RETURN total, count(r) AS edges
 """
 
 _Q_TEST_COUNT: LiteralString = """
-MATCH (f:Function {repo: $repo, isDeleted: false, isTest: true})
+MATCH (f:Function {repo: $repo, isTest: true})
 RETURN count(f) AS test_count
 """
 
 _Q_NO_EDGES: LiteralString = """
-MATCH (f:Function {repo: $repo, isDeleted: false})
+MATCH (f:Function {repo: $repo})
 WHERE (f.isTest = false OR $include_tests)
   AND f.isAnonymous = false
   AND NOT (f)-[:SIMILAR_TO]-(:Function {repo: $repo})
@@ -26,7 +26,7 @@ RETURN count(f) AS isolated
 """
 
 _Q_TOP_PAIRS: LiteralString = """
-MATCH (a:Function {repo: $repo, isDeleted: false})-[r:SIMILAR_TO]->(b:Function {repo: $repo, isDeleted: false})
+MATCH (a:Function {repo: $repo})-[r:SIMILAR_TO]->(b:Function {repo: $repo})
 WHERE (a.isTest = false OR $include_tests) AND (b.isTest = false OR $include_tests)
 RETURN
   a.qualifiedName AS a_name,
@@ -40,7 +40,7 @@ LIMIT $limit
 
 # Updated: intra/inter breakdown replaces simple connection count.
 _Q_MOST_CONNECTED: LiteralString = """
-MATCH (f:Function {repo: $repo, isDeleted: false})-[r:SIMILAR_TO]-(b:Function {repo: $repo, isDeleted: false})
+MATCH (f:Function {repo: $repo})-[r:SIMILAR_TO]-(b:Function {repo: $repo})
 WHERE f.isTest = false OR $include_tests
 WITH f.qualifiedName AS name, f.filePath AS file,
      count(r) AS connections,
@@ -52,26 +52,26 @@ RETURN name, file, connections, intra, inter
 """
 
 _Q_LANGUAGE_BREAKDOWN: LiteralString = """
-MATCH (f:Function {repo: $repo, isDeleted: false})
+MATCH (f:Function {repo: $repo})
 WHERE f.isTest = false OR $include_tests
 RETURN f.language AS language, count(f) AS count
 ORDER BY count DESC
 """
 
 _Q_EMBEDDING_COVERAGE: LiteralString = """
-MATCH (f:Function {repo: $repo, isDeleted: false})
+MATCH (f:Function {repo: $repo})
 WHERE f.isTest = false OR $include_tests
 RETURN f.codeEmbeddingStatus AS status, count(f) AS cnt
 """
 
 _Q_DESCRIPTION_COVERAGE: LiteralString = """
-MATCH (f:Function {repo: $repo, isDeleted: false})
+MATCH (f:Function {repo: $repo})
 WHERE f.isTest = false OR $include_tests
 RETURN f.descriptionStatus AS status, count(f) AS cnt
 """
 
 _Q_EMBEDDING_FAILURES: LiteralString = """
-MATCH (f:Function {repo: $repo, isDeleted: false})
+MATCH (f:Function {repo: $repo})
 WHERE (f.isTest = false OR $include_tests)
   AND (f.codeEmbeddingStatus IN ['timeout', 'error']
     OR f.descriptionStatus IN ['timeout', 'invalid_json', 'error'])
@@ -83,7 +83,7 @@ LIMIT $limit
 """
 
 _Q_CHUNKED_FUNCTIONS: LiteralString = """
-MATCH (f:Function {repo: $repo, isDeleted: false})
+MATCH (f:Function {repo: $repo})
 WHERE (f.isTest = false OR $include_tests)
   AND f.codeEmbeddingStatus = 'chunked'
 RETURN f.qualifiedName AS name, f.filePath AS file
@@ -92,7 +92,7 @@ LIMIT $limit
 """
 
 _Q_INTRA_INTER_EDGES: LiteralString = """
-MATCH (a:Function {repo: $repo, isDeleted: false})-[r:SIMILAR_TO]->(b:Function {repo: $repo, isDeleted: false})
+MATCH (a:Function {repo: $repo})-[r:SIMILAR_TO]->(b:Function {repo: $repo})
 WHERE a.isTest = false OR $include_tests
 RETURN
   sum(CASE WHEN a.filePath = b.filePath THEN 1 ELSE 0 END) AS intra,
@@ -100,7 +100,7 @@ RETURN
 """
 
 _Q_SIMILARITY_DISTRIBUTION: LiteralString = """
-MATCH (a:Function {repo: $repo, isDeleted: false})-[r:SIMILAR_TO]->(b:Function {repo: $repo, isDeleted: false})
+MATCH (a:Function {repo: $repo})-[r:SIMILAR_TO]->(b:Function {repo: $repo})
 WHERE a.isTest = false OR $include_tests
 RETURN
   sum(CASE WHEN r.combinedSimilarity > $bin_high THEN 1 ELSE 0 END) AS gt_high,
@@ -110,10 +110,10 @@ RETURN
 """
 
 _Q_PER_FILE_INTER: LiteralString = """
-MATCH (f:Function {repo: $repo, isDeleted: false})
+MATCH (f:Function {repo: $repo})
 WHERE f.isTest = false OR $include_tests
 WITH f.filePath AS path, count(f) AS fn_count
-OPTIONAL MATCH (a:Function {repo: $repo, isDeleted: false, filePath: path})-[r:SIMILAR_TO]-(b:Function {repo: $repo, isDeleted: false})
+OPTIONAL MATCH (a:Function {repo: $repo, filePath: path})-[r:SIMILAR_TO]-(b:Function {repo: $repo})
 WHERE b.filePath <> path OR a.id < b.id
 RETURN path, fn_count,
   count(r) AS edge_count,
@@ -123,7 +123,7 @@ LIMIT $limit
 """
 
 _Q_CLUSTER_EDGES: LiteralString = """
-MATCH (a:Function {repo: $repo, isDeleted: false})-[r:SIMILAR_TO]->(b:Function {repo: $repo, isDeleted: false})
+MATCH (a:Function {repo: $repo})-[r:SIMILAR_TO]->(b:Function {repo: $repo})
 WHERE r.combinedSimilarity >= $threshold
   AND (a.isTest = false OR $include_tests)
 RETURN
@@ -133,13 +133,13 @@ RETURN
 """
 
 _Q_TEST_POLLUTION: LiteralString = """
-MATCH (a:Function {repo: $repo, isDeleted: false})-[r:SIMILAR_TO]-(b:Function {repo: $repo, isDeleted: false})
+MATCH (a:Function {repo: $repo})-[r:SIMILAR_TO]-(b:Function {repo: $repo})
 WHERE a.isTest = true AND b.isTest = false
 RETURN count(r) AS cross_edges
 """
 
 _Q_ISOLATED_FUNCTIONS: LiteralString = """
-MATCH (f:Function {repo: $repo, isDeleted: false})
+MATCH (f:Function {repo: $repo})
 WHERE (f.isTest = false OR $include_tests)
   AND f.isAnonymous = false
   AND NOT (f)-[:SIMILAR_TO]-(:Function {repo: $repo})
@@ -151,7 +151,7 @@ LIMIT $limit
 """
 
 _Q_FILE_EMBEDDINGS: LiteralString = """
-MATCH (f:Function {repo: $repo, isDeleted: false})
+MATCH (f:Function {repo: $repo})
 WHERE (f.isTest = false OR $include_tests)
   AND (f.codeEmbedding IS NOT NULL OR f.descriptionEmbedding IS NOT NULL)
 RETURN f.filePath AS filePath, f.className AS className,
@@ -163,7 +163,7 @@ LIMIT $limit
 """
 
 _Q_FILES_BY_FUNCTION_COUNT: LiteralString = """
-MATCH (f:Function {repo: $repo, isDeleted: false})
+MATCH (f:Function {repo: $repo})
 WHERE f.isTest = false OR $include_tests
 RETURN f.filePath AS path, count(f) AS fn_count
 ORDER BY fn_count DESC
@@ -171,7 +171,7 @@ LIMIT $limit
 """
 
 _Q_FILE_COUNT: LiteralString = """
-MATCH (f:Function {repo: $repo, isDeleted: false})
+MATCH (f:Function {repo: $repo})
 WHERE f.isTest = false OR $include_tests
 RETURN count(DISTINCT f.filePath) AS file_count
 """

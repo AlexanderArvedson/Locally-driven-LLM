@@ -143,13 +143,13 @@ async def test_get_existing_hashes_filters_by_repo():
 
 
 @pytest.mark.asyncio
-async def test_soft_delete_passes_seen_ids():
-    from src.pipeline.graph.store import _SOFT_DELETE
+async def test_delete_missing_removes_stale_functions():
+    from src.pipeline.graph.store import _COUNT_MISSING
 
     rows = [{"deleted": 2}]
-    store, driver = _make_store({_SOFT_DELETE.strip(): rows})
+    store, driver = _make_store({_COUNT_MISSING.strip(): rows})
 
-    deleted = await store.soft_delete_missing("repo", {"id1", "id2"})
+    deleted = await store.delete_missing("repo", {"id1", "id2"})
 
     assert deleted == 2
 

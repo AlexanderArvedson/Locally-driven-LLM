@@ -75,7 +75,6 @@ SET
   f.descriptionEmbedding  = CASE WHEN rec.descriptionEmbedding IS NOT NULL THEN rec.descriptionEmbedding ELSE f.descriptionEmbedding END,
   f.updatedAt             = rec.updatedAt,
   f.lastSeenAt            = rec.lastSeenAt,
-  f.isDeleted             = false,
   f.isTest                = rec.isTest,
   f.isAnonymous           = rec.isAnonymous,
   f.createdAt             = CASE WHEN f.createdAt IS NULL THEN rec.createdAt ELSE f.createdAt END,
@@ -87,15 +86,19 @@ SET
 
 _GET_HASHES: LiteralString = """
 MATCH (f:Function {repo: $repo})
-WHERE f.isDeleted = false
 RETURN f.id AS id, f.sourceHash AS sourceHash
 """
 
-_SOFT_DELETE: LiteralString = """
+_COUNT_MISSING: LiteralString = """
 MATCH (f:Function {repo: $repo})
-WHERE NOT f.id IN $seen_ids AND f.isDeleted = false
-SET f.isDeleted = true
+WHERE NOT f.id IN $seen_ids
 RETURN count(f) AS deleted
+"""
+
+_HARD_DELETE: LiteralString = """
+MATCH (f:Function {repo: $repo})
+WHERE NOT f.id IN $seen_ids
+DETACH DELETE f
 """
 
 _DELETE_SIMILARITY_EDGES: LiteralString = """
@@ -105,7 +108,7 @@ DELETE r
 
 _GET_ALL_EMBEDDINGS: LiteralString = """
 MATCH (f:Function {repo: $repo})
-WHERE f.isDeleted = false AND (f.isTest = false OR $include_tests)
+WHERE (f.isTest = false OR $include_tests)
   AND f.isAnonymous = false
   AND (f.codeEmbedding IS NOT NULL OR f.descriptionEmbedding IS NOT NULL)
 RETURN f.id AS id, f.codeEmbedding AS codeEmbedding, f.descriptionEmbedding AS descriptionEmbedding
@@ -116,7 +119,6 @@ CALL db.index.vector.queryNodes('function_code_embedding_index', $top_n, $embedd
 YIELD node AS b, score
 WHERE b.id <> $source_id
   AND b.repo = $repo
-  AND b.isDeleted = false
   AND b.isAnonymous = false
   AND (b.isTest = false OR $include_tests)
 RETURN b.id AS id, score
@@ -127,7 +129,6 @@ CALL db.index.vector.queryNodes('function_desc_embedding_index', $top_n, $embedd
 YIELD node AS b, score
 WHERE b.id <> $source_id
   AND b.repo = $repo
-  AND b.isDeleted = false
   AND b.isAnonymous = false
   AND (b.isTest = false OR $include_tests)
 RETURN b.id AS id, score
@@ -292,12 +293,15 @@ class Neo4jStore:
                 batch = [_to_dict(r) for r in records[i:i + self._function_batch_size]]
                 await session.run(_UPSERT_FUNCTION, records=batch)
 
-    async def soft_delete_missing(self, repo: str, seen_ids: set[str]) -> int:
-        """Mark functions not in ``seen_ids`` as deleted. Returns count."""
+    async def delete_missing(self, repo: str, seen_ids: set[str]) -> int:
+        """Permanently delete functions not in ``seen_ids``. Returns count deleted."""
         async with self._driver.session(database=self._config.database) as session:
-            result = await session.run(_SOFT_DELETE, repo=repo, seen_ids=list(seen_ids))
+            result = await session.run(_COUNT_MISSING, repo=repo, seen_ids=list(seen_ids))
             record = await result.single()
-        return record["deleted"] if record else 0
+            count = record["deleted"] if record else 0
+            if count:
+                await session.run(_HARD_DELETE, repo=repo, seen_ids=list(seen_ids))
+        return count
 
     async def get_all_embeddings(
         self,
