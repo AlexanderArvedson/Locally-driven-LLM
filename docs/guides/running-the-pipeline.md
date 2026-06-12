@@ -16,7 +16,7 @@ Before a full run, confirm that all three pieces are in place:
 curl http://localhost:11434/api/tags
 ```
 
-You should see `nomic-embed-text` and `qwen2.5-coder:7b` (or your chosen models) in the response.
+You should see `nomic-embed-text` and `qwen2.5:7b` (or your chosen models) in the response.
 
 **Dry run** — extract functions and check Neo4j connectivity without writing anything or calling Ollama:
 

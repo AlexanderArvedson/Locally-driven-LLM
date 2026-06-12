@@ -110,7 +110,7 @@ Two pipeline runs against `kreation-core/src` from the kreation monorepo (64 Typ
 
 **Speed tradeoff.** 7B runs ~1.5–2× faster than 14B. On a 64-function repo the absolute saving is modest. On a 500-function repo it becomes the difference between a ~4-hour and a ~2-hour pipeline run. For teams running the pipeline frequently on large repos, 7B is the right default.
 
-**Recommendation:** Use `qwen2.5-coder:7b` with `num_ctx: 16384` as the default describer. Switch to 14B when: (a) the codebase has a high proportion of large, complex functions (>50 LOC), or (b) description accuracy for interface contracts is load-bearing for downstream tooling.
+**Recommendation:** Use `qwen2.5:7b` with `num_ctx: 16384` as the default describer (the benchmarks above used `qwen2.5-coder:7b`, which has since been replaced by the non-coder variant for better structured-output reliability). Switch to 14B when: (a) the codebase has a high proportion of large, complex functions (>50 LOC), or (b) description accuracy for interface contracts is load-bearing for downstream tooling.
 
 ---
 

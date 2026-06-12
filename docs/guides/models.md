@@ -14,23 +14,23 @@ The pipeline uses two types of model, configured separately in `config.json`. Bo
 
 ## Pull the default models
 
-The defaults in `config.example.json` are `nomic-embed-text` (embedding) and `qwen2.5-coder:7b` (describer/chat). The other model roles in `config.json` (`coder`, `semantic_validator`, `reporter`) belong to the agent workflow which is not in use — they can stay at the defaults.
+The defaults in `config.example.json` are `nomic-embed-text` (embedding) and `qwen2.5:7b` (describer). The other model roles in `config.json` (`coder`, `semantic_validator`, `reporter`) belong to the agent workflow which is not in use — they can stay at the defaults.
 
 **If Ollama is running inside Docker** (the default after the previous step):
 
 ```bash
 docker exec my_ollama ollama pull nomic-embed-text
-docker exec my_ollama ollama pull qwen2.5-coder:7b
+docker exec my_ollama ollama pull qwen2.5:7b
 ```
 
 **If Ollama is running directly on your machine** (not via Docker):
 
 ```bash
 ollama pull nomic-embed-text
-ollama pull qwen2.5-coder:7b
+ollama pull qwen2.5:7b
 ```
 
-Pulls can take a few minutes depending on model size and connection speed. `qwen2.5-coder:7b` is approximately 4.7 GB.
+Pulls can take a few minutes depending on model size and connection speed. `qwen2.5:7b` is approximately 4.7 GB.
 
 ---
 
@@ -40,7 +40,7 @@ Browse [ollama.com/library](https://ollama.com/library) to find alternatives.
 
 **For `models.embedding`**: filter by the **Embedding** tag. Only models under this tag produce the dense fixed-dimension vectors the pipeline expects. `nomic-embed-text` (274 MB) and `mxbai-embed-large` (670 MB) are common choices.
 
-**For `models.describer` / `models.chat`**: any capable instruction-tuned model works. `qwen2.5-coder` variants are well-suited for code-heavy tasks. `llama3`, `mistral`, and `deepseek-coder` are popular general-purpose alternatives. Larger models produce better descriptions but run slower.
+**For `models.describer` / `models.chat`**: any capable instruction-tuned model works. The describer task is code summarisation and structured JSON extraction, so a general-purpose instruction-tuned model (e.g. `qwen2.5:7b`) is a better fit than a code-generation specialist. `llama3`, `mistral`, and `qwen2.5` variants are popular choices. Larger models produce better descriptions but run slower.
 
 Once you have decided on a model, pull it and update `models.embedding` or `models.describer` in `config.json` with its exact name as shown on the library page.
 
