@@ -65,8 +65,8 @@ The following dependencies are currently declared in `pyproject.toml`.
 - `httpx>=0.28.1` - HTTP client used for API calls and test stubs
 - `langgraph>=1.2.1` - graph-based workflow orchestration
 - `loguru>=0.7.3` - structured logging
+- `gitpython>=3.1.50` - Git repository interaction: branch creation, staging, committing, and pushing from within the pipeline
 - `neo4j>=5.0` - async Neo4j driver used by the embedding pipeline to store function nodes and similarity edges
-- `numpy>=1.26` - vectorised cosine similarity matrix computation in the similarity stage
 - `pydantic>=2.13.4` - data validation and settings models
 - `python-dotenv>=1.2.2` - environment variable loading
 - `tenacity>=9.1.4` - retry logic
@@ -92,5 +92,5 @@ The following dependencies are currently declared in `pyproject.toml`.
 
 ## Notes
 
-- If you intended to depend on the `graphify` package rather than `graphifyy`, update `pyproject.toml` separately before syncing.
+- The tools extra declares `graphifyy` (double-y) — this is intentional. `graphifyy` is the correct package name on PyPI for the graphify CLI tool used by this project.
 - The repo also uses the standard library, so no extra third-party packages are required beyond the list above.

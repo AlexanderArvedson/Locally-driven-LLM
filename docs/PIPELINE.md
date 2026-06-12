@@ -183,6 +183,13 @@ The following are created automatically on first run by `ensure_schema`:
 - Vector index on `Function.codeEmbedding` (cosine, dimension inferred from first embedding)
 - Vector index on `Function.descriptionEmbedding` (cosine, same dimension)
 
+> **Switching embedding models:** Vector index dimensions are fixed at creation time and tied to the model that produced the first embeddings. If you change `models.embedding.name` to a model with a different output dimension (e.g. from `nomic-embed-text` at 768D to `mxbai-embed-large` at 1024D), the pipeline will detect the mismatch and raise a `RuntimeError` before any data is written. Drop both indexes in Neo4j Browser first, then re-run:
+> ```cypher
+> DROP INDEX function_code_embedding_index
+> DROP INDEX function_desc_embedding_index
+> ```
+> After dropping them, the next pipeline run recreates them at the new dimension. All existing function nodes remain — only the indexes and similarity edges need to be rebuilt.
+
 ---
 
 ## Report generation
@@ -247,27 +254,31 @@ All report thresholds are configured under `pipeline.reporter` in `config.json`.
 
 Example Cypher queries for the Neo4j browser at `http://localhost:7474`:
 
+> **Soft-deleted nodes:** Functions removed from the repo are marked `isDeleted: true` rather than physically deleted. They remain in Neo4j so history is preserved, but they are excluded from similarity computation and reports. Add `WHERE f.isDeleted = false` (or `AND f.isDeleted = false`) to any query that should show only live functions — otherwise soft-deleted nodes appear in results.
+
 ```cypher
--- Count all indexed functions and edges
-MATCH (f:Function) RETURN count(f) AS functions;
+-- Count all live functions and edges
+MATCH (f:Function) WHERE f.isDeleted = false RETURN count(f) AS functions;
 MATCH ()-[r:SIMILAR_TO]->() RETURN count(r) AS edges;
 
--- Browse functions in a specific file
+-- Browse live functions in a specific file
 MATCH (f:Function)
-WHERE f.filePath CONTAINS "EventLoop"
+WHERE f.isDeleted = false AND f.filePath CONTAINS "EventLoop"
 RETURN f.functionName, f.startLine, f.endLine
 ORDER BY f.startLine;
 
 -- Find near-duplicates
 MATCH (a:Function)-[r:SIMILAR_TO]->(b:Function)
-WHERE r.combinedSimilarity > 0.95
+WHERE a.isDeleted = false AND b.isDeleted = false
+  AND r.combinedSimilarity > 0.95
 RETURN a.qualifiedName, a.filePath, b.qualifiedName, b.filePath, r.combinedSimilarity
 ORDER BY r.combinedSimilarity DESC
 LIMIT 20;
 
 -- Visualise the similarity graph
 MATCH (a:Function)-[r:SIMILAR_TO]->(b:Function)
-WHERE r.combinedSimilarity > 0.88
+WHERE a.isDeleted = false AND b.isDeleted = false
+  AND r.combinedSimilarity > 0.88
 RETURN a, r, b
 LIMIT 100;
 ```

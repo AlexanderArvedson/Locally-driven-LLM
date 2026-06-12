@@ -15,7 +15,21 @@ docker exec my_ollama ollama pull qwen2.5-coder:7b
 uv run run_pipeline.py --no-descriptions
 ```
 
+> **Running on host (not inside Docker)?** Change `NEO4J_URI` in `.env` to `bolt://localhost:7687` so the pipeline can reach Neo4j on your machine rather than the Docker-internal hostname.
+
 For a complete walkthrough, start at [docs/guides/prerequisites.md](docs/guides/prerequisites.md).
+
+---
+
+## Two ways to run
+
+**Standalone CLI** — `uv run run_pipeline.py`
+
+Runs the embedding pipeline directly. Requires Neo4j and Ollama to be reachable but needs no FastAPI container, Slack setup, or scheduler. This is the right choice for one-off runs and local development.
+
+**Full stack** — `docker compose up`
+
+Starts all services including the `fastapi` container, which runs `main.py`. This enables Slack slash commands (`/pipeline`, `/query`, `/report`), the HTTP API, and cron-scheduled automatic runs. The pipeline is triggered via Slack or the API — `run_pipeline.py` is not used in this mode.
 
 ---
 
@@ -36,6 +50,7 @@ Reports are written to `run_reports/<repo_name>/<timestamp>/` as `.md` and `.jso
 
 - [Pipeline reference](docs/PIPELINE.md) — all 13 stages, CLI flags, graph schema, report sections, example Cypher queries
 - [Configuration reference](docs/CONFIG.md) — every `.env` and `config.json` field with types and defaults
+- [Dependencies](docs/DEPENDENCIES.md) — install instructions, system prerequisites, and full dependency list
 
 ---
 

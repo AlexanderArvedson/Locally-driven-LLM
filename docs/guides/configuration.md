@@ -55,8 +55,13 @@ The example config already includes `"python"` and `"typescript"`. If your repo 
 
 Supported values are `"python"`, `"typescript"`, and `"javascript"`. Files with unlisted extensions are silently skipped — remove any languages your repo does not use to avoid scanning noise.
 
+A few defaults worth knowing before your first run:
+
+- **`pipeline.limits.min_loc_threshold`** defaults to `3` in `config.example.json` (disabled with `0` in code). Functions shorter than this many lines are silently skipped before embedding and never stored in Neo4j. If short utility functions are missing from your graph, check this value.
+- **`pipeline.checkpoint.enabled`** defaults to `true`. After every 10 descriptions the pipeline saves progress to `.pipeline_checkpoints/`. If a run crashes, the next run resumes from the checkpoint automatically rather than starting over.
+
 Everything else can stay at the defaults for a first run. The full field reference is in [docs/CONFIG.md](../CONFIG.md).
 
 ---
 
-→ Next: [Starting services](services.md)
+← Previous: [Prerequisites](prerequisites.md) | → Next: [Starting services](services.md)

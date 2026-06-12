@@ -137,7 +137,9 @@ Open any channel in your workspace and run:
 /query find functions that handle authentication
 ```
 
-You should see an ephemeral **Searching…** reply within a few seconds, followed by the results. Each result shows the function name, similarity score out of 1.0, file path, and — when descriptions are populated — a short italic summary of what the function does:
+You should see an ephemeral **Searching…** reply within a few seconds, followed by the results. Each result shows the function name, similarity score out of 1.0, file path, and — when descriptions are populated — a short italic summary of what the function does.
+
+If the graph is empty (pipeline has never run) or no functions match your query, you will receive a `No results found for: …` reply instead. Run `/pipeline --no-descriptions` first to populate the graph.
 
 ```
 Results for: "find functions that handle authentication"
@@ -388,4 +390,4 @@ Leave `SLACK_NOTIFY_CHANNEL` unset to disable notifications entirely.
 
 ---
 
-→ Next: [Scheduled runs](scheduled-runs.md)
+← Previous: [Running the pipeline](running-the-pipeline.md) | → Next: [Scheduled runs](scheduled-runs.md)

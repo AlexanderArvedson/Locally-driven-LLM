@@ -72,7 +72,7 @@ Once you have confirmed the basic run works, run without the `--no-descriptions`
 uv run run_pipeline.py
 ```
 
-Description generation calls the describer model once per changed function, so this is significantly slower than a code-only run. For a repo with thousands of functions, expect the first full run to take tens of minutes.
+Description generation calls the describer model once per changed function, so this is significantly slower than a code-only run. For a repo with thousands of functions, expect the first full run to take multiple hours, if not even a day+ depending on your device specs.
 
 ---
 
@@ -89,4 +89,4 @@ The full flag reference and a description of every pipeline stage is in [docs/PI
 
 ---
 
-→ Next: [Slack integration](slack.md) (optional but recommended if you use slack)
+← Previous: [Pulling models](models.md) | → Next: [Slack integration](slack.md) *(optional)*
