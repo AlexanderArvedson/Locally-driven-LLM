@@ -28,10 +28,13 @@ After editing `.env`, apply the changes with `docker compose up --build`.
 
 | Variable | Description |
 |----------|-------------|
-| `NEO4J_URI` | Bolt connection URI (e.g. `bolt://localhost:7687`). |
+| `NEO4J_URI` | Bolt connection URI (e.g. `bolt://localhost:7687`). When running via Docker Compose the fastapi container defaults to `bolt://neo4j:7687` (the internal service name) if this variable is not set. |
 | `NEO4J_USERNAME` | Neo4j username. |
 | `NEO4J_PASSWORD` | Neo4j password. |
 | `NEO4J_DATABASE` | Neo4j database name. Defaults to `neo4j` if unset. |
+| `NEO4J_HEAP_INITIAL_SIZE` | JVM heap initially allocated to the Neo4j container. Default `1G`. Accepts Neo4j size strings (`512m`, `1G`, `2G`). |
+| `NEO4J_HEAP_MAX_SIZE` | Maximum JVM heap the Neo4j container may grow to. Default `1G`. Should be ≥ `NEO4J_HEAP_INITIAL_SIZE`. |
+| `NEO4J_PAGECACHE_SIZE` | Page cache size for the Neo4j container. Default `512m`. The page cache holds graph data in RAM for fast reads — larger values improve query speed on big graphs. Total RAM used by the container is approximately `NEO4J_HEAP_MAX_SIZE + NEO4J_PAGECACHE_SIZE`. Reduce all three values on machines with less than 4 GB free RAM. |
 
 ### Slack
 
@@ -45,7 +48,7 @@ After editing `.env`, apply the changes with `docker compose up --build`.
 
 | Variable | Description |
 |----------|-------------|
-| `REPOS_ROOT` | Absolute path on the host to the parent directory that contains all repositories listed in `config.json`. Mounted read-only into the `fastapi` container at the same path so the pipeline can read source files. Example: if `local_path` in `config.json` is `/home/alice/projects/myrepo`, set `REPOS_ROOT=/home/alice/projects`. All repos under this root become accessible automatically — no per-repo mounts needed. |
+| `REPOS_ROOT` | Absolute path on the host to the parent directory that contains all repositories listed in `config.json`. Mounted read-write into the `fastapi` container at the same path so the pipeline can clone missing repositories on first run and pull updates on subsequent runs. Example: if `local_path` in `config.json` is `/home/alice/projects/myrepo`, set `REPOS_ROOT=/home/alice/projects`. All repos under this root become accessible automatically — no per-repo mounts needed. |
 
 Without `REPOS_ROOT` the container cannot read any source files and every pipeline run will extract 0 functions.
 
@@ -192,7 +195,7 @@ Each key under `models` names a role the agent uses an LLM for. All four roles m
 | `chat` | General-purpose conversational model used for planning and task decomposition. |
 | `coder` | Code generation model — should be a model fine-tuned for code (e.g. a Qwen-coder or DeepSeek-coder variant). |
 | `semantic_validator` | Model used to judge whether generated code satisfies the original task intent. Receives the task description, a unified diff of the change, and a truncated original file snippet for context; returns a structured JSON evaluation including `task_alignment_score` and `regression_risk`. Can be the same model as `coder`. |
-| `describer` | Model used by the embedding pipeline to generate structured JSON descriptions of extracted functions. Falls back to `chat` if this key is absent, so it is optional. A smaller or faster model (e.g. `qwen2.5-coder:7b`) works well for most functions and runs ~1.5–2× faster than a 14B model, but may produce `invalid_json` on very large or complex functions. Set `max_tokens` to `-1` (unlimited) to prevent Ollama's default `num_predict` from truncating the JSON response mid-way, which produces a valid but incomplete description stored with `descriptionStatus: "ok"`. The `num_ctx` value here is used as the context window for every description request — set it large enough to fit the system prompt plus up to `max_description_source_chars` of source code plus the JSON response. **`16384` is the recommended value** for the default `max_description_source_chars: 12000`; values below this (e.g. `12288`) leave insufficient room for output on complex functions and increase the `invalid_json` rate. If `num_ctx` is `null`, the pipeline falls back to `pipeline.limits.describe_num_ctx` (default `8192`). Set `timeout_seconds` to at least `900` (15 minutes) — description requests are substantially slower than embedding requests, and a timeout that is too short causes a single slow function to abort the entire description batch. |
+| `describer` | Model used by the embedding pipeline to generate structured JSON descriptions of extracted functions. Falls back to `chat` if this key is absent, so it is optional. A smaller or faster model (e.g. `qwen2.5-coder:7b`) works well for most functions and runs ~1.5–2× faster than a 14B model, but may produce `invalid_json` on very large or complex functions. Set `max_tokens` to `-1` (unlimited) to prevent Ollama's default `num_predict` from truncating the JSON response mid-way, which produces a valid but incomplete description stored with `descriptionStatus: "ok"`. The `num_ctx` value here is used as the context window for every description request — set it large enough to fit the system prompt plus up to `max_description_source_chars` of source code plus the JSON response. **`16384` is the recommended value** for the default `max_description_source_chars: 12000`; values below this (e.g. `12288`) leave insufficient room for output on complex functions and increase the `invalid_json` rate. If `num_ctx` is `null`, the pipeline defaults to `8192`. Set `timeout_seconds` to at least `900` (15 minutes) — description requests are substantially slower than embedding requests, and a timeout that is too short causes a single slow function to abort the entire description batch. |
 | `reporter` | Model reserved for future report analysis. Will be used to compare pipeline reports across runs and produce a synthesised document highlighting the most important findings, regressions, and patterns. Not wired into any pipeline stage yet — add it to your config now so the key is available when the feature is implemented. |
 | `embedding` | Embedding model used to build the vector-similarity layer of the knowledge graph. Must produce dense vector outputs. Set `num_ctx` to the maximum supported by the model — `8192` for `nomic-embed-text`. Ollama's built-in default is `2048`, which truncates inputs and degrades embedding quality. Each chunk in the chunked embedding path is also sent with this value. The `timeout_seconds` value is applied to every embedding request including each chunk in the chunked path — the default `300` is appropriate for most hardware, but raise it if you see timeouts on large functions. Each role's `allow_gpu` is respected independently: set `false` for `embedding` to keep the GPU free for description generation while `describer` uses GPU, or leave both `true` (the default) to use the GPU for all requests. |
 
@@ -216,20 +219,20 @@ Controls the function embedding and similarity pipeline for this repository. See
 |-------|------|---------|-------------|
 | `threshold` | float | `0.82` | Minimum cosine similarity required to create a `SIMILAR_TO` edge. Lower values produce denser graphs; raise toward `1.0` to keep only near-exact matches. |
 | `top_n` | integer | `20` | Maximum number of nearest neighbours to consider per function when computing edges. |
-| `code_weight` | float | `0.55` | Weight applied to code embedding similarity in the combined score. |
-| `description_weight` | float | `0.45` | Weight applied to description embedding similarity in the combined score. When description embeddings are absent the combined score falls back to the code similarity only. Higher description weight helps differentiate functions that are structurally similar but semantically distinct (e.g. React hooks with different purposes). Has no effect until descriptions are populated. |
+| `code_weight` | float | `0.70` | Weight applied to code embedding similarity in the combined score. |
+| `description_weight` | float | `0.30` | Weight applied to description embedding similarity in the combined score. When description embeddings are absent the combined score falls back to the code similarity only. Higher description weight helps differentiate functions that are structurally similar but semantically distinct (e.g. React hooks with different purposes). Has no effect until descriptions are populated. |
 
 #### `pipeline.concurrency`
 
-Controls the maximum number of simultaneous Ollama requests in each processing stage. All three default to `1` to match the default `OLLAMA_NUM_PARALLEL=1` Ollama setting — with that setting, Ollama serialises all requests regardless, so higher concurrency values just queue requests without improving throughput and can cause 500 errors under load.
+Controls the maximum number of simultaneous Ollama requests in each processing stage. The code defaults are `embed_code=4`, `embed_description=4`, `describe=2`, but `config.example.json` sets all three to `1` to match the default `OLLAMA_NUM_PARALLEL=1` Ollama setting — with that setting, Ollama serialises all requests regardless, so higher concurrency values just queue requests without improving throughput and can cause 500 errors under load.
 
 If you raise `OLLAMA_NUM_PARALLEL` in `.env`, increase the embedding concurrency values to match. Description concurrency rarely benefits from values above `1` even with higher parallelism, since the bottleneck is GPU inference time per request rather than queuing.
 
 | Field | Type | Default | Description |
 |-------|------|---------|-------------|
-| `embed_code` | integer | `1` | Max concurrent code embedding requests. |
-| `embed_description` | integer | `1` | Max concurrent description embedding requests. |
-| `describe` | integer | `1` | Max concurrent LLM description requests. |
+| `embed_code` | integer | `4` | Max concurrent code embedding requests. Set to `1` when `OLLAMA_NUM_PARALLEL=1` (the Ollama default). |
+| `embed_description` | integer | `4` | Max concurrent description embedding requests. Set to `1` when `OLLAMA_NUM_PARALLEL=1`. |
+| `describe` | integer | `2` | Max concurrent LLM description requests. |
 
 #### `pipeline.batch_sizes`
 

@@ -26,6 +26,8 @@ docker compose ps
 
 Both should show `running`.
 
+Once Neo4j is running you can browse the graph at **http://localhost:7474** using the Neo4j Browser UI, you may need to add /browser at the end if it doesn't redirect you automatically. Log in with the `NEO4J_USERNAME` and `NEO4J_PASSWORD` from your `.env` file.
+
 ---
 
 ## Starting the FastAPI service

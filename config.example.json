@@ -109,8 +109,8 @@
         "similarity": {
           "threshold": 0.90,
           "top_n": 20,
-          "code_weight": 0.55,
-          "description_weight": 0.45
+          "code_weight": 0.70,
+          "description_weight": 0.30
         },
         "concurrency": {
           "embed_code": 1,
