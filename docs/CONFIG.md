@@ -20,7 +20,7 @@ After editing `.env`, apply the changes with `docker compose up --build`.
 
 | Variable | Default | Description |
 |----------|---------|-------------|
-| `OLLAMA_URL` | `http://localhost:11434` | Base URL of the Ollama API. Override when Ollama runs on a different host or port (e.g. `http://ollama:11434` inside Docker). |
+| `OLLAMA_URL` | `http://ollama:11434` | Base URL of the Ollama API. Use `http://ollama:11434` when running via Docker Compose (the internal service name). Change to `http://localhost:11434` only when running `uv run run_pipeline.py` directly on your host machine outside of Docker. |
 | `OLLAMA_KEEP_ALIVE` | `60m` | How long Ollama keeps a loaded model in VRAM after the last request. Accepts duration strings (`60m`, `24h`), `0` (never unload), or `-1` (unload immediately after each request). |
 | `OLLAMA_NUM_PARALLEL` | `1` | Maximum number of requests the Ollama server handles concurrently. Higher values increase throughput at the cost of additional VRAM per slot. |
 
