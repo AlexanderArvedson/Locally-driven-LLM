@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import asyncio
+import os
 
 import uvicorn
 
@@ -33,7 +34,8 @@ async def main() -> None:
     socket_handler = await start_socket_mode(queue=queue, repo_name=config.repo_name)
 
     app = create_app()
-    server_config = uvicorn.Config(app, host="0.0.0.0", port=8000, loop="asyncio")
+    port = int(os.environ.get("FASTAPI_PORT", 8000))
+    server_config = uvicorn.Config(app, host="0.0.0.0", port=port, loop="asyncio")
     server = uvicorn.Server(server_config)
 
     try:

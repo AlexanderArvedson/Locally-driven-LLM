@@ -52,6 +52,12 @@ After editing `.env`, apply the changes with `docker compose up --build`.
 
 Without `REPOS_ROOT` the container cannot read any source files and every pipeline run will extract 0 functions.
 
+### FastAPI
+
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `FASTAPI_PORT` | `8000` | Port the FastAPI service binds to on the host. Change if port 8000 is already in use on your machine. Applies to the Docker port binding, the healthcheck URL, and the uvicorn server inside the container. |
+
 ### Container user
 
 | Variable | Description |
