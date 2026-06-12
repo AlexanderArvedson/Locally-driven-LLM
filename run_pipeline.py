@@ -6,7 +6,7 @@ Usage:
 Options:
     --config PATH     Path to config.json (default: ./config.json)
     --repo NAME       Repository name to process (default: first in list)
-    --dry-run         Extract and embed but skip all Neo4j writes
+    --dry-run         Extract functions and query Neo4j for hashes; skip all Ollama calls and Neo4j writes
     --no-report       Skip report generation after the pipeline completes
     --report-only     Skip the pipeline and only generate a report
 """

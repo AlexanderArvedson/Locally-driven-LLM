@@ -10,6 +10,8 @@ The Slack bot exposes three slash commands and posts pipeline completion notific
 
 The bot runs inside the `fastapi` Docker container and communicates via Slack's Socket Mode — no public URL or inbound firewall rules are needed.
 
+**Which repository is targeted:** all three commands always operate on the **first repository** entry in `config.json`. There is no `--repo` flag for Slack commands — to target a different repository, reorder the `repositories` array in `config.json` and restart the container.
+
 ---
 
 ## Prerequisites
