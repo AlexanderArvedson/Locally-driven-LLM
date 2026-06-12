@@ -72,7 +72,7 @@
           "allow_gpu": true
         },
         "describer": {
-          "name": "qwen2.5-coder:7b",
+          "name": "qwen2.5:7b",
           "provider": "ollama",
           "api_key": null,
           "temperature": null,
