@@ -56,4 +56,12 @@ uv --version
 
 ---
 
+## Note: WeasyPrint system libraries
+
+If you plan to run the pipeline **directly on your host machine** (outside Docker), WeasyPrint requires native system libraries (Pango, Cairo, HarfBuzz, fontconfig) for PDF report generation. When running via Docker Compose these are installed automatically.
+
+See [DEPENDENCIES.md](../DEPENDENCIES.md#weasyprint-system-libraries) for the per-OS install commands.
+
+---
+
 → Next: [Configuration](configuration.md)
