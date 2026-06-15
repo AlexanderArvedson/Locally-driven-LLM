@@ -1,4 +1,4 @@
-# Locally-driven-langgraph-LLM
+# Locally-driven-LLM
 
 A pipeline that scans a source repository, extracts every function and method, generates vector embeddings and LLM descriptions via Ollama, and builds a weighted similarity graph in Neo4j. Useful for code search, duplicate detection, and architectural analysis. Everything runs locally — no data leaves your machine.
 
